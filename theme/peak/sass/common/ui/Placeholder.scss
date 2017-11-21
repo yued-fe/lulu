@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+@import '../variable';
+
+$placeholder: $gray;
+$opacity: .38;
+
+/* placeholder */
+::-webkit-input-placeholder {
+  -webkit-transition: opacity .15s;
+  color: $placeholder;
+  line-height: inherit;
+  font-size: 14px;
+}
+:focus::-webkit-input-placeholder {
+  opacity: $opacity;
+}
+::-moz-placeholder {
+  transition: opacity .15s;
+  color: $placeholder;
+  font-size: 14px;
+}
+:focus::-moz-placeholder {
+  opacity: $opacity;
+}
+:-ms-input-placeholder {
+  transition: opacity .15s;
+  color: $placeholder!important;
+  font-size: 14px;
+}
+:focus:-ms-input-placeholder {
+  opacity: $opacity;
+}
+
+.ui-placeholder {
+  display: inline;
+	line-height: 20px;
+	position: absolute;
+	padding: 9px;
+	color: $placeholder;
+	font-size: 14px;
+}
+
+.ui-input > .ui-placeholder {
+  *padding: 0;
+}
+
+input + .ui-placeholder {
+  white-space: nowrap;
+}
+
+:focus + .ui-placeholder,
+:focus + div > .ui-placeholder {
+	color: #dbe0e5;
+}

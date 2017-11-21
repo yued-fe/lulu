@@ -1,0 +1,426 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Date.css
+ * @author xinxuzhang 
+ * @create 15-07-03
+ *
+**/
+
+::-webkit-clear-button,
+::-webkit-inner-spin-button,
+::-webkit-calendar-picker-indicator {
+	display:none;
+}
+[type="date"]::-webkit-datetime-edit-text {
+	// 斜杠变短横
+	color: transparent;
+	background: linear-gradient(to bottom, transparent 9px, $dark 9px, $dark 10px, transparent 10px) no-repeat center;
+	background-size: 80% 100%;
+}
+
+::-webkit-datetime-edit-text,
+::-webkit-datetime-edit-year-field,
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-hour-field,
+::-webkit-datetime-edit-minute-field,
+::-webkit-datetime-edit-ampm-field {
+	background: none;
+	color: $dark;
+}
+
+:valid::-webkit-datetime-edit {
+	visibility: hidden;
+}
+
+
+
+.ui-date-input,
+.ui-year-input,
+.ui-month-input,
+.ui-time-input,
+.ui-date-range-input,
+.ui-month-range-input {
+	position: relative;
+	cursor: pointer;
+}
+.ui-date-input > input,
+.ui-year-input > input,
+.ui-month-input > input,
+.ui-time-input > input,
+.ui-hour-input > input,
+.ui-date-range-input > input,
+.ui-month-range-input > input {
+	padding-right: 33px;	
+	cursor: pointer;
+}
+
+.ui-input.hover > input[readonly] {
+	border-color: $borderHover;
+}
+.ui-input:active > input[readonly] {
+	background-color: $light;
+}
+
+span.ui-date-input > input {
+	width: 135px;
+}
+div.ui-date-input {
+	width: 180px;
+}
+span.ui-year-input > input,
+span.ui-time-input > input {
+	width: 55px;
+}
+div.ui-year-input,
+div.ui-time-input {
+	width: 100px;
+}
+
+span.ui-month-input > input {
+	width: 75px;
+}
+div.ui-month-input {
+	width: 120px;
+}
+
+
+span.ui-date-range-input > input {
+	width: 195px;
+}
+div.ui-date-range-input {
+	width: 240px;
+}
+
+span.ui-month-range-input > input {
+	width: 150px;
+}
+div.ui-month-range-input {
+	width: 195px;
+}
+
+/* Chrome-window/iOS 月份日期控件会根据系统添加中文描述，宽度不定，因此，宽度使用自动宽度 */
+@supports ( -webkit-appearance: none ) {
+	span.ui-time-input > input[type=time],
+	span.ui-month-input > input[type=month] {
+		width: auto;
+	}
+	div.ui-time-input {
+		width: 117px;
+	}
+	div.ui-month-input {
+		width: 130px;
+	}
+}
+
+
+/* IE7 */
+@media screen\9 {
+  	span.ui-date-input,
+	span.ui-year-input,
+	span.ui-month-input,
+	span.ui-time-input,
+	span.ui-date-range-input,
+	span.ui-month-range-input {
+		padding-right: 35px;
+	}
+}
+
+
+.ui-date-arrow {
+	position: absolute;
+	width: 20px;
+	height: 20px;	
+	background: url(#{$urlImage}/Date/icon-arrow.png) no-repeat center;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4NCjxwYXRoIGZpbGw9IiMwMEE1RTAiIGQ9Ik0xNDUuNjU5LDY4Ljk0OWMtNS4xMDEtNS4yMDgtMTMuMzcyLTUuMjA4LTE4LjQ3MywwTDk5LjQ3OSw5Ny4yMzMNCglMNzEuNzcyLDY4Ljk0OWMtNS4xLTUuMjA4LTEzLjM3MS01LjIwOC0xOC40NzMsMGMtNS4wOTksNS4yMDgtNS4wOTksMTMuNjQ4LDAsMTguODU3bDQ2LjE4LDQ3LjE0bDQ2LjE4MS00Ny4xNA0KCUMxNTAuNzU5LDgyLjU5OCwxNTAuNzU5LDc0LjE1NywxNDUuNjU5LDY4Ljk0OXoiLz4NCjwvc3ZnPg0K), none;
+	background-size: 20px 20px;
+	right: 7px;
+	top: 10px;
+	cursor: pointer;
+}
+
+
+/* 选择浮层 */
+.ui-date-container {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,.25);
+	border: 1px solid $borderNormal;
+	border: 0 rgba(0,0,0,0);
+	border-radius: 4px;
+	font-size: 14px;
+	-webkit-animation: fadeIn .2s;
+  	animation: fadeIn .2s;
+	z-index: 9;
+}
+.ui-date-container a {
+	-webkit-transition: background-color .2s, color .2s;
+	transition: background-color .2s, color .2s;
+}
+
+.ui-date-head {
+	padding: 5px 0 0;
+	overflow: hidden;
+}
+.ui-date-half {
+	width: 50%;
+	float: left;
+}
+.ui-date-prev, .ui-date-next {
+	width: 35px;
+	height: 30px;
+	background: url(#{$urlImage}/Date/icons-prev-next.png) no-repeat 50% 0;
+	background: none, none;
+	text-align: center;
+	color: $silver;
+	fill: currentColor;
+}
+.ui-date-prev {
+	background-position: 50% -90px;
+}
+a.ui-date-prev:hover {
+	background-position: 50% -150px;
+	color: $blue;
+}
+span.ui-date-prev {
+	background-position: 50% -120px;
+	color: $grayDisabled;
+}
+a.ui-date-next:hover {
+	background-position: 50% -60px;
+	color: $blue;
+}
+span.ui-date-next {
+	background-position: 50% -30px;
+	color: $grayDisabled;
+}
+
+.ui-date-prev > svg,
+.ui-date-next > svg {
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 5px auto 0;
+}
+.ui-date-next > svg {
+	-webkit-transform: rotate(180deg) translateZ(0);
+	-ms-transform: rotate(180deg) translateZ(0);
+	transform: rotate(180deg) translateZ(0);
+}
+
+.ui-date-prev {
+	float: left;
+}
+.ui-date-next {
+	float: right;
+}
+.ui-date-switch {
+	display: block;
+	line-height: 30px;
+	margin: 0 35px;
+	border-radius: 2px;
+	color: $dark;
+	text-align: center;
+}
+a.ui-date-switch:hover,
+a.ui-date-item:hover {
+	color: $dark;
+	background-color: $backgroundHover;
+}
+
+.ui-minute-x, 
+.ui-hour-x,
+.ui-year-x,
+.ui-month-x,
+.ui-date-x {
+	width: 225px;	
+}
+.ui-minute-body {
+	padding-left: 12px;
+	padding-bottom: 12px;
+}
+.ui-hour-body {
+	padding: 8px 0 12px 12px;
+}
+.ui-year-body,
+.ui-month-body,
+.ui-date-body {
+	padding-left: 5px;
+	padding-right: 2px;
+}
+
+
+.ui-date-item {
+	display: inline-block;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 13px;
+	color: $dark;
+}
+
+span.ui-date-item {
+	color: $grayDisabled;
+}
+
+.ui-minute-body .ui-date-item,
+.ui-hour-body .ui-date-item {
+	width: 45px;
+	line-height: 26px;
+	margin-top: 4px;
+	margin-right: 7px;
+}
+
+.ui-year-body .ui-date-item,
+.ui-month-body .ui-date-item {
+	width: 45px;
+	line-height: 54px;
+	margin-top: 5px;
+	margin-left: 7px;
+}
+
+.ui-date-now {
+	display:  block;
+	line-height: 30px;
+	margin: 5px;
+	text-align: center;
+}
+.ui-day-x {
+	padding: 0 2px 0 5px;
+	text-align: center;;
+}
+.ui-day-item,
+.ui-date-body .ui-date-item {
+	display: inline-block;
+	width: 28px;
+	line-height:  28px;
+	margin-right: 3px;
+	margin-top: 1px;
+	vertical-align: top;
+}
+
+.ui-range-x {
+	width: 458px;
+}
+.ui-range-body {
+	overflow: hidden;
+}
+.ui-range-body .ui-date-half + .ui-date-half {
+	border-left: 1px solid $backgroundHover;
+	margin-left: -1px;
+}
+.ui-range-footer {
+	padding: 5px 15px 15px;
+	text-align: right;
+}
+.ui-range-footer > .ui-button {
+	// 总高30px
+	border-radius: 2px;
+	padding-top: 4px; padding-bottom: 4px;
+	margin-left: 10px;
+}
+
+.ui-date-container .selected,
+.ui-date-container .selected:hover {
+	background-color: $backgroundBlue;
+	color: $white;
+	cursor: default;
+}
+.ui-date-container span.selected {
+	opacity: .4;
+	filter: alpha(opacity=40);
+}
+
+.ui-range-body .ui-date-half {
+	width: 229px;
+}
+.ui-range-body .ui-date-body {
+	padding-left: 6px;
+	padding-right: 0;
+}
+.ui-range-body .ui-month-body {
+	margin-bottom: 15px;
+}
+.ui-range-body .ui-date-body .selected {
+	width: 26px;
+	line-height: 26px;
+	border: 1px solid $borderFocus;
+	border-right-width: 4px;
+	margin-right: 0;
+	border-radius: 0;
+}
+.ui-range-body .selected.col0 {
+	margin-left: -6px;
+	border-left-width: 7px;
+}
+.ui-range-body .selected.col6 {
+	border-right-width: 10px;
+}
+
+.ui-range-body .selected.ui-date-first:not(.col0) {
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+.ui-range-body .selected.ui-date-last:not(.col6) {
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+
+.ui-range-body .ui-date-begin, 
+.ui-range-body .ui-date-end {
+	border-radius: 0;
+	width: 26px;
+	background-color: $white;
+	color: $dark;
+}
+.ui-range-body .ui-date-begin {
+	border-right-width: 4px;
+	border-left-width: 1px;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+.ui-range-body .ui-date-end {
+	margin-right: 3px;
+	border-right-width: 1px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+.ui-range-body .ui-date-begin:hover,
+.ui-range-body .ui-date-end:hover {
+	background-color: $white;
+	color: $dark;
+}
+.ui-range-body .ui-date-begin.col6 {
+	border-right-width: 0;
+	padding-right: 9px;
+}
+.ui-range-body .ui-date-begin.col0 {
+	border-left-width: 1px;
+	margin-left: 0;
+}
+.ui-range-body .ui-date-end.col0 {
+	border-left-width: 0;
+	padding-left: 7px;
+}
+.ui-range-body .ui-date-end.col6 {
+	border-right-width: 1px;
+}
+
+.ui-range-body .ui-date-begin.ui-date-end {
+	margin-right: 3px;
+	padding: 0;
+	border: 1px solid $borderFocus;
+	border-radius: 2px;
+}
+.ui-range-body .ui-date-begin + .ui-date-end {
+	border-left-width: 1px;
+	margin-right: 3px;
+}
+
+
+
+

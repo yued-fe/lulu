@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/**
+ * 
+ * @Range.css
+ * @author xinxuzhang 
+ * @create 15-07-20
+**/
+input[type=range] {
+  visibility: hidden; }
+
+.ui-range-input {
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+  vertical-align: middle; }
+
+div.ui-range-input > input {
+  width: 100%; }
+
+.ui-range {
+  display: inline;
+  /*  重要，不会换行  */
+  position: absolute;
+  visibility: visible; }
+
+.ui-range-track {
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background-color: #a2a9b6;
+  border-left: 0 solid #00a5e0;
+  text-align: left; }
+
+.ui-range-thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: -7px 0 0 -9px;
+  border-radius: 20px;
+  border: 1px solid #d0d0d5;
+  background-color: #fff;
+  border: 0 transparent;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+  cursor: pointer; }
+
+.ui-range-thumb:hover {
+  border-color: #ababaf; }
+
+.ui-range-thumb.active {
+  background-color: #f7f9fa;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); }

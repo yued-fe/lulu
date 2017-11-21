@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Button.css
+ * @author xinxuzhang 
+ * @create 15-06-12
+ */
+ 
+.ui-button {	
+	display: inline-block;
+	line-height: 1.42858;
+	font-size: 14px;
+	text-align: center;	
+	color: $dark;
+	border: 1px solid $borderNormal;
+	border-radius: $borderRadius;
+	padding: 9px 15px;
+	min-width: 50px;
+	background-color: $white;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-transition: border-color .15s, background-color .15s;
+	transition: border-color .15s, background-color .15s;
+	cursor: pointer;
+	overflow: visible;
+}
+.ui-button.error {
+	border-color: $red!important;
+}
+div.ui-button {
+	display: block;
+}
+.ui-button:hover { 
+	color: $dark;
+	border-color: $borderHover;
+	text-decoration: none;
+}
+.ui-button:not(.disabled):active,
+.ui-button:not(.ui-button-loading):active { 
+	background-color: $light;
+}
+
+.ui-button.disabled:hover,
+.ui-button-loading,
+.ui-button-loading:hover {
+	color: $dark;
+	background-color: $white;
+	border-color: $borderNormal;
+}
+
+.ui-button-primary,
+.ui-button-primary.disabled:hover,
+.ui-button-primary.ui-button-loading:hover { 
+	border: 1px solid $backgroundBlue;
+	background-color: $backgroundBlue;
+	color: $white;
+}
+.ui-button-primary:hover { 
+	background-color: $backgroundBlueHover;
+	border-color: $backgroundBlueHover;
+	color: $white;
+}
+.ui-button-primary:not(.disabled):active,
+.ui-button-primary:not(.ui-button-loading):active { 
+	background-color: $backgroundBlueActive;
+	border-color: $backgroundBlueActive;
+}
+
+
+.ui-button-success, 
+.ui-button-success.disabled,
+.ui-button-success.disabled:hover,
+.ui-button-success.ui-button-loading:hover { 
+	border: 1px solid $backgroundGreen;
+	background-color: $backgroundGreen;
+	color: $white;
+}
+.ui-button-success:hover { 
+	background-color: $backgroundGreenHover;
+	border-color: $backgroundGreenHover;
+	color: $white;
+}
+
+.ui-button-success:not(.disabled):active,
+.ui-button-success:not(.ui-button-loading):active { 
+	background-color: $backgroundGreenActive;
+	border-color: $backgroundGreenActive;
+}
+
+
+.ui-button-warning,
+.ui-button-warning.disabled,
+.ui-button-warning.disabled:hover,
+.ui-button-warning.ui-button-loading:hover { 
+	border: 1px solid $backgroundRed;
+	background-color: $backgroundRed;
+	color: $white;
+}
+.ui-button-warning:hover { 
+	background-color: $backgroundRedHover;
+	border-color: $backgroundRedHover;
+	color: $white;
+}
+.ui-button-warning:not(.disabled):active,
+.ui-button-warning:not(.ui-button-loading):active { 
+	background-color: $backgroundRedActive;
+	border-color: $backgroundRedActive;
+}
+
+.ui-button-loading {	
+	cursor: default;
+	pointer-events: none;
+	color: transparent!important;
+}
+
+
+.ui-button.ui-button-loading {
+	background-image: url(#{$urlImage}/Button/loading.gif);
+}
+.ui-button-primary.ui-button-loading {
+	background-image: url(#{$urlImage}/Button/loading-primary.gif);
+}
+.ui-button-success.ui-button-loading { 
+	background-image: url(#{$urlImage}/Button/loading-success.gif);
+}
+.ui-button-warning.ui-button-loading {
+	background-image: url(#{$urlImage}/Button/loading-warning.gif);
+}
+
+/*IE7, IE8 loading文字隐藏控制 */
+@media \0screen\,screen\9 {
+	.ui-button-loading {
+		height: 38px;
+		line-height: 100px!important;
+		*line-height: 0!important;
+		vertical-align: top;
+		overflow: hidden;
+	}
+}

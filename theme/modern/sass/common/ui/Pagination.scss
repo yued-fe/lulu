@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Pagination.css
+ * @author xinxuzhang 
+ * @create 15-06-26 ↓7.4%
+ *
+**/
+
+/*.ui-page-x {}*/
+
+.ui-page {
+  display: inline-block;
+  min-width: 18px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid transparent;
+  text-align: center;
+  color: $gray;
+  font-size: 14px;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+  vertical-align: top;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+span.ui-page {
+  cursor: default;
+}
+a.ui-page:hover {
+  border-color: $silver;
+  color: $gray;
+}
+
+.ui-page > svg {
+ width: 20px;
+ height: 20px;
+ margin-top: 3px;
+}
+
+.ui-page-prev,
+.ui-page-next {
+  background: url(#{$urlImage}/Pagination/icons-prev-next.png) no-repeat;
+  background: none, none;
+  text-align: center;
+  fill: currentColor;
+  overflow: hidden;
+}
+.ui-page-next svg {
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.ui-page-prev {
+  margin-left: 0;
+}
+.ui-page-next {
+  margin-right: 0;
+}
+.ui-page-prev {
+  background-position: 0 -60px;
+}
+.ui-page-ellipsis {
+  display: inline-block;
+}
+span.ui-page-prev {
+  background-position: 0 -90px; 
+  color: $grayDisabled;
+}
+span.ui-page-next {
+  background-position: 0 -30px;
+  color: $grayDisabled; 
+}
+.ui-page-current {
+  color: #fff;
+  background-color: $backgroundBlue;
+}
+
+.ui-page-text {
+  color: $dark;
+}
+
+.ui-page.loading {
+  background: url(#{$urlImage}/Pagination/icon-loading.gif) no-repeat center;
+  color: transparent;
+}
+.ui-page.loading > svg {
+  visibility: hidden;
+}

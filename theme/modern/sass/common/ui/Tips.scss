@@ -1,0 +1,146 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Tips.css
+ * @author xinxuzhang 
+ * @create 15-06-25
+ *
+**/
+
+.ui-tips[data-title] {
+	position: relative;
+	overflow: visible;
+}
+
+.ui-tips[data-title]::before,
+.ui-tips[data-title]::after {
+  position: absolute;
+  left: 50%;
+  -ms-pointer-events: none;
+  pointer-events: none;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  visibility: hidden; 
+}
+.ui-tips[data-title]::before {
+  content: attr(data-title);
+  top: -42px;
+  max-width: 250px;
+  padding: 6px 10px;
+  line-height: 18px;
+  border-radius: $borderRadius - 1px;
+  background-color: $backgroundDark;
+  text-align: left;
+  color: $white;
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.ui-tips[data-title]::after {
+  content: '';
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border: 6px solid transparent;
+  border-top-color: $backgroundDark;
+  top: -12px;
+}
+.ui-tips[data-title]:hover::before,
+.ui-tips[data-title]:hover::after {
+  -webkit-transition: visibility .1s .1s;
+  transition: visibility .1s .1s;
+  visibility: visible;
+}
+
+/* 朝下的情况 */ 
+.reverse.ui-tips[data-title]::before {
+  top: auto;
+  bottom: -42px;
+}
+.reverse.ui-tips[data-title]::after {
+  border-color: transparent transparent $backgroundDark;
+  top: auto;
+  bottom: -12px;
+}
+
+/* 下面是 IE7 IE8 玩耍的代码 */
+.ui-tips .ui-tips-before,
+.ui-tips .ui-tips-after {
+  display: none;
+  position: absolute;
+  left: 50%; 
+  white-space: nowrap;
+}
+.ui-tips-before {
+  top: -42px;
+  max-width: 250px;
+  padding: 6px 10px;
+  line-height: 18px;
+  border-radius: $borderRadius - 1px;
+  background-color: $backgroundDark;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  text-align: left;
+}
+.ui-tips-after {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border: 6px solid transparent;
+  border-top-color: $backgroundDark;
+  top: -12px;
+}
+.ui-tips:hover .ui-tips-before,
+.ui-tips:hover .ui-tips-after {
+  display: block;
+}
+
+/* 下面是JS创建的tips效果 */
+.ui-tips-x {
+	text-align: center;
+	position: absolute;
+	z-index: 99;
+}
+.ui-tips-x .ui-tips-before {
+	display: block;
+}
+.ui-tips-x .ui-tips-after {
+	display: block;
+	*display: inline-block;
+	margin: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+/* 右侧展示的tips效果 */
+.ui-tips-rotate {
+  margin-left: 10px;
+}
+.ui-tips-rotate .ui-tips-before {
+  max-width: 600px;
+}
+.ui-tips-rotate .ui-tips-after {
+  border-color: transparent $backgroundDark transparent transparent;
+  position: absolute;
+  left: -12px; top: 50%;
+  margin-top: -6px;
+}
+
+/* 错误提示的tips效果 */
+.ui-tips-error:not(.none) {
+  -webkit-animation: fadeIn .2s, falldown .2s;
+  animation: fadeIn .2s, falldown .2s;
+}
+.ui-tips-error .ui-tips-before {
+  background-color: $red;
+}
+.ui-tips-error .ui-tips-after {
+  border-top-color: $red;
+}
+

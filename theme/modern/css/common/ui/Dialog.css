@@ -1,0 +1,175 @@
+@charset "UTF-8";
+/**
+ * 
+ * @Dialog.css
+ * @author xinxuzhang 
+ * @create 15-06-18
+ *
+**/
+.ui-dialog-container {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  background-color: rgba(25, 28, 34, 0.88);
+  background-image: url(about:blank);
+  text-align: center;
+  color: #4c5161;
+  font-size: 14px;
+  overflow: auto;
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CC191c22,endcolorstr=#CC191c22);
+  z-index: 19; }
+
+.ui-dialog-animation {
+  -webkit-animation: fadeIn .2s both;
+  animation: fadeIn .2s both; }
+
+:root .ui-dialog-container {
+  background-image: none;
+  filter: none; }
+
+/* 多个弹框出现的时候，隐藏后面弹框的背景 */
+.ui-dialog-container + .ui-dialog-container {
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+  background-color: transparent;
+  filter: none; }
+
+.ui-dialog-container:after,
+.ui-dialog-after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 90%;
+  vertical-align: middle; }
+
+.ui-dialog {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+  min-width: 400px;
+  border-radius: 2px;
+  background-color: #f7f9fa;
+  vertical-align: middle;
+  position: relative; }
+
+.ui-dialog-animation .ui-dialog {
+  -webkit-animation: tinydown .25s;
+  animation: tinydown .25s; }
+
+.ui-dialog-title {
+  line-height: 30px;
+  padding: 15px 50px 0 25px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #4c5161;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default; }
+
+.ui-dialog-close {
+  position: absolute;
+  top: 18px;
+  right: 17px;
+  width: 20px;
+  height: 20px;
+  background: #b6bbc6 url(images/Dialog/close.png) no-repeat;
+  background: none, none;
+  -webkit-transition: fill .2s;
+  transition: fill .2s;
+  fill: #b6bbc6;
+  z-index: 1; }
+
+.ui-dialog-close > svg {
+  width: 100%;
+  height: 100%; }
+
+.ui-dialog-close:hover {
+  background-color: #4c5161;
+  background-color: transparent;
+  fill: #4c5161; }
+
+.ui-dialog-body {
+  min-height: 60px;
+  padding: 10px 25px 20px;
+  *zoom: 1; }
+
+.ui-dialog-body:after {
+  content: '';
+  display: table;
+  clear: both; }
+
+.ui-dialog-footer {
+  padding: 0 25px 25px;
+  text-align: right; }
+
+:root .ui-dialog-footer {
+  max-height: 40px;
+  opacity: 1;
+  -webkit-transition: max-height .2s, opacity .2s .1s;
+  transition: max-height .2s, opacity .2s .1s;
+  overflow: hidden; }
+
+:root .ui-dialog-footer:empty {
+  max-height: 0;
+  opacity: 0; }
+
+.ui-dialog-footer .ui-button {
+  margin-left: 15px; }
+
+.ui-dialog-footer .ui-button:first-child {
+  margin-left: 0; }
+
+.ui-dialog-warning {
+  background: url(images/Dialog/warning.png);
+  background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIHZpZXdCb3g9IjAgMCA0MDAgNDAwIj4NCjxwYXRoIGZpbGw9IiNGNDYxNUMiIGQ9Ik00MDAuNSwyMDAuNWMwLDExMC40NTctODkuNTQyLDE5OS45OTktMTk5Ljk5OSwxOTkuOTk5DQoJQzkwLjA0Myw0MDAuNDk5LDAuNSwzMTAuOTU3LDAuNSwyMDAuNSBNMC41LDIwMC41YzAtMTEwLjQ1OCw4OS41NDMtMjAwLDIwMC4wMDEtMjAwYzExMC40NTcsMCwxOTkuOTk5LDg5LjU0MiwxOTkuOTk5LDIwMCIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE5NS41MDMsMTAwLjUwM2gxMGMyLjc2MSwwLDUsMi4yMzksNSw1djE1MGMwLDIuNzYxLTIuMjM5LDUtNSw1DQoJaC0xMGMtMi43NjEsMC01LTIuMjM5LTUtNXYtMTUwQzE5MC41MDMsMTAyLjc0MiwxOTIuNzQyLDEwMC41MDMsMTk1LjUwMywxMDAuNTAzeiIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE5NS41MDMsMjgwLjUwMmgxMGMyLjc2MSwwLDUsMi4yMzgsNSw0Ljk5OXYyMC4wMDINCgljMCwyLjc2MS0yLjIzOSw1LTUsNWgtMTBjLTIuNzYxLDAtNS0yLjIzOS01LTV2LTIwLjAwMkMxOTAuNTAzLDI4Mi43NCwxOTIuNzQyLDI4MC41MDIsMTk1LjUwMywyODAuNTAyeiIvPg0KPC9zdmc+DQo=), none; }
+
+.ui-dialog-remind {
+  background: url(images/Dialog/remind.png);
+  background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIHZpZXdCb3g9IjAgMCA0MDAgNDAwIj4NCjxwYXRoIGZpbGw9IiMwMEE1RTAiIGQ9Ik0yMDAuNTAxLDAuNWMxMTAuNDU3LDAsMTk5Ljk5OSw4OS41NDIsMTk5Ljk5OSwyMDANCgljMCwxMTAuNDU3LTg5LjU0MiwxOTkuOTk5LTE5OS45OTksMTk5Ljk5OUM5MC4wNDMsNDAwLjQ5OSwwLjUsMzEwLjk1NywwLjUsMjAwLjVDMC41LDkwLjA0Miw5MC4wNDMsMC41LDIwMC41MDEsMC41eiIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE5NS41MDIsMTUwLjUwM2gxMC4wMDFjMi43NjEsMCw1LDIuMjM4LDUsNC45OTl2MTUwDQoJYzAsMi43NjItMi4yMzksNS01LDVoLTEwLjAwMWMtMi43NjIsMC01LTIuMjM4LTUtNXYtMTUwQzE5MC41MDIsMTUyLjc0MSwxOTIuNzQsMTUwLjUwMywxOTUuNTAyLDE1MC41MDN6Ii8+DQo8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTk1LjUwMiwxMDAuNTAzaDEwLjAwMWMyLjc2MSwwLDUsMi4yMzgsNSw0Ljk5OXYyMC4wMDINCgljMCwyLjc2MS0yLjIzOSw1LTUsNWgtMTAuMDAxYy0yLjc2MiwwLTUtMi4yMzktNS01di0yMC4wMDJDMTkwLjUwMiwxMDIuNzQxLDE5Mi43NCwxMDAuNTAzLDE5NS41MDIsMTAwLjUwM3oiLz4NCjwvc3ZnPg0K), none; }
+
+.ui-dialog-success {
+  background: url(images/Dialog/success.png);
+  background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIHZpZXdCb3g9IjAgMCA0MDAgNDAwIj4NCjxwYXRoIGZpbGw9IiMwMWNmOTciIGQ9Ik00MDAuNSwyMDAuNWMwLDExMC40NTctODkuNTQyLDE5OS45OTktMTk5Ljk5OSwxOTkuOTk5DQoJQzkwLjA0Myw0MDAuNDk5LDAuNSwzMTAuOTU3LDAuNSwyMDAuNSBNMC41LDIwMC41YzAtMTEwLjQ1OCw4OS41NDMtMjAwLDIwMC4wMDEtMjAwYzExMC40NTcsMCwxOTkuOTk5LDg5LjU0MiwxOTkuOTk5LDIwMCIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTI4Ni4zOTgsMTQ3LjEzMmMtMS42NTQtMS4xMzQtMy4zMDYtMi4zOTUtNi44MDEtNC4yOTNjLTQuMjcxLTIuMzM2LTkuMjU5LDIuNjI0LTEyLjM5MSw2LjgxNg0KCWwtNzcuNjQxLDEwMi4yNzlsLTQ3LjkxNi02My41MjJjLTMuMTQ0LTQuMTg4LTQuOTAyLTguNDY4LTEzLjA3My0xLjg1OWMtMy4wOTcsMi4xMjMsMC4yMzQtMC4zNjEtMy45NjksMi44ODENCgljLTMuODg0LDMuMDY0LTQuMTA1LDguNTk4LTAuOTcxLDEyLjc3NGMwLDAsMzguNjQxLDU1LjgxNyw0NS44ODMsNjUuMDc0YzEwLjYyNSwxMy4yMiwyOS45NDQsMTIuNTcsNDAuMDg3LDANCgljNy40ODMtOS40NzMsNzcuNzU3LTEwNy41ODQsNzcuNzU3LTEwNy41ODRDMjkwLjUwMywxNTUuNTA0LDI5MC4yNjEsMTUwLjAwMSwyODYuMzk4LDE0Ny4xMzJ6Ii8+DQo8L3N2Zz4NCg==), none; }
+
+.ui-dialog-warning,
+.ui-dialog-remind,
+.ui-dialog-success {
+  max-width: 340px;
+  padding: 40px 0 20px 60px;
+  background-repeat: no-repeat;
+  background-position: 0 30px;
+  background-size: 40px 40px;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow: hidden; }
+
+.ui-dialog-warning > h6,
+.ui-dialog-remind > h6,
+.ui-dialog-success > h6 {
+  margin-top: -10px;
+  margin-bottom: 5px; }
+
+.ui-dialog-warning > p,
+.ui-dialog-remind > p,
+.ui-dialog-success > p {
+  font-size: 14px; }
+
+.ui-dialog-loading .ui-dialog-title,
+.ui-dialog-loading .ui-dialog-close,
+.ui-dialog-loading .ui-dialog-footer {
+  visibility: hidden; }
+
+.ui-loading.ui-dialog-body {
+  height: 200px;
+  min-width: 400px;
+  *position: static;
+  overflow: hidden; }

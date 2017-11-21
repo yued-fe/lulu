@@ -1,0 +1,52 @@
+@import 'reset';
+@import 'variable';
+@import 'color';
+@import 'layout';
+@import 'icon';
+@import 'icon@2x';
+@import 'animate';
+@import 'table';
+
+/* other common css here, lib should at bottom */
+
+/* disabled */
+.disabled a.dark, a.disabled.dark {
+	color: #4c5161;
+}
+
+a.dark > .icon:first-child {
+	margin-right:  5px;
+	vertical-align: -.5ex;
+	*vertical-align: 0;
+}
+
+/* bread */
+.bread {
+	height: 20px;
+	line-height: 20px;
+	padding: 35px 0;
+	font-size: 18px;
+}
+.bread_joiner {
+	display: inline-block;
+	width: 8px;
+	height: 20px;
+	margin: 0 15px;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAOCAYAAAASVl2WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAM1JREFUeNqEkdEKAUEUhmcnD6BEvACRUm5cKRHlBdQmT+QtSOIBKCJPoJSIe5FN7Z3L9c120uymnPqamv+f85/TOKPZYqiUqoE76HVvKlYaGlCHzXi+zP4y9OEOBTGlIwbaXjlb8IQSbG2T6aAwncXkQRnWmFJGc4Ig+LbjsmJiwIh780jbeXQ6cHTAhypMtfpTEYNErCApEa62xHA4yQ+jiPS1iEUZzqx3hDbiK4xAzIuYgRM0ET17hgnk4GLWskVTCdjBWz7rEd/iI8AA5MZBds6/y0wAAAAASUVORK5CYII=) no-repeat center;
+	*background-image: none;
+	font-family: simsun;
+	font-weight: bold;
+	color: transparent;
+	*color: #a2a9b6;
+}
+a.bread_item {
+	color: #a2a9b6;
+	-webkit-transition: color .2s;
+	transition: color .2s;
+}
+a.bread_item:hover {
+	color: #4c5161;
+}
+
+
+@import 'lib';

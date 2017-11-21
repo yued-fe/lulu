@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Range.css
+ * @author xinxuzhang 
+ * @create 15-07-20
+**/
+
+input[type=range] {
+	visibility: hidden;
+}
+
+.ui-range-input {
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	visibility: hidden;
+	vertical-align: middle;
+}
+
+div.ui-range-input > input {
+	width: 100%;
+}
+
+.ui-range {
+	display: inline;      /*  重要，不会换行  */
+    position: absolute;
+    visibility: visible;
+}
+.ui-range-track {
+	height: 4px;
+	margin-top: 8px;
+	border-radius: 10px;
+	background-color: $gray;
+	border-left: 0 solid $borderFocus;
+	text-align: left;
+}
+.ui-range-thumb {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	margin: -7px 0 0 -9px;
+	border-radius: 20px;
+	border: 1px solid $borderNormal;
+	background-color: $white;
+	border: 0 rgba(0,0,0,0);
+	box-shadow: 0 1px 4px rgba(0,0,0,.25);
+	-webkit-transition: border-color .15s, background-color .15s;
+	transition: border-color .15s, background-color .15s;
+	cursor: pointer;
+}
+.ui-range-thumb:hover {
+	border-color: $borderHover;
+}
+.ui-range-thumb.active {
+	background-color: $light;
+	box-shadow: 0 0 2px rgba(0,0,0,.25);
+}

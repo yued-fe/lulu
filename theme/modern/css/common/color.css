@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/**
+ * 
+ * @color.css
+ * @author xinxuzhang 
+ * @create 16-04-18
+**/
+/*主色*/
+body, .dark {
+  color: #4c5161; }
+
+/*蓝色*/
+a, .blue, a.dark:hover {
+  color: #00a5e0; }
+
+/*hover蓝色*/
+a:hover {
+  color: #008cbf; }
+
+/*灰色*/
+.gray {
+  color: #a2a9b6; }
+
+/*白色*/
+.white {
+  color: #fff; }
+
+/* 绿色 */
+.green {
+  color: #01cf97; }
+
+/* 橘色 */
+.orange {
+  color: #f28c48; }
+
+/* 红色 */
+.red {
+  color: #f4615c; }
+
+/* 浅色 */
+.light {
+  color: #f7f9fa; }
+
+/* 背景色 仅作为色块背景时候使用*/
+/*.bg-dark { background-color: $dark; }
+.bg-blue { background-color: $blue; }
+.bg-green { background-color: $green; }
+.bg-orange { background-color: $orange; }
+.bg-red { background-color: $red; }
+.bg-light { background-color: $light; }
+.bg-gray { background-color: $gray; }
+.bg-white { background-color: $white; }*/

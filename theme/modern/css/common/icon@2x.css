@@ -1,0 +1,84 @@
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 2dppx) {
+  .icon {
+    background: url(images/icons@2x.png) no-repeat 20px 20px;
+    background-size: 140px 120px; }
+  .active .icon_nav_ablity {
+    background-position: -20px 0px; }
+  .active .icon_nav_comment {
+    background-position: 0px -80px; }
+  .active .icon_nav_developer {
+    background-position: 0px -20px; }
+  .active .icon_nav_fans {
+    background-position: -20px -20px; }
+  .active .icon_nav_limit {
+    background-position: -40px 0px; }
+  .active .icon_nav_menu {
+    background-position: -40px -20px; }
+  .active .icon_nav_msg {
+    background-position: 0px -40px; }
+  .active .icon_nav_news {
+    background-position: -20px -40px; }
+  .active .icon_nav_pay {
+    background-position: -40px -40px; }
+  .active .icon_nav_reply {
+    background-position: -60px 0px; }
+  .active .icon_nav_run {
+    background-position: -60px -20px; }
+  .active .icon_nav_security {
+    background-position: -60px -40px; }
+  .active .icon_nav_send {
+    background-position: 0px -60px; }
+  .active .icon_nav_set {
+    background-position: -20px -60px; }
+  .active .icon_nav_source {
+    background-position: -40px -60px; }
+  .active .icon_nav_stat {
+    background-position: -60px -60px; }
+  .active .icon_nav_user {
+    background-position: -80px 0px; }
+  .active .icon_nav_ux {
+    background-position: -80px -20px; }
+  .active .icon_nav_verity {
+    background-position: -80px -40px; }
+  .icon_hook {
+    background-position: -80px -60px; }
+  .icon_logout {
+    background-position: 0px 0px; }
+  .icon_nav_ablity {
+    background-position: -20px -80px; }
+  .icon_nav_comment {
+    background-position: -40px -80px; }
+  .icon_nav_developer {
+    background-position: -60px -80px; }
+  .icon_nav_fans {
+    background-position: -80px -80px; }
+  .icon_nav_limit {
+    background-position: -100px 0px; }
+  .icon_nav_menu {
+    background-position: -100px -20px; }
+  .icon_nav_msg {
+    background-position: -100px -40px; }
+  .icon_nav_news {
+    background-position: -100px -60px; }
+  .icon_nav_pay {
+    background-position: -100px -80px; }
+  .icon_nav_reply {
+    background-position: 0px -100px; }
+  .icon_nav_run {
+    background-position: -20px -100px; }
+  .icon_nav_security {
+    background-position: -40px -100px; }
+  .icon_nav_send {
+    background-position: -60px -100px; }
+  .icon_nav_set {
+    background-position: -80px -100px; }
+  .icon_nav_source {
+    background-position: -100px -100px; }
+  .icon_nav_stat {
+    background-position: -120px 0px; }
+  .icon_nav_user {
+    background-position: -120px -20px; }
+  .icon_nav_ux {
+    background-position: -120px -40px; }
+  .icon_nav_verity {
+    background-position: -120px -60px; } }

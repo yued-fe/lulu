@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Datalist.css
+ * @author xinxuzhang 
+ * @create 16-03-29
+ *
+**/
+
+
+.ui-datalist {
+	display: none;
+	position: absolute;
+	-webkit-animation: fadeIn .2s;
+  	animation: fadeIn .2s;
+	z-index: 19;
+}
+
+.ui-datalist-datalist {
+	max-height: 304px;
+	background-color: #fff;
+	box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	border: 1px solid $borderNormal;
+	border: 0 rgba(0,0,0,.2);
+	position: relative;
+	overflow: auto;
+}
+
+.ui-datalist-datalist::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.ui-datalist-datalist::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 8px;
+}
+.ui-datalist-datalist::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+.ui-datalist-datalist::-webkit-scrollbar-track-piece {
+  background-color: #ddd;
+}
+
+.ui-datalist-option {
+	line-height: 20px;
+	padding: 9px 12px;
+	background-color: $backgroundList;	
+	-webkit-transition: background-color .15s;
+	transition: background-color .15s;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.ui-datalist:empty,
+.ui-datalist-option:empty {
+	display: none;
+}
+
+.ui-datalist-option:hover {
+	background-color: $backgroundListHover;
+}
+
+.ui-datalist-datalist > .selected {
+	background-color: $backgroundListSelected;
+}
+
+.ui-datalist-value {
+	display: block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ui-datalist-label {
+	float: right;
+	color: $gray;
+	font-size: 12px;
+}
+
+.ui-datalist-label + .ui-datalist-value {
+	margin-right: 60px;
+}

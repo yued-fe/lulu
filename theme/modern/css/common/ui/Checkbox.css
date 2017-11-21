@@ -1,0 +1,80 @@
+@charset "UTF-8";
+/**
+ * 
+ * @Checkbox.css
+ * @author xinxuzhang 
+ * @create 15-06-18
+**/
+input[type=checkbox] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  /* IE8+ */
+  *left: -999px; }
+
+/* 无绝对定位的模拟生成实现 */
+.ui-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px, inset 1px 0, inset -1px 0, inset 0 -1px;
+  background-color: #fff;
+  background-clip: content-box;
+  color: #d0d0d5;
+  -webkit-transition: color .2s, background-color .1s;
+  transition: color .2s, background-color .1s;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: -5px;
+  *vertical-align: 0;
+  overflow: hidden; }
+
+:not(:disabled) + .ui-checkbox:hover,
+:disabled + .ui-checkbox {
+  color: #ababaf; }
+
+:checked + .ui-checkbox,
+:checked + .ui-checkbox:hover {
+  color: #00a5e0;
+  background-color: #00a5e0; }
+
+.ui-checkbox::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xNDcuNTY3LDY3LjU3NWMtMy45NzgtMy4yNDEtNC4zNTYtMy4zMzctOC45LTUuNjM5Yy0yLjA0NC0xLjA0NC01LjA1NywxLjY0NS02LjUzLDMuNjM1TDkyLDExNy43MjgNCglMNjUuODUxLDgzLjk3M2MtMS40NzktMS45ODgtNC4yMDYtMi43Mi02LjI1MS0xLjc4MmMtNC42NTgsMi40MDctNC4xODksMi4zMjYtOC4xNjgsNS40NjZjLTEuODE3LDEuNDY2LTEuOTMyLDQuMDgyLTAuNDU2LDYuMDY1DQoJYzAsMCwyOC4xODMsMzYuNDk5LDMxLjU5Miw0MC44OTZjNC45OTksNi4yNzUsMTQuMDksNS45NjUsMTguODY0LDBjMy41Mi00LjQ5OCw0Ni41OS02MS4wNzgsNDYuNTktNjEuMDc4DQoJQzE0OS40OTksNzEuNTQ5LDE0OS4zODUsNjguOTM3LDE0Ny41NjcsNjcuNTc1eiIvPg0KPC9zdmc+DQo=) no-repeat center;
+  background-size: 20px 20px;
+  visibility: hidden; }
+
+:checked + .ui-checkbox::after {
+  visibility: visible;
+  -webkit-animation: bounceIn .2s;
+  animation: bounceIn .2s; }
+
+:disabled + .ui-checkbox {
+  opacity: .38; }
+
+/* error */
+.error.ui-checkbox {
+  color: #f4615c; }
+
+/*IE7, IE8 使用图片作UI*/
+@media \0screen\,screen\9 {
+  .ui-checkbox {
+    background: url(images/Checkbox/checkbox.png) no-repeat; }
+  .ui-checkbox:hover {
+    background-position: 0 -20px; }
+  [checked] + .ui-checkbox,
+  [checked][disabled] + .ui-checkbox {
+    background-position: 0 -40px; }
+  [defaultChecked] + .ui-checkbox,
+  [defaultChecked][disabled] + .ui-checkbox {
+    background-position: 0 -40px; }
+  [disabled] + .ui-checkbox {
+    /* disabled态使用高亮边框 */
+    background-position: 0 -20px;
+    filter: alpha(opacity=38); } }

@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Select.css
+ * @author xinxuzhang 
+ * @create 15-06-18
+ *
+**/
+
+select {
+	display: inline-block;
+	height: 40px;
+	margin: 0;
+	border: 1px solid $borderNormal;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	vertical-align: middle;
+}
+select[hidden],
+select[hidden] + .ui-select {
+	display: none;
+}
+
+.ui-select {
+	display: inline-block;
+	*display: inline; *zoom: 1;
+	height: 40px;
+	vertical-align: middle;
+	-webkit-animation: fadeIn .2s;
+	animation: fadeIn .2s;
+	font-size: 14px;
+	position: relative;
+}
+.ui-select ~ .ui-button {
+	vertical-align: middle;
+}
+.ui-select.active {
+	z-index: 3;
+}
+
+.ui-select-button {
+	display: block;
+	height: 20px;
+	line-height: 20px;
+	padding: 9px 27px 9px 12px;
+	color: $dark;
+	border: 1px solid $borderNormal;
+	border-radius: $borderRadius;
+	background-color: $white;	
+	-webkit-transition: border-color .15s, background-color .15s;
+	transition: border-color .15s, background-color .15s;
+	cursor: pointer;
+}
+
+.ui-select-button:hover {
+	color: $dark;
+	border-color: $borderHover;
+}
+
+:not(:disabled) + .ui-select > .ui-select-button:active {
+	background-color: $light;
+}
+
+.active > a.ui-select-button {
+	border-color: $borderFocus;
+	border-radius: $borderRadius $borderRadius 0 0;
+}
+
+.reverse > .ui-select-button {
+	border-radius: 0 0 $borderRadius $borderRadius;
+}
+
+.ui-select-text {
+	display: block;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ui-select-icon {
+	position: absolute;
+	width: 20px;
+	height: 20px;	
+	background: url(#{$urlImage}/Select/icon-arrow.png) no-repeat center;
+	background-size: 20px 20px;
+	right: 7px;
+	top: 10px;
+}
+:root .ui-select-icon {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4NCjxwYXRoIGZpbGw9IiMwMEE1RTAiIGQ9Ik0xNDUuNjU5LDY4Ljk0OWMtNS4xMDEtNS4yMDgtMTMuMzcyLTUuMjA4LTE4LjQ3MywwTDk5LjQ3OSw5Ny4yMzMNCglMNzEuNzcyLDY4Ljk0OWMtNS4xLTUuMjA4LTEzLjM3MS01LjIwOC0xOC40NzMsMGMtNS4wOTksNS4yMDgtNS4wOTksMTMuNjQ4LDAsMTguODU3bDQ2LjE4LDQ3LjE0bDQ2LjE4MS00Ny4xNA0KCUMxNTAuNzU5LDgyLjU5OCwxNTAuNzU5LDc0LjE1NywxNDUuNjU5LDY4Ljk0OXoiLz4NCjwvc3ZnPg0K);
+}
+
+
+.ui-select-datalist {
+	position: absolute;
+	left: 0; right:0;
+	top: 39px;
+	display: none;
+	max-height: 304px;
+	padding: 0;
+	border: 1px solid $borderFocus;
+	background-color: #fff;
+	overflow: auto;
+}
+
+.ui-select-datalist::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.ui-select-datalist::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 8px;
+}
+.ui-select-datalist::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+.ui-select-datalist::-webkit-scrollbar-track-piece {
+  background-color: #ddd;
+}
+
+.active > .ui-select-datalist {
+	display: block;
+}
+
+.reverse > .ui-select-datalist {
+	top: auto; bottom: 39px;
+}
+
+.ui-select-datalist-li {
+	display: block;
+	line-height: 20px;
+	padding: 9px 12px;
+	color: $dark;
+	background-color: $backgroundList;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-webkit-transition: background-color .15s;
+	transition: background-color .15s;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.ui-select-datalist-li:empty {
+	display: none;
+}
+
+.ui-select-datalist-li:hover {
+	background-color: $backgroundListHover;
+}
+
+.ui-select-datalist > .selected {
+	background-color: $backgroundListSelected;
+}
+
+/* disabled */
+select[disabled] + .ui-select {
+	opacity: .38;
+	filter: alpha(opacity=38);
+	-webkit-animation: none;
+	animation: none;	
+}
+select[disabled] + .ui-select .ui-select-button {
+	cursor: default;
+	border-color: $borderHover;
+}
+
+/* error */
+.error .ui-select-button {
+	border-color: $red;
+}
+/*select:invalid + .valided .ui-select-button {
+	border-color: $red;
+}*/

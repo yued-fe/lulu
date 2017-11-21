@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ *
+ * @Keyboard.css
+ * @author zhangxinxu
+ * @create 17-06-13
+ *
+**/
+
+.ui-kbd-tips {
+	position: absolute;
+	left: -9em; top: -9em;
+	font-family: consolas, "Liberation Mono", courier, monospace;
+	font-size: 12px;
+	border-radius: 2px;
+	color: $white;
+	background: rgba(0,0,0,.75);
+	opacity: 0.8;
+	line-height: 13px;
+	padding: 0 3px;
+	z-index: 99;
+}
+.ui-kbd-tips kbd {
+	font-family: inherit;
+}
+
+.ui-outline {
+	outline: 1px dotted $borderFocus;
+	outline: 5px auto -webkit-focus-ring-color;
+}
+
+[tabindex]:active {
+	outline: none;
+}

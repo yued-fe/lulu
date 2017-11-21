@@ -1,0 +1,61 @@
+/**
+ *
+ * @DropPanel.css
+ * @author xinxuzhang
+ * @create 15-07-01
+ *
+**/
+.ui-dropanel-x {
+  position: absolute;
+  width: 260px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  border: 1px solid #d0d0d5;
+  border: 0 rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  -webkit-animation: fadeIn .2s;
+  animation: fadeIn .2s;
+  z-index: 9; }
+
+.ui-dropanel-title {
+  line-height: 20px;
+  margin-top: -2px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: bold; }
+
+.ui-dropanel-close {
+  position: absolute;
+  top: 13px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  background: #b6bbc6 url(images/DropPanel/close.png) no-repeat;
+  background: none, none;
+  -webkit-transition: fill .2s;
+  transition: fill .2s;
+  fill: #b6bbc6;
+  z-index: 1; }
+
+.ui-dropanel-close svg {
+  width: 100%;
+  height: 100%; }
+
+.ui-dropanel-close:hover {
+  background-color: #4c5161;
+  fill: #4c5161;
+  background: none, none; }
+
+.ui-dropanel-content {
+  min-height: 40px;
+  padding: 10px 0 20px; }
+
+.ui-dropanel-footer {
+  text-align: right; }
+
+.ui-dropanel-footer .ui-button {
+  margin-left: 15px; }
+
+.ui-dropanel-footer .ui-button:first-child {
+  margin-left: 0; }

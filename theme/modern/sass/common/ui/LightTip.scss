@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @LightTip.css
+ * @author xinxuzhang 
+ * @create 15-06-25
+ *
+**/
+
+.ui-lightip {
+	position: fixed;
+	top: 0;
+	z-index: 100;	
+	min-width: 400px;
+	height: 20px;
+	line-height: 20px;
+	padding: 15px;
+	border-radius: 2px;
+	color: $white;
+	text-align: center;
+	font-size: 14px;
+}
+
+.ui-lightip-success {
+	background-color: $green;
+}
+
+.ui-lightip-error {
+	background-color: $red;
+}
+
+.ui-lightip-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 7px;
+	background: url(#{$urlImage}/LightTip/icon-lightip.png);
+}
+:root .ui-lightip-icon {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgMjAwIDQwMCI+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTUxLjYzNywyNTMuMDlsLTUuMjEyLTUuMjEzYy0yLjg4LTIuODc3LTcuNTQ2LTIuODc3LTEwLjQyNSwwbC0zNi40ODQsMzYuNDg1bC0zNi40ODUtMzYuNDg1DQoJCWMtMi44NzktMi44NzctNy41NDUtMi44NzctMTAuNDI0LDBsLTUuMjExLDUuMjEzYy0yLjg4MSwyLjg4MS0yLjg4MSw3LjU0NywwLDEwLjQyM2wzNi40ODMsMzYuNDg2bC0zNi40ODMsMzYuNDg1DQoJCWMtMi44ODEsMi44NzctMi44ODEsNy41NSwwLDEwLjQyNmw1LjIxMSw1LjIxM2MyLjg3OSwyLjg3NCw3LjU0NSwyLjg3NCwxMC40MjQsMGwzNi40ODUtMzYuNDg2TDEzNiwzNTIuMTIyDQoJCWMyLjg3OSwyLjg3NCw3LjU0NSwyLjg3NCwxMC40MjUsMGw1LjIxMi01LjIxM2MyLjg3OS0yLjg3NiwyLjg3OS03LjU0OSwwLTEwLjQyNmwtMzYuNDg0LTM2LjQ4NWwzNi40ODQtMzYuNDg2DQoJCUMxNTQuNTE2LDI2MC42MzYsMTU0LjUxNiwyNTUuOTcxLDE1MS42MzcsMjUzLjA5eiIvPg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xNjMuMDM4LDU4LjIyNmMtNS4yMTctNC4xNjItNS43MTMtNC4yODktMTEuNjc0LTcuMjQ0Yy0yLjY4My0xLjM0NC02LjYzMywyLjExMy04LjU2OSw0LjY3DQoJCWwtNTIuNjQ4LDY3LjA0Mkw1NS44NDYsNzkuMzA3Yy0xLjk0LTIuNTU4LTUuNTE2LTMuNDk5LTguMi0yLjI5M2MtNi4xMSwzLjA5NS01LjQ5NiwyLjk5Mi0xMC43MTUsNy4wMjkNCgkJYy0yLjM4NiwxLjg4My0yLjUzNSw1LjI0NS0wLjU5Nyw3Ljc5M2MwLDAsMzYuOTcsNDYuOTE3LDQxLjQ0LDUyLjU2NWM2LjU1Nyw4LjA2OCwxOC40ODMsNy42NjksMjQuNzQ0LDANCgkJYzQuNjItNS43ODEsNjEuMTE3LTc4LjUwNiw2MS4xMTctNzguNTA2QzE2NS41NzIsNjMuMzM2LDE2NS40MjMsNTkuOTc3LDE2My4wMzgsNTguMjI2eiIvPg0KPC9nPg0KPC9zdmc+DQo=);
+	background-size: 20px 40px;
+}
+
+.ui-lightip-success .ui-lightip-icon  {
+	background-position: 0 0;
+}
+.ui-lightip-error .ui-lightip-icon {
+	background-position: 0 -20px;
+}
+
+:root .ui-lightip-success .ui-lightip-icon {
+	
+}

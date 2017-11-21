@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ *
+ * @Loading.css
+ * @author xinxuzhang
+ * @create 15-06-23
+ *
+**/
+
+
+/*
+ * 结构如下：
+ * <div class='ui-loading'>
+     <i class='ui-loading-icon'>  <!-- 使用s标签表示小尺寸的loading图标 -->
+ *
+*/
+.ui-loading {
+	position: relative;
+}
+.ui-loading.ui-loading-animation {
+	-webkit-animation: fadeIn .5s both;
+	animation: fadeIn .5s both;
+}
+
+.ui-loading-icon {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: url(#{$urlImage}/Loading/loading-blue.gif);
+	/* IE10+ */
+	background: url(#{$urlImage}/Loading/loading-blue.png), linear-gradient(transparent, transparent);
+	-webkit-animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
+
+.ui-loading > .ui-loading-icon {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -15px 0 0 -15px;
+}
+
+s.ui-loading-icon {
+	width: 20px;
+	height: 20px;
+	background: url(#{$urlImage}/Loading/loading-blue-s.gif);
+	background: url(#{$urlImage}/Loading/loading-blue-s.png), linear-gradient(transparent, transparent);
+}
+
+.ui-loading > s.ui-loading-icon {
+	margin: -10px 0 0 -10px;
+}
+.ui-loading-primary {
+	background-color: $backgroundBlue;
+}
+
+.ui-loading-primary > .ui-loading-icon {
+	background: url(#{$urlImage}/Loading/loading-white.gif);
+	background: url(#{$urlImage}/Loading/loading-white.png), linear-gradient(transparent, transparent);
+}
+
+.ui-loading-primary > s.ui-loading-icon {
+	background: url(#{$urlImage}/Loading/loading-white-s.gif);
+	background: url(#{$urlImage}/Loading/loading-white-s.png), linear-gradient(transparent, transparent);
+}
+
+/* 更现代浏览器纯CSS生成 */
+@supports (mask: none) or (-webkit-mask: none) {
+	.ui-loading-icon {
+		position: relative;
+		border-radius: 50%;
+		-webkit-mask: radial-gradient(transparent 12px, #000 13px);
+		mask: radial-gradient(transparent 12px, #000 13px);
+		overflow: hidden;
+	}
+	s.ui-loading-icon {
+		-webkit-mask: radial-gradient(transparent 8px, #000 9px);
+		mask: radial-gradient(transparent 8px, #000 9px);
+	}
+	.ui-loading-icon,
+	s.ui-loading-icon,
+	.ui-loading-primary > .ui-loading-icon,
+	.ui-loading-primary > s.ui-loading-icon {
+		background: none;
+	}
+	.ui-loading-icon::before,
+	.ui-loading-icon::after {
+		content: '';
+		position: absolute;
+		width: 50%; height: 100%;
+		left: 50%; top: 0;
+	}
+	.ui-loading-icon::after {
+		left: 0;
+		background: linear-gradient(to top, $blue, transparent 90%);
+	}
+	.ui-loading-icon::before {
+		background-color: $blue;
+	}
+	.ui-loading-primary > .ui-loading-icon::before {
+		background-color: $white;
+	}
+	.ui-loading-primary > .ui-loading-icon::after {
+		background: linear-gradient(to top, $white, transparent 90%);
+	}
+}
+

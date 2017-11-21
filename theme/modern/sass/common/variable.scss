@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+// 一些全局变量
+// 使用双斜杠注释
+
+// 常见颜色
+$dark: #4c5161;           // 站点默认文字颜色
+$blue: #00a5e0;           // 链接色，高亮色
+$darkblue: #008cbf;       // 蓝色链接文字hover时候的更深一点的颜色
+$silver: #b6bbc6;         // 银色，组件一些图标的默认颜色
+$gray: #a2a9b6;           // 灰色文字颜色
+$grayDisabled: #ccd0d7;   // 灰色禁用
+$white: #fff;       
+$green: #01cf97;          // 成功文字颜色，成功提示背景色
+$orange: #f28c48;         // 用在警示处
+$red: #f4615c;            // 出错使用
+$light: #f7f9fa;          // 很轻的灰色，常做背景色使用
+
+// 边框控制
+$borderNormal: #d0d0d5;
+$borderHover: #ababaf;
+$borderFocus: $blue;
+
+// 背景色
+$backgroundBlue: $blue;
+$backgroundBlueHover: #00b4f5;
+$backgroundBlueActive: #0092c7;
+
+$backgroundGreen: $green;
+$backgroundGreenHover: #00dba2;
+$backgroundGreenActive: #00bf8e;
+
+$backgroundRed: $red;
+$backgroundRedHover: #ff7772;
+$backgroundRedActive: #dc5652;
+
+// 列表hover色，偏蓝
+$backgroundList: $white;
+$backgroundListHover: #f2fcff;
+$backgroundListSelected: #e0f7ff;
+
+// 白色背景hover出现的淡灰色
+$backgroundHover: #f0f0f2;
+
+// 黑色tips背景色
+$backgroundDark: #373c42;
+
+// UI组件的圆角大小 
+$borderRadius: 4px;
+
+// 图片背景路径
+$urlImage: 'images'!default;
+

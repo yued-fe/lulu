@@ -1,0 +1,148 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Textarea.css
+ * @author xinxuzhang 
+ * @create 15-06-17
+**/
+
+textarea[rows='5'] {
+  height: 100px;
+}
+textarea[rows='6'] {
+  height: 120px;
+}
+textarea.ui-textarea,
+.ui-textarea > textarea {
+  line-height: 20px;
+  padding: 9px 8px; 
+  border: 1px solid $borderNormal;
+  border-radius: $borderRadius;
+  background-color: $white;
+  outline: none;
+  color: $dark;
+  font-size: 14px;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+  word-break: break-all;
+  vertical-align: top;
+  resize: none;
+  overflow: auto;
+}
+
+div.ui-textarea > textarea {
+  width: 100%;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;  
+}
+
+/* hover */
+.ui-textarea:hover,
+.ui-textarea > textarea:hover {
+  border-color: $borderHover;
+}
+/* focus */
+.ui-textarea:focus,
+.ui-textarea > textarea:focus {
+  border-color: $borderFocus;
+}
+
+/* textarea with count */
+.ui-textarea-x {
+  position: relative;
+  padding: 2px 9px 32px 3px;
+  border-radius: $borderRadius;
+  overflow: hidden;
+}
+.ui-textarea-x > textarea,
+.ui-textarea-x > .textarea{
+  display: block;
+  width: 100%;
+  line-height: 20px;
+  border: 0 none;
+  padding: 7px 0 9px;
+  right: -6px;
+  color: $dark;
+  font-size: 14px;
+  outline: none;
+  background: none;
+  word-break: break-all;
+  overflow: auto;
+  resize: none;
+  position: relative;
+  z-index: 1;
+}
+.ui-textarea-x > .ui-textarea {
+  position: absolute;
+  border: 1px solid $borderNormal;
+  border-radius: $borderRadius;
+  background-color: $white;
+  top: 0; bottom: 0; left: 0; right: 0;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+}
+.ui-textarea-count {
+  position: absolute; left: 8px; right: 10px; bottom: 0;
+  line-height: 32px;
+  color: $gray;
+  font-size: 12px;
+  text-align: right;
+  z-index: 1;
+}
+.ui-textarea-x:hover > .ui-textarea {
+  border-color: $borderHover;
+}
+/* 注意相邻位置，如果文本域前后位置发生变化，表单验证组件Validate.js 中 getTarget那里逻辑也要变化 */
+.ui-textarea-x > textarea:focus ~ .ui-textarea,
+.ui-textarea-x > .textarea:focus ~ .ui-textarea{
+  border-color: $borderFocus;
+}
+.ui-textarea-x .ui-placeholder {
+  padding: 7px!important;
+  z-index: 1;
+}
+
+/* IE7 */
+@media screen\9 {
+  div.ui-textarea {
+    padding: 9px 8px;
+    border: 1px solid $borderNormal;
+    background-color: $white;
+  }
+  div.ui-textarea > textarea {
+    border: 0 none;
+    padding: 0;
+    margin: -1px 0;
+  }
+}
+
+/* disabled */
+.ui-textarea[disabled]:hover,
+.ui-textarea > textarea[disabled]:hover,
+.ui-textarea[readonly]:hover,
+.ui-textarea > textarea[readonly]:hover,
+.ui-textarea[readonly]:focus,
+.ui-textarea > textarea[readonly]:focus {
+  border-color: $borderNormal;
+}
+textarea[readonly],
+textarea[disabled],
+textarea.disabled {
+  resize: none;
+}
+
+
+/* error */
+.ui-textarea.error,
+.ui-textarea > .error {
+  border-color: $red!important;
+}
+.ui-textarea > .error {
+  *zoom: expression(this.parentNode.style.borderColor='#{$red}');
+}
+.ui-textarea > input {
+  *zoom: expression(this.parentNode.style.borderColor='');
+}

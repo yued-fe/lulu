@@ -1,0 +1,196 @@
+@charset "utf-8";
+/**
+ * 
+ * @Table.css
+ * @author xinxuzhang 
+ * @create 15-06-24
+ *
+**/
+.ui-table {
+  width: 100%;
+  line-height: 21px;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse\9;
+  font-size: 14px;
+}
+.ui-table thead td,
+.ui-table th {
+  line-height: 50px;
+  background-color: #f7f9fa;
+  text-align: left;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+}
+.ui-table tbody td {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background-color: #fff;
+  border-bottom: 1px solid #ededed;
+}
+.ui-table td,
+.ui-table th {
+	padding: 0 20px;
+}
+.ui-table tr {
+  cursor: default;
+}
+.ui-table tr:hover td {
+  background-color: #f2fcff;
+}
+.ui-table tr.selected td {
+  background-color: #e0f7ff;
+}
+
+.ui-table tr:last-child td {
+	padding-bottom: 15px;
+	border-bottom: 0;
+}
+
+.ui-table div.ell {
+	*width: 100%;
+}
+
+.ui-table ~ .ui-loading {
+	height: 300px;
+}
+
+
+/* table shadow */
+.table-x {
+	box-shadow: 0 1px 3px rgba(0, 0, 1, 0.1);
+	background-color: #ffffff;
+	border: 1px solid #d0d0d5;
+	border: 0 rgba(0, 0, 0, 0);
+}
+/* table without data */
+.table-null-x, .table-error-x {
+	height: 300px;
+	text-align: center;
+}
+.table-error-x {
+	line-height:  300px;
+}
+.table-null {
+	display: inline-block;
+	*display: inline; *zoom: 1;
+	vertical-align: middle;
+}
+.table-null-icon {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ui-loading-animation tbody,
+.ui-loading-animation .table-null-x,
+.ui-loading-animation .table-error-x {
+	-webkit-animation: fadeIn .3s .1s both;
+	animation: fadeIn .3s .1s both;
+}
+
+
+/* 这里写特定列表的占位符图标 */
+/*.table-null-xxx .table-null-icon {
+	background-image: url(...);
+}*/
+
+.table-null-title {
+	margin-top: 14px;
+	font-size: 24px;
+}
+.table-null-desc {
+	margin-top: 7px;
+	font-size: 14px;
+}
+.table-vm {
+	display: inline-block;
+	width: 0;
+	height: 100%;
+	vertical-align: middle;
+}
+/* table pagination */
+.table-page-x {
+  height: 32px;
+  padding: 10px 10px 8px 22px;
+  margin-top: -1px;
+  border-top: 1px solid #ededed;
+  background-color: #f7f9fa;
+  position: relative;
+  *position: static;
+}
+.table-page-data {
+	float: left;
+	line-height: 20px;
+	padding-top: 5px;
+	font-size: 14px;
+}
+.table-num-length {
+	margin: 0 3px;
+}
+.table-page-every {
+	display: inline-block;
+	margin-left: 5px;
+	cursor: pointer;
+}
+.table-page-every:hover {
+	color: #00a5e0;
+}
+
+.table-page {
+	float: right;
+	padding-top: 2px;
+}
+.table-checkbox td:first-child,
+.table-checkbox th:first-child {
+	width: 20px;
+	padding-right: 0;
+	padding-left: 18px;
+	text-align:  right;
+}
+.table-checkbox td:first-child + td,
+.table-checkbox th:first-child + th {
+	padding-left: 13px;
+}
+
+/* 表格头部操作，搜索，或者大标题 */
+.table-header {
+	padding: 12px 20px;
+}
+.table-title {
+	line-height: 56px;
+	font-size: 24px;
+}
+.table-operate {
+	line-height:  20px;
+	padding: 18px 0;
+	font-size: 16px;
+	-webkit-transition: opacity .2s;
+	transition: opacity .2s;
+	*zoom: 1;
+}
+.table-header > .table-operate {
+	display: none;
+}
+.checked > .table-operate {
+	display: block;
+}
+.checked > .table-title {
+	display: none;
+}
+.table-top-right {
+	position: absolute;
+	height: 40px;
+	bottom: 13px;
+	right: 0;
+}
+.table-search {
+	display: inline-block;
+	*display: inline; *zoom: 1;
+	width: 220px;
+	margin-right: 10px;
+	vertical-align: top;
+}

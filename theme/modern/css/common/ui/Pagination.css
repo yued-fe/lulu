@@ -1,0 +1,88 @@
+@charset "UTF-8";
+/**
+ * 
+ * @Pagination.css
+ * @author xinxuzhang 
+ * @create 15-06-26 ↓7.4%
+ *
+**/
+/*.ui-page-x {}*/
+.ui-page {
+  display: inline-block;
+  min-width: 18px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid transparent;
+  text-align: center;
+  color: #a2a9b6;
+  font-size: 14px;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+  vertical-align: top;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+span.ui-page {
+  cursor: default; }
+
+a.ui-page:hover {
+  border-color: #b6bbc6;
+  color: #a2a9b6; }
+
+.ui-page > svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px; }
+
+.ui-page-prev,
+.ui-page-next {
+  background: url(images/Pagination/icons-prev-next.png) no-repeat;
+  background: none, none;
+  text-align: center;
+  fill: currentColor;
+  overflow: hidden; }
+
+.ui-page-next svg {
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1); }
+
+.ui-page-prev {
+  margin-left: 0; }
+
+.ui-page-next {
+  margin-right: 0; }
+
+.ui-page-prev {
+  background-position: 0 -60px; }
+
+.ui-page-ellipsis {
+  display: inline-block; }
+
+span.ui-page-prev {
+  background-position: 0 -90px;
+  color: #ccd0d7; }
+
+span.ui-page-next {
+  background-position: 0 -30px;
+  color: #ccd0d7; }
+
+.ui-page-current {
+  color: #fff;
+  background-color: #00a5e0; }
+
+.ui-page-text {
+  color: #4c5161; }
+
+.ui-page.loading {
+  background: url(images/Pagination/icon-loading.gif) no-repeat center;
+  color: transparent; }
+
+.ui-page.loading > svg {
+  visibility: hidden; }

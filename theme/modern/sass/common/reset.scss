@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* 
+ * 1. font: status-bar使用系统字体，保证iOS系统下字体效果良好;
+*/
+body{font: status-bar; font-size: 14px; line-height: 1.42858; }
+h1,h2,h3,h4,h5,h6{font-size:100%; margin:0; font-weight:400;}
+body,form,ul,ol,dl,dd,p{margin:0;}
+ul,ol{list-style-type:none; padding: 0;}
+img{border:0 none;vertical-align:bottom;}
+button,input,select,textarea{font-size:1em; font-family: inherit; *font-family: 'microsoft yahei';}
+a,a:hover{text-decoration:none;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}

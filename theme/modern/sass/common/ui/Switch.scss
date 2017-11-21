@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Switch.css
+ * @author xinxuzhang 
+ * @create 15-06-18
+ *
+**/
+
+.ui-switch {
+  display: inline-block;
+  width: 44px;
+  height: 26px;
+  border: 2px solid;
+  border-radius: 26px;
+  background-color: currentColor;
+  box-sizing: border-box;
+  color: $silver; 
+  -webkit-transition: all .2s;
+  transition: all .2s;   
+  cursor: pointer;
+}
+
+.ui-switch::before {
+	content: '';
+	display: block;
+	width: 22px;
+	height: 22px;
+	border-radius: 22px;
+	background-color: $white;
+	-webkit-transition: margin-left .2s;
+    transition: margin-left .2s; 
+}
+
+:checked + .ui-switch {
+  color: $blue;
+}
+:checked + .ui-switch::before {
+  margin-left: 18px;
+}
+
+:disabled + .ui-switch {
+  opacity: .38;
+  cursor: default;
+}
+
+/*IE7, IE8 使用图片作UI*/
+@media \0screen\,screen\9 {
+	.ui-switch {
+		border: 0 none;
+		background: url(#{$urlImage}/Switch/switch.png) no-repeat;
+	}
+	[checked] + .ui-switch {
+		background-position: 0 -30px;
+	}
+	[defaultChecked] + .ui-switch {
+		background-position: 0 -30px;
+	}
+	[disabled] + .ui-switch {
+		filter: alpha(opacity=38);
+		cursor: default;
+	}
+}

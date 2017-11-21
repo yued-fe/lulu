@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @DropList.css
+ * @author xinxuzhang 
+ * @create 15-07-01
+ *
+**/
+
+.ui-droplist-x {
+	position: absolute;
+	width: 111px;
+	padding: 5px 0;
+	background-color: $backgroundList;
+	box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	border: 1px solid $borderNormal;
+	border: 0 rgba(0,0,0,.2);
+	font-size: 14px;
+	-webkit-animation: fadeIn .2s;
+  	animation: fadeIn .2s;
+	z-index: 9;
+}
+.ui-droplist-li {
+	display: block;
+	line-height: 20px;
+	padding: 7px 12px 8px;
+	color: $dark;
+	cursor: pointer;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+a.ui-droplist-li:hover {
+	color: $dark;
+	background-color: $backgroundListHover;
+}
+span.ui-droplist-li {
+	color: $gray;
+	cursor: default;
+}
+
+.ui-droplist-li > .icon {
+	vertical-align: -5px;
+	*vertical-align: -1px;
+	margin-right: 5px;
+}
+
+/*.ui-droplist-x > .selected {
+	background-color: #f1f9fe;
+}*/
+
+
+.ui-droplist-arrow {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(#{$urlImage}/DropList/icon-droplist-arrow.png) no-repeat 0 0;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjIwMCIgaGVpZ2h0PSI0MDAiIHZpZXdCb3g9IjAgMCAyMDAgNDAwIj4NCjxwYXRoIGZpbGw9IiNBMkE5QjYiIGQ9Ik0xNDUuMjgzLDc0LjU4OGMtNC4yMTUtNC4wODYtMTEuMDQ4LTQuMDg2LTE1LjI2MSwwTDk5LjUsMTA0LjINCglMNjguOTc4LDc0LjU4OGMtNC4yMTUtNC4wODYtMTEuMDQ4LTQuMDg2LTE1LjI2MiwwYy00LjIxNSw0LjA5Mi00LjIxNSwxMC43MiwwLDE0LjgwOGwzOC4xNTQsMzcuMDEzDQoJYzQuMjE1LDQuMDg5LDExLjA0Nyw0LjA4OSwxNS4yNjEsMGwzOC4xNTMtMzcuMDEzQzE0OS40OTgsODUuMzA3LDE0OS40OTgsNzguNjgsMTQ1LjI4Myw3NC41ODh6Ii8+DQo8cGF0aCBmaWxsPSIjMDBhNWUwIiBkPSJNMTQ2LjI4MywyNzQuNTg4Yy00LjIxNS00LjA4Ni0xMS4wNDgtNC4wODYtMTUuMjYxLDANCglsLTMwLjUyMiwyOS42MTJsLTMwLjUyMi0yOS42MTJjLTQuMjE1LTQuMDg2LTExLjA0OC00LjA4Ni0xNS4yNjIsMGMtNC4yMTUsNC4wOTItNC4yMTUsMTAuNzIsMCwxNC44MDhsMzguMTU0LDM3LjAxMw0KCWM0LjIxNSw0LjA4OSwxMS4wNDcsNC4wODksMTUuMjYxLDBsMzguMTUzLTM3LjAxM0MxNTAuNDk4LDI4NS4zMDgsMTUwLjQ5OCwyNzguNjgsMTQ2LjI4MywyNzQuNTg4eiIvPg0KPC9zdmc+DQo=), none;
+	background-size: 20px 40px;
+	vertical-align: -5px;
+	*vertical-align: -1px;
+}
+a:hover .ui-droplist-arrow {
+	background-position: 0 -20px;
+}

@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/**
+ * 
+ * @Button.css
+ * @author xinxuzhang 
+ * @create 15-06-12
+ */
+.ui-button {
+  display: inline-block;
+  line-height: 1.42858;
+  font-size: 14px;
+  text-align: center;
+  color: #4c5161;
+  border: 1px solid #d0d0d5;
+  border-radius: 4px;
+  padding: 9px 15px;
+  min-width: 50px;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+  cursor: pointer;
+  overflow: visible; }
+
+.ui-button.error {
+  border-color: #f4615c !important; }
+
+div.ui-button {
+  display: block; }
+
+.ui-button:hover {
+  color: #4c5161;
+  border-color: #ababaf;
+  text-decoration: none; }
+
+.ui-button:not(.disabled):active,
+.ui-button:not(.ui-button-loading):active {
+  background-color: #f7f9fa; }
+
+.ui-button.disabled:hover,
+.ui-button-loading,
+.ui-button-loading:hover {
+  color: #4c5161;
+  background-color: #fff;
+  border-color: #d0d0d5; }
+
+.ui-button-primary,
+.ui-button-primary.disabled:hover,
+.ui-button-primary.ui-button-loading:hover {
+  border: 1px solid #00a5e0;
+  background-color: #00a5e0;
+  color: #fff; }
+
+.ui-button-primary:hover {
+  background-color: #00b4f5;
+  border-color: #00b4f5;
+  color: #fff; }
+
+.ui-button-primary:not(.disabled):active,
+.ui-button-primary:not(.ui-button-loading):active {
+  background-color: #0092c7;
+  border-color: #0092c7; }
+
+.ui-button-success,
+.ui-button-success.disabled,
+.ui-button-success.disabled:hover,
+.ui-button-success.ui-button-loading:hover {
+  border: 1px solid #01cf97;
+  background-color: #01cf97;
+  color: #fff; }
+
+.ui-button-success:hover {
+  background-color: #00dba2;
+  border-color: #00dba2;
+  color: #fff; }
+
+.ui-button-success:not(.disabled):active,
+.ui-button-success:not(.ui-button-loading):active {
+  background-color: #00bf8e;
+  border-color: #00bf8e; }
+
+.ui-button-warning,
+.ui-button-warning.disabled,
+.ui-button-warning.disabled:hover,
+.ui-button-warning.ui-button-loading:hover {
+  border: 1px solid #f4615c;
+  background-color: #f4615c;
+  color: #fff; }
+
+.ui-button-warning:hover {
+  background-color: #ff7772;
+  border-color: #ff7772;
+  color: #fff; }
+
+.ui-button-warning:not(.disabled):active,
+.ui-button-warning:not(.ui-button-loading):active {
+  background-color: #dc5652;
+  border-color: #dc5652; }
+
+.ui-button-loading {
+  cursor: default;
+  pointer-events: none;
+  color: transparent !important; }
+
+.ui-button.ui-button-loading {
+  background-image: url(images/Button/loading.gif); }
+
+.ui-button-primary.ui-button-loading {
+  background-image: url(images/Button/loading-primary.gif); }
+
+.ui-button-success.ui-button-loading {
+  background-image: url(images/Button/loading-success.gif); }
+
+.ui-button-warning.ui-button-loading {
+  background-image: url(images/Button/loading-warning.gif); }
+
+/*IE7, IE8 loading文字隐藏控制 */
+@media \0screen\,screen\9 {
+  .ui-button-loading {
+    height: 38px;
+    line-height: 100px !important;
+    *line-height: 0 !important;
+    vertical-align: top;
+    overflow: hidden; } }

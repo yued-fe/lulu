@@ -1,0 +1,43 @@
+/* placeholder */
+::-webkit-input-placeholder {
+  -webkit-transition: opacity .15s;
+  color: #a2a9b6;
+  line-height: inherit;
+  font-size: 14px; }
+
+:focus::-webkit-input-placeholder {
+  opacity: 0.38; }
+
+::-moz-placeholder {
+  transition: opacity .15s;
+  color: #a2a9b6;
+  font-size: 14px; }
+
+:focus::-moz-placeholder {
+  opacity: 0.38; }
+
+:-ms-input-placeholder {
+  transition: opacity .15s;
+  color: #a2a9b6 !important;
+  font-size: 14px; }
+
+:focus:-ms-input-placeholder {
+  opacity: 0.38; }
+
+.ui-placeholder {
+  display: inline;
+  line-height: 20px;
+  position: absolute;
+  padding: 9px;
+  color: #a2a9b6;
+  font-size: 14px; }
+
+.ui-input > .ui-placeholder {
+  *padding: 0; }
+
+input + .ui-placeholder {
+  white-space: nowrap; }
+
+:focus + .ui-placeholder,
+:focus + div > .ui-placeholder {
+  color: #dbe0e5; }

@@ -1,0 +1,317 @@
+@charset "utf-8";
+
+@import '../variable';
+
+
+/**
+ * 
+ * @Input.css
+ * @author xinxuzhang 
+ * @create 15-06-16
+ */
+
+/*disabled X for IE */
+input:not([type=search])::-ms-clear {
+  display: none;
+}
+/* reset [type=search] ui */
+[type=search] {
+  -webkit-appearance: none;
+   box-sizing: content-box;
+}
+[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-right: -2px;
+  background: $silver url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiNGRkYiIGQ9Ik0wIDB2MjAwaDIwMFYwSDB6bTE1MS42MzYgMTM2LjQ4MmE3LjM3NCA3LjM3NCAwIDAgMSAwIDEwLjQyN2wtNS4yMTIgNS4yMWE3LjM3MiA3LjM3MiAwIDAgMS0xMC40MjYgMGwtMzYuNDgzLTM2LjQ4NUw2My4wMyAxNTIuMTJhNy4zNyA3LjM3IDAgMCAxLTEwLjQyNCAwbC01LjIxLTUuMjFhNy4zNyA3LjM3IDAgMCAxIDAtMTAuNDI4TDgzLjg4IDEwMCA0Ny4zOTYgNjMuNTE0YTcuMzY4IDcuMzY4IDAgMCAxIDAtMTAuNDI1bDUuMjEtNS4yMWE3LjM2OCA3LjM2OCAwIDAgMSAxMC40MjYgMEw5OS41MTYgODQuMzYgMTM2IDQ3Ljg4YTcuMzcgNy4zNyAwIDAgMSAxMC40MjUgMGw1LjIxMiA1LjIxYTcuMzcgNy4zNyAwIDAgMSAwIDEwLjQyNUwxMTUuMTUzIDEwMGwzNi40ODMgMzYuNDgyeiIvPjwvc3ZnPg==) no-repeat center;
+  background-size: 20px 20px;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
+  cursor: pointer;
+}
+[type=search]::-webkit-search-cancel-button:hover {
+  background-color: $dark;
+}
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px $white inset;
+    background-color: transparent;
+}
+
+input[disabled], input[readonly] {
+  cursor: default;
+}
+
+input.ui-input,
+.ui-input > input {
+  height: 20px;
+  line-height: 20px;
+  padding: 9px 8px; 
+  border: 1px solid $borderNormal;
+  border-radius: 4px;
+  background-color: $white;
+  font-size: 14px;
+  outline: none;
+  color: $dark;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+}
+
+.ui-input:hover,
+.ui-input:hover > input {
+  border-color: $borderHover;
+}
+.ui-input:focus,
+.ui-input > input:focus {
+  border-color: $borderFocus;
+}
+
+span.ui-input {
+  display: inline-block;
+}
+
+div.ui-input > input {
+  width: 100%;
+  height: 40px;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;   
+}
+
+/* input with count */
+.ui-input-x {
+  position: relative;
+  padding: 0 56px 0 3px;
+  border-radius: $borderRadius;
+  overflow: hidden;
+}
+.ui-input-x > input {
+  display: block;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  padding: 9px 0 9px;
+  border: 0 none;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  right: -6px;
+  color: $dark;
+  font-size: 14px;
+  outline: none;
+  background: none;
+  background-clip: content-box;
+  position: relative;
+  z-index: 1;
+}
+.ui-input-x > .ui-input {
+  position: absolute;
+  border: 1px solid $borderNormal;
+  border-radius: $borderRadius;
+  background-color: $white;
+  top: 0; bottom: 0; left: 0; right: 0;
+  -webkit-transition: border-color .15s, background-color .15s;
+  transition: border-color .15s, background-color .15s;
+}
+.ui-input-count {
+  line-height: 38px;
+  padding: 0 2px;
+  background-color: $white;
+  color: $gray;
+  font-size: 12px;
+  white-space: nowrap;
+  position: absolute;
+  right: 8px; top: 1px;
+  z-index: 1;
+}
+.ui-input-x:hover > .ui-input {
+  border-color: $borderHover;
+}
+/* 注意相邻位置，如果文本域前后位置发生变化，表单验证组件Validate.js 中 getTarget那里逻辑也要变化 */
+.ui-input-x > input:focus ~ .ui-input {
+  border-color: $borderFocus;
+}
+.ui-input-x .ui-placeholder {
+  padding: 9px 7px;
+  z-index: 1;
+}
+
+/* type=[search] with icon */
+div.ui-search-input,
+span.ui-search-input {
+  position: relative;
+}
+.ui-search-input > input {
+  padding-left: 40px;
+}
+
+.ui-icon-search {
+  position: absolute;
+  left: 3px; top: 1px;
+  width: 20px;
+  height: 20px;
+  border: solid $white;
+  border-width: 9px 8px;  
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+  text-indent: -9em;
+  cursor: pointer;
+  overflow: hidden;
+}
+.ui-search-input:hover .ui-icon-search {
+  background-color: $borderHover; 
+}
+.ui-search-input > input:focus ~ .ui-icon-search {
+  background-color: $borderFocus;
+}
+
+.ui-search-input > .error ~ .ui-icon-search,
+.ui-search-input > .error:focus ~ .ui-icon-search {
+  background-color: $red;
+}
+
+
+/* IE使用png图片, 虽然IE9+支持SVG，但是貌似渲染太慢，会暴露色块 */
+.ui-icon-search, 
+.ui-search-right > .ui-icon-search:after {
+  background: $silver url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPdJREFUeNpi+k9lwMRAZYDLwCNAHAnEMkDMDqUjoeL4AZqLfwNxFhAz4MEg+V+4vIxuYApUjBOIG4H4DhD/hNKNUHEGqDqCBh6B8rmA+CgO9Ueh8gxQ9XgjZSqUrgBiKxwhBBIvg7KnEApDcajNdwikjLtQdVKEXPgSSssSiEcZKP2KULIRh9KPCRj4FEqLEjLQEUovJ2DgYihtRygMD5MYy4eJSYfZRKZDEE4C4n+EDPxFRE5hwGcoAw6vgbwTAU0azFA6BohPQQ3BaSgDGSXUXyyG5lNiIDZDhWESLBQUe7OBmA+IFwBxMUyCEexMOhSwZAOAAAMAVJM+EQ2rrOoAAAAASUVORK5CYII=) no-repeat;
+}
+/* IE13+和其他现代浏览器使用SVG */
+@supports (display:none) {
+  .ui-icon-search, 
+  .ui-search-right > .ui-icon-search:after {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PGcgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTg0LjYyNSAzOS42MjVjLTI0Ljg1NCAwLTQ1IDIwLjE0Ni00NSA0NC45OTUgMCAyNC44NTggMjAuMTQ2IDQ1IDQ1IDQ1czQ1LTIwLjE0MiA0NS00NWMwLTI0Ljg1LTIwLjE0Ni00NC45OTUtNDUtNDQuOTk1eiIvPjxwYXRoIGQ9Ik0yMC42MjQgMEgwdjIwMGgyMDBWMEgyMC42MjR6TTE2NS4zNSAxNzkuMzQ2aC0uMDFjLTMuODQgMC03LjY3OC0xLjQ2Ni0xMC42MDUtNC4zOTRsLTM1LjE0Ni0zNS4xNDZjLTkuOTAzIDYuMTEzLTIxLjQ2NSA5LjgyMy0zMy45NjUgOS44MjMtMzUuODk4IDAtNjUtMjkuMTEtNjUtNjUuMDEgMC0zNS44OTggMjkuMTAyLTY0Ljk5NSA2NS02NC45OTUgMzUuODk3IDAgNjUgMjkuMDk3IDY1IDY0Ljk5NSAwIDEyLjUtMy43IDI0LjA2My05LjgxMyAzMy45NzRsMzUuMTQ2IDM1LjE0NmExNC45NSAxNC45NSAwIDAgMSA0LjM4OCAxMC42MDRjLS4wMDIgMy44NDMtMTEuMTU4IDE1LTE0Ljk5NiAxNS4wMDJ6Ii8+PC9nPjwvc3ZnPg==);
+    background-size: 20px 20px;
+  }
+}
+
+/* type=[search] icon right */
+.ui-search-right:after {
+  display: inline-block;
+  content: '';
+  height: 25px;
+}
+div.ui-search-right {
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-right: 40px;
+  overflow: hidden;
+}
+.ui-search-right > input {
+  float: left;
+  padding-left: 8px;
+  padding-right: 0;
+  border-width: 1px 0 1px 1px;
+  border-color: transparent!important;
+  background: none;
+  position: relative;
+  z-index: 1;
+}
+.ui-search-right > .ui-icon-search {
+  position: static;
+  float: left;
+  margin-top: 1px;
+  margin-right: 1px;
+}
+div.ui-search-right > .ui-icon-search {
+  margin-right: -40px;
+}
+.ui-search-right > .ui-icon-search:before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border: 1px solid $borderNormal;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  -webkit-transition: border-color .15s;
+  transition: border-color .15s;
+}
+.ui-search-right > .ui-icon-search:after {
+  content: '';
+  position: absolute; top: 10px; right: 10px;
+  width: 20px; height: 20px;
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+}
+.ui-search-right:hover .ui-icon-search:before {
+  border-color: $borderHover;
+}
+.ui-search-right:hover .ui-icon-search:after {
+  background-color: $borderHover;
+}
+.ui-search-right > input:focus ~ .ui-icon-search:before {
+  border-color: $borderFocus;
+}
+.ui-search-right > input:focus ~ .ui-icon-search:after {
+  background-color: $borderFocus;
+}
+.ui-search-right .ui-placeholder {
+  z-index: 1;
+}
+span.ui-search-right > .ui-placeholder {
+  margin-left: 0!important;
+  left: 0; *left: 9px;
+}
+
+/* IE7 */
+@media screen\9 {
+  div.ui-input,
+  span.ui-input {
+    height: 20px;
+    padding: 9px 8px;
+    border: 1px solid $borderNormal;
+    background-color: $white;
+  }
+  div.ui-input > input,
+  span.ui-input > input {
+    height: 20px;
+    border: 0 none;
+    padding: 0;
+    margin: -1px 0;
+    float: none;
+  }
+  input.ui-input,
+  span.ui-input {
+    vertical-align: middle;
+  }
+  div.ui-search-input,
+  span.ui-search-input {
+    padding: 8px 8px 10px 40px;
+  }
+  div.ui-search-right,
+  span.ui-search-right {
+    padding-left: 8px;
+    padding-right: 40px;
+  }
+  .ui-icon-search {
+    background-image: url(#{$urlImage}/Input/icon-search.png);
+    left: 0;
+    top: 0;
+  }
+
+  span.ui-search-right .ui-icon-search,
+  div.ui-search-right .ui-icon-search {
+    position: absolute;
+    top: 0; left: auto; right: 0;
+    margin: 0;
+  }
+}
+
+
+/* disabled */
+.ui-input[disabled]:hover,
+.ui-input > input[disabled]:hover,
+.ui-input[readonly]:hover,
+.ui-input > input[readonly]:hover,
+.ui-input[readonly]:focus,
+.ui-input > input[readonly]:focus {
+  border-color: $borderNormal;
+}
+
+/* error */
+.ui-input.error,
+.ui-input > .error {
+  border-color: $red!important;
+}

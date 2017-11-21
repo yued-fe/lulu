@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ * 
+ * @Scroll.css
+ * @author xinxuzhang 
+ * @create 15-07-15
+ *
+**/
+
+.ui-scroll-x {
+	float: left;
+	line-height: 0;
+	position: relative;
+	z-index: 4;
+}
+.ui-scroll-track {
+	width: 5px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: width .2s, background-color .2s;
+  	transition: width .2s, background-color .2s;
+  	border-radius: 10px;
+  	overflow: hidden;
+}
+
+.ui-scroll-track:hover, .ui-scroll-track.active {
+	width: 8px;
+	border-color: #e5e5e6;
+	background-color: #ddd;
+}
+.ui-scroll-thumb {
+    position: absolute;
+    right: 0;
+  	width: 5px;
+  	border-radius: 10px;
+  	background-image: url(about:blank);
+  	background-color: rgba(0,0,0,.35);
+  	filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);
+  	-webkit-transition: width .2s, background-color .2s;
+  	transition: width .2s, background-color .2s;
+  	cursor: pointer;
+}
+.ui-scroll-track:hover .ui-scroll-thumb, .active .ui-scroll-thumb {
+	width: 8px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#8F000000,endcolorstr=#8F000000);
+}
+:root .ui-scroll-thumb {
+	filter: none;
+	background-image: none;
+}

@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+@import '../variable';
+
+/**
+ *
+ * @Switch.css
+ * @author zhangxinxu
+ * @create 15-06-18
+ * @edit   17-06-14  keyboard accessible
+**/
+
+.ui-switch {
+  display: inline-block;
+  width: 44px;
+  height: 26px;
+  border: 2px solid;
+  border-radius: 26px;
+  background-color: currentColor;
+  box-sizing: border-box;
+  color: $silver;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+}
+
+.ui-switch::before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: $white;
+    -webkit-transition: margin-left .2s;
+    transition: margin-left .2s;
+}
+
+:active + .ui-switch::before {
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
+}
+
+:checked + .ui-switch {
+  color: $blue;
+}
+:checked + .ui-switch::before {
+  margin-left: 18px;
+}
+
+:disabled + .ui-switch {
+  opacity: .38;
+  cursor: default;
+}
+
+:focus + .ui-switch,
+.ui-switch:hover {
+    color: $gray;
+}
+:checked:focus + .ui-switch,
+:checked + .ui-switch:hover {
+  color: $darkblue;
+}
+
+:disabled + .ui-switch:hover {
+   color: $silver;
+}
+:checked:disabled + .ui-switch:hover {
+  color: $blue;
+}
+
+/*IE7, IE8 使用图片作UI*/
+@media \0screen\,screen\9 {
+    .ui-switch {
+        border: 0 none;
+        background: url(#{$urlImage}/Switch/switch.png) no-repeat;
+    }
+    [checked] + .ui-switch {
+        background-position: 0 -30px;
+    }
+    [defaultChecked] + .ui-switch {
+        background-position: 0 -30px;
+    }
+    [disabled] + .ui-switch {
+        filter: alpha(opacity=38);
+        cursor: default;
+    }
+}
