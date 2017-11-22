@@ -15,12 +15,6 @@
     // require
     if (typeof require == 'function') {
         require('common/ui/Loading');
-    } else if (!$().loading) {
-        if (window.console) {
-            window.console.error('need Loading.js');
-        }
-
-        return {};
     }
 
     /**
@@ -96,12 +90,24 @@
         // 标题
         el.title = $('<div class="' + prefixDialog + 'title" role="heading"></div>').html(params.title);
         // 关闭按钮
-        el.close = $('<a href="javascript:" class="' + prefixDialog + 'close"></a>').attr({
+        var idClose = ('id_' + Math.random()).replace('0.', '');
+        el.close = $('<a href="javascript:" class="' + prefixDialog + 'close ESC"></a>').attr({
             role: 'button',
-            'aria-label': '关闭'
+            'aria-label': '关闭',
+            id: idClose,
+            'data-target': idClose
         }).html(svg).click($.proxy(function(event) {
-            this[this.closeMode]();
             event.preventDefault();
+            // 有其他可ESC元素存在时候，弹框不关闭
+            var activeElement = document.activeElement;
+            var attrActiveElement = activeElement.getAttribute('data-target');
+            var targetElement = attrActiveElement && document.getElementById(attrActiveElement);
+
+            if (window.isKeyEvent && targetElement && activeElement != el.close[0] && document.querySelector('a[data-target="' + attrActiveElement + '"],input[data-target="' + attrActiveElement + '"]') && targetElement.clientWidth > 0) {
+                return;
+            }
+            // 关闭弹框
+            this[this.closeMode]();
         }, this));
         // 主体
         var content = params.content;
@@ -199,6 +205,10 @@
                 el['button' + i].bind(eventType, {
                     dialog: dialog
                 }, fn);
+
+                el['button' + i].on('focus', function () {
+                    $(this).css('outline', window.isKeyEvent ? '' : 'none');
+                });
             });
 
             el.footer.append(el['button' + i]);
@@ -213,8 +223,14 @@
      * @return {Object} 返回当前实例对象
      */
     Dialog.prototype.loading = function () {
+        if (!$().loading) {
+            window.console && window.console.error('need Loading.js');
+            return dialog;
+        }
+
         var el = this.el;
         var dialog = this;
+
         if (el) {
             el.container.attr('class', [prefixDialog + 'container', prefixDialog + 'loading'].join(' '));
             el.body.loading();
@@ -230,6 +246,11 @@
      * @return {Object} 返回当前实例对象
      */
     Dialog.prototype.unloading = function (time) {
+        if (!$().unloading) {
+            window.console && window.console.error('need Loading.js');
+            return dialog;
+        }
+
         var el = this.el;
         var dialog = this;
         if (el) {

@@ -1596,7 +1596,8 @@ input + .ui-placeholder {
   clear: both; }
 
 .ui-dialog-footer {
-  padding: 0 25px 25px;
+  padding: 3px 25px 25px;
+  margin-top: -3px;
   text-align: right; }
 
 :root .ui-dialog-footer {
@@ -1615,13 +1616,6 @@ input + .ui-placeholder {
 
 .ui-dialog-footer .ui-button:first-child {
   margin-left: 0; }
-
-:root .ui-dialog-footer .ui-button:focus {
-  box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.2);
-  outline: none; }
-
-:root .ui-dialog-footer .ui-button:active {
-  box-shadow: none; }
 
 .ui-dialog-auto {
   max-height: 1000px;

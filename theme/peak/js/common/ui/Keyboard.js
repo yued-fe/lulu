@@ -282,26 +282,6 @@
                 return;
             }
 
-            // ESC退出
-            // 如果是ESC退出
-            var eleFirstMatchAttrTarget = null;
-            var eleEscAll = doc.querySelectorAll('.ESC');
-            if (keyName == 'esc' && eleEscAll.length) {
-                [].slice.call(eleEscAll).forEach(function (eleEsc) {
-                    var idEsc = eleEsc.id;
-
-                    eleFirstMatchAttrTarget = idEsc && doc.querySelector('a[data-target="' + idEsc + '"],input[data-target="' + idEsc + '"]');
-
-                    if (eleFirstMatchAttrTarget && eleEsc.style.display !== 'none') {
-                        eleFirstMatchAttrTarget.click();
-                    }
-                });
-
-                if (eleFirstMatchAttrTarget) {
-                    return;
-                }
-            }
-
             // 单复选框的增加回车选中，原生是空格键选中
             if (/^radio|checkbox$/i.test(trigger.type) && keyName == 'enter') {
                 trigger.click();
@@ -310,6 +290,21 @@
 
                 return;
             }
+
+            // 如果是ESC退出
+            var eleFirstMatchAttrTarget = null;
+            var eleEscAll = doc.querySelectorAll('.ESC');
+            if (keyName == 'esc' && eleEscAll.length) {
+                [].slice.call(eleEscAll).forEach(function (eleEsc) {
+                    var idEsc = eleEsc.id;
+
+                    eleFirstMatchAttrTarget = idEsc && doc.querySelector('a[data-target="' + idEsc + '"],input[data-target="' + idEsc + '"]');
+                    if (eleFirstMatchAttrTarget && eleEsc.style.display !== 'none' && eleEsc.clientHeight > 0) {
+                        eleFirstMatchAttrTarget.click();
+                    }
+                });
+            }
+
 
             // 对应的面板
             // 1. data-target 点击出现的面板
@@ -362,12 +357,13 @@
                 }
             }
 
+            // ESC退出
             if (keyName == 'esc') {
                 eleFirstMatchAttrTarget = doc.querySelector('a[data-target="' + attrTarget + '"],input[data-target="' + attrTarget + '"]');
 
                 if (attrFocus) {
                     trigger.blur();
-                } else if (eleFirstMatchAttrTarget) {
+                } else if (eleFirstMatchAttrTarget && /ESC/.test(eleFirstMatchAttrTarget.className) == false) {
                     eleFirstMatchAttrTarget.click();
                 }
 
