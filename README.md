@@ -22,4 +22,4 @@ lulu ui诞生到现在已经有好几年了，跟那些年轻的UI框架不同�
 
 ## 体验
 
-lulu ui支持retina视网膜，同时aria无障碍访问，以及keyboard键盘无障碍访问。不过这些都是基本操作，没什么好多说的。
+lulu ui支持retina视网膜，同时aria无障碍访问，以及keyboard键盘无障碍访问。坐下，坐下，都是基本操作而已。
