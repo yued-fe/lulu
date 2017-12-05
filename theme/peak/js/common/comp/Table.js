@@ -256,7 +256,7 @@
         // 优先本地存储
         var storeId = table.attr('id');
         var currentEvery = params.pageOptions.every;
-        if (storeId && window.localStorage && localStorage[storeId]) {
+        if (storeId && window.localStorage && localStorage[storeId] && every.length) {
             currentEvery = localStorage[storeId];
             self.num.every = currentEvery;
         }
