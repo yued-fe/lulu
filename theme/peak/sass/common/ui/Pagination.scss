@@ -3,9 +3,9 @@
 @import '../variable';
 
 /**
- * 
+ *
  * @Pagination.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-26 ↓7.4%
  *
 **/
@@ -39,6 +39,7 @@ span.ui-page {
 a.ui-page:hover {
   border-color: $silver;
   color: $gray;
+  text-decoration: none;
 }
 
 .ui-page > svg {
@@ -73,12 +74,12 @@ a.ui-page:hover {
   display: inline-block;
 }
 span.ui-page-prev {
-  background-position: 0 -90px; 
+  background-position: 0 -90px;
   color: $grayDisabled;
 }
 span.ui-page-next {
   background-position: 0 -30px;
-  color: $grayDisabled; 
+  color: $grayDisabled;
 }
 .ui-page-current {
   color: #fff;

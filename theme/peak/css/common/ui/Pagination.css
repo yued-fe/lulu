@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /**
- * 
+ *
  * @Pagination.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-26 ↓7.4%
  *
 **/
@@ -33,7 +33,8 @@ span.ui-page {
 
 a.ui-page:hover {
   border-color: #b6bbc6;
-  color: #a2a9b6; }
+  color: #a2a9b6;
+  text-decoration: none; }
 
 .ui-page > svg {
   width: 20px;

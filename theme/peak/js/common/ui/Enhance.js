@@ -107,6 +107,15 @@
         });
     };
 
+    $.fn.isDisabled = function () {
+        var el = $(this).eq(0);
+        // 如果是下拉框
+        if (el.is(':input')) {
+            return el.prop('disabled');
+        }
+        return el.hasClass('disabled');
+    };
+
     return function (el) {
         el.refresh();
     };

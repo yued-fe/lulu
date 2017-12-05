@@ -19,8 +19,8 @@ gulp.task('clean', function() {
 });
 
 // 默认任务
-gulp.task('default', ['clean'], function () {
-    gulp.start('sass:ui', 'sass:common', 'sass:comp', 'sass:watch');
+gulp.task('default', ['clean', 'sass:ui', 'sass:common', 'sass:comp'], function () {
+    gulp.start('sass:watch');
 });
 
 
