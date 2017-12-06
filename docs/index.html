@@ -37,6 +37,9 @@ window.addEventListener('message', function(e) {
 		history.pushState({}, title, location.href.split('#')[0] + (keyUrl ? '#' + keyUrl : ''));
 	}
  }, false);
+window.addEventListener("popstate", function() {
+    location.reload();										
+});
 </script>
 </body>
 </html>
