@@ -16,6 +16,27 @@
     }</style>
 </head>
 <body>
-<iframe src="http://www.zhangxinxu.com/sp/lulu/mockup/" frameborder="0"></iframe>
+<!--<iframe src="http://www.zhangxinxu.com/sp/lulu/mockup/" frameborder="0"></iframe>-->
+<script>
+var urlSelf = location.hash.replace('#', '');
+document.body.insertAdjacentHTML('afterbegin', '<iframe src="http://www.zhangxinxu.com/sp/lulu/mockup/'+ urlSelf +'" frameborder="0"></iframe>');
+
+window.addEventListener('message', function(e) {
+	if (!history.pushState) {
+		return;	
+	}
+    var data = e.data;
+	if (typeof data != 'string') {
+		return;	
+	}
+	var arrUrl = data.split('|');
+	// /sp/lulu/mockup/content/about/design.php
+	var keyUrl = arrUrl[0].replace('/sp/lulu/mockup/', '');
+	var title = arrUrl[1] || document.title;
+	if (keyUrl && keyUrl != urlSelf) {
+		history.pushState({}, title, location.href.split('#')[0] + (keyUrl ? '#' + keyUrl : ''));
+	}
+ }, false);
+</script>
 </body>
 </html>
