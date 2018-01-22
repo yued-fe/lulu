@@ -133,6 +133,7 @@ div.ui-month-range-input {
   z-index: 9; }
 
 .ui-date-container a {
+  text-decoration: none;
   -webkit-transition: background-color .2s, color .2s;
   transition: background-color .2s, color .2s; }
 

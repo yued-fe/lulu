@@ -198,7 +198,11 @@
 .ui-dialog-success > h6 ~ p {
   font-size: 14px;
 }
-
+.ui-dialog-warning > p,
+.ui-dialog-remind > p,
+.ui-dialog-success > p {
+  margin: 0;
+}
 
 .ui-dialog-confirm {
 

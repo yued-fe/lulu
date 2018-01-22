@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /**
- * 
+ *
  * @Color.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 16-06-03
 **/
 input[type='color'] {
@@ -52,6 +52,7 @@ input[type='color'] {
   border-radius: 4px;
   background-color: #E0E3E3;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
   -webkit-animation: fadeIn .2s;
   animation: fadeIn .2s;
   z-index: 21; }
@@ -61,7 +62,8 @@ input[type='color'] {
   position: absolute;
   top: 12px;
   right: 12px;
-  color: #00a5e0; }
+  color: #00a5e0;
+  text-decoration: none; }
 
 :root .ui-color-switch {
   display: inline; }
@@ -218,6 +220,7 @@ input[type='color'] {
   border-radius: 4px;
   text-align: center;
   font-size: 14px;
+  text-decoration: none;
   cursor: pointer; }
 
 .ui-color-btn-cancel {

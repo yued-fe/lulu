@@ -177,9 +177,9 @@ input[type=checkbox] {
     filter: alpha(opacity=38); } }
 
 /**
- * 
+ *
  * @Select.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-18
  *
 **/
@@ -221,6 +221,7 @@ select[hidden] + .ui-select {
   border: 1px solid #d0d0d5;
   border-radius: 4px;
   background-color: #fff;
+  text-decoration: none;
   -webkit-transition: border-color .15s, background-color .15s;
   transition: border-color .15s, background-color .15s;
   cursor: pointer; }
@@ -297,6 +298,7 @@ select[hidden] + .ui-select {
   padding: 9px 12px;
   color: #4c5161;
   background-color: #fff;
+  text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-transition: background-color .15s;
@@ -395,6 +397,7 @@ select[disabled] + .ui-select .ui-select-button {
   display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: inherit;
   overflow: hidden; }
 
 .ui-datalist-label {
@@ -438,10 +441,32 @@ select[disabled] + .ui-select .ui-select-button {
 div.ui-button {
   display: block; }
 
+button,
+[type="button"],
+[type="submit"] {
+  outline: 0; }
+
+input.ui-button,
+button.ui-button {
+  height: 20px;
+  -ms-box-sizing: content-box;
+  box-sizing: content-box; }
+
 .ui-button:hover {
   color: #4c5161;
   border-color: #ababaf;
   text-decoration: none; }
+
+.ui-button-clip {
+  width: 0;
+  height: 0;
+  font-size: 0;
+  position: absolute;
+  clip: rect(0 0 0 0); }
+
+.ui-button-clip.ui-outline + label.ui-button {
+  outline: 1px dotted #00a5e0;
+  outline: 5px auto -webkit-focus-ring-color; }
 
 .ui-button:not(.disabled):active,
 .ui-button:not(.loading):active {
@@ -501,7 +526,9 @@ div.ui-button {
   background-color: #f4615c;
   color: #fff; }
 
-.ui-button-warning:hover {
+.ui-button-warning:hover,
+input.ui-button-warning:focus,
+button.ui-button-warning:focus {
   background-color: #ff7772;
   border-color: #ff7772;
   color: #fff; }
@@ -516,7 +543,9 @@ div.ui-button {
   -ms-pointer-events: none;
   pointer-events: none;
   color: transparent !important;
-  position: relative; }
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center; }
 
 .ui-button.loading:before {
   content: '';
@@ -528,15 +557,22 @@ div.ui-button {
   right: 0;
   bottom: 0;
   margin: auto;
-  background: url(ui/images/Button/loading.gif) no-repeat center; }
+  background: no-repeat center; }
 
-.ui-button-primary.loading:before {
+.ui-button.loading:before,
+input.ui-button.loading {
+  background-image: url(ui/images/Button/loading.gif); }
+
+.ui-button-primary.loading:before,
+input.ui-button-primary.loading {
   background-image: url(ui/images/Button/loading-primary.gif); }
 
-.ui-button-success.loading:before {
+.ui-button-success.loading:before,
+input.ui-button-success.loading {
   background-image: url(ui/images/Button/loading-success.gif); }
 
-.ui-button-warning.loading:before {
+.ui-button-warning.loading:before,
+input.ui-button-warning.loading {
   background-image: url(ui/images/Button/loading-warning.gif); }
 
 /* IE10+ png loading */
@@ -937,9 +973,9 @@ div.ui-range-input > input {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); }
 
 /**
- * 
+ *
  * @Color.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 16-06-03
 **/
 input[type='color'] {
@@ -989,6 +1025,7 @@ input[type='color'] {
   border-radius: 4px;
   background-color: #E0E3E3;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
   -webkit-animation: fadeIn .2s;
   animation: fadeIn .2s;
   z-index: 21; }
@@ -998,7 +1035,8 @@ input[type='color'] {
   position: absolute;
   top: 12px;
   right: 12px;
-  color: #00a5e0; }
+  color: #00a5e0;
+  text-decoration: none; }
 
 :root .ui-color-switch {
   display: inline; }
@@ -1155,6 +1193,7 @@ input[type='color'] {
   border-radius: 4px;
   text-align: center;
   font-size: 14px;
+  text-decoration: none;
   cursor: pointer; }
 
 .ui-color-btn-cancel {
@@ -1307,9 +1346,9 @@ textarea.disabled {
   border-color: #f4615c !important; }
 
 /**
- * 
+ *
  * @Tab.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-12
  */
 /* tabs */
@@ -1325,6 +1364,7 @@ textarea.disabled {
   font-size: 16px;
   text-align: center;
   color: #4c5161;
+  text-decoration: none;
   overflow: hidden;
   cursor: pointer; }
 
@@ -1678,6 +1718,11 @@ input + .ui-placeholder {
 .ui-dialog-success > h6 ~ p {
   font-size: 14px; }
 
+.ui-dialog-warning > p,
+.ui-dialog-remind > p,
+.ui-dialog-success > p {
+  margin: 0; }
+
 .ui-dialog-loading .ui-dialog-title,
 .ui-dialog-loading .ui-dialog-close,
 .ui-dialog-loading .ui-dialog-footer {
@@ -2002,6 +2047,7 @@ s.ui-loading-icon {
   -webkit-transition: border-color .15s, background-color .15s;
   transition: border-color .15s, background-color .15s;
   vertical-align: top;
+  text-decoration: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2068,9 +2114,9 @@ span.ui-page-next {
   visibility: hidden; }
 
 /**
- * 
+ *
  * @DropList.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-07-01
  *
 **/
@@ -2092,6 +2138,7 @@ span.ui-page-next {
   line-height: 20px;
   padding: 7px 12px 8px;
   color: #4c5161;
+  text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2322,6 +2369,7 @@ div.ui-month-range-input {
   z-index: 9; }
 
 .ui-date-container a {
+  text-decoration: none;
   -webkit-transition: background-color .2s, color .2s;
   transition: background-color .2s, color .2s; }
 

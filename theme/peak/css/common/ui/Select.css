@@ -1,7 +1,7 @@
 /**
- * 
+ *
  * @Select.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-18
  *
 **/
@@ -43,6 +43,7 @@ select[hidden] + .ui-select {
   border: 1px solid #d0d0d5;
   border-radius: 4px;
   background-color: #fff;
+  text-decoration: none;
   -webkit-transition: border-color .15s, background-color .15s;
   transition: border-color .15s, background-color .15s;
   cursor: pointer; }
@@ -119,6 +120,7 @@ select[hidden] + .ui-select {
   padding: 9px 12px;
   color: #4c5161;
   background-color: #fff;
+  text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-transition: background-color .15s;

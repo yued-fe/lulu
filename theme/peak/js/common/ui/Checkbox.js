@@ -25,7 +25,7 @@
     if (!win.addEventListener && !win.initedCheckbox && $().propMatch) {
         var selector = 'input[type=checkbox]';
 
-        $(document.body).on(selector, 'click', function() {
+        $(document.body).on('click', selector, function() {
             $(this).propMatch();
         });
 

@@ -80,12 +80,18 @@
             // 如果是下拉框
             if (el.is(':input')) {
                 el.attr('disabled', 'disabled');
-                return;
-            }
-            if (el.is('a')) {
+            } else if (el.is('a')) {
                 el.data('href', el.attr('href'));
                 el.removeAttr('href');
                 el.attr('aria-disabled', 'true');
+            } else {
+                // span, div这类标签
+                var tabindex = el.attr('tabindex');
+                if (tabindex) {
+                    // 存储设置的tabindex值
+                    el.data('tabindex', tabindex);
+                    el.removeAttr('tabindex');
+                }
             }
             el.addClass('disabled');
         });
@@ -97,11 +103,14 @@
             // 如果是下拉框
             if (el.is(':input')) {
                 el.removeAttr('disabled');
-                return;
-            }
-            if (el.is('a')) {
+            } else if (el.is('a')) {
                 el.attr('href', el.data('href') || 'javascript:');
                 el.attr('aria-disabled', 'false');
+            } else {
+                var tabindex = el.data('tabindex');
+                if (tabindex) {
+                    el.attr('tabindex', tabindex);
+                }
             }
             el.removeClass('disabled');
         });

@@ -32,10 +32,32 @@
 div.ui-button {
   display: block; }
 
+button,
+[type="button"],
+[type="submit"] {
+  outline: 0; }
+
+input.ui-button,
+button.ui-button {
+  height: 20px;
+  -ms-box-sizing: content-box;
+  box-sizing: content-box; }
+
 .ui-button:hover {
   color: #4c5161;
   border-color: #ababaf;
   text-decoration: none; }
+
+.ui-button-clip {
+  width: 0;
+  height: 0;
+  font-size: 0;
+  position: absolute;
+  clip: rect(0 0 0 0); }
+
+.ui-button-clip.ui-outline + label.ui-button {
+  outline: 1px dotted #00a5e0;
+  outline: 5px auto -webkit-focus-ring-color; }
 
 .ui-button:not(.disabled):active,
 .ui-button:not(.loading):active {
@@ -95,7 +117,9 @@ div.ui-button {
   background-color: #f4615c;
   color: #fff; }
 
-.ui-button-warning:hover {
+.ui-button-warning:hover,
+input.ui-button-warning:focus,
+button.ui-button-warning:focus {
   background-color: #ff7772;
   border-color: #ff7772;
   color: #fff; }
@@ -110,7 +134,9 @@ div.ui-button {
   -ms-pointer-events: none;
   pointer-events: none;
   color: transparent !important;
-  position: relative; }
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center; }
 
 .ui-button.loading:before {
   content: '';
@@ -122,15 +148,22 @@ div.ui-button {
   right: 0;
   bottom: 0;
   margin: auto;
-  background: url(images/Button/loading.gif) no-repeat center; }
+  background: no-repeat center; }
 
-.ui-button-primary.loading:before {
+.ui-button.loading:before,
+input.ui-button.loading {
+  background-image: url(images/Button/loading.gif); }
+
+.ui-button-primary.loading:before,
+input.ui-button-primary.loading {
   background-image: url(images/Button/loading-primary.gif); }
 
-.ui-button-success.loading:before {
+.ui-button-success.loading:before,
+input.ui-button-success.loading {
   background-image: url(images/Button/loading-success.gif); }
 
-.ui-button-warning.loading:before {
+.ui-button-warning.loading:before,
+input.ui-button-warning.loading {
   background-image: url(images/Button/loading-warning.gif); }
 
 /* IE10+ png loading */

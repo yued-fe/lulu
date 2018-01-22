@@ -39,6 +39,11 @@
     // Is it webkit
     var isWebkit = 'WebkitAppearance' in document.documentElement.style || typeof document.webkitHidden != 'undefined';
 
+    // jquery语法
+    $.dialog = function (options) {
+        return new Dialog(options);
+    };
+
     /**
      * 弹框实例方法，目前唯一一个不支持$()包装器方法的UI组件
      * @param {Object} options 纯对象，可选参数

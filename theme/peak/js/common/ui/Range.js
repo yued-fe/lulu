@@ -50,6 +50,7 @@
 
         // el就是type类型为range的input元素
         var defaults = {
+            reverse: false,
             tips: function(value) {
                 return value;
             }
@@ -136,6 +137,10 @@
 
             $(this).addClass('active');
         });
+
+        if (params.reverse) {
+            thumb.addClass('reverse');
+        }
 
         $(document).mousemove(function(event) {
             if (typeof posThumb.x == 'number') {

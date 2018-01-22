@@ -1,7 +1,7 @@
 /**
- * 
+ *
  * @Tab.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-12
  */
 /* tabs */
@@ -17,6 +17,7 @@
   font-size: 16px;
   text-align: center;
   color: #4c5161;
+  text-decoration: none;
   overflow: hidden;
   cursor: pointer; }
 

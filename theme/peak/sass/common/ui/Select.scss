@@ -3,9 +3,9 @@
 @import '../variable';
 
 /**
- * 
+ *
  * @Select.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-06-18
  *
 **/
@@ -48,7 +48,8 @@ select[hidden] + .ui-select {
 	color: $dark;
 	border: 1px solid $borderNormal;
 	border-radius: $borderRadius;
-	background-color: $white;	
+	background-color: $white;
+	text-decoration: none;
 	-webkit-transition: border-color .15s, background-color .15s;
 	transition: border-color .15s, background-color .15s;
 	cursor: pointer;
@@ -83,7 +84,7 @@ select[hidden] + .ui-select {
 .ui-select-icon {
 	position: absolute;
 	width: 20px;
-	height: 20px;	
+	height: 20px;
 	background: url(#{$urlImage}/Select/icon-arrow.png) no-repeat center;
 	background-size: 20px 20px;
 	right: 7px;
@@ -135,6 +136,7 @@ select[hidden] + .ui-select {
 	padding: 9px 12px;
 	color: $dark;
 	background-color: $backgroundList;
+	text-decoration: none;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	-webkit-transition: background-color .15s;
@@ -160,7 +162,7 @@ select[disabled] + .ui-select {
 	opacity: .38;
 	filter: alpha(opacity=38);
 	-webkit-animation: none;
-	animation: none;	
+	animation: none;
 }
 select[disabled] + .ui-select .ui-select-button {
 	cursor: default;

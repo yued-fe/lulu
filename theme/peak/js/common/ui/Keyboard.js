@@ -440,8 +440,24 @@
         // 全局对a标签按钮进行无障碍角色设置
         doc.addEventListener('focusin', function (event) {
             var target = event.target;
-            if (target && /^javascript/.test(target.href) && !target.getAttribute('role')) {
+            if (!target) {
+                return;
+            }
+            if (/^javascript/.test(target.href) && !target.getAttribute('role')) {
                 target.setAttribute('role', 'button');
+            } else if (target.type == 'button' || target.type == 'submit') {
+                if (win.isKeyEvent) {
+                    classList.add(target);
+                }
+            }
+        });
+        doc.addEventListener('focusout', function (event) {
+            var target = event.target;
+            if (!target) {
+                return;
+            }
+            if (target.type == 'button' || target.type == 'submit') {
+                classList.remove(target);
             }
         });
     }

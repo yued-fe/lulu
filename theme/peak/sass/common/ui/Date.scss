@@ -37,8 +37,6 @@
 	visibility: hidden;
 }
 
-
-
 .ui-date-input,
 .ui-year-input,
 .ui-month-input,
@@ -131,7 +129,6 @@ div.ui-month-range-input {
 	}
 }
 
-
 .ui-date-arrow {
 	position: absolute;
 	width: 20px;
@@ -143,7 +140,6 @@ div.ui-month-range-input {
 	top: 10px;
 	cursor: pointer;
 }
-
 
 /* 选择浮层 */
 .ui-date-container {
@@ -160,6 +156,7 @@ div.ui-month-range-input {
 	z-index: 9;
 }
 .ui-date-container a {
+	text-decoration: none;
 	-webkit-transition: background-color .2s, color .2s;
 	transition: background-color .2s, color .2s;
 }
@@ -254,7 +251,6 @@ a.ui-date-item:hover {
 	padding-left: 5px;
 	padding-right: 2px;
 }
-
 
 .ui-date-item {
 	display: inline-block;

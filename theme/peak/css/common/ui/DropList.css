@@ -1,7 +1,7 @@
 /**
- * 
+ *
  * @DropList.css
- * @author xinxuzhang 
+ * @author xinxuzhang
  * @create 15-07-01
  *
 **/
@@ -23,6 +23,7 @@
   line-height: 20px;
   padding: 7px 12px 8px;
   color: #4c5161;
+  text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
   text-overflow: ellipsis;

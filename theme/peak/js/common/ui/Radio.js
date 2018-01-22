@@ -8,7 +8,7 @@
     if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
-        factory().init();
+        factory();
     }
 }(this, function (require) {
     //require('plugin/jquery');
@@ -68,7 +68,7 @@
         // 压缩的时候少36字节
         var selector = 'input[type=radio]';
         // 全局委托
-        $(document.body).delegate(selector, 'click', function() {
+        $(document.body).on('click', selector, function() {
             $(this).propMatch();
         });
 

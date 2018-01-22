@@ -36,11 +36,34 @@
 div.ui-button {
 	display: block;
 }
+button,
+[type="button"],
+[type="submit"] {
+	outline: 0;
+}
+input.ui-button,
+button.ui-button {
+	height: 20px;
+	-ms-box-sizing: content-box;
+	box-sizing: content-box;
+}
 .ui-button:hover {
 	color: $dark;
 	border-color: $borderHover;
 	text-decoration: none;
 }
+
+.ui-button-clip {
+	width: 0; height: 0;
+	font-size: 0;
+	position: absolute;
+	clip: rect(0 0 0 0);
+}
+.ui-button-clip.ui-outline + label.ui-button {
+	outline: 1px dotted $borderFocus;
+	outline: 5px auto -webkit-focus-ring-color;
+}
+
 .ui-button:not(.disabled):active,
 .ui-button:not(.loading):active {
 	background-color: $light;
@@ -74,7 +97,6 @@ div.ui-button {
 	border-color: $backgroundBlueActive;
 }
 
-
 .ui-button-success,
 .ui-button-success.disabled,
 .ui-button-success.disabled:hover,
@@ -105,7 +127,9 @@ div.ui-button {
 	background-color: $backgroundRed;
 	color: $white;
 }
-.ui-button-warning:hover {
+.ui-button-warning:hover,
+input.ui-button-warning:focus,
+button.ui-button-warning:focus {
 	background-color: $backgroundRedHover;
 	border-color: $backgroundRedHover;
 	color: $white;
@@ -122,6 +146,8 @@ div.ui-button {
 	pointer-events: none;
 	color: transparent!important;
 	position: relative;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .ui-button.loading:before {
@@ -130,16 +156,23 @@ div.ui-button {
 	width: 20px; height: 20px;
 	left: 0; top: 0; right: 0; bottom: 0;
 	margin: auto;
-	background: url(#{$urlImage}/Button/loading.gif) no-repeat center;
+	background: no-repeat center;
+}
+.ui-button.loading:before,
+input.ui-button.loading {
+	background-image: url(#{$urlImage}/Button/loading.gif);
 }
 
-.ui-button-primary.loading:before {
+.ui-button-primary.loading:before,
+input.ui-button-primary.loading {
 	background-image: url(#{$urlImage}/Button/loading-primary.gif);
 }
-.ui-button-success.loading:before {
+.ui-button-success.loading:before,
+input.ui-button-success.loading {
 	background-image: url(#{$urlImage}/Button/loading-success.gif);
 }
-.ui-button-warning.loading:before {
+.ui-button-warning.loading:before,
+input.ui-button-warning.loading {
 	background-image: url(#{$urlImage}/Button/loading-warning.gif);
 }
 
