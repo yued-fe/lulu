@@ -8,6 +8,8 @@
 
 想要使用lulu ui，直接引入CSS和JS文件地址就可以使用了。HTML还是原来的HTML，CSS还是原来的CSS。什么Vue什么MV*什么高大上概念完全不需要掌握，参照文档，复制复制，粘贴粘贴，效果就出来了。
 
+API文档参见：<a href="http://l-ui.com/#content/about/design.php">LuLu UI API中文文档</a>
+
 ## 使用场景广泛
 
 lulu ui既保留了jQuery插件即插即用的特性，也支持适合多人合作的模块化加载方式，因此适用场景更加广泛。
