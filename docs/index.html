@@ -2,6 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./favicon.png">
     <title>LuLu UI中文官方文档</title>
     <style>
     body {
@@ -23,11 +24,11 @@ document.body.insertAdjacentHTML('afterbegin', '<iframe src="http://www.zhangxin
 
 window.addEventListener('message', function(e) {
 	if (!history.pushState) {
-		return;	
+		return;
 	}
     var data = e.data;
 	if (typeof data != 'string') {
-		return;	
+		return;
 	}
 	var arrUrl = data.split('|');
 	// /sp/lulu/mockup/content/about/design.php
@@ -38,7 +39,7 @@ window.addEventListener('message', function(e) {
 	}
  }, false);
 window.addEventListener("popstate", function() {
-    location.reload();										
+    location.reload();
 });
 </script>
 </body>
