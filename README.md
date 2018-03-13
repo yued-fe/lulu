@@ -2,6 +2,8 @@
 
 基于jQuery，针对PC网站，兼容IE7+（modern主题）或IE8+（peak主题）的前端UI框架。
 
+<img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
+
 ## 上手简单
 
 想要使用lulu ui，直接引入CSS和JS文件地址就可以使用了。HTML还是原来的HTML，CSS还是原来的CSS。什么Vue什么MV*什么高大上概念完全不需要掌握，参照文档，复制复制，粘贴粘贴，效果就出来了。
