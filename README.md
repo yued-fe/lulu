@@ -1,12 +1,19 @@
 # lulu ui
 
-基于jQuery，针对PC网站，兼容IE7+（modern主题）或IE8+（peak主题）的前端UI框架，尤其适合面向外部用户的网站开发。
+基于jQuery，针对PC网站，兼容IE7+（modern主题）或IE8+（peak主题）的前端UI框架。
+
+下面这个形象照就是lulu ui的气质写照，更柔软，更亲近，同时简单单纯，对用户侧非常友好，因此，非常适合面向外部用户的网站开发。
 
 <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
+
+
+
 ## 上手简单
 
-想要使用lulu ui，直接引入CSS和JS文件地址就可以使用了。HTML还是原来的HTML，CSS还是原来的CSS。什么Vue什么MV*什么高大上概念完全不需要掌握，参照文档，复制复制，粘贴粘贴，效果就出来了。
+lulu整个项目就是提供一些UI组件的JS和CSS，很纯粹的JS和CSS，没有任何矫揉造作的“变身”处理。
+
+因此，想要使用lulu ui，直接引入CSS和JS文件地址就可以使用了。HTML还是原来的HTML，CSS还是原来的CSS。什么Vue什么MV*什么高大上概念完全不需要掌握，参照文档，复制复制，粘贴粘贴，效果就出来了。
 
 API文档参见：<a href="http://l-ui.com/#content/about/design.php">LuLu UI API中文文档</a>
 
@@ -27,3 +34,17 @@ lulu ui诞生到现在已经有好几年了，跟那些年轻的UI框架不同�
 ## 体验
 
 lulu ui支持retina视网膜，同时支持aria无障碍访问，以及keyboard键盘无障碍访问。坐下，坐下，都是基本操作而已。
+
+## 快速了解lulu项目目录结构
+
+所有资源都在<code>/theme/peak/</code>目录下，分sass, css和js 3个目录，如果你不想要sass，那这个文件夹就不用管。
+
+图片资源在css目录下。
+
+组件分ui和comp两个目录，前者是UI组件，后者是基于UI组件整合的前端解决方案。
+
+更具体信息可以参见：<a href="http://l-ui.com/#content/about/use.php">文档-使用与发布</a>
+
+## 其他说明
+
+因为IE7大势已去，目前modern主题已停止维护。
