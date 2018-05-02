@@ -44,7 +44,7 @@ div.ui-textarea > textarea {
 /* focus */
 .ui-textarea:focus,
 .ui-textarea > textarea:focus {
-  border-color: #00a5e0; }
+  border-color: #2486ff; }
 
 /* textarea with count */
 .ui-textarea-x {
@@ -102,7 +102,7 @@ div.ui-textarea > textarea {
 /* 注意相邻位置，如果文本域前后位置发生变化，表单验证组件Validate.js 中 getTarget那里逻辑也要变化 */
 .ui-textarea-x > textarea:focus ~ .ui-textarea,
 .ui-textarea-x > .textarea:focus ~ .ui-textarea {
-  border-color: #00a5e0; }
+  border-color: #2486ff; }
 
 .ui-textarea-x .ui-placeholder {
   padding: 7px !important;

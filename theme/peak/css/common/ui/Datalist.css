@@ -53,10 +53,10 @@
   display: none; }
 
 .ui-datalist-option:hover {
-  background-color: #f2fcff; }
+  background-color: #f0f7ff; }
 
 .ui-datalist-datalist > .selected {
-  background-color: #e0f7ff; }
+  background-color: #e0f0ff; }
 
 .ui-datalist-value {
   display: block;

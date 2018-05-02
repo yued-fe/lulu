@@ -56,7 +56,7 @@ button.ui-button {
   clip: rect(0 0 0 0); }
 
 .ui-button-clip.ui-outline + label.ui-button {
-  outline: 1px dotted #00a5e0;
+  outline: 1px dotted #2486ff;
   outline: 5px auto -webkit-focus-ring-color; }
 
 .ui-button:not(.disabled):active,
@@ -75,19 +75,19 @@ button.ui-button {
 .ui-button-primary.disabled:hover,
 .ui-button-primary.loading,
 .ui-button-primary.loading:hover {
-  border: 1px solid #00a5e0;
-  background-color: #00a5e0;
+  border: 1px solid #2486ff;
+  background-color: #2486ff;
   color: #fff; }
 
 .ui-button-primary:hover {
-  background-color: #00b4f5;
-  border-color: #00b4f5;
+  background-color: #0160d5;
+  border-color: #0160d5;
   color: #fff; }
 
 .ui-button-primary:not(.disabled):active,
 .ui-button-primary:not(.loading):active {
-  background-color: #0092c7;
-  border-color: #0092c7; }
+  background-color: #0057c3;
+  border-color: #0057c3; }
 
 .ui-button-success,
 .ui-button-success.disabled,

@@ -27,7 +27,7 @@
 
 .ui-tab-tab:hover,
 .ui-tab-tab:hover a {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 .ui-tab-tabs .checked,
 .ui-tab-tabs .checked a,
@@ -36,7 +36,7 @@
   padding-top: 2px;
   margin-bottom: -1px;
   border-bottom: 3px solid;
-  color: #00a5e0;
+  color: #2486ff;
   cursor: default; }
 
 .ui-tab-line {
@@ -45,7 +45,7 @@
   bottom: -1px;
   left: 0;
   width: 0;
-  border-bottom: 3px solid #00a5e0;
+  border-bottom: 3px solid #2486ff;
   -webkit-transition: all .35s;
   transition: all .35s; }
 

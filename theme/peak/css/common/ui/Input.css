@@ -59,7 +59,7 @@ input.ui-input,
 
 .ui-input:focus,
 .ui-input > input:focus {
-  border-color: #00a5e0; }
+  border-color: #2486ff; }
 
 span.ui-input {
   display: inline-block; }
@@ -126,7 +126,7 @@ div.ui-input > input {
 
 /* 注意相邻位置，如果文本域前后位置发生变化，表单验证组件Validate.js 中 getTarget那里逻辑也要变化 */
 .ui-input-x > input:focus ~ .ui-input {
-  border-color: #00a5e0; }
+  border-color: #2486ff; }
 
 .ui-input-x .ui-placeholder {
   padding: 9px 7px;
@@ -158,7 +158,7 @@ span.ui-search-input {
   background-color: #ababaf; }
 
 .ui-search-input > input:focus ~ .ui-icon-search {
-  background-color: #00a5e0; }
+  background-color: #2486ff; }
 
 .ui-search-input > .error ~ .ui-icon-search,
 .ui-search-input > .error:focus ~ .ui-icon-search {
@@ -237,10 +237,10 @@ div.ui-search-right > .ui-icon-search {
   background-color: #ababaf; }
 
 .ui-search-right > input:focus ~ .ui-icon-search:before {
-  border-color: #00a5e0; }
+  border-color: #2486ff; }
 
 .ui-search-right > input:focus ~ .ui-icon-search:after {
-  background-color: #00a5e0; }
+  background-color: #2486ff; }
 
 .ui-search-right .ui-placeholder {
   z-index: 1; }

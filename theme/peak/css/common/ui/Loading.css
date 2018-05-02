@@ -46,7 +46,7 @@ s.ui-loading-icon {
   margin: -10px 0 0 -10px; }
 
 .ui-loading-primary {
-  background-color: #00a5e0; }
+  background-color: #2486ff; }
 
 .ui-loading-primary > .ui-loading-icon {
   background: url(images/Loading/loading-white.gif);
@@ -82,9 +82,9 @@ s.ui-loading-icon {
     top: 0; }
   .ui-loading-icon::after {
     left: 0;
-    background: linear-gradient(to top, #00a5e0, transparent 90%); }
+    background: linear-gradient(to top, #2486ff, transparent 90%); }
   .ui-loading-icon::before {
-    background-color: #00a5e0; }
+    background-color: #2486ff; }
   .ui-loading-primary > .ui-loading-icon::before {
     background-color: #fff; }
   .ui-loading-primary > .ui-loading-icon::after {

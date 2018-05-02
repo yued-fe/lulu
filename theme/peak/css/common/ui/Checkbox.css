@@ -20,7 +20,7 @@ input[type=checkbox] {
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: inset 0 1px, inset 1px 0, inset -1px 0, inset 0 -1px;
@@ -41,16 +41,16 @@ input[type=checkbox] {
   color: #ababaf; }
 
 :focus + .ui-checkbox {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 :checked:focus + .ui-checkbox {
-  color: #008cbf;
-  background-color: #008cbf; }
+  color: #0057c3;
+  background-color: #0057c3; }
 
 :checked + .ui-checkbox,
 :checked + .ui-checkbox:hover {
-  color: #00a5e0;
-  background-color: #00a5e0; }
+  color: #2486ff;
+  background-color: #2486ff; }
 
 .ui-checkbox::after {
   content: '';

@@ -3,9 +3,9 @@
 @import '../variable';
 
 /**
- * 
+ *
  * @Range.css
- * @author zhangxinxu 
+ * @author zhangxinxu
  * @create 15-07-20
  * @edit   17-06-16   keyboard support
 **/
@@ -48,7 +48,7 @@ div.ui-range-input > input {
 	border: 1px solid $borderNormal;
 	background-color: $white;
 	border: 0 rgba(1,1,1,0);
-	box-shadow: 0 1px 4px rgba(0,0,0,.25);
+	box-shadow: 0 1px 3px 1px rgba(0,0,0,.25);
 	-webkit-transition: border-color .15s, background-color .15s;
 	transition: border-color .15s, background-color .15s;
 	cursor: pointer;
@@ -58,5 +58,5 @@ div.ui-range-input > input {
 }
 .ui-range-thumb.active {
 	background-color: $light;
-	box-shadow: 0 0 2px rgba(0,0,0,.25);
+	box-shadow: 0 0 1px 1px rgba(0,0,0,.25);
 }

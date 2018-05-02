@@ -95,7 +95,7 @@
 
 .ui-dialog-close:hover {
   background-color: #4c5161;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   fill: #4c5161; }
 
 .ui-dialog-body {

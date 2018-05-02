@@ -33,7 +33,7 @@
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1); }
 
 :checked + .ui-switch {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 :checked + .ui-switch::before {
   margin-left: 18px; }
@@ -48,13 +48,13 @@
 
 :checked:focus + .ui-switch,
 :checked + .ui-switch:hover {
-  color: #008cbf; }
+  color: #0057c3; }
 
 :disabled + .ui-switch:hover {
   color: #b6bbc6; }
 
 :checked:disabled + .ui-switch:hover {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 /*IE7, IE8 使用图片作UI*/
 @media \0screen\,screen\9 {

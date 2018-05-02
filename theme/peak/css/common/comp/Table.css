@@ -8,7 +8,7 @@
 **/
 /* table shadow */
 .table-x {
-  box-shadow: 0 1px 3px rgba(0, 0, 1, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 1, 0.2);
   background-color: #fff;
   border: 1px solid #d0d0d5;
   border: 0 rgba(1, 1, 1, 0); }
@@ -78,7 +78,7 @@
   cursor: pointer; }
 
 .table-page-every:hover {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 .table-page {
   float: right;

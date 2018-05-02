@@ -1,5 +1,10 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-<path fill="#00A5E0" d="M145.659,68.949c-5.101-5.208-13.372-5.208-18.473,0L99.479,97.233
-	L71.772,68.949c-5.1-5.208-13.371-5.208-18.473,0c-5.099,5.208-5.099,13.648,0,18.857l46.18,47.14l46.181-47.14
-	C150.759,82.598,150.759,74.157,145.659,68.949z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-205 297 200 200" style="enable-background:new -205 297 200 200;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#2486FF;}
+</style>
+<path class="st0" d="M-59.3,365.9c-5.1-5.2-13.4-5.2-18.5,0l-27.7,28.3l-27.7-28.3c-5.1-5.2-13.4-5.2-18.5,0
+	c-5.1,5.2-5.1,13.6,0,18.9l46.2,47.1l46.2-47.1C-54.2,379.6-54.2,371.2-59.3,365.9L-59.3,365.9z"/>
 </svg>

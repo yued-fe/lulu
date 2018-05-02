@@ -37,7 +37,7 @@ input[type=radio] {
   border-color: #ababaf; }
 
 :focus + .ui-radio {
-  border-color: rgba(0, 165, 224, 0.99); }
+  border-color: rgba(36, 134, 255, 0.99); }
 
 .ui-radio::before {
   content: '';
@@ -46,7 +46,7 @@ input[type=radio] {
   height: 10px;
   margin: 4px auto 0;
   border-radius: 50%;
-  background-color: #00a5e0;
+  background-color: #2486ff;
   visibility: hidden; }
 
 :checked + .ui-radio::before {

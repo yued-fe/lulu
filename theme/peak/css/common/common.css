@@ -39,11 +39,11 @@ body, .dark {
 
 /*蓝色*/
 a, .blue, a.dark:hover {
-  color: #00a5e0; }
+  color: #2486ff; }
 
 /*hover蓝色*/
 a:hover {
-  color: #008cbf; }
+  color: #0057c3; }
 
 /*灰色*/
 .gray {
