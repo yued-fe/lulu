@@ -443,7 +443,7 @@ seajs.config(config).use(['common/comp/Table', 'common/ui/Validate', 'common/ui/
 
     var mixTable = new Table($('#testtable-mix'), {
         ajaxOptions: {
-            url: 'http://yapi.demo.qunar.com/mock/7188/lulu/table',
+            url: 'https://encrypt.proxy.is26.com/lulu/mock/7188/lulu/table',
             data: function () {
                 return {
                     key: encodeURIComponent($('#mixSearchForm input').val())
@@ -500,7 +500,7 @@ seajs.config(config).use(['common/comp/Table', 'common/ui/Validate', 'common/ui/
 
         if ($(this).parent().hasClass('disabled')) return false;
 
-        var dialog = new Dialog().confirm('确认删除选中的这些��论？', {
+        var dialog = new Dialog().confirm('确认删除选中的这些评论？', {
             buttons: [{
                 value: '删除',
                 events: {
