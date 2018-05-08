@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Dialog弹框单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css">
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Dialog.css">
+</head>
+<body>
+<p><button>出现吧，alert提示框</button></p>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Dialog.js"></script>
+<script>
+$('button').on('click', function () {
+    $.dialog().alert('我出现了，哦也！');
+});
+</script>
+</body>
+</html>

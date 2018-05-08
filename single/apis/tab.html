@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Tab选项卡单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Tab.css">
+</head>
+<body>
+<div id="tabView" class="ui-tab-tabs">
+        <a href="javascript:" class="ui-tab-tab checked" data-rel="tabTarget1">选项卡1</a>
+    <a href="javascript:" class="ui-tab-tab" data-rel="tabTarget2">选项卡2</a>
+</div>
+<div class="ui-tab-contents">
+    <article id="tabTarget1" class="ui-tab-content checked">选项卡1对应面板内容</article>
+    <article id="tabTarget2" class="ui-tab-content">选项卡2对应面板内容</article>
+</div>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Tab.js"></script>
+<script>
+$('#tabView > a').tab();
+</script>
+</body>
+</html>

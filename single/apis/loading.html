@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>loading单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Loading.css">
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/animate.css">
+</head>
+<body>
+<h3>内联loading</h3>
+<p><span class="ui-loading-icon"></span></p>
+<p><s class="ui-loading-icon"></s></p>
+<h3>容器内loading</h3>
+<div class="ui-loading" style="height:100px;"><span class="ui-loading-icon"></span></div>
+<div class="ui-loading" style="height:100px;"><s class="ui-loading-icon"></s></div>
+<h3>JS创建loading</h3>
+<p id="testX" style="height: 100px;"></p>
+<p align="center"><button>点击上面出现loading</button></p>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Loading.js"></script>
+<script>
+$('button').on('click', function () {
+    $('#testX').loading();
+});
+</script>
+</body>
+</html>

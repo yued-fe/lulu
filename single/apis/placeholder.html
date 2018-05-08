@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>placeholder占位符单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/c/=/lulu/theme/peak/css/common/ui/Input.css,/lulu/theme/peak/css/common/ui/Textarea.css,/lulu/theme/peak/css/common/ui/Placeholder.css">
+</head>
+<body>
+
+<p><input type="email" class="ui-input db mb20" placeholder="块状input测试"></p>
+<p><span class="ui-input"><input type="email" placeholder="请输入邮箱"></span></p>
+<div class="ui-input"><input type="email" placeholder="请输入邮箱"></div>
+<p><textarea class="ui-textarea" placeholder="请输入至少100个字，注意，换行效果测试~" rows="4"></textarea></p>
+
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Placeholder.js"></script>
+<script>
+$(':input').placeholder();
+</script>
+
+</body>
+</html>

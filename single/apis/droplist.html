@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>DropList下拉列表单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/DropList.css">
+</head>
+<body>
+<p><button id="trigger">点击我</button></p>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Drop.js,/lulu/theme/peak/js/common/ui/DropList.js"></script>
+<script>
+$('#trigger').dropList([{
+    href: 'http://www.qidian.com/',
+    value: '起点中文网'
+}, {
+    href: 'http://www.hongxiu.com/',
+    value: '红袖添香'
+}, {
+    href: 'http://www.xs8.cn/',
+    value: '言情小说吧',
+    disabled: true
+}], {
+    width: 100
+});
+</script>
+</body>
+</html>

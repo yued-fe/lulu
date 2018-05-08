@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>DateTime日期时间选择单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Input.css">
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css">
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Date.css">
+</head>
+<body>
+<p>选择日期：<span class="ui-input ui-date-input"><input type="date" id="date1" min="2014-07-03"></span></p>
+<p>选择年：<span class="ui-input ui-year-input"><input type="year" min="2015" max="2020"></span></p>
+<p>选择月：<span class="ui-input ui-month-input"><input type="month" min="2015-05" max="2016-10"></span></p>
+<p>选择时间：<span class="ui-input ui-time-input"><input type="time" max="23:10"></span></p>
+<p>选择月份范围：<span class="ui-input ui-month-range-input"><input type="month-range" min="2016-03" max="2029-04"></span></p>
+ <p>选择日期范围：<span class="ui-input ui-date-range-input"><input type="date-range" min="2017-11-10" max="2029-04-01"></span></p>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/DateTime.js"></script>
+<script>
+// 页面上所有的时间、日期下拉
+$('input').each(function () {
+    var type = $(this).attr('type');
+    if (/^date|year|month|time|hour|minute/.test(type)) {
+        new DateTime($(this));
+    }
+});
+</script>
+</body>
+</html>

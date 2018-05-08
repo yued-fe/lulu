@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Drop下拉单独使用示意</title>
+</head>
+<body>
+<p><button id="trigger">点击我</button></p>
+<div id="target" style="padding: 20px; background-color: #fff; position: absolute; display: none; z-index: 1; border: 1px solid #bbb;">
+    <button>按钮1</button>
+    <p class="mt10">
+        <a href="javascript:">测试1</a>
+    </p>
+</div>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Drop.js"></script>
+<script>
+$('#trigger').drop($('#target'), {
+    eventType: 'click',
+    position: '4-1'
+});
+</script>
+</body>
+</html>

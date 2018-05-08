@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>datalist数据列表单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Datalist.css">
+</head>
+<body>
+<form action="datalist.html">
+    <input class="ui-input mr10" type="search" id="ajaxSearch" name="key" size="30" placeholder="输入字母"> <input type="submit" id="sSubmit" value="搜索">
+</form>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Datalist.js"></script>
+<script>
+new Datalist($('#ajaxSearch'), {
+    data: {
+        url: '../../common/cgi/search.html',
+        data: {
+            userid: 1
+        },
+        success: function() {
+            console.log('success callback success!');
+        },
+        error: function(response, status) {
+            console.log('error:' + status);
+        }
+    }
+});
+</script>
+</body>
+</html>

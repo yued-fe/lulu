@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Tips.css">
+</head>
+<body>
+<h3>点击注册按钮测试</h3>
+<form action="../../common/cgi/submit.html" method="post">
+    <div>
+        <label for="idTel">手机号<span class="red abs">*</span></label>
+        <div>
+            <input type="tel" id="idTel" class="ui-input" size="12" name="tel" required>
+        </div>
+    </div>
+    <div>
+        <label for="idCode">验证码<span class="red abs">*</span></label>
+        <div>
+            <input type="code" id="idCode" class="ui-input" size="4" name="code" required pattern="\d{4}">
+        </div>
+    </div>
+    <div>
+        <div><label for="idMark">备注</label></div>
+        <textarea id="idMark" maxlength="140" rows="5">附件</textarea>
+    </div>
+    <p>
+        <input type="submit" id="formSubmit" class="clip" value="注册">
+    </p>
+</form>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/ErrorTip.js,/lulu/theme/peak/js/common/ui/Validate.js"></script>
+<script>
+$('form').validate(function () {
+    alert('验证通过');
+});
+</script>
+</body>
+</html>

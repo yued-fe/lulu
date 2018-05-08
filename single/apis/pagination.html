@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination分页单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Pagination.css">
+</head>
+<body>
+<p id="testPage" style="height: 28px;"></div>
+<p id="testPage2" style="height: 28px;"></div>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Pagination.js"></script>
+<script>
+$('#testPage').pagination({
+    length: 280,
+    every: 15
+});
+$('#testPage2').pagination({
+    length: 280,
+    every: 15,
+    mode: 'short'
+});
+</script>
+</body>
+</html>

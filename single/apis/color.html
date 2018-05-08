@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>color颜色选择单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Color.css">
+</head>
+<body>
+<p><span id="CC" class="vm">颜色为：</span><input type="color" id="colorPicker" class="ui-color-input"></p>
+
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Drop.js,/lulu/theme/peak/js/common/ui/Color.js"></script>
+<script>
+$("#colorPicker").color().change(function() {
+    $('#CC').css('color', this.value);
+})
+</script>
+</body>
+</html>

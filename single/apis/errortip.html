@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ErrorTip出错提示单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Tips.css">
+</head>
+<body>
+<h3>点击下面的提交按钮</h3>
+<p><input required=""></p>
+<p><button>提交</button></p>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/ErrorTip.js"></script>
+<script>
+$('button').on('click', function () {
+    $('input').errorTip('尚未输入内容');
+});
+</script>
+</body>
+</html>

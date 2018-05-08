@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>input输入框单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Input.css">
+</head>
+<body>
+<h3>普通输入框</h3>
+<p><input class="ui-input"></p>
+<p><span class="ui-input"><input></span></p>
+<p><div class="ui-input"><input></div></p>
+<p><input class="ui-input error" required value="出错"></p>
+<div class="ui-input-x" style="width:400px;">
+    <input id="forInputFocus" maxlength="20" placeholder="占位符">
+    <div class="ui-input"></div>
+    <label for="forInputFocus" class="ui-input-count">
+        <span>0</span>/<span>20</span>
+    </label>
+</div>
+<h3>搜索框</h3>
+<p><input type="search" class="ui-input"></p>
+<p><span class="ui-input ui-search-input">
+    <input type="search">
+    <a href="javascript:" class="ui-icon-search">搜索</a>
+</span></p>
+<p><span class="ui-input ui-search-input ui-search-right">
+    <input id="spanSearch" type="search" placeholder="测试">
+    <label class="ui-icon-search">搜索</label>
+</span></p>
+<div class="ui-input ui-search-input">
+    <input type="search">
+    <a href="javascript:" class="ui-icon-search">搜索</a>
+</div>
+</body>
+</html>

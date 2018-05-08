@@ -1,0 +1,801 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>LuLu UI中文文档和演示 &raquo; 模态层-弹框</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+<link rel="stylesheet" href="../../common/css/mockup.css">
+</head>
+
+<body>
+<div class="header">
+	<a href="../../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI组件中文文档 &raquo; 模态层-弹框</h1></a>
+</div>
+<div class="main">
+	<!-- 侧边栏 -->
+    <!-- SVG sprites -->
+<div class="dn"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+  <defs>
+  <symbol viewBox="0 0 1759 1280" id="icon-maxcdn"><path d="M1745 517l-164 763h-334l178-832q13-56-15-88-27-33-83-33h-169l-204 953H620l204-953H538l-204 953H0l204-953L51 0h1276q101 0 189.5 40.5T1664 154q60 73 81 168.5t0 194.5z"/></symbol>
+  <symbol viewBox="0 0 1641 1643" id="icon-wrench"><path d="M363 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm644-420l-682 682q-37 37-90 37-52 0-91-37L38 1498q-38-36-38-90 0-53 38-91l681-681q39 98 114.5 173.5T1007 924zm634-435q0 39-23 106-47 134-164.5 217.5T1195 896q-185 0-316.5-131.5T747 448t131.5-316.5T1195 0q58 0 121.5 16.5T1424 63q16 11 16 28t-16 28l-293 169v224l193 107q5-3 79-48.5t135.5-81T1609 454q15 0 23.5 10t8.5 25z"/></symbol>
+  <symbol viewBox="0 0 1536 1536" id="icon-delicious"><path d="M1472 1248V768H768V64H288q-93 0-158.5 65.5T64 288v480h704v704h480q93 0 158.5-65.5T1472 1248zm64-960v960q0 119-84.5 203.5T1248 1536H288q-119 0-203.5-84.5T0 1248V288Q0 169 84.5 84.5T288 0h960q119 0 203.5 84.5T1536 288z"/></symbol>
+ <symbol viewBox="0 0 1536 1536" id="icon-caret-square-o-right"><path d="M1088 768q0 33-27 52l-448 320q-31 23-66 5-35-17-35-57V448q0-40 35-57 35-18 66 5l448 320q27 19 27 52zm192 480V288q0-14-9-23t-23-9H288q-14 0-23 9t-9 23v960q0 14 9 23t23 9h960q14 0 23-9t9-23zm256-960v960q0 119-84.5 203.5T1248 1536H288q-119 0-203.5-84.5T0 1248V288Q0 169 84.5 84.5T288 0h960q119 0 203.5 84.5T1536 288z"/></symbol>
+ <symbol viewBox="0 0 1792 1408" id="icon-tasks"><path d="M1024 1280h640v-128h-640v128zM640 768h1024V640H640v128zm640-512h384V128h-384v128zm512 832v256q0 26-19 45t-45 19H64q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19H64q-26 0-45-19T0 832V576q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19H64q-26 0-45-19T0 320V64q0-26 19-45T64 0h1664q26 0 45 19t19 45z"/></symbol>
+ <symbol viewBox="0 0 1792 1408" id="icon-server"><path d="M128 1280h1024v-128H128v128zm0-512h1024V640H128v128zm1568 448q0-40-28-68t-68-28-68 28-28 68 28 68 68 28 68-28 28-68zM128 256h1024V128H128v128zm1568 448q0-40-28-68t-68-28-68 28-28 68 28 68 68 28 68-28 28-68zm0-512q0-40-28-68t-68-28-68 28-28 68 28 68 68 28 68-28 28-68zm96 832v384H0v-384h1792zm0-512v384H0V512h1792zm0-512v384H0V0h1792z"/></symbol>
+<symbol viewBox="0 0 1408 1408" id="icon-square-o"><path d="M1120 128H288q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113V288q0-66-47-113t-113-47zm288 160v832q0 119-84.5 203.5T1120 1408H288q-119 0-203.5-84.5T0 1120V288Q0 169 84.5 84.5T288 0h832q119 0 203.5 84.5T1408 288z"/></symbol>
+<symbol viewBox="0 0 1664 1408" id="icon-table"><path d="M512 1248v-192q0-14-9-23t-23-9H160q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm0-384V672q0-14-9-23t-23-9H160q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm512 384v-192q0-14-9-23t-23-9H672q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zM512 480V288q0-14-9-23t-23-9H160q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm512 384V672q0-14-9-23t-23-9H672q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm512 384v-192q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm-512-768V288q0-14-9-23t-23-9H672q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm512 384V672q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm0-384V288q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v192q0 14 9 23t23 9h320q14 0 23-9t9-23zm128-320v1088q0 66-47 113t-113 47H160q-66 0-113-47T0 1248V160Q0 94 47 47T160 0h1344q66 0 113 47t47 113z"/></symbol>
+<symbol viewBox="0 0 1664 1728" id="icon-spinner"><path d="M462 1394q0 53-37.5 90.5T334 1522q-52 0-90-38t-38-90q0-53 37.5-90.5T334 1266t90.5 37.5T462 1394zm498 206q0 53-37.5 90.5T832 1728t-90.5-37.5T704 1600t37.5-90.5T832 1472t90.5 37.5T960 1600zM256 896q0 53-37.5 90.5T128 1024t-90.5-37.5T0 896t37.5-90.5T128 768t90.5 37.5T256 896zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5T1202 1394t37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zM494 398q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5T1536 1024t-90.5-37.5T1408 896t37.5-90.5T1536 768t90.5 37.5T1664 896zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136T832 0t136 56 56 136zm530 206q0 93-66 158.5T1330 622q-93 0-158.5-65.5T1106 398q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"/></symbol>
+<symbol viewBox="0 0 1792 1792" id="icon-product-hunt"><path d="M1150 762q0 56-39.5 95t-95.5 39H762V627h253q56 0 95.5 39.5T1150 762zm179 0q0-130-91.5-222T1015 448H582v896h180v-269h253q130 0 222-91.5t92-221.5zm463 134q0 182-71 348t-191 286-286 191-348 71-348-71-286-191-191-286T0 896t71-348 191-286T548 71 896 0t348 71 286 191 191 286 71 348z"/></symbol>
+<symbol viewBox="0 0 1536 1536" id="icon-check-square"><path d="M685 1171l614-614q19-19 19-45t-19-45l-102-102q-19-19-45-19t-45 19L640 832 429 621q-19-19-45-19t-45 19L237 723q-19 19-19 45t19 45l358 358q19 19 45 19t45-19zm851-883v960q0 119-84.5 203.5T1248 1536H288q-119 0-203.5-84.5T0 1248V288Q0 169 84.5 84.5T288 0h960q119 0 203.5 84.5T1536 288z"/></symbol>
+<symbol viewBox="0 0 2048 1280" id="icon-toggle-on"><path d="M0 640q0-130 51-248.5t136.5-204T391.5 51 640 0h768q130 0 248.5 51t204 136.5 136.5 204 51 248.5-51 248.5-136.5 204-204 136.5-248.5 51H640q-130 0-248.5-51t-204-136.5T51 888.5 0 640zm1408 512q104 0 198.5-40.5T1770 1002t109.5-163.5T1920 640t-40.5-198.5T1770 278t-163.5-109.5T1408 128t-198.5 40.5T1046 278 936.5 441.5 896 640t40.5 198.5T1046 1002t163.5 109.5T1408 1152z"/></symbol>
+<symbol viewBox="0 0 1792 1408" id="icon-list"><path d="M256 1184v192q0 13-9.5 22.5T224 1408H32q-13 0-22.5-9.5T0 1376v-192q0-13 9.5-22.5T32 1152h192q13 0 22.5 9.5t9.5 22.5zm0-384v192q0 13-9.5 22.5T224 1024H32q-13 0-22.5-9.5T0 992V800q0-13 9.5-22.5T32 768h192q13 0 22.5 9.5T256 800zm0-384v192q0 13-9.5 22.5T224 640H32q-13 0-22.5-9.5T0 608V416q0-13 9.5-22.5T32 384h192q13 0 22.5 9.5T256 416zm1536 768v192q0 13-9.5 22.5t-22.5 9.5H416q-13 0-22.5-9.5T384 1376v-192q0-13 9.5-22.5t22.5-9.5h1344q13 0 22.5 9.5t9.5 22.5zM256 32v192q0 13-9.5 22.5T224 256H32q-13 0-22.5-9.5T0 224V32Q0 19 9.5 9.5T32 0h192q13 0 22.5 9.5T256 32zm1536 768v192q0 13-9.5 22.5t-22.5 9.5H416q-13 0-22.5-9.5T384 992V800q0-13 9.5-22.5T416 768h1344q13 0 22.5 9.5t9.5 22.5zm0-384v192q0 13-9.5 22.5T1760 640H416q-13 0-22.5-9.5T384 608V416q0-13 9.5-22.5T416 384h1344q13 0 22.5 9.5t9.5 22.5zm0-384v192q0 13-9.5 22.5T1760 256H416q-13 0-22.5-9.5T384 224V32q0-13 9.5-22.5T416 0h1344q13 0 22.5 9.5T1792 32z"/></symbol>
+<symbol viewBox="0 0 1536 1280" id="icon-bars"><path d="M1536 1088v128q0 26-19 45t-45 19H64q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19H64q-26 0-45-19T0 704V576q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19H64q-26 0-45-19T0 192V64q0-26 19-45T64 0h1408q26 0 45 19t19 45z"/></symbol>
+<symbol viewBox="0 0 1536 1408" id="icon-sliders"><path d="M352 1152v128H0v-128h352zm352-128q26 0 45 19t19 45v256q0 26-19 45t-45 19H448q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h256zm160-384v128H0V640h864zM224 128v128H0V128h224zm1312 1024v128H800v-128h736zM576 0q26 0 45 19t19 45v256q0 26-19 45t-45 19H320q-26 0-45-19t-19-45V64q0-26 19-45t45-19h256zm640 512q26 0 45 19t19 45v256q0 26-19 45t-45 19H960q-26 0-45-19t-19-45V576q0-26 19-45t45-19h256zm320 128v128h-224V640h224zm0-512v128H672V128h864z"/></symbol>
+<symbol viewBox="0 0 1792 1792" id="icon-eyedropper"><path d="M1698 94q94 94 94 226.5T1698 546l-225 223 104 104q10 10 10 23t-10 23l-210 210q-10 10-23 10t-23-10l-105-105-603 603q-37 37-90 37H320L64 1792l-64-64 128-256v-203q0-53 37-90l603-603-105-105q-10-10-10-23t10-23l210-210q10-10 23-10t23 10l104 104 223-225q93-94 225.5-94T1698 94zM512 1472l576-576-192-192-576 576v192h192z"/></symbol>
+<symbol viewBox="0 0 1792 1536" id="icon-external-link"><path d="M1408 928v320q0 119-84.5 203.5T1120 1536H288q-119 0-203.5-84.5T0 1248V416q0-119 84.5-203.5T288 128h704q14 0 23 9t9 23v64q0 14-9 23t-23 9H288q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113V928q0-14 9-23t23-9h64q14 0 23 9t9 23zm384-864v512q0 26-19 45t-45 19-45-19l-176-176-652 652q-10 10-23 10t-23-10L695 983q-10-10-10-23t10-23l652-652-176-176q-19-19-19-45t19-45 45-19h512q26 0 45 19t19 45z"/></symbol>
+<symbol viewBox="0 0 1664 1792" id="icon-bell"><path d="M848 1696q0-16-16-16-59 0-101.5-42.5T688 1536q0-16-16-16t-16 16q0 73 51.5 124.5T832 1712q16 0 16-16zm816-288q0 52-38 90t-90 38h-448q0 106-75 181t-181 75-181-75-75-181H128q-52 0-90-38t-38-90q50-42 91-88t85-119.5 74.5-158.5 50-206T320 576q0-152 117-282.5T744 135q-8-19-8-39 0-40 28-68t68-28 68 28 28 68q0 20-8 39 190 28 307 158.5T1344 576q0 139 19.5 260t50 206 74.5 158.5 85 119.5 91 88z"/></symbol>
+<symbol viewBox="0 0 901.6666870117188 1664" id="icon-bolt"><path d="M887.333 438q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></symbol>
+<symbol viewBox="0 0 1408 384" id="icon-ellipsis-h"><path d="M384 96v192q0 40-28 68t-68 28H96q-40 0-68-28T0 288V96q0-40 28-68T96 0h192q40 0 68 28t28 68zm512 0v192q0 40-28 68t-68 28H608q-40 0-68-28t-28-68V96q0-40 28-68t68-28h192q40 0 68 28t28 68zm512 0v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68V96q0-40 28-68t68-28h192q40 0 68 28t28 68z"/></symbol>
+<symbol viewBox="0 0 1664 1546" id="icon-dropbox"><path d="M338 589l494 305-342 285L0 860zm986 555v108l-490 293v1l-1-1-1 1v-1l-489-293v-108l147 96 342-284v-2l1 1 1-1v2l343 284zM490 0l342 285-494 304L0 319zm836 589l338 271-489 319-343-285zM1175 0l489 319-338 270-494-304z"/></symbol>
+<symbol viewBox="0 0 1663 1408" id="icon-check-square-o"><path d="M1408 802v318q0 119-84.5 203.5T1120 1408H288q-119 0-203.5-84.5T0 1120V288Q0 169 84.5 84.5T288 0h832q63 0 117 25 15 7 18 23 3 17-9 29l-49 49q-10 10-23 10-3 0-9-2-23-6-45-6H288q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113V866q0-13 9-22l64-64q10-10 23-10 6 0 12 3 20 8 20 29zm231-489l-814 814q-24 24-57 24t-57-24L281 697q-24-24-24-57t24-57l110-110q24-24 57-24t57 24l263 263 647-647q24-24 57-24t57 24l110 110q24 24 24 57t-24 57z"/></symbol>
+<symbol viewBox="0 0 1664 1792" id="icon-calendar"><path d="M128 1664h288v-288H128v288zm352 0h320v-288H480v288zm-352-352h288V992H128v320zm352 0h320V992H480v320zM128 928h288V640H128v288zm736 736h320v-288H864v288zM480 928h320V640H480v288zm768 736h288v-288h-288v288zm-384-352h320V992H864v320zM512 448V160q0-13-9.5-22.5T480 128h-64q-13 0-22.5 9.5T384 160v288q0 13 9.5 22.5T416 480h64q13 0 22.5-9.5T512 448zm736 864h288V992h-288v320zM864 928h320V640H864v288zm384 0h288V640h-288v288zm32-480V160q0-13-9.5-22.5T1248 128h-64q-13 0-22.5 9.5T1152 160v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38H128q-52 0-90-38t-38-90V384q0-52 38-90t90-38h128v-96q0-66 47-113T416 0h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"/></symbol>
+<symbol viewBox="0 0 1899 1515" id="icon-tags"><path d="M448 320q0-53-37.5-90.5T320 192t-90.5 37.5T192 320t37.5 90.5T320 448t90.5-37.5T448 320zm1067 576q0 53-37 90l-491 492q-39 37-91 37-53 0-90-37L91 762q-38-37-64.5-101T0 544V128q0-52 38-90t90-38h416q53 0 117 26.5T763 91l715 714q37 39 37 91zm384 0q0 53-37 90l-491 492q-39 37-91 37-36 0-59-14t-53-45l470-470q37-37 37-90 0-52-37-91L923 91q-38-38-102-64.5T704 0h224q53 0 117 26.5T1147 91l715 714q37 39 37 91z"/></symbol>
+<symbol viewBox="0 0 1792 1408" id="icon-list-alt"><path d="M384 1056v64q0 13-9.5 22.5T352 1152h-64q-13 0-22.5-9.5T256 1120v-64q0-13 9.5-22.5t22.5-9.5h64q13 0 22.5 9.5t9.5 22.5zm0-256v64q0 13-9.5 22.5T352 896h-64q-13 0-22.5-9.5T256 864v-64q0-13 9.5-22.5T288 768h64q13 0 22.5 9.5T384 800zm0-256v64q0 13-9.5 22.5T352 640h-64q-13 0-22.5-9.5T256 608v-64q0-13 9.5-22.5T288 512h64q13 0 22.5 9.5T384 544zm1152 512v64q0 13-9.5 22.5t-22.5 9.5H544q-13 0-22.5-9.5T512 1120v-64q0-13 9.5-22.5t22.5-9.5h960q13 0 22.5 9.5t9.5 22.5zm0-256v64q0 13-9.5 22.5T1504 896H544q-13 0-22.5-9.5T512 864v-64q0-13 9.5-22.5T544 768h960q13 0 22.5 9.5t9.5 22.5zm0-256v64q0 13-9.5 22.5T1504 640H544q-13 0-22.5-9.5T512 608v-64q0-13 9.5-22.5T544 512h960q13 0 22.5 9.5t9.5 22.5zm128 704V416q0-13-9.5-22.5T1632 384H160q-13 0-22.5 9.5T128 416v832q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47H160q-66 0-113-47T0 1248V160Q0 94 47 47T160 0h1472q66 0 113 47t47 113z"/></symbol>
+<symbol viewBox="0 0 1536 1536" id="icon-wpforms"><path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384 768 213 558 384 180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z"/></symbol>
+  </defs>
+</svg></div><!-- 侧边栏 -->
+    <div class="aside">
+    	<i class="aside_bg"></i>
+        <div class="aside_main">
+        	<dl class="aside_dl">
+            	<dt class="aside_dt">关于</dt>
+                <dd><a href="../about/design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+                <dd><a href="../about/use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+            </dl>
+
+            <dl class="aside_dl">
+                <dt class="aside_dt">组件</dt>
+                <dd><a href="../apis/colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+                <dd><a href="../apis/button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>按钮</a></dd>
+                <dd><a href="../apis/input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>文本框</a></dd>
+                <dd><a href="../apis/search.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-server"></use></svg></i>搜索框</a></dd>
+                <dd><a href="../apis/textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>文本域</a></dd>
+                <dd><a href="../apis/table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>表格</a></dd>
+            </dl>
+            <div class="aside_divide"></div>
+            <dl class="aside_dl">
+                <dd><a href="../apis/loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>loading效果</a></dd>
+                <dd><a href="../apis/placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>占位符</a></dd>
+                <dd><a href="../apis/checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>单复选框</a></dd>
+                <dd><a href="../apis/switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            </dl>
+            <div class="aside_divide"></div>
+            <dl class="aside_dl">
+                <dd><a href="../apis/select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+                <dd><a href="../apis/datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+                <dd><a href="../apis/range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+                <dd><a href="../apis/color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+                <dd><a href="../apis/dialog.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+                <dd><a href="../apis/tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips等提示</a></dd>
+                <dd><a href="../apis/lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+                <dd><a href="../apis/pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Pagination分页</a></dd>
+                <dd><a href="../apis/drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+                <dd><a href="../apis/validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+                <dd><a href="../apis/datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+                <dd><a href="../apis/tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+            </dl>
+
+            <div class="aside_group">
+                <dl class="aside_dl">
+                    <dt class="aside_dt">综合实例</dt>
+                    <dd><a href="../example/table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>富交互列表</a></dd>
+                    <dd><a href="../example/form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- 主内容 -->
+    <section>
+    	<div class="section_main">
+        	<div class="section_auto"><!-- 全屏是section-full -->
+            	<h2 class="section_title">模态层-弹框</h2>
+                <!-- 详细内容 -->
+                <article>
+                    <h3>一、弹框效果演示和对应代码示意</h3>
+                    <p>
+                        <a href="javascript:" id="alertDialog" class="ui-button ui-button-success">alert成功提示</a>
+                    </p>
+                    <pre>new Dialog().<span class="red">alert</span>('操作成功！', {
+    <span class="blue">type</span>: 'success'
+}); </pre>
+                    <p>
+                        <a href="javascript:" id="confirmDialog" class="ui-button ui-button-warning">confirm确认</a>
+                    </p>
+                    <pre>$('#xxx').click(function() {
+    var elBtn = $(this);
+    new Dialog().<span class="red">confirm</span>('\
+        &lt;h6>您确定要停用所选的成员吗？&lt;/h6>\
+        &lt;p>成员停用后，可以在停用成员列表中重新启用。&lt;/p>'
+    , {
+        <span class="blue">buttons</span>: [{
+            events: function(event) {
+                elBtn.disabled();
+                event.data.dialog.remove();;
+            }
+        }, {}]
+    });
+});</pre>
+
+                    <p>
+                        <a href="javascript:" id="openDialog" class="ui-button ui-button-primary">普通panel</a>
+                    </p>
+                    <pre>new Dialog({
+    <span class="blue">title</span>: '普通文本框',
+    <span class="blue">content</span>: '我是一段HTML，啦啦啦啦啦',
+    <span class="blue">buttons</span>: [{
+        <span class="blue">value</span>: '知道啦！'
+    }]
+}); </pre>
+                    <p>
+                        <a href="javascript:" id="autoDialog" class="ui-button ui-button-primary">内部滚动自适应panel(类名特殊处理)</a>
+                    </p>
+                    <pre>var dialog = new Dialog({
+    <span class="blue">title</span>: '中间高度自适应的容器',
+    <span class="blue">content</span>: '&lt;div class="bg-white p20">'+ (function() {
+        var html = '';
+        for (var i=0; i&lt;100; i++) {
+            html = html + '&lt;img src="http://mat1.gtimg.com/www/mb/images/face/'+ i +'.gif" class="db">';
+        }
+        return html;
+    })() +'&lt;/div>',
+   <span class="blue">buttons</span>: [{}]
+});
+<span class="green">// 拉伸相关CSS见如下</span>
+dialog.el.dialog.addClass('ui-dialog-auto');</pre>
+                    <pre>.ui-dialog-auto {
+    width: 600px; max-height: 1000px; <span class="green">/*min-height: 400px;*/</span>
+    position: absolute; top: 20px; bottom: 30px; left: 50%;
+    margin: auto 0 auto -300px;
+}
+.ui-dialog-auto .ui-dialog-footer {
+    position: absolute;
+    left: 0; bottom: 0; right: 0;
+}
+.ui-dialog-auto .ui-dialog-body {
+    position: absolute; left: 0; right: 0;
+    top: 50px; bottom: 90px;
+    padding: 0 0 0 25px;
+    overflow: auto;
+}</pre>
+
+                    <p>
+                        <a href="javascript:" id="htmlDialog" class="ui-button ui-button-primary">点击按钮含有请求(html)的panel</a>
+                    </p>
+                    <pre>new Dialog().<span class="red">ajax</span>({
+    <span class="blue">url</span>: 'common/cgi/example.html',
+    <span class="blue">dataType</span>: 'html'
+}, {
+    <span class="blue">title</span>: '请求html代码',
+    <span class="blue">buttons</span>: [{}]
+}); </pre>
+
+                    <p>
+                        <a href="javascript:" id="jsonDialog" class="ui-button ui-button-primary">点击按钮含有请求(json)的panel</a>
+                    </p>
+                    <pre>var dialog = new Dialog({
+    <span class="blue">width</span>: 700
+}).<span class="red">ajax</span>({
+    <span class="blue">url</span>: 'common/cgi/get_text.json'
+}, {
+    <span class="blue">title</span>: '请求JSON代码',
+    <span class="blue">content</span>: function(json) {
+        if (json.ret == 0 &amp;&amp; json.data) {
+            return (function() {
+                var html = '&lt;div class="bg-white">';
+                $.each(json.data.item, function(index, obj) {
+                    html = html + '&lt;div class="mt15 mb15">&lt;p>'+ obj.text +'&lt;/p>&lt;p class="f14 gray">'+ obj.create_time +'&lt;/p>&lt;/div>';
+                });
+
+                html += '&lt;/div>';
+
+                return html;
+            })();
+        } else {
+            dialog.<span class="red">alert</span>('后台出错了，联系管理员！').<span class="red">unloading</span>(0);
+        }
+    },
+   <span class="blue">buttons</span>: [{}]
+}); </pre>
+
+                    <p>
+                        <a href="javascript:" id="errorDialog" class="ui-button ui-button-primary">请求不存在地址</a>
+                    </p>
+                    <pre>new Dialog().<span class="red">ajax</span>({
+    <span class="blue">url</span>: 'common/cgi/xxx.json'
+});</pre>
+
+                    <p>
+                        <a href="javascript:" id="parseDialog" class="ui-button ui-button-primary">数据解析错误</a>
+                    </p>
+                    <pre> new Dialog().<span class="red">ajax</span>({
+    url: 'common/cgi/parse_error.json'
+});</pre>
+
+                    <p>
+                        <a href="javascript:" id="retDialog" class="ui-button ui-button-primary">后台返回错误信息</a>
+                    </p>
+                    <pre>var dialog = new Dialog().<span class="red">ajax</span>({
+    <span class="blue">url</span>: 'common/cgi/get_detail.json'
+}, {
+    <span class="blue">title</span>: '后台出错演示',
+    <span class="blue">content</span>: function(json) {
+        if (json.ret == 1 &amp;&amp; json.msg) {
+            var msg = '&lt;h6>友情提示&lt;/h6>&lt;p>' + json.msg + '&lt;/p>';
+            <span class="green">// 可以new构造一个新的alert弹框
+            /*new Dialog({
+                onRemove: function() {
+                    dialog.remove();
+                }
+            }).alert(msg);*/
+            // 也可以直接使用alert弹框, unloading()值为0，错误提示不需要动画</span>
+            dialog.<span class="red">alert</span>(msg).<span class="red">unloading</span>(0);
+        }
+    },
+   <span class="blue">buttons</span>: [{}]
+}); </pre>
+
+                    <p><a href="javascript:" id="loadingDialog" class="ui-button ui-button-primary">loading弹框，无法关闭，请刷新</a></p>
+                    <pre>new Dialog().<span class="red">loading</span>();</pre>
+
+                    <p><a href="javascript:" id="domDialog" class="ui-button ui-button-primary">content为页面上DOM元素</a></p>
+                    <p id="domDialogTarget" class="dn">下拉：<select style="width:150px;">
+                        <option>选项1</option>
+                        <option>选项2</option>
+                    </select></p>
+                    <pre>var domDialog;
+$('#domDialog').click(function() {
+    if (domDialog) {
+        domDialog.show();
+    } else {
+        domDialog = new Dialog({
+            title: 'jQuery包装器对象载入事件测试',
+            <span class="blue">content</span>: $('#domDialogTarget').show(),
+            buttons: [{},{}]
+        });
+    }
+});</pre>
+
+                    <p>iframe内弹框测试</p>
+                    <p><iframe src="../../iframe.html" frameborder="0" width="100%" height="400"></iframe></p>
+                    <pre><span class="green">// 母页面代码-全局暴露</span>
+window.globalDialog = Dialog;
+
+<span class="green">// iframe页面代码</span>
+var text = '';
+<span class="green">// 是否在iframe内</span>
+if (window.location != window.parent.location &amp;&amp; window.parent.globalDialog) {
+    Dialog = window.parent.globalDialog;
+    text = 'iframe外';
+}
+
+$('#alertDialog').click(function() {
+    new Dialog({
+        onShow: function() {
+            console.log(this.el.body.text());
+        }
+    }).alert(text + '操作成功！', {
+        type: 'success'
+    });
+});</pre>
+                    <h3>二、语法和API详细说明</h3>
+                    <ol>
+                        <li><strong>概述</strong>
+                            <p class="mt5">弹框扩展(<code>alert</code>, <code>confirm</code>, <code>ajax</code>, <code>loading</code>, ...)也集合在了Dialog组件中。弹框和后面半透明的遮罩层属于同一个容器，更方便控制。弹框的水平居中、以及上下约2:3的定位均是CSS完成，兼容IE7+浏览器。支持弹框的上下拉伸实现，需要特异处理。</p>
+                        </li>
+                        <li><strong>基本使用</strong>
+                            <p class="mt5">基本的弹框使用方法为：</p>
+                            <pre>new Dialog(options);</pre>
+                            <p>也支持jquery风格用法：</p>
+                            <pre>$.dialog(options);</pre>
+                            <p>两种用法返回值都是弹框实例，一模一样，API也是一样的。</p>
+                            <p>其中<code>options</code>是可选参数，支持的参数包括：</p>
+                            <table width="100%" class="ui-table">
+                              <tr>
+                                <th scope="col" width="80">参数名称</th>
+                                <th scope="col" width="150">支持类型</th>
+                                <th scope="col" width="100">默认值</th>
+                                <th scope="col">释义</th>
+                              </tr>
+                              <tr>
+                                <td>title</td>
+                                <td>String</td>
+                                <td><code>''</code></td>
+                                <td>表示弹框的标题。</td>
+                              </tr>
+                              <tr>
+                                <td>content</td>
+                                <td>String|Object|Function</td>
+                                <td><code>''</code></td>
+                                <td>表示弹框显示的主体内容。可以是字符串，或者是jQuery包装器对象，也可以是返回特定字符串或对象的函数。不同的类别，默认弹框关闭触发的方法不一样，包装器对象<code>hide()</code>, HTML内容<code>remove()</code>.</td>
+                              </tr>
+                              <tr>
+                                <td>width<span class="red">*</span></td>
+                                <td>String|Number</td>
+                                <td><code>'auto'</code></td>
+                                <td>标题弹框的主体宽度。本组件宽度自动自适应。因此建议还是设置弹框内容的宽度实现需要的效果。</td>
+                              </tr>
+                              <tr>
+                                <td>buttons</td>
+                                <td>Array</td>
+                                <td><code>[]</code></td>
+                                <td>弹框的按钮元素。默认是空数组，表示没有按钮。每个按钮为一个<code>{}</code>对象，含一些可选参数，这里空间狭小，具体释义见表格下面内容。
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>onShow<span class="red">*</span></td>
+                                <td>Function</td>
+                                <td>$.noop</td>
+                                <td>弹框显示时候的回调。this为当前弹框实例对象.</td>
+                              </tr>
+                              <tr>
+                                <td>onHide<span class="red">*</span></td>
+                                <td>Function</td>
+                                <td>$.noop</td>
+                                <td>弹框隐藏时候的回调。this为当前弹框实例对象.</td>
+                              </tr>
+                              <tr>
+                                <td>onRemove<span class="red">*</span></td>
+                                <td>Function</td>
+                                <td>$.noop</td>
+                                <td>弹框移除时候的回调。this为当前弹框实例对象.</td>
+                              </tr>
+                            </table>
+                            <p>
+                                <strong>备注：</strong>后面跟随<span class="red">*</span>的参数，为<code>Dialog()</code>方法独有的可选参数。其他扩展方法，无法重置。
+                            </p>
+                            <div class="mt20">
+                                <strong>按钮</strong>对象的参数如下：
+                                        <pre>{
+    type: '',
+    value: '',
+    events: {}
+}</pre>
+                                <p>其中：</p>
+                                <table width="100%" class="ui-table">
+                                  <tr>
+                                    <th scope="col" width="60">参数名称</th>
+                                    <th scope="col" width="100">支持类型</th>
+                                    <th scope="col" width="200">默认值</th>
+                                    <th scope="col">释义</th>
+                                  </tr>
+                                  <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td><code>'primary'</code>或<code>''</code></td>
+                                    <td>表示按钮的类型。和Button.css中按钮类名对应。默认值与按钮对象在<code>buttons</code>参数数组中的位置有关。第一个按钮对象，默认值是<code>'primary'</code>，也就是蓝色按钮，也就是如果你的弹框只有一个按钮，默认是蓝色。之后的按钮，默认则是白色按钮，如白色的“取消”按钮。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td><code>'确定'</code>或<code>'取消'</code></td>
+                                    <td>表示按钮的文字内容。默认值与按钮对象在<code>buttons</code>参数数组中的位置有关。第一个按钮对象，默认值是<code>'确定'</code>， 后面的按钮默认值是<code>'取消'</code>。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>events</td>
+                                    <td>Object|Function</td>
+                                    <td><code class="db">{ <br>&nbsp;&nbsp;click: function() { <br>&nbsp;&nbsp;&nbsp;&nbsp;dialog.remove(); <br>&nbsp;&nbsp;} <br>}</code></td>
+                                    <td>表示按钮绑定的事件。默认自带点击弹框关闭事件。这里的事件对象就是jQuery对包装器绑定事件的jQuery对象，你可以可以添加<code>hover</code>等事件。
+                                    <p>如果只有click事件，可以直接使用Function类型参数，例如：</p><code class="db">events: function(event) { <br>&nbsp;&nbsp;event.data.dialog.remove(); <br>}</code></td>
+                                  </tr>
+                                </table>
+                                <p>因此：</p>
+                                <p>1. 如果你的弹框默认就是一个文字为“确定”的确认按钮，则<code>buttons</code>参数内容就是：</p>
+                                <pre>{
+    buttons: [{}]
+}</pre>
+                                <p>2. 如果你的弹框默认就是一个蓝色确认按钮，但是文字内容是“我知道了”，则<code>buttons</code>参数内容就是：</p>
+                                <pre>{
+    buttons: [{
+        value: '我知道了'
+    }]
+}</pre>
+                                <p>3. 如果你的弹框默认就是一个文字为“确定”的确认按钮，但是是红色的警示按钮，则<code>buttons</code>参数内容就是：</p>
+                                <pre>{
+    buttons: [{
+        type: 'warning'
+    }]
+}</pre>
+                                <p>4. 如果你的弹框默认就有一个蓝色“确定”按钮，和一个白色“取消”按钮，则<code>buttons</code>参数内容就是：</p>
+                                <pre>{
+    buttons: [{}, {}]
+}</pre>
+                                <p>我们只需要空对象占位就好了。你也可以使用<code>null</code>占位。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>弹框扩展之alert弹框</strong>
+                            <p>模拟浏览器<code>window.alert()</code>弹框。用法如下：</p>
+                            <pre>new Dialog(options).alert(message, alertOptions);</pre>
+                            <p>其中，参数<code>options</code>就是「基本使用」展示的参数。不过，还是有些不一样的，这里，能够生效的参数，只有后面跟着红色星号<span class="red">*</span>的<code>width</code>, <code>onShow</code>, <code>onHide</code>, <code>onRemove</code>这4个参数。剩余的其他参数，会被<code>message</code>和<code>alertOptions</code>参数重置。</p>
+                            <p>其中，<code>message</code>表示提示的文字，是必须参数；<code>alertOptions</code>支持参数如下：</p>
+                            <div class="table-x">
+                                <table width="100%" class="ui-table">
+                                  <tr>
+                                    <th scope="col" width="60">参数名称</th>
+                                    <th scope="col" width="100">支持类型</th>
+                                    <th scope="col" width="100">默认值</th>
+                                    <th scope="col">释义</th>
+                                  </tr>
+                                  <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td><code>''</code></td>
+                                    <td><code>alert</code>弹框默认无标题文字，本项目，此参数不需要关心。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td><code>'remind'</code></td>
+                                    <td>alert弹框的类型, 参数包括<code>'remind'</code>, <code>'success'</code>, <code>'warning'</code>, 或者任意自定义<code>'custom'</code>。对应效果图缩略图如下（此截图有问题，按钮颜色实际与图标颜色是一一对应的）：<p>
+                                        <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162429.png" height="100">
+                                        <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162204.png" height="100">
+                                        <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162514.png" height="100">
+                                    </p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>buttons</td>
+                                    <td>Array</td>
+                                    <td><code>[{}]</code></td>
+                                    <td>表示按钮。默认为1个蓝色“确定”按钮。</td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <p>一般而言，我们用不到可选参数，实际使用类似这样：</p>
+                            <pre>new Dialog().alert('弹弹弹，弹走鱼尾纹……');</pre>
+                        </li>
+                        <li>
+                            <strong>弹框扩展之confirm弹框</strong>
+                            <p>模拟浏览器<code>window.confirm()</code>弹框。用法如下：</p>
+                            <pre>new Dialog(options).confirm(message, confirmOptions);</pre>
+                            <p>其中，参数<code>options</code>就是「基本使用」展示的参数。不过，还是有些不一样的，这里，能够生效的参数，只有后面跟着红色星号<span class="red">*</span>的<code>width</code>, <code>onShow</code>, <code>onHide</code>, <code>onRemove</code>这4个参数。剩余的其他参数，会被<code>message</code>和<code>confirmOptions</code>参数重置。</p>
+                            <p>其中，<code>message</code>表示提示的文字，是必须参数；<code>confirmOptions</code>支持参数如下：</p>
+                            <div class="table-x">
+                                <table width="100%" class="ui-table">
+                                  <tr>
+                                    <th scope="col" width="60">参数名称</th>
+                                    <th scope="col" width="80">支持类型</th>
+                                    <th scope="col" width="150">默认值</th>
+                                    <th scope="col">释义</th>
+                                  </tr>
+                                  <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td><code>''</code></td>
+                                    <td><code>alert</code>弹框默认无标题文字，本项目，此参数不需要关心。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td><code>'warning'</code></td>
+                                    <td>confirm弹框的类型, 参数包括<code>'remind'</code>, <code>'success'</code>, <code>'warning'</code>, 或者任意自定义<code>'custom'</code>。等同<code>alert</code>弹框，差别在于图标。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>buttons</td>
+                                    <td>Array</td>
+                                    <td><code>[{ type: 'warning' }]</code></td>
+                                    <td>表示按钮。默认为1个红色警示“确定”按钮。</td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <p>一般而言，我们需要对第一个警示按钮写事件，也就是确认删除之后干嘛干嘛，如：</p>
+                            <pre>new Dialog().confirm('确定弹弹弹，弹走鱼尾纹？', {
+    buttons: [{
+        events: {
+            click: function() {
+                <span class="green">/*
+                 * 这里回调，巴拉巴拉小魔仙……
+                 * ......
+                */</span>
+                dialog.remove();  <span class="green">// dialog为弹框实例对象</span>
+            }
+        }
+    }, {}]
+});</pre>
+                        </li>
+                        <li>
+                            <strong>弹框扩展之ajax弹框</strong>
+                            <p>含有异步动态请求的弹框。有些弹框，我们需要点击一个按钮，先去拉取数据，然后再模板解析再呈现，这个时候就需要使用ajax弹框。</p>
+                            <p>语法如下：</p>
+                            <pre>new Dialog(options).ajax(ajaxData, ajaxOptions);</pre>
+                            <p>其中，<code>options</code>跟上面<code>alert</code>, <code>confirm</code>方法的<code>options</code>参数一样，不赘述。</p>
+                            <p><code>ajaxData</code>为Ajax请求的一些参数，和jQuery的<code>$.ajax()</code>方法的参数几乎一模一样，不同的是：一是本弹框ajax方法的默认返回类型<code>dataType</code>为<code>'json'</code>，二是内置了<code>error</code>错误回调方法，功能是弹框提示‘网络错误’, 见上面的404示例。其中<code>url</code>是必须参数。其他根据自己的实际需要自定义。</p>
+                            <p><code>ajaxOptions</code>为ajax弹框相关的参数，具体如下表：</p>
+                            <div class="table-x">
+                                <table width="100%" class="ui-table">
+                                  <tr>
+                                    <th scope="col" width="60">参数名称</th>
+                                    <th scope="col" width="80">支持类型</th>
+                                    <th scope="col" width="200">默认值</th>
+                                    <th scope="col">释义</th>
+                                  </tr>
+                                  <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td><code>''</code></td>
+                                    <td><code>alert</code>弹框的标题文字。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>content</td>
+                                    <td>Function</td>
+                                    <td><code>function() { <br>&nbsp;&nbsp;<span class="green">/* 根据Ajax返回内容处理成弹框需要的HTML代码 */</span> <br>}</code></td>
+                                    <td>默认Ajax请求类型是<code>'json'</code>, 显然，JSON数据我们不能直接在弹框中呈现，或使用模板技术返回我们需要的HTML代码，或直接使用JS拼接；总而言之，此方法必须返回字符串。如果ajax类型是'html', 此参数可以忽略，会自动返回。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>buttons</td>
+                                    <td>Array</td>
+                                    <td><code>[]</code></td>
+                                    <td>表示按钮。默认没有任何按钮。</td>
+                                  </tr>
+                                </table>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>弹框扩展之open方法</strong>
+                            <p>作用是<strong>替换当前弹框</strong>实例为新的弹框内容，包括，标题、主体内容以及按钮。我们每次使用<code>new Dialog()</code>构造的时候，都是一个全新的弹框。有时候，我们希望直接当前弹框内容替换，例如，从loading弹框到普通弹框(可以有更好的动画呈现体验)，就可以使用此方法。</p>
+                            <p>语法如下：</p>
+                            <pre>new Dialog(options).open(html, openOptions);</pre>
+                            <p><code>options</code>参数同上。需要注意的是，如果这里的API使用的是有红色星号标注的，则弹框替换的时候，这些API是公用的。</p>
+                            <p><code>html</code>为必须参数，你可以理解为<code>options</code>中的<code>content</code>参数。</p>
+                            <p><code>openOptions</code>为新弹框的一些参数，包括：</p>
+                            <div class="table-x">
+                                <table width="100%" class="ui-table">
+                                  <tr>
+                                    <th scope="col" width="100">参数名称</th>
+                                    <th scope="col" width="100">支持类型</th>
+                                    <th scope="col" width="200">默认值</th>
+                                    <th scope="col">释义</th>
+                                  </tr>
+                                  <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td><code>''</code></td>
+                                    <td><code>alert</code>弹框的标题文字。</td>
+                                  </tr>
+                                  <tr>
+                                    <td>buttons</td>
+                                    <td>Array</td>
+                                    <td><code>[]</code></td>
+                                    <td>表示按钮。默认没有任何按钮。</td>
+                                  </tr>
+                                </table>
+                            </div>
+                        </li>
+                        <li><strong>弹框扩展之loading弹框</strong>
+                            <p>语法如下：</p>
+                            <pre>new Dialog(options).loading();</pre>
+                            <p>我们可以设定弹框的宽度以及各个回调。loading模式下，标题、关闭按钮、底部按钮都不可见，只有菊花转转转。此方法使用了Loading组件。</p>
+                        </li>
+                        <li>
+                            <strong>弹框其他方法</strong>
+                            <p>①. unloading()方法</p>
+                            <p>语法如下：</p>
+                            <pre>dialog.unloading(time);    <span class="green">// dialog为弹框实例对象</span></pre>
+                            <p>此方法用在loading完毕，HTML更新之后，主要作用是使标题、关闭按钮、底部按钮呈现。</p>
+                            <p>其中有一个可选参数<code>time</code>, 默认会触发内容高度和透明度的动画呈现效果。当<code>time</code>值设为0的时候，弹框单纯呈现，没有动态效果。此方法使用了Loading组件。</p>
+                            <p>本组件ajax弹框内部使用了此方法。机制如下：如果Ajax请求的时间小于100毫秒(用户无感知)，则直接呈现；如果Ajax请求时间较长，则弹框已舒缓的动画效果呈现。</p>
+                            <p>②. show()方法</p>
+                            <p>语法如下：</p>
+                            <pre>dialog.show();  <span class="green">// dialog为弹框实例对象</span></pre>
+                            <p>弹框显示，会触发<code>onShow</code>回调方法。</p>
+                            <p>③. hide()方法</p>
+                            <p>语法如下：</p>
+                            <pre>dialog.hide();  <span class="green">// dialog为弹框实例对象</span></pre>
+                            <p>弹框显示，会触发<code>onHide</code>回调方法。</p>
+                            <p>④. remove()方法</p>
+                            <p>语法如下：</p>
+                            <pre>dialog.remove();  <span class="green">// dialog为弹框实例对象</span></pre>
+                            <p>弹框显示，会触发<code>onRemove</code>回调方法。本组件弹框的关闭都是调用的这里的<code>remove()</code>方法。</p>
+                        </li>
+                        <li><strong>弹框实例对象</strong>
+                            <p>我们每次<code>new</code>一下Dialog都会返回一个弹框实例对象，例如：</p>
+                            <pre>var dialog = new Dialog()</pre>
+                            <p>此实例对象，包含上面出现的各个方法(<code>alert</code>, <code>confirm</code>, <code>ajax</code>, <code>...</code>)</p>
+                            <p>我们可以很开心地调用：</p>
+                            <pre>dialog.alert('xxx');</pre>
+                            <p>同时，该实例对象好暴露了其他一些参数，方便我们的使用，完整如下：</p>
+                            <pre>{
+    el: {
+      container: $(),    <span class="green">// 含半透明遮罩的容器</span>
+      dialog: $(),       <span class="green">// 弹框主体元素</span>
+      title: $(),        <span class="green">// 弹框标题元素</span>
+      close: $(),        <span class="green">// 弹框关闭按钮</span>
+      body: $(),         <span class="green">// 弹框主内容元素</span>
+      footer: $(),       <span class="green">// 弹框底部元素</span>
+      button0: $(),      <span class="green">// 弹框按钮1(如果有)</span>
+      button1: $()       <span class="green">// 弹框按钮2(如果有)</span>
+    },
+    width: 'auto',       <span class="green">// 弹框的宽度，默认是'auto', 也可能是数值，看设置</span>
+    callback: {          <span class="green">// 3个回调方法</span>
+      show: $.noop,
+      hide: $.noop,
+      remove: $.noop
+    }
+}</pre>
+                        </li>
+                    </ol>
+                    <h3>三、作为弹框插件单独使用</h3>
+                    <p>如果是基本弹框功能，直接引用下面CSS和JS即可：</p>
+                    <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css"&gt;
+&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Dialog.css"&gt;</pre>
+                    <pre>&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/ui/Dialog.js"&gt;&lt;/script&gt;</pre>
+                    <p>如果需要用到ajax加载弹框，则还需要引入loading组件相关资源。完整示意如下：</p>
+                    <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css"&gt;
+&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Loading.css"&gt;
+&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Dialog.css"&gt;</pre>
+                    <pre>&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/ui/Loading.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/ui/Dialog.js"&gt;&lt;/script&gt;</pre>
+                    <p><a href="../../single/apis/dialog.html" target="_blank">单独使用Demo演示</a></p>
+                </article>
+        	</div>
+        </div>
+    </section>
+</div>
+
+<!-- 底部 -->
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script>
+	var config = {
+		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
+	};
+</script>
+</body>
+</html><script>
+seajs.config(config).use(['common/ui/Dialog', 'common/ui/Select'], function(Dialog, Select) {
+    // 弹框们
+    window.globalDialog = Dialog;
+    $('#alertDialog').click(function () {
+        new Dialog().alert('操作成功！', {
+            type: 'success'
+        });
+    });
+
+    $('#confirmDialog').click(function () {
+        var elBtn = $(this);
+        new Dialog().confirm('\
+        <h6>您确定要停用所选的成员吗？</h6>\
+        <p>成员停用后，可以在停用成员列表中重新启用。</p>'
+            , {
+                buttons: [{
+                    value: '停用',
+                    events: function (event) {
+                        elBtn.disabled();
+                        event.data.dialog.remove();
+                    }
+                }, {}]
+            });
+    });
+
+    $('#openDialog').click(function () {
+        new Dialog({
+            title: '普通文本框',
+            content: '我是一段HTML，啦啦啦啦啦',
+            buttons: [{
+                value: '知道啦！'
+            }]
+        });
+    });
+
+    $('#autoDialog').click(function () {
+        var dialog = new Dialog({
+            title: '中间高度自适应的容器',
+            content: '<div class="bg-white p20">' + (function () {
+                var html = '';
+                for (var i = 0; i < 100; i++) {
+                    html = html + '<img src="http://mat1.gtimg.com/www/mb/images/face/' + i + '.gif" class="db">';
+                }
+                return html;
+            })() + '</div>',
+            buttons: [{}]
+        });
+        dialog.el.dialog.addClass('ui-dialog-auto');
+    });
+
+    $('#htmlDialog').click(function () {
+        new Dialog({
+            onShow: function () {
+                $('#againDialog').click(function () {
+                    new Dialog().alert('哈哈，你点击了图片！');
+                });
+            }
+        }).ajax({
+                url: '../../common/cgi/example.html?v=1',
+                dataType: 'html'
+            }, {
+                title: '请求html代码',
+                buttons: [{}]
+            });
+    });
+
+    $('#jsonDialog').click(function () {
+        var dialog = new Dialog({
+            width: 700
+        }).ajax({
+                url: '../../common/cgi/get_text.json'
+            }, {
+                title: '请求JSON代码',
+                content: function (json) {
+                    if (json.ret == 0 && json.data) {
+                        return (function () {
+                            var html = '<div class="bg-white">';
+                            $.each(json.data.item, function (index, obj) {
+                                html = html + '<div class="mt15 mb15"><p>' + obj.text + '</p><p class="f14 gray">' + obj.create_time + '</p></div>';
+                            });
+
+                            html += '</div>';
+
+                            return html;
+                        })();
+                    } else {
+                        dialog.alert('后台出错了，联系管理员！').unloading(0);
+                    }
+                },
+                buttons: [{}]
+            });
+    });
+
+    $('#errorDialog').click(function () {
+        new Dialog().ajax({
+            url: 'common/cgi/xxx.json'
+        });
+    });
+
+    $('#parseDialog').click(function () {
+        new Dialog().ajax({
+            url: '../../common/cgi/parse_error.json'
+        });
+    });
+
+    $('#retDialog').click(function () {
+        var dialog = new Dialog().ajax({
+            url: '../../common/cgi/get_detail.json'
+        }, {
+            title: '后台出错演示',
+            content: function (json) {
+                if (json.ret == 1 && json.msg) {
+                    var msg = '<h6>友情提示</h6><p>' + json.msg + '</p>';
+                    // 可以new构造一个新的alert弹框
+                    /*new Dialog({
+                     onRemove: function() {
+                     dialog.remove();
+                     }
+                     }).alert(msg);*/
+                    // 也可以直接使用alert弹框
+                    dialog.alert(msg).unloading();
+                }
+            },
+            buttons: [{}]
+        });
+    });
+
+    $('#loadingDialog').click(function () {
+        new Dialog().loading();
+    });
+
+    var domDialog;
+    $('#domDialog').click(function () {
+        if (domDialog) {
+            domDialog.show();
+        } else {
+            domDialog = new Dialog({
+                title: 'jQuery包装器对象载入事件测试',
+                content: $('#domDialogTarget').show(),
+                buttons: [{}, {}]
+            });
+
+            $('#domDialogTarget select').selectMatch();
+        }
+    });
+});
+</script>

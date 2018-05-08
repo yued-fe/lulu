@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>textarea文本域单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Textarea.css">
+</head>
+<body>
+<p><textarea class="ui-textarea"></textarea></p>
+<p><div class="ui-textarea"><textarea rows="8"></textarea></div></p>
+<p>文本域只读：<textarea class="ui-textarea" readonly></textarea></p>
+<p>文本域禁用：<textarea class="ui-textarea" disabled></textarea></p>
+<p>非嵌套结构出错：<textarea class="ui-textarea error"></textarea></p>
+<p>嵌套结构出错：</p>
+<div class="ui-textarea"><textarea class="error"></textarea></div>
+<p>&nbsp;</p>
+<div class="ui-textarea-x">
+    <textarea id="forFocusable" maxlength="250" rows="5"></textarea>
+    <div class="ui-textarea"></div>
+    <-- 点击任意区域文本域都能focus，可缺省 -->
+    <label for="forFocusable" class="ui-textarea-count">
+        <span>0</span>/<span>250</span>
+    </label>
+</div>
+</body>
+</html>

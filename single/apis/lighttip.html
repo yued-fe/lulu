@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>LightTip轻提示单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/LightTip.css">
+</head>
+<body>
+<p><button id="succ">成功提示</button> <button id="error">出错提示</button></p>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/common/ui/LightTip.js"></script>
+<script>
+$('#succ').on('click', function () {
+    $.lightTip.success('操作成功');
+});
+$('#error').on('click', function () {
+    $.lightTip.error('操作失败');
+});
+</script>
+</body>
+</html>

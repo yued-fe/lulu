@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>range范围选择单独使用示意</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/c/=/lulu/theme/peak/css/common/ui/Tips.css,/lulu/theme/peak/css/common/ui/Range.css">
+</head>
+<body>
+<span>透明度：</span><input type="range" id="opacityRange" class="ui-range-input" value="50" min="0" max="100" step="10">
+<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Tips.js,/lulu/theme/peak/js/common/ui/Range.js"></script>
+<script>
+$("#opacityRange").change(function() {
+    $(this).siblings('span').css('opacity', this.value / 100);
+}).range({
+    reverse: true,
+    tips: function(value) {
+        return value + '%';
+    }
+});
+</script>
+</body>
+</html>
