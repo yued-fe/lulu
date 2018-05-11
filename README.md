@@ -2,7 +2,7 @@
 
 基于jQuery，针对PC网站，兼容IE7+（modern主题）或IE8+（peak主题）的前端UI框架。
 
-下面这个形象照就是lulu ui的气质写照，更柔软，更亲近，同时简单单纯，对用户侧非常友好，因此，非常适合面向外部用户的网站开发。
+下面这个形象照就是lulu ui的气质写照，更柔软，更亲近，同时简单单纯，对用户侧非常友好，因此，<strong>非常适合面向外部用户的网站开发</strong>。
 
 <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
