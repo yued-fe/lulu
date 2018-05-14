@@ -409,7 +409,7 @@ method: $.noop        </pre>
                                 <li><p>请使用原生<code>&lt;form&gt;</code>元素，内置<code>submit</code>类型按钮，默认<code>disabled</code>. 防止JS还没有初始化，用户点击按钮，触发原始的表单提交。</p>
                                 <p>另外，由于原生按钮在低版本IE下有黑色线框以及尺寸不好控制，可以使用<code>&lt;label&gt;</code>元素<code>for</code>属性和按钮的<code>id</code>属性进行关联。例如：</p>
                                 <pre>&lt;input type="submit" <span class="red">id</span>="validateSubmit" disabled class="clip">
-        &lt;label <span class="red">for</span>="validateSubmit" class="ui-button ui-button-primary">提交&lt;/label></pre></li>
+&lt;label <span class="red">for</span>="validateSubmit" class="ui-button ui-button-primary">提交&lt;/label></pre></li>
                                 <li><p>支持自定义的文字提示和额外的自定义验证，就是使用<code>validate</code>可选参数就可以了，支持的基本参数可参见上面关于“option可选参数”的表格。</p>
                                 <p>需要进一步补充说明的是，自定义提示文字，支持Function类型参数，实现动态提示效果。例如<code>unmatch</code>只是单纯的类似“不匹配”的含糊提示。从用户角度讲，存在提示细分的需求，此时，可以使用Function类型值做进一步的提示内容细分处理。例如下面链接地址细分提示演示代码（取自实际项目）：</p>
                                 <pre>validate: [{
