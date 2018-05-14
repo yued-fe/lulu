@@ -7,15 +7,13 @@
 <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
 
-
-
 ## 上手简单
 
 lulu整个项目就是提供一些UI组件的JS和CSS，很纯粹的JS和CSS，没有任何矫揉造作的“变身”处理。
 
 因此，想要使用lulu ui，直接引入CSS和JS文件地址就可以使用了。HTML还是原来的HTML，CSS还是原来的CSS。什么Vue什么MV*什么高大上概念完全不需要掌握，参照文档，复制复制，粘贴粘贴，效果就出来了。
 
-API文档参见：<a href="http://l-ui.com/#content/about/design.php">LuLu UI API中文文档</a>
+API文档参见：<a href="https://l-ui.com/content/about/design.html">LuLu UI API中文文档</a>
 
 ## 使用场景广泛
 
@@ -43,7 +41,7 @@ lulu ui支持retina视网膜，同时支持aria无障碍访问，以及keyboard�
 
 组件分ui和comp两个目录，前者是UI组件，后者是基于UI组件整合的前端解决方案。
 
-更具体信息可以参见：<a href="http://l-ui.com/#content/about/use.php">文档-使用与发布</a>
+更具体信息可以参见：<a href="https://l-ui.com/content/about/use.html">文档-使用与发布</a>
 
 ## 其他说明
 
