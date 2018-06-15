@@ -207,6 +207,7 @@
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -214,6 +215,23 @@
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>

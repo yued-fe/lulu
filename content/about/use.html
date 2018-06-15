@@ -214,7 +214,7 @@ seajs.config({
                         </tr>
                         <tr>
                             <td>Drop.js</td>
-                            <td>下拉交互。支持鼠标点击以及鼠标经过等交互。下拉内容为相对窗体位置的绝对定位。</td>
+                            <td>下拉交互。支持鼠标点击以及鼠标���过等交互。下拉内容为相对窗体位置的绝对定位。</td>
                             <td>Follow.js</td>
                         </tr>
                         <tr>
@@ -264,7 +264,7 @@ seajs.config({
                         </tr>
                         <tr>
                             <td>Placeholder.js</td>
-                            <td>输入框占位符。IE10+浏览器会忽略，此组件只对IE9及其以下浏览器生效。</td>
+                            <td>输入框占位符。IE10+浏览器会忽略，此组件只对IE9及其以下浏���器生效。</td>
                             <td>-</td>
                         </tr>
                         <tr>
@@ -328,6 +328,7 @@ seajs.config({
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -335,6 +336,23 @@ seajs.config({
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html>

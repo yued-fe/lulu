@@ -112,7 +112,7 @@
                             <p>其中<code>el</code>表示jQuery包装器元素，可缺省，如果缺省，则对页面上所有包含<code>[placeholder]</code>属性的元素进行占位符效果实现。</p>
                             <p>包装器方法：</p>
                             <pre>$().placeholder();</pre>
-                            <p>其中，这里的<code>placeholder()</code>还有刷新同步的作用，也就是对于IE7-IE9浏览器，如果你动态修改<code>placeholder</code>值，就可以使用此方法进行同步。</p>
+                            <p>其中，这里的<code>placeholder()</code>还有刷新同步的作用，也就是对于IE7-IE9浏览��，如果你动态修改<code>placeholder</code>值，就可以使用此方法进行同步。</p>
                             <pre>$.fn.placeholder &amp;&amp; $().placeholder();</pre>
                             <p class="tips">如果引入了Enhance.js，亦可以使用$().refresh()刷新占位符。</p>
                         </li>
@@ -140,7 +140,7 @@
                     </ol>
                     <!-- <p class="gray">在兼容模式下的IE9内容清空后占位符内容无法在现，这是浏览器自身问题，原生IE9无此问题，考虑到实际用户使用IE9都是原生浏览器巨多，因此LuLu UI没有在这一点上瞎折腾。</p> -->
                     <h3>二、占位符样式和交互单独使用</h3>
-                    <p>placeholder占位符效果支持插件模式使用。CSS���入示意：</p>
+                    <p>placeholder占位符效果支持插件模式使用。CSS引入示意：</p>
                     <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Input.css"&gt;
 &lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Textarea.css"&gt;
 &lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui/Placeholder.css"&gt;</pre>
@@ -157,6 +157,7 @@
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -164,6 +165,23 @@
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>

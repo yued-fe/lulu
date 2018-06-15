@@ -116,7 +116,7 @@
 $('#afterIcon').click(function () {
     $(this).after('&lt;i class="icon_del ui-tips" data-title=动态设置&gt;&lt;/i&gt;');
 });</pre>
-                                    <p>只要页面有过类似<code>new Tips().init()</code>的初始化执行，黑色tips可以动态呈现，无需额外JS绑定或者初始化。</p>
+                                    <p>只要页面��过类似<code>new Tips().init()</code>的初始化执行，黑色tips可以动态呈现，无需额外JS绑定或者初始化。</p>
                                 </li>
                                 <li>基于JS hover事件触发: <i class="icon_del jsTips dib" title="删除"></i>
                                     <pre>&lt;i class="icon_del <mark>jsTips</mark>" title="注销">&lt;/i></pre>
@@ -296,6 +296,7 @@ new Tips($('#spTips'), {
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -303,6 +304,23 @@ new Tips($('#spTips'), {
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html>

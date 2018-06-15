@@ -109,10 +109,10 @@
                             <h4>演示和代码</h4>
                             <ul id="dateTime">
                             <li>
-                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2014-07-03" max="2018-05-14"></span>
+                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2014-07-03" max="2018-06-15"></span>
                                选择日期(有初始值)：<span class="ui-input ui-date-input"><input type="date" value="2015-04-23"></span>
                             </p>
-                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2018-05-14">&lt;/span&gt;
+                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2018-06-15">&lt;/span&gt;
 &lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">value</span>="2015-07-23">&lt;/span&gt;</pre>
                             </li>
                             <li>
@@ -243,6 +243,7 @@
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -250,6 +251,23 @@
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>

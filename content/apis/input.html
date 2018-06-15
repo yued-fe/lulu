@@ -161,7 +161,7 @@
 &lt;/div&gt;</pre>
                             <p><code>forInputFocus</code>这个<code>id</code>注意不要重复，这里只是演示其关联性，大家拷贝代码的时候注意修改去重。</p>
                             <p>如果<code>.ui-input-x</code>这个<code>div</code>元素不设置宽度，则是100%自适应外部容器。</p>
-                            <p>另外，如果是在使用了Validate.js验证的form元素内，此label元素可缺���，直接下面代码结构：</p>
+                            <p>另外，如果是在使用了Validate.js验证的form元素内，此label元素可缺省，直接下面代码结构：</p>
                             <pre>&lt;div class="ui-input-x" style="width:400px;">
     &lt;input maxlength="20">
     &lt;div class="ui-input">&lt;/div>
@@ -185,6 +185,7 @@
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -192,6 +193,23 @@
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>

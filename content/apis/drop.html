@@ -164,7 +164,7 @@ new Drop(dropClick, elTabindex2, {
                                 <td>eventType</td>
                                 <td>String</td>
                                 <td><code>'null'</code></td>
-                                <td>表示触发元素显示的事件，默认是<code>'null'</code>, 表示无事件，下拉浮层直接显示；<code>'hover'</code>表示hover时候显示下拉；<code>'click'</code>表示click时候显示下拉；如果是其他字符串，Drop组建只是单纯初始化，需要手动调用<code>show()</code>才显示，隐藏���需要自己控制。</td>
+                                <td>表示触发元素显示的事件，默认是<code>'null'</code>, 表示无事件，下拉浮层直接显示；<code>'hover'</code>表示hover时候显示下拉；<code>'click'</code>表示click时候显示下拉；如果是其他字符串，Drop组建只是单纯初始化，需要手动调用<code>show()</code>才显示，隐藏也需要自己控制。</td>
                               </tr>
                               <tr>
                                 <td>selector</td>
@@ -601,6 +601,7 @@ $('#onceDropPanel').delegate('a', 'click', function () {
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -608,6 +609,23 @@ $('#onceDropPanel').delegate('a', 'click', function () {
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>

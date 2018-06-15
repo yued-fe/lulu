@@ -182,7 +182,7 @@ el.tab(options);</pre>
     }
 });</pre>
 
-                                <p>如果你的选项卡是url��面刷新跳转之流，则只需要静态HTML即可，无需任何JS绑定或事件处理，自然<code>data-rel</code>属性也不需要。HTML如下：</p>
+                                <p>如果你的选项卡是url页面刷新跳转之流，则只需要静态HTML即可，无需任何JS绑定或事件处理，自然<code>data-rel</code>属性也不需要。HTML如下：</p>
                                 <pre>&lt;div class="ui-tab-tabs">
     &lt;a href="/a/" class="ui-tab-tab">选项卡切换文档&lt;/a>
     &lt;a href="/b/" class="ui-tab-tab checked">选项卡切换业务JS分离演示&lt;/a>
@@ -222,6 +222,7 @@ $('a[data-rel=tabTarget2]').click(function() {
 </div>
 
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
+<a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
@@ -229,6 +230,23 @@ $('a[data-rel=tabTarget2]').click(function() {
 	var config = {
 		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
 	};
+    // 返回顶部
+    var elBacktop = $('#backtop');
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > 0) {
+            elBacktop.show();
+        } else {
+            elBacktop.hide();
+        }
+    });
+    elBacktop.on('click', function (event) {
+        event.preventDefault();
+        $(window).scrollTop(0);
+    });
+    $(window).on('resize', function () {
+        $(this).trigger('scroll');
+    });
 </script>
 </body>
 </html><script>
