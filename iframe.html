@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>内嵌弹框测试</title>
-<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/modern/css/common/ui.css">
-<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/modern/css/common/common.css">
+<link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/modern/css/common/ui.css">
+<link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/modern/css/common/common.css">
 <style type="text/css">
     body {
         min-width: 0; padding: 1em; background: #fff;
@@ -16,8 +16,8 @@
 <body>
 <a href="javascript:;" id="alertDialog" class="ui_button ui_button_success">alert成功提示</a>
 
-<script src="http://qidian.gtimg.com/lulu/theme/modern/js/plugin/sea.js"></script>
-<script src="http://qidian.gtimg.com/lulu/theme/modern/js/plugin/jquery.js"></script>
+<script src="//qidian.gtimg.com/lulu/theme/modern/js/plugin/sea.js"></script>
+<script src="//qidian.gtimg.com/lulu/theme/modern/js/plugin/jquery.js"></script>
 <script>
 if (!window.console) {
     console = {
@@ -26,7 +26,7 @@ if (!window.console) {
 }
 
 seajs.config({
-    'base': 'http://qidian.gtimg.com/lulu/theme/modern/js'
+    'base': '//qidian.gtimg.com/lulu/theme/modern/js'
 }).use(['common/ui/Dialog'], function(Dialog) {
     var text = '';
     // 是否在iframe内
@@ -41,8 +41,8 @@ seajs.config({
                 console.log(this.el.body.text());
             }
         }).alert(text + '操作成功！', {
-            type: 'success' 
-        }); 
+            type: 'success'
+        });
     });
 });
 </script>
