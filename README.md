@@ -6,7 +6,6 @@
 
 <img src="http://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
-
 ## 上手简单
 
 lulu整个项目就是提供一些UI组件的JS和CSS，很纯粹的JS和CSS，没有任何矫揉造作的“变身”处理。
@@ -31,7 +30,11 @@ lulu ui诞生到现在已经有好几年了，跟那些年轻的UI框架不同�
 
 ## 体验
 
-lulu ui支持retina视网膜，同时支持aria无障碍访问，以及keyboard键盘无障碍访问。坐下，坐下，都是基本操作而已。
+lulu ui支持retina视网膜，同时支持aria无障碍访问，以及极少UI框架支持的keyboard键盘无障碍访问。坐下，坐下，都是基本操作而已。
+
+借助扎实的前端基础知识，lulu ui有着很多创新的细节打磨，举个例子：如果用户是通过鼠标点击按钮打开的弹框，则弹框界面平平无奇；如果用户是通过ENTER回车键点击按钮打开的弹框，则弹框中的按钮默认会<code>outline</code>高亮！
+
+<img src="https://qidian.qpic.cn/qidian_common/349573/851af9151027efc7e412e456f379263e/0" width="748" height="558">
 
 ## 快速了解lulu项目目录结构
 
