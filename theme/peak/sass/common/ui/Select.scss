@@ -16,9 +16,29 @@ select {
 	margin: 0;
 	border: 1px solid $borderNormal;
 	border-right-width: 27px;
-	opacity: 0;
+	opacity: 0.0001;
+	font-size: 14px;
+	font-family: simsun;
 	filter: alpha(opacity=0);
 	vertical-align: middle;
+}
+select[multiple] {
+	height: auto;
+	font-size: 38px;
+	font-size: calc(34px - 1px);
+	font-family: simsun;
+	padding: 0;
+	vertical-align: top;
+	border-right-width: 1px;
+	cursor: pointer;
+}
+select[multiple] > option {
+	min-height: 38px;
+	height: 38px;
+	padding: 0;
+}
+select[multiple] > option:disabled {
+	cursor: default;
 }
 select[hidden],
 select[hidden] + .ui-select {
@@ -34,9 +54,10 @@ select[hidden] + .ui-select {
 	font-size: 14px;
 	position: relative;
 }
-.ui-select ~ .ui-button {
-	vertical-align: middle;
+.ui-select[multiple] {
+	vertical-align: top;
 }
+
 .ui-select.active {
 	z-index: 3;
 }
@@ -103,6 +124,22 @@ select[hidden] + .ui-select {
 	background-color: #fff;
 	overflow: auto;
 }
+[multiple] ~ .ui-select > .ui-select-datalist {
+	position: static;
+	display: block;
+	max-height: none;
+	height: inherit;
+	border-color: $borderNormal;
+	border-radius: $borderRadius;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+[multiple]:hover ~ .ui-select > .ui-select-datalist {
+	border-color: $borderHover;
+}
+[multiple]:focus ~ .ui-select > .ui-select-datalist {
+	border-color: $borderFocus;
+}
 
 .ui-select-datalist::-webkit-scrollbar {
   width: 8px;
@@ -145,31 +182,33 @@ select[hidden] + .ui-select {
 .ui-select-datalist-li:empty {
 	display: none;
 }
-
-.ui-select-datalist-li:hover {
+.ui-select-datalist-li:hover,
+[multiple] ~ .ui-select .ui-select-datalist-li[href] {
+	color: $dark;
 	background-color: $backgroundListHover;
 }
-
 .ui-select-datalist > .selected {
 	background-color: $backgroundListSelected;
 }
 
 /* disabled */
+select[disabled] {
+	cursor: default;
+}
 select[disabled] + .ui-select {
 	opacity: .38;
 	filter: alpha(opacity=38);
 	-webkit-animation: none;
 	animation: none;
 }
-select[disabled] + .ui-select .ui-select-button {
+select[disabled] + .ui-select .ui-select-button,
+select[disabled] + .ui-select .ui-select-datalist {
 	cursor: default;
 	border-color: $borderHover;
 }
 
 /* error */
-.error .ui-select-button {
+.error .ui-select-button,
+.error[multiple] ~ .ui-select .ui-select-datalist {
 	border-color: $red;
 }
-/*select:invalid + .valided .ui-select-button {
-	border-color: $red;
-}*/
