@@ -54,7 +54,7 @@ select[hidden] + .ui-select {
 	font-size: 14px;
 	position: relative;
 }
-.ui-select[multiple] {
+[multiple] ~ .ui-select {
 	vertical-align: top;
 }
 
