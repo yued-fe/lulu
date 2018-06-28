@@ -106,10 +106,10 @@
                     <h3>一、基于&lt;select&gt;的模拟下拉框</h3>
                     <ol>
                         <li>
-                            <h4>效果演示</h4>
+                            <h4>效果演示-单选</h4>
                             <p>
                                 请选择：<select>
-                                    <option>选项1</option>
+                                    <option disabled>选项1</option>
                                     <option>选项2</option>
                                     <option>选项3</option>
                                     <option selected>选项4</option>
@@ -119,7 +119,7 @@
                                 <a href="javascript:" id="selMatch" class="ui-button ui-button-primary">第二个选项选中</a>
                             </p>
                             <pre>&lt;select&gt;
-    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option disabled&gt;选项1&lt;/option&gt;
     &lt;option&gt;选项2&lt;/option&gt;
     &lt;option&gt;选项3&lt;/option&gt;
     &lt;option selected&gt;选项4&lt;/option&gt;
@@ -160,6 +160,29 @@
                             </p>
                         </li>
                         <li>
+                            <h4>效果演示-复选 <sup class="red n" title="新增功能，未大规模实践检测，可能有bug"><small>NEW</small></sup></h4>
+                            <p id="mulSel">
+                                请选择：<select multiple>
+                                    <option>选项1</option>
+                                    <option selected>选项2</option>
+                                    <option selected>选项3</option>
+                                    <option>选项4</option>
+                                    <option disabled>选项5</option>
+                                    <option>选项6</option>
+                                </select>
+                            </p>
+                            <p>选中的结果是：<span id="mulResult">选项2, 选项3</span></p>
+                            <pre>&lt;select <mark>multiple</mark>&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option selected&gt;选项2&lt;/option&gt;
+    &lt;option selected&gt;选项3&lt;/option&gt;
+    &lt;option&gt;选项4&lt;/option&gt;
+    &lt;option disabled&gt;选项5&lt;/option&gt;
+    &lt;option&gt;选项6&lt;/option&gt;
+&lt;/select&gt;</pre>
+                            <pre>$('select').selectMatch();</pre>
+                        </li>
+                        <li>
                             <h4>语法和参数</h4>
                             <p>支持模块化调用，使用示意如下：</p>
                             <pre>
@@ -196,6 +219,12 @@ $().selectMatch();</pre>
                             <pre>&lt;select style="width:100px;" <mark>disabled</mark>>
 &lt;option>请选择&lt;/option>
 &lt;/select></pre>
+                            <p>复选也是这样。例如：</p>
+                            <p><select multiple disabled><option>选项1</option><option>选项2</option></select></p>
+                            <pre>&lt;select multiple <mark>disabled</mark>&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option&gt;选项2&lt;/option&gt;
+&lt;/select&gt;</pre>
                         </li>
                         <li>
                             <h4>元素隐藏</h4>
@@ -250,6 +279,18 @@ $().selectMatch();</pre>
 seajs.config(config).use(['common/ui/Select'], function(Select) {
     $('select').each(function () {
         new Select($(this));
+    });
+
+    // 多选change回调
+    $('#mulSel select').on('change', function () {
+        var arrResult = [];
+        $(this).find('option').each(function () {
+            if (this.selected) {
+                arrResult.push($(this).text());
+            }
+        });
+
+        $('#mulResult').html(arrResult.join());
     });
 
     $('#selMatch').click(function () {
