@@ -258,7 +258,7 @@
 
         num.current = Math.max(num.current, 1);
 
-        if (this.el && this.el.container && this.el.container.size()) {
+        if (this.el && this.el.container && this.el.container.length) {
             // 分页刷新
             this.el.container.html(this.create(num, this.mode));
         }

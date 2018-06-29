@@ -186,7 +186,7 @@
             var container = this.el.container;
             loading = container.find('.' + CL), icon = container.find('.' + CL_ICON);
 
-            if (params.create == true && loading.size() == 0) {
+            if (params.create == true && loading.length == 0) {
                 // 如果是ol,ul元素，则loading元素使用li标签
                 if (container.is('ul,ol')) {
                     loading = $('<li></li>').addClass(CL);
@@ -198,7 +198,7 @@
                 loading = container;
             }
 
-            if (icon.size() == 0) {
+            if (icon.length == 0) {
                 // 生成loading元素
                 icon = (params.small ? $('<s></s>') : $('<i></i>')).addClass(CL_ICON);
 

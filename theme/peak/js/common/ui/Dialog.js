@@ -144,7 +144,7 @@
         // zIndex动态计算
         // 所有dialog的前面
         var dialog = $('.' + prefixDialog + 'container');
-        if (dialog.size()) {
+        if (dialog.length) {
             // 页面前置
             dialog.eq(0).before(el.container.css({
                 // 动态计算zIndex值
