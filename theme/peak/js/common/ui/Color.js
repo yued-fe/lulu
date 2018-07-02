@@ -77,9 +77,9 @@
 
     // 16进制颜色转换成hsl颜色表示
     $.hexToHsl = function (hex) {
-        var r = parseInt('0x' + hex.slice(0, 2)) / 255;
-        var g = parseInt('0x' + hex.slice(2, 4)) / 255;
-        var b = parseInt('0x' + hex.slice(4, 6)) / 255;
+        var r = parseInt(hex.slice(0, 2), 16) / 255;
+        var g = parseInt(hex.slice(2, 4), 16) / 255;
+        var b = parseInt(hex.slice(4, 6), 16) / 255;
 
         var max = Math.max(r, g, b);
         var min = Math.min(r, g, b);
@@ -118,9 +118,9 @@
             return arr[0] + arr[1] + arr[1] + arr[2] + arr[2] + arr[3] + arr[3];
         }
         // 如果是rgb(a)色值
-        arr = rgb.match(/^rgb(?:a)?\((\d+),\s*(\d+),\s*(\d+)/i);
+        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
         var hex = function(x) {
-            return ('0' + parseInt(x).toString(16)).slice(-2);
+            return ('0' + parseInt(x, 10).toString(16)).slice(-2);
         };
 
         if (arr.length == 4) {
@@ -434,7 +434,7 @@
         //     13: 'enter'
         // };
 
-        container.delegate('a', 'click', function(event) {
+        container.on('click', 'a', function(event) {
             // 元素
             var ele = this;
             var el = $(ele);
