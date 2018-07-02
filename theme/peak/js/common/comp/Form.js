@@ -53,8 +53,9 @@
      * @使用示例
      *  new Form($('#form'), {}, {});
      */
+    var DISABLED = 'disabled';
 
-    // 表格
+    // 表单
     var Form = function(elForm, optionCallback, optionValidate) {
         if (!elForm || !elForm.length) return this;
         // optionCallback可以是对象也可以直接是成功回调
@@ -131,7 +132,7 @@
         // 1. 菊花转起来
         button.loading();
         // 2. 提交按钮禁用
-        submit.prop('disabled', true);
+        submit.attr(DISABLED, DISABLED);
         // 3. 请求走起来
         $.ajax({
             url: form.attr('action'),
@@ -161,7 +162,7 @@
                 // 菊花关闭
                 button.unloading();
                 // 表单恢复提交
-                submit.prop('disabled', false);
+                submit.removeAttr(DISABLED);
                 // 回调
                 if ($.isFunction(optionCallback.complete)) {
                     optionCallback.complete.apply(form, arguments);
