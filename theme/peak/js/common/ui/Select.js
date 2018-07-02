@@ -72,7 +72,7 @@
 
             return;
         }
-        if (!el.size) {
+        if (!el.length) {
             el = $(el);
         }
         var ele = el[0];
@@ -86,7 +86,7 @@
         this.id = id;
 
         // 2. 是否多选
-        var multiple = (typeof el.attr(MULTIPLE) == 'string');
+        var multiple = el.prop(MULTIPLE);
         this.multiple = multiple;
 
         // 3. 创建下拉组合框元素
@@ -195,7 +195,7 @@
 
             // 点击列表项
             datalist.on('click', 'a[data-index]', function() {
-                var indexOption = $(this).attr('data-index');
+                var indexOption = $(this).data('index');
                 var scrollTop = datalist.scrollTop();
                 // 存储可能的滚动定位需要的数据
                 combobox.data('scrollTop', [scrollTop, indexOption, $(this).text()]);
@@ -213,7 +213,7 @@
             });
 
             // 点击页面空白要隐藏
-            $(document).mouseup(function(event) {
+            $(document).on('mouseup', function(event) {
                 var target = event.target;
                 if (target && combobox.hasClass(ACTIVE) && combobox[0] !== target && combobox[0].contains(target) == false) {
                     combobox.removeClass(ACTIVE).removeClass(REVERSE);
@@ -266,7 +266,7 @@
                 datalist.find('a').removeAttr('href');
             });
 
-            $(document).mouseup(function() {
+            $(document).on('mouseup', function() {
                 sel.removeData(ACTIVE);
             });
         }
