@@ -54,8 +54,6 @@
      *  new Form($('#form'), {}, {});
      */
 
-    var DISABLED = 'disabled';
-
     // 表格
     var Form = function(elForm, optionCallback, optionValidate) {
         if (!elForm || !elForm.length) return this;
@@ -81,7 +79,7 @@
         // 表单元素
         var form = elForm;
         // 通过submit按钮找到找到关联的我们肉眼所见的提交按钮
-        var btnSubmitReal = form.find('input[type=submit]');
+        var btnSubmitReal = form.find('[type=submit]');
         // 我们肉眼所见的按钮，进行一些状态控制
         var btnSubmit = $('label[for=' + btnSubmitReal.attr('id') + ']');
 
@@ -133,7 +131,7 @@
         // 1. 菊花转起来
         button.loading();
         // 2. 提交按钮禁用
-        submit.attr(DISABLED, DISABLED);
+        submit.prop('disabled', true);
         // 3. 请求走起来
         $.ajax({
             url: form.attr('action'),
@@ -163,7 +161,7 @@
                 // 菊花关闭
                 button.unloading();
                 // 表单恢复提交
-                submit.removeAttr(DISABLED);
+                submit.prop('disabled', false);
                 // 回调
                 if ($.isFunction(optionCallback.complete)) {
                     optionCallback.complete.apply(form, arguments);
