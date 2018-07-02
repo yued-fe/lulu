@@ -53,10 +53,9 @@
      * @使用示例
      *  new Form($('#form'), {}, {});
      */
-
     var DISABLED = 'disabled';
 
-    // 表格
+    // 表单
     var Form = function(elForm, optionCallback, optionValidate) {
         if (!elForm || !elForm.length) return this;
         // optionCallback可以是对象也可以直接是成功回调
@@ -81,7 +80,7 @@
         // 表单元素
         var form = elForm;
         // 通过submit按钮找到找到关联的我们肉眼所见的提交按钮
-        var btnSubmitReal = form.find('input[type=submit]');
+        var btnSubmitReal = form.find('[type=submit]');
         // 我们肉眼所见的按钮，进行一些状态控制
         var btnSubmit = $('label[for=' + btnSubmitReal.attr('id') + ']');
 
