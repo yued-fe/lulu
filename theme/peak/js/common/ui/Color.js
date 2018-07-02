@@ -115,7 +115,7 @@
             return arr[0] + arr[1] + arr[1] + arr[2] + arr[2] + arr[3] + arr[3];
         }
         // 如果是rgb(a)色值
-        arr = rgb.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
+        arr = rgb.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
 
         if (arr.length == 4) {
             return '#' + hex(arr[1]) + hex(arr[2]) + hex(arr[3]);
