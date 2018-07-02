@@ -37,6 +37,20 @@
 
     /* 一些颜色间的相互转换的公用方法 */
 
+    function hex(x) {
+        return ('0' + parseInt(x, 10).toString(16)).slice(-2);
+    }
+
+    function hue2rgb(p, q, t) {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 1 / 2) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+
+        return p;
+    }
+
     // hsl颜色转换成十六进制颜色
     $.hslToHex = function (h, s, l) {
         var r, g, b;
@@ -45,16 +59,6 @@
             // 非彩色的
             r = g = b = l;
         } else {
-            var hue2rgb = function hue2rgb(p, q, t) {
-                if (t < 0) t += 1;
-                if (t > 1) t -= 1;
-                if (t < 1 / 6) return p + (q - p) * 6 * t;
-                if (t < 1 / 2) return q;
-                if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-
-                return p;
-            };
-
             var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
             var p = 2 * l - q;
             r = hue2rgb(p, q, h + 1 / 3);
@@ -64,15 +68,7 @@
 
         var arrRgb = [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 
-        return $.map(arrRgb, function (rgb) {
-            rgb = rgb.toString(16);
-
-            if (rgb.length == 1) {
-                return '0' + rgb;
-            }
-
-            return rgb;
-        }).join('');
+        return $.map(arrRgb, hex).join('');
     };
 
     // 16进制颜色转换成hsl颜色表示
@@ -108,20 +104,18 @@
         if (!rgb) {
             return defaultValue;
         }
+        rgb = rgb.toLowerCase();
         var arr = [];
-        if (/^#[0-9A-F]{6}$/i.test(rgb)) {
+        if (/^#[0-9A-F]{6}$/.test(rgb)) {
             return rgb;
         }
-        if (/^#[0-9A-F]{3}$/i.test(rgb)) {
+        if (/^#[0-9A-F]{3}$/.test(rgb)) {
             arr = rgb.split('');
 
             return arr[0] + arr[1] + arr[1] + arr[2] + arr[2] + arr[3] + arr[3];
         }
         // 如果是rgb(a)色值
-        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
-        var hex = function(x) {
-            return ('0' + parseInt(x, 10).toString(16)).slice(-2);
-        };
+        arr = rgb.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
 
         if (arr.length == 4) {
             return '#' + hex(arr[1]) + hex(arr[2]) + hex(arr[3]);
@@ -314,8 +308,7 @@
                 var html = '<div class="' + colorPrefix + 'basic colorBasicX" role="listbox">';
                 // color left
                 html = html + '<div class="' + colorPrefix + 'basic-l">' + (function() {
-                    return $.map(['0', '3', '6', '9', 'C', 'F', 'F00', '018001', '0501ff', 'FF0', '0FF', '800180'], function(color) {
-                        color = color.toUpperCase();
+                    return $.map(['0', '3', '6', '9', 'c', 'f', 'f00', '018001', '0501ff', 'ff0', '0ff', '800180'], function(color) {
                         if (color.length == 1) {
                             color = color + color + color + color + color + color;
                         } else if (color.length == 3) {
@@ -329,7 +322,7 @@
                 })() + '</div>';
                 // color main
                 html = html + '<div class="' + colorPrefix + 'basic-r">' + (function() {
-                    var arrBasic = ['0', '3', '6', '9', 'C', 'F'];
+                    var arrBasic = ['0', '3', '6', '9', 'c', 'f'];
                     var htmlR = '';
                     $.each(arrBasic, function(i, r) {
                         htmlR += '<div class="' + colorPrefix + 'lump-group">';
@@ -757,7 +750,7 @@
             // 所有当前高亮的元素不高亮
             container.find('.' + ACTIVE).removeClass(ACTIVE);
             // 所有颜色一致的高亮
-            container.find('a[data-color="' + value.toUpperCase() + '"]').addClass(ACTIVE);
+            container.find('a[data-color="' + value.toLowerCase() + '"]').addClass(ACTIVE);
         } else {
             circle = self.el.circle;
             fill = self.el.fill;
