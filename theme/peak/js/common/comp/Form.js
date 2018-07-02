@@ -80,9 +80,9 @@
         // 表单元素
         var form = elForm;
         // 通过submit按钮找到找到关联的我们肉眼所见的提交按钮
-        var btnSubmitReal = form.find('[type=submit]');
+        var btnSubmitReal = form.find('[type="submit"], button:not([type])');
         // 我们肉眼所见的按钮，进行一些状态控制
-        var btnSubmit = $('label[for=' + btnSubmitReal.attr('id') + ']');
+        var btnSubmit = $('label[for="' + btnSubmitReal.attr('id') + '"]');
 
 
         // 占位符
