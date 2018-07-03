@@ -156,9 +156,6 @@
         var button = el.button;
         var datalist = el.datalist;
 
-        // options元素
-        var elOptions = sel.find('option');
-
         // 单选下拉框的事件
         if (!this.multiple) {
             // 点击按钮
@@ -200,7 +197,7 @@
                 // 存储可能的滚动定位需要的数据
                 combobox.data('scrollTop', [scrollTop, indexOption, $(this).text()]);
                 // 修改下拉选中项
-                elOptions[indexOption][SELECTED] = true;
+                sel.find('option')[indexOption][SELECTED] = true;
                 // 下拉收起
                 combobox.removeClass(ACTIVE);
                 button.attr('aria-expanded', 'false');
