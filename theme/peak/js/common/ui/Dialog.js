@@ -45,7 +45,7 @@
     };
 
     /**
-     * 弹框实例方法，目前唯一一个不支持$()包装器方法的UI组件
+     * 弹框实例方法
      * @param {Object} options 纯对象，可选参数
      */
     var Dialog = function (options) {
@@ -68,7 +68,7 @@
         var el = {};
         this.el = el;
         // 存储一些参数
-        this.width = this.width;
+        this.width = params.width;
         this.callback = {
             show: params.onShow,
             hide: params.onHide,
