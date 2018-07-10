@@ -14,7 +14,7 @@ lulu整个项目就是提供一些UI组件的JS和CSS，很纯粹的JS和CSS，�
 
 API文档参见：<a href="https://l-ui.com/content/about/design.html">LuLu UI API中文文档</a>
 
-上面的地址走Github托管，如果访问速度比较慢，可以试试<a href="https://www.zhangxinxu.com/sp/lulu/mockup/content/about/use.php">国内这个文档地址</a>。
+上面的地址走Github托管，如果访问速度比较慢，可以试试<a href="https://www.zhangxinxu.com/sp/lulu/mockup/content/about/use.php">这个文档地址</a>。
 
 ## 使用场景广泛
 
