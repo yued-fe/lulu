@@ -267,13 +267,16 @@ $('#validateFile').change(function() {
 new Validate($('#validateForm'), function() {
     new Dialog().alert('全部验证通过');
 }, {
-    validate: [{                                  <span class="green">// 演示替换内置的提示</span>
+    validate: [{
+        <span class="green">// 演示替换内置的提示</span>
         id: 'bankAccount',
         prompt: {
-            unmatch: '银行账户只能是16位数值'     <span class="green">// 否则提示文字就是内置的“内容格式不符合要求”</span>
+            <span class="green">// 否则提示文字就是内置的“内容格式不符合要求”</span>
+            unmatch: '银行账户只能是16位数值'
         }
     }, {
-       id: 'pwd',                                 <span class="green">// 演示添加自定义的验证</span>
+        <span class="green">// 演示添加自定义的验证</span>
+        id: 'pwd',
         method: function(el) {
             var valueAgain = pwdAgain.val();
             if (valueAgain &amp;&amp; el.val() != valueAgain) {
@@ -292,7 +295,8 @@ new Validate($('#validateForm'), function() {
             }
         }
     }, {
-        id: 'idImgUrl',                           <span class="green">// 验证头像必传</span>
+        <span class="green">// 验证头像必传</span>
+        id: 'idImgUrl',
         method: function(el) {
             <span class="green">// el指存放身份证图片地址的hidden类型的input框
             // 隐藏元素无法定位，转移提示元素给按钮
@@ -320,7 +324,8 @@ new Validate($('#validateForm'), function() {
 {
     id: 'idImgUrl',
     prompt: {
-        <span class="green">// 如果值是字符串，则需要在语句外面转移提示元素。如果是函数，可以写在里面。</span>
+        <span class="green">// 如果值是字符串，则需要在语句外面转移提示元素。
+        // 如果是函数，可以写在里面。</span>
         ignore: '尚未上传头像'
     }
 }</pre>
