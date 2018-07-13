@@ -1165,10 +1165,13 @@
         var self = this;
         // 干掉默认的提交
         el.on('submit', function(event) {
+            if (self.stopValidate) {
+                return;
+            }
             event.preventDefault();
 
             if (self.isAllPass() && $.isFunction(callback)) {
-                callback.call(this);
+                callback.call(this, self);
             }
 
             return false;
