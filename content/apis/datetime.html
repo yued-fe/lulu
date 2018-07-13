@@ -2,7 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="LuLu UI中文文档，面向PC，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于时间日期选择" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, PC, Web, 前端, 时间日期选择" />
 <title>LuLu UI中文文档和演示 &raquo; 时间日期选择</title>
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
 <link rel="stylesheet" href="../../common/css/mockup.css">
@@ -109,10 +111,10 @@
                             <h4>演示和代码</h4>
                             <ul id="dateTime">
                             <li>
-                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2014-07-03" max="2018-06-28"></span>
+                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2014-07-03" max="2018-07-13"></span>
                                选择日期(有初始值)：<span class="ui-input ui-date-input"><input type="date" value="2015-04-23"></span>
                             </p>
-                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2018-06-28">&lt;/span&gt;
+                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2018-07-13">&lt;/span&gt;
 &lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">value</span>="2015-07-23">&lt;/span&gt;</pre>
                             </li>
                             <li>
@@ -153,6 +155,50 @@
                             <pre>&lt;span class="ui-input <span class="blue">ui-date-range-input</span>">&lt;input <mark>type="date-range"</mark> <span class="red">value</span>="2020-01-01">&lt;/span></pre>
                             <div>选择日期范围(有初始值)：<span class="ui-input ui-date-range-input"><input type="date-range" value="2015-04-25 至 2015-05-24"></span></div>
                             <pre>&lt;span class="ui-input <span class="blue">ui-date-range-input</span>">&lt;input <mark>type="date-range"</mark> <span class="red">value</span>="2015-04-25 至 2015-05-24">&lt;/span></pre>
+                            </li>
+<style>
+[data-id="festival"] .ui-date-item[data-date$="10-01"] {
+    position: relative;
+    text-indent: -60px;
+    overflow: hidden;
+}
+[data-id="festival"] .ui-date-item[data-date$="10-01"]:before {
+    content: '国庆';
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    text-align: center;
+    text-indent: 0;
+}
+[data-id="festival"] span.ui-date-item[data-date$="10-01"]:before {
+    color: #ccd0d7;
+}
+[data-id="festival"] .selected[data-date$="10-01"]:before {
+    color: #fff;
+}</style>
+                            <li>
+                                <p>标记特殊的日子，例如国庆节，劳动节等。</p>
+                                <p><span class="ui-input ui-date-input"><input type="date" id="festival" value="2022-10-02"></span></p>
+                                <p>日期下拉每个日期元素上会有一个<code>data-date</code>属性，其值为当前完整年月日，于是我们就通过CSS的属性选择器进行日期匹配，改变UI样式，显示特殊的日期。例如国庆节：</p>
+                                <pre>.ui-date-item[data-date$="10-01"] {
+    position: relative;
+    color: transparent;
+}
+.ui-date-item[data-date$="10-01"]:before {
+    content: '国庆';
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    text-align: center;
+}
+span.ui-date-item[data-date$="10-01"]:before {
+    color: #ccd0d7;
+}
+.selected[data-date$="10-01"]:before {
+    color: #fff;
+}</pre>
                             </li>
                             </ul>
                         </li>

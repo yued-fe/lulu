@@ -2,7 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="LuLu UI中文文档，面向PC，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表单验证" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, PC, Web, 前端, 表单验证" />
 <title>LuLu UI中文文档和演示 &raquo; 表单验证</title>
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
 <link rel="stylesheet" href="../../common/css/mockup.css">
@@ -225,7 +227,7 @@
                                     <label class="left">备注</label>
                                     <div class="cell">
                                         <div class="ui-textarea-x l" style="width:500px;">
-                                            <textarea id="txtCount" minlength="5" maxlength="200" rows="5" placeholder="测试"></textarea>
+                                            <textarea id="txtCount" minlength="5" maxlength="200" rows="5" placeholder="测试">随机内容，计数测试</textarea>
                                             <div class="ui-textarea"></div>
                                             <label class="ui-textarea-count" for="txtCount">
                                                 <span>0</span>/<span>200</span>
@@ -328,7 +330,7 @@ new Validate($('#validateForm'), function() {
                             <pre>new Validate($('form'), callback, options);</pre>
                             <p>另外，也可以使用包装器方法：</p>
                             <pre>$(form).validate(callback, options);</pre>
-                            <p>其中，<code>callback</code>是所有表单验证通过后的回调方法。</p>
+                            <p>其中，<code>callback</code>是所有表单验证通过后的回调方法。上下文<code>this</code>指<code>&lt;form&gt;</code>原生DOM对象，支持一个参数，表示当前验证实例对象。</p>
                             <p><code>options</code>为可选参数，具体见下表：</p>
                             <table width="100%" class="ui-table">
                               <tr>
@@ -509,6 +511,18 @@ blurForm.find(':input').each(function() {
 });
                             </pre>
                         </li>
+                        <li>
+                            <h4>验证成功后走原生提交</h4>
+                            <form id="submitForm">
+                                <input type="search" name="s" class="ui-input" required>
+                                <input type="submit" id="htmlSubmit" class="clip">
+                                <label class="ui-button ui-button-primary ml10" for="htmlSubmit">搜索</label>
+                            </form>
+                            <pre>new Validate($('#submitForm'), function (validate) {
+    validate.stopValidate = true;
+    this.submit();
+});</pre>
+                        </li>
                     </ol>
                     <h3>二、作为验证插件单独使用</h3>
                     <p>引用下面CSS：</p>
@@ -638,6 +652,12 @@ seajs.config(config).use(['common/ui/Select',
                 blurValidate.isPass($(this));
             }
         });
+    });
+
+    // 走原生提交
+    new Validate($('#submitForm'), function (validate) {
+        validate.stopValidate = true;
+        this.submit();
     });
 });
 </script>
