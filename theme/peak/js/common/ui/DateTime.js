@@ -597,6 +597,8 @@
         var randId = ('d_' + Math.random()).replace('0.', '');
         container.attr('id', randId).addClass('ESC');
         input.attr('data-target', randId);
+        // 记录input的id
+        container.attr('data-id', id);
 
         input.on({
             keydown: function (event) {
@@ -827,9 +829,13 @@
         dayFirst = newDate.getDay();
         // 上个月是几月份
         var lastMonth = newDate.getMonth() - 1;
-        if (lastMonth < 0) lastMonth = 11;
+        if (lastMonth < 0) {
+            lastMonth = 11;
+        }
 
         var htmlData = 'data-year="' + arrDate[0] + '" data-month="' + (newDate.getMonth() + 1) + '"';
+        var htmlYearMonthData = 'data-date=';
+        var htmlFullData = '';
 
         html = html + '<div class="' + prefixDate + 'body">' + (function() {
             var htmlDate = '';
@@ -843,7 +849,10 @@
                     cl = prefixDate + 'item col' + td;
 
                     // 今天
+                    var yearNow = arrDate[0];
+                    var monthNow = newDate.getMonth() + 1;
                     var dayNow;
+                    var dateNow;
 
                     // 由于range选择和date选择UI上有比较大大差异
                     // 为了可读性以及后期维护
@@ -851,13 +860,23 @@
                     if (type == 'date') {
                         // 第一行上个月一些日期补全
                         if (tr == 0 && td < dayFirst) {
-                            htmlDate = htmlDate + '<span class="' + cl + '">' + (monthDay[lastMonth] - dayFirst + td + 1) + '</span>';
+                            // 当前日子
+                            dayNow = monthDay[lastMonth] - dayFirst + td + 1;
+                            // 当前日期
+                            dateNow = new Date(yearNow, lastMonth, dayNow);
+                            // 完整data-date属性及其值
+                            htmlFullData = htmlYearMonthData + dateNow.toArray().join('-');
+                            // HTML拼接
+                            htmlDate = htmlDate + '<span class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</span>';
                         } else {
+                            // 当前日子
                             dayNow = tr * 7 + td - dayFirst + 1;
                             // 如果没有超过这个月末
                             if (dayNow <= monthDay[newDate.getMonth()]) {
                                 // 这个日子对应的时间对象
-                                var dateNow = new Date(arrDate[0], newDate.getMonth(), dayNow);
+                                dateNow = new Date(yearNow, newDate.getMonth(), dayNow);
+                                // 完整data-date属性及其值
+                                htmlFullData = htmlYearMonthData + dateNow.toArray().join('-');
                                 // 如果日子匹配
                                 if (currentDate.getDate() == dayNow) {
                                     cl = cl + ' ' + SELECTED;
@@ -865,17 +884,19 @@
                                 // 如果在日期范围内
                                 // 直接使用时间对象 Date 类作比较
                                 if (dateNow >= min && dateNow <= max) {
-                                    htmlDate = htmlDate + '<a href="javascript:;" ' + htmlData + ' class="' + cl + '">' + dayNow + '</a>';
+                                    htmlDate = htmlDate + '<a href="javascript:;" ' + htmlData + ' class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</a>';
                                 } else {
-                                    htmlDate = htmlDate + '<span class="' + cl + '">' + dayNow + '</span>';
+                                    htmlDate = htmlDate + '<span class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</span>';
                                 }
-
                             } else {
-                                htmlDate = htmlDate + '<span class="' + cl + '">' + (dayNow - monthDay[newDate.getMonth()]) + '</span>';
+                                dayNow = dayNow - monthDay[newDate.getMonth()];
+                                // 更新htmlFullData
+                                htmlFullData = htmlYearMonthData + new Date(yearNow, monthNow, dayNow).toArray().join('-');
+                                // 日期字符拼接
+                                htmlDate = htmlDate + '<span class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</span>';
                             }
                         }
                     } else if (type == 'date-range') {
-
                         // 非当前月部分使用空格补全
                         if (tr == 0 && td < dayFirst) {
                             htmlDate = htmlDate + '<span class="' + cl + '">&nbsp;</span>';
@@ -884,7 +905,10 @@
                             // 如果没有超过这个月末
                             if (dayNow <= monthDay[newDate.getMonth()]) {
                                 // 这个日子对应的时间对象
-                                dateNow = new Date(arrDate[0], newDate.getMonth(), dayNow);
+                                dateNow = new Date(yearNow, newDate.getMonth(), dayNow);
+
+                                // 完整data-date属性及其值
+                                htmlFullData = htmlYearMonthData + dateNow.toArray.join('-');
 
                                 // range选择的匹配规则如下：
                                 // 1. 获得已经选中到时间范围
@@ -920,11 +944,10 @@
                                 // 如果在日期范围内
                                 // 直接使用时间对象 Date 类作比较
                                 if (dateNow >= min && dateNow <= max) {
-                                    htmlDate = htmlDate + '<a href="javascript:;" ' + htmlData + ' class="' + cl + '">' + dayNow + '</a>';
+                                    htmlDate = htmlDate + '<a href="javascript:;" ' + htmlData + ' class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</a>';
                                 } else {
-                                    htmlDate = htmlDate + '<span class="' + cl + '">' + dayNow + '</span>';
+                                    htmlDate = htmlDate + '<span class="' + cl + '" ' + htmlFullData + '>' + dayNow + '</span>';
                                 }
-
                             } else {
                                 htmlDate = htmlDate + '<span class="' + cl + '">&nbsp;</span>';
                             }
