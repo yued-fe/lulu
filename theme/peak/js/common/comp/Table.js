@@ -198,7 +198,12 @@
         // 一些事件
         // 单复选框选中效果
         table.delegate(selector, 'click', function() {
-            var tdCheckbox = table.find('td ' + selector);
+            // 如果不是第一td中的checkbox，忽略
+            if ($(this).parents('tr').find(':first-child ' + selector)[0] !== this) {
+                return;
+            }
+
+            var tdCheckbox = table.find('td:first-child ' + selector);
             var isAllChecked = false;
             var isAllUnchecked = false;
             // 全选
@@ -236,7 +241,7 @@
             var checkbox = null;
 
             if (target && /^a|input|label|th$/i.test(target.tagName) == false) {
-                checkbox = $(target).parents('tr').find(selector);
+                checkbox = $(target).parents('tr').find('td:first ' + selector);
                 if (checkbox.length && checkbox.prop(DISABLED) == false) {
                     checkbox.trigger('click');
                 }
