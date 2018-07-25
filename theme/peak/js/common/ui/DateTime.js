@@ -908,7 +908,7 @@
                                 dateNow = new Date(yearNow, newDate.getMonth(), dayNow);
 
                                 // 完整data-date属性及其值
-                                htmlFullData = htmlYearMonthData + dateNow.toArray.join('-');
+                                htmlFullData = htmlYearMonthData + dateNow.toArray().join('-');
 
                                 // range选择的匹配规则如下：
                                 // 1. 获得已经选中到时间范围
