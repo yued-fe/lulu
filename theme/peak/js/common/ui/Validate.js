@@ -169,6 +169,19 @@
         return lenMatch;
     };
 
+    // 电话号码过滤成符合要求的号码，省去用户自己处理
+    // 例如我们从某个地方复制电话号码，可能是短横线相连
+    // 或者前面带+86
+    $.telFilter = function (tel) {
+        tel = tel || '';
+        tel = tel.replace('+86', '');
+        // 如果此时剩余所有数字正好11位
+        if (tel.match(/\d/) && tel.match(/\d/g).length == 11) {
+            tel = tel.replace(/\D/g, '');
+        }
+        return tel;
+    };
+
     // 一些全局的属性和方法
     $.validate = (function() {
         return {
@@ -557,6 +570,10 @@
                 if (/^text|textarea|password$/i.test(type) == false) {
                     dealValue = $.dbc2sbc(dealValue);
                 }
+                if (type == 'tel') {
+                    dealValue = $.telFilter(dealValue);
+                }
+
                 //  文本框值改变，重新赋值
                 // 即时验证的时候，不赋值，否则，无法输入空格
                 if ($.validate.focusable !== false && $.validate.focusable !== 0 && dealValue != inputValue) {
@@ -1199,6 +1216,9 @@
         // 计数效果
         this.count();
 
+        // 手机号过滤等增强体验功能
+        this.enhance();
+
         return this;
     };
 
@@ -1230,6 +1250,47 @@
         });
 
         return self;
+    };
+
+    /**
+     * 表单内一些元素体验增强处理
+     * @return {Object} 返回当前实例
+     */
+    Validate.prototype.enhance = function () {
+        var self = this;
+        // 即时验证
+        var form = self.el.form;
+
+        form.find(':input').each(function() {
+            // 元素
+            var ele = this;
+            // var el = $(ele);
+            // type类型筛选
+            // var type = ele.type;
+            var attrType = ele.getAttribute('type');
+
+            // 手机号码粘贴的优化处理
+            if (attrType == 'tel' && ele.addEventListener) {
+                ele.addEventListener('paste', function (event) {
+                    // 剪切板数据对象
+                    var clipboardData = event.clipboardData || window.clipboardData;
+                    // 粘贴内容
+                    var paste = '';
+                    // 且光标是可输入状态
+                    if (clipboardData && $.trim(this.value) == '') {
+                        // 阻止冒泡和默认粘贴行为
+                        event.preventDefault();
+                        event.stopPropagation();
+                        // 获取粘贴数据
+                        paste = clipboardData.getData('text') || '';
+                        // 进行如下处理
+                        paste = $.telFilter(paste);
+                        // 插入
+                        this.value = paste;
+                    }
+                });
+            }
+        });
     };
 
     /**
