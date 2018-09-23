@@ -74,7 +74,8 @@
             'aria-valuenow': el.val(),
             'aria-valuemax': max,
             'aria-valuemin': min,
-            role: 'slider'
+            role: 'slider',
+            draggable: 'false'
         });
 
         // 前置插入
