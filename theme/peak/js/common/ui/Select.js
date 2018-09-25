@@ -192,21 +192,29 @@
 
             // 点击列表项
             datalist.on('click', 'a[data-index]', function() {
+                // 是否当前点击列表禁用
+                var isDisabled = $(this).hasClass(DISABLED);
+                // 获取索引
                 var indexOption = $(this).data('index');
-                var scrollTop = datalist.scrollTop();
                 // 存储可能的滚动定位需要的数据
+                var scrollTop = datalist.scrollTop();
                 combobox.data('scrollTop', [scrollTop, indexOption, $(this).text()]);
                 // 修改下拉选中项
-                sel.find('option')[indexOption][SELECTED] = true;
+                if (isDisabled == false) {
+                    sel.find('option')[indexOption][SELECTED] = true;
+                }
                 // 下拉收起
                 combobox.removeClass(ACTIVE);
                 button.attr('aria-expanded', 'false');
                 // focus
                 button.focus().blur();
-                // 更新下拉框
-                self.refresh();
-                // 回调处理
-                sel.trigger('change');
+
+                if (isDisabled == false) {
+                    // 更新下拉框
+                    self.refresh();
+                    // 回调处理
+                    sel.trigger('change');
+                }
             });
 
             // 点击页面空白要隐藏
