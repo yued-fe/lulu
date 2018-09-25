@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <title>select下拉单独使用示意</title>
     <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Select.css">
+    <style>
+    .disabled {
+      opacity: .4;
+      filter: alpha(opacity=40);
+      cursor: default;
+      -ms-pointer-events: none;
+      pointer-events: none;
+    }
+    </style>
 </head>
 <body>
 请选择：<select>
-    <option>选项1</option>
+    <option disabled>选项1</option>
     <option>选项2</option>
     <option>选项3</option>
     <option selected>选项4</option>
