@@ -14,7 +14,7 @@
     var doc = document;
     var win = window;
 
-    if (win.Keyboard) {
+    if (typeof win.Keyboard == 'object') {
         return win.Keyboard;
     }
 
