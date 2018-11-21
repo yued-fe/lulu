@@ -10,7 +10,7 @@
     if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
-        global.Datalist = factory();
+        global.Tips = factory();
     }
 }(this, function (require) {
     if (typeof require == 'function') {
