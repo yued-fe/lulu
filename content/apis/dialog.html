@@ -602,6 +602,8 @@ $('#alertDialog').click(function() {
                         <li><strong>弹框实例对象</strong>
                             <p>我们每次<code>new</code>一下Dialog都会返回一个弹框实例对象，例如：</p>
                             <pre>var dialog = new Dialog()</pre>
+                            <pre>也可以使用$.dialog jQuery风格语法：</pre>
+                            <pre>var dialog = $.dialog();</pre>
                             <p>此实例对象，包含上面出现的各个方法(<code>alert</code>, <code>confirm</code>, <code>ajax</code>, <code>...</code>)</p>
                             <p>我们可以很开心地调用：</p>
                             <pre>dialog.alert('xxx');</pre>

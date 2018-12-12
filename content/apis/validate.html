@@ -411,7 +411,54 @@ method: $.noop        </pre>
                             </table>
                         </li>
                         <li>
-                            <h4>一些重要说明</h4>
+                            <h4>了解实例对象</h4>
+                            <p>实例对象下面两种语法都能获取，如下：</p>
+                            <pre>var elForm = $(form);
+var myValidate = new Validate(elForm);</pre>
+                            <p>如果是使用包装器方法：</p>
+                            <pre>elForm.validate();
+var myValidate = elForm.data('validate');</pre>
+                            <p>myValidate暴露了如下属性和方法：</p>
+                    <pre>{
+    <span class="green">// 元素</span>
+    el: {
+        form: el
+    },
+    <span class="green">// 回调</span>
+    callback: {
+        error: function () {},
+        success: function () {}
+    };
+    <span class="green">// 参数集合</span>
+    data: {},
+    <span class="green">// 一些布尔标志量</span>
+    boo: {
+        <span class="green">// 是否一次验证多个</span>
+        multiple: true/false,
+        <span class="green">// 是否即时验证</span>
+        immediate: true/false,
+        <span class="green">// 是否提示关键字取自label标签</span>
+        label: true/false
+    },
+    <span class="green">// 计数</span>
+    count: function () {},
+    <span class="green">// 体验增强，如自动粘贴过滤</span>
+    enhance: function () {},
+    <span class="green">// 即时验证细节处理</span>
+    immediate: function () {},
+    <span class="green">// 当前元素el是否出错</span>
+    isError: function (el, isError) {},
+    <span class="green">// 返回布尔值，当前元素el是否验证通过</span>
+    isPass: function (el) {},
+    <span class="green">// 是否全部都验证通过</span>
+    isAllPass: function () {},
+    <span class="green">// 显示出错提示</span>
+    errorTip: function () {}
+}</pre>
+                            <p>下面的深入应用，多基于上面暴露的实例方法实现。</p>
+                        </li>
+                        <li>
+                            <h4>更多深入应用案例</h4>
                             <ol>
                                 <li><p>请使用原生<code>&lt;form&gt;</code>元素，内置<code>submit</code>类型按钮，默认<code>disabled</code>. 防止JS还没有初始化，用户点击按钮，触发原始的表单提交。</p>
                                 <p>另外，由于原生按钮在低版本IE下有黑色线框以及尺寸不好控制，可以使用<code>&lt;label&gt;</code>元素<code>for</code>属性和按钮的<code>id</code>属性进行关联。例如：</p>
@@ -526,6 +573,22 @@ blurForm.find(':input').each(function() {
                             <pre>new Validate($('#submitForm'), function (validate) {
     validate.stopValidate = true;
     this.submit();
+});</pre>
+                        </li>
+                        <li>
+                            <h4>JS单独触发某个输入框的验证</h4>
+                            <form id="validForm">
+                                <p>用户名：<input class="ui-input" required></p>
+                                <p>密&emsp;码：<input type="password" class="ui-input" required pattern="\w{6,}"></p>
+                                <p>验证码：<input class="ui-input mr10 w100" pattern="\d{4}" required><a href="javascript:" id="validButton" class="ui-button ui-button-warning">单独验证验证码</a></p>
+                                <p style="padding-left:4em;"><input type="submit" id="someSubmit" class="clip">
+                                <label class="ui-button ui-button-primary" for="someSubmit">提交</label></p>
+                            </form>
+                            <p>关键部分源码如下：</p>
+                            <pre>验证码：&lt;input pattern="\d{4}" required&gt;&lt;a href="javascript:" id="validButton"&gt;单独验证验证码&lt;/a&gt;</pre>
+                            <pre>var validAlone = new Validate($('#validForm'));
+$('#validButton').on('click', function () {
+    validAlone.isPass($(this).prev());
 });</pre>
                         </li>
                     </ol>
@@ -663,6 +726,12 @@ seajs.config(config).use(['common/ui/Select',
     new Validate($('#submitForm'), function (validate) {
         validate.stopValidate = true;
         this.submit();
+    });
+
+    // 单独验证
+    var validAlone = new Validate($('#validForm'));
+    $('#validButton').on('click', function () {
+        validAlone.isPass($(this).prev());
     });
 });
 </script>

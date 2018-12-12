@@ -481,13 +481,17 @@ seajs.config(config).use(['common/comp/Table', 'common/ui/Validate', 'common/ui/
             // 我这里就按照比较传统的遍历方式拼接演示
             var html = '';
             $.each(json.data.data, function (index, obj) {
+                var htmlLast = '<a href="javascript:;" class="icon icon_del ui-tips" title="删除评论"></a>';
+                if (index == 0) {
+                    htmlLast = '<input type="checkbox" id="switch"><label class="ui-switch" for="switch"></label>';
+                }
                 html = html + '\
                 <tr>\
                     <td><input type="checkbox" id="mixChk' + obj.id + '"><label class="ui-checkbox" for="mixChk' + obj.id + '"></label></td>\
                     <td><div class="ell">' + obj.title + '</div></td>\
                     <td>' + obj.time + '</td>\
                     <td>' + obj.comment + '</td>\
-                    <td class="tc"><a href="javascript:;" class="icon icon_del ui-tips" title="删除评论"></a></td>\
+                    <td class="tc">' + htmlLast + '</td>\
                 </tr>\
             ';
             });

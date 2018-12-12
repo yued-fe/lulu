@@ -120,6 +120,8 @@
 });</pre>
                             <p>range选择的最大值小值由原生的<code>min</code>和<code>max</code>属性控制，每次选择的范围由<code>step</code>属性控制。</p>
                             <p>三个属性都可以缺省，<code>min</code>默认为<code>0</code>，<code>max</code>默认为<code>100</code>，<code>step</code>默认是<code>1</code>。</p>
+                            <!-- <p>负数跨度测试</p>
+                            <p><input type="range" id="rangeRange" class="ui-range-input" value="5" min="-10" max="10" step="1"></p> -->
                         </li>
                         <li>
                             <h4>语法</h4>
@@ -153,6 +155,34 @@
                               </tr>
                             </table>
                             <p>本组件依赖tips组件。</p>
+                        </li>
+                        <li>
+                            <h4>深入应用</h4>
+                            <p>如果使用构造器语法，如下：</p>
+                            <pre>var myRange = new Range($('#range'));</pre>
+                            <p>则myRange就是返回的实例对象。</p>
+                            <p>如果使用的jQuery的包装器语法，如下：</p>
+                            <pre>$('#range').range();</pre>
+                            <p>则实例对象这么获取：</p>
+                            <pre>var myRange = $('#range').data('range');</pre>
+                            <p>myRange暴露的属性和方法如下：</p>
+                            <pre>{
+    value: function () {},
+    position: function () {}
+}</pre>
+                            <p>当我们需要通过JS来改变滑块值和位置的时候，就可以使用实例暴露的<code>value()</code>方法。</p>
+                            <p>例如：</p>
+                            <p><input type="range" id="rangeRange" min="1" max="100"></p>
+                            <p><button id="rangeButton" class="ui-button ui-button-primary">改变值（随机）</button></p>
+                            <p>HTML代码和JS代码如下：</p>
+                            <pre>&lt;p&gt;&lt;input type="range" id="rangeRange" min="1" max="100"&gt;&lt;/p&gt;
+&lt;button id="rangeButton"&gt;改变值（随机）&lt;/button&gt;</pre>
+                            <pre>var elRange = $('#rangeRange').range();
+var myRange = elRange.data('range');
+$('#rangeButton').on('click', function () {
+    <spa class="green">// 调用实例myRange暴露的value方法改变range input的值和滑块位置</spa>
+    myRange.value(Math.ceil(100 * Math.random()));
+});</pre>
                         </li>
                     </ol>
                     <h3>二、作为插件独立使用</h3>
@@ -208,6 +238,11 @@ seajs.config(config).use(['common/ui/Range'], function(Range) {
         tips: function(value) {
             return value + '%';
         }
+    });
+    var elRange = $('#rangeRange').range();
+    var myRange = elRange.data('range');
+    $('#rangeButton').on('click', function () {
+        myRange.value(Math.ceil(100 * Math.random()));
     });
 });
 </script>

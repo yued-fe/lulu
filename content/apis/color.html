@@ -164,9 +164,17 @@
                                 <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
                               </tr>
                             </table>
-
-
-                            <p>暴露了如下实例对象：</p>
+                        </li>
+                        <li>
+                            <h4>深入应用</h4>
+                            <p>如果使用构造器语法，如下：</p>
+                            <pre>var myColor = new Color($('#color'));</pre>
+                            <p>则myColor就是返回的实例对象。</p>
+                            <p>如果使用的jQuery的包装器语法，如下：</p>
+                            <pre>$('#color').color();</pre>
+                            <p>则实例对象这么获取：</p>
+                            <pre>var myColor = $('#color').data('color');</pre>
+                            <p>myColor暴露的属性和方法如下：</p>
                             <pre>{
     el: {
         <span class="green">// 输入框</span>
@@ -190,6 +198,19 @@
     hide: function() {},
     ...
 }</pre>
+                            <p>其中，比较有用的是<code>value()</code>方法，当我们希望通过JS代码直接改变颜色选择器的颜色的时候就很有用，例如：</p>
+                            <p><input type="color" id="myColor" class="ui-color-input"></p>
+                            <p><button id="colorButton" class="ui-button ui-button-primary">变成红色</button></p>
+                            <p>HTML和JS代码如下：</p>
+                            <pre>&lt;p&gt;&lt;input type="color" id="myColor" class="ui-color-input"&gt;&lt;/p&gt;
+&lt;button id="colorButton"&gt;变成红色&lt;/button&gt;</pre>
+                            <pre>var elColor = $('#myColor').color();
+var myColor = elColor.data('color');
+<span class="green">// 点击按钮</span>
+$('#colorButton').on('click', function () {
+    <span class="green">// 设置为红色</span>
+    myColor.value('#ff0000');
+});</pre>
                         </li>
                     </ol>
                     <h3>二、作为颜色选择器插件使用</h3>
@@ -241,5 +262,13 @@ seajs.config(config).use(['common/ui/Color'], function(Color) {
     new Color($("#colorPicker").change(function() {
         $('#CC').css('color', this.value);
     }));
+
+    var elColor = $('#myColor').color();
+    var myColor = elColor.data('color');
+    // 点击按钮
+    $('#colorButton').on('click', function () {
+        // 设置为红色
+        myColor.value('#ff0000');
+    });
 });
 </script>

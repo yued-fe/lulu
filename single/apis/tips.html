@@ -8,10 +8,21 @@
 <body>
 <p><button title="提示文字">hover我</button></p>
 <script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
-<script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Tips.js"></script>
+<!-- <script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Tips.js"></script>
 <script>
 $('button').tips({
     align: 'reverse'
+});
+</script> -->
+<script src="https://cdn.bootcss.com/require.js/2.3.6/require.min.js"></script>
+<script>
+requirejs.config({
+    baseUrl: 'https://qidian.gtimg.com/lulu/theme/peak/js'
+});
+requirejs(['common/ui/Tips'], function(Tips) {
+    new Tips($('button'), {
+        align: 'reverse'
+    });
 });
 </script>
 </body>
