@@ -332,6 +332,35 @@ new DropList(elDropListP, function () {
         elSelDropList.find('option[value="' + obj.id + '"]').prop('selected', true);
     }
 });</pre>
+                            <h5>右键上下文控制</h5>
+                            <p>右键下面的图片：</p>
+                            <p><img id="menuImg" src="https://qidian.qpic.cn/qidian_common/349573/bb72d53796b729a429885a5f0ed7768a/0" width="338" height="167" alt="示意图片"></p>
+                            <p>相关代码如下：</p>
+                            <pre>&lt;img id="menuImg" src="0.jpg"&gt;</pre>
+                            <pre>// 右键处理
+$('#menuImg').dropList([{
+    id: 1,
+    value: '增加描边'
+}, {
+    id: 2,
+    value: '居中显示'
+}], {
+    eventType: 'contextmenu',
+    offsets: {
+        x: 8,
+        y: 8
+    },
+    onSelect: function (obj, drop) {
+        if (obj.id == 1) {
+            $('#menuImg').addClass('blue').css('outline', "3px solid");
+        } else if (obj.id == 2) {
+            $('#menuImg').css({
+                display: 'block',
+                margin: 'auto'
+            });
+        }
+    }
+});</pre>
                         </li>
                         <li>
                             <h4>语法和API</h4>
@@ -417,9 +446,6 @@ new DropList(elDropListP, function () {
                             <p>DropList实例对象比Drop实例对暴露了一个<code>data</code>属性，也就是当前列表的数据。可读写，可以即时修改列表的呈现，例如，想增加上下键浏览功能的时候。</p>
                         </li>
                     </ol>
-
-
-
 
                     <h3>三、基于Drop拓展的DropPanel方法</h3>
                     <ol>
@@ -727,6 +753,31 @@ seajs.config(config).use(['common/ui/Drop', 'common/ui/DropList', 'common/ui/Dro
         selector: 'a',
         onSelect: function (obj) {
             elSelDropList.find('option[value="' + obj.id + '"]').prop('selected', true);
+        }
+    });
+
+    // 右键处理
+    $('#menuImg').dropList([{
+        id: 1,
+        value: '增加描边'
+    }, {
+        id: 2,
+        value: '居中显示'
+    }], {
+        eventType: 'contextmenu',
+        offsets: {
+            x: 8,
+            y: 8
+        },
+        onSelect: function (obj, drop) {
+            if (obj.id == 1) {
+                $('#menuImg').addClass('blue').css('outline', "3px solid");
+            } else if (obj.id == 2) {
+                $('#menuImg').css({
+                    display: 'block',
+                    margin: 'auto'
+                });
+            }
         }
     });
 
