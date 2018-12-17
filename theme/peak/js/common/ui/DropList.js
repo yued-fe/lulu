@@ -191,7 +191,9 @@
                     // 缓存新的数据
                     drop.data = data;
 
-                    trigger.html($(this).html() + htmlArrow);
+                    if (params.eventType != 'contextmenu') {
+                        trigger.html($(this).html() + htmlArrow);
+                    }
                 }
 
                 params.onSelect.call(this, drop.data[index], drop);

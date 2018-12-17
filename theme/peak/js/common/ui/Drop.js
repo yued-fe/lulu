@@ -52,7 +52,9 @@
      */
     var Drop = function(trigger, target, options) {
         var defaults = {
-            // 触发元素显示的事件，'null'直接显示；'hover'是hover方法；'click'是点击显示,
+            // 触发元素显示的事件，
+            // 'null'直接显示；'hover'是hover方法；'click'是点击显示,
+            // 新增'contextmenu'表示右键显示
             eventType: 'null',
             // 实现点击或hover事件的委托实现
             selector: '',
@@ -178,13 +180,22 @@
 
                 break;
             }
-            case 'click': {
-                trigger.delegate(params.selector, 'click', function(event) {
+            case 'click': case 'contextmenu': {
+                trigger.delegate(params.selector, params.eventType, function(event) {
+                    event.preventDefault();
+                    // aria支持
                     if (params.selector) {
                         drop.el.trigger = $(this).attr({
                             'data-target': id,
                             'aria-expanded': 'false'
                         });
+                    }
+                    // 重复右键点击一直显示，非显隐切换
+                    if (params.eventType == 'contextmenu') {
+                        drop.position = [event.pageX, event.pageY];
+                        drop.show();
+
+                        return;
                     }
                     // 点击即显示
                     if (drop.display == false) {
@@ -192,7 +203,6 @@
                     } else {
                         drop.hide();
                     }
-                    event.preventDefault();
                 });
                 break;
             }

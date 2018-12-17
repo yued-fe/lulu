@@ -61,6 +61,22 @@
             var offX = parseInt(params.offsets.x, 10) || 0;
             var offY = parseInt(params.offsets.y, 10) || 0;
 
+            var position = params.position;
+            if (typeof position != 'string' && position.length == 2) {
+                //浮动框显示
+                target.css({
+                    position: 'absolute',
+                    left: position[0] + offX,
+                    top: position[1] + offY
+                }).attr('data-align', '3-1');
+
+                // z-index自动最高
+                if (target.zIndex) {
+                    target.zIndex();
+                }
+                return;
+            }
+
             //缓存目标对象高度，宽度，提高鼠标跟随时显示性能，元素隐藏时缓存清除
             if (!tarH) {
                 tarH = target.outerHeight();
