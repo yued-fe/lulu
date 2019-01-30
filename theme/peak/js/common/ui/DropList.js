@@ -177,6 +177,13 @@
         // 列表元素内容，事件
         target.delegate('a', 'click', function() {
             var index = $(this).attr('data-index') * 1;
+
+            if (params.eventType == 'contextmenu') {
+                params.onSelect.call(this, drop.data[index], drop);
+                drop.hide();
+                return;
+            }
+
             if ($(this).hasClass(SELECTED) == false) {
                 // 除去所有的selected
                 if ($.isArray(data) && /^javas/.test($(this).attr('href'))) {
@@ -191,9 +198,7 @@
                     // 缓存新的数据
                     drop.data = data;
 
-                    if (params.eventType != 'contextmenu') {
-                        trigger.html($(this).html() + htmlArrow);
-                    }
+                    trigger.html($(this).html() + htmlArrow);
                 }
 
                 params.onSelect.call(this, drop.data[index], drop);
