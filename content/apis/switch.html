@@ -109,13 +109,13 @@
                         <li>
                             <h4>基本状态</h4>
                             <p><input type="checkbox" id="switch"><label class="ui-switch" for="switch"></label></p>
+                            <pre>&lt;input type="checkbox" id="switch">&lt;label class="ui-switch" for="switch">&lt;/label></pre>
                         </li>
                         <li>
                             <h4>禁用状态</h4>
                             <p>开关禁用：<input type="checkbox" id="switch2" disabled><label class="ui-switch" for="switch2"></label>
                                 <input type="checkbox" id="switch3" checked disabled><label class="ui-switch" for="switch3"></label>
                             </p>
-                            <pre>&lt;input type="checkbox" id="switch">&lt;label class="ui-switch" for="switch">&lt;/label></pre>
                             <pre>&lt;input type="checkbox" id="switch2" <mark>disabled</mark>>&lt;label class="ui-switch" for="switch2">&lt;/label>
 &lt;input type="checkbox" id="switch3" <mark>checked</mark> <mark>disabled</mark>>&lt;label class="ui-switch" for="switch3">&lt;/label></pre>
                             <p>可以看到，开关空间本质上就是复选框，其UI状态变化(禁用态、选中态等变化)都是跟随复选框变化的。需要使用<code>&lt;label&gt;</code>元素，<code>for</code>属性值与对应的复选框的<code>id</code>关联。</p>

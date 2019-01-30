@@ -125,9 +125,13 @@
                         <pre>&lt;link rel="stylesheet" href="/css/common/ui.css"&gt;</pre>
                         <p>如果直接使用线上资源：</p>
                         <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/ui.css"&gt;</pre>
-                        <h5>JS的多种引入方式</h5>
-                        <p>对于JS资源，按需加载还是一次性引入看实际需求和使用场景。</p>
-                        <p>从技术层面讲，LuLu UI支持多种加载模式。可以是模块化加载，如：</p>
+                        <h5>JS独立引入</h5>
+                        <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。方法有很多，可以直连：</p>
+                        <pre>
+&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/ui/*.js"&gt;&lt;/script&gt;</pre>
+
+                        <p>也可以是模块化加载，如：</p>
                         <pre>&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 seajs.config({
@@ -140,13 +144,12 @@ seajs.config({
     // 这里干嘛干嘛</span>
 });
 &lt;/script&gt;</pre>
-                      <p>也可以直接引入，非模块化调用，例如：</p>
-                      <pre>
-&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"&gt;&lt;/script&gt;
-&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/ui/*.js"&gt;&lt;/script&gt;</pre>
-                        <p>对于一些简单项目，也可以直接使用combo的资源，例如：</p>
+                        <p>或者直接使用combo的资源，例如：</p>
                         <pre>&lt;script src="https://qidian.gtimg.com/c/=/lulu/theme/peak/js/plugin/jquery.js,/lulu/theme/peak/js/common/ui/Follow.js,/lulu/theme/peak/js/common/ui/Keyboard.js,/lulu/theme/peak/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
-                        <p>或者浏览器打开上面地址再下载到本地使用。</p>
+                        <h5>JS完整引入</h5>
+                        <p>所有JS都整合在一个JS中，如今流量不值钱，完整引入反而省心。。</p>
+                        <pre>&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/theme/peak/js/common/all.js"&gt;&lt;/script&gt;</pre>
                         </li>
                         <li>
                           <h4>资源概览</h4>
