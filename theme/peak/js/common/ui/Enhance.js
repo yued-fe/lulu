@@ -36,8 +36,8 @@
                 var el = $(ele);
                 var z = el.css('zIndex') * 1;
 
-                if (z && ele !== target[0] && el.css('display') !== 'none' && el.width() * el.height() > 0) {
-                    newZIndex = Math.max(z, newZIndex);
+                if (z && ele !== target && el.css('display') !== 'none' && el.width() * el.height() > 0) {
+                    newZIndex = Math.max(z + 1, newZIndex);
                 }
             });
 
