@@ -143,6 +143,26 @@
             initValue = params.value;
         }
 
+        // 暴露的一些数据 提前暴露,因为将获取 min 和 max 封装成一个函数，函数需要使用 input 与 min
+        this.el = {};
+        this.el.trigger = trigger;
+        this.el.input = input;
+
+        this.type = type;
+
+        // 最大小值的处理在各个种类的面板中执行
+        // 以便支持动态时间修改
+        // 例如，选择A时间，然后设置B时间的min值为A时间
+        this.max = params.max;
+        this.min = params.min;
+
+        // 回调方法
+        this.callback = {
+            show: params.onShow,
+            hide: params.onHide,
+            trigger: params.trigger
+        };
+
         // 初始值转换成时间值
         switch (type) {
             case 'date': case 'year': case 'month': {
@@ -151,6 +171,16 @@
                 var arrDate = initDate.toArray();
                 if (initValue == '') {
                     // 赋值今日
+                    // 当没有设置初始值，但是设置了 min 和 max 的时候，会出现看上去无法选择的状态. 所以当设置了 min 和 max 的话，要对 min 和 max 进行判断，看今天是否符合 max 和 min的范围里，如果不符合就将设置为 min 的值
+                    var minMax = this.minMax('date');
+                    var min = minMax.min;
+                    var max = minMax.max;
+                    if (
+                        arrDate.join('') < min.toArray().join('') ||
+                        arrDate.join('') > max.toArray().join('')
+                    ) {
+                        arrDate = min.toArray();
+                    }
                     if (type == 'date') {
                         input.val(arrDate.join('-'));
                     } else if (type == 'year') {
@@ -197,14 +227,22 @@
                 break;
             }
             case 'date-range': case 'month-range': {
+                // 跟 date 的情况一样， 当没有初始值，但是存在 min 或者 max 的设置的时候，并且今天或者本月不在这个范围里面，会出现无法选择的假象，对这情况处理
+                var minMax = this.minMax('date')
+                var min = minMax.min
+                var max = minMax.max
+
+                if (initValue.toDate() < min || initValue.toDate() > max) {
+                    initValue = min.toArray().join('-')
+                }
                 // 日期范围
-                var beginDate = new Date();
-                var endDate = new Date();
+                var beginDate = min;
+                var endDate = min;
                 // 前后时间字符串
                 var arrRange = initValue.split(' ');
                 // 有如下一些情况：
                 // 1. 空，则选择范围就是今日
-                // 2. 只有一个时间，则选择范围只这个时间到今天这个范围
+                // 2. 只有一个时间，则选择范围指这个时间到今天这个范围
                 // 3. 其他就是正常的
                 if (initValue != '' && arrRange.length == 1) {
                     var someDate = arrRange[0].toDate();
@@ -316,7 +354,7 @@
 
                         container.removeData('dayOverflow');
                     } else if ($(this).attr('data-type') == 'month') {
-                        // 切换到年份选择
+                        // 切换到月份选择
                         self.month();
                     }
                     break;
@@ -465,8 +503,19 @@
                             self[SELECTED][1] = arrToday[1];
                         }
 
-                        // 赋值
-                        self.val();
+                        // 在这里赋值前要先判断新选择的月份以及旧的日期是否在可选范围内, 否则会出现选取到超越范围的日期. 要将向外补露的数据提前, 因为 minMax 函数
+                        var minMax = self.minMax('date');
+                        var min = minMax.min;
+                        var max = minMax.max;
+                        var nowSelect = self[SELECTED].join('');
+                        // 当前值符合区域内才进行赋值操作
+                        if (
+                            min.toArray().join('') <= nowSelect &&
+                            max.toArray().join('') >= nowSelect
+                        ) {
+                            // 赋值
+                            self.val();
+                        }
 
                         // 根据是否是月份输入框，决定是面板切换，还是关闭
                         if (self.type == 'month') {
@@ -501,9 +550,20 @@
                         } else {
                             self[SELECTED][0] = this.innerHTML * 1;
                         }
-
-                        // 赋值
-                        self.val();
+                        // 在这里赋值前要先判断新选择的年份以及旧的月份是否在可选范围内, 要将向外补露的数据提前，因为 minMax 方法
+                        // 最大月份和最小月份
+                        var minMax = self.minMax('date')
+                        var min = minMax.min
+                        var max = minMax.max
+                        var nowSelect = self[SELECTED].join('')
+                        // 当前值符合区域内才进行赋值操作
+                        if (
+                            min.toArray().join('') <= nowSelect &&
+                            max.toArray().join('') >= nowSelect
+                        ) {
+                            // 赋值
+                            self.val()
+                        }
                         // 如果是年份选择输入框
                         if (self.type == 'year') {
                             // 隐藏
@@ -549,8 +609,18 @@
                     if (/item/.test(this.className)) {
                         // 修改选中的小时
                         self[SELECTED][0] = this.innerHTML.split(':')[0];
-                        // 赋值
-                        self.val();
+                        // 在这里赋值前要先判断新选择的小时以及旧的分钟是否在可选范围内, 要将向外补露的数据提前
+
+                        // 最大月份和最小月份
+                        var minMax = self.minMax('minute');
+                        var min = minMax.min;
+                        var max = minMax.max;
+                        var nowSelect = self[SELECTED].join('');
+                        // 当前值符合区域内才进行赋值操作
+                        if (min <= nowSelect && max >= nowSelect) {
+                            // 赋值
+                            self.val();
+                        }
 
                         // 如果是从分钟模式切换过来，则切换回去，否则，直接隐藏
                         if (self.type == 'hour') {
@@ -563,26 +633,7 @@
             }
         });
 
-        // 暴露的一些数据
-        this.el = {};
         this.el.container = container;
-        this.el.trigger = trigger;
-        this.el.input = input;
-
-        this.type = type;
-
-        // 最大小值的处理在各个种类的面板中执行
-        // 以便支持动态时间修改
-        // 例如，选择A时间，然后设置B时间的min值为A时间
-        this.max = params.max;
-        this.min = params.min;
-
-        // 回调方法
-        this.callback = {
-            show: params.onShow,
-            hide: params.onHide,
-            trigger: params.trigger
-        };
 
         trigger.click($.proxy(function(event) {
             if (!this.display) {
@@ -694,11 +745,12 @@
                 // 日期范围
                 var beginDate = new Date();
                 var endDate = new Date();
-                // 前后时间字符串
+                // 前后时间字符串 
+                // 确定了数组长度是3 没有必要再去求数组长度减 1
                 var arrRange = initValue.split(' ');
                 if (arrRange.length == 3) {
                     beginDate = arrRange[0].toDate();
-                    endDate = arrRange[arrRange.length - 1].toDate();
+                    endDate = arrRange[2].toDate();
                     // 存储
                     this[SELECTED] = [beginDate.toArray(), endDate.toArray()];
                 }
@@ -774,29 +826,13 @@
         // eg. [2015,'02', 23]
         var arrDate = date;
 
-        // 文本框元素比较常用，使用局部变量，一是节约文件大小，二是性能更好！
-        var input = this.el.input;
-
         // 类型
         var type = this.type;
 
-        // 最大月份和最小月份
-        var min = input.attr('min') || this.min;
-        var max = input.attr('max') || this.max;
-        // 这里使用日期对象(时间戳)做比对
-        var arr = $.map([min, max], function(minMax, index) {
-            if (typeof minMax == 'string' && /^\d{8}$/.test(minMax.replace(regDate, '')) == true) {
-                // 这里对字符串进行比较简单的合法性判别
-                // 自己人使用不会乱来的
-                minMax = minMax.toDate();
-            } else if (typeof minMax != 'object' || !minMax.getTime) {
-                minMax = index ? new Date(9999, 0, 1) : new Date(0, 0, 1);
-            }
-
-            return minMax;
-        });
-        min = arr[0];
-        max = arr[1];
+        // 整合到 minMax 函数里面
+        var minMax = this.minMax('date')
+        var min = minMax.min
+        var max = minMax.max
 
         var chinese = ['日', '一', '二', '三', '四', '五', '六'];
         var monthDay = this._monthDay(arrDate);
@@ -1166,7 +1202,15 @@
         html = html + '<div class="' + prefixDate + 'head">\
             <div class="' + prefixDate + 'half">';
         //  2.1 上一个月箭头
-        var datePrevMonth = new Date(arrDate[0], prevMonth - 1, arrDate[2]);
+        // 这里也不能使用全部情况 arrDate[2] 因为 arrDate[2] 默认是 1, 当 min 存在，最前的月份会无法选择 例如 prevMonth 是 10 , obj.min 为 10-14， 那么 datePrevMonth 为 10-01 永远是小于 obj.min 的
+        var day = arrDate[2]
+        var minArr = obj.min.toArray()
+        // 如果上个月匹配的是 min 的月份 那么将 day 改为 min 的日期
+        if (minArr[0] + '' + minArr[1] == arrDate[0] + '' + prevMonth) {
+            day = minArr[2]
+        }
+
+        var datePrevMonth = new Date(arrDate[0], prevMonth - 1, day);
         if (datePrevMonth >= obj.min && datePrevMonth <= obj.max) {
             html = html + '<a href="javascript:" class="' + prefixDate + 'prev" data-month="' + prevMonth + '" aria-label="上一个月，当前' + arrDate[1] + '月">' + this.svg + '</a>';
         } else {
@@ -1233,28 +1277,10 @@
      * @return {Object}        返回的是后续方法需要的数据的纯对象，包括组装的HTML字符数据，月份最大和最小值。
      */
     DateTime.prototype._month = function(arrDate) {
-        // 文本框元素比较常用，使用局部变量，一是节约文件大小，二是性能更好！
-        var input = this.el.input;
-
-        // 最大月份和最小月份
-        var min = input.attr('min') || this.min;
-        var max = input.attr('max') || this.max;
-        // 这里使用年月组合做比对
-        var arr = $.map([min, max], function(minMax, index) {
-            if (typeof minMax == 'object' && minMax.getTime) {
-                minMax = minMax.toArray().slice(0, 2).join('');
-            } else if (typeof minMax == 'string' && /\D/.test(minMax.replace(regDate, '')) == false) {
-                // 这里对字符串进行比较简单的合法性判别
-                // 自己人使用不会乱来的
-                minMax = minMax.replace(regDate, '').slice(0, 6);
-            } else {
-                minMax = index ? '999912' : '000000';
-            }
-
-            return minMax;
-        });
-        min = arr[0];
-        max = arr[1];
+        // 替换成集成方法
+        var minMax = this.minMax('month')
+        var min = minMax.min
+        var max = minMax.max
 
         var chinese = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
 
@@ -1263,6 +1289,8 @@
 
         // 类型
         var type = this.type;
+        // 添加 container
+        var container = this.el.container;
 
         var html = '<div class="' + prefixMonth + 'body">' + (function() {
             var htmlDate = '';
@@ -1279,8 +1307,8 @@
 
                 // 基本类名
                 cl = prefixDate + 'item';
-
-                if (type == 'month') {
+                // 如果 type 为 date 的时候在选择 month 时不会出现这个 selected 效果, 改为 container的 data-type 判断
+                if (container.attr('data-type') == 'month') {
                     if (i == arrDate[1]) {
                         // 选中态的类名
                         cl = cl + ' ' + SELECTED;
@@ -1322,6 +1350,9 @@
      */
     DateTime.prototype.month = function() {
         var arrDate = this[SELECTED];
+         // 将设置 container 的 属性 data-type 提前，目的是为了在 type = date 的时候，从日期选择跳转到月份选择的时候看到月份被选择的样式
+        var container = this.el.container
+        container.attr('data-type', 'month')
 
         var obj = this._month(arrDate);
 
@@ -1366,7 +1397,7 @@
         // 容器闭合标签
         html += '</div>';
 
-        this.el.container.attr('data-type', 'month').html(html);
+        container.html(html);
 
         return this;
     };
@@ -1456,30 +1487,10 @@
     DateTime.prototype.year = function() {
         var arrDate = this[SELECTED];
 
-        // 文本框元素比较常用，使用局部变量，一是节约文件大小，二是性能更好！
-        var input = this.el.input;
-
-        // 最小年份和最大年份
-        var min = input.attr('min') || this.min;
-        var max = input.attr('max') || this.max;
-
-        // 用户可能使用时间对象
-        if (typeof min == 'object' && min.getFullYear) {
-            min = min.getFullYear();
-        } else if (typeof min == 'string' && /\D/.test(min.replace(regDate, '')) == false) {
-            // 这里对字符串进行比较简单的合法性判别
-            // 自己人使用不会乱来的
-            min = min.toDate().getFullYear();
-        } else {
-            min = 0;
-        }
-        if (typeof max == 'object' && max.getFullYear) {
-            max = max.getFullYear();
-        } else if (typeof max == 'string' && /\D/.test(max.replace(regDate, '')) == false) {
-            max = max.toDate().getFullYear();
-        } else {
-            max = 9999;
-        }
+        // 整合到 minMax 方法中
+        var minMax = this.minMax('year');
+        var min = minMax.min;
+        var max = minMax.max;
 
         // 选择年份的完整HTML代码
         // 1. 同样的，year专属类名容器
@@ -1493,13 +1504,15 @@
         html = html + '<div class="' + prefixDate + 'head">';
         //    年份不是你想翻就能翻到
         //    2.1 上一个12年
-        if (year - 12 >= min && year - 12 <= max) {
+        // 例如 min 为 2014-07-03 的时候， 选择了 2021 年后只能显示 2015 年及后面的年份，不能选择 2014 年 .将 12 改为 6，因为是显示当前选择年份的前面 6 个年份
+        if (year - 6 >= min && year - 6 <= max) {
             html = html + '<a href="javascript:" class="' + prefixDate + 'prev" data-year="' + (year - 12) + '" aria-label="上一个12年">' + this.svg + '</a>';
         } else {
             html = html + '<span class="' + prefixDate + 'prev">' + this.svg + '</span>';
         }
         //    2.2 下一个12年
-        if (year + 12 >= min && year + 12 <= max) {
+        // 例如 min 为 2014-07-03 的时候， 选择了 2021 年后只能显示 2015 年及后面的年份，不能选择 2014 年。将 12 改为 5，因为是显示当前选择年份的后面 5 个年份
+        if (year + 5 >= min && year + 5 <= max) {
             html = html + '<a href="javascript:" class="' + prefixDate + 'next" data-year="' + (year + 12) + '" aria-label="下一个12年">' + this.svg + '</a>';
         } else {
             html = html + '<span class="' + prefixDate + 'next">' + this.svg + '</span>';
@@ -1566,22 +1579,10 @@
         } else {
             step = Math.round(step);
         }
-
-        // 最小时间，和最大时间
-        // 这里只比较小时
-        var min = (input.attr('min') || this.min.toString()).split(':')[0];
-        var max = (input.attr('max') || this.max.toString()).split(':')[0];
-
-        if (/\D/.test(min)) {
-            min = 0;
-        } else {
-            min *= 1;
-        }
-        if (/\D/.test(max)) {
-            max = 24;
-        } else {
-            max *= 1;
-        }
+        // 整合到 minMax 方法
+        var minMax = this.minMax('hour');
+        var min = minMax.min;
+        var max = minMax.max;
 
         // 选择小时的完整HTML
         // 1. 同样的，专有容器
@@ -1639,19 +1640,10 @@
         // 跟小时不同，这里必须符合00:00格式
         // 由于格式固定，我们直接去除':'后的值进行比较
         // 例如：10:20 → 1020
-        var min = input.attr('min') || (this.min + '');
-        var max = input.attr('max') || (this.max + '');
-
-        if (min == 'auto' || /\D/.test(min.replace(':', '')) || min.split(':').length != 2) {
-            min = 0;
-        } else {
-            min = min.replace(':', '') * 1;
-        }
-        if (max == 'auto' || /\D/.test(max.replace(':', '')) || max.split(':').length != 2) {
-            max = 2359;
-        } else {
-            max = max.replace(':', '') * 1;
-        }
+        // 整合到 minMax 方法
+        var minMax = this.minMax('minute');
+        var min = minMax.min;
+        var max = minMax.max;
 
         // 选择分钟的完整HTML
         // 1. 外部的容器，含有专有容器类名，可以重置内部的一些样式
@@ -1786,6 +1778,83 @@
 
         return this;
     };
+
+    /**
+     * 将最大月份和最小月份的获取提取出来
+     * @returns {Object}      最大值和最小值的数组
+     */
+    DateTime.prototype.minMax = function(type) {
+        var input = this.el.input;
+        // var type = this.type
+
+        var min = input.attr('min') || this.min;
+        var max = input.attr('max') || this.max;
+
+        // 这里使用日期对象(时间戳)做比对
+        var arr = $.map([min, max], function(minMax, index) {
+            if (type == 'date') {
+                // 返回 Date 类型
+                if (typeof minMax == 'string' && /^\D+$/.test(minMax.replace(regDate, '')) == false
+                ) {
+                    minMax = minMax.toDate();
+                } else if (typeof minMax != 'object' || !minMax.getTime) {
+                    minMax = index ? new Date(9999, 0, 1) : new Date(0, 0, 1);
+                }
+            } else if (type == 'month' || type == 'month-range') {
+                // 返回 String 类型
+                if (typeof minMax == 'object' && minMax.getTime) {
+                    minMax = minMax
+                        .toArray()
+                        .slice(0, 2)
+                        .join('');
+                } else if (typeof minMax == 'string' && /\D/.test(minMax.replace(regDate, '')) == false
+                ) {
+                    minMax = minMax.replace(regDate, '').slice(0, 6);
+                } else {
+                    minMax = index ? '999912' : '000000';
+                }
+            } else if (type == 'year') {
+                // 返回 4 位数的年份
+                if (typeof minMax == 'object' && minMax.getFullYear) {
+                    minMax = minMax.getFullYear();
+                } else if (typeof minMax == 'string' && /\D+/.test(minMax.replace(regDate, '')) == false
+                ) {
+                    minMax = minMax.toDate().getFullYear();
+                } else {
+                    minMax = index ? 9999 : 0;
+                }
+            } else if (type == 'minute') {
+                // 最小时间，和最大时间
+                // 跟小时不同，这里必须符合00:00格式
+                // 由于格式固定，我们直接去除':'后的值进行比较
+                // 例如：10:20 → 1020
+                if (
+                    minMax == 'auto' ||
+                    /\D/.test(minMax.replace(':', '')) ||
+                    minMax.split(':').length != 2
+                ) {
+                    minMax = index ? 2359 : 0
+                } else {
+                    minMax = minMax.replace(':', '') * 1
+                }
+            } else if (type == 'hour') {
+                // 最小时间，和最大时间
+                // 这里只比较小时
+                if (/\D/.test(minMax)) {
+                    minMax = index ? 24 : 0
+                } else {
+                    minMax *= 1
+                }
+            }
+
+            return minMax
+        })
+
+        return {
+            min: arr[0],
+            max: arr[1]
+        }
+    }
 
     /**
      * 下面为拓展的jQuery包装器方法

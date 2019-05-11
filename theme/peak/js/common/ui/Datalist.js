@@ -255,7 +255,7 @@
             var customSuccess = params.data.success;
 
             this.callback.data = function() {
-                // 清除延时，避免妹子输入都请求
+                // 清除延时，避免每次输入都请求
                 clearTimeout(self.ajaxTimer);
 
                 // 有2个参数有内置，需要合并
