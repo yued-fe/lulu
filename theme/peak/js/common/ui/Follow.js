@@ -319,10 +319,10 @@
                 }
                 case 'left': {
                     tarL = triL - tarW;
-                    if (strFirst == '2') {
+                    if (strFirst == '1') {
                         tarT = triT;
-                    } else if (strFirst === '6') {
-                        tarT = triT - (tarW - triW) / 2;
+                    } else if (strFirst === '8') {
+                        tarT = triT - (tarH - triH) / 2;
                     } else {
                         tarT = triT - (tarH - triH);
                     }
