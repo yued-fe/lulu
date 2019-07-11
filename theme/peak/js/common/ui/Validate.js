@@ -1316,6 +1316,8 @@
                         // 插入
                         this.value = paste;
                     }
+                    
+                    $(this).trigger('input');
                 });
             }
         });
