@@ -114,17 +114,17 @@
                                     <pre>&lt;i class="icon_del <mark>ui-tips</mark>" title="删除"&gt;&lt;/i&gt;</pre>
                                     <p>这里hover延时使用了CSS实现。</p>
                                     动态效果测试：<a href="javascript:" id="afterIcon" class="ui-button ui-button-primary" onclick="">动态插入HTML</a>
-                                    <pre>// 动态tips
+                                    <pre><span class="green">// 动态tips</span>
 $('#afterIcon').click(function () {
-    $(this).after('&lt;i class="icon_del ui-tips" data-title=动态设置&gt;&lt;/i&gt;');
+    $(this).after('&lt;i class="icon_del ui-tips" title=动态设置&gt;&lt;/i&gt;');
 });</pre>
                                     <p>只要页面有过类似<code>new Tips().init()</code>的初始化执行，黑色tips可以动态呈现，无需额外JS绑定或者初始化。</p>
                                 </li>
                                 <li>基于JS hover事件触发: <i class="icon_del jsTips dib" title="删除"></i>
                                     <pre>&lt;i class="icon_del <mark>jsTips</mark>" title="注销">&lt;/i></pre>
-                                    <p>CSS和JS hover触发可以合起来一行代码搞定：</p>
-                                    <pre>new Tips($('.jsTips')).init();</pre>
-                                    <p>假设此代码已在common.js中初始化，则想要图标的黑色tips效果，只要添加黄色高亮的类名(<code>ui-tips</code>或<code>jsTips</code>)就可以了。</p>
+                                    <p>JS hover触发可以使用下面语法初始化：</p>
+                                    <pre>new Tips().init('.jsTips');</pre>
+                                    <p>假设此代码已在common.js中初始化，则想要图标的黑色tips效果，只要添加类名<code>jsTips</code>就可以了，即使动态插入元素也支持。</p>
                                 </li>
                                 <li>内容较多，带偏移的黑色tips: <i id="spTips" class="icon_del dib"></i></span>
                                     <p>后面带有偏移的tips效果需要额外调用Tips组件，代码如下：</p>
@@ -348,7 +348,7 @@ seajs.config(config).use(['common/ui/Tips', 'common/ui/ErrorTip'], function(Tips
 
     // 动态tips
     $('#afterIcon').click(function () {
-        $(this).after(' <i class="icon_del ui-tips vm" data-title=动态设置></i>');
+        $(this).after(' <i class="icon_del ui-tips vm" title=动态设置></i>');
     });
 
     // 红色errorTip
