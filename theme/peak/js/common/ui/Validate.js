@@ -1280,7 +1280,7 @@
                     // 粘贴内容
                     var paste = '';
                     // 剪切板对象可以获取
-                    if (!clipboardData) {
+                    if (!clipboardData || ele.disabled == true) {
                         return;
                     }
                     // 获取选中的文本内容
