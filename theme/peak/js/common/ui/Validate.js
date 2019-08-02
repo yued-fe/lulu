@@ -1443,7 +1443,7 @@
             // 出错
             target.addClass('error');
         } else if (ele.type == 'radio' && ele.name) {
-            this.el.form.find('input[type=radio][name=' + ele.name + ']').each(function() {
+            this.el.form.find('input[type=radio][name="' + ele.name + '"]').each(function() {
                 $.validate.getTarget($(this)).removeClass('error').removeAttr('aria-label');
             });
         } else {
