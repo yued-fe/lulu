@@ -295,7 +295,15 @@
         var self = this;
         var sel = self.el.sel;
 
-        return sel.find('option').map(function () {
+        var elOptions = sel.find('option');
+
+        if (elOptions.length == 0) {
+            return [{
+                html: ''
+            }];
+        }
+
+        return elOptions.map(function () {
             var option = this;
 
             return {
