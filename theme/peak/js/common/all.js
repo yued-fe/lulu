@@ -898,8 +898,8 @@
                 var el = $(ele);
                 var z = el.css('zIndex') * 1;
 
-                if (z && ele !== target[0] && el.css('display') !== 'none' && el.width() * el.height() > 0) {
-                    newZIndex = Math.max(z, newZIndex);
+                if (z && ele !== target && el.css('display') !== 'none' && el.width() * el.height() > 0) {
+                    newZIndex = Math.max(z + 1, newZIndex);
                 }
             });
 
@@ -2037,7 +2037,7 @@
         var self = this;
         var tips, timer;
 
-        var _content = function() {
+        this._content = function() {
             var content = params.content;
             if (!content) {
                 content = trigger.attr(params.attribute);
@@ -2070,7 +2070,7 @@
         // 事件走起
         if (params.eventType == 'hover') {
             trigger.hover(function() {
-                var content = _content();
+                var content = self._content();
                 timer = setTimeout(function() {
                     self.show(content);
                 }, params.delay);
@@ -2081,7 +2081,7 @@
 
             trigger.on({
                 'focus': function () {
-                    self.show(_content());
+                    self.show(self._content());
                 },
                 'blur': function () {
                     self.hide();
@@ -2089,7 +2089,7 @@
             });
         } else if (params.eventType == 'click') {
             trigger.click(function() {
-                self.show(_content());
+                self.show(self._content());
             });
             $(document).mouseup(function(event) {
                 var target = event.target;
@@ -2100,7 +2100,7 @@
                 }
             });
         } else {
-            this.show(_content());
+            this.show(self._content());
         }
 
         return this;
@@ -2112,12 +2112,15 @@
      * @return {Object}         返回当前实例对象
      */
     Tips.prototype.show = function(content) {
+        content = content || this.content;
         if (!content) {
             return this;
         }
         // 元素
         var trigger = this.el.trigger;
         var tips = this.el.tips;
+
+        this.content = content;
 
         // tips图形需要的元素
         var before, after;
@@ -2211,14 +2214,19 @@
      * tip提示初始化
      * @return {Object} 返回当前实例对象
      */
-    Tips.prototype.init = function() {
-        $('.' + CL).tips();
+    Tips.prototype.init = function(cl) {
+        cl = cl || CL;
+        $('.' + cl).tips();
 
-        // 全局委托，因为上面的初始化对于动态创建的IE7,IE8浏览器无效
+        // 全局委托，因为上面的初始化对于动态创建的元素无效
         $(document).mouseover(function(event) {
             var target = event && event.target;
-            if (target && $(target).hasClass(CL) && !$(target).data('tips')) {
+            if (target && $(target).hasClass(cl) && !$(target).data('tips')) {
                 $(target).tips();
+                var objTips = $(target).data('tips');
+                if (objTips._content) {
+                    objTips.show(objTips._content());
+                }
             }
         });
 
@@ -4637,7 +4645,15 @@
         var self = this;
         var sel = self.el.sel;
 
-        return sel.find('option').map(function () {
+        var elOptions = sel.find('option');
+
+        if (elOptions.length == 0) {
+            return [{
+                html: ''
+            }];
+        }
+
+        return elOptions.map(function () {
             var option = this;
 
             return {
@@ -9209,7 +9225,7 @@
                     // 粘贴内容
                     var paste = '';
                     // 剪切板对象可以获取
-                    if (!clipboardData) {
+                    if (!clipboardData || ele.disabled == true) {
                         return;
                     }
                     // 获取选中的文本内容
@@ -9245,8 +9261,8 @@
                         // 插入
                         this.value = paste;
                     }
-                    
-                    $(this).trigger('input');
+
+                    $(ele).trigger('input');
                 });
             }
         });
@@ -9372,7 +9388,7 @@
             // 出错
             target.addClass('error');
         } else if (ele.type == 'radio' && ele.name) {
-            this.el.form.find('input[type=radio][name=' + ele.name + ']').each(function() {
+            this.el.form.find('input[type=radio][name="' + ele.name + '"]').each(function() {
                 $.validate.getTarget($(this)).removeClass('error').removeAttr('aria-label');
             });
         } else {
@@ -9841,7 +9857,9 @@
         var btnSubmitReal = form.find('[type=submit]');
         // 我们肉眼所见的按钮，进行一些状态控制
         var btnSubmit = $('label[for=' + btnSubmitReal.attr('id') + ']');
-
+        if (btnSubmit.length == 0) {
+            btnSubmit = btnSubmitReal;
+        }
 
         // 占位符
         if ($().placeholder) {
@@ -10453,7 +10471,7 @@
                 }
             });
         }
-    },
+    };
 
     Table.prototype.show = function() {
         this.el.size.unloading(this.el.size.data('animation'));
