@@ -51,3 +51,7 @@ lulu ui支持retina视网膜，同时支持aria无障碍访问，以及极少UI�
 ## 其他说明
 
 因为IE7大势已去，目前modern主题已停止维护。
+
+<hr>
+
+MIT License
