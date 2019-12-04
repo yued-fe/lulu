@@ -1,0 +1,74 @@
+/**
+ *
+ * @LightTip.css
+ * @author xinxuzhang
+ * @create 15-06-25
+ * @edit   17-06-19
+ * @edit   19-09-13 @ziven27 [去jQuery]
+**/
+
+.ui-lightip {
+    display: none;
+    width: 25em;
+    margin: 0 auto;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 15px 1em;
+    background-color: #4c5161;
+    animation: fadeIn .25s both;
+    position: fixed;
+    top: 0; left: 1rem; right: 1rem;
+    z-index: 19;
+    outline: none;
+    cursor: default;
+}
+
+/* 显示 */
+.ui-lightip[open] {
+    display: inline;
+}
+
+/* 成功状态  */
+.ui-lightip[data-status="success"] {
+    background-color: #01cf97;
+}
+
+
+/* 失败状态  */
+.ui-lightip[data-status="error"] {
+    background-color: #f4615c;
+}
+
+/* 修改文案  */
+.ui-lightip-text {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    text-align: left;
+    color: #fff;
+}
+
+[data-status="success"] .ui-lightip-text {
+    padding-left: 23px;
+    margin-left: -5px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M163.038 57.226c-5.217-4.162-5.713-4.289-11.674-7.244-2.683-1.344-6.633 2.113-8.569 4.67l-52.648 67.042-34.301-43.387c-1.94-2.558-5.516-3.499-8.2-2.293-6.11 3.095-5.496 2.992-10.715 7.029-2.386 1.883-2.535 5.245-.597 7.793 0 0 36.97 46.917 41.44 52.565 6.557 8.068 18.483 7.669 24.744 0 4.62-5.781 61.117-78.506 61.117-78.506 1.937-2.559 1.788-5.918-.597-7.669z'/%3E%3C/svg%3E");
+}
+
+[data-status="error"] .ui-lightip-text {
+    padding-left: 23px;
+    margin-left: -5px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M116.153 99.999l36.484-36.486a7.369 7.369 0 0 0 0-10.423l-5.212-5.213a7.375 7.375 0 0 0-10.425 0l-36.484 36.485-36.485-36.485a7.374 7.374 0 0 0-10.424 0l-5.211 5.213a7.365 7.365 0 0 0 0 10.423L84.88 99.999l-36.483 36.485a7.369 7.369 0 0 0 0 10.426l5.211 5.213a7.38 7.38 0 0 0 10.424 0l36.485-36.486L137 152.122a7.38 7.38 0 0 0 10.425 0l5.212-5.213a7.372 7.372 0 0 0 0-10.426l-36.484-36.484z'/%3E%3C/svg%3E");
+}
+
+/* 移动端居中呈现  */
+@media screen and (max-width: 640px) {
+    .ui-lightip {
+        width: auto;
+        top: 50%; left: 50%;
+        right: auto;
+        max-width: calc(100% - 2rem - 2em);
+        transform: translate(-50%, -50%);
+    }
+}

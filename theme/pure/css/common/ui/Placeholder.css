@@ -1,0 +1,41 @@
+/* placeholder */
+::-webkit-input-placeholder {
+    -webkit-transition: opacity .15s;
+    color: #a2a9b6;
+    line-height: inherit;
+    font-size: 14px;
+}
+
+:focus::-webkit-input-placeholder {
+    opacity: .38;
+}
+
+::-moz-placeholder {
+    transition: opacity .15s;
+    color: #a2a9b6;
+    font-size: 14px;
+}
+
+:focus::-moz-placeholder {
+    opacity: .38;
+}
+
+::placeholder {
+    transition: opacity .15s;
+    color: #a2a9b6;
+    font-size: 14px;
+}
+
+:focus::placeholder {
+    opacity: .38;
+}
+
+:-ms-input-placeholder {
+    transition: opacity .15s;
+    color: #a2a9b6 !important;
+    font-size: 14px;
+}
+
+:focus:-ms-input-placeholder {
+    opacity: .38;
+}

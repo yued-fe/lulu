@@ -1,0 +1,163 @@
+@charset "UTF-8";
+/**
+ *
+ * @Textarea.css
+ * @author xinxuzhang
+ * @create 15-06-17
+**/
+textarea {
+    font-family: inherit;
+}
+
+textarea.ui-textarea,
+.ui-textarea > textarea {
+    line-height: 20px;
+    padding: 9px 8px;
+    border: 1px solid #d0d0d5;
+    border-radius: 4px;
+    background-color: #fff;
+    outline: none;
+    color: #4c5161;
+    font-size: 14px;
+    transition: border-color .15s, background-color .15s;
+    word-break: break-all;
+    vertical-align: top;
+    box-sizing: border-box;
+    resize: none;
+    overflow: auto;
+}
+
+textarea[resize] {
+    resize: both;
+}
+textarea[resize="vertical"] {
+    resize: vertical;
+}
+textarea[resize="horizontal"] {
+    resize: horizontal;
+}
+
+div.ui-textarea > textarea {
+    width: 100%;
+}
+
+/* hover */
+.ui-textarea:hover,
+.ui-textarea > textarea:hover {
+    border-color: #ababaf;
+}
+
+/* focus */
+.ui-textarea:focus,
+.ui-textarea > textarea:focus {
+    border-color: #2486ff;
+}
+
+/* textarea with count */
+.ui-textarea-x {
+    position: relative;
+    padding: 2px 9px 32px 3px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ui-textarea-x > textarea {
+    display: block;
+    width: 100%;
+    line-height: 20px;
+    border: 0 none;
+    padding: 7px 0 9px;
+    right: -6px;
+    color: #4c5161;
+    font-size: 14px;
+    outline: none;
+    background: none;
+    word-break: break-all;
+    overflow: auto;
+    resize: none;
+    position: relative;
+    z-index: 1;
+}
+
+.ui-textarea-x > .ui-textarea {
+    position: absolute;
+    border: 1px solid #d0d0d5;
+    border-radius: 4px;
+    background-color: #fff;
+    top: 0; bottom: 0; left: 0; right: 0;
+    transition: border-color .15s, background-color .15s;
+}
+
+.ui-textarea-x .ui-textarea-count {
+    position: absolute;
+    left: 8px; right: 10px; bottom: 0;
+    line-height: 32px;
+    color: #a2a9b6;
+    font-size: 12px;
+    text-align: right;
+    z-index: 1;
+}
+.ui-textarea-count slash {
+    margin: 0 1px;
+}
+
+.ui-textarea-x:hover > .ui-textarea {
+    border-color: #ababaf;
+}
+
+.ui-textarea-x > textarea:focus ~ .ui-textarea {
+    border-color: #2486ff;
+}
+
+.ui-textarea-x .ui-placeholder {
+    padding: 7px !important;
+    z-index: 1;
+}
+
+/* resize */
+.ui-textarea-resize {
+    width: 17px; height: 17px;
+    position: absolute;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M765.558 510.004a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM765.558 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM422.15700000000004 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM422.15700000000004 510.004a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM765.558 202.54a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM66.77700000000002 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0z' fill='%23BFBFBF'/%3E%3C/svg%3E") no-repeat 100% 100%;
+    background-size: 100%;
+}
+
+/* disabled */
+.ui-textarea:disabled,
+.ui-textarea > textarea:disabled,
+.ui-textarea[readonly],
+.ui-textarea > textarea[readonly],
+.ui-textarea-x > textarea:disabled ~ .ui-textarea,
+.ui-textarea-x > textarea[readonly] ~ .ui-textarea {
+    background-color: #f7f9fa;
+}
+.ui-textarea[readonly],
+.ui-textarea > textarea[readonly],
+.ui-textarea-x > [readonly] ~ .ui-textarea {
+    background-image: linear-gradient(to bottom right, #fff 50%, transparent 50%);
+}
+
+.ui-textarea:disabled:hover,
+.ui-textarea > textarea:disabled:hover,
+.ui-textarea[readonly]:hover,
+.ui-textarea > textarea[readonly]:hover,
+.ui-textarea[readonly]:focus,
+.ui-textarea > textarea[readonly]:focus {
+    border-color: #d0d0d5;
+}
+
+textarea[readonly],
+textarea:disabled {
+    resize: none;
+}
+
+/* error */
+.ui-textarea.error,
+.ui-textarea > .error {
+    border-color: #f4615c !important;
+}
+.ui-textarea-count > .error,
+.ui-textarea-count.error {
+    color: #f4615c;
+}

@@ -1,0 +1,183 @@
+@charset "UTF-8";
+/**
+ *
+ * @Button.css
+ * @author zhangxinxu
+ * @create 15-06-12
+ * @edit     17-06-13
+                     17-11-07 use png+spin for loading
+                     19-07-09 IE9+, no external links
+ */
+.ui-button {
+    display: inline-block;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #4c5161;
+    border-radius: 4px;
+    padding: 9px 15px;
+    min-width: 50px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-decoration: none;
+    transition: border-color .15s, box-shadow .15s, opacity .15s;
+    font-family: inherit;
+    cursor: pointer;
+    overflow: visible;
+}
+.ui-button:not([data-type]),
+.ui-button[data-type="normal"] {
+    border: 1px solid #d0d0d5;
+}
+
+div.ui-button {
+    display: block;
+}
+
+[type="submit"]:not([class]) {
+    position: absolute;
+    clip: rect(0 0 0 0);
+}
+
+/* Chrome/Firefox的outline会由Keyboard.js帮忙呈现 */
+@supports (-webkit-mask: none) {
+    button,
+    [type="button"],
+    [type="submit"],
+    [tabindex] {
+        outline: 0 none;
+    }
+}
+::-moz-focus-inner {
+    border: 0;
+}
+
+input.ui-button,
+button.ui-button {
+    height: 20px;
+    box-sizing: content-box;
+}
+.ui-button:hover {
+    color: #4c5161;
+    text-decoration: none;
+}
+.ui-button:not(.disabled):not(.loading):not(:disabled):hover {
+    border-color: #ababaf;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.01), inset 0 0 0 100px rgba(0,0,0,.05);
+}
+.ui-button:not(.disabled):not(.loading):not(:disabled):active {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1), inset 0 0 0 100px rgba(0,0,0,.1);
+}
+.ui-button[data-type]:not([data-type="normal"]) {
+    border: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+/* primary button */
+.ui-button[data-type="primary"],
+.ui-button[data-type="remind"],
+.ui-button[data-type=""] {
+    background-color: #2486ff;
+}
+
+/* success button */
+.ui-button[data-type="success"] {
+    background-color: #01cf97;
+}
+
+/* warning button */
+.ui-button[data-type="warning"],
+.ui-button[data-type="warn"] {
+    background-color: #f28c48;
+}
+/* danger button */
+.ui-button[data-type="danger"],
+.ui-button[data-type="error"] {
+    background-color: #f4615c;
+}
+
+/* disabled status */
+.ui-button.disabled,
+.ui-button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+/* loading status */
+.ui-button.loading {
+    color: transparent !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    cursor: default;
+}
+/* for IE9 button按钮以及IE9+ input按钮，三个点 */
+input.ui-button.loading,
+.ui-button.loading::before {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E");
+    background-position-x: calc(50% - 10px), 50%, calc(50% + 10px);
+    /* IE不支持calc计算动画，因此是要具体数值代替 */
+    background-position-y: 18px, 18px, 18px;
+    background-size: 5px 5px;
+    animation: bubbling 1s infinite;
+}
+input.ui-button[data-type]:not([data-type="normal"]).loading,
+.ui-button[data-type]:not([data-type="normal"]).loading::before {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%23fff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%23fff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+/* IE9+ */
+.ui-button.loading::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-repeat: no-repeat;
+}
+/* IE10+，:invalid伪类IE10+才支持 */
+.ui-button.loading::before,
+div:invalid {
+    width: 20px; height: 20px;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232486ff'/%3E%3C/svg%3E") no-repeat center;
+    background-size: 20px 20px;
+    margin: auto;
+    animation: spin 1s linear infinite;
+}
+/* IE10+ */
+.ui-button[data-type]:not([data-type="normal"]).loading::before,
+div:invalid {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+@keyframes bubbling {
+    0% {
+        background-position-y: 18px, 18px, 18px;
+    }
+    15% {
+        background-position-y: 15px, 18px, 18px;
+    }
+    30% {
+        background-position-y: 17px, 15px, 18px;
+    }
+    45% {
+        background-position-y: 18px, 17px, 15px;
+    }
+    60% {
+        background-position-y: 18px, 18px, 17px;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* error */
+.ui-button.error {
+    border-color: #f4615c !important;
+}

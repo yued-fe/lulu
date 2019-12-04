@@ -1,0 +1,232 @@
+@charset "UTF-8";
+/**
+ *
+ * @Dialog.css
+ * @author zhangxinxu
+ * @create 15-06-18
+ * @edit   19-10-31
+ *
+**/
+.ui-dialog-container {
+    position: fixed;
+    left: 0; top: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background-color: rgba(25, 28, 34, 0.88);
+    text-align: center;
+    color: #4c5161;
+    font-size: 14px;
+    overflow: auto;
+    z-index: 19;
+}
+
+.ui-dialog-container:not([open]) {
+    display: none;
+}
+
+.ui-dialog-animation {
+    animation: fadeIn .2s both;
+}
+
+/* 多个弹框出现的时候，隐藏后面弹框的背景 */
+.ui-dialog-container + .ui-dialog-container {
+    transition: background-color .2s;
+    background-color: transparent;
+}
+
+.ui-dialog-container:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 90%;
+    vertical-align: middle;
+}
+
+.ui-dialog {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+    min-width: 400px;
+    border-radius: 4px;
+    background-color: #f7f9fa;
+    vertical-align: middle;
+    outline: none;
+    position: relative;
+}
+
+.ui-dialog-animation .ui-dialog {
+    animation: tinydown .25s;
+}
+
+.ui-dialog-title {
+    margin: 0;
+    line-height: 30px;
+    padding: 15px 50px 0 25px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #4c5161;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.ui-dialog-close {
+    position: absolute;
+    top: 8px; right: 7px;
+    width: 40px; height: 40px;
+    border: 0;
+    background: none;
+    transition: fill .2s;
+    fill: #b6bbc6;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.ui-dialog-close > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ui-dialog-close:hover {
+    background-color: #4c5161;
+    background-color: rgba(0, 0, 0, 0);
+    fill: #4c5161;
+}
+
+.ui-dialog-body {
+    min-height: 60px;
+    padding: 10px 25px 20px;
+}
+.ui-dialog-title:empty ~ .ui-dialog-body {
+    min-height: 40px;
+    padding-top: 30px;
+}
+
+.ui-dialog-body:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.ui-dialog-footer {
+    padding: 3px 25px 25px;
+    margin-top: -3px;
+    text-align: right;
+    max-height: 40px;
+    opacity: 1;
+    transition: max-height .2s, opacity .2s .1s;
+    overflow: hidden;
+}
+
+.ui-dialog-footer:empty {
+    max-height: 0;
+    opacity: 0;
+}
+
+.ui-dialog-footer .ui-button {
+    margin-left: 15px;
+}
+
+.ui-dialog-footer .ui-button:first-child {
+    margin-left: 0;
+}
+
+.ui-dialog-stretch {
+    max-height: 1000px;
+    position: absolute;
+    top: 20px;
+    bottom: 30px;
+    left: 50%;
+    margin: auto 0 auto -300px;
+}
+
+.ui-dialog-stretch .ui-dialog-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.ui-dialog-stretch .ui-dialog-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50px;
+    bottom: 90px;
+    padding: 0 0 0 25px;
+    overflow: auto;
+}
+
+.ui-dialog-remind {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-105 197 400 400'%3E%3Cstyle%3E.st1%7Bfill:%23fff%7D%3C/style%3E%3Cpath d='M95.5 197.5c110.5 0 200 89.5 200 200s-89.5 200-200 200-200-89.5-200-200 89.5-200 200-200z' fill='%232486ff'/%3E%3Cpath class='st1' d='M90.5 347.5h10c2.8 0 5 2.2 5 5v150c0 2.8-2.2 5-5 5h-10c-2.8 0-5-2.2-5-5v-150c0-2.8 2.2-5 5-5zM90.5 297.5h10c2.8 0 5 2.2 5 5v20c0 2.8-2.2 5-5 5h-10c-2.8 0-5-2.2-5-5v-20c0-2.8 2.2-5 5-5z'/%3E%3C/svg%3E"), none;
+}
+
+.ui-dialog-success {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='%2301cf97' d='M400.5 200.5c0 110.457-89.542 199.999-199.999 199.999C90.043 400.499.5 310.957.5 200.5m0 0C.5 90.042 90.043.5 200.501.5 310.958.5 400.5 90.042 400.5 200.5'/%3E%3Cpath fill='%23FFF' d='M286.398 147.132c-1.654-1.134-3.306-2.395-6.801-4.293-4.271-2.336-9.259 2.624-12.391 6.816l-77.641 102.279-47.916-63.522c-3.144-4.188-4.902-8.468-13.073-1.859-3.097 2.123.234-.361-3.969 2.881-3.884 3.064-4.105 8.598-.971 12.774 0 0 38.641 55.817 45.883 65.074 10.625 13.22 29.944 12.57 40.087 0 7.483-9.473 77.757-107.584 77.757-107.584 3.14-4.194 2.898-9.697-.965-12.566z'/%3E%3C/svg%3E"), none;
+}
+
+.ui-dialog-warning {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='%23f28c48' d='M400.5 200.5c0 110.457-89.542 199.999-199.999 199.999C90.043 400.499.5 310.957.5 200.5m0 0C.5 90.042 90.043.5 200.501.5 310.958.5 400.5 90.042 400.5 200.5'/%3E%3Cpath fill='%23FFF' d='M195.503 100.503h10a5 5 0 0 1 5 5v150a5 5 0 0 1-5 5h-10a5 5 0 0 1-5-5v-150a5 5 0 0 1 5-5zM195.503 280.502h10a5 5 0 0 1 5 4.999v20.002a5 5 0 0 1-5 5h-10a5 5 0 0 1-5-5v-20.002a5 5 0 0 1 5-4.999z'/%3E%3C/svg%3E"), none;
+}
+
+.ui-dialog-danger {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='%23f4615c' d='M400.5 200.5c0 110.457-89.542 199.999-199.999 199.999C90.043 400.499.5 310.957.5 200.5m0 0C.5 90.042 90.043.5 200.501.5 310.958.5 400.5 90.042 400.5 200.5'/%3E%3Cpath fill='%23FFF' d='M195.503 100.503h10a5 5 0 0 1 5 5v150a5 5 0 0 1-5 5h-10a5 5 0 0 1-5-5v-150a5 5 0 0 1 5-5zM195.503 280.502h10a5 5 0 0 1 5 4.999v20.002a5 5 0 0 1-5 5h-10a5 5 0 0 1-5-5v-20.002a5 5 0 0 1 5-4.999z'/%3E%3C/svg%3E"), none;
+}
+
+.ui-dialog-alert,
+.ui-dialog-confirm {
+    max-width: 340px;
+    min-height: 40px;
+    padding-top: 10px;
+    font-size: 16px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.ui-dialog-remind,
+.ui-dialog-success,
+.ui-dialog-warning,
+.ui-dialog-danger {
+    padding: 20px 0 20px 60px;
+    background-repeat: no-repeat;
+    background-position: 0 10px;
+    background-size: 40px 40px;
+}
+
+.ui-dialog-alert > h6,
+.ui-dialog-confirm > h6 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.ui-dialog-alert > :first-child:only-child,
+.ui-dialog-confirm > :first-child:only-child {
+    margin-top: 0;
+}
+.ui-dialog-alert > :first-child:not(:only-child),
+.ui-dialog-confirm > :first-child:not(:only-child) {
+    margin-top: -10px;
+}
+
+.ui-dialog-alert > h6 ~ p,
+.ui-dialog-confirm > h6 ~ p {
+    font-size: 14px;
+}
+
+.ui-dialog-alert > p,
+.ui-dialog-confirm > p {
+    margin: 0;
+}
+
+.ui-dialog-loading .ui-dialog-title,
+.ui-dialog-loading .ui-dialog-close,
+.ui-dialog-loading .ui-dialog-footer {
+    visibility: hidden;
+}
+
+.ui-dialog-loading .ui-dialog-body {
+    min-width: 400px;
+}

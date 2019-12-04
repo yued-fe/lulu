@@ -1,0 +1,58 @@
+/**
+ *
+ * @Table.css
+ * @author xinxuzhang
+ * @create 15-06-24
+ *
+**/
+.ui-table {
+    width: 100%;
+    line-height: 21px;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse\9;
+    font-size: 14px;
+    border: 1px solid #d0d0d5;
+}
+
+.ui-table thead td,
+.ui-table th {
+    background-color: #f7f9fa;
+    border-bottom: 1px solid #ededed;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0;
+}
+.ui-table thead td:not([class]):not([align]),
+.ui-table th:not([class]):not([align]) {
+    text-align: left;
+}
+
+.ui-table tbody td {
+    background-color: #fff;
+    border-bottom: 1px solid #ededed;
+}
+
+.ui-table td,
+.ui-table th {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-right: 20px;
+}
+.ui-table td:first-child,
+.ui-table th:first-child {
+    padding-left: 20px;
+}
+
+.ui-table tr {
+    cursor: default;
+}
+
+.ui-table tr:last-child td {
+    padding-bottom: 15px;
+    border-bottom: 0;
+}
+
+.ui-table ~ .ui-loading {
+    height: 300px;
+}

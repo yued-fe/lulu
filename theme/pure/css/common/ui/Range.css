@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/**
+ *
+ * @Range.css
+ * @author zhangxinxu
+ * @create 15-07-20
+ * @edit   17-06-16     keyboard support
+ *         19-09-23    pure theme
+**/
+[type="range"],
+.ui-range-input {
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+    visibility: hidden;
+    vertical-align: middle;
+}
+
+div.ui-range-input > input {
+    width: 100%;
+    visibility: hidden;
+}
+
+.ui-range {
+    display: inline-block;
+    /* 重要，不会换行 */
+    /*position: absolute;*/
+    visibility: visible;
+    transition: opacity .2s;
+}
+
+.ui-range-track {
+    height: 4px;
+    margin-top: 8px;
+    border-radius: 4px;
+    background-color: #a2a9b6;
+    border-left: 0 solid #2486ff;
+    text-align: left;
+}
+
+.ui-range-thumb {
+    width: 16px; height: 16px;
+    position: absolute;
+    margin: -7px 0 0 -9px;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
+    transition: border-color .15s, background-color .15s;
+    cursor: pointer;
+}
+
+.ui-range-thumb:hover {
+    border-color: #ababaf;
+}
+
+.ui-range-thumb.active {
+    background-color: #f7f9fa;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+:disabled + .ui-range {
+    opacity: .38;
+    cursor: default;
+}
+
+/* for IE */
+:disabled + .ui-range .ui-range-track {
+    position: relative;
+}
+
+:disabled + .ui-range .ui-range-thumb {
+    cursor: inherit;
+}
