@@ -14,7 +14,7 @@
     // require
     var Drop = window.Drop;
     if (typeof require == 'function' && !Drop) {
-        Drop = require('common/ui/Follow');
+        Drop = require('common/ui/Drop');
     } else if (!Drop) {
         window.console.error('need Drop.js');
 

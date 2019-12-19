@@ -3,10 +3,10 @@
  *
  * @Button.css
  * @author zhangxinxu
- * @create 15-06-12
- * @edit     17-06-13
-                     17-11-07 use png+spin for loading
-                     19-07-09 IE9+, no external links
+ * @create  15-06-12
+ * @edited  17-06-13
+            17-11-07 use png+spin for loading
+            19-07-09 IE9+, no external links
  */
 .ui-button {
     display: inline-block;
@@ -15,20 +15,22 @@
     text-align: center;
     color: #4c5161;
     border-radius: 4px;
+    border: 1px solid #d0d0d5;
     padding: 9px 15px;
-    min-width: 50px;
+    min-width: 80px;
     background-color: #fff;
     background-repeat: no-repeat;
     background-position: center;
     text-decoration: none;
+    box-sizing: border-box;
     transition: border-color .15s, box-shadow .15s, opacity .15s;
     font-family: inherit;
     cursor: pointer;
     overflow: visible;
 }
-.ui-button:not([data-type]),
-.ui-button[data-type="normal"] {
-    border: 1px solid #d0d0d5;
+
+.ui-button[width="100%"] {
+    width: 100%;
 }
 
 div.ui-button {
@@ -55,8 +57,7 @@ div.ui-button {
 
 input.ui-button,
 button.ui-button {
-    height: 20px;
-    box-sizing: content-box;
+    height: 40px;
 }
 .ui-button:hover {
     color: #4c5161;
@@ -69,7 +70,13 @@ button.ui-button {
 .ui-button:not(.disabled):not(.loading):not(:disabled):active {
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1), inset 0 0 0 100px rgba(0,0,0,.1);
 }
-.ui-button[data-type]:not([data-type="normal"]) {
+.ui-button[data-type="primary"],
+.ui-button[data-type="remind"],
+.ui-button[data-type="success"],
+.ui-button[data-type="warning"],
+.ui-button[data-type="warn"],
+.ui-button[data-type="danger"],
+.ui-button[data-type="error"] {
     border: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -78,8 +85,7 @@ button.ui-button {
 
 /* primary button */
 .ui-button[data-type="primary"],
-.ui-button[data-type="remind"],
-.ui-button[data-type=""] {
+.ui-button[data-type="remind"] {
     background-color: #2486ff;
 }
 
@@ -217,6 +223,10 @@ input[type="checkbox"][class=""] {
     user-select: none;
     vertical-align: -5px;
     overflow: hidden;
+}
+
+.ui-checkbox + label {
+    margin-left: 5px;
 }
 
 :not(:disabled) + .ui-checkbox:hover,
@@ -1697,7 +1707,7 @@ input[width="100%"] {
 }
 
 .ui-input-search:hover .ui-icon-search {
-    color: #ababaf;
+    color: #a2a9b6;
 }
 .ui-input-search > :disabled ~ .ui-icon-search {
     color: #b6bbc6;
@@ -2320,6 +2330,10 @@ input[type="radio"][class=""] {
     overflow: hidden;
 }
 
+.ui-radio + label {
+    margin-left: 5px;
+}
+
 :not(:disabled) + .ui-radio:hover {
     border-color: #ababaf;
 }
@@ -2439,7 +2453,7 @@ select {
     height: 40px;
     margin: 0;
     border: 1px solid #d0d0d5;
-    border-right-width: 27px;
+    padding-right: 27px;
     opacity: 0.0001;
     font-size: 14px;
     font-family: simsun;
@@ -2453,7 +2467,6 @@ select[multiple] {
     font-family: simsun;
     padding: 0;
     vertical-align: top;
-    border-right-width: 1px;
     cursor: pointer;
 }
 
@@ -2471,6 +2484,14 @@ select[multiple] > option:disabled {
 select[hidden],
 select[hidden] + .ui-select {
     display: none;
+}
+
+select[opacity="1"],
+select[opacity="100%"],
+select[style*="opacity:1"],
+select[style*="opacity: 1"] {
+    opacity: 1;
+    padding: 0;
 }
 
 .ui-select {
@@ -2659,7 +2680,8 @@ select:disabled + .ui-select .ui-select-datalist {
 
 /* error */
 .error .ui-select-button,
-.error[multiple] ~ .ui-select .ui-select-datalist {
+.error[multiple] ~ .ui-select .ui-select-datalist,
+select.error {
     border-color: #f4615c;
 }
 @charset "UTF-8";
@@ -2995,7 +3017,7 @@ div.ui-textarea > textarea {
 .ui-textarea[readonly],
 .ui-textarea > textarea[readonly],
 .ui-textarea-x > [readonly] ~ .ui-textarea {
-    background-image: linear-gradient(to bottom right, #fff 50%, transparent 50%);
+    background-color: #fff;
 }
 
 .ui-textarea:disabled:hover,

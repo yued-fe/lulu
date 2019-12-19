@@ -186,7 +186,7 @@ input[width="100%"] {
 }
 
 .ui-input-search:hover .ui-icon-search {
-    color: #ababaf;
+    color: #a2a9b6;
 }
 .ui-input-search > :disabled ~ .ui-icon-search {
     color: #b6bbc6;

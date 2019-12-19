@@ -37,6 +37,10 @@ input[type="checkbox"][class=""] {
     overflow: hidden;
 }
 
+.ui-checkbox + label {
+    margin-left: 5px;
+}
+
 :not(:disabled) + .ui-checkbox:hover,
 :disabled + .ui-checkbox {
     color: #ababaf;

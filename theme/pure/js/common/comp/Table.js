@@ -470,15 +470,47 @@
 
                 objElement.error = eleError;
             }
+            eleError.style.display = 'block';
             eleError.innerHTML = content || '数据没有获取成功';
 
             if (typeof objAjax.error == 'function') {
                 objAjax.error();
             }
         };
+        // 请求完成的事件处理
+        var funComplete = function () {
+            // 请求结束标志量
+            eleTable.removeAttribute('aria-busy');
+            // 去除中间的大loading
+            if (objElement.loading) {
+                objElement.loading.style.display = 'none';
+            }
+
+            // 去掉分页的小loading
+            if (this.pagination) {
+                var elePageLoading = this.pagination.element.container.querySelector('.' + LOADING);
+                if (elePageLoading) {
+                    elePageLoading.classList.remove(LOADING);
+                }
+            }
+            if (typeof objAjax.complete == 'function') {
+                objAjax.complete();
+            }
+
+            // 呈现与动画
+            this.show();
+        };
 
         // 执行Ajax请求的方法
         var funAjax = function () {
+            // IE9不支持跨域
+            if (!history.pushState && objAjaxParams.host != location.host) {
+                funComplete.call(this);
+                funError('当前浏览器不支持跨域数据请求');
+                return;
+            }
+
+
             var xhr = new XMLHttpRequest();
 
             xhr.open('GET', strUrlAjax);
@@ -553,32 +585,10 @@
                 }
             }.bind(this);
 
-            xhr.onloadend = function () {
-                eleTable.removeAttribute('aria-busy');
-                // 去除中间的大loading
-                if (objElement.loading) {
-                    objElement.loading.style.display = 'none';
-                }
-                // 去掉分页的小loading
-                if (this.pagination) {
-                    var elePageLoading = this.pagination.element.container.querySelector('.' + LOADING);
-                    if (elePageLoading) {
-                        elePageLoading.classList.remove(LOADING);
-                    }
-                }
-                if (typeof objAjax.complete == 'function') {
-                    objAjax.complete();
-                }
-
-                // 呈现与动画
-                this.show();
-                // 请求结束标志量
-            }.bind(this);
+            xhr.onloadend = funComplete.bind(this);
 
             xhr.onerror = function () {
-                if (typeof objAjax.error == 'function') {
-                    objAjax.error('网络异常，数据没有获取成功，您可以稍后重试！');
-                }
+                funError('网络异常，数据没有获取成功，您可以稍后重试！');
             };
 
             xhr.send();
@@ -589,25 +599,6 @@
 
         // 滚动到表格上边缘
         var numScrollTop = window.pageYOffset;
-
-        var objBound = eleTable.getBoundingClientRect();
-
-        // 第一次不定位
-        if (!this.isFirstAjax && objBound.top < 0) {
-            numScrollTop = objBound.top + numScrollTop;
-            window.scrollTopTo(numScrollTop, function () {
-                funAjax.call(this);
-            }.bind(this));
-        } else if (!this.isFirstAjax && objBound.top > window.innerHeight) {
-            numScrollTop = numScrollTop - objBound.top;
-            window.scrollTopTo(numScrollTop, function () {
-                funAjax.call(this);
-            }.bind(this));
-        } else {
-            funAjax.call(this);
-
-            this.isFirstAjax = false;
-        }
 
         // loading元素
         var eleLoading = objElement.loading;
@@ -657,6 +648,26 @@
 
         // 记录定位的滚动位置
         this.scrollTop = numScrollTop;
+
+        // 请求走起
+        // 判断是否需要先滚动
+        var objBound = eleTable.getBoundingClientRect();
+        // 第一次不定位
+        if (!this.isFirstAjax && objBound.top < 0) {
+            numScrollTop = objBound.top + numScrollTop;
+            window.scrollTopTo(numScrollTop, function () {
+                funAjax.call(this);
+            }.bind(this));
+        } else if (!this.isFirstAjax && objBound.top > window.innerHeight) {
+            numScrollTop = numScrollTop - objBound.top;
+            window.scrollTopTo(numScrollTop, function () {
+                funAjax.call(this);
+            }.bind(this));
+        } else {
+            funAjax.call(this);
+
+            this.isFirstAjax = false;
+        }
 
         return this;
     };

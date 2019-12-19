@@ -135,7 +135,7 @@ div.ui-textarea > textarea {
 .ui-textarea[readonly],
 .ui-textarea > textarea[readonly],
 .ui-textarea-x > [readonly] ~ .ui-textarea {
-    background-image: linear-gradient(to bottom right, #fff 50%, transparent 50%);
+    background-color: #fff;
 }
 
 .ui-textarea:disabled:hover,

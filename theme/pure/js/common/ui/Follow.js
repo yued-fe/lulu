@@ -297,7 +297,7 @@
                 // 左右是否超出
                 if (numTargetLeft - numScrollLeft < 0.5 * numWinWidth) {
                     // 左半边，判断左边缘
-                    if (objBoundTarget.left - numScrollLeft < 0) {
+                    if (numTargetLeft - numScrollLeft < 0) {
                         numTargetLeft = numScrollLeft;
                     }
                 } else if (numTargetLeft - numScrollLeft + objBoundTarget.width > numWinWidth) {

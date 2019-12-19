@@ -31,6 +31,10 @@ input[type="radio"][class=""] {
     overflow: hidden;
 }
 
+.ui-radio + label {
+    margin-left: 5px;
+}
+
 :not(:disabled) + .ui-radio:hover {
     border-color: #ababaf;
 }

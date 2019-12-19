@@ -280,7 +280,7 @@
                     var data = [];
                     // IE7忽略自动记忆功能
                     // 本地获取
-                    var strList = localStorage[DATALIST + '-' + name];
+                    var strList = localStorage[DATALIST + '-' + strAttrName];
                     if (strList) {
                         strList.split(',').forEach(function (value) {
                             // value必须
@@ -448,7 +448,7 @@
         // 只有有值的时候才本地记忆
         if (strValue && strName) {
             // 本地获取
-            var arrList = (localStorage[DATALIST + '-' + name] || '').split(',');
+            var arrList = (localStorage[DATALIST + '-' + strName] || '').split(',');
             // 如果当前数据并未保存过
             var numIndexMatch = arrList.indexOf(strValue);
             if (numIndexMatch == -1) {
@@ -463,7 +463,7 @@
             }
 
             // 更改对应的本地存储值
-            localStorage[DATALIST + '-' + name] = arrList.join();
+            localStorage[DATALIST + '-' + strName] = arrList.join();
         }
 
         return this;
@@ -489,17 +489,17 @@
         // 只有data为auto时候才本地记忆
         if (strValue && strName) {
             if (strValue === true) {
-                localStorage.removeItem(DATALIST + '-' + name);
+                localStorage.removeItem(DATALIST + '-' + strName);
             } else if (typeof strValue == 'string') {
                 // 本地获取
-                var arrList = (localStorage[DATALIST + '-' + name] || '').split(',');
+                var arrList = (localStorage[DATALIST + '-' + strName] || '').split(',');
                 // 当前数据位置
                 var numIndexMatch = arrList.indexOf(strValue);
                 if (numIndexMatch != -1) {
                     // 删除
                     arrList.splice(numIndexMatch, 1);
                     // 更改对应的本地存储值
-                    localStorage[DATALIST + '-' + name] = arrList.join();
+                    localStorage[DATALIST + '-' + strName] = arrList.join();
                 }
             }
         }
@@ -968,7 +968,7 @@
         if (eleTrigger && eleTarget) {
             new Follow(eleTrigger, eleTarget, {
                 // 边缘不自动调整，此处手动调整
-                edgeAdjust: false
+                edgeAdjust: this.params.edgeAdjust || false
             });
 
             if (this.display == true) {

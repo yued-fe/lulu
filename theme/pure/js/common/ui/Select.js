@@ -309,7 +309,7 @@
                     var endY = beginY + eleList.clientHeight;
                     // 如果在区间范围
                     if (clientY >= beginY && clientY <= endY) {
-                        if (eleList.classList.contains(SELECTED) == false) {
+                        if (eleList.classList.contains(SELECTED) == false && eleList.classList.contains(DISABLED) == false) {
                             eleList.href = 'javascript:';
                         }
                         // 退出循环

@@ -778,7 +778,7 @@
                 // 左右是否超出
                 if (numTargetLeft - numScrollLeft < 0.5 * numWinWidth) {
                     // 左半边，判断左边缘
-                    if (objBoundTarget.left - numScrollLeft < 0) {
+                    if (numTargetLeft - numScrollLeft < 0) {
                         numTargetLeft = numScrollLeft;
                     }
                 } else if (numTargetLeft - numScrollLeft + objBoundTarget.width > numWinWidth) {
@@ -1430,7 +1430,7 @@
                     var endY = beginY + eleList.clientHeight;
                     // 如果在区间范围
                     if (clientY >= beginY && clientY <= endY) {
-                        if (eleList.classList.contains(SELECTED) == false) {
+                        if (eleList.classList.contains(SELECTED) == false && eleList.classList.contains(DISABLED) == false) {
                             eleList.href = 'javascript:';
                         }
                         // 退出循环
@@ -4955,7 +4955,7 @@
                     var data = [];
                     // IE7忽略自动记忆功能
                     // 本地获取
-                    var strList = localStorage[DATALIST + '-' + name];
+                    var strList = localStorage[DATALIST + '-' + strAttrName];
                     if (strList) {
                         strList.split(',').forEach(function (value) {
                             // value必须
@@ -5123,7 +5123,7 @@
         // 只有有值的时候才本地记忆
         if (strValue && strName) {
             // 本地获取
-            var arrList = (localStorage[DATALIST + '-' + name] || '').split(',');
+            var arrList = (localStorage[DATALIST + '-' + strName] || '').split(',');
             // 如果当前数据并未保存过
             var numIndexMatch = arrList.indexOf(strValue);
             if (numIndexMatch == -1) {
@@ -5138,7 +5138,7 @@
             }
 
             // 更改对应的本地存储值
-            localStorage[DATALIST + '-' + name] = arrList.join();
+            localStorage[DATALIST + '-' + strName] = arrList.join();
         }
 
         return this;
@@ -5164,17 +5164,17 @@
         // 只有data为auto时候才本地记忆
         if (strValue && strName) {
             if (strValue === true) {
-                localStorage.removeItem(DATALIST + '-' + name);
+                localStorage.removeItem(DATALIST + '-' + strName);
             } else if (typeof strValue == 'string') {
                 // 本地获取
-                var arrList = (localStorage[DATALIST + '-' + name] || '').split(',');
+                var arrList = (localStorage[DATALIST + '-' + strName] || '').split(',');
                 // 当前数据位置
                 var numIndexMatch = arrList.indexOf(strValue);
                 if (numIndexMatch != -1) {
                     // 删除
                     arrList.splice(numIndexMatch, 1);
                     // 更改对应的本地存储值
-                    localStorage[DATALIST + '-' + name] = arrList.join();
+                    localStorage[DATALIST + '-' + strName] = arrList.join();
                 }
             }
         }
@@ -5643,7 +5643,7 @@
         if (eleTrigger && eleTarget) {
             new Follow(eleTrigger, eleTarget, {
                 // 边缘不自动调整，此处手动调整
-                edgeAdjust: false
+                edgeAdjust: this.params.edgeAdjust || false
             });
 
             if (this.display == true) {
@@ -9811,7 +9811,7 @@
             objParams.current = numMaxCurrent;
         }
 
-        numMaxCurrent.current = Math.max(numMaxCurrent.current, 1);
+        objParams.current = Math.max(numMaxCurrent, 1);
 
         // 更新分页的HTML内容
         this.element.pagination.innerHTML = this.create();
@@ -10375,15 +10375,47 @@
 
                 objElement.error = eleError;
             }
+            eleError.style.display = 'block';
             eleError.innerHTML = content || '数据没有获取成功';
 
             if (typeof objAjax.error == 'function') {
                 objAjax.error();
             }
         };
+        // 请求完成的事件处理
+        var funComplete = function () {
+            // 请求结束标志量
+            eleTable.removeAttribute('aria-busy');
+            // 去除中间的大loading
+            if (objElement.loading) {
+                objElement.loading.style.display = 'none';
+            }
+
+            // 去掉分页的小loading
+            if (this.pagination) {
+                var elePageLoading = this.pagination.element.container.querySelector('.' + LOADING);
+                if (elePageLoading) {
+                    elePageLoading.classList.remove(LOADING);
+                }
+            }
+            if (typeof objAjax.complete == 'function') {
+                objAjax.complete();
+            }
+
+            // 呈现与动画
+            this.show();
+        };
 
         // 执行Ajax请求的方法
         var funAjax = function () {
+            // IE9不支持跨域
+            if (!history.pushState && objAjaxParams.host != location.host) {
+                funComplete.call(this);
+                funError('当前浏览器不支持跨域数据请求');
+                return;
+            }
+
+
             var xhr = new XMLHttpRequest();
 
             xhr.open('GET', strUrlAjax);
@@ -10458,32 +10490,10 @@
                 }
             }.bind(this);
 
-            xhr.onloadend = function () {
-                eleTable.removeAttribute('aria-busy');
-                // 去除中间的大loading
-                if (objElement.loading) {
-                    objElement.loading.style.display = 'none';
-                }
-                // 去掉分页的小loading
-                if (this.pagination) {
-                    var elePageLoading = this.pagination.element.container.querySelector('.' + LOADING);
-                    if (elePageLoading) {
-                        elePageLoading.classList.remove(LOADING);
-                    }
-                }
-                if (typeof objAjax.complete == 'function') {
-                    objAjax.complete();
-                }
-
-                // 呈现与动画
-                this.show();
-                // 请求结束标志量
-            }.bind(this);
+            xhr.onloadend = funComplete.bind(this);
 
             xhr.onerror = function () {
-                if (typeof objAjax.error == 'function') {
-                    objAjax.error('网络异常，数据没有获取成功，您可以稍后重试！');
-                }
+                funError('网络异常，数据没有获取成功，您可以稍后重试！');
             };
 
             xhr.send();
@@ -10494,25 +10504,6 @@
 
         // 滚动到表格上边缘
         var numScrollTop = window.pageYOffset;
-
-        var objBound = eleTable.getBoundingClientRect();
-
-        // 第一次不定位
-        if (!this.isFirstAjax && objBound.top < 0) {
-            numScrollTop = objBound.top + numScrollTop;
-            window.scrollTopTo(numScrollTop, function () {
-                funAjax.call(this);
-            }.bind(this));
-        } else if (!this.isFirstAjax && objBound.top > window.innerHeight) {
-            numScrollTop = numScrollTop - objBound.top;
-            window.scrollTopTo(numScrollTop, function () {
-                funAjax.call(this);
-            }.bind(this));
-        } else {
-            funAjax.call(this);
-
-            this.isFirstAjax = false;
-        }
 
         // loading元素
         var eleLoading = objElement.loading;
@@ -10562,6 +10553,26 @@
 
         // 记录定位的滚动位置
         this.scrollTop = numScrollTop;
+
+        // 请求走起
+        // 判断是否需要先滚动
+        var objBound = eleTable.getBoundingClientRect();
+        // 第一次不定位
+        if (!this.isFirstAjax && objBound.top < 0) {
+            numScrollTop = objBound.top + numScrollTop;
+            window.scrollTopTo(numScrollTop, function () {
+                funAjax.call(this);
+            }.bind(this));
+        } else if (!this.isFirstAjax && objBound.top > window.innerHeight) {
+            numScrollTop = numScrollTop - objBound.top;
+            window.scrollTopTo(numScrollTop, function () {
+                funAjax.call(this);
+            }.bind(this));
+        } else {
+            funAjax.call(this);
+
+            this.isFirstAjax = false;
+        }
 
         return this;
     };

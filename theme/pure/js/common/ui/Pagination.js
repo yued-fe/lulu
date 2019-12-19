@@ -321,7 +321,7 @@
             objParams.current = numMaxCurrent;
         }
 
-        numMaxCurrent.current = Math.max(numMaxCurrent.current, 1);
+        objParams.current = Math.max(numMaxCurrent, 1);
 
         // 更新分页的HTML内容
         this.element.pagination.innerHTML = this.create();
