@@ -196,15 +196,16 @@
         // 要求或禁止使用分号而不是 ASI（这个才是控制行尾部分号的，）
         "semi": [2, "always"],
         // 强制分号之前和之后使用一致的空格
-        "semi-spacing": 0,
+        "semi-spacing": 2,
         // 强制在块之前使用一致的空格
         "space-before-blocks": [2, "always"],
         // 强制在 function的左括号之前使用一致的空格
-        "space-before-function-paren": [0, "always"],
+        "space-before-function-paren": [2, "always"],
         // 强制在圆括号内使用一致的空格
         "space-in-parens": [2, "never"],
         // 要求操作符周围有空格
         "space-infix-ops": 1,
+        "keyword-spacing": 1,
         // 强制在一元操作符前后使用一致的空格
         "space-unary-ops": [2, {
             "words": true,
