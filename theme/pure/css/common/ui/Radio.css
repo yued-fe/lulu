@@ -6,14 +6,16 @@
  * @create 15-06-17
  * @edit 17-06-14 focusable
 **/
-input[type="radio"]:not([class]),
-input[type="radio"][class*='ui-'],
-input[type="radio"][class=""] {
+input[type="radio"]:not(.ui-visible) {
     position: absolute;
     opacity: 0;
     width: 20px; height: 20px;
     cursor: pointer;
     z-index: -1;
+}
+
+.ui-visible + .ui-radio {
+    display: none;
 }
 
 .ui-radio {
@@ -40,7 +42,7 @@ input[type="radio"][class=""] {
 }
 
 :focus + .ui-radio {
-    border-color: #2486ff;
+    border-color: #2a80eb;
 }
 
 .ui-radio::before {
@@ -50,7 +52,7 @@ input[type="radio"][class=""] {
     height: 10px;
     margin: 4px auto 0;
     border-radius: 50%;
-    background-color: #2486ff;
+    background-color: #2a80eb;
     visibility: hidden;
 }
 
@@ -65,5 +67,5 @@ input[type="radio"][class=""] {
 
 /* error */
 .error.ui-radio {
-    border-color: #f4615c;
+    border-color: #eb4646;
 }

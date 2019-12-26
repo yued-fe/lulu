@@ -55,9 +55,6 @@
         if (eleSelect.data && eleSelect.data.select) {
             return;
         }
-        // eleSelect元素的尺寸
-        this.offsetWidth = eleSelect.offsetWidth;
-        this.offsetHeight = eleSelect.offsetHeight;
 
         // 构造元素
         // 1. 得到关联id
@@ -153,92 +150,117 @@
 
         // 单选下拉框的事件
         if (this.multiple == false) {
-            // 点击按钮
-            eleButton.addEventListener('click', function () {
-                if (eleSelect[DISABLED]) {
-                    return false;
-                }
-
-                // 显示与隐藏
-                eleCombobox.classList.toggle(ACTIVE);
-
-                if (eleCombobox.classList.contains(ACTIVE)) {
-                    // 边界判断
-                    var isOverflow = eleDatalist.getBoundingClientRect().bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
-                    eleCombobox.classList[isOverflow ? 'add' : 'remove'](REVERSE);
-                    // aria状态
-                    eleButton.setAttribute('aria-expanded', 'true');
-
-                    // 滚动与定位
-                    var arrDataScrollTop = eleCombobox.dataScrollTop;
-                    var eleDatalistSelected = eleDatalist.querySelector('.' + SELECTED);
-                    // 严格验证
-                    if (arrDataScrollTop && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
-                        eleDatalist.scrollTop = arrDataScrollTop[0];
-                        // 重置
-                        delete eleCombobox.dataScrollTop;
-                    }
-                } else {
-                    eleCombobox.classList.remove(REVERSE);
-                    // aria状态
-                    eleButton.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // 点击列表项
-            eleDatalist.addEventListener('click', function (event) {
-                var target = event.target;
-                if (!target || !target.closest('a[data-index]')) {
-                    return;
-                }
-                // 点击的列表元素
-                var eleList = target;
-                // 对应的下拉<option>元素
-                var eleOption = null;
-                // 是否当前点击列表禁用
-                var isDisabled = eleList.classList.contains(DISABLED);
-                // 获取索引
-                var indexOption = eleList.getAttribute('data-index');
-                // 存储可能的滚动定位需要的数据
-                var scrollTop = eleDatalist.scrollTop;
-                eleCombobox.dataScrollTop = [scrollTop, indexOption, eleList.innerText];
-
-                // 修改下拉选中项
-                if (isDisabled == false) {
-                    eleOption = eleSelect[indexOption];
-                    if (eleOption) {
-                        eleOption[SELECTED] = true;
-                    }
-                }
-                // 下拉收起
-                eleCombobox.classList.remove(ACTIVE);
-                eleButton.setAttribute('aria-expanded', 'false');
-                // focus
-                eleButton.focus();
-                eleButton.blur();
-
-                if (isDisabled == false) {
-                    // 更新下拉框
-                    this.refresh();
-                    // 回调处理
-                    // 触发change事件
-                    eleSelect.dispatchEvent(new CustomEvent('change', {
-                        'bubbles': true
-                    }));
-                }
-            }.bind(this));
-
             // 点击页面空白要隐藏
-            document.addEventListener('mouseup', function (event) {
-                var target = event.target;
-                if (!target) {
-                    return;
-                }
-                if (eleCombobox.classList.contains(ACTIVE) && eleCombobox != target && eleCombobox.contains(target) == false) {
-                    eleCombobox.classList.remove(ACTIVE);
-                    eleCombobox.classList.remove(REVERSE);
-                }
-            });
+            // 测试表明，这里优化下可以提高40~50%性能
+            // 原本是绑定对应元素上，现在改成委托
+            if (!document.isSelectMouseEvent) {
+                document.addEventListener('click', function (event) {
+                    var target = event.target;
+
+                    if (!target || !target.closest) {
+                        return;
+                    }
+
+                    // 获取下拉元素是关键，因为存储了实例对象
+                    // 元素什么的都可以直接匹配
+                    eleCombobox = target.closest('.' + CL);
+                    eleSelect = eleCombobox && eleCombobox.previousElementSibling;
+
+                    if (!eleSelect || !eleSelect.data || !eleSelect.data.select) {
+                        return;
+                    }
+
+                    // 按钮和列表元素就知道了
+                    objElement = eleSelect.data.select.element;
+
+                    eleButton = objElement.button;
+                    eleDatalist = objElement.datalist;
+
+                    // 下面判断点击的是按钮还是列表了
+                    if (eleButton.contains(target)) {
+                        if (eleSelect[DISABLED]) {
+                            return false;
+                        }
+
+                        // 显示与隐藏
+                        eleCombobox.classList.toggle(ACTIVE);
+
+                        if (eleCombobox.classList.contains(ACTIVE)) {
+                            // 边界判断
+                            var isOverflow = eleDatalist.getBoundingClientRect().bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
+                            eleCombobox.classList[isOverflow ? 'add' : 'remove'](REVERSE);
+                            // aria状态
+                            eleButton.setAttribute('aria-expanded', 'true');
+
+                            // 滚动与定位
+                            var arrDataScrollTop = eleCombobox.dataScrollTop;
+                            var eleDatalistSelected = eleDatalist.querySelector('.' + SELECTED);
+                            // 严格验证
+                            if (arrDataScrollTop && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
+                                eleDatalist.scrollTop = arrDataScrollTop[0];
+                                // 重置
+                                delete eleCombobox.dataScrollTop;
+                            }
+                        } else {
+                            eleCombobox.classList.remove(REVERSE);
+                            // aria状态
+                            eleButton.setAttribute('aria-expanded', 'false');
+                        }
+                    } else if (eleDatalist.contains(target)) {
+                        // 点击的列表元素
+                        var eleList = target;
+                        // 对应的下拉<option>元素
+                        var eleOption = null;
+                        // 是否当前点击列表禁用
+                        var isDisabled = eleList.classList.contains(DISABLED);
+                        // 获取索引
+                        var indexOption = eleList.getAttribute('data-index');
+                        // 存储可能的滚动定位需要的数据
+                        var scrollTop = eleDatalist.scrollTop;
+                        eleCombobox.dataScrollTop = [scrollTop, indexOption, eleList.innerText];
+
+                        // 修改下拉选中项
+                        if (isDisabled == false) {
+                            eleOption = eleSelect[indexOption];
+                            if (eleOption) {
+                                eleOption[SELECTED] = true;
+                            }
+                        }
+                        // 下拉收起
+                        eleCombobox.classList.remove(ACTIVE);
+                        eleButton.setAttribute('aria-expanded', 'false');
+                        // focus
+                        eleButton.focus();
+                        eleButton.blur();
+
+                        if (isDisabled == false) {
+                            // 更新下拉框
+                            eleSelect.refresh();
+                            // 回调处理
+                            // 触发change事件
+                            eleSelect.dispatchEvent(new CustomEvent('change', {
+                                'bubbles': true
+                            }));
+                        }
+                    }
+                });
+
+                document.addEventListener('mouseup', function (event) {
+                    var target = event.target;
+                    if (!target) {
+                        return;
+                    }
+                    // 识别此时的combobox
+                    eleCombobox = document.querySelector(SELECT + '+.' + CL + '.' + ACTIVE);
+
+                    if (eleCombobox && eleCombobox.contains(target) == false) {
+                        eleCombobox.classList.remove(ACTIVE);
+                        eleCombobox.classList.remove(REVERSE);
+                    }
+                });
+
+                document.isSelectMouseEvent = true;
+            }
 
             // disabled状态变化与键盘访问
             var funSyncDisabled = function () {
@@ -392,11 +414,24 @@
 
         // 下拉组合框元素的UI和尺寸
         eleCombobox.className = (eleSelect.className + ' ' + CL).trim();
-        eleCombobox.style.width = this.offsetWidth + 'px';
+
+        // offsetWidth/clientWidth/getBoundingClientRect在下拉元素很多的的时候会有明显的性能问题
+        // 因此宽度已知的时候，使用定值，否则实时获取
+        var strAttrWidth = eleSelect.style.width || eleSelect.getAttribute('width');
+
+        if (!strAttrWidth) {
+            eleCombobox.style.width = this.offsetWidth + 'px';
+        } else if (/\D$/.test(strAttrWidth)) {
+            // 如果是<length>
+            eleCombobox.style.width = strAttrWidth;
+        } else {
+            // 如果是<number>
+            eleCombobox.style.width = strAttrWidth + 'px';
+        }
 
         // 多选，高度需要同步，因为选项高度不确定
         if (isMultiple) {
-            eleCombobox.style.height = this.offsetHeight + 'px';
+            eleCombobox.style.height = eleSelect.style.height || (eleSelect.offsetHeight + 'px');
         } else {
             // 按钮元素中的文案
             eleButton.innerHTML = '<span class="' + CL.add('text') + '">' + (function () {
@@ -523,12 +558,17 @@
 
             if (node.tagName == 'SELECT') {
                 if (action == 'remove') {
-                    node.data.select[action]();
+                    if (node.data && node.data.select) {
+                        node.data.select[action]();
+                    } else {
+                        node.parentNode.removeChild(node);
+                    }
                 } else {
                     node[action]();
                 }
             } else if (node.tagName == 'OPTION') {
                 var eleSelect = node.parentElement;
+
                 if (!eleSelect) {
                     // 可以认为是观察者模式的删除
                     if (this.target && this.target.tagName == 'SELECT') {
@@ -539,6 +579,16 @@
                         eleSelect.refresh();
                     }, 16);
                 }
+            } else if (action == 'refresh') {
+                // 此时Select初始化也会触发DOM检测
+                // 但没有必要，因此，阻止
+                funAutoInitAndWatching.flag = false;
+                // 只是Select初始化
+                node.querySelectorAll('select').forEach(function (element) {
+                    funSyncRefresh(element, action);
+                });
+                // 恢复到正常检测
+                funAutoInitAndWatching.flag = true;
             }
         };
 
@@ -547,6 +597,10 @@
         // IE9-IE10使用Mutation Events
         if (window.MutationObserver) {
             var observerSelect = new MutationObserver(function (mutationsList) {
+                // 此时不检测DOM变化
+                if (funAutoInitAndWatching.flag === false || window.watching === false) {
+                    return;
+                }
                 mutationsList.forEach(function (mutation) {
                     var nodeAdded = mutation.addedNodes;
                     var nodeRemoved = mutation.removedNodes;
@@ -569,14 +623,52 @@
                 subtree: true
             });
         } else {
+            // IE9-IE10优化处理
+            // 借助定时器先观察，再统一处理
+            var arrMutationsList = [];
+            var timerRenderList = null;
+
+            var funMutationObserver = function (target, action, event) {
+                // 此时不检测DOM变化
+                if (funAutoInitAndWatching.flag === false || window.watching === false || target.nodeType != 1) {
+                    return;
+                }
+
+                clearTimeout(timerRenderList);
+
+                if (target.tagName == 'SELECT') {
+                    arrMutationsList.push({
+                        action: action,
+                        node: target
+                    });
+                } else if (target.tagName == 'OPTION' && (arrMutationsList.length == 0 || arrMutationsList[arrMutationsList.length - 1].node.contains(target) == false)) {
+                    arrMutationsList.push({
+                        action: 'refresh',
+                        node: event.relatedNode || target
+                    });
+                }
+
+                // 定时器处理
+                timerRenderList = setTimeout(function () {
+                    funAutoInitAndWatching.flag = false;
+
+                    arrMutationsList.forEach(function (objList) {
+                        // 插入节点
+                        funSyncRefresh(objList.node, objList.action);
+                    });
+
+                    funAutoInitAndWatching.flag = true;
+
+                    arrMutationsList = [];
+                }, 16);
+            };
+
             document.body.addEventListener('DOMNodeInserted', function (event) {
-                // 插入节点
-                funSyncRefresh(event.target, 'refresh');
+                funMutationObserver(event.target, 'refresh', event);
             });
             document.body.addEventListener('DOMNodeRemoved', function (event) {
-                // 删除节点
-                // 这里方法执行的时候，元素还在页面上
-                funSyncRefresh(event.target, 'remove');
+                // relatedNode
+                funMutationObserver(event.target, 'remove', event);
             });
         }
     };

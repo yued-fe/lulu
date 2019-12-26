@@ -32,13 +32,13 @@
 
 /* 成功状态  */
 .ui-lightip[data-status="success"] {
-    background-color: #01cf97;
+    background-color: #1cad70;
 }
 
 
 /* 失败状态  */
 .ui-lightip[data-status="error"] {
-    background-color: #f4615c;
+    background-color: #eb4646;
 }
 
 /* 修改文案  */

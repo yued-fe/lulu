@@ -11,18 +11,18 @@
     vertical-align: calc(.25em - 2px);
     border: 0;
     background-color: #d0d0d5;
-    color: #2486ff;
+    color: #2a80eb;
     border-radius: 1em;
     overflow: hidden;
 }
 .ui-progress::-moz-progress-bar {
-    background-color: #2486ff;
+    background-color: #2a80eb;
 }
 .ui-progress::-webkit-progress-bar {
     background-color: #d0d0d5;
 }
 .ui-progress::-webkit-progress-value {
-    background-color: #2486ff;
+    background-color: #2a80eb;
 }
 
 progress[width="100%"] {
@@ -47,7 +47,7 @@ progress[width="100%"] {
 }
 
 .ui-progress[aria-valuenow]::before {
-    background-color: #2486ff;
+    background-color: #2a80eb;
 }
 
 /* Determinate only overrides */
@@ -60,3 +60,4 @@ progress[width="100%"] {
     display: block;
     height: 100%;
 }
+

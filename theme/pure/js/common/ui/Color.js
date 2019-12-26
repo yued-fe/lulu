@@ -230,7 +230,7 @@
 
         // 全局的基础色值
         var arrBasicColor = ['0', '3', '6', '9', 'c', 'f'];
-        var arrFixedColor = arrBasicColor.concat('f4615c', '01cf97', '2486ff', 'f28c48');
+        var arrFixedColor = arrBasicColor.concat('eb4646', '1cad70', '2a80eb', 'f59b00');
         this.color = {
             basic: arrBasicColor,
             fixed: arrFixedColor

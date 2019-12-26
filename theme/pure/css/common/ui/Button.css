@@ -86,23 +86,23 @@ button.ui-button {
 /* primary button */
 .ui-button[data-type="primary"],
 .ui-button[data-type="remind"] {
-    background-color: #2486ff;
+    background-color: #2a80eb;
 }
 
 /* success button */
 .ui-button[data-type="success"] {
-    background-color: #01cf97;
+    background-color: #1cad70;
 }
 
 /* warning button */
 .ui-button[data-type="warning"],
 .ui-button[data-type="warn"] {
-    background-color: #f28c48;
+    background-color: #f59b00;
 }
 /* danger button */
 .ui-button[data-type="danger"],
 .ui-button[data-type="error"] {
-    background-color: #f4615c;
+    background-color: #eb4646;
 }
 
 /* disabled status */
@@ -122,7 +122,7 @@ button.ui-button {
 /* for IE9 button按钮以及IE9+ input按钮，三个点 */
 input.ui-button.loading,
 .ui-button.loading::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232486ff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232a80eb'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232a80eb'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 512a512 512 0 1 0 1024 0A512 512 0 1 0 0 512z' fill='%232a80eb'/%3E%3C/svg%3E");
     background-position-x: calc(50% - 10px), 50%, calc(50% + 10px);
     /* IE不支持calc计算动画，因此是要具体数值代替 */
     background-position-y: 18px, 18px, 18px;
@@ -145,7 +145,7 @@ input.ui-button[data-type]:not([data-type="normal"]).loading,
 .ui-button.loading::before,
 div:invalid {
     width: 20px; height: 20px;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232486ff'/%3E%3C/svg%3E") no-repeat center;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat center;
     background-size: 20px 20px;
     margin: auto;
     animation: spin 1s linear infinite;
@@ -185,5 +185,5 @@ div:invalid {
 
 /* error */
 .ui-button.error {
-    border-color: #f4615c !important;
+    border-color: #eb4646 !important;
 }

@@ -30,7 +30,7 @@
 
 .ui-tab-tab:hover,
 .ui-tab-tab:hover a {
-    color: #2486ff;
+    color: #2a80eb;
 }
 
 .ui-tab-tabs .active,
@@ -40,7 +40,7 @@
     padding-top: 2px;
     margin-bottom: -1px;
     border-bottom: 3px solid;
-    color: #2486ff;
+    color: #2a80eb;
     cursor: default;
 }
 
@@ -50,7 +50,7 @@
     bottom: -1px;
     left: 0;
     width: 0;
-    border-bottom: 3px solid #2486ff;
+    border-bottom: 3px solid #2a80eb;
     transition: all .35s;
 }
 

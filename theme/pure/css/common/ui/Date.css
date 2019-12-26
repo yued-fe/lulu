@@ -120,7 +120,7 @@ span.ui-month-range-input > input {
     width: 20px; height: 20px;
     top: 0; bottom: 0; right: 0;
     margin: auto;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232486ff'/%3E%3C/svg%3E") no-repeat right;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat right;
     background-size: 20px 20px;
 }
 :disabled + .ui-date-arrow {
@@ -183,7 +183,7 @@ body > .ui-date-container {
     fill: currentColor;
 }
 a.ui-date-prev:hover {
-    color: #2486ff;
+    color: #2a80eb;
 }
 
 span.ui-date-prev {
@@ -191,7 +191,7 @@ span.ui-date-prev {
 }
 
 a.ui-date-next:hover {
-    color: #2486ff;
+    color: #2a80eb;
 }
 
 span.ui-date-next {
@@ -282,7 +282,7 @@ span.ui-date-item {
 .ui-date-item.col6,
 .ui-day-item.col0,
 .ui-day-item.col6 {
-    color: #f4615c;
+    color: #eb4646;
 }
 
 .ui-date-tr:last-child .ui-date-item:empty {
@@ -350,7 +350,7 @@ span.ui-date-item {
 }
 
 .ui-date-container .selected {
-    background-color: #2486ff;
+    background-color: #2a80eb;
     color: #fff;
     cursor: default;
 }
@@ -375,7 +375,7 @@ span.ui-date-item {
 .ui-range-date-body .selected {
     width: 26px;
     line-height: 26px;
-    border: 1px solid #2486ff;
+    border: 1px solid #2a80eb;
     border-right-width: 4px;
     margin-right: 0;
     border-radius: 0;
@@ -450,7 +450,7 @@ span.ui-date-item {
 .ui-range-body .ui-date-begin.ui-date-end {
     margin-right: 3px;
     padding: 0;
-    border: 1px solid #2486ff;
+    border: 1px solid #2a80eb;
     border-radius: 2px;
 }
 

@@ -6,15 +6,17 @@
  * @create 15-06-18
  * @edit 17-06-14    focusable
 **/
-input[type="checkbox"]:not([class]),
-input[type="checkbox"][class*='ui-'],
-input[type="checkbox"][class=""] {
+input[type="checkbox"]:not(.ui-visible) {
     position: absolute;
     opacity: 0;
     width: 20px;
     height: 20px;
     cursor: pointer;
     z-index: -1;
+}
+
+.ui-visible + .ui-checkbox {
+    display: none;
 }
 
 /* 无绝对定位的模拟生成实现 */
@@ -47,15 +49,15 @@ input[type="checkbox"][class=""] {
 }
 
 :focus + .ui-checkbox {
-    color: #2486ff;
+    color: #2a80eb;
 }
 :focus + .ui-checkbox:hover {
     color: #0057c3;
 }
 
 :checked + .ui-checkbox {
-    color: #2486ff;
-    background-color: #2486ff;
+    color: #2a80eb;
+    background-color: #2a80eb;
 }
 
 :checked:focus + .ui-checkbox,
@@ -83,6 +85,6 @@ input[type="checkbox"][class=""] {
 
 /* error */
 .error.ui-checkbox {
-    color: #f4615c;
+    color: #eb4646;
 }
 

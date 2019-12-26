@@ -19,6 +19,10 @@ select {
     vertical-align: middle;
 }
 
+select[width="100%"] {
+    width: 100%;
+}
+
 select[multiple] {
     height: auto;
     font-size: 38px;
@@ -48,7 +52,8 @@ select[hidden] + .ui-select {
 select[opacity="1"],
 select[opacity="100%"],
 select[style*="opacity:1"],
-select[style*="opacity: 1"] {
+select[style*="opacity: 1"],
+select.ui-visible {
     opacity: 1;
     padding: 0;
 }
@@ -94,7 +99,7 @@ select[style*="opacity: 1"] {
 }
 
 .active > a.ui-select-button {
-    border-color: #2486ff;
+    border-color: #2a80eb;
     border-radius: 4px 4px 0 0;
 }
 
@@ -115,7 +120,7 @@ select[style*="opacity: 1"] {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%232486ff' d='M145.659 68.949a12.874 12.874 0 0 0-18.473 0L99.479 97.233 71.772 68.949a12.874 12.874 0 0 0-18.473 0c-5.099 5.208-5.099 13.648 0 18.857l46.18 47.14 46.181-47.14c5.099-5.208 5.099-13.649-.001-18.857z'/%3E%3C/svg%3E") no-repeat center;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%232a80eb' d='M145.659 68.949a12.874 12.874 0 0 0-18.473 0L99.479 97.233 71.772 68.949a12.874 12.874 0 0 0-18.473 0c-5.099 5.208-5.099 13.648 0 18.857l46.18 47.14 46.181-47.14c5.099-5.208 5.099-13.649-.001-18.857z'/%3E%3C/svg%3E") no-repeat center;
     background-size: 20px 20px;
     right: 7px;
     top: 10px;
@@ -132,7 +137,7 @@ select[style*="opacity: 1"] {
     display: none;
     max-height: 304px;
     padding: 0;
-    border: 1px solid #2486ff;
+    border: 1px solid #2a80eb;
     background-color: #fff;
     overflow: auto;
 }
@@ -152,7 +157,7 @@ select[style*="opacity: 1"] {
 }
 
 [multiple]:focus ~ .ui-select > .ui-select-datalist {
-    border-color: #2486ff;
+    border-color: #2a80eb;
 }
 
 .ui-select-datalist::-webkit-scrollbar {
@@ -241,5 +246,5 @@ select:disabled + .ui-select .ui-select-datalist {
 .error .ui-select-button,
 .error[multiple] ~ .ui-select .ui-select-datalist,
 select.error {
-    border-color: #f4615c;
+    border-color: #eb4646;
 }

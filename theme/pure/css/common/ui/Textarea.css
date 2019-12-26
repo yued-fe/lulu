@@ -50,7 +50,7 @@ div.ui-textarea > textarea {
 /* focus */
 .ui-textarea:focus,
 .ui-textarea > textarea:focus {
-    border-color: #2486ff;
+    border-color: #2a80eb;
 }
 
 /* textarea with count */
@@ -107,7 +107,7 @@ div.ui-textarea > textarea {
 }
 
 .ui-textarea-x > textarea:focus ~ .ui-textarea {
-    border-color: #2486ff;
+    border-color: #2a80eb;
 }
 
 .ui-textarea-x .ui-placeholder {
@@ -155,9 +155,9 @@ textarea:disabled {
 /* error */
 .ui-textarea.error,
 .ui-textarea > .error {
-    border-color: #f4615c !important;
+    border-color: #eb4646 !important;
 }
 .ui-textarea-count > .error,
 .ui-textarea-count.error {
-    color: #f4615c;
+    color: #eb4646;
 }

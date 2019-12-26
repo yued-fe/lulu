@@ -58,7 +58,7 @@ input[type='color'] {
 .ui-color-switch {
     position: absolute;
     top: 12px; right: 12px;
-    color: #2486ff;
+    color: #2a80eb;
     border: 1px solid transparent;
     height: 20px;
     line-height: 20px;
@@ -269,8 +269,8 @@ input[type='color'] {
 }
 
 .ui-color-button-ensure {
-    border: 1px solid #2486ff;
-    background-color: #2486ff;
+    border: 1px solid #2a80eb;
+    background-color: #2a80eb;
     color: #fff;
 }
 

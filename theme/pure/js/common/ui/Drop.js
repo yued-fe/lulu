@@ -784,10 +784,8 @@
             // 触发用户自定义选择事件
             objParams.onSelect.call(this, objItemData, eleClicked);
 
-            //
-
             // 不是鼠标右击事件，也不是委托模式更新
-            if (objParams.eventType != 'contextmenu' && objParams.selector == '') {
+            if (objParams.eventType != 'contextmenu' && objParams.selector == '' && !objItemData.href) {
                 eleTrigger[strMethod] = objItemData.value;
             }
             // 隐藏

@@ -451,11 +451,16 @@
         // 2. url get请求地址合并
         var objAjaxParams = new URLSearchParams(objDataSend);
         // URL处理
-        var objUrlAjax = new URL(objAjax.url);
         var strUrlAjax = objAjax.url;
 
+        // 查询字符串的处理
+        var strUrlSearch = '?';
+        if (strUrlAjax.split('?').length > 1) {
+            strUrlSearch = strUrlSearch + strUrlAjax.split('?')[1];
+        }
+
         // URL拼接
-        strUrlAjax = strUrlAjax.split('?')[0] + (objUrlAjax.search || '?') + '&' + objAjaxParams.toString();
+        strUrlAjax = strUrlAjax.split('?')[0] + strUrlSearch + '&' + objAjaxParams.toString();
 
         // 3. 回调方法的处理
         // ajax发生错误的处理
@@ -504,7 +509,7 @@
         // 执行Ajax请求的方法
         var funAjax = function () {
             // IE9不支持跨域
-            if (!history.pushState && objAjaxParams.host != location.host) {
+            if (!history.pushState && /\/\//.test(strUrlAjax) && strUrlAjax.split('//')[1].split('/')[0] != location.host) {
                 funComplete.call(this);
                 funError('当前浏览器不支持跨域数据请求');
                 return;
@@ -538,7 +543,16 @@
                 var strHtml = objCallback.parse(json);
 
                 // 如果解析后无数据，显示空提示信息
-                eleTbody.innerHTML = strHtml || '';
+                if (history.pushState) {
+                    eleTbody.innerHTML = strHtml || '';
+                } else {
+                    // IE9 tbody不能直接innerHTML
+                    var eleTemp = document.createElement('div');
+                    eleTemp.innerHTML = '<table><tbody>' + (strHtml || '') + '</tbody></table>';
+
+                    eleTbody.parentNode.replaceChild(eleTemp.firstChild.firstChild, eleTbody);
+                }
+
 
                 var eleEmpty = objElement.empty;
                 if (!strHtml || !strHtml.trim()) {
@@ -583,12 +597,13 @@
                 if (typeof objAjax.success == 'function') {
                     objAjax.success(json);
                 }
-            }.bind(this);
 
-            xhr.onloadend = funComplete.bind(this);
+                funComplete.call(this);
+            }.bind(this);
 
             xhr.onerror = function () {
                 funError('网络异常，数据没有获取成功，您可以稍后重试！');
+                funComplete.call(this);
             };
 
             xhr.send();
