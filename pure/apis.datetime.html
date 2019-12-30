@@ -1,0 +1,465 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于时间日期选择" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, LuLu, Web, 前端, 时间日期选择" />
+<title>LuLu UI pure版中文文档 &raquo; </title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+<link rel="stylesheet" href="./assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme">
+				<option value="peak">Peak主题</option>
+			    <option value="pure" selected>Pure主题</option>
+			    <!-- <option value="lead">Lead主题</option> -->
+			</select>
+			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+		</div>
+	</header>
+
+<div class="main">
+	<!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        localStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">时间日期选择</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引用下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Input.css"&gt;
+&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Button.css"&gt;
+&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Date.css"&gt;</pre>
+            <p>JS为：</p>
+            <pre>&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
+            <p>或者使用合并地址：</p>
+            <pre>&lt;script src="//qidian.gtimg.com/c/=/lulu/theme/pure/js/common/ui/Follow.js,/lulu/theme/pure/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
+
+            <h3>基本效果演示</h3>
+            <p>基于HTML5时间选择框的日期时间选择控件，使用原生的<code>min</code>，<code>max</code>作为时间范围，部分日期选择类型支持<code>step</code>控制步阶。</p>
+            <p>所有时间输入框为空则使用今天作为默认日期。</p>
+            <p>只读。</p>
+            <h4>1. 选择日期</h4>
+            <p>无初始值-内联：<span class="ui-input ui-date-input"><input type="date" id="date1" min="2018-07-31" max="2024-02-22"></span>
+            </p>
+            <pre>&lt;span class="ui-input ui-date-input"&gt;&lt;input type="date" min="2018-07-03" max="2024-02-22"&gt;&lt;/span&gt;</pre>
+            <div>
+                有初始值-块级：<div class="ui-input ui-date-input"><input type="date" value="2017-04-23"></div>
+            </div>
+            <pre>&lt;div class="ui-input ui-date-input"&gt;&lt;input type="date" value="2015-07-23"&gt;&lt;/div&gt;</pre>
+
+            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>date</code>即可，使用<code>min</code>和<code>max</code>控制日期范围。</p>
+
+            <p>内联输入框保持原本内联特性，默认可以和文字一行显示，宽度大小为输入框尺寸，80%~90%的开发场景都是使用内联输入框。</p>
+            <p>块级输入框默认不可以和文字在一行显示，如果想要在一行显示，需要布局支持，块级输入框最大特点是宽度100%自适应外部容器元素的宽度，也是其推荐的使用场景。本文档页面本着演示目的，块级输入框尺寸很宽，实际开发肯定要限定宽度的啦，所以不要在意。</p>
+
+            <p><strong>禁用：</strong><span class="ui-input ui-date-input"><input type="date" disabled></span></p>
+            <pre>&lt;span class="ui-input ui-date-input"&gt;&lt;input type="date" disabled&gt;&lt;/span&gt;</pre>
+            <p>禁用只要设置输入框<code>disabled</code>即可。</p>
+
+
+            <h4>2. 选择年</h4>
+            <p>无初始值-内联：<span class="ui-input ui-year-input"><input type="year" min="2015" max="2020"></span></p>
+            <pre>&lt;span class="ui-input ui-year-input"&gt;&lt;input type="year" min="2015" max="2020"&gt;&lt;/span&gt;</pre>
+            有初始值-块级：<div class="ui-input ui-year-input"><input type="year" value="2015"></div>
+            <pre>&lt;div class="ui-input ui-year-input"&gt;&lt;input type="year" value="2015"&gt;&lt;/div&gt;</pre>
+            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>year</code>即可，使用<code>min</code>和<code>max</code>控制年份范围。</p>
+
+            <h4>3. 选择月</h4>
+            <p>无初始值-内联：<span class="ui-input ui-month-input"><input type="month" min="2019-09" max="2050-10"></span></p>
+            <pre>&lt;span class="ui-input ui-month-input"&gt;&lt;input type="month" min="2019-09" max="2050-10"&gt;&lt;/span&gt;</pre>
+            有初始值-块级：<div class="ui-input ui-month-input"><input type="month" value="2015-07"></div>
+            <pre>&lt;div class="ui-input ui-month-input"&gt;&lt;input type="month" value="2015-07"&gt;&lt;/div&gt;</pre>
+            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>month</code>即可，使用<code>min</code>和<code>max</code>控制月份范围。</p>
+
+            <h4>4. 选择时间</h4>
+            <p>小时分钟均可选择-无初始值-内联：<span class="ui-input ui-time-input"><input type="time" max="23:10"></span></p>
+            <pre>&lt;span class="ui-input ui-time-input"&gt;&lt;input type="time" max="23:10"&gt;&lt;/span&gt;</pre>
+
+            有初始值和范围限制-块状：
+            <div class="ui-input ui-time-input"><input type="minute" value="04:20" min="02:25" max="5:54"></div>
+            <pre>&lt;div class="ui-input ui-time-input"&gt;&lt;input type="minute" value="04:20" min="02:25" max="5:54"&gt;&lt;/div&gt;</pre>
+
+            <p>精确到分钟-step设置：<span class="ui-input ui-time-input"><input type="minute" value="09:20" step="1"></span></p>
+            <pre>&lt;span class="ui-input ui-time-input"&gt;&lt;input type="minute" value="09:20" step="1"&gt;&lt;/span&gt;</pre>
+
+            <p>选择小时, 早8点至晚8点：<span class="ui-input ui-time-input"><input type="hour" value="09:20" min="8" max="20"></span></p>
+            <pre>&lt;span class="ui-input ui-time-input"&gt;&lt;input type="hour" value="09:20" min="8" max="20"&gt;&lt;/span&gt;</pre>
+
+
+            <h4>5. 月份范围</h4>
+            <p>无初始值-有范围限制-内联：<span class="ui-input ui-month-range-input"><input type="month-range" min="2018-03" max="2022-04"></span></p>
+            <pre>&lt;span class="ui-input ui-month-range-input"&gt;&lt;input type="month-range" min="2018-03" max="2022-04"&gt;&lt;/span&gt;</pre>
+            从今天到2022年-块级：<div class="ui-input ui-month-range-input"><input type="month-range" value="2022-01"></div>
+            <pre>&lt;div class="ui-input ui-month-range-input"&gt;&lt;input type="month-range" value="2022-01"&gt;&lt;/div&gt;</pre>
+            <p>完整初始值：<span class="ui-input ui-month-range-input"><input type="month-range" value="2016-01 至 2017-11"></span></p>
+            <pre>&lt;span class="ui-input ui-month-range-input"&gt;&lt;input type="month-range" value="2016-01 至 2017-11"&gt;&lt;/span&gt;</pre>
+
+            <h4>6. 日期范围</h4>
+            <p>无初始值-有时间范围：<span class="ui-input ui-date-range-input"><input type="date-range" min="2017-11-10" max="2022-04-01"></span></p>
+            <pre>&lt;span class="ui-input ui-date-range-input"&gt;&lt;input type="date-range" min="2017-11-10" max="2022-04-01"&gt;&lt;/span&gt;</pre>
+            从今天到2022年-块级：<div class="ui-input ui-date-range-input"><input type="date-range" value="2022-01-01"></div>
+            <pre>&lt;div class="ui-input ui-date-range-input"&gt;&lt;input type="date-range" value="2022-01-01"&gt;</pre>
+            <p>有初始值：<span class="ui-input ui-date-range-input"><input type="date-range" value="2015-04-25 至 2015-05-24"></span></p>
+            <pre>&lt;span class="ui-input ui-date-range-input"&gt;&lt;input type="date-range" value="2015-04-25 至 2015-05-24"&gt;&lt;/span&gt;</pre>
+
+            <h4>7. 特殊日子标记</h4>
+
+<style>
+[data-id="festival"] .ui-date-item[data-date$="10-01"] {
+    position: relative;
+    text-indent: -60px;
+    overflow: hidden;
+}
+[data-id="festival"] .ui-date-item[data-date$="10-01"]:before {
+    content: '国庆';
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    text-align: center;
+    text-indent: 0;
+}
+[data-id="festival"] span.ui-date-item[data-date$="10-01"]:before {
+    color: #ccd0d7;
+}
+[data-id="festival"] .selected[data-date$="10-01"]:before {
+    color: #fff;
+}</style>
+
+            <p>标记特殊的日子，例如国庆节，劳动节等。</p>
+            <p><span class="ui-input ui-date-input"><input type="date" id="festival" value="2022-10-02"></span></p>
+            <p>日期下拉每个日期元素上会有一个<code>data-date</code>属性，其值为当前完整年月日，于是我们就通过CSS的属性选择器进行日期匹配，改变UI样式，显示特殊的日期。例如国庆节：</p>
+            <pre>.ui-date-item[data-date$="10-01"] {
+    position: relative;
+    color: transparent;
+}
+.ui-date-item[data-date$="10-01"]:before {
+    content: '国庆';
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    text-align: center;
+}
+span.ui-date-item[data-date$="10-01"]:before {
+    color: #ccd0d7;
+}
+.selected[data-date$="10-01"]:before {
+    color: #fff;
+}</pre>
+            <h4>8. 静态展示</h4>
+            <p>标记哪一天更新了代码，本功能非组件内置，这里演示如何实现这个需求。效果如下：</p>
+<style>
+/* 本需求下，今天不显示 */
+.update-date-mark .ui-date-now {
+    display: none;
+}
+/* 原来的选中态忽略 */
+.update-date-mark .selected,
+.update-date-mark a.ui-date-item:hover {
+    background-color: #fff;
+}
+.update-date-mark .selected {
+    color: inherit;
+}
+</style>
+            <div id="dateContainer" class="ui-date-container update-date-mark"></div>
+            <pre>&lt;div id="dateContainer" class="ui-date-container"&gt;&lt;/div&gt;</pre>
+            <pre><span class="green">/* 本需求下，今天不显示 */</span>
+.update-date-mark .ui-date-now {
+    display: none;
+}
+<span class="green">/* 原来的选中态忽略 */</span>
+.update-date-mark .selected,
+.update-date-mark a.ui-date-item:hover {
+    background-color: #fff;
+}
+.update-date-mark .selected {
+    color: inherit;
+}</pre>
+            <pre>var myDateTime = new DateTime('#dateContainer');
+<span class="green">// 下面就是高亮标记和tips提示处理了
+// 需要匹配的数据，这里随便伪造几个演示下</span>
+var arrMatchDate = ['2019-11-20', '2019-11-22', '...'];
+<span class="green">// 创建CSS进行样式匹配</span>
+var strCssStyle = '';
+arrMatchDate.forEach(function (date) {
+    strCssStyle += 'div.update-date-mark .ui-date-item[data-date="' + date + '"]{background-color: #2a80eb; color: #fff;}';
+});
+<span class="green">// &lt;style&gt;元素创建并插入到页面</span>
+var eleStyle = document.createElement('style');
+eleStyle.innerHTML = strCssStyle;
+document.body.appendChild(eleStyle);
+
+<span class="green">// 这个是显示黑色tips效果演示</span>
+myDateTime.element.container.addEventListener('mouseover', function (event) {
+    var eleItem = event.target;
+    if (arrMatchDate.indexOf(eleItem.getAttribute('data-date')) != -1 && (!eleItem.data || !eleItem.data.tips)) {
+        new Tips(eleItem, {
+            content: '这一天提交xxx代码'
+        }).show();
+    }
+});
+</pre>
+
+            <h3>语法和参数</h3>
+            <p>本组件基于HTML5原生表单特性实现。因此，大部分情况下，大家无需再使用额外的JS或自定义参数进行处理，只要写好上面示意的HTML代码就可以了，比传统实现轻松很多。</p>
+            <p>不同的<code>type</code>类型代码不同的时间选择框，例如<code>'date'</code>就是选择日期的。<code>min/max</code>为可以选择的时间范围。部分时间选择支持<code>step</code>, 比方说<code>type='time'</code>, 默认<code>step</code>的值是<code>5</code>，也就是分钟选择间隔是<code>5</code>分钟，如果您设置<code>step='10'</code>, 则可选择的时间间隔就是<code>10</code>分钟。</p>
+            <h4>语法</h4>
+            <pre>var myDateTime = new DateTime(element, options);</pre>
+            <p>实际开发使用不到上面语法，因为LuLu UI会自动识别日期输入框并初始化。</p>
+            <h4>参数</h4>
+            <dl>
+                <dt>element</dt>
+                <dd>必需。Object元素|String选择器。表示输入框元素或选择器。也可以是静态展示中的容器元素。</dd>
+                <dt>options</dt>
+                <dd>可选。Object纯对象。可选参数见下表：</dd>
+            </dl>
+
+            <table width="100%" class="ui-table">
+              <tr>
+                <th scope="col" width="64">参数名称</th>
+                <th scope="col" width="72">支持类型</th>
+                <th scope="col" width="112">默认值</th>
+                <th scope="col">释义</th>
+              </tr>
+
+              <tr>
+                <td>value</td>
+                <td>String</td>
+                <td>''</td>
+                <td>文本框初始值。对应HTML中<code>&lt;input&gt;</code>元素的<code>value</code>属性值。只有<code>&lt;input&gt;</code>元素值为空时候，此参数才有作用。建议走HTML驱动，忽略此可选参数。</td>
+              </tr>
+              <tr>
+                <td>type</td>
+                <td>String</td>
+                <td>'auto'</td>
+                <td><code>'auto'</code>表示根据<code>&lt;input&gt;</code>元素的<code>type</code>属性值决定日期面板的类型。可以是<code>'date'(2015-01-01)</code>，<code>'year'(2015)</code>，<code>'month'(2015-01)</code>，<code>'time'(12:00)</code>，<code>'date-range'(2015-01-01 至 2015-06-01)</code>，<code>'month-range'(2015-01 至 2019-01)</code>等。建议走HTML驱动，忽略此可选参数。</td>
+              </tr>
+              <tr>
+                <td>min</td>
+                <td>String</td>
+                <td>'auto'</td>
+                <td>时间范围的最小值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code>表示没有最小限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
+              </tr>
+              <tr>
+                <td>max</td>
+                <td>String</td>
+                <td>'auto'</td>
+                <td>时间范围的最大值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code>表示没有最大限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
+              </tr>
+              <tr>
+                <td>onShow</td>
+                <td>Function</td>
+                <td>function () {}</td>
+                <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为<code>&lt;input&gt;</code>元素元素，第二个参数为浮层元素。</td>
+              </tr>
+              <tr>
+              <tr>
+                <td>onHide</td>
+                <td>Function</td>
+                <td>function () {}</td>
+                <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为<code>&lt;input&gt;</code>元素元素，第二个参数为浮层元素。</td>
+              </tr>
+            </table>
+            <p>根据我个人的判断，上面的可选参数，都不是必须参数，应用频率不会高。</p>
+            <p>如果希望时间选择后做什么事情，你直接给文本框元素绑定<code>change</code>事件就可以了，例如：</p>
+            <pre>input.addEventListener('change', function() {
+    console.log('选择的时间是：' + this.value);
+});</pre>
+
+            <h3>实例对象的属性和方法</h3>
+            <p><code>myDateTime</code>就是日期选择实例对象，包含了下面这些属性和方法：</p>
+            <pre>{
+    element: {
+        <span class="green">// 容器</span>
+        container: null,
+        <span class="green">// 输入框外层元素</span>
+        trigger: null,
+        <span class="green">// 输入框元素</span>
+        input: null
+    },
+    params: {
+        max: '9999-12-31',
+        min: '0000-01-01',
+        type: 'date'
+    },
+    <span class="green">// 2个回调方法</span>
+    callback: {
+        show: function () {},
+        hide: function () {}
+    },
+    <span class="green">// 更新日期内容</span>
+    date: function () {},
+    <span class="green">// 更新日期范围内容</span>
+    'date-range': function () {},
+    <span class="green">// 更新年份内容</span>
+    year: function () {},
+    <span class="green">// 更新月份内容</span>
+    month: function () {},
+    <span class="green">// 更新月份范围内容</span>
+    'month-range': function () {},
+    <span class="green">// 更新小时内容</span>
+    hour: function () {},
+    <span class="green">// 更新分钟内容</span>
+    minute: function () {},
+    <span class="green">// 选择面板显示</span>
+    show: function () {},
+    <span class="green">// 选择面板隐藏</span>
+    hide: function () {}
+}</pre>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<!-- 底部 -->
+<script src="./assets/js/mockup.js"></script>
+</body>
+</html>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/DateTime.js"></script>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Tips.js"></script>
+<script>
+// 下面是事件触发测试
+document.querySelectorAll('article input').forEach(function (eleInput) {
+    eleInput.addEventListener('change', function () {
+        console.log('选择的时间是：' + this.value);
+    });
+});
+
+var myDateTime = new DateTime('#dateContainer');
+// 根据匹配日期创建样式
+// 为了测试，使用随机数据演示
+(function () {
+    var eleStyle = document.createElement('style');
+    var arrMatchDate = [];
+    var strCssStyle = '';
+    for (var start = 0; start < 200; start++) {
+        var year = 2018 + Math.floor(5 * Math.random());
+        var month = Math.floor(12 * Math.random());
+        var day = Math.ceil(28 * Math.random());
+
+        var date = new Date(year, month, day).toArray().join('-');
+
+        arrMatchDate.push(date);
+
+        strCssStyle += 'div.update-date-mark .ui-date-item[data-date="' + date + '"]{background-color: #2a80eb; color: #fff;}';
+    }
+
+    eleStyle.innerHTML = strCssStyle;
+
+    document.body.appendChild(eleStyle);
+
+    myDateTime.element.container.addEventListener('mouseover', function (event) {
+        var eleItem = event.target;
+        if (arrMatchDate.indexOf(eleItem.getAttribute('data-date')) != -1) {
+            if (!eleItem.data || !eleItem.data.tips) {
+                new Tips(eleItem, {
+                    content: '这一天提交xxx代码'
+                }).show();
+            }
+        }
+    });
+})();
+</script>

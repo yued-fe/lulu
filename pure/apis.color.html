@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Color色值选择" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, LuLu, Web, 前端, Color色值选择" />
+<title>LuLu UI pure版中文文档 &raquo; </title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+<link rel="stylesheet" href="./assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme">
+				<option value="peak">Peak主题</option>
+			    <option value="pure" selected>Pure主题</option>
+			    <!-- <option value="lead">Lead主题</option> -->
+			</select>
+			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+		</div>
+	</header>
+
+<style type="text/css">img{max-width: 100%;object-fit: contain;}</style>
+<div class="main">
+	<!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        localStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">Color颜色选择</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引用下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Color.css"&gt;</pre>
+            <p>JS为：</p>
+            <pre>&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/Drop.js"&gt;&lt;/script&gt;
+&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/Color.js"&gt;&lt;/script&gt;</pre>
+            <p>或者使用合并地址：</p>
+            <pre>&lt;script src="//qidian.gtimg.com/c/=/lulu/theme/pure/js/common/ui/Follow.js,/lulu/theme/pure/js/common/ui/Drop.js,/lulu/theme/pure/js/common/ui/Color.js"&gt;&lt;/script&gt;</pre>
+            <p><a href="./single/color.html" target="_blank">单独使用Demo演示</a></p>
+
+            <h3>基础使用示意</h3>
+            <p>基于HTML5 <code>type="color"</code>区域选择框实现的颜色选择组件。</p>
+
+            <h4>基本使用示意</h4>
+            <p><span id="CC" class="vm">颜色为：</span><input type="color" id="colorPicker" class="ui-color-input"></p>
+
+            <p>无需任何初始化，只要输入框的type类型为<code>color</code>就可以了，如下示意：</p>
+            <pre>&lt;input type="color" class="ui-color-input"&gt;</pre>
+            <p>默认颜色为纯黑色。</p>
+
+            <h4>指定初始颜色</h4>
+            <p>我们也可以指定初始<code>value</code>颜色值，使用<code>#RRGGBB</code>格式，例如，初始颜色为红色，则代码如下：</p>
+            <pre>&lt;input type="color" class="ui-color-input" <mark>value="#ff0000"</mark>&gt;</pre>
+            <p>效果为：<input type="color" class="ui-color-input" value="#ff0000"></p>
+
+            <h4>颜色变化事件</h4>
+            <p>直接给<code>type='color'</code>输入框绑定原生的<code>'change'</code>事件就可以了。</p>
+            <p>例如“基本使用示意”那里标题跟着变色的JS代码为：</p>
+            <pre>input.addEventListener('change', function () {
+    title.style.color = this.value;
+});</pre>
+
+            <h3>深入应用示意</h3>
+
+            <h4>动态颜色赋值</h4>
+            <p>如果在颜色选择器已经完成初始化之后，想要使用JavaScript代码修改显示的颜色，则可以使用实例对象暴露的<code>value()</code>方法。例如：</p>
+            <p><input type="color" id="myColor" class="ui-color-input"> <button id="colorButton" class="ui-button" data-type="primary">变成红色</button></p>
+            <p>HTML和JS代码如下：</p>
+            <pre>&lt;input type="color" id="input" class="ui-color-input"&gt;
+&lt;button id="button"&gt;变成红色&lt;/button&gt;</pre>
+            <pre><span class="green">// 点击按钮</span>
+button.addEventListener('click', function () {
+    <span class="green">// 设置为红色
+    // input.data.color就是存储在输入框DOM元素对象上的实例方法</span>
+    input.data.color.value('#ff0000');
+});</pre>
+            <p>本Color组件也支持颜色关键字赋值，例如：</p>
+            <p><input type="color" id="myColor2" class="ui-color-input"> <button id="colorButton2" class="ui-button" data-type="primary">变成mediumseagreen</button></p>
+            <p>HTML和JS代码如下：</p>
+            <pre>&lt;input type="color" id="input2" class="ui-color-input"&gt;
+&lt;button id="button2"&gt;变成mediumseagreen&lt;/button&gt;</pre>
+            <pre><span class="green">// 点击按钮</span>
+button2.addEventListener('click', function () {
+    <span class="green">// 设置为中海绿色</span>
+    input2.data.color.value('mediumseagreen');
+});</pre>
+
+
+            <h3>语法和参数</h3>
+            <p>语法如下：</p>
+            <pre>var myColor = new Color(element, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>element</dt>
+                <dd>必需。Element元素对象或者String元素选择器。</dd>
+                <dt>options</dt>
+                <dd>可选。Object纯对象。支持可选参数见下表：</dd>
+            </dl>
+            <table width="100%" class="ui-table">
+              <tr>
+                <th scope="col" width="80">参数名称</th>
+                <th scope="col" width="80">支持类型</th>
+                <th scope="col" width="120">默认值</th>
+                <th scope="col">释义</th>
+              </tr>
+              <tr>
+                <td>offsets</td>
+                <td>Object</td>
+                <td><span class="db">{<br>
+                    &nbsp;&nbsp;x: 0,<br>
+                    &nbsp;&nbsp;y: 0<br>
+                }</span></td>
+                <td>表示浮动元素的偏移大小，相对于右上角偏移，数值越大右上角偏移越大。</td>
+              </tr>
+              <tr>
+                <td>position</td>
+                <td>String</td>
+                <td>'7-5'</td>
+                <td>表示触发元素和浮层元素的定位关系。<code>'trigger-target'</code>规则，数字表示对应元素的位置，具体如下图。例如<code>'7-5'</code>就表示触发元素的位置<code>7</code>个浮层元素的<code>5</code>对齐。
+                <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240"></p>
+                </td>
+              </tr>
+              <tr>
+                <td>edgeAdjust</td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>表示浮层屏幕之外的时候，是否自动调整方向。默认是不自动调整。</td>
+              </tr>
+              <tr>
+                <td>onShow</td>
+                <td>Function</td>
+                <td>function () {}</td>
+                <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+              </tr>
+              <tr>
+                <td>onHide</td>
+                <td>Function</td>
+                <td>function () {}</td>
+                <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+              </tr>
+            </table>
+
+            <p>本组件依赖Drop.js组件。</p>
+
+            <h4>关于实例对象</h4>
+            <p>myColor就是返回的实例对象，暴露了以下属性和方法：</p>
+            <pre>{
+    element: {
+        <span class="green">// 输入框</span>
+        input: null,
+        <span class="green">// 面板容器</span>
+        container: null,
+        <span class="green">// 创建的色块元素</span>
+        track: null,
+        thumb: null,
+        <span class="green">// 面板显示之后同时包含下面这些</span>
+        field: null,
+        basic: null,
+        <span class="green">// 面板中“更多”切换按钮元素</span>
+        more: null,
+        <span class="green">// 面板中色域取色操作元素们</span>
+        circle: null,
+        fill: null,,
+        arrow: null,
+        <span class="green">// 面板中色值输入框元素</span>
+        current: null
+    },
+    params: {
+        offsets: {},
+        edgeAdjust: false,
+        position: '7-5'
+    };
+    callback: {
+        show: function () {},
+        hide: function () {}
+    },
+    display: true/false,
+    <span class="green">// Drop实例</span>
+    drop: new Drop(),
+    <span class="green">// 赋值以及UI同步</span>
+    value: function(value) {},
+    <span class="green">// 显示并定位</span>
+    show: function() {},
+    <span class="green">// 隐藏</span>
+    hide: function() {},
+    ...
+}</pre>
+            <p>本组件由于默认就执行，因为没有调用<code>new Color()</code>方法的机会，此时<code>myColor</code>可以通过输入框元素获取。假设输入框元素DOM对象是<code>input</code>，则此时<code>myColor</code>可以使用下面方法获取：</p>
+            <pre>myColor = input.data.color;</pre>
+
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </div>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<!-- 底部 -->
+<script src="./assets/js/mockup.js"></script>
+</body>
+</html>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Drop.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Color.js"></script>
+<script>
+var eleColorPicker = document.querySelector('#colorPicker');
+var eleColorCC = document.querySelector('#CC');
+
+eleColorPicker.addEventListener('change', function () {
+    eleColorCC.style.color = this.value;
+});
+
+var eleMyColor = document.getElementById('myColor');
+// 点击按钮
+var eleColorButton = document.getElementById('colorButton');
+eleColorButton.addEventListener('click', function () {
+    // 设置为红色
+    eleMyColor.data.color.value('#ff0000');
+});
+
+var eleMyColor2 = document.getElementById('myColor2');
+// 点击按钮
+var eleColorButton2 = document.getElementById('colorButton2');
+eleColorButton2.addEventListener('click', function () {
+    // 设置为红色
+    eleMyColor2.data.color.value('mediumseagreen');
+});
+
+
+</script>
