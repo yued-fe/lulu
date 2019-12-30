@@ -299,7 +299,7 @@ seajs.config(config).use(['common/ui/Select'], function(Select) {
             // 切换主题
             var pathname = location.pathname;
 
-            var urlPure = pathname.split('.')[0].replace('/content/', '/' + this.value + '/').replace(/apis|about|example\//, function (matches) {
+            var urlPure = pathname.split('.')[0].replace('/content/', '/' + this.value + '/').replace(/(?:apis|about|example)\//, function (matches) {
                 return matches.replace('/', '.');
             }) + '.html';
 
