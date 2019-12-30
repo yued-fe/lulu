@@ -6,13 +6,21 @@
 <meta name="description" content="LuLu UI中文文档，面向PC，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于模态层-弹框" />
 <meta name="keywords" content="LuLu UI, 中文文档, UI框架, PC, Web, 前端, 模态层-弹框" />
 <title>LuLu UI中文文档和演示 &raquo; 模态层-弹框</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+<link rel="stylesheet" href="../../../theme/peak/css/common/ui.css">
 <link rel="stylesheet" href="../../common/css/mockup.css">
 </head>
 
 <body>
 <div class="header">
 	<a href="../../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI组件中文文档 &raquo; 模态层-弹框</h1></a>
+    <div class="header-right">
+        <select id="selectTheme" class="select-theme">
+            <option value="peak" selected>Peak主题</option>
+            <option value="pure">Pure主题</option>
+            <!-- <option value="lead">Lead主题</option> -->
+        </select>
+        <a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+    </div>
 </div>
 <div class="main">
 	<!-- 侧边栏 -->
@@ -175,7 +183,7 @@ dialog.el.dialog.addClass('ui-dialog-auto');</pre>
                         <a href="javascript:" id="htmlDialog" class="ui-button ui-button-primary">点击按钮含有请求(html)的panel</a>
                     </p>
                     <pre>new Dialog().<span class="red">ajax</span>({
-    <span class="blue">url</span>: 'common/cgi/example.html',
+    <span class="blue">url</span>: 'common/cgi/example.php',
     <span class="blue">dataType</span>: 'html'
 }, {
     <span class="blue">title</span>: '请求html代码',
@@ -649,30 +657,51 @@ $('#alertDialog').click(function() {
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
 <a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
-<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
-<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="../../../theme/peak/js/plugin/sea.js"></script>
+<script src="../../../theme/peak/js/plugin/jquery.js"></script>
 <script>
-	var config = {
-		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
-	};
-    // 返回顶部
-    var elBacktop = $('#backtop');
-    $(window).on('scroll', function () {
-        var st = $(this).scrollTop();
-        if (st > 0) {
-            elBacktop.show();
+var config = {
+	'base': '../../../theme/peak/js'
+};
+// 返回顶部
+var elBacktop = $('#backtop');
+$(window).on('scroll', function () {
+    var st = $(this).scrollTop();
+    if (st > 0) {
+        elBacktop.show();
+    } else {
+        elBacktop.hide();
+    }
+});
+elBacktop.on('click', function (event) {
+    event.preventDefault();
+    $(window).scrollTop(0);
+});
+$(window).on('resize', function () {
+    $(this).trigger('scroll');
+});
+seajs.config(config).use(['common/ui/Select'], function(Select) {
+    $('select').each(function () {
+        new Select($(this));
+    });
+
+    $('#selectTheme').on('change', function () {
+        if (this.value == 'pure' || this.value == 'lead') {
+            // 切换主题
+            var pathname = location.pathname;
+
+            var urlPure = pathname.split('.')[0].replace('/content/', '/' + this.value + '/').replace(/apis|about|example\//, function (matches) {
+                return matches.replace('/', '.');
+            }) + '.html';
+
+            location.replace(urlPure);
         } else {
-            elBacktop.hide();
+            location.reload();
         }
     });
-    elBacktop.on('click', function (event) {
-        event.preventDefault();
-        $(window).scrollTop(0);
-    });
-    $(window).on('resize', function () {
-        $(this).trigger('scroll');
-    });
+});
 </script>
+
 </body>
 </html><script>
 seajs.config(config).use(['common/ui/Dialog', 'common/ui/Select'], function(Dialog, Select) {

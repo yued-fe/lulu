@@ -6,13 +6,21 @@
 <meta name="description" content="LuLu UI中文文档，面向PC，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于时间日期选择" />
 <meta name="keywords" content="LuLu UI, 中文文档, UI框架, PC, Web, 前端, 时间日期选择" />
 <title>LuLu UI中文文档和演示 &raquo; 时间日期选择</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/ui.css">
+<link rel="stylesheet" href="../../../theme/peak/css/common/ui.css">
 <link rel="stylesheet" href="../../common/css/mockup.css">
 </head>
 
 <body>
 <div class="header">
 	<a href="../../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI组件中文文档 &raquo; 时间日期选择</h1></a>
+    <div class="header-right">
+        <select id="selectTheme" class="select-theme">
+            <option value="peak" selected>Peak主题</option>
+            <option value="pure">Pure主题</option>
+            <!-- <option value="lead">Lead主题</option> -->
+        </select>
+        <a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+    </div>
 </div>
 <div class="main">
 	<!-- 侧边栏 -->
@@ -111,10 +119,10 @@
                             <h4>演示和代码</h4>
                             <ul id="dateTime">
                             <li>
-                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2018-07-31" max="2019-01-30"></span>
+                            <p>选择日期(无初始值)：<span class="ui-input ui-date-input mr30"><input type="date" id="date1" min="2018-07-31" max="2019-12-30"></span>
                                选择日期(有初始值)：<span class="ui-input ui-date-input"><input type="date" value="2017-04-23"></span>
                             </p>
-                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2019-01-30">&lt;/span&gt;
+                            <pre>&lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">min</span>="2015-07-03" <span class="red">max</span>="2019-12-30">&lt;/span&gt;
 &lt;span class="ui-input <span class="blue">ui-date-input</span>">&lt;input <mark>type="date"</mark> <span class="red">value</span>="2015-07-23">&lt;/span&gt;</pre>
                             </li>
                             <li>
@@ -125,7 +133,7 @@
 &lt;span class="ui-input <span class="blue">ui-year-input</span>">&lt;input <mark>type="year"</mark> <span class="red">value</span>="2015">&lt;/span></pre>
                             </li>
                             <li>
-                            <p>选择月(无初始值)：<span class="ui-input ui-month-input mr30"><input type="month" min="2019-01" max="2050-10"></span>
+                            <p>选择月(无初始值)：<span class="ui-input ui-month-input mr30"><input type="month" min="2019-12" max="2050-10"></span>
                                选择月(有初始值)：<span class="ui-input ui-month-input"><input type="month" value="2015-07"></span>
                             </p>
                             <pre>&lt;span class="ui-input <span class="blue">ui-month-input</span>">&lt;input <mark>type="month"</mark> <span class="red">min</span>="2015-05" <span class="red">max</span>="2016-10">&lt;/span>
@@ -291,30 +299,51 @@ span.ui-date-item[data-date$="10-01"]:before {
 <a href="https://github.com/yued-fe/lulu" class="fork-me">Fork Me</a>
 <a href="#" id="backtop" class="backtop">返回顶部</a>
 <!-- 底部 -->
-<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/sea.js"></script>
-<script src="https://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="../../../theme/peak/js/plugin/sea.js"></script>
+<script src="../../../theme/peak/js/plugin/jquery.js"></script>
 <script>
-	var config = {
-		'base': 'https://qidian.gtimg.com/lulu/theme/peak/js'
-	};
-    // 返回顶部
-    var elBacktop = $('#backtop');
-    $(window).on('scroll', function () {
-        var st = $(this).scrollTop();
-        if (st > 0) {
-            elBacktop.show();
+var config = {
+	'base': '../../../theme/peak/js'
+};
+// 返回顶部
+var elBacktop = $('#backtop');
+$(window).on('scroll', function () {
+    var st = $(this).scrollTop();
+    if (st > 0) {
+        elBacktop.show();
+    } else {
+        elBacktop.hide();
+    }
+});
+elBacktop.on('click', function (event) {
+    event.preventDefault();
+    $(window).scrollTop(0);
+});
+$(window).on('resize', function () {
+    $(this).trigger('scroll');
+});
+seajs.config(config).use(['common/ui/Select'], function(Select) {
+    $('select').each(function () {
+        new Select($(this));
+    });
+
+    $('#selectTheme').on('change', function () {
+        if (this.value == 'pure' || this.value == 'lead') {
+            // 切换主题
+            var pathname = location.pathname;
+
+            var urlPure = pathname.split('.')[0].replace('/content/', '/' + this.value + '/').replace(/apis|about|example\//, function (matches) {
+                return matches.replace('/', '.');
+            }) + '.html';
+
+            location.replace(urlPure);
         } else {
-            elBacktop.hide();
+            location.reload();
         }
     });
-    elBacktop.on('click', function (event) {
-        event.preventDefault();
-        $(window).scrollTop(0);
-    });
-    $(window).on('resize', function () {
-        $(this).trigger('scroll');
-    });
+});
 </script>
+
 </body>
 </html><script>
 seajs.config(config).use(['common/ui/DateTime', 'common/ui/Validate'], function(DateTime, Validate) {
