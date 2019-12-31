@@ -2465,7 +2465,8 @@ select {
     height: 40px;
     margin: 0;
     border: 1px solid #d0d0d5;
-    padding-right: 27px;
+    /* OS X padding-right无效 */
+    border-right: 27px solid #d0d0d5;
     opacity: 0.0001;
     font-size: 14px;
     font-family: simsun;
@@ -2508,7 +2509,7 @@ select[style*="opacity:1"],
 select[style*="opacity: 1"],
 select.ui-visible {
     opacity: 1;
-    padding: 0;
+    border-right-width: 1px;
 }
 
 .ui-select {
