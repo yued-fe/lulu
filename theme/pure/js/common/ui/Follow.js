@@ -56,6 +56,9 @@
             return;
         }
 
+        var eleOffsetParent = eleTarget.offsetParent;
+        var objBoundOffsetParent = eleOffsetParent.getBoundingClientRect();
+
         // 暴露给实例
         this.element = {
             trigger: eleTrigger,
@@ -74,6 +77,15 @@
 
         // 参数中设置的偏移位置
         var objOffsets = objParams.offsets;
+        // target元素所在的offset偏移
+        var numOffsetTop = objBoundOffsetParent.top + numScrollTop;
+        var numOffsetLeft = objBoundOffsetParent.left + numScrollLeft;
+        // 直接嫁接在offsets对象上，可以大大简化后续处理的逻辑
+        objOffsets.x -= numOffsetLeft;
+        objOffsets.y -= numOffsetTop;
+
+        // 这是指定位置
+        // 支持具体坐标值
         var strPosition = objParams.position;
 
         // 最终定位的left/top坐标

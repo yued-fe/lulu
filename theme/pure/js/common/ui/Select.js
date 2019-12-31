@@ -56,6 +56,12 @@
             return;
         }
 
+        var strAttrWidth = eleSelect.style.width || eleSelect.getAttribute('width');
+        if (!strAttrWidth) {
+            strAttrWidth = eleSelect.offsetWidth;
+        }
+        this.offsetWidth = strAttrWidth;
+
         // 构造元素
         // 1. 得到关联id
         var strId = eleSelect.id;
@@ -417,11 +423,9 @@
 
         // offsetWidth/clientWidth/getBoundingClientRect在下拉元素很多的的时候会有明显的性能问题
         // 因此宽度已知的时候，使用定值，否则实时获取
-        var strAttrWidth = eleSelect.style.width || eleSelect.getAttribute('width');
+        var strAttrWidth = this.offsetWidth;
 
-        if (!strAttrWidth) {
-            eleCombobox.style.width = this.offsetWidth + 'px';
-        } else if (/\D$/.test(strAttrWidth)) {
+        if (/\D$/.test(strAttrWidth)) {
             // 如果是<length>
             eleCombobox.style.width = strAttrWidth;
         } else {
