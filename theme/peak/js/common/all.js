@@ -4520,6 +4520,10 @@
                 if (combobox.hasClass(ACTIVE)) {
                     // 边界判断
                     var overflow = datalist.offset().top + datalist.outerHeight() > Math.max($(document.body).height(), $(window).height());
+                    if (overflow && datalist.offset().top < datalist.outerHeight() + 40) {
+                        $(window.document.body).height($(window.document.body) + datalist.outerHeight());
+                        overflow = false;
+                    }
                     combobox[overflow ? 'addClass' : 'removeClass'](REVERSE);
                     // aria状态
                     button.attr('aria-expanded', 'true');
