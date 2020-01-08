@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -86,10 +86,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');
@@ -215,25 +221,25 @@
 &lt;/span&gt;</pre>
 
             <p>
-                内联, 图标右侧：<span class="ui-input ui-input-search" dir="rtl">
+                内联, 图标右侧：<span class="ui-input ui-input-search" align="right">
                     <input type="search" placeholder="测试">
                     <button class="ui-icon-search">搜索</button>
                 </span>
             </p>
-            <pre>&lt;span class="ui-input ui-input-search" dir="rtl"&gt;
+            <pre>&lt;span class="ui-input ui-input-search" <mark>align="right"</mark>&gt;
     &lt;input type="search" placeholder="测试"&gt;
     &lt;button class="ui-icon-search"&gt;搜索&lt;/button&gt;
 &lt;/span&gt;</pre>
 
             <div>
                 <p>块状定宽：</p>
-                <div class="ui-input ui-input-search" dir="rtl" style="width:268px;">
+                <div class="ui-input ui-input-search" align="right" style="width:268px;">
                     <input type="search" placeholder="测试">
                     <a href="javascript:" class="ui-icon-search" role="button">搜索</a>
                 </div>
             </div>
             <p>如果是直接表单提交跳转式的搜索，使用label标签可访问性和易用性最好，直接for属性值关联submit类型按钮的id即可！</p>
-            <pre>&lt;div class="ui-input ui-input-search" dir="rtl" style="width:268px;"&gt;
+            <pre>&lt;div class="ui-input ui-input-search" <mark>align="right"</mark> style="width:268px;"&gt;
     &lt;input type="search" placeholder="测试"&gt;
     &lt;a href="javascript:" class="ui-icon-search" role="button"&gt;搜索&lt;/a&gt;
 &lt;/div&gt;</pre>
@@ -259,21 +265,21 @@
 &lt;/div&gt;</pre>
 
             <label class="db mb10">input标签按钮：</label>
-            <span class="ui-input ui-input-search" dir="rtl">
+            <span class="ui-input ui-input-search" align="right">
                 <input type="search" placeholder="测试">
                 <input type="submit" class="ui-icon-search" value="搜索">
             </span>
-            <pre>&lt;span class="ui-input ui-input-search" dir="rtl"&gt;
+            <pre>&lt;span class="ui-input ui-input-search" align="right"&gt;
     &lt;input type="search" placeholder="测试"&gt;
     &lt;input type="submit" class="ui-icon-search" value="搜索"&gt;
 &lt;/span&gt;</pre>
 
             <label class="db mb10">input标签按钮出错：</label>
-            <span class="ui-input ui-input-search" dir="rtl">
+            <span class="ui-input ui-input-search" align="right">
                 <input type="search" class="error">
                 <input type="submit" class="ui-icon-search" value="搜索">
             </span>
-            <pre>&lt;span class="ui-input ui-input-search" dir="rtl"&gt;
+            <pre>&lt;span class="ui-input ui-input-search" align="right"&gt;
     &lt;input type="search" class="error"&gt;
     &lt;input type="submit" class="ui-icon-search" value="搜索"&gt;
 &lt;/span&gt;</pre>

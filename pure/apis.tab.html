@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -94,10 +94,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');
@@ -213,7 +219,8 @@ var myTab = new Tab(elements, options);</pre>
                     <td>history</td>
                     <td>Boolean</td>
                     <td>true</td>
-                    <td>是否通过url无刷新标记选项卡地址。默认<code>true</code>表示选项卡切换时候查询地址变化。IE10+增强功能。IE9浏览器使用hash标记。</td>
+                    <td>是否通过url无刷新标记选项卡地址。默认<code>true</code>表示选项卡切换时候查询地址变化。IE10+增强功能。IE9浏览器使用hash标记。
+                        <p>此参数需要Tab按钮是<code>&lt;a&gt;</code>元素，同时<code>href</code>属性值<code>#</code>开头，或者<code>javascript:</code>开头。</p></td>
                   </tr>
                   <tr>
                     <td>slide</td>

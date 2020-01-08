@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -86,10 +86,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');
@@ -319,38 +325,38 @@ myDateTime.element.container.addEventListener('mouseover', function (event) {
                 <td>value</td>
                 <td>String</td>
                 <td>''</td>
-                <td>文本框初始值。对应HTML中<code>&lt;input&gt;</code>元素的<code>value</code>属性值。只有<code>&lt;input&gt;</code>元素值为空时候，此参数才有作用。建议走HTML驱动，忽略此可选参数。</td>
+                <td>文本框初始值。对应HTML中<code>&lt;input&gt;</code>元素的<code>value</code>属性值。只有<code>&lt;input&gt;</code><wbr>元素值为空时候，此参数才有作用。建议走HTML驱动，忽略此可选参数。</td>
               </tr>
               <tr>
                 <td>type</td>
                 <td>String</td>
                 <td>'auto'</td>
-                <td><code>'auto'</code>表示根据<code>&lt;input&gt;</code>元素的<code>type</code>属性值决定日期面板的类型。可以是<code>'date'(2015-01-01)</code>，<code>'year'(2015)</code>，<code>'month'(2015-01)</code>，<code>'time'(12:00)</code>，<code>'date-range'(2015-01-01 至 2015-06-01)</code>，<code>'month-range'(2015-01 至 2019-01)</code>等。建议走HTML驱动，忽略此可选参数。</td>
+                <td><code>'auto'</code>表示根据<code>&lt;input&gt;</code>元素的<code>type</code>属性值决定日期面板的类型。可以是<code>'date'<wbr>( 2015-01-01 )</code>，<wbr><code>'year'<wbr>( 2015 )</code>，<wbr><code>'month'<wbr>( 2015-01 )</code>，<wbr><code>'time'<wbr>( 12:00 )</code>，<code>'date-range'<wbr>( 2015-01-01 至 2015-06-01 )</code>，<wbr><code>'month-range'<wbr>( 2015-01 至 2019-01 )</code>等。建议走HTML驱动，忽略此可选参数。</td>
               </tr>
               <tr>
                 <td>min</td>
                 <td>String</td>
                 <td>'auto'</td>
-                <td>时间范围的最小值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code>表示没有最小限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
+                <td>时间范围的最小值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code><wbr>表示没有最小限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
               </tr>
               <tr>
                 <td>max</td>
                 <td>String</td>
                 <td>'auto'</td>
-                <td>时间范围的最大值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code>表示没有最大限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
+                <td>时间范围的最大值。优先从<code>&lt;input&gt;</code>元素获取。<code>'auto'</code><wbr>表示没有最大限制。使用符合对应时间格式的时间字符串。建议走HTML驱动，忽略此可选参数。</td>
               </tr>
               <tr>
                 <td>onShow</td>
-                <td>Function</td>
-                <td>function () {}</td>
-                <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为<code>&lt;input&gt;</code>元素元素，第二个参数为浮层元素。</td>
+                <td>Fun<wbr>ction</td>
+                <td>fun<wbr>ction () {}</td>
+                <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第1个参数为<code>&lt;input&gt;</code><wbr>元素，第2个参数为浮层元素。</td>
               </tr>
               <tr>
               <tr>
                 <td>onHide</td>
-                <td>Function</td>
-                <td>function () {}</td>
-                <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为<code>&lt;input&gt;</code>元素元素，第二个参数为浮层元素。</td>
+                <td>Fun<wbr>ction</td>
+                <td>fun<wbr>ction () {}</td>
+                <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第1个参数为<code>&lt;input&gt;</code><wbr>元素，第2个参数为浮层元素。</td>
               </tr>
             </table>
             <p>根据我个人的判断，上面的可选参数，都不是必须参数，应用频率不会高。</p>

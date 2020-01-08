@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -88,10 +88,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');

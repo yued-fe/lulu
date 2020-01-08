@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -86,10 +86,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');
@@ -115,8 +121,8 @@
         <article>
             <h3>资源获取</h3>
             <p>Git地址：<a href="https://github.com/yued-fe/lulu" target="_blank">https://github.com/yued-fe/lulu</a></p>
-            <p>设计资源：LULU 提供 Figma UI 组件库设计资源文件，来帮助业务快速设计出高质量的产品原型<a href="https://github.com/yued-fe/lulu/raw/master/LULU-UI-Figma.fig" title="点我下载" target="_blank">点我下载</a>。使用过程有任何疑问或者需要帮助<a href="https://github.com/yued-fe/lulu/issues/63" title="点我反馈问题" target="_blank">点我反馈问题</a>。</p>
-
+            <p>设计资源：LULU 提供 Figma UI 组件库设计资源文件，来帮助业务快速设计出高质量的产品原型。<a href="https://www.figma.com/file/40Nju3Iaxnz3D7c7iidUv1/LULU?node-id=0%3A1" title="点我预览" target="_blank">新窗口预览点我</a>，<a href="javascript:" onclick="figmaIframe.style.display='';figmaIframe.src=figmaIframe.getAttribute('data-src');">当前页预览点我</a>，下载<a href="https://github.com/yued-fe/lulu/raw/master/LULU-UI-Figma.fig" title="点我下载" target="_blank">点我</a>。使用过程有任何疑问或者需要帮助<a href="https://github.com/yued-fe/lulu/issues/63" title="点我反馈问题" target="_blank">点我反馈问题</a>。</p>
+            <iframe id="figmaIframe" style="border: none; width: 100%; border:1px solid #ddd;box-sizing: border-box;display:none;" width="100%" height="450" data-src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F40Nju3Iaxnz3D7c7iidUv1%2FLULU%3Fnode-id%3D0%253A1" allowfullscreen></iframe>
             <h3>资源使用</h3>
             <p>本文档所有样式源代码均使用的是在线资源，但大家实际开发的时候，无论项目大小，<strong style="text-decoration: underline wavy #2a80eb;">建议下载并整合到本地项目资源中</strong>。因为线上的LuLu一直迭代，所以如果直接使用线上资源，可能会影响本地使用。</p>
             <p>如果是多人合作的正式项目，应当获取完整LuLu UI资源。</p>

@@ -50,21 +50,23 @@ legend {font-weight: bold;}
     vertical-align: middle;
 }
 .main {
-    position: relative;
     font-size: 14px;
     padding-left: 230px;
     margin-right: 200px;
-    overflow: auto;
 }
 .aside {
     position: absolute;
     width:199px;
     left: 0;
-    top: 0;
+    top: 80px;
     bottom: 0;
     border-right:1px solid #E3E8F1;
     background-color:#fff;
     overflow: auto;
+    overscroll-behavior: contain;
+}
+.aside[style*="fixed"] {
+    top: 0;
 }
 .aside,
 .logo,
@@ -338,6 +340,7 @@ sup.abs { margin-top: -10px; }
     }
     .ui-table td, .ui-table th {
         padding-right: 10px;
+        width: auto;
     }
     .ui-table td:first-child, .ui-table th:first-child {
         padding-left: 10px;

@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="/" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme">
 				<option value="peak">Peak主题</option>
@@ -99,10 +99,16 @@
     var eleAside = document.getElementById('aside');
 
     eleAside.addEventListener('click', function () {
-        localStorage.asideScrollTop = this.scrollTop;
+        sessionStorage.asideScrollTop = this.scrollTop;
     });
 
-    eleAside.scrollTop = localStorage.asideScrollTop || 0;
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
 
     // 滚动条设置判断
     var div = document.createElement('div');
@@ -127,7 +133,7 @@
         <h2 class="section_title">Datalist数据列表</h2>
         <!-- 详细内容 -->
         <article>
-            <p>Datalist组件是一个与输入框列表相关联的万能数据列表组件，可以用于各种常见的输入框下拉列表常见。</p>
+            <p>Datalist组件是一个与输入框列表相关联的万能数据列表组件，可以用于各种常见的输入框下拉列表。</p>
 
             <h3>作为插件单独使用</h3>
             <p>引入CSS：</p>
@@ -360,7 +366,7 @@ new Datalist('#inputMinute');</pre>
             <h5>案例</h5>
             <p>输入内容并回车，触发表单的submit提交事件，此时，再次点击输入框，之前提交的数据会作为列表项呈现出来。</p>
             <form>
-                <span class="ui-input ui-input-search" dir="rtl">
+                <span class="ui-input ui-input-search" align="right">
                     <input type="search" id="inputSimple" name="search" results="5" placeholder="输入内容并回车" required>
                     <button type="submit" class="ui-icon-search">搜索</button>
                 </span>
@@ -370,7 +376,7 @@ new Datalist('#inputMinute');</pre>
                 <button id="clearAllStore" class="ui-button ml10" data-type="primary">清除所有数据</button>
             </p>
             <pre>&lt;form&gt;
-    &lt;span class="ui-input ui-input-search" dir="rtl"&gt;
+    &lt;span class="ui-input ui-input-search" align="right"&gt;
         &lt;input type="search" id="inputSimple" name="search" results="5" placeholder="输入内容并回车" required&gt;
         &lt;button type="submit" class="ui-icon-search"&gt;搜索&lt;/button&gt;
     &lt;/span&gt;
@@ -682,7 +688,7 @@ var myDatalist = trigger.data.datalist;</pre>
 </div>
 <div id="listTarget" class="ui-droplist-x" hidden>
     <div class="p10">
-        <div class="ui-input ui-input-search" dir="rtl"><input type="search"><label class="ui-icon-search">搜索</label></div>
+        <div class="ui-input ui-input-search" align="right"><input type="search"><label class="ui-icon-search">搜索</label></div>
         <div id="listBox" class="datalist-container"></div>
     </div>
 </div>
@@ -702,7 +708,7 @@ var myDatalist = trigger.data.datalist;</pre>
 &lt;/div&gt;
 <span class="green">&lt;!-- 下拉面板主体结构 --&gt;</span>
 &lt;div id="listTarget" class="ui-droplist-x" hidden&gt;
-    &lt;div class="ui-input ui-input-search" dir="rtl"&gt;&lt;input type="search"&gt;&lt;label class="ui-icon-search"&gt;搜索&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-input ui-input-search" align="right"&gt;&lt;input type="search"&gt;&lt;label class="ui-icon-search"&gt;搜索&lt;/label&gt;&lt;/div&gt;
     &lt;div id="listBox" class="datalist-container"&gt;&lt;/div&gt;
 &lt;/div&gt;</pre>
             <p>然后是JS代码，使用了组件体系中的Drop.js，而这里的Datalist则静态处理：</p>

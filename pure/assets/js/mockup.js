@@ -22,21 +22,31 @@
 
         var indexNav = 0;
 
+        var arrTop = eleH3s.map(function (h3) {
+            return h3.getBoundingClientRect().top;
+        });
+
         // 容器内部高度
         var scrollHeight = document.body.scrollHeight;
+        var windowHeight = window.innerHeight;
         // 滚动到底部，一定是最后一个
         if (window.innerHeight + st >= scrollHeight - 1) {
             indexNav = eleH3s.length - 1;
         } else {
-            // 遍历每个标题距离浏览器窗体上边缘的位置
             var loop = true;
-            [].slice.call(eleH3s).forEach(function (h3, index) {
-                if (!loop) {
+            arrTop.forEach(function (top, index) {
+                if (loop == false) {
                     return;
                 }
-                var distanceToTop = h3.getBoundingClientRect().top;
-                if (distanceToTop >= 0 || index === eleH3s.length - 1) {
-                    indexNav = index;
+                if (index == arrTop.length - 1) {
+                    indexNav = arrTop.length - 1;
+                } else if (top > 0) {
+                    if (top < windowHeight) {
+                        indexNav = index;
+                    } else {
+                        indexNav = index > 0 ? index - 1 : 0;
+                    }
+
                     loop = false;
                 }
             });
@@ -144,7 +154,7 @@
     // 页面滚动时fixed定位aside侧边栏
     var eleAside = document.querySelector('#aside');
     if (window.getComputedStyle(eleAside).position !== 'fixed') {
-        var topAside = eleAside.getBoundingClientRect().top;
+        var topAside = eleAside.getBoundingClientRect().top + window.pageYOffset;
         window.addEventListener('scroll', function () {
             if (window.pageYOffset > topAside) {
                 eleAside.style.position = 'fixed';
@@ -185,4 +195,16 @@
   <symbol id="icon-persons" viewBox="0 0 1024 1024"><path d="M409.6 481.28c128 0 232.96-104.96 232.96-232.96S537.6 15.36 409.6 15.36 176.64 120.32 176.64 248.32c0 130.56 104.96 232.96 232.96 232.96zm215.04-35.84c15.36 2.56 30.72 10.24 46.08 10.24 97.28 0 174.08-79.36 174.08-174.08S768 104.96 673.28 104.96h-10.24c23.04 43.52 38.4 92.16 38.4 145.92 0 74.24-28.16 143.36-76.8 194.56zM673.28 512c-25.6 0-51.2 2.56-79.36 10.24 156.16 66.56 268.8 217.6 279.04 399.36h89.6c30.72 0 58.88-25.6 58.88-58.88 0-192-156.16-350.72-348.16-350.72zM409.6 542.72c-225.28 0-407.04 184.32-407.04 407.04 0 17.92 0 58.88 58.88 58.88h701.44c58.88 0 58.88-40.96 58.88-58.88-2.56-225.28-186.88-407.04-412.16-407.04zm0 0"/></symbol>\
   <symbol id="icon-stack" viewBox="0 0 512 512"><path d="M12.41 148.02l232.94 105.67c6.8 3.09 14.49 3.09 21.29 0l232.94-105.67c16.55-7.51 16.55-32.52 0-40.03L266.65 2.31a25.607 25.607 0 0 0-21.29 0L12.41 107.98c-16.55 7.51-16.55 32.53 0 40.04zm487.18 88.28l-58.09-26.33-161.64 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 209.97l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40zm0 127.8l-57.87-26.23-161.86 73.37c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.29 337.87 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"/></symbol>\
     </defs></svg></div>');
+
+    // 统计
+    if (/inx/.test(location.host)) {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = '//www.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    }
 })();
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-11205167-1']);
+_gaq.push(['_trackPageview']);
