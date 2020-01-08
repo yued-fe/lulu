@@ -155,10 +155,9 @@ input[width="100%"] {
 
 .ui-input-search > input:not(.ui-icon-search) {
     padding-left: 40px;
-    direction: ltr;
 }
 
-.ui-input-search[dir="rtl"] > :not(.ui-icon-search) {
+.ui-input-search[align="right"] > :not(.ui-icon-search) {
     padding-right: 40px;
     padding-left: 9px;
 }
@@ -181,7 +180,7 @@ input[width="100%"] {
     overflow: hidden;
 }
 
-[dir="rtl"] > .ui-icon-search {
+[align="right"] > .ui-icon-search {
     left: auto; right: 3px;
 }
 

@@ -595,6 +595,8 @@ datalist {
     font-size: 14px;
     position: relative;
     overflow: auto;
+    overscroll-behavior: none;
+    -ms-scroll-chaining: none;
 }
 
 .ui-datalist-datalist::-webkit-scrollbar {
@@ -712,6 +714,7 @@ datalist {
 .ui-time-input,
 .ui-date-range-input,
 .ui-month-range-input {
+    -webkit-tap-highlight-color: transparent;
     position: relative;
 }
 
@@ -775,14 +778,14 @@ span.ui-month-range-input > input {
 .ui-date-arrow {
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
-    border-right: 6px solid transparent;
+    border-right: 4px solid transparent;
     cursor: pointer;
 }
 .ui-date-arrow::before {
     content: '';
     position: absolute;
-    width: 20px; height: 20px;
-    top: 0; bottom: 0; right: 0;
+    width: 20px;
+    top: 1px; bottom: 1px; right: 0;
     margin: auto;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat right;
     background-size: 20px 20px;
@@ -794,17 +797,13 @@ span.ui-month-range-input > input {
     opacity: .4;
 }
 
-/* firefox覆盖清除按钮 */
-::-moz-focus-inner,
-.ui-date-arrow {
-    color: #fff;
-    background: linear-gradient(to left, currentColor 30px, transparent 30px) no-repeat right;
-    background-size: 20px 20px;
+/* firefox覆盖清除按钮，以及移动端覆盖下拉箭头 */
+.ui-date-arrow::before {
+    background-color: #fff;
 }
-::-moz-focus-inner,
-.ui-date-arrow:active,
-:disabled + .ui-date-arrow {
-    color: #f7f9fa;
+.ui-input:active .ui-date-arrow::before,
+:disabled + .ui-date-arrow::before {
+    background-color: #f7f9fa;
 }
 
 /* 选择浮层 */
@@ -1678,10 +1677,9 @@ input[width="100%"] {
 
 .ui-input-search > input:not(.ui-icon-search) {
     padding-left: 40px;
-    direction: ltr;
 }
 
-.ui-input-search[dir="rtl"] > :not(.ui-icon-search) {
+.ui-input-search[align="right"] > :not(.ui-icon-search) {
     padding-right: 40px;
     padding-left: 9px;
 }
@@ -1704,7 +1702,7 @@ input[width="100%"] {
     overflow: hidden;
 }
 
-[dir="rtl"] > .ui-icon-search {
+[align="right"] > .ui-icon-search {
     left: auto; right: 3px;
 }
 
@@ -2594,6 +2592,8 @@ select.ui-visible {
     border: 1px solid #2a80eb;
     background-color: #fff;
     overflow: auto;
+    overscroll-behavior: none;
+    -ms-scroll-chaining: none;
 }
 
 [multiple] ~ .ui-select > .ui-select-datalist {

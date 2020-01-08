@@ -670,7 +670,7 @@
         // 面板显示
         if (isSupportDialog) {
             if (!eleContainer.open) {
-                eleContainer.showModal();
+                eleContainer.show();
             }
         } else {
             eleContainer.setAttribute('open', 'open');

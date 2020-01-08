@@ -29,6 +29,8 @@ datalist {
     font-size: 14px;
     position: relative;
     overflow: auto;
+    overscroll-behavior: none;
+    -ms-scroll-chaining: none;
 }
 
 .ui-datalist-datalist::-webkit-scrollbar {

@@ -1903,6 +1903,14 @@
             new Follow(eleTrigger, eleContainer, {
                 position: '4-1'
             });
+
+            // 如果屏幕外，则偏移
+            // 3是阴影的距离
+            var numLeft = parseFloat(eleContainer.style.left);
+            var numWidth = eleContainer.offsetWidth;
+            if (numLeft + numWidth + 3 > screen.width) {
+                eleContainer.style.left = (screen.width - numWidth - 3) + 'px';
+            }
         }
 
         // 显示回调

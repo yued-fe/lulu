@@ -141,6 +141,8 @@ select.ui-visible {
     border: 1px solid #2a80eb;
     background-color: #fff;
     overflow: auto;
+    overscroll-behavior: none;
+    -ms-scroll-chaining: none;
 }
 
 [multiple] ~ .ui-select > .ui-select-datalist {
