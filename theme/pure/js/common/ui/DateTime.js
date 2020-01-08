@@ -1909,7 +1909,7 @@
             var numLeft = parseFloat(eleContainer.style.left);
             var numWidth = eleContainer.offsetWidth;
             if (numLeft + numWidth + 3 > screen.width) {
-                eleContainer.style.left = (screen.width - numWidth - 3) + 'px';
+                eleContainer.style.left = Math.max(screen.width - numWidth - 3, 0) + 'px';
             }
         }
 
