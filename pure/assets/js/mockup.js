@@ -11,6 +11,10 @@
     var eleH3s = document.querySelectorAll('article h3');
     // 主题下拉选择
     var eleSelectTheme = document.querySelector('#selectTheme');
+    // 页面滚动时fixed定位aside侧边栏
+    var eleAside = document.querySelector('#aside');
+    // 默认滚动检测判断值
+    var topAside = eleAside.getBoundingClientRect().top + window.pageYOffset;
 
     var funScroll = function () {
         var st = document.documentElement.scrollTop || document.body.scrollTop;
@@ -60,6 +64,17 @@
                 nav.classList.remove('active');
             });
             eleTargetNav.classList.add('active');
+        }
+
+        // 顶部固定
+        if (screen.width > 640) {
+            if (window.pageYOffset > topAside) {
+                eleAside.style.position = 'fixed';
+            } else {
+                eleAside.style.position = 'absolute';
+            }
+        } else {
+            eleAside.style.position = '';
         }
     };
 
@@ -149,19 +164,6 @@
     // progress组件peak版本没有，故删除
     if (location.pathname.indexOf('progress.html') != -1) {
         document.querySelector('#selectTheme option[value="peak"]').remove();
-    }
-
-    // 页面滚动时fixed定位aside侧边栏
-    var eleAside = document.querySelector('#aside');
-    if (window.getComputedStyle(eleAside).position !== 'fixed') {
-        var topAside = eleAside.getBoundingClientRect().top + window.pageYOffset;
-        window.addEventListener('scroll', function () {
-            if (window.pageYOffset > topAside) {
-                eleAside.style.position = 'fixed';
-            } else {
-                eleAside.style.position = 'absolute';
-            }
-        });
     }
 
     // 插入svg sprite图标

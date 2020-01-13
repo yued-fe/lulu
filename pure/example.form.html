@@ -284,6 +284,13 @@ beforeSend: function (xhr, formData) {
     submit: function() {}
 }</pre>
 
+            <h3>GET请求测试</h3>
+            <form id="formGet">
+                <p>打开控制台，观察URL请求参数：</p>
+                <input name="key" class="ui-input">
+                <button type="submit" class="ui-button" data-type="primary">提交</button>
+            </form>
+
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
@@ -332,7 +339,7 @@ var myForm = new Form('form', {
     },
     success: function (json) {
         new Dialog().alert('<h6>注册成功！</h6>\
-            <p>您注册手机号是：'+ json.data.tel +'</p>', {
+            <p>您注册手机号是：' + json.data.tel + '</p>', {
             type: 'success'
         });
 
@@ -340,4 +347,6 @@ var myForm = new Form('form', {
         this.element.form.reset();
     }
 });
+
+new Form('#formGet');
 </script>

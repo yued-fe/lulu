@@ -206,10 +206,10 @@ button.addEventListener('click', function () {
               </tr>
               <tr>
               <tr>
-                <td>eventType</td>
+                <td>event<wbr>Type</td>
                 <td>String</td>
                 <td>'hover'</td>
-                <td>触发提示信息显示的事件类型，默认是<code>'hover'</code>。还支持<code>'click'</code>和<code>'null'</code>。其中<code>'click'</code>表示点击事件，<code>'null'</code>表示没有事件，直接显示，一般需要调用实例对象的<code>show()</code>、<code>hide()</code>方法进行显隐控制。</td>
+                <td>触发提示信息显示的事件类型，默认是<wbr><code>'hover'</code>。<wbr>还支持 <code>'click'</code> 和 <code>'null'</code>。<wbr>其中 <code>'click'</code>表示点击事件，<wbr><code>'null'</code><wbr>表示没有事件，直接显示，一般需要调用实例对象的<code>show()</code>、<wbr><code>hide()</code>方法进行显隐控制。</td>
               </tr>
               <tr>
                 <td>content</td>
@@ -222,24 +222,24 @@ button.addEventListener('click', function () {
                 <td>String</td>
                 <td>'auto'</td>
                 <td>表示提示信息的定位方式。
-<p>默认值是<code>'auto'</code>，表示优先使用触发元素的<code>data-align</code>或者<code>data-position</code>属性值作为参数，如果没有设置这两个属性，则会当作参数<code>'center'</code>处理，表现为在触发元素上方水平居中显示。</p>
+<p>默认值是<code>'auto'</code>，表示优先使用触发元素的<code>data-align</code><wbr>或者<code>data-position</code><wbr>属性值作为参数，如果没有设置这两个属性，则会当作参数<code>'center'</code>处理，表现为在触发元素上方水平居中显示。</p>
 <p><code>align</code>参数支持关键字值和具体的坐标值。</p>
-<p>关键字值除了默认的<code>'auto'</code>，还有<code>'left'</code>和<code>'right'</code>和<code>'center'</code>，关键字参数都是在上方显示的，<code>'left'</code>和<code>'right'</code>影响的是提示信息的左右偏移位置，而不是定位方式。如果触发元素包含类名<code>.reverse</code>，则这几个关键字表示提示信息在下方显示。</p>
-<p>具体的坐标值指使用<code>'trigger-target'</code>这种定位规则的参数值，不同位置与对应的值见下图所示：</p>
-<p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240"></p>
+<p>关键字值除了默认的<code>'auto'</code>，还有<code>'left'</code>、<wbr><code>'right'</code><wbr>和<wbr><code>'center'</code>，关键字参数都是在上方显示的，<code>'left'</code><wbr>和<wbr><code>'right'</code>影响的是提示信息的左右偏移位置，而不是定位方式。如果触发元素包含类名<code>.reverse</code><wbr>，则这几个关键字表示提示信息在下方显示。</p>
+<p>具体的坐标值指使用<code>'trigger-target'</code><wbr>这种定位规则的参数值，不同位置与对应的值见下图所示：</p>
+<p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240" onload="if(screen.width<640){this.removeAttribute('height');}"></p>
 例如<code>'6-8'</code>表示触发元素的位置<code>'6'</code>和浮层元素的位置<code>'8'</code>对齐，于是就有了右侧垂直居中定位效果。</p>
               </tr>
               <tr>
                 <td>onShow</td>
-                <td>Function</td>
-                <td>function () {}</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
                 <td>提示信息显示时候的回调方法。函数的上下文<code>this</code>是当前实例对象。支持两个参数，第一个参数触发元素，第二个参数，为浮层提示元素。</td>
               </tr>
               <tr>
                  <tr>
                 <td>onHide</td>
-                <td>Function</td>
-                <td>function () {}</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
                 <td>提示信息隐藏时候的回调方法。函数的上下文<code>this</code>是当前实例对象。支持两个参数，第一个参数触发元素，第二个参数，为浮层提示元素。</td>
               </tr>
             </table>

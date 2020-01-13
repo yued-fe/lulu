@@ -453,7 +453,7 @@ new Datalist(eleSearch, {
             <p><code>data</code>对象支持下面4个属性：</p>
             <dl>
                 <dt>url</dt>
-                <dd>字符串。必需。请求后端数据的地址。</dd>
+                <dd>字符串。必需。请求后端数据的地址。注意，IE9浏览器不支持跨域的URL地址。</dd>
                 <dt>data</dt>
                 <dd>纯对象。可选。请求后端数据时发送的数据。其中输入框数据发送是组件内置的，默认使用<code>&lt;input&gt;</code>元素的<code>name</code>属性值作为字段发送数据，如果缺省，使用字符<code>k</code>代替。</dd>
                 <dt>success</dt>
@@ -882,7 +882,7 @@ new Datalist(eleInputAjaxSearch, {
             console.log('success callback success!');
         },
         error: function (status) {
-            console.log('error:' + status);
+            console.error('error:' + status);
         }
     }
 });

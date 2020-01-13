@@ -306,9 +306,7 @@ sup.abs { margin-top: -10px; }
     }
     .logo-a {
         margin-left: 42px;
-        opacity: 0;
-        visibility: hidden;
-        transition: all .2s;
+        display: none;
     }
     .main {
         margin-top: 80px;
@@ -319,7 +317,7 @@ sup.abs { margin-top: -10px; }
     .aside {
         position: fixed;
         top: 80px;
-        display: none;
+        visibility: hidden;
         width: auto;
         right: 0;
     }
@@ -362,7 +360,7 @@ sup.abs { margin-top: -10px; }
         transition: transform .2s;
     }
     :checked ~ .main .aside {
-        display: block;
+        visibility: visible;
         z-index: 2;
     }
 
@@ -371,10 +369,10 @@ sup.abs { margin-top: -10px; }
         transform: rotate(90deg);
     }
 
-    :checked ~ .header .logo-a {
+/*    :checked ~ .header .logo-a {
         opacity: 1;
         visibility: visible;
-    }
+    }*/
     .aside_main {
         font-size: 0;
         white-space: normal;

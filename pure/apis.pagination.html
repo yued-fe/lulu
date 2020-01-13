@@ -253,16 +253,16 @@ new Pagination(document.querySelector('#testPage2'), {
               </tr>
               <tr>
                 <td>href</td>
-                <td>String|Function</td>
-                <td>javascript:</td>
+                <td>String|<wbr>Func<wbr>tion</td>
+                <td>java<wbr>script:</td>
                 <td>可点击分页项的<code>href</code>值，默认是<code>javascript:</code>。
-                    <p>如果值字符串值，支持<code>${current}</code>动态数据，值等同于当前点击分页的页码数。例如<code>{ href: "?query=page${current}" }</code>，则生成的分页的<code>href</code>属性值会是：<code>?query=page1</code>，<code>?query=page2</code>，<code>?query=page3</code>，...</p>
+                    <p>如果值字符串值，支持<code>${current}</code>动态数据，值等同于当前点击分页的页码数。例如<code>{ href: "?query<wbr>=page<wbr>${current}<wbr>" }</code>，则生成的分页的<code>href</code>属性值会是：<wbr><code>?query<wbr>=page1</code>，<wbr><code>?query<wbr>=page2</code>，<wbr><code>?query<wbr>=page3</code>，<wbr>...</p>
                     <p>还支持Function类型，用来返回实时的<code>href</code>地址，实现传统的分页跳转效果。支持一个参数，为当前的分页页码数。</p></td>
               </tr>
               <tr>
                 <td>onClick</td>
-                <td>Function</td>
-                <td>function () {}</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
                 <td>点击分页时候触发的方法。其中，默认该回调函数<code>this</code>指当前实例对象。支持两个参数，分别指代当前选中的分页元素，和当前点击分页对应的分页数。</td>
               </tr>
             </table>
