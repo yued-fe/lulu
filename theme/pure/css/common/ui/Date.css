@@ -134,6 +134,7 @@ span.ui-month-range-input > input {
 /* firefox覆盖清除按钮，以及移动端覆盖下拉箭头 */
 .ui-date-arrow::before {
     background-color: #fff;
+    transition: background-color .15s;
 }
 .ui-input:active .ui-date-arrow::before,
 :disabled + .ui-date-arrow::before {

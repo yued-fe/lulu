@@ -213,6 +213,7 @@ input[type='color'] {
 
 .ui-color-more-cover {
     background-color: rgba(0, 0, 0, 0.01);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ui-color-more-arrow {

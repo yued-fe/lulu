@@ -82,6 +82,7 @@
 
         // 数据的暴露
         this.params = Object.assign({}, objParams);
+
         // onClick作为callback暴露
         delete this.params.onClick;
         // 回调暴露
@@ -119,12 +120,17 @@
                 writeable: true,
                 enumerable: true,
                 get: function () {
-                    return this.getAttribute(keyParam);
+                    return this.getAttribute(keyParam) || (function () {
+                        if (this.data && this.data.pagination) {
+                            return this.data.pagination.params[keyParam] || null;
+                        }
+                        return null;
+                    })();
                 },
                 set: function (value) {
                     this.setAttribute(keyParam, value);
                     // 模板属性变化了，重渲染
-                    if (this.data) {
+                    if (this.data && this.data.pagination) {
                         this.data.pagination.params[keyParam] = value;
                         this.data.pagination.show();
                     }
@@ -132,6 +138,8 @@
             });
         });
     };
+
+
 
     /**
      * 分页相关的事件处理
@@ -319,9 +327,9 @@
         var numMaxCurrent = Math.ceil(objParams.total / objParams.per);
         if (objParams.current > numMaxCurrent) {
             objParams.current = numMaxCurrent;
+        } else if (objParams.current < 1) {
+            objParams.current = 1;
         }
-
-        objParams.current = Math.max(numMaxCurrent, 1);
 
         // 更新分页的HTML内容
         this.element.pagination.innerHTML = this.create();

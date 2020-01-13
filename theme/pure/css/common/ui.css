@@ -491,6 +491,7 @@ input[type='color'] {
 
 .ui-color-more-cover {
     background-color: rgba(0, 0, 0, 0.01);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ui-color-more-arrow {
@@ -800,6 +801,7 @@ span.ui-month-range-input > input {
 /* firefox覆盖清除按钮，以及移动端覆盖下拉箭头 */
 .ui-date-arrow::before {
     background-color: #fff;
+    transition: background-color .15s;
 }
 .ui-input:active .ui-date-arrow::before,
 :disabled + .ui-date-arrow::before {
@@ -1136,10 +1138,12 @@ span.ui-date-item {
     height: 100%;
     width: 100%;
     padding: 0;
+    border: 0;
     background-color: rgba(25, 28, 34, 0.88);
     text-align: center;
     color: #4c5161;
     font-size: 14px;
+    white-space: nowrap;
     overflow: auto;
     z-index: 19;
 }
@@ -1161,8 +1165,7 @@ span.ui-date-item {
 .ui-dialog-container:after {
     content: '';
     display: inline-block;
-    width: 0;
-    height: 90%;
+    height: 95%;
     vertical-align: middle;
 }
 
@@ -1175,6 +1178,7 @@ span.ui-date-item {
     border-radius: 4px;
     background-color: #f7f9fa;
     vertical-align: middle;
+    white-space: normal;
     outline: none;
     position: relative;
 }
@@ -1259,12 +1263,8 @@ span.ui-date-item {
 }
 
 .ui-dialog-stretch {
-    max-height: 1000px;
-    position: absolute;
-    top: 20px;
-    bottom: 30px;
-    left: 50%;
-    margin: auto 0 auto -300px;
+    max-height: 2000px;
+    height: calc(100% - 50px);
 }
 
 .ui-dialog-stretch .ui-dialog-footer {
@@ -1352,6 +1352,24 @@ span.ui-date-item {
 
 .ui-dialog-loading .ui-dialog-body {
     min-width: 400px;
+}
+
+@media screen and (max-width: 480px) {
+    .ui-dialog-loading .ui-dialog-body,
+    .ui-dialog {
+        min-width: 90vw;
+    }
+    .ui-dialog-remind,
+    .ui-dialog-success,
+    .ui-dialog-warning,
+    .ui-dialog-danger {
+        padding-bottom: 0;
+    }
+    .ui-dialog-container-alert .ui-dialog,
+    .ui-dialog-container-confirm .ui-dialog,
+    .ui-dialog[style*="width: auto"] {
+        max-width: calc(100vw - 16px);
+    }
 }/**
  *
  * @DropList.css

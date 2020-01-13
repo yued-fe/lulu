@@ -37,6 +37,19 @@
         }
     };
 
+    var objEventType = {
+        start: 'mousedown',
+        move: 'mousemove',
+        end: 'mouseup'
+    };
+    if ('ontouchstart' in document) {
+        objEventType = {
+            start: 'touchstart',
+            move: 'touchmove',
+            end: 'touchend'
+        };
+    }
+
     // 其他变量
     var ACTIVE = 'active';
     var BGCOLOR = 'background-color';
@@ -277,9 +290,9 @@
                 if (objParams.edgeAdjust == false) {
                     var objRect = eleContainer.getBoundingClientRect();
                     if (objRect.left < 3) {
-                        eleContainer.style.marginLeft =  -1 * objRect.left + 3;
-                    } else if (objRect.right - window.innerWidth > 3) {
-                        eleContainer.style.marginLeft = window.innerWidth - objRect.right - 3;
+                        eleContainer.style.left =  '3px';
+                    } else if (objRect.right - screen.width > 3) {
+                        eleContainer.style.left = (screen.width - objRect.width - 3) + 'px';
                     }
                 }
             }.bind(this),
@@ -435,15 +448,41 @@
 
         // 滑块拖动事件
         var objPosArrow = {};
-        eleArrow.addEventListener('mousedown', function (event) {
+        var objPosCircle = {};
+        // 三角上下
+        eleArrow.addEventListener(objEventType.start, function (event) {
+            event.preventDefault();
+
+            if (event.touches && event.touches.length) {
+                event = event.touches[0];
+            }
             objPosArrow.pageY = event.pageY;
             objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
-
-            event.preventDefault();
         });
 
-        document.addEventListener('mousemove', function (event) {
+        // 圆圈移动
+        eleCircle.addEventListener(objEventType.start, function (event) {
+            event.preventDefault();
+
+            if (event.touches && event.touches.length) {
+                event = event.touches[0];
+            }
+            objPosCircle.pageY = event.pageY;
+            objPosCircle.pageX = event.pageX;
+
+            var objStyleCircle = window.getComputedStyle(eleCircle);
+            // 当前位移位置
+            objPosCircle.top = parseFloat(objStyleCircle.top);
+            objPosCircle.left = parseFloat(objStyleCircle.left);
+        });
+
+        document.addEventListener(objEventType.move, function (event) {
             if (typeof objPosArrow.top == 'number') {
+                event.preventDefault();
+
+                if (event.touches && event.touches.length) {
+                    event = event.touches[0];
+                }
                 var numTop = objPosArrow.top + (event.pageY - objPosArrow.pageY);
                 var numMaxTop = eleArrow.parentElement.clientHeight;
 
@@ -458,10 +497,57 @@
                 eleField.value = this.getValueByStyle().replace('#', '');
 
                 this.match(false);
+            } else if (typeof objPosCircle.top == 'number') {
+                event.preventDefault();
+
+                if (event.touches && event.touches.length) {
+                    event = event.touches[0];
+                }
+
+                var objPos = {
+                    top: objPosCircle.top + (event.pageY - objPosCircle.pageY),
+                    left: objPosCircle.left + (event.pageX - objPosCircle.pageX)
+                };
+                var objMaxPos = {
+                    top: eleCircle.parentElement.clientHeight,
+                    left: eleCircle.parentElement.clientWidth
+                };
+
+                // 边界判断
+                if (objPos.left < 0) {
+                    objPos.left = 0;
+                } else if (objPos.left > objMaxPos.left) {
+                    objPos.left = objMaxPos.left;
+                }
+                if (objPos.top < 0) {
+                    objPos.top = 0;
+                } else if (objPos.top > objMaxPos.top) {
+                    objPos.top = objMaxPos.top;
+                }
+
+                // 根据目标位置位置和变色
+                var numColorH = objPos.left / objMaxPos.left;
+                var strColorS = 1 - objPos.top / objMaxPos.top;
+
+                // 圈圈定位
+                eleCircle.style.left = objPos.left + 'px';
+                eleCircle.style.top = objPos.top + 'px';
+
+                var strHsl = 'hsl(' + [360 * numColorH, 100 * strColorS + '%', '50%'].join() + ')';
+
+                eleCircle.style[BGCOLOR] = strHsl;
+
+                // 赋值
+                eleField.value = this.getValueByStyle().replace('#', '');
+                // UI变化
+                this.match(false);
             }
-        }.bind(this));
-        document.addEventListener('mouseup', function () {
+        }.bind(this), {
+            passive: false
+        });
+        document.addEventListener(objEventType.end, function () {
             objPosArrow.top = null;
+            objPosCircle.top = null;
         });
 
         // 滑块的键盘支持

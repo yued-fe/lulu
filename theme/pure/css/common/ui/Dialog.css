@@ -13,10 +13,12 @@
     height: 100%;
     width: 100%;
     padding: 0;
+    border: 0;
     background-color: rgba(25, 28, 34, 0.88);
     text-align: center;
     color: #4c5161;
     font-size: 14px;
+    white-space: nowrap;
     overflow: auto;
     z-index: 19;
 }
@@ -38,8 +40,7 @@
 .ui-dialog-container:after {
     content: '';
     display: inline-block;
-    width: 0;
-    height: 90%;
+    height: 95%;
     vertical-align: middle;
 }
 
@@ -52,6 +53,7 @@
     border-radius: 4px;
     background-color: #f7f9fa;
     vertical-align: middle;
+    white-space: normal;
     outline: none;
     position: relative;
 }
@@ -136,12 +138,8 @@
 }
 
 .ui-dialog-stretch {
-    max-height: 1000px;
-    position: absolute;
-    top: 20px;
-    bottom: 30px;
-    left: 50%;
-    margin: auto 0 auto -300px;
+    max-height: 2000px;
+    height: calc(100% - 50px);
 }
 
 .ui-dialog-stretch .ui-dialog-footer {
@@ -229,4 +227,22 @@
 
 .ui-dialog-loading .ui-dialog-body {
     min-width: 400px;
+}
+
+@media screen and (max-width: 480px) {
+    .ui-dialog-loading .ui-dialog-body,
+    .ui-dialog {
+        min-width: 90vw;
+    }
+    .ui-dialog-remind,
+    .ui-dialog-success,
+    .ui-dialog-warning,
+    .ui-dialog-danger {
+        padding-bottom: 0;
+    }
+    .ui-dialog-container-alert .ui-dialog,
+    .ui-dialog-container-confirm .ui-dialog,
+    .ui-dialog[style*="width: auto"] {
+        max-width: calc(100vw - 16px);
+    }
 }
