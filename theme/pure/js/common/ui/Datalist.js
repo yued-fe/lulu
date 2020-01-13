@@ -355,16 +355,14 @@
                 // 加入输入数据
                 objAjaxParams.append(strAttrName, strValue);
 
-                if (/^\/\//.test(objParams.data.url)) {
-                    objParams.data.url = location.protocol + objParams.data.url;
-                }
-
                 // URL处理
-                var objUrlAjax = new URL(objParams.data.url);
                 var strUrlAjax = objParams.data.url.split('#')[0];
-
                 // URL拼接
-                strUrlAjax = strUrlAjax.split('?')[0] + (objUrlAjax.search || '?') + '&' + objAjaxParams.toString();
+                if (strUrlAjax.split('?').length > 1) {
+                    strUrlAjax = strUrlAjax + '&' + objAjaxParams.toString();
+                } else {
+                    strUrlAjax = strUrlAjax + '?' + objAjaxParams.toString();
+                }
 
                 // 有2个参数有内置，需要合并
                 // 1是搜索查询参数
