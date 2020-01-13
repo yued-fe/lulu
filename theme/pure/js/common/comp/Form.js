@@ -84,23 +84,17 @@
         // 表单元素
         var eleForm = element;
         // 通过submit按钮找到找到关联的我们肉眼所见的提交按钮
-        var eleBtnSubmitReal = eleForm.querySelector('[type="submit"], [type="image"]');
-        if (!eleBtnSubmitReal) {
-            eleBtnSubmitReal = eleForm.querySelector('button:nth-of-last-type()');
+        var eleBtnSubmit = eleForm.querySelector('[type="submit"], [type="image"]');
+        if (!eleBtnSubmit) {
+            eleBtnSubmit = eleForm.querySelector('button:nth-of-last-type()');
         }
 
-        if (!eleBtnSubmitReal) {
+        if (!eleBtnSubmit) {
             return this;
         }
 
-        // 我们肉眼所见的按钮，进行一些状态控制
-        var eleBtnSubmit = eleBtnSubmitReal.id && document.querySelector('label[for=' + eleBtnSubmitReal.id + ']');
-        if (!eleBtnSubmit) {
-            eleBtnSubmit = eleBtnSubmitReal;
-        }
-
         // 下拉框的初始化
-        if (!window.autoInit === false) {
+        if (window.autoInit === false) {
             // 下拉框
             eleForm.querySelectorAll('select').forEach(function (eleSelect) {
                 if (eleSelect.refresh) {
@@ -112,8 +106,7 @@
         // 暴露的元素
         this.element = {
             form: eleForm,
-            submit: eleBtnSubmitReal,
-            button: eleBtnSubmit
+            submit: eleBtnSubmit
         };
 
         // 回调方法们
@@ -145,11 +138,20 @@
         var optionCallback = this.callback;
         // 元素
         var eleForm = this.element.form;
-        var eleButton = this.element.button;
+        var eleButton = null;
         var eleSubmit = this.element.submit;
 
+        // 我们肉眼所见的按钮，进行一些状态控制
+        eleButton = eleSubmit.id && document.querySelector('label[for=' + eleSubmit.id + ']');
+        if (!eleButton) {
+            eleButton = eleSubmit;
+        }
+        this.element.button = eleButton;
+
         // 请求地址
-        var strUrl = eleForm.action;
+        var strUrl = eleForm.action.split('#')[0] || location.href.split('#')[0];
+        // 请求类型
+        var strMethod = eleForm.method || 'POST';
 
         // IE9不支持cros跨域
         if (!history.pushState && new URL(strUrl).host != location.host) {
@@ -163,17 +165,27 @@
         // 2. 提交按钮禁用
         eleSubmit.setAttribute(DISABLED, DISABLED);
 
-        // 3. 请求走起来
-        var xhr = new XMLHttpRequest();
-
-        xhr.open(eleForm.method || 'POST', strUrl);
-
-        // 数据
+        // 3. 数据
         var objFormData = new FormData(eleForm);
-
         if (optionCallback.beforeSend) {
             optionCallback.beforeSend.call(this, xhr, objFormData);
         }
+        // 请求类型不同，数据地址也不一样
+        var strSearchParams = '';
+
+        if (strMethod.toLowerCase() == 'get') {
+            strSearchParams = new URLSearchParams(objFormData).toString();
+
+            if (strUrl.split('?').length > 1) {
+                strUrl = strUrl + '&' + strSearchParams;
+            } else {
+                strUrl = strUrl + '?' + strSearchParams;
+            }
+        }
+
+        // 4. 请求走起来
+        var xhr = new XMLHttpRequest();
+        xhr.open(strMethod, strUrl);
 
         // 请求结束
         xhr.onload = function () {
@@ -205,6 +217,8 @@
                     optionCallback.error.call(this, event);
                 }
             }
+
+            funLoadend(json);
         }.bind(this);
 
         // 请求错误
@@ -214,11 +228,15 @@
             if (optionCallback.error) {
                 optionCallback.error.apply(this, arguments);
             }
+
+            funLoadend();
         }.bind(this);
 
 
         // 请求结束，无论成功还是失败
-        xhr.onloadend = function () {
+        // xhr.onloadend IE9不支持，因此这里使用
+        // 其他方法代替
+        var funLoadend = function () {
             // 菊花关闭
             eleButton.loading = false;
             // 表单恢复提交

@@ -361,7 +361,7 @@
 
                 // URL处理
                 var objUrlAjax = new URL(objParams.data.url);
-                var strUrlAjax = objParams.data.url;
+                var strUrlAjax = objParams.data.url.split('#')[0];
 
                 // URL拼接
                 strUrlAjax = strUrlAjax.split('?')[0] + (objUrlAjax.search || '?') + '&' + objAjaxParams.toString();
