@@ -16,6 +16,11 @@
     color: #b6bbc6;
     transition: all .2s;
     cursor: pointer;
+    /* UE better */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ui-switch::before {

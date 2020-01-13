@@ -2399,6 +2399,9 @@ div.ui-range-input > input {
     width: 100%;
     visibility: hidden;
 }
+.ui-range-input[width="100%"] {
+    width: 100%;
+}
 
 .ui-range {
     display: inline-block;
@@ -2426,6 +2429,11 @@ div.ui-range-input > input {
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
     transition: border-color .15s, background-color .15s;
     cursor: pointer;
+    /* UE better */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ui-range-thumb:hover {
@@ -2481,6 +2489,7 @@ select[multiple] {
     font-size: calc(34px - 1px);
     font-family: simsun;
     padding: 0;
+    border-right-width: 1px;
     vertical-align: top;
     cursor: pointer;
 }
@@ -2720,6 +2729,11 @@ select.error {
     color: #b6bbc6;
     transition: all .2s;
     cursor: pointer;
+    /* UE better */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ui-switch::before {

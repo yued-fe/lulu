@@ -4155,7 +4155,11 @@
         // 前置插入
         eleRange.insertAdjacentElement('afterend', eleContainer);
         // 如果元素没宽度，则使用el计算的宽度
-        eleContainer.style.width = window.getComputedStyle(eleRange).width;
+        if (eleRange.getAttribute('width') != '100%' && eleRange.parentElement.classList.contains(CL.add('input')) == false) {
+            eleContainer.style.width = window.getComputedStyle(eleRange).width;
+        } else {
+            eleContainer.style.display = 'block';
+        }
         eleContainer.style.height = window.getComputedStyle(eleRange).height;
 
         eleRange.style.display = 'none';
@@ -4220,7 +4224,7 @@
             var target = event && event.target;
             if (target && target !== eleThumb && !eleRange.disabled) {
                 var distance = event.clientX - eleRange.offsetLeft - eleThumb.offsetLeft - parseInt(window.getComputedStyle(eleThumb).width) / 2;
-                var value = eleRange.value * 1 + (numMax - numMin) * distance / parseInt(eleContainer.style.width);
+                var value = eleRange.value * 1 + (numMax - numMin) * distance / parseInt(eleContainer.style.width || eleContainer.clientWidth);
                 this.value(value);
             }
         }.bind(this));
@@ -4274,7 +4278,7 @@
                 var clientX = isTouch ? event.touches[0].clientX : event.clientX;
                 var distance = clientX - objPosThumb.x;
                 // 根据移动的距离，判断值
-                var value = objPosThumb.value + (numMax - numMin) * distance / parseInt(eleContainer.style.width);
+                var value = objPosThumb.value + (numMax - numMin) * distance / parseInt(eleContainer.style.width || eleContainer.clientWidth);
 
                 // 赋值
                 this.value(value);
@@ -4306,6 +4310,13 @@
                 this.value(strValue);
             }
         }.bind(this));
+
+        // 自适应场景下的resize处理
+        if (eleContainer.style.display == 'block') {
+            window.addEventListener('resize', function () {
+                this.position();
+            }.bind(this));
+        }
 
         // 禁用状态变化检测
         if (window.MutationObserver) {
@@ -4377,13 +4388,15 @@
      */
     Range.prototype.position = function () {
         var eleInput = this.element.input;
+        var eleContainer = this.element.container;
+        // 几个数值
         var objNumber = this.number;
         var strValue = eleInput.value;
 
         var numMax = objNumber.max;
         var numMin = objNumber.min;
         // 计算百分比
-        this.element.track.style.borderLeftWidth = parseInt(this.element.container.style.width) * (strValue - numMin) / (numMax - numMin) + 'px';
+        this.element.track.style.borderLeftWidth = parseInt(eleContainer.style.width || eleContainer.clientWidth) * (strValue - numMin) / (numMax - numMin) + 'px';
         // aria同步
         this.element.thumb.setAttribute('aria-valuenow', strValue);
 

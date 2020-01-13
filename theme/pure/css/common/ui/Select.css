@@ -30,6 +30,7 @@ select[multiple] {
     font-size: calc(34px - 1px);
     font-family: simsun;
     padding: 0;
+    border-right-width: 1px;
     vertical-align: top;
     cursor: pointer;
 }
