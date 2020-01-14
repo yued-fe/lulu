@@ -80,6 +80,14 @@
         // target元素所在的offset偏移
         var numOffsetTop = objBoundOffsetParent.top + numScrollTop;
         var numOffsetLeft = objBoundOffsetParent.left + numScrollLeft;
+
+        // 如果是body元素，同时没有设置定位属性的话，忽略
+        // 因为此时margin有值或者margin重叠时候会有定位bug
+        if (eleOffsetParent == document.body && window.getComputedStyle(eleOffsetParent).position == 'static') {
+            numOffsetTop = 0;
+            numOffsetLeft = 0;
+        }
+
         // 直接嫁接在offsets对象上，可以大大简化后续处理的逻辑
         objOffsets.x -= numOffsetLeft;
         objOffsets.y -= numOffsetTop;
