@@ -25,14 +25,6 @@
 		</div>
 	</header>
 
-<style>
-@media screen and (max-width: 1920px) {
-    .ui-tab-tabs {
-        margin-right: 180px;
-    }
-}
-</style>
-
 <div class="main">
 	<!-- 侧边栏 -->
     <!-- 侧边栏 -->
@@ -128,8 +120,8 @@
     	<h2 class="section_title">Tab选项卡切换</h2>
         <!-- 选项卡 -->
         <div id="tabView" class="ui-tab-tabs">
-            <a href="#tabTarget1" class="ui-tab-tab active">选项卡切换文档</a>
-            <a href="#tabTarget2" class="ui-tab-tab">选项卡切换业务JS分离演示</a>
+            <a href="#tabTarget1" class="ui-tab-tab active">选项卡文档</a>
+            <a href="#tabTarget2" class="ui-tab-tab">业务JS分离演示</a>
         </div>
         <div class="ui-tab-contents">
             <article id="tabTarget1" class="ui-tab-content active">
@@ -146,8 +138,8 @@
                 <p>效果见本页demo演示。</p>
                 <p>HTML结构如下：</p>
                 <pre>&lt;div id="tabView" class="ui-tab-tabs">
-    &lt;a <mark>href="#tabTarget1"</mark> class="ui-tab-tab active"&gt;选项卡切换文档&lt;/a&gt;
-    &lt;a <mark>href="#tabTarget2"</mark> class="ui-tab-tab"&gt;选项卡切换业务JS分离演示&lt;/a&gt;
+    &lt;a <mark>href="#tabTarget1"</mark> class="ui-tab-tab active"&gt;选项卡文档&lt;/a&gt;
+    &lt;a <mark>href="#tabTarget2"</mark> class="ui-tab-tab"&gt;业务JS分离演示&lt;/a&gt;
 &lt;/div>
 &lt;div class="ui-tab-contents"&gt;
     &lt;div <mark>id="tabTarget1"</mark> class="ui-tab-content active"&gt;&lt;/div&gt;
@@ -156,7 +148,7 @@
                 <p>JS Tab初始化：</p>
                 <pre>new Tab(document.querySelectorAll('#tabView &gt; a'), {
     slide: true,
-    onSwitch: function (tab, resetTab, epanel, resetPanel) {
+    onSwitch: function (tab, resetTab, panel, resetPanel) {
         <span class="green">// todo</span>
     }
 });</pre>
@@ -204,16 +196,16 @@ var myTab = new Tab(elements, options);</pre>
                     <th scope="col">释义</th>
                   </tr>
                   <tr>
-                    <td>eventType</td>
+                    <td>event<wbr>Type</td>
                     <td>String</td>
                     <td>'click'</td>
-                    <td>事件类型。默认为点击事件。还支持<code>'mouseover'</code>，<code>mouseenter</code>甚至<code>'focus'</code>事件。</td>
+                    <td>事件类型。默认为点击事件。<p>还支持<wbr><code>'mouseover'</code><wbr>，<wbr><code>'mouseenter'</code><wbr>甚至<code>'focus'</code>事件。</p></td>
                   </tr>
                   <tr>
                     <td>index</td>
-                    <td>String|Number</td>
+                    <td>String<br>Number</td>
                     <td>'auto'</td>
-                    <td>选中选项卡的索引值。默认<code>'auto'</code>表示根据选项卡上的状态类名（如<code>.active</code>）获取<code>index</code>值。</td>
+                    <td>选中选项卡的索引值。默认<wbr><code>'auto'</code><wbr>表示根据选项卡上的状态类名（如<code>.active</code>）获取<code>index</code>值。</td>
                   </tr>
                   <tr>
                     <td>history</td>
@@ -231,7 +223,7 @@ var myTab = new Tab(elements, options);</pre>
                   <tr>
                     <td>onSwitch</td>
                     <td>Function</td>
-                    <td>function () {}</td>
+                    <td>func<wbr>tion () {}</td>
                     <td>点击切换的回调。其中，上下文<code>this</code>指点击元素DOM对象。<p>支持4个参数。分别表示：当前点击元素选项卡元素，恢复到非选中态的选项卡元素，显示的面板元素，恢复到非选中态的面板元素。</p></td>
                   </tr>
                 </table>
@@ -391,8 +383,8 @@ var timerSlide = null;
 var funSetTimer = function () {
     clearInterval(timerSlide);
     timerSlide = setInterval(function () {
-        var elTabs = slideTab.element.tabs;
-        slideTab.show(elTabs[slideTab.params.index + 1] || elTabs[0]);
+        var eleTabs = slideTab.element.tabs;
+        slideTab.show(eleTabs[slideTab.params.index + 1] || eleTabs[0]);
     }, 3000);
 };
 funSetTimer();
@@ -475,8 +467,8 @@ eleTab2.addEventListener('click', function () {
     var funSetTimer = function () {
         clearInterval(timerSlide);
         timerSlide = setInterval(function () {
-            var elTabs = slideTab.element.tabs;
-            slideTab.show(elTabs[slideTab.params.index + 1] || elTabs[0]);
+            var eleTabs = slideTab.element.tabs;
+            slideTab.show(eleTabs[slideTab.params.index + 1] || eleTabs[0]);
         }, 3000);
     };
     funSetTimer();

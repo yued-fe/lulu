@@ -284,8 +284,11 @@ label.left {
     display: inline-block;
 }
 sup.abs { margin-top: -10px; }
-.backtop { position: fixed; right: 1rem; bottom: 76px; background-color: rgba(0,0,0,.5); width: 32px; height: 32px; border-radius: 50%; text-align: center; border: 10px solid transparent; display: none; transition: background .15s; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1812 1024' xmlns='http://www.w3.org/2000/svg' width='353.906' height='200'%3E%3Cpath d='M889.849 273.684L194.723 968.809c-44.462 44.462-116.654 44.455-161.186-.076-44.841-44.842-44.565-116.697-.076-161.186L807.674 33.334c44.461-44.462 116.654-44.455 161.185.077a117.133 117.133 0 0 1 5.942 6.4 114.147 114.147 0 0 1 19.08 15.38l774.212 774.212c44.49 44.49 44.766 116.344-.076 161.186-44.532 44.532-116.724 44.539-161.186.077L889.849 273.684z' fill='%23fff'/%3E%3C/svg%3E");background-size: 20px 10px;background-repeat: no-repeat;background-position: center 9px;}
-.backtop:hover{background-color: rgba(0,0,0,.65)}
+.backtop { position: fixed; right: 1rem; bottom: 76px; background-color: rgba(0,0,0,.5); width: 32px; height: 32px; border-radius: 50%; text-align: center; border: 10px solid transparent; display: none; transition: background .15s; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1812 1024' xmlns='http://www.w3.org/2000/svg' width='353.906' height='200'%3E%3Cpath d='M889.849 273.684L194.723 968.809c-44.462 44.462-116.654 44.455-161.186-.076-44.841-44.842-44.565-116.697-.076-161.186L807.674 33.334c44.461-44.462 116.654-44.455 161.185.077a117.133 117.133 0 0 1 5.942 6.4 114.147 114.147 0 0 1 19.08 15.38l774.212 774.212c44.49 44.49 44.766 116.344-.076 161.186-44.532 44.532-116.724 44.539-161.186.077L889.849 273.684z' fill='%23fff'/%3E%3C/svg%3E");background-size: 20px 10px;background-repeat: no-repeat;background-position: center;}
+@media (any-hover: hover) {
+    .backtop:hover{background-color: rgba(0,0,0,.65)}
+}
+
 .clip {
     opacity: 0;
 }
@@ -368,11 +371,6 @@ sup.abs { margin-top: -10px; }
         -ms-transform: rotate(90deg);
         transform: rotate(90deg);
     }
-
-/*    :checked ~ .header .logo-a {
-        opacity: 1;
-        visibility: visible;
-    }*/
     .aside_main {
         font-size: 0;
         white-space: normal;
@@ -382,6 +380,9 @@ sup.abs { margin-top: -10px; }
         display: inline-block;
         vertical-align: top;
         font-size: 14px;
+    }
+    .backtop {
+        width: 20px; height: 20px;
     }
 }
 

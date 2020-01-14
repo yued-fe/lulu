@@ -216,10 +216,10 @@ new Drop(document.querySelector("#freshBtn2"), eleImg, {
                     <th scope="col">释义</th>
                 </tr>
                 <tr>
-                    <td>eventType</td>
+                    <td>event<wbr>Type</td>
                     <td>String</td>
                     <td>'null'</td>
-                    <td>表示触发元素显示的事件，默认是<code>'null'</code>, 表示无事件，下拉浮层直接显示；<code>'hover'</code>表示hover时候显示下拉；<code>'click'</code>表示click时候显示下拉；如果是其他字符串，Drop组件只是单纯初始化，需要手动调用<code>show()</code>才显示，隐藏也需要自己控制。</td>
+                    <td>表示触发元素显示的事件，默认是<code>'null'</code>, <wbr>表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code>表示hover时候显示下拉；<wbr><code>'click'</code>表示点击的时候显示下拉；如果是其他字符串，Drop组件只是单纯初始化，需要手动调用<code>show()</code>才显示，隐藏也需要自己控制。</td>
                 </tr>
                 <tr>
                     <td>selector</td>
@@ -240,15 +240,15 @@ new Drop(document.querySelector("#freshBtn2"), eleImg, {
                     <td>position</td>
                     <td>String</td>
                     <td>'7-5'</td>
-                    <td>表示触发元素和浮层元素的定位关系。<code>'trigger-target'</code>规则，数字表示对应元素的位置，具体如下图。例如<code>'7-5'</code>就表示触发元素的位置<code>7</code>个浮层元素的<code>5</code>对齐。
+                    <td>表示触发元素和浮层元素的定位关系。<wbr>基于<code>'trigger<wbr>-target'</code>规则，数字表示对应元素的位置，具体如下图。例如<code>'7-5'</code>就表示触发元素的位置<code>7</code>个浮层元素的<code>5</code>对齐。
                         <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png"
-                                height="240"></p>
+                                height="240" onload="if(screen.width<640){this.removeAttribute('height')}"></p>
                     </td>
                 </tr>
                 <tr>
-                    <td>edgeAdjust</td>
+                    <td>edge<wbr>Adjust</td>
                     <td>Boolean</td>
-                    <td><code>true</code></td>
+                    <td>true</td>
                     <td>表示浮层屏幕之外的时候，是否自动调整方向。默认是自动调整。
                     </td>
                 </tr>
@@ -473,7 +473,6 @@ new Drop('#menuImg').list([{
     }
 });</pre>
 
-
             <h3>List方法语法和参数</h3>
             <pre>var myDrop = new Drop(trigger).list(data, options);</pre>
             <p>或者</p>
@@ -534,7 +533,7 @@ new Drop('#menuImg').list([{
                     <th scope="col">释义</th>
                 </tr>
                 <tr>
-                    <td>eventType</td>
+                    <td>event<wbr>Type</td>
                     <td>String</td>
                     <td>'click'</td>
                     <td>表示触发元素显示的事件，默认是<code>'click'</code>, click时候显示下拉列表。还可以是<code>'null'</code>表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code>表示hover时候显示下拉；如果是其他字符串，需要手动调用<code>show()</code>方法才显示，隐藏也需要自己控制。</td>
