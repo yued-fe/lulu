@@ -53,12 +53,18 @@
 
 /* 列表分页 */
 .table-page-x {
-    height: 32px;
-    padding: 10px 10px 8px 22px;
+    padding: 10px 10px 10px 20px;
     margin-top: -1px;
     border-top: 1px solid #ededed;
     background-color: #f7f9fa;
     position: relative;
+    overflow: hidden;
+}
+@media screen and (max-width: 640px) {
+    .table-page-x {
+        padding-left: 10px;
+        padding-right: 5px;
+    }
 }
 
 .table-page-data {

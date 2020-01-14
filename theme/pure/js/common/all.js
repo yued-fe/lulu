@@ -984,7 +984,7 @@
         // 以便回调可以触发
         // 为了等业务事件绑定，这里的触发设置在DOM准备结束之后
         window.addEventListener('DOMContentLoaded', function () {
-            eleTabs[numIndexTab].dispatchEvent(new Event(objParams.eventType));
+            eleTabs[numIndexTab].dispatchEvent(new CustomEvent(objParams.eventType));
             objParams.onSwitch.call(this, eleTabs[numIndexTab], elePanels[numIndexTab], null, null);
         }.bind(this));
 
@@ -1042,9 +1042,6 @@
         this.element.panel = elePanel;
 
         var strHref = eleTab.getAttribute('href');
-        if (/^(:?javas|#)/.test(strHref)) {
-            event.preventDefault();
-        }
 
         // 需要非选中状态才行执行切换
         if (eleTab.classList.contains(STATE)) {
@@ -1103,9 +1100,11 @@
                     location.hash = strHash = '';
                 }
                 // 改变当前URL
-                history.replaceState(null, document.title, location.href.split('?')[0] + '?' + objURLParams.toString() + strHash);
-            } else {
-                location.hash = '#tab=' + strAttr;
+                if (history.replaceState) {
+                    history.replaceState(null, document.title, location.href.split('?')[0] + '?' + objURLParams.toString() + strHash);
+                } else {
+                    location.replace('#tab=' + strAttr);
+                }
             }
         }
     };
@@ -1124,6 +1123,9 @@
         // 单个监听事件，综合考虑不做委托
         eleTabs.forEach(function (eleTab) {
             eleTab.addEventListener(objParams.eventType, function (event) {
+                if (/^(:?javas|#)/.test(event.target.getAttribute('href'))) {
+                    event.preventDefault();
+                }
                 this.show(event.target);
             }.bind(this), false);
         }.bind(this));
