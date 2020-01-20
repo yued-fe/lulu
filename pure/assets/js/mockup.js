@@ -26,7 +26,7 @@
 
         var indexNav = 0;
 
-        var arrTop = eleH3s.map(function (h3) {
+        var arrTop = [].slice.call(eleH3s).map(function (h3) {
             return h3.getBoundingClientRect().top;
         });
 
