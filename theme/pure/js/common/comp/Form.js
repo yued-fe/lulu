@@ -7,15 +7,22 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.LightTip = require('../ui/LightTip');
+        global.Loading = require('../ui/Loading');
+        global.Validate = require('../ui/Validate');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Form = factory();
     }
-}(this, function (require) {
-    var LightTip = window.LightTip;
-    var Loading = window.Loading;
-    var Validate = window.Validate;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var LightTip = this.LightTip;
+    var Loading = this.Loading;
+    var Validate = this.Validate;
     // require
     if (typeof require == 'function') {
         // 轻tips

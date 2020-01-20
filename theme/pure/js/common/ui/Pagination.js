@@ -7,12 +7,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Pagination = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 分页组件

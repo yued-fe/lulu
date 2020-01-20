@@ -6,13 +6,18 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        this.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Drop = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {

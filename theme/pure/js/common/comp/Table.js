@@ -8,15 +8,22 @@
 **/
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Drop = require('../ui/Drop');
+        global.Pagination = require('../ui/Pagination');
+        global.Loading = require('../ui/Loading');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Table = factory();
     }
-}(this, function (require) {
-    var Drop = window.Drop;
-    var Pagination = window.Pagination;
-    var Loading = window.Loading;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Drop = this.Drop;
+    var Pagination = this.Pagination;
+    var Loading = this.Loading;
 
     if (typeof require == 'function') {
         if (!Pagination) {

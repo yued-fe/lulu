@@ -6,13 +6,19 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Tips = require('./ErrorTip');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Validate = factory();
     }
-}(this, function (require) {
-    var ErrorTip = window.ErrorTip;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+
+    var ErrorTip = this.ErrorTip;
     if (typeof require == 'function' && !ErrorTip) {
         ErrorTip = require('common/ui/ErrorTip');
     } else if (!ErrorTip) {

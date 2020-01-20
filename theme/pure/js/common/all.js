@@ -5,12 +5,16 @@
  * Created: 17-06-13
  */
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
     var doc = document;
     var win = window;
 
@@ -488,12 +492,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Follow = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 绝对定位元素的定位效果
@@ -879,12 +887,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Tab = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 可定制的极简选项卡切换效果
@@ -1151,12 +1163,16 @@
 **/
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Select = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 模拟下拉框效果
@@ -1836,13 +1852,18 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        this.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Drop = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {
@@ -2850,13 +2871,19 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Tips = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+        
+    var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {
@@ -3243,12 +3270,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.LightTip = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 顶部的请提示效果
@@ -3569,13 +3600,18 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.ErrorTip = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Follow = this.Follow;
 
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -3807,12 +3843,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Loading = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     var LOADING = 'loading';
 
@@ -4053,12 +4093,17 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Tips = require('./Tips');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Range = factory();
     }
-}(this, function (require) {
+}((typeof global !== 'undefined') ? global
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Tips = window.Tips;
     if (typeof require === 'function' && !Tips) {
         Tips = require('common/ui/Tips');
@@ -4543,14 +4588,19 @@
  * Created: 16-06-03
  */
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Drop = require('./Drop');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Color = factory();
     }
-}(this, function (require) {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
     // require
-    var Drop = window.Drop;
+    var Drop = this.Drop;
     if (typeof require == 'function' && !Drop) {
         Drop = require('common/ui/Drop');
     } else if (!Drop) {
@@ -5664,12 +5714,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Dialog = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 弹框组件
@@ -6409,13 +6463,19 @@
  * @description 多功能下拉数据列表
 **/
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Datalist = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Follow = this.Follow;
+
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {
@@ -7480,13 +7540,18 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Follow = require('./Follow');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.DateTime = factory();
     }
-}(this, function (require) {
-    var Follow = window.Follow;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {
@@ -9497,13 +9562,19 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Tips = require('./ErrorTip');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Validate = factory();
     }
-}(this, function (require) {
-    var ErrorTip = window.ErrorTip;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+
+    var ErrorTip = this.ErrorTip;
     if (typeof require == 'function' && !ErrorTip) {
         ErrorTip = require('common/ui/ErrorTip');
     } else if (!ErrorTip) {
@@ -11231,12 +11302,16 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Pagination = factory();
     }
-}(this, function () {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 分页组件
@@ -11655,15 +11730,22 @@
 **/
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Drop = require('../ui/Drop');
+        global.Pagination = require('../ui/Pagination');
+        global.Loading = require('../ui/Loading');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Table = factory();
     }
-}(this, function (require) {
-    var Drop = window.Drop;
-    var Pagination = window.Pagination;
-    var Loading = window.Loading;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var Drop = this.Drop;
+    var Pagination = this.Pagination;
+    var Loading = this.Loading;
 
     if (typeof require == 'function') {
         if (!Pagination) {
@@ -12414,15 +12496,22 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.LightTip = require('../ui/LightTip');
+        global.Loading = require('../ui/Loading');
+        global.Validate = require('../ui/Validate');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Form = factory();
     }
-}(this, function (require) {
-    var LightTip = window.LightTip;
-    var Loading = window.Loading;
-    var Validate = window.Validate;
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    var LightTip = this.LightTip;
+    var Loading = this.Loading;
+    var Validate = this.Validate;
     // require
     if (typeof require == 'function') {
         // 轻tips

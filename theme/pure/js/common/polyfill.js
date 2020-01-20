@@ -795,11 +795,12 @@ if (window.SVGElementInstance) {
     } else {
         definition(global);
     }
-}(this, function formDataPartialPolyfill(global) { // partial polyfill
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+: ((typeof self !== 'undefined') ? self : this)), function formDataPartialPolyfill(global) { // partial polyfill
     'use strict';
 
-    var
-        formDataPrototype,
+    var formDataPrototype,
         math = Math,
         method,
         methods,
@@ -1411,7 +1412,9 @@ if (typeof Object.assign != 'function') {
     while (prop = properties.pop()) if (!con[prop]) con[prop] = {};
     while (method = methods.pop()) if (!con[method]) con[method] = dummy;
     // Using `this` for web workers & supports Browserify / Webpack.
-})(typeof window === 'undefined' ? this : window);
+})((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+: ((typeof self !== 'undefined') ? self : this)));
 
 
 /**

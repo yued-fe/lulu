@@ -8,12 +8,17 @@
  */
 
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Tips = require('./Tips');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Range = factory();
     }
-}(this, function (require) {
+}((typeof global !== 'undefined') ? global
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Tips = window.Tips;
     if (typeof require === 'function' && !Tips) {
         Tips = require('common/ui/Tips');

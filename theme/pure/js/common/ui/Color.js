@@ -5,14 +5,19 @@
  * Created: 16-06-03
  */
 (function (global, factory) {
-    if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        global.Drop = require('./Drop');
+        module.exports = factory();
+    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
     } else {
         global.Color = factory();
     }
-}(this, function (require) {
+}((typeof global !== 'undefined') ? global
+: ((typeof window !== 'undefined') ? window
+    : ((typeof self !== 'undefined') ? self : this)), function (require) {
     // require
-    var Drop = window.Drop;
+    var Drop = this.Drop;
     if (typeof require == 'function' && !Drop) {
         Drop = require('common/ui/Drop');
     } else if (!Drop) {
