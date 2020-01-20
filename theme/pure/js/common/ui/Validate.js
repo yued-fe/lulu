@@ -537,7 +537,7 @@
                         }
 
                         // 如果单选框们没有一个选中，则认为无视了required属性
-                        var isAtLeastOneRadioChecked = eleRadios.some(function (eleRadio) {
+                        var isAtLeastOneRadioChecked = [].slice.call(eleRadios).some(function (eleRadio) {
                             return eleRadio.checked;
                         });
 
@@ -922,8 +922,8 @@
                     return this.getValidity(element).valid;
                 }
 
-                if (element.length && element.every) {
-                    return element.every(function (ele) {
+                if (element.length) {
+                    return [].slice.call(element).every(function (ele) {
                         return this.checkValidity(ele);
                     }.bind(this));
                 }

@@ -1051,18 +1051,6 @@ if (!Element.prototype.closest) {
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
 }
-if (window.NodeList && !NodeList.prototype.map) {
-    NodeList.prototype.map = Array.prototype.map;
-}
-if (window.NodeList && !NodeList.prototype.filter) {
-    NodeList.prototype.filter = Array.prototype.filter;
-}
-if (window.NodeList && !NodeList.prototype.some) {
-    NodeList.prototype.some = Array.prototype.some;
-}
-if (window.NodeList && !NodeList.prototype.every) {
-    NodeList.prototype.every = Array.prototype.every;
-}
 
 /**
  * hasAttribute polyfill

@@ -6287,7 +6287,7 @@
         var eleAllDialog = document.querySelectorAll(DIALOG);
 
         // 是否有显示的弹框
-        var isDisplayed = eleAllDialog.some(function (eleDialog) {
+        var isDisplayed = [].slice.call(eleAllDialog).some(function (eleDialog) {
             return window.getComputedStyle(eleDialog).display != 'none';
         });
 
@@ -6719,7 +6719,7 @@
                 eleInput.removeAttribute('list');
                 // 数据实时从<datalist>元素获取
                 this.callback.data = function () {
-                    return eleDatalist.querySelectorAll('option').map(function (eleOption) {
+                    return [].slice.call(eleDatalist.querySelectorAll('option')).map(function (eleOption) {
                         var objAttr = {};
 
                         [].slice.call(eleOption.attributes).forEach(function (objNameValue) {
@@ -10093,7 +10093,7 @@
                         }
 
                         // 如果单选框们没有一个选中，则认为无视了required属性
-                        var isAtLeastOneRadioChecked = eleRadios.some(function (eleRadio) {
+                        var isAtLeastOneRadioChecked = [].slice.call(eleRadios).some(function (eleRadio) {
                             return eleRadio.checked;
                         });
 
@@ -10478,8 +10478,8 @@
                     return this.getValidity(element).valid;
                 }
 
-                if (element.length && element.every) {
-                    return element.every(function (ele) {
+                if (element.length) {
+                    return [].slice.call(element).every(function (ele) {
                         return this.checkValidity(ele);
                     }.bind(this));
                 }
@@ -12028,7 +12028,7 @@
                     eleTdCheckbox[CHECKED] = isAllChecked;
                 });
             } else {
-                var numLengthChecked = eleAllTdCheckbox.filter(function (eleTdCheckbox) {
+                var numLengthChecked = [].slice.call(eleAllTdCheckbox).filter(function (eleTdCheckbox) {
                     return eleTdCheckbox[CHECKED];
                 }).length;
                 // 是否取消全选

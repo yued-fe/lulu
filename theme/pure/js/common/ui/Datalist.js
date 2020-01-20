@@ -262,7 +262,7 @@
                 eleInput.removeAttribute('list');
                 // 数据实时从<datalist>元素获取
                 this.callback.data = function () {
-                    return eleDatalist.querySelectorAll('option').map(function (eleOption) {
+                    return [].slice.call(eleDatalist.querySelectorAll('option')).map(function (eleOption) {
                         var objAttr = {};
 
                         [].slice.call(eleOption.attributes).forEach(function (objNameValue) {

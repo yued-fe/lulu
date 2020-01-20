@@ -306,7 +306,7 @@
                     eleTdCheckbox[CHECKED] = isAllChecked;
                 });
             } else {
-                var numLengthChecked = eleAllTdCheckbox.filter(function (eleTdCheckbox) {
+                var numLengthChecked = [].slice.call(eleAllTdCheckbox).filter(function (eleTdCheckbox) {
                     return eleTdCheckbox[CHECKED];
                 }).length;
                 // 是否取消全选

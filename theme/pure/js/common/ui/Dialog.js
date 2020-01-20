@@ -580,7 +580,7 @@
         var eleAllDialog = document.querySelectorAll(DIALOG);
 
         // 是否有显示的弹框
-        var isDisplayed = eleAllDialog.some(function (eleDialog) {
+        var isDisplayed = [].slice.call(eleAllDialog).some(function (eleDialog) {
             return window.getComputedStyle(eleDialog).display != 'none';
         });
 
