@@ -166,6 +166,7 @@
 
         // 插入到文本框的后面
         eleInput.insertAdjacentElement('afterend', eleLabel);
+        eleInput.setAttribute('lang', 'zh-Hans-CN');
 
         // 初始值
         var strInitValue = eleInput.value;

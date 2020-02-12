@@ -201,18 +201,7 @@
 
         // 拖动
         var objPosThumb = {};
-
-        // 判断是否支持touch事件
-        var isTouch = 'ontouchstart' in window;
-        var touchStart = isTouch ? 'touchstart' : 'mousedown';
-        eleThumb.addEventListener(touchStart, function (event) {
-            if (eleRange.disabled) {
-                return;
-            }
-            var clientX = isTouch ? event.touches[0].clientX : event.clientX;
-            objPosThumb.x = clientX;
-            objPosThumb.value = eleRange.value * 1;
-            // 返回此时tips的提示内容
+        var funBindTips = function () {
             if (this.params.tips) {
                 var strContent = this.params.tips.call(eleThumb, eleRange.value);
                 if (this.tips) {
@@ -225,9 +214,38 @@
                     });
                 }
             }
+        };
+
+        // 判断是否支持touch事件
+        var isTouch = 'ontouchstart' in window;
+        var touchStart = isTouch ? 'touchstart' : 'mousedown';
+        eleThumb.addEventListener(touchStart, function (event) {
+            if (eleRange.disabled) {
+                return;
+            }
+            var clientX = isTouch ? event.touches[0].clientX : event.clientX;
+            objPosThumb.x = clientX;
+            objPosThumb.value = eleRange.value * 1;
+            // 返回此时tips的提示内容
+            funBindTips.call(this);
 
             eleThumb.classList.add(ACTIVE);
         }.bind(this));
+
+        if (!isTouch) {
+            eleThumb.addEventListener('mouseenter', function () {
+                if (eleThumb.classList.contains(ACTIVE) == false) {
+                    funBindTips.call(this);
+                }
+            }.bind(this));
+            eleThumb.addEventListener('mouseout', function () {
+                if (eleThumb.classList.contains(ACTIVE) == false) {
+                    if (this.tips) {
+                        this.tips.hide();
+                    }
+                }
+            }.bind(this));
+        }
 
         // mouseup or touchend
         var touchEnd = isTouch ? 'touchend' : 'mouseup';

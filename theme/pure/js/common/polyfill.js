@@ -1507,6 +1507,307 @@ if (!String.prototype.repeat) {
     }
 }());
 
+/**
+ * @description resize polyfill for IE/Edge
+ * @author zhangxinxu(.com)
+ */
+if (typeof window.getComputedStyle(document.body).resize == 'undefined' && window.HTMLTextAreaElement) {
+    HTMLTextAreaElement.prototype.setResize = function () {
+        // 元素
+        var textarea = this;
+        var target = textarea.data && textarea.data.resize;
+        var resize = null;
+        // 文本域的id
+        var id = textarea.id;
+        if (!id) {
+            id = ('r' + Math.random()).replace('0.', '');
+            textarea.id = id;
+        }
+        // 获取resize属性值
+        var attrResize = textarea.getAttribute('resize');
+
+        if (typeof attrResize == 'string' && attrResize != 'vertical' && attrResize != 'horizontal') {
+            attrResize = 'both';
+        }
+        if (typeof attrResize != 'string') {
+            return;
+        }
+
+        // 创建模拟拉伸的基本元素
+        if (!target) {
+            target = document.createElement('span');
+            resize = document.createElement('label');
+            resize.setAttribute('for', id);
+            target.appendChild(resize);
+            // 一些固定的样式设置
+            target.style.position = 'relative';
+            target.style.verticalAlign = window.getComputedStyle(textarea).verticalAlign;
+
+            resize.style.position = 'absolute';
+            resize.style.width = '17px';
+            resize.style.height = '17px';
+            resize.style.background = "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M765.558 510.004a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM765.558 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM422.15700000000004 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM422.15700000000004 510.004a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM765.558 202.54a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0zM66.77700000000002 821.46a93.65 93.65 0 1 0 191.665 0 93.65 93.65 0 1 0-191.665 0z' fill='%23BFBFBF'/%3E%3C/svg%3E\") no-repeat center";
+            resize.style.bottom = '0';
+            resize.style.right = '0';
+            resize.style.backgroundSize = '12px 12px';
+            // 在textarea元素后面显示
+            textarea.insertAdjacentElement('afterend', target);
+            textarea.data = textarea.data || {};
+            textarea.data.resize = target;
+
+            // 事件
+            var store = {};
+            resize.addEventListener('mousedown', function (event) {
+                store.resizing = true;
+                store.startX = event.pageX;
+                store.startY = event.pageY;
+                // 此时textarea的尺寸
+                store.offsetWidth = textarea.offsetWidth;
+                store.offsetHeight = textarea.offsetHeight;
+
+                event.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function (event) {
+                if (!store.resizing) {
+                    return;
+                }
+                event.preventDefault();
+
+                var currentX = event.pageX;
+                var currentY = event.pageY;
+
+                var moveX = currentX - store.startX;
+                var moveY = currentY - store.startY;
+
+                var currentWidth = store.offsetWidth + moveX;
+                var currentHeight = store.offsetHeight + moveY;
+
+                if (currentWidth < 40) {
+                    currentWidth = 40;
+                }
+                if (currentHeight < 40) {
+                    currentHeight = 40;
+                }
+
+                // 尺寸设置
+                if (attrResize == 'both' || attrResize == 'horizontal') {
+                    textarea.style.width = currentWidth + 'px';
+                    if (target.style.display == 'block') {
+                        target.style.width = currentWidth + 'px';
+                    }
+                }
+                if (attrResize == 'both' || attrResize == 'vertical') {
+                    textarea.style.height = currentHeight + 'px';
+                    if (/inline/.test(styleDisplay)) {
+                        target.style.height = currentHeight + 'px';
+                    }
+                }
+            });
+
+            document.addEventListener('mouseup', function () {
+                if (store.resizing) {
+                    store.resizing = false;
+                }
+            });
+        }
+
+        // 样式的控制与处理
+        var styleDisplay = window.getComputedStyle(textarea).display;
+        if (styleDisplay == 'none') {
+            target.style.display = 'none';
+        } else if (/inline/.test(styleDisplay)) {
+            target.style.display = 'inline-block';
+            target.style.height = textarea.offsetHeight + 'px';
+        } else {
+            target.style.display = 'block';
+            target.style.width = textarea.offsetWidth + 'px';
+        }
+    };
+
+    HTMLTextAreaElement.prototype.initResize = function () {
+        // 避免重复初始化
+        if (this.isInitResize) {
+            return;
+        }
+        this.setResize();
+
+        // 更新与处理
+        this.addEventListener('DOMAttrModified', function () {
+            this.setResize();
+        }, false);
+
+        this.isInitResize = true;
+    };
+
+    window.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('textarea[resize]').forEach(function (textarea) {
+            textarea.initResize();
+        });
+
+        // 插入内容时候的自动初始化
+        document.body.addEventListener('DOMNodeInserted', function (event) {
+            // 插入的元素
+            var target = event.target;
+            // 非元素节点不处理
+            if (target.nodeType != 1) {
+                return;
+            }
+
+            if (target.matches('textarea[resize]') && (!target.data || !target.data.resize)) {
+                target.initResize();
+            }
+        });
+    });
+}
+
+/**
+ * @description placeholder polyfill for IE9
+ *              only support one line
+ *              no consideration of settings placeholder attr
+ * @author      zhangxinxu(.com)
+ * @created     2019-08-09
+ */
+if (!('placeholder' in document.createElement('input')) && window.HTMLTextAreaElement) {
+    HTMLTextAreaElement.prototype.setPlaceholder = HTMLInputElement.prototype.setPlaceholder = function () {
+
+        var control = this;
+
+        var placeholder = control.getAttribute('placeholder');
+
+        if (!placeholder) {
+            control.style.backgroundPosition = '-2999px -2999px';
+            return;
+        }
+
+        // 获取此时control的字体和字号
+        var stylesControl = window.getComputedStyle(control);
+
+        // 实现原理：创建一个offset screen canvas，并把placeholder绘制在上面
+
+        // 一些样式
+        var fontSize = stylesControl.fontSize;
+        var fontFamily = stylesControl.fontFamily;
+        var lineHeight = parseInt(stylesControl.lineHeight) || 20;
+
+        // 起始坐标
+        var x = parseInt(stylesControl.paddingLeft) || 0;
+        var y = parseInt(stylesControl.paddingTop) || 0;
+
+        // 尺寸
+        var width = control.clientWidth;
+        var height = control.offsetHeight;
+
+        // 如果隐藏，则不处理
+        var display = stylesControl.display;
+        if (display == 'none' || width == 0) {
+            return;
+        }
+
+        // canvas的创建
+        control.data = control.data || {};
+        // 先判断有没有缓存住
+        var canvas = control.data.placeholder;
+        // 如果没有，创建
+        if (!canvas) {
+            canvas = document.createElement('canvas');
+            // 存储canvas对象
+            control.data.placeholder = canvas;
+        }
+
+        // 如果尺寸没变化，placeholder也没变化，则不处理
+        if (canvas.placeholder == placeholder && canvas.width == width) {
+            return;
+        }
+
+        var context = canvas.getContext('2d');
+        if (canvas.width) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // 记住占位符内容
+        canvas.placeholder = placeholder;
+
+        // 尺寸变化
+        canvas.width = width;
+        canvas.height = height;
+
+        // 设置样式
+        context.fillStyle = '#a2a9b6';
+        context.font = [fontSize, fontFamily].join(' ');
+        context.textBaseline = 'top';
+
+        // 字符分隔为数组
+        var arrText = placeholder.split('');
+        var line = '';
+        var maxWidth = width - x * 2;
+
+        for (var n = 0; n < arrText.length; n++) {
+            var testLine = line + arrText[n];
+            var metrics = context.measureText(testLine);
+            var testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, y);
+                line = arrText[n];
+                y += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        context.fillText(line, x, y);
+
+        var backgroundImage = canvas.toDataURL();
+        control.style.backgroundRepeat = 'no-repeat';
+        control.style.backgroundImage = 'url(' + backgroundImage + ')';
+    };
+
+    HTMLTextAreaElement.prototype.initPlaceholder = HTMLInputElement.prototype.initPlaceholder = function () {
+        // 避免重复初始化
+        if (this.isInitPlaceholder) {
+            return;
+        }
+
+        this.setPlaceholder();
+
+        // 更新与处理
+        this.addEventListener('DOMAttrModified', function () {
+            this.setPlaceholder();
+        }, false);
+
+        this.addEventListener('focus', function () {
+            this.style.backgroundPosition = '-2999px -2999px';
+        });
+        this.addEventListener('blur', function () {
+            if (this.value.trim() == '') {
+                this.style.backgroundPosition = '';
+            }
+        });
+
+        this.isInitPlaceholder = true;
+    };
+
+    window.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('textarea[placeholder], input[placeholder]').forEach(function (control) {
+            control.initPlaceholder();
+        });
+
+        // 插入内容时候的自动初始化
+        document.body.addEventListener('DOMNodeInserted', function (event) {
+            // 插入的Node节点
+            var target = event.target;
+
+            // 非元素节点不处理
+            if (target.nodeType != 1) {
+                return;
+            }
+
+            if (/^textarea|input$/i.test(target.tagName) && target.matches('[placeholder]')  && (!target.data || !target.data.placeholder)) {
+                target.initPlaceholder();
+            }
+        });
+    });
+}
+
 /*
  * <progress> polyfill
  * Don't forget to also include progress-polyfill.css!

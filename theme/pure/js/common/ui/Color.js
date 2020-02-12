@@ -207,6 +207,12 @@
         eleInput.addEventListener('click', function (event) {
             event.preventDefault();
         });
+        // Edge14-Edge18
+        if (eleInput.type == 'color' && window.msCredentials) {
+            eleInput.addEventListener('focus', function (event) {
+                this.blur();
+            });
+        }        
 
         // 元素构建
         // track是替换输入框的色块元素的轨道

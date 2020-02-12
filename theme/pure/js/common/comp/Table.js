@@ -668,9 +668,6 @@
 
         eleTbody.innerHTML = '';
 
-        // 记录定位的滚动位置
-        this.scrollTop = numScrollTop;
-
         // 请求走起
         // 判断是否需要先滚动
         var objBound = eleTable.getBoundingClientRect();
@@ -747,8 +744,6 @@
             this.element.loading.style.paddingBottom = '';
         }
 
-        // Chrome, IE10+高度变小时候，会先置顶，在变化，导致晃动，影响体验，通过记录scrollTop修正，FireFox没有此问题
-        document.scrollingElement.scrollTop = this.scrollTop;
         //没有全选
         var eleThCheckbox = this.element.table.querySelector('th:first-child ' + CL.checkbox);
         if (eleThCheckbox) {

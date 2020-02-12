@@ -43,6 +43,7 @@
             // normal为黑色显示
             // 还支持success和error
             // 以及其他自定义状态
+            // status也可以换成type
             status: 'normal',
             duration: 3000
         };
@@ -53,6 +54,9 @@
         }
 
         this.params = Object.assign({}, defaults, options || {});
+        if (this.params.type) {
+            this.params.status = this.params.type;
+        }
 
         // 1. 容器元素
         // <div>元素改成<a>元素，前者默认无法响应回车click
@@ -162,6 +166,9 @@
 
         // 当前轻提示的状态和内容
         eleContainer.setAttribute('data-status', objParams.status);
+        if (objParams.type) {
+            eleContainer.setAttribute('data-type', objParams.type);
+        }
         eleContent.innerHTML = strContent;
 
         // 轻提示显示

@@ -61,6 +61,7 @@
 [class].ui-month-range-input > input {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background: #fff;
+    -webkit-appearance: none;
 }
 
 .ui-input:hover > input[readonly] {
@@ -128,7 +129,7 @@ span.ui-month-range-input > input {
     cursor: default;
 }
 :disabled + .ui-date-arrow::before {
-    opacity: .4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb' fill-opacity='0.4' /%3E%3C/svg%3E");
 }
 
 /* firefox覆盖清除按钮，以及移动端覆盖下拉箭头 */
