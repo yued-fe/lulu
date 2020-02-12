@@ -26,7 +26,33 @@
 	</header>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+	<main class="section_main">
+    	<h2 class="section_title">基于复选框的开关效果</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引入CSS即可：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Checkbox.css"&gt;
+&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Switch.css"&gt;</pre>
+
+            <h3>开关基本状态</h3>
+            <p><input type="checkbox" id="switch"><label class="ui-switch" for="switch"></label></p>
+            <pre>&lt;input type="checkbox" id="switch"&gt;&lt;label class="ui-switch" for="switch"&gt;&lt;/label&gt;</pre>
+            <h3>开关禁用状态</h3>
+            <p>开关禁用：<input type="checkbox" id="switch2" disabled><label class="ui-switch" for="switch2"></label>
+                <input type="checkbox" id="switch3" checked disabled><label class="ui-switch" for="switch3"></label>
+            </p>
+            <pre>&lt;input type="checkbox" id="switch2" <mark>disabled</mark>&gt;&lt;label class="ui-switch" for="switch2"&gt;&lt;/label&gt;
+&lt;input type="checkbox" id="switch3" <mark>checked</mark> <mark>disabled</mark>&gt;&lt;label class="ui-switch" for="switch3"&gt;&lt;/label&gt;</pre>
+            <p>可以看到，开关控件本质上就是复选框，其UI状态变化（禁用态、选中态等变化）都是跟随复选框变化的。需要使用<code>&lt;label&gt;</code>元素，<code>for</code>属性值与对应的复选框的<code>id</code>关联。</p>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,33 +140,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-	<main class="section_main">
-    	<h2 class="section_title">基于复选框的开关效果</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>引入CSS即可：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Checkbox.css"&gt;
-&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Switch.css"&gt;</pre>
-            <p><a href="./single/switch.html" target="_blank">单独使用Demo演示</a></p>
-            <h3>开关基本状态</h3>
-            <p><input type="checkbox" id="switch"><label class="ui-switch" for="switch"></label></p>
-            <pre>&lt;input type="checkbox" id="switch">&lt;label class="ui-switch" for="switch">&lt;/label></pre>
-            <h3>开关禁用状态</h3>
-            <p>开关禁用：<input type="checkbox" id="switch2" disabled><label class="ui-switch" for="switch2"></label>
-                <input type="checkbox" id="switch3" checked disabled><label class="ui-switch" for="switch3"></label>
-            </p>
-            <pre>&lt;input type="checkbox" id="switch2" <mark>disabled</mark>>&lt;label class="ui-switch" for="switch2">&lt;/label>
-&lt;input type="checkbox" id="switch3" <mark>checked</mark> <mark>disabled</mark>>&lt;label class="ui-switch" for="switch3">&lt;/label></pre>
-            <p>可以看到，开关控件本质上就是复选框，其UI状态变化（禁用态、选中态等变化）都是跟随复选框变化的。需要使用<code>&lt;label&gt;</code>元素，<code>for</code>属性值与对应的复选框的<code>id</code>关联。</p>
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

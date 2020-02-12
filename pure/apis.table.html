@@ -25,107 +25,18 @@
 		</div>
 	</header>
 
-<div class="main">
-	<!-- 侧边栏 -->
-    <!-- 侧边栏 -->
-<aside id="aside" class="aside">
-    <div class="aside_main">
-    	<dl class="aside_dl">
-        	<dt class="aside_dt">关于</dt>
-            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
-            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
-        </dl>
-        <dl class="aside_dl">
-            <dt class="aside_dt">全局</dt>
-            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
-        </dl>
-        <dl class="aside_dl">
-            <dt class="aside_dt">布局</dt>
-            <dd><a href="./apis.table.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
-        </dl>
-        <dl class="aside_dl">
-            <dt class="aside_dt">控件</dt>
-            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
-            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
-            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
-            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
-            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
-            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
-            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
-        </dl>
-        <div class="aside_divide"></div>
-        <dl class="aside_dl">
-            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
-            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
-            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
-            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
-        </dl>
-        <div class="aside_divide"></div>
-        <dl class="aside_dl">
-            <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
-            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
-            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
-            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
-            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
-        </dl>
-
-        <dl class="aside_dl">
-            <dt class="aside_dt">综合实例</dt>
-            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
-            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
-        </dl>
-    </div>
-</aside>
-<script>(function () {
-    // 记住滚动位置
-    var eleAside = document.getElementById('aside');
-
-    eleAside.addEventListener('click', function () {
-        sessionStorage.asideScrollTop = this.scrollTop;
-    });
-
-    eleAside.scrollTop = sessionStorage.asideScrollTop;
-    // IE这里设置可能没有用
-    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
-        setTimeout(function () {
-            eleAside.scrollTop = sessionStorage.asideScrollTop;
-        }, 1);
-    }
-
-    // 滚动条设置判断
-    var div = document.createElement('div');
-    div.style.width = '100px';
-    div.style.height = '1px';
-    div.style.overflow = 'auto';
-    div.style.position = 'absolute';
-    div.style.left = '-199px';
-    var p = document.createElement('p');
-    p.style.height = '20px';
-    div.appendChild(p);
-    document.body.appendChild(div);
-    if (p.clientWidth != 100) {
-        eleAside.className += ' scrollbar';
-    }
-    document.body.removeChild(div);
-})();
-</script>
+<div class="main">	
     <!-- 主内容 -->
-  	<div class="section_main">
+  	<main class="section_main">
       	<h2 class="section_title">表格列表</h2>
         <!-- 详细内容 -->
         <article>
             <h3>作为插件单独使用</h3>
             <p>如果想以插件形式单独使用列表的UI，而不是所有UI组件集合<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">commom/ui.css</a>，可以直接引入：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Table.css"&gt;</pre>
-            <p><a href="./single/table.html" target="_blank">单独使用Demo演示</a></p>
-            <p>如果还有分页等样式，还需要引入：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/comp/Table.css"&gt;</pre>
-            <p>详见：综合实例-<a href="./example.table.html">富交互列表</a></p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Table.css"&gt;</pre>
+            <p>如果还有其他状态样式、分页结构布局样式等，还需要引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/comp/Table.css"&gt;</pre>
+            <p>详见：综合实例-<a href="./example.table.html">表格解决方案</a></p>
             <h3>纯表格列表</h3>
             <p>例如：</p>
             <table class="ui-table">
@@ -176,7 +87,7 @@
             <p>实际项目开发时候，列表通常和分页一起出现，有时候甚至还有大大的表格头甚至搜索框，此时列表结构就相对复杂些。</p>
             <p>同时还会存在数据为空以及加载出错等常见状态。LuLu ui基于实践经验，进行了这方面的支持。</p>
             <p>首先，需要引入下面CSS：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/comp/Table.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/comp/Table.css"&gt;</pre>
             <p>然后……</p>
 
             <h4>基本HTML结构</h4>
@@ -199,7 +110,7 @@
     共&lt;output class="table-page-total"&gt;0&lt;/output>名成员, 每页显示&lt;a href="javascript:" class="table-page-per"&gt;15&lt;/a&gt;
 &lt;/div&gt;
 &lt;div class="table-page"&gt;<span class="green">&lt;!-- 分页由JS动态创建 --></span>&lt;/div&gt;</pre>
-            <p>实际项目开发，直接复制上面固定的HTML结构即可，然后<code>&lt;table&gt;</code>中<code>&lt;thead&gt;</code>需要按需求自己补全，最后参考“<a href="../example/table.php">表格解决方案</a>”中的JS代码<code>new Table()</code>处理下即可。</p>
+            <p>实际项目开发，直接复制上面固定的HTML结构即可，然后<code>&lt;table&gt;</code>中<code>&lt;thead&gt;</code>需要按需求自己补全，最后参考“<a href="./example.table.html">表格解决方案</a>”中的JS代码<code>new Table()</code>处理下即可。</p>
 
             <h4>HTML结构与效果展示</h4>
             <ol>
@@ -390,7 +301,95 @@
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
         </article>
-  	</div>
+  	</main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

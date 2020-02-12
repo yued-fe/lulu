@@ -26,7 +26,94 @@
 	</header>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+	<main class="section_main">
+    	<h2 class="section_title">静态控件之文本域</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>如果只想以插件形式单独使用文本域的UI，而不是所有UI组件集合<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">commom/ui.css</a>，可以直接引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Textarea.css"&gt;</pre>
+            <p>文本域如果有使用<code>placeholder</code>属性，可以引入<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css" target="_blank">Placeholder.css</a>对占位符样式进行设置。</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css"&gt;</pre>
+            <h3>普通文本域</h3>
+
+            <h4>普通文本域</h4>
+            <p>
+                最基本HTML：<textarea class="ui-textarea"></textarea>
+                    <pre>&lt;textarea class="ui-textarea"&lt;&lt;/textarea&lt;</pre>
+            </p>
+            <p>textarea内置-块状-100%父级宽度：</p>
+            <div class="ui-textarea"><textarea rows="8"></textarea></div>
+            <pre>&lt;div class="ui-textarea"&lt;&lt;textarea rows="8"&lt;&lt;/textarea&lt;&lt;/div&lt;</pre>
+
+            <h4>resize拉伸-内联-独立</h4>
+            <p>通过自定义的resize属性控制（方便兼容IE），默认文本域没有resize特性。</p>
+            <p><label class="b">两个方向拉伸：</label><textarea class="ui-textarea" resize="both"></textarea></p>
+            <pre>&lt;textarea class="ui-textarea" <mark>resize="both"</mark>&gt;&lt;/textarea&gt;</pre>
+            <p><label class="b">仅垂直方向拉伸：</label><textarea class="ui-textarea" resize="vertical"></textarea></p>
+            <pre>&lt;textarea class="ui-textarea" <mark>resize="vertical"</mark>&gt;&lt;/textarea&gt;</pre>
+            <p><label class="b">仅水平方向拉伸：</label><textarea class="ui-textarea" resize="horizontal"></textarea></p>
+            <pre>&lt;textarea class="ui-textarea" <mark>resize="horizontal"</mark>&gt;&lt;/textarea&gt;</pre>
+
+            <p><span class="gray">Tips: 下面内容主要是为了方便IE浏览器下测试。</span></p>
+            <h4>resize拉伸-内联-嵌套</h4>
+            <div class="ui-textarea"><textarea rows="4" resize="both"></textarea></div>
+            <pre>&lt;div class="ui-textarea"&gt;&lt;textarea rows="4" <mark>resize="both"</mark>&gt;&lt;/textarea&gt;&lt;/div&gt;</pre>
+            <h4>resize拉伸-块级-嵌套</h4>
+            <div class="ui-textarea"><textarea rows="4" resize="vertical" style="display:block;"></textarea></div>
+            <pre>&lt;div class="ui-textarea"&gt;&lt;textarea rows="4" <mark>resize="vertical"</mark> style="display:block;"&gt;&lt;/textarea&gt;&lt;/div&gt;</pre>
+            <h4>resize拉伸-块级-独立</h4>
+            <textarea id="resizeToggleTest" class="ui-textarea" rows="4" resize="both" style="display:block;"></textarea>
+            <p><button id="resizeToggleBtn">显隐控制</button> <button id="resizeInsertBtn">动态插入</button></p>
+            <pre>&lt;textarea class="ui-textarea" rows="4" <mark>resize="both"</mark> style="display:block;"&gt;&lt;/textarea&gt;</pre>
+            <p class="tips">如果引入了<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>，则IE浏览器自动兼容resize特性。但不保证所有特殊场景都能覆盖。</p>
+
+            <h4>只读和禁用</h4>
+            <p>文本域只读：<textarea class="ui-textarea" readonly></textarea></p>
+            <p>文本域禁用：<textarea class="ui-textarea" disabled></textarea></p>
+            <pre>&lt;textarea class="ui-textarea" <mark>readonly</mark>&gt;&lt;/textarea>
+&lt;textarea class="ui-textarea" <mark>disabled</mark>&gt;&lt;/textarea&gt;</pre>
+
+            <h4>文本域出错</h4>
+            非嵌套结构出错：<textarea class="ui-textarea error"></textarea>
+            <pre>&lt;textarea class="ui-textarea <mark>error</mark>">&lt;/textarea></pre>
+            <p>嵌套结构出错：</p>
+            <div class="ui-textarea mt10"><textarea class="error"></textarea></div>
+            <pre>&lt;div class="ui-textarea">&lt;textarea class="<mark>error</mark>">&lt;/textarea>&lt;/div></pre>
+
+
+            <h3>带计数的文本域</h3>
+            <p>这里演示静态效果，输入文本内容，输入框右下角的数值并不会变化，如果想要变化，需要引入Validate.js并对表单元素进行实例方法初始化。</p>
+            <div class="ui-textarea-x" style="max-width:500px;">
+                <textarea id="someId" placeholder="带计数的文本域" maxlength="250" rows="5"></textarea>
+                <div class="ui-textarea"></div>
+                <label for="someId" class="ui-textarea-count">
+                    <span>0</span>/<span>250</span>
+                </label>
+            </div>
+            <pre>&lt;div class="ui-textarea-x" style="max-width:500px;">
+    &lt;textarea <span class="gray">id="someId"</span> maxlength="250" rows="5">&lt;/textarea>
+    &lt;div class="ui-textarea">&lt;/div>
+    <span class="green">&lt;-- 点击任意区域文本域都能focus，可缺省 --&gt;</span>
+    <span class="gray">&lt;label for="forFocusable" class="ui-textarea-count">
+        &lt;span>0&lt;/span>/&lt;span>250&lt;/span>
+    &lt;/label></span>
+&lt;/div></pre>
+            <div class="tips">
+                如果是在使用Validate.js验证的form元素内，此label元素可缺省，直接下面代码结构：
+                <pre>&lt;div class="ui-textarea-x" style="width:500px;">
+    &lt;textarea maxlength="250" rows="5">&lt;/textarea>
+    &lt;div class="ui-textarea">&lt;/div>
+&lt;/div></pre>
+            </div>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,94 +201,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-	<div class="section_main">
-    	<h2 class="section_title">静态控件之文本域</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>如果只想以插件形式单独使用文本域的UI，而不是所有UI组件集合<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">commom/ui.css</a>，可以直接引入：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Textarea.css"&gt;</pre>
-            <p><a href="./single/textarea.html" target="_blank">单独使用Demo演示</a></p>
-            <p>文本域如果有使用<code>placeholder</code>属性，可以引入<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css" target="_blank">Placeholder.css</a>对占位符样式进行设置。</p>
-            <h3>普通文本域</h3>
-
-            <h4>普通文本域</h4>
-            <p>
-                最基本HTML：<textarea class="ui-textarea"></textarea>
-                    <pre>&lt;textarea class="ui-textarea">&lt;/textarea></pre>
-            </p>
-            <p>textarea内置-块状-100%父级宽度：</p>
-            <div class="ui-textarea"><textarea rows="8"></textarea></div>
-            <pre>&lt;div class="ui-textarea">&lt;textarea rows="8">&lt;/textarea>&lt;/div></pre>
-
-            <h4>resize拉伸-内联-独立</h4>
-            <p>通过自定义的resize属性控制（方便兼容IE），默认文本域没有resize特性。</p>
-            <p><label class="b">两个方向拉伸：</label><textarea class="ui-textarea" resize="both"></textarea></p>
-            <pre>&lt;textarea class="ui-textarea" <mark>resize="both"</mark>&gt;&lt;/textarea&gt;</pre>
-            <p><label class="b">仅垂直方向拉伸：</label><textarea class="ui-textarea" resize="vertical"></textarea></p>
-            <pre>&lt;textarea class="ui-textarea" <mark>resize="vertical"</mark>&gt;&lt;/textarea&gt;</pre>
-            <p><label class="b">仅水平方向拉伸：</label><textarea class="ui-textarea" resize="horizontal"></textarea></p>
-            <pre>&lt;textarea class="ui-textarea" <mark>resize="horizontal"</mark>&gt;&lt;/textarea&gt;</pre>
-
-            <p><span class="gray">Tips: 下面内容主要是为了方便IE浏览器下测试。</span></p>
-            <h4>resize拉伸-内联-嵌套</h4>
-            <div class="ui-textarea"><textarea rows="4" resize="both"></textarea></div>
-            <pre>&lt;div class="ui-textarea"&gt;&lt;textarea rows="4" <mark>resize="both"</mark>&gt;&lt;/textarea&gt;&lt;/div&gt;</pre>
-            <h4>resize拉伸-块级-嵌套</h4>
-            <div class="ui-textarea"><textarea rows="4" resize="vertical" style="display:block;"></textarea></div>
-            <pre>&lt;div class="ui-textarea"&gt;&lt;textarea rows="4" <mark>resize="vertical"</mark> style="display:block;"&gt;&lt;/textarea&gt;&lt;/div&gt;</pre>
-            <h4>resize拉伸-块级-独立</h4>
-            <textarea id="resizeToggleTest" class="ui-textarea" rows="4" resize="both" style="display:block;"></textarea>
-            <p><button id="resizeToggleBtn">显隐控制</button> <button id="resizeInsertBtn">动态插入</button></p>
-            <pre>&lt;textarea class="ui-textarea" rows="4" <mark>resize="both"</mark> style="display:block;"&gt;&lt;/textarea&gt;</pre>
-            <p class="tips">如果引入了<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>，则IE浏览器自动兼容resize特性。但不保证所有特殊场景都能覆盖。</p>
-
-            <h4>只读和禁用</h4>
-            <p>文本域只读：<textarea class="ui-textarea" readonly></textarea></p>
-            <p>文本域禁用：<textarea class="ui-textarea" disabled></textarea></p>
-            <pre>&lt;textarea class="ui-textarea" <mark>readonly</mark>&gt;&lt;/textarea>
-&lt;textarea class="ui-textarea" <mark>disabled</mark>&gt;&lt;/textarea&gt;</pre>
-
-            <h4>文本域出错</h4>
-            非嵌套结构出错：<textarea class="ui-textarea error"></textarea>
-            <pre>&lt;textarea class="ui-textarea <mark>error</mark>">&lt;/textarea></pre>
-            <p>嵌套结构出错：</p>
-            <div class="ui-textarea mt10"><textarea class="error"></textarea></div>
-            <pre>&lt;div class="ui-textarea">&lt;textarea class="<mark>error</mark>">&lt;/textarea>&lt;/div></pre>
-
-
-            <h3>带计数的文本域</h3>
-            <p>这里演示静态效果，输入文本内容，输入框右下角的数值并不会变化，如果想要变化，需要引入Validate.js并对表单元素进行实例方法初始化。</p>
-            <div class="ui-textarea-x" style="max-width:500px;">
-                <textarea id="someId" placeholder="带计数的文本域" maxlength="250" rows="5"></textarea>
-                <div class="ui-textarea"></div>
-                <label for="someId" class="ui-textarea-count">
-                    <span>0</span>/<span>250</span>
-                </label>
-            </div>
-            <pre>&lt;div class="ui-textarea-x" style="max-width:500px;">
-    &lt;textarea <span class="gray">id="someId"</span> maxlength="250" rows="5">&lt;/textarea>
-    &lt;div class="ui-textarea">&lt;/div>
-    <span class="green">&lt;-- 点击任意区域文本域都能focus，可缺省 --&gt;</span>
-    <span class="gray">&lt;label for="forFocusable" class="ui-textarea-count">
-        &lt;span>0&lt;/span>/&lt;span>250&lt;/span>
-    &lt;/label></span>
-&lt;/div></pre>
-            <div class="tips">
-                如果是在使用Validate.js验证的form元素内，此label元素可缺省，直接下面代码结构：
-                <pre>&lt;div class="ui-textarea-x" style="width:500px;">
-    &lt;textarea maxlength="250" rows="5">&lt;/textarea>
-    &lt;div class="ui-textarea">&lt;/div>
-&lt;/div></pre>
-            </div>
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </div>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

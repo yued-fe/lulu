@@ -25,8 +25,71 @@
 		</div>
 	</header>
 
-<div class="main">
-	<!-- 侧边栏 -->
+<div class="main">	
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">命名与设计</h2>
+        <!-- 详细内容 -->
+        <article>
+            <p>LuLu UI是适用于PC，兼顾Mobile端的UI组件库，非常适合面向外部用户的网站开发。</p>
+            <h3>为何叫LuLu？</h3>
+            <ol>
+                <li>叠词，谁不爱。</li>
+                <li>首次应用LuLu的项目组中有三位前端小伙伴名字中有'lu'，all for you!</li>
+                <li>LuLu多用于女性名字，正好和组件气质相符，柔软，感性。<p>形象气质如下：</p>
+                <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137" alt="LuLu UI形象照"></p></li>
+            </ol>
+
+            <h3>如何正确拼写LuLu UI？</h3>
+            <p>LuLu UI，就这样子。</p>
+
+            <h3>为什么使用LuLu？</h3>
+            <h4>已迭代多年</h4>
+            <p>始于2015年，已成功支持多个千万PV大型项目，迭代优化多年，较成熟。</p>
+            <h4>上手简单</h4>
+            <p>会简单HTML和JS就可以上手了，不像一些流行框架，需要较多的学习成本。</p>
+            <p>直接引入CSS和JS文件资源就可以使用，不需要安装配置等一堆操作。</p>
+            <p>没有任何需要外链的图片资源，资源占用极小。</p>
+            <h4>体验和细节很棒</h4>
+            <p>体验和细节很棒，包括：</p>
+            <h5>1. 代码质量高</h5>
+            <p>使用Eslint对格式进行严格控制，同时有比较详细的注释，API命名和变量命名等至始至终风格一致，方便理解、修改与学习。</p>
+            <h5>2. Retina支持</h5>
+            <p>所有UI组件都是支持retina显示的。主要应用了CSS生成技术，以及SVG的处理。</p>
+            <p>且每个组件的小图标独立使用，不耦合，完全内联，没有额外http请求。</p>
+            <pre>.icon {
+  background: url("data:image/svg+xml;%3Csvg...");
+}</pre>
+            <h5>3. 交互细腻</h5>
+            <p>渐进增强使用CSS3 <code>animation</code>和<code>transition</code>，以较低成本增强组件交互体验。同时，兼顾<code>hover</code>延迟，弹框背景锁定，组件可视区域控制等很多细节处理。</p>
+            <h4>无障碍访问支持</h4>
+            <p>支持Aria屏幕阅读设备无障碍访问以及键盘无障碍访问。</p>
+            <h3>设计理念</h3>
+            <h4>面向设计开发</h4>
+            <p>关于面向设计开发可参见这里：“<a href="https://www.zhangxinxu.com/wordpress/?p=4892" target="_blank">面向设计的半封装web组件开发</a>”。</p>
+
+            <p>面向设计最大的特点在于能够对设计进行最完美的还原，可以很好地展现设计品质。有别于现有组件，然后再制约设计的设计策略。</p>
+            <p>所以，LuLu UI是没有版本的概念的，只有一条核心线自己往前走。当新项目过来需要使用的时候，完全拷贝LuLu UI到项目开发目录中，然后根据当前项目的设计风格，对HTML和JS进行结构上的调整，是放心大胆的调整。</p>
+            <p>因此，LuLu UI组件不是传统的大而全，而是走极简轻便灵活方向，表现为模块低耦合，层级扁平；API非常少，尤其一些基本组件，直接就没有API。</p>
+            <p>LuLu UI没有版本概念，只有主题，目前有morden、peak, pure和experiment四个主题，寓意为“现代”、“巅峰”、“纯粹”和“实验”。</p>
+            <p>modern版本兼容到IE7（依赖jQuery），peak版本兼容到IE8（依赖jQuery），pure版本兼容到IE9（原生JS），experiment版本为实验版本，不兼容IE。</p>
+            <h4>基于HTML开发</h4>
+            <p>相对于其他UI框架，LuLu UI技术栈更偏向HTML和CSS，以便更友好地还原设计和增强体验。</p>
+            <p>具体而言，LuLu UI基于HTML开发，实现前端开发分离，具体可参考“<a href="https://www.zhangxinxu.com/wordpress/?p=5180">顺势而为，HTML发展与UI组件设计进化</a>”。</p>
+            <p>换句话说，开发的时候，只需要关心原生的HTML控件就可以，组件什么的不用在意。例如，时间选择，当我们选择或修改日期，就直接当组件不存在，处理原生input就好了：</p>
+            <pre>input.addEventListener('change', function() {});</pre>
+            <p>想要修改日期范围，很简单，直接改变原生的属性值就好了：</p>
+            <pre>input.setAttribute('min', '2019-09-05');
+input.setAttribute('max', '2029-09-05');</pre>
+            <p>组件自动就会同步，就跟原生的时间选择组件感觉一样！</p>
+            <p>所谓UI组件，本来就应该只负责UI，跟业务没有瓜葛才对。</p>
+            <p>LuLu中的很多UI组件都是采用这样的设计思想。</p>
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,69 +177,6 @@
     document.body.removeChild(div);
 })();
 </script>
-    <!-- 主内容 -->
-    <main class="section_main">
-    	<h2 class="section_title">命名与设计</h2>
-        <!-- 详细内容 -->
-        <article>
-            <p>LuLu UI是适用于PC，兼顾Mobile端的UI组件库，非常适合面向外部用户的网站开发。</p>
-            <h3>为何叫LuLu？</h3>
-            <ol>
-                <li>叠词，谁不爱。</li>
-                <li>首次应用LuLu的项目组中有三位前端小伙伴名字中有'lu'，all for you!</li>
-                <li>LuLu多用于女性名字，正好和组件气质相符，柔软，感性。<p>形象气质如下：</p>
-                <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137" alt="LuLu UI形象照"></p></li>
-            </ol>
-
-            <h3>如何正确拼写LuLu UI？</h3>
-            <p>LuLu UI，就这样子。</p>
-
-            <h3>为什么使用LuLu？</h3>
-            <h4>已迭代多年</h4>
-            <p>始于2015年，已成功支持多个千万PV大型项目，迭代优化多年，较成熟。</p>
-            <h4>上手简单</h4>
-            <p>会简单HTML和JS就可以上手了，不像一些流行框架，需要较多的学习成本。</p>
-            <p>直接引入CSS和JS文件资源就可以使用，不需要安装配置等一堆操作。</p>
-            <p>没有任何需要外链的图片资源，资源占用极小。</p>
-            <h4>体验和细节很棒</h4>
-            <p>体验和细节很棒，包括：</p>
-            <h5>1. 代码质量高</h5>
-            <p>使用Eslint对格式进行严格控制，同时有比较详细的注释，API命名和变量命名等至始至终风格一致，方便理解、修改与学习。</p>
-            <h5>2. Retina支持</h5>
-            <p>所有UI组件都是支持retina显示的。主要应用了CSS生成技术，以及SVG的处理。</p>
-            <p>且每个组件的小图标独立使用，不耦合，完全内联，没有额外http请求。</p>
-            <pre>.icon {
-  background: url("data:image/svg+xml;%3Csvg...");
-}</pre>
-            <h5>3. 交互细腻</h5>
-            <p>渐进增强使用CSS3 <code>animation</code>和<code>transition</code>，以较低成本增强组件交互体验。同时，兼顾<code>hover</code>延迟，弹框背景锁定，组件可视区域控制等很多细节处理。</p>
-            <h4>无障碍访问支持</h4>
-            <p>支持Aria屏幕阅读设备无障碍访问以及键盘无障碍访问。</p>
-            <h3>设计理念</h3>
-            <h4>面向设计开发</h4>
-            <p>关于面向设计开发可参见这里：“<a href="https://www.zhangxinxu.com/wordpress/?p=4892" target="_blank">面向设计的半封装web组件开发</a>”。</p>
-
-            <p>面向设计最大的特点在于能够对设计进行最完美的还原，可以很好地展现设计品质。有别于现有组件，然后再制约设计的设计策略。</p>
-            <p>所以，LuLu UI是没有版本的概念的，只有一条核心线自己往前走。当新项目过来需要使用的时候，完全拷贝LuLu UI到项目开发目录中，然后根据当前项目的设计风格，对HTML和JS进行结构上的调整，是放心大胆的调整。</p>
-            <p>因此，LuLu UI组件不是传统的大而全，而是走极简轻便灵活方向，表现为模块低耦合，层级扁平；API非常少，尤其一些基本组件，直接就没有API。</p>
-            <p>LuLu UI没有版本概念，只有主题，目前有morden、peak, pure和experiment四个主题，寓意为“现代”、“巅峰”、“纯粹”和“实验”。</p>
-            <p>modern版本兼容到IE7（依赖jQuery），peak版本兼容到IE8（依赖jQuery），pure版本兼容到IE9（原生JS），experiment版本为实验版本，不兼容IE。</p>
-            <h4>基于HTML开发</h4>
-            <p>相对于其他UI框架，LuLu UI技术栈更偏向HTML和CSS，以便更友好地还原设计和增强体验。</p>
-            <p>具体而言，LuLu UI基于HTML开发，实现前端开发分离，具体可参考“<a href="https://www.zhangxinxu.com/wordpress/?p=5180">顺势而为，HTML发展与UI组件设计进化</a>”。</p>
-            <p>换句话说，开发的时候，只需要关心原生的HTML控件就可以，组件什么的不用在意。例如，时间选择，当我们选择或修改日期，就直接当组件不存在，处理原生input就好了：</p>
-            <pre>input.addEventListener('change', function() {});</pre>
-            <p>想要修改日期范围，很简单，直接改变原生的属性值就好了：</p>
-            <pre>input.setAttribute('min', '2019-09-05');
-input.setAttribute('max', '2029-09-05');</pre>
-            <p>组件自动就会同步，就跟原生的时间选择组件感觉一样！</p>
-            <p>所谓UI组件，本来就应该只负责UI，跟业务没有瓜葛才对。</p>
-            <p>LuLu中的很多UI组件都是采用这样的设计思想。</p>
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

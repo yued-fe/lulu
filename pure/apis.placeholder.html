@@ -26,7 +26,37 @@
 	</header>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+	<main class="section_main">
+        <h2 class="section_title">表单输入占位符</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>placeholder占位符效果支持单独使用。直接引入Placeholder.css即可，示意：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css"&gt;</pre>
+
+            <h3>测试与演示</h3>
+            <p>placeholder占位符效果IE10+以及其他浏览器天然支持，只需CSS样式重置下即可，下面是效果：</p>
+            <p><input type="email" class="ui-input db mb20" placeholder="块状input测试"></p>
+            <p><span class="ui-input"><input type="email" placeholder="请输入邮箱"></span></p>
+            <div class="ui-input"><input type="email" placeholder="请输入邮箱"></div>
+            <p><textarea class="ui-textarea" placeholder="请输入至少100个字，注意，换行效果测试~" rows="4" resize="both"></textarea></p>
+            <p class="tips">如果引入了<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>，则IE9浏览器自动支持placeholder特性，无需任何初始化，交互风格和高版本IE浏览器一致。</p>
+            <p>下面这部分内容是用来测试IE9浏览器placeholder polyfill是否支持动态特性的，测一下显隐控制和DOM插入是否自动渲染占位符效果。</p>
+            <p>
+                <input type="email" class="ui-input dn" placeholder="请输入邮箱">
+                <input type="url" class="ui-input dn" placeholder="请输入地址">
+                <span class="ui-input dn" style="display:none;"><input placeholder="内部嵌套"></span>
+                <button id="btnToggle" class="mt10">点击显示隐藏的文本框</button>
+            </p>
+            <p><button id="btnInsert">点击插入文本框节点</button></p>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,37 +144,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-	<main class="section_main">
-        <h2 class="section_title">表单输入占位符</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>placeholder占位符效果支持单独使用。直接引入Placeholder.css即可，示意：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css"&gt;</pre>
-            <p><a href="./single/placeholder.html" target="_blank">单独使用Demo演示</a></p>
-            <h3>测试与演示</h3>
-            <p>placeholder占位符效果IE10+以及其他浏览器天然支持，只需CSS样式重置下即可，下面是效果：</p>
-            <p><input type="email" class="ui-input db mb20" placeholder="块状input测试"></p>
-            <p><span class="ui-input"><input type="email" placeholder="请输入邮箱"></span></p>
-            <div class="ui-input"><input type="email" placeholder="请输入邮箱"></div>
-            <p><textarea class="ui-textarea" placeholder="请输入至少100个字，注意，换行效果测试~" rows="4" resize="both"></textarea></p>
-            <p class="tips">如果引入了<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>，则IE9浏览器自动支持placeholder特性，无需任何初始化，交互风格和高版本IE浏览器一致。</p>
-            <p>下面这部分内容是用来测试IE9浏览器placeholder polyfill是否支持动态特性的，测一下显隐控制和DOM插入是否自动渲染占位符效果。</p>
-            <p>
-                <input type="email" class="ui-input dn" placeholder="请输入邮箱">
-                <input type="url" class="ui-input dn" placeholder="请输入地址">
-                <span class="ui-input dn" style="display:none;"><input placeholder="内部嵌套"></span>
-                <button id="btnToggle" class="mt10">点击显示隐藏的文本框</button>
-            </p>
-            <p><button id="btnInsert">点击插入文本框节点</button></p>
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

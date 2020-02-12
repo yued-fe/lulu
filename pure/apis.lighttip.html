@@ -28,7 +28,143 @@
 <style>svg {fill: currentColor; }
 button svg:only-child{ vertical-align: -2px; }</style>
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">LightTip轻提示</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引用下面的CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/LightTip.css"&gt;</pre>
+            <p>引用下面的JS：</p>
+            <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/LightTip.js"&gt;&lt;/script&gt;</pre>
+
+            <h3>基本使用演示</h3>
+            <p>桌面端浏览器在顶部显示，移动端浏览器在中间显示。</p>
+            <h4>操作提示使用示意</h4>
+            <p>
+                <button id="lightTipSucc" class="ui-button" data-type="success">成功轻提示</button>
+                <button id="lightTipError" class="ui-button" data-type="danger">失败轻提示</button>
+            </p>
+            <p>使用代码如下：</p>
+            <pre>button.addEventListener('click', function() {
+    new LightTip().success('修改成功');
+});
+
+button.addEventListener('click', function() {
+    new LightTip().error('修改失败');
+});</pre>
+
+            <p></p>
+            <p>当提示出现后，点击或者按下Enter回车键，或者按下ESC退出键会立即消失。</p>
+
+            <h4>常规提示</h4>
+            <p>
+                <button id="lightTipNormal" class="ui-button">不带感情色彩的信息提示</button>
+            </p>
+            <p>使用代码如下：</p>
+            <pre>button.addEventListener('click', function() {
+    new LightTip('今天的风儿甚至喧嚣');
+});</pre>
+
+            <h4>自定义提示</h4>
+            <p>例如，自定义一个warning状态的提示效果，新增如下CSS：</p>
+            <style>.ui-lightip[data-status="warning"] {
+    background-color: #f59b00;
+}</style>
+            <pre>.ui-lightip[data-status="warning"] {
+    background-color: #f59b00;
+}</pre>
+            <p>
+                <button id="lightTipCustom" class="ui-button" data-type="warning"><svg width="16" height="16"><use xlink:href="#icon-bell"></use></svg> 自定义-警示</button>
+            </p>
+            <p>JavaScript代码如下：</p>
+            <pre>button.addEventListener('click', function() {
+    new LightTip('这是会显示5秒的黄色LightTip', {
+        status: 'warning',
+        duration: 5000
+    });
+});</pre>
+            <p>或者使用<code>type</code>参数进行自定义，如下：</p>
+            <p>
+                <button id="lightTipCustom2" class="ui-button" data-type="warning"><svg width="16" height="16"><use xlink:href="#icon-bell"></use></svg> 自定义-警示2</button>
+            </p>
+            <pre>.ui-lightip[data-type="warning"] {
+    background-color: #f59b00;
+}</pre>
+            <pre>button.addEventListener('click', function() {
+    new LightTip('这是会显示5秒的黄色LightTip', {
+        type: 'warning',
+        duration: 5000
+    });
+});</pre>
+
+            <h3>语法和参数</h3>
+
+            <h4>语法</h4>
+            <pre>new LightTip(content, options);</pre>
+
+            <h4>参数</h4>
+            <dl>
+                <dt>content</dt>
+                <dd>必须。String字符串。表示提示的信息内容，支持HTML字符串。</dd>
+                <dt>options</dt>
+                <dd>可选。Object纯对象。具体参数参见下表：</dd>
+            </dl>
+            <table class="ui-table">
+                <tr>
+                    <th scope="col" width="100">参数名称</th>
+                    <th scope="col" width="80">支持类型</th>
+                    <th scope="col" width="80">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+                <tr>
+                    <td>status|type</td>
+                    <td>String</td>
+                    <td>'normal'</td>
+                    <td>定义 LightTip 状态</td>
+                </tr>
+                <tr>
+                    <td>duration</td>
+                    <td>Number</td>
+                    <td>3000</td>
+                    <td>提示条出现到隐藏时候的停留时间。单位毫秒<code>ms</code>。</td>
+                </tr>
+            </table>
+
+            <h4>快捷方式</h4>
+
+            <p>日常开发推荐使用下面两个快捷方式。</p>
+            <pre>new LightTip().success(content, duration);
+new LightTip().error(content, duration);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>content</dt>
+                <dd>必须。String字符串。表示提示的信息内容，支持HTML字符串。快捷方式中LightTip方法中的<code>content</code>参数可以缺省。</dd>
+                <dt>duration</dt>
+                <dd>可选。Number数值。提示条出现到隐藏的停留时间。单位毫秒<code>ms</code>。</dd>
+            </dl>
+            <p>快捷推荐写法示意：</p>
+            <pre>new LightTip().success('操作成功');
+new LightTip().error('操作失败');</pre>
+            <p>还可以使用下面的写法：</p>
+            <pre>new LightTip('操作成功').success();
+new LightTip('操作失败').error();</pre>
+            <p>等同于下面的写法：</p>
+            <pre>new LightTip('操作成功', {
+    type: 'success'
+});
+new LightTip('操作失败', {
+    type: 'error'
+});</pre>
+
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu，ziven27</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -116,131 +252,6 @@ button svg:only-child{ vertical-align: -2px; }</style>
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-    <main class="section_main">
-    	<h2 class="section_title">LightTip轻提示</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>引用下面的CSS：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/LightTip.css"&gt;</pre>
-            <p>引用下面的JS：</p>
-            <pre>&lt;script src="//qidian.gtimg.com/lulu/pure/js/common/ui/LightTip.js"&gt;&lt;/script&gt;</pre>
-            <p><a href="./single/lighttip.html" target="_blank">单独使用Demo演示</a></p>
-
-            <h3>基本使用演示</h3>
-            <p>桌面端浏览器在顶部显示，移动端浏览器在中间显示。</p>
-            <h4>操作提示使用示意</h4>
-            <p>
-                <button id="lightTipSucc" class="ui-button" data-type="success">成功轻提示</button>
-                <button id="lightTipError" class="ui-button" data-type="danger">失败轻提示</button>
-            </p>
-            <p>使用代码如下：</p>
-            <pre>button.addEventListener('click', function() {
-    new LightTip().success('修改成功');
-});
-
-button.addEventListener('click', function() {
-    new LightTip().error('修改失败');
-});</pre>
-
-            <p></p>
-            <p>当提示出现后，点击或者按下Enter回车键，或者按下ESC退出键会立即消失。</p>
-
-            <h4>常规提示</h4>
-            <p>
-                <button id="lightTipNormal" class="ui-button">不带感情色彩的信息提示</button>
-            </p>
-            <p>使用代码如下：</p>
-            <pre>button.addEventListener('click', function() {
-    new LightTip('今天的风儿甚至喧嚣');
-});</pre>
-
-            <h4>自定义提示</h4>
-            <p>例如，自定义一个warning状态的提示效果，新增如下CSS：</p>
-            <style>.ui-lightip[data-status="warning"] {
-    background-color: #f59b00;
-}</style>
-            <pre>.ui-lightip[data-status="warning"] {
-    background-color: #f59b00;
-}</pre>
-            <p>
-                <button id="lightTipCustom" class="ui-button" data-type="warning"><svg width="16" height="16"><use xlink:href="#icon-bell"></use></svg> 自定义-警示</button>
-            </p>
-            <p>JavaScript代码如下：</p>
-            <pre>button.addEventListener('click', function() {
-    new LightTip('这是会显示5秒的黄色LightTip', {
-        status: 'warning',
-        duration: 5000
-    });
-});</pre>
-
-            <h3>语法和参数</h3>
-
-            <h4>语法</h4>
-            <pre>new LightTip(content, options);</pre>
-
-            <h4>参数</h4>
-            <dl>
-                <dt>content</dt>
-                <dd>必须。String字符串。表示提示的信息内容，支持HTML字符串。</dd>
-                <dt>options</dt>
-                <dd>可选。Object纯对象。具体参数参见下表：</dd>
-            </dl>
-            <table class="ui-table">
-                <tr>
-                    <th scope="col" width="80">参数名称</th>
-                    <th scope="col" width="100">支持类型</th>
-                    <th scope="col" width="80">默认值</th>
-                    <th scope="col">释义</th>
-                </tr>
-                <tr>
-                    <td>status</td>
-                    <td>String</td>
-                    <td>'normal'</td>
-                    <td>定义 LightTip 状态</td>
-                </tr>
-                <tr>
-                    <td>duration</td>
-                    <td>Number</td>
-                    <td>3000</td>
-                    <td>提示条出现到隐藏时候的停留时间。单位毫秒<code>ms</code>。</td>
-                </tr>
-            </table>
-
-            <h4>快捷方式</h4>
-
-            <p>日常开发推荐使用下面两个快捷方式。</p>
-            <pre>new LightTip().success(content, duration);
-new LightTip().error(content, duration);</pre>
-            <p>其中：</p>
-            <dl>
-                <dt>content</dt>
-                <dd>必须。String字符串。表示提示的信息内容，支持HTML字符串。快捷方式中LightTip方法中的<code>content</code>参数可以缺省。</dd>
-                <dt>duration</dt>
-                <dd>可选。Number数值。提示条出现到隐藏的停留时间。单位毫秒<code>ms</code>。</dd>
-            </dl>
-            <p>快捷推荐写法示意：</p>
-            <pre>new LightTip().success('操作成功');
-new LightTip().error('操作失败');</pre>
-            <p>还可以使用下面的写法：</p>
-            <pre>new LightTip('操作成功').success();
-new LightTip('操作失败').error();</pre>
-            <p>等同于下面的写法：</p>
-            <pre>new LightTip('操作成功', {
-    status: 'success'
-});
-new LightTip('操作失败', {
-    status: 'error'
-});</pre>
-
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu，ziven27</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>
@@ -269,6 +280,12 @@ document.querySelector('#lightTipNormal').addEventListener('click', function() {
 document.querySelector('#lightTipCustom').addEventListener('click', function() {
     new LightTip('这是会显示5秒的黄色LightTip', {
         status: 'warning',
+        duration: 5000
+    });
+});
+document.querySelector('#lightTipCustom2').addEventListener('click', function() {
+    new LightTip('这是会显示5秒的黄色LightTip', {
+        type: 'warning',
         duration: 5000
     });
 });

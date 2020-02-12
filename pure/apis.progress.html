@@ -26,7 +26,68 @@
 	</header>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+	<main class="section_main">
+    	<h2 class="section_title">进度条效果</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引入CSS即可：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Progress.css"&gt;</pre>
+
+            <h3>基本状态</h3>
+            <h4>1. 无属性设置</h4>
+            <p>
+                上传中：<progress class="ui-progress"></progress>
+            </p>
+            <pre>&lt;progress class="ui-progress"&gt;&lt;/progress&gt;</pre>
+            <p class="tips">Firefox浏览器下没有设置默认<code>value</code>值的时候，进度是100%填满，Chrome浏览器和IE浏览器都是当作0处理，本组件已经使用<code>:indeterminate</code>伪类进行的兼容处理。</p>
+            <p class="tips">如果想要兼容IE9浏览器，需要引入<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>。</p>
+            <h4>2. 设置value</h4>
+            <p>
+                上传中：<progress class="ui-progress" value="0.5"></progress>
+            </p>
+            <pre>&lt;progress class="ui-progress" <mark>value="0.5"</mark>&gt;&lt;/progress&gt;</pre>
+            <p><code>&lt;progress&gt;</code>元素默认范围是0-1。</p>
+            <h4>3. 设置max</h4>
+            <p>
+                上传中：<progress class="ui-progress" value="40" max="100"></progress>
+            </p>
+            <pre>&lt;progress class="ui-progress" value="40" <mark>max="100"</mark>&gt;&lt;/progress&gt;</pre>
+            <h4>4. 宽度100%</h4>
+            <p>
+                上传中：<progress class="ui-progress" value="0.4" width="100%"></progress>
+            </p>
+            <pre>&lt;progress class="ui-progress" value="0.4" <mark>width="100%"</mark>&gt;&lt;/progress&gt;</pre>
+
+            <p>只支持<code>100%</code>，其他<code>width</code>属性值没有效果。</p>
+
+            <h3>动态改变值</h3>
+
+            <h4>1. JS设置value值</h4>
+            <p>
+                <progress id="randomProgress" class="ui-progress"></progress>
+            </p>
+            <p><button id="randomButton" class="ui-button" data-type="primary">随机设置value值</button></p>
+            <pre>button.addEventListener('click', function () {
+    progress.value = Math.random();
+});</pre>
+            <h4>2. 真实Ajax请求进度</h4>
+            <p>
+                <progress id="loadProgress" class="ui-progress"></progress>
+            </p>
+            <p><button id="imageButton" class="ui-button" data-type="primary">加载图片</button></p>
+            <p class="tips">为了效果演示，请打开控制台，进入慢速模式。</p>
+
+            <p id="imageX"></p>
+
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,69 +175,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-	<main class="section_main">
-    	<h2 class="section_title">进度条效果</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>引入CSS即可：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Progress.css"&gt;</pre>
-            <p><a href="./single/progress.html" target="_blank">单独使用Demo演示</a></p>
-            <h3>基本状态</h3>
-
-            <h4>1. 无属性设置</h4>
-            <p>
-                上传中：<progress class="ui-progress"></progress>
-            </p>
-            <pre>&lt;progress class="ui-progress"&gt;&lt;/progress&gt;</pre>
-            <p class="tips">Firefox浏览器下没有设置默认<code>value</code>值的时候，进度是100%填满，Chrome浏览器和IE浏览器都是当作0处理，本组件已经使用<code>:indeterminate</code>伪类进行的兼容处理。</p>
-            <p class="tips">如果想要兼容IE9浏览器，需要引入<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>。</p>
-            <h4>2. 设置value</h4>
-            <p>
-                上传中：<progress class="ui-progress" value="0.5"></progress>
-            </p>
-            <pre>&lt;progress class="ui-progress" <mark>value="0.5"</mark>&gt;&lt;/progress&gt;</pre>
-            <p><code>&lt;progress&gt;</code>元素默认范围是0-1。</p>
-            <h4>3. 设置max</h4>
-            <p>
-                上传中：<progress class="ui-progress" value="40" max="100"></progress>
-            </p>
-            <pre>&lt;progress class="ui-progress" value="40" <mark>max="100"</mark>&gt;&lt;/progress&gt;</pre>
-            <h4>4. 宽度100%</h4>
-            <p>
-                上传中：<progress class="ui-progress" value="0.4" width="100%"></progress>
-            </p>
-            <pre>&lt;progress class="ui-progress" value="0.4" <mark>width="100%"</mark>&gt;&lt;/progress&gt;</pre>
-
-            <p>只支持<code>100%</code>，其他<code>width</code>属性值没有效果。</p>
-
-            <h3>动态改变值</h3>
-
-            <h4>1. JS设置value值</h4>
-            <p>
-                <progress id="randomProgress" class="ui-progress"></progress>
-            </p>
-            <p><button id="randomButton" class="ui-button" data-type="primary">随机设置value值</button></p>
-            <pre>button.addEventListener('click', function () {
-    progress.value = Math.random();
-});</pre>
-            <h4>2. 真实Ajax请求进度</h4>
-            <p>
-                <progress id="loadProgress" class="ui-progress"></progress>
-            </p>
-            <p><button id="imageButton" class="ui-button" data-type="primary">加载图片</button></p>
-            <p class="tips">为了效果演示，请打开控制台，进入慢速模式。</p>
-
-            <p id="imageX"></p>
-
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

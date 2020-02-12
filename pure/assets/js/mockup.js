@@ -36,6 +36,8 @@
         // 滚动到底部，一定是最后一个
         if (window.innerHeight + st >= scrollHeight - 1) {
             indexNav = eleH3s.length - 1;
+        } else if (st == 0) {
+            indexNav = 0;
         } else {
             var loop = true;
             arrTop.forEach(function (top, index) {

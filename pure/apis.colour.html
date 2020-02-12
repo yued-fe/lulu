@@ -26,16 +26,85 @@
 	</header>
 <style>
 .color_list_x{max-width:960px;font-size:0;}
- .color_list { width: 237px; display: inline-block; margin: 25px 0; position: relative; }
- .color_list:before{content:'';border:40px solid transparent;float: left;border-radius:50%;margin-right: 25px; box-shadow: 0 4px 16px; opacity: .5;}
-  .color_list:after {content:'';position:absolute;border:40px solid;border-radius:50%;left:0; top: 0;}
-  .light:before{box-shadow: 0 4px 16px rgba(0,0,0,.3);}
- .color_list h6{font-size: 20px; margin: 12px 0 0; color: #4c5161;}
- .color_list p{margin: 0; font-size: 16px; color: #4c5161;}
+.color_list { width: 237px; display: inline-block; margin: 25px 0; position: relative; }
+.color_list:before{content:'';border:40px solid transparent;float: left;border-radius:50%;margin-right: 25px; box-shadow: 0 4px 16px; opacity: .5;}
+.color_list:after {content:'';position:absolute;border:40px solid;border-radius:50%;left:0; top: 0;}
+.light:before{box-shadow: 0 4px 16px rgba(0,0,0,.3);}
+.color_list h6{font-size: 20px; margin: 12px 0 0; color: #4c5161;}
+.color_list p{margin: 0; font-size: 16px; color: #4c5161;}
 </style>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+	<main class="section_main">
+        <!-- 详细内容 -->
+        <article>
+            <h2 class="section_title">组件颜色</h2>
+            <h3>颜色（文字、按钮）</h3>
+            <div class="color_list_x">
+                <div class="color_list dark">
+                    <h6>深色</h6>
+                    <p>#4c5161</p>
+                </div>
+                <div class="color_list light">
+                    <h6>浅色</h6>
+                    <p>#f7f9fa</p>
+                </div>
+                <div class="color_list gray">
+                    <h6>灰色</h6>
+                    <p>#a2a9b6</p>
+                </div>
+                <div class="color_list blue">
+                    <h6>蓝色</h6>
+                    <p>#2a80eb</p>
+                </div>
+                <div class="color_list" style="color:#0057c3;">
+                    <h6>深蓝色</h6>
+                    <p>#0057c3</p>
+                </div>
+                <div class="color_list red">
+                    <h6>红色</h6>
+                    <p>#eb4646</p>
+                </div>
+                <div class="color_list orange">
+                    <h6>橘色</h6>
+                    <p>#f59b00</p>
+                </div>
+                <div class="color_list green">
+                    <h6>绿色</h6>
+                    <p>#1cad70</p>
+                </div>
+            </div>
+            <h3>控制文字的颜色</h3>
+            <p>如果有引入下面的CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/color.css"&gt;</pre>
+            <p>则可以直接使用下面高亮的类名显示颜色：</p>
+            <pre>&lt;span class="<mark>dark</mark>">主色(深色)&lt;/span>
+&lt;span class="<mark>light</mark>">浅色&lt;/span>
+&lt;span class="<mark>gray</mark>">灰色(主色灰)&lt;/span>
+&lt;span class="<mark>blue</mark>">蓝色&lt;/span>
+&lt;span class="<mark>red</mark>">红色&lt;/span>
+&lt;span class="<mark>orange</mark>">橘色&lt;/span>
+&lt;span class="<mark>green</mark>">绿色&lt;/span>
+&lt;span class="<mark>grey</mark>">灰色(边框灰)&lt;/span>
+&lt;span class="<mark>white</mark>">白色&lt;/span></pre>
+            <p>其中<code>blue</code>是默认的文字链接色，而深蓝色则是hover的颜色，其他情况，此深蓝色并不出现。</p>
+            <pre>&lt;a href&gt;文字链接&lt;/a&gt;</pre>
+            <p><a href>文字链接</a></p>
+            <p>有些链接文字默认是主色，则hover时候自动会变成blue蓝色。</p>
+            <pre>&lt;a href class="dark"&gt;文字链接默认主色&lt;/a&gt;</pre>
+            <p><a href class="dark">文字链接默认主色</a></p>
+            <p>其他颜色如<code>red</code>, <code>green</code>可以出现在表示状态的静态描述文字上。例如：</p>
+            <pre>&lt;span class="red"&gt;审核没有通过&lt;/span&gt;</pre>
+            <pre>&lt;span class="green"&gt;审核成功&lt;/span&gt;</pre>
+            <p><span class="red">审核没有通过</span><br><span class="green">审核成功</span></p>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -123,76 +192,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-	<main class="section_main">
-        <!-- 详细内容 -->
-        <article>
-            <h2 class="section_title">组件颜色</h2>
-            <h3>颜色（文字、按钮）</h3>
-            <div class="color_list_x">
-                <div class="color_list dark">
-                    <h6>深色</h6>
-                    <p>#4c5161</p>
-                </div>
-                <div class="color_list light">
-                    <h6>浅色</h6>
-                    <p>#f7f9fa</p>
-                </div>
-                <div class="color_list gray">
-                    <h6>灰色</h6>
-                    <p>#a2a9b6</p>
-                </div>
-                <div class="color_list blue">
-                    <h6>蓝色</h6>
-                    <p>#2a80eb</p>
-                </div>
-                <div class="color_list" style="color:#0057c3;">
-                    <h6>深蓝色</h6>
-                    <p>#0057c3</p>
-                </div>
-                <div class="color_list red">
-                    <h6>红色</h6>
-                    <p>#eb4646</p>
-                </div>
-                <div class="color_list orange">
-                    <h6>橘色</h6>
-                    <p>#f59b00</p>
-                </div>
-                <div class="color_list green">
-                    <h6>绿色</h6>
-                    <p>#1cad70</p>
-                </div>
-            </div>
-            <h3>控制文字的颜色</h3>
-            <p>如果有引入下面的CSS：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/color.css"&gt;</pre>
-            <p>则可以直接使用下面高亮的类名显示颜色：</p>
-            <pre>&lt;span class="<mark>dark</mark>">主色(深色)&lt;/span>
-&lt;span class="<mark>light</mark>">浅色&lt;/span>
-&lt;span class="<mark>gray</mark>">灰色(主色灰)&lt;/span>
-&lt;span class="<mark>blue</mark>">蓝色&lt;/span>
-&lt;span class="<mark>red</mark>">红色&lt;/span>
-&lt;span class="<mark>orange</mark>">橘色&lt;/span>
-&lt;span class="<mark>green</mark>">绿色&lt;/span>
-&lt;span class="<mark>grey</mark>">灰色(边框灰)&lt;/span>
-&lt;span class="<mark>white</mark>">白色&lt;/span></pre>
-            <p>其中<code>blue</code>是默认的文字链接色，而深蓝色则是hover的颜色，其他情况，此深蓝色并不出现。</p>
-            <pre>&lt;a href&gt;文字链接&lt;/a&gt;</pre>
-            <p><a href>文字链接</a></p>
-            <p>有些链接文字默认是主色，则hover时候自动会变成blue蓝色。</p>
-            <pre>&lt;a href class="dark"&gt;文字链接默认主色&lt;/a&gt;</pre>
-            <p><a href class="dark">文字链接默认主色</a></p>
-            <p>其他颜色如<code>red</code>, <code>green</code>可以出现在表示状态的静态描述文字上。例如：</p>
-            <pre>&lt;span class="red"&gt;审核没有通过&lt;/span&gt;</pre>
-            <pre>&lt;span class="green"&gt;审核成功&lt;/span&gt;</pre>
-            <p><span class="red">审核没有通过</span><br><span class="green">审核成功</span></p>
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>

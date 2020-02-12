@@ -26,7 +26,83 @@
 	</header>
 
 <div class="main">
-	<!-- 侧边栏 -->
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">单复选框</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>单选框引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Radio.css"&gt;</pre>
+            <p>复选框引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Checkbox.css"&gt;</pre>
+
+            <h3>模拟单选框</h3>
+            <h4>常规使用</h4>
+            <p>
+                <input type="radio" id="radio1" name="radio">
+                <label for="radio1" class="ui-radio"></label><label for="radio1" class="mr30 f14">单选项1</label>
+                <input type="radio" id="radio2" name="radio">
+                <label for="radio2" class="ui-radio"></label><label for="radio2" class="mr30 f14">单选项2</label>
+                <input type="radio" id="radio3" name="radio">
+                <label for="radio3" class="ui-radio"></label><label for="radio3" class="mr30 f14">单选项3</label>
+            </p>
+            <pre>&lt;input type="radio" id="radio1" name="radio"&gt;
+&lt;label for="radio1" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio1"&gt;单选项1&lt;/label&gt;
+<span class="green">&lt;!-- .ui-radio元素是看到的单选框效果，需要紧跟在原生的radio控件的后面 --&gt;</span></pre>
+            <h4>禁用效果</h4>
+            <p>单选框禁用和原生单选框禁用方法一样，直接设置原生单选框的<code>disabled</code>属性即可：</p>
+            <p>
+                <input type="radio" id="radio4" name="radioDisabled" disabled>
+                <label for="radio4" class="ui-radio"></label><label for="radio4" class="mr30 f14">单选项4</label>
+                <input type="radio" id="radio5" name="radioDisabled" disabled checked>
+                <label for="radio5" class="ui-radio"></label><label for="radio5" class="mr30 f14">单选项5</label>
+            </p>
+            <pre>&lt;input type="radio" id="radio4" name="radioDisabled" <mark>disabled</mark>&gt;
+&lt;label for="radio4" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio4"&gt;单选项4&lt;/label&gt;
+&lt;input type="radio" id="radio5" name="radioDisabled" <mark>disabled</mark> checked&gt;
+&lt;label for="radio5" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio5"&gt;单选项5&lt;/label&gt;</pre>
+            <h3>模拟复选框</h3>
+            <h4>常规使用</h4>
+            <p>
+                <input type="checkbox" id="checkbox1" name="checkbox">
+                <label for="checkbox1" class="ui-checkbox"></label><label for="checkbox1" class="mr30 f14">复选项1</label>
+                <input type="checkbox" id="checkbox2" name="checkbox" checked>
+                <label for="checkbox2" class="ui-checkbox"></label><label for="checkbox2" class="mr30 f14">复选项2</label>
+                <input type="checkbox" id="checkbox3" name="checkbox">
+                <label for="checkbox3" class="ui-checkbox"></label><label for="checkbox3" class="mr30 f14">复选项3</label>
+            </p>
+            <pre>&lt;input type="checkbox" id="checkbox1" name="checkbox">
+&lt;label for="checkbox1" class="ui-checkbox">&lt;/label>&lt;label for="checkbox1">复选项1&lt;/label>
+<span class="green">&lt;!-- .ui-checkbox元素就是肉眼所见的模拟复选框，需要紧跟在原生的checkbox控件的后面 --&gt;</span></pre>
+            <h4>禁用态</h4>
+            <p>禁用效果直接在原生的复选框元素上<code>disabled</code>属性就可以了：</p>
+            <p>
+                <label for="checkbox4" class="ui-checkbox"></label><label for="checkbox4" class="mr30 f14">复选项4</label>
+                <input type="checkbox" id="checkbox5" name="checkbox2" disabled checked>
+                <label for="checkbox5" class="ui-checkbox"></label><label for="checkbox5" class="mr30 f14">复选项5</label>
+            </p>
+            <pre>&lt;input type="checkbox" id="checkbox4" name="checkbox" <mark>disabled</mark>&gt;&lt;label for="checkbox4" class="ui-checkbox"&gt;&lt;/label&gt;&lt;label for="checkbox4"&gt;复选项4&lt;/label&gt;
+&lt;input type="checkbox" id="checkbox5" name="checkbox" <mark>disabled</mark> checked&gt;
+&lt;label for="checkbox5" class="ui-checkbox"&gt;&lt;/label&gt;&lt;label for="checkbox5"&gt;复选项5&lt;/label&gt;</pre>
+
+            <h3>还原为原生态</h3>
+            <p>如果希望某些场景还是使用原生的单复选框，可以使用类名<code>.ui-visible</code>，示意：</p>
+            <p>
+                <input type="checkbox" id="checkbox6" class="ui-visible"><label for="checkbox6" class="ui-checkbox"></label><label for="checkbox6" class="mr30 f14">复选项6</label>
+                <input type="radio" id="radio6" class="ui-visible"><label for="radio6" class="ui-radio"></label><label for="radio6">单选框6</label>
+            </p>
+            <pre>&lt;input type="checkbox" id="checkbox6" <mark>class="ui-visible"</mark>&gt;&lt;label for="checkbox5" class="mr30 f14"&gt;复选项6&lt;/label&gt;
+
+&lt;input type="radio" id="radio6" <mark>class="ui-visible"</mark>&gt;&lt;label for="radio6" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio6"&gt;单选框6&lt;/label&gt;</pre>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- 侧边栏 -->
     <!-- 侧边栏 -->
 <aside id="aside" class="aside">
     <div class="aside_main">
@@ -114,83 +190,6 @@
     document.body.removeChild(div);
 })();
 </script>
-
-    <!-- 主内容 -->
-    <main class="section_main">
-    	<h2 class="section_title">单复选框</h2>
-        <!-- 详细内容 -->
-        <article>
-            <h3>作为插件单独使用</h3>
-            <p>单选框引入：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Radio.css"&gt;</pre>
-            <p>复选框引入：</p>
-            <pre>&lt;link rel="stylesheet" href="//qidian.gtimg.com/lulu/pure/css/common/ui/Checkbox.css"&gt;</pre>
-            <p><a href="./single/checked.html" target="_blank">单独使用Demo演示</a></p>
-
-            <h3>模拟单选框</h3>
-            <h4>常规使用</h4>
-            <p>
-                <input type="radio" id="radio1" name="radio">
-                <label for="radio1" class="ui-radio"></label><label for="radio1" class="mr30 f14">单选项1</label>
-                <input type="radio" id="radio2" name="radio">
-                <label for="radio2" class="ui-radio"></label><label for="radio2" class="mr30 f14">单选项2</label>
-                <input type="radio" id="radio3" name="radio">
-                <label for="radio3" class="ui-radio"></label><label for="radio3" class="mr30 f14">单选项3</label>
-            </p>
-            <pre>&lt;input type="radio" id="radio1" name="radio">
-&lt;label for="radio1" class="ui-radio">&lt;/label>&lt;label for="radio1">单选项1&lt;/label>
-<span class="green">&lt;!-- .ui-radio元素是看到的单选框效果，需要紧跟在原生的radio控件的后面 --></span></pre>
-            <h4>禁用效果</h4>
-            <p>单选框禁用和原生单选框禁用方法一样，直接设置原生单选框的<code>disabled</code>属性即可：</p>
-            <p>
-                <input type="radio" id="radio4" name="radioDisabled" disabled>
-                <label for="radio4" class="ui-radio"></label><label for="radio4" class="mr30 f14">单选项4</label>
-                <input type="radio" id="radio5" name="radioDisabled" disabled checked>
-                <label for="radio5" class="ui-radio"></label><label for="radio5" class="mr30 f14">单选项5</label>
-            </p>
-            <pre>&lt;input type="radio" id="radio4" name="radioDisabled" <mark>disabled</mark>&gt;
-&lt;label for="radio4" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio4"&gt;单选项4&lt;/label&gt;
-&lt;input type="radio" id="radio5" name="radioDisabled" <mark>disabled</mark> checked&gt;
-&lt;label for="radio5" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio5"&gt;单选项5&lt;/label&gt;</pre>
-            <h3>模拟复选框</h3>
-            <h4>常规使用</h4>
-            <p>
-                <input type="checkbox" id="checkbox1" name="checkbox">
-                <label for="checkbox1" class="ui-checkbox"></label><label for="checkbox1" class="mr30 f14">复选项1</label>
-                <input type="checkbox" id="checkbox2" name="checkbox" checked>
-                <label for="checkbox2" class="ui-checkbox"></label><label for="checkbox2" class="mr30 f14">复选项2</label>
-                <input type="checkbox" id="checkbox3" name="checkbox">
-                <label for="checkbox3" class="ui-checkbox"></label><label for="checkbox3" class="mr30 f14">复选项3</label>
-            </p>
-            <pre>&lt;input type="checkbox" id="checkbox1" name="checkbox">
-&lt;label for="checkbox1" class="ui-checkbox">&lt;/label>&lt;label for="checkbox1">复选项1&lt;/label>
-<span class="green">&lt;!-- .ui-checkbox元素就是肉眼所见的模拟复选框，需要紧跟在原生的checkbox控件的后面 --&gt;</span></pre>
-            <h4>禁用态</h4>
-            <p>禁用效果直接在原生的复选框元素上<code>disabled</code>属性就可以了：</p>
-            <p>
-                <label for="checkbox4" class="ui-checkbox"></label><label for="checkbox4" class="mr30 f14">复选项4</label>
-                <input type="checkbox" id="checkbox5" name="checkbox2" disabled checked>
-                <label for="checkbox5" class="ui-checkbox"></label><label for="checkbox5" class="mr30 f14">复选项5</label>
-            </p>
-            <pre>&lt;input type="checkbox" id="checkbox4" name="checkbox" <mark>disabled</mark>&gt;&lt;label for="checkbox4" class="ui-checkbox"&gt;&lt;/label&gt;&lt;label for="checkbox4"&gt;复选项4&lt;/label&gt;
-&lt;input type="checkbox" id="checkbox5" name="checkbox" <mark>disabled</mark> checked&gt;
-&lt;label for="checkbox5" class="ui-checkbox"&gt;&lt;/label&gt;&lt;label for="checkbox5"&gt;复选项5&lt;/label&gt;</pre>
-
-            <h3>还原为原生态</h3>
-            <p>如果希望某些场景还是使用原生的单复选框，可以使用类名<code>.ui-visible</code>，示意：</p>
-            <p>
-                <input type="checkbox" id="checkbox6" class="ui-visible"><label for="checkbox6" class="ui-checkbox"></label><label for="checkbox6" class="mr30 f14">复选项6</label>
-                <input type="radio" id="radio6" class="ui-visible"><label for="radio6" class="ui-radio"></label><label for="radio6">单选框6</label>
-            </p>
-            <pre>&lt;input type="checkbox" id="checkbox6" <mark>class="ui-visible"</mark>&gt;&lt;label for="checkbox5" class="mr30 f14"&gt;复选项6&lt;/label&gt;
-
-&lt;input type="radio" id="radio6" <mark>class="ui-visible"</mark>&gt;&lt;label for="radio6" class="ui-radio"&gt;&lt;/label&gt;&lt;label for="radio6"&gt;单选框6&lt;/label&gt;</pre>
-
-            <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
-            </div>
-        </article>
-    </main>
 </div>
 
 <a href="#" id="backtop" class="backtop"></a>
