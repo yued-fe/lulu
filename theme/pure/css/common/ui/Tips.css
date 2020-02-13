@@ -95,7 +95,11 @@
     border: 6px solid transparent;
     border-top-color: #373c42;
 }
-
+@media (any-hover: none) {
+    html {
+        --hoverNone: 'true';
+    }
+}
 
 /* 左右箭头方向展示的tips效果 */
 .ui-tips-x[data-direction="top"] {

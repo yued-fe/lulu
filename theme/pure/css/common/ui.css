@@ -2455,6 +2455,14 @@ div.ui-range-input > input {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* 无法精确点击时候，滑杆按钮尺寸变大 */
+@media (any-pointer: coarse) {
+    .ui-range-thumb {
+        width: 20px; height: 20px;
+        margin: -9px 0 0 -11px;
+    }
+}
+
 .ui-range-thumb:hover {
     border-color: #ababaf;
 }
@@ -3190,7 +3198,11 @@ textarea:disabled {
     border: 6px solid transparent;
     border-top-color: #373c42;
 }
-
+@media (any-hover: none) {
+    html {
+        --hoverNone: 'true';
+    }
+}
 
 /* 左右箭头方向展示的tips效果 */
 .ui-tips-x[data-direction="top"] {

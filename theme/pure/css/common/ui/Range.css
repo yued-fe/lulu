@@ -58,6 +58,14 @@ div.ui-range-input > input {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* 无法精确点击时候，滑杆按钮尺寸变大 */
+@media (any-pointer: coarse) {
+    .ui-range-thumb {
+        width: 20px; height: 20px;
+        margin: -9px 0 0 -11px;
+    }
+}
+
 .ui-range-thumb:hover {
     border-color: #ababaf;
 }

@@ -3058,6 +3058,11 @@
         var numDelay = 100;
         // 设置定时器对象
         var timerTips;
+        // 如果是不支持hover行为的浏览器，hover变click
+        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone'); 
+        if (isHover && objParams.eventType == 'hover') {
+            objParams.eventType = 'click';
+        }
         // 事件走起
         if (objParams.eventType == 'hover') {
             // 鼠标进入
@@ -3243,7 +3248,7 @@
     // 全局委托
     document.addEventListener('mouseover', function (event) {
         var eleTrigger = event.target;
-        if (!eleTrigger) {
+        if (!eleTrigger || !eleTrigger.closest) {
             return;
         }
         eleTrigger = eleTrigger.closest('.' + CL + ', .jsTips');
@@ -4139,6 +4144,19 @@
         }
     };
 
+    var objEventType = {
+        start: 'mousedown',
+        move: 'mousemove',
+        end: 'mouseup'
+    };
+    if ('ontouchstart' in document) {
+        objEventType = {
+            start: 'touchstart',
+            move: 'touchmove',
+            end: 'touchend'
+        };
+    }
+
     /**
      * range滑块效果
      * @param {Object} element 原生的type为range的input元素
@@ -4309,14 +4327,18 @@
         };
 
         // 判断是否支持touch事件
-        var isTouch = 'ontouchstart' in window;
-        var touchStart = isTouch ? 'touchstart' : 'mousedown';
-        eleThumb.addEventListener(touchStart, function (event) {
+        eleThumb.addEventListener(objEventType.start, function (event) {
             if (eleRange.disabled) {
                 return;
             }
-            var clientX = isTouch ? event.touches[0].clientX : event.clientX;
-            objPosThumb.x = clientX;
+            // 阻止默认行为
+            // 否则iOS下可能会触发点击行为
+            event.preventDefault();
+
+            if (event.touches && event.touches.length) {
+                event = event.touches[0];
+            }
+            objPosThumb.x = event.clientX;
             objPosThumb.value = eleRange.value * 1;
             // 返回此时tips的提示内容
             funBindTips.call(this);
@@ -4324,7 +4346,7 @@
             eleThumb.classList.add(ACTIVE);
         }.bind(this));
 
-        if (!isTouch) {
+        if (objEventType.start == 'mousedown') {
             eleThumb.addEventListener('mouseenter', function () {
                 if (eleThumb.classList.contains(ACTIVE) == false) {
                     funBindTips.call(this);
@@ -4339,26 +4361,19 @@
             }.bind(this));
         }
 
-        // mouseup or touchend
-        var touchEnd = isTouch ? 'touchend' : 'mouseup';
-        document.addEventListener(touchEnd, function () {
-            objPosThumb.x = null;
-            objPosThumb.value = null;
-            if (this.tips) {
-                this.tips.hide();
-            }
-            eleThumb.classList.remove(ACTIVE);
-        }.bind(this));
+        // 移动时候
+        document.addEventListener(objEventType.move, function (event) {
+            if (typeof objPosThumb.x === 'number' && eleThumb.classList.contains(ACTIVE)) {
+                // 阻止默认行为
+                event.preventDefault();
 
-        // mousemove or touchmove
-        var touchMove = isTouch ? 'touchmove' : 'mousemove';
-        document.addEventListener(touchMove, function (event) {
-            if (typeof objPosThumb.x === 'number') {
+                if (event.touches && event.touches.length) {
+                    event = event.touches[0];
+                }
                 // 获取当前位置
-                var clientX = isTouch ? event.touches[0].clientX : event.clientX;
-                var distance = clientX - objPosThumb.x;
+                var numDistance = event.clientX - objPosThumb.x;
                 // 根据移动的距离，判断值
-                var value = objPosThumb.value + (numMax - numMin) * distance / parseInt(eleContainer.style.width || eleContainer.clientWidth);
+                var value = objPosThumb.value + (numMax - numMin) * numDistance / parseInt(eleContainer.style.width || eleContainer.clientWidth);
 
                 // 赋值
                 this.value(value);
@@ -4367,9 +4382,20 @@
                 if (this.tips) {
                     this.tips.content = this.params.tips.call(eleThumb, eleRange.value);
                     this.tips.show();
-                }
-                event.preventDefault();
+                }                
             }
+        }.bind(this));
+
+        // 触摸或点击抬起时候
+        document.addEventListener(objEventType.end, function () {
+            if (eleThumb.classList.contains(ACTIVE)) {
+                objPosThumb.x = null;
+                objPosThumb.value = null;
+                if (this.tips) {
+                    this.tips.hide();
+                }
+                eleThumb.classList.remove(ACTIVE);
+            }            
         }.bind(this));
 
         // 键盘支持，左右

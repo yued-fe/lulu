@@ -194,6 +194,11 @@
         var numDelay = 100;
         // 设置定时器对象
         var timerTips;
+        // 如果是不支持hover行为的浏览器，hover变click
+        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone'); 
+        if (isHover && objParams.eventType == 'hover') {
+            objParams.eventType = 'click';
+        }
         // 事件走起
         if (objParams.eventType == 'hover') {
             // 鼠标进入
@@ -379,7 +384,7 @@
     // 全局委托
     document.addEventListener('mouseover', function (event) {
         var eleTrigger = event.target;
-        if (!eleTrigger) {
+        if (!eleTrigger || !eleTrigger.closest) {
             return;
         }
         eleTrigger = eleTrigger.closest('.' + CL + ', .jsTips');
