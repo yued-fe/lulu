@@ -14,6 +14,7 @@
     background-color: currentColor;
     box-sizing: border-box;
     color: #b6bbc6;
+    font-size: 0;
     transition: all .2s;
     cursor: pointer;
     /* UE better */

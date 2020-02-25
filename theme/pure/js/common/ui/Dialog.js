@@ -74,6 +74,8 @@
         // 容器-含半透明遮罩背景
         var eleContainer = document.createElement(DIALOG);
         eleContainer.classList.add(CL.add('container'));
+        // 使该元素也可以被focus
+        eleContainer.setAttribute('tabindex', '-1');
 
         // 是否支持原生弹框
         isSupportDialog = ('open' in eleContainer);
@@ -101,9 +103,6 @@
         } else if (objParams.height != 'auto') {
             eleDialog.style.height = objParams.height;
         }
-
-        // 使该元素也可以被focus
-        eleDialog.setAttribute('tabindex', '-1');
 
         // 标题
         var eleTitle = document.createElement('h4');
