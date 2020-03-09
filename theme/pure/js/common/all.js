@@ -11571,12 +11571,8 @@
         var numPer = objParams.per * 1 || 1;
 
         // href的支持与处理
-        var strOrFunHref;
-        if (typeof objParams.href == 'string') {
-            strOrFunHref = objParams.href;
-        } else if (!strOrFunHref) {
-            strOrFunHref = 'javascript:';
-        }
+        var strOrFunHref = objParams.href || 'javascript:';
+
         var funHref = function (index) {
             if (typeof strOrFunHref == 'function') {
                 return strOrFunHref(index);
