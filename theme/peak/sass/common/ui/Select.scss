@@ -182,11 +182,16 @@ select[hidden] + .ui-select {
 .ui-select-datalist-li:empty {
 	display: none;
 }
-.ui-select-datalist-li:hover,
+/* reset default a:hover */
+.ui-select-datalist-li:hover {
+	color: $dark;
+}
+.ui-select-datalist-li[href]:hover,
 [multiple] ~ .ui-select .ui-select-datalist-li[href] {
 	color: $dark;
 	background-color: $backgroundListHover;
 }
+
 .ui-select-datalist > .selected {
 	background-color: $backgroundListSelected;
 }
@@ -196,8 +201,8 @@ select[disabled] {
 	cursor: default;
 }
 select[disabled] + .ui-select {
-	opacity: .38;
-	filter: alpha(opacity=38);
+	opacity: .4;
+	filter: alpha(opacity=40);
 	-webkit-animation: none;
 	animation: none;
 }

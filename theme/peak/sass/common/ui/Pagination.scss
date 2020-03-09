@@ -64,22 +64,27 @@ a.ui-page:hover {
 }
 .ui-page-prev {
   margin-left: 0;
+  background-position: 0 -90px;
 }
 .ui-page-next {
   margin-right: 0;
+  background-position: 0 0;
 }
-.ui-page-prev {
-  background-position: 0 -60px;
+a.ui-page-next:hover {
+  background-position: -1px -29px;
+}
+a.ui-page-prev:hover {
+  background-position: 0 -120px;
 }
 .ui-page-ellipsis {
   display: inline-block;
 }
 span.ui-page-prev {
-  background-position: 0 -90px;
+  background-position: 0 -150px;
   color: $grayDisabled;
 }
 span.ui-page-next {
-  background-position: 0 -30px;
+  background-position: 0 -60px;
   color: $grayDisabled;
 }
 .ui-page-current {

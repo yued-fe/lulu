@@ -56,23 +56,28 @@ a.ui-page:hover {
   transform: scaleX(-1); }
 
 .ui-page-prev {
-  margin-left: 0; }
+  margin-left: 0;
+  background-position: 0 -90px; }
 
 .ui-page-next {
-  margin-right: 0; }
+  margin-right: 0;
+  background-position: 0 0; }
 
-.ui-page-prev {
-  background-position: 0 -60px; }
+a.ui-page-next:hover {
+  background-position: -1px -29px; }
+
+a.ui-page-prev:hover {
+  background-position: 0 -120px; }
 
 .ui-page-ellipsis {
   display: inline-block; }
 
 span.ui-page-prev {
-  background-position: 0 -90px;
+  background-position: 0 -150px;
   color: #ccd0d7; }
 
 span.ui-page-next {
-  background-position: 0 -30px;
+  background-position: 0 -60px;
   color: #ccd0d7; }
 
 .ui-page-current {
