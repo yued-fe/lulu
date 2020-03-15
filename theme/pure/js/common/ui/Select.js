@@ -457,8 +457,11 @@
 
         // 列表内容的刷新
         eleDatalist.innerHTML = data.map(function (obj, index) {
-            var arrCl = [CL.add('datalist', 'li'), obj.className];
+            var arrCl = [CL.add('datalist', 'li')];
 
+            if (obj.className) {
+                arrCl.push(obj.className);
+            }
             if (obj[SELECTED]) {
                 arrCl.push(SELECTED);
             }
