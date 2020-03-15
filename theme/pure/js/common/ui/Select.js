@@ -263,9 +263,16 @@
                     // 识别此时的combobox
                     eleCombobox = document.querySelector(SELECT + '+.' + CL + '.' + ACTIVE);
 
-                    if (eleCombobox && eleCombobox.contains(target) == false) {
-                        eleCombobox.classList.remove(ACTIVE);
-                        eleCombobox.classList.remove(REVERSE);
+                    if (!eleCombobox) {
+                        return
+                    }
+                    
+                    eleButton = eleCombobox.querySelector('.' + CL.add('button'))
+
+                    if (eleCombobox.contains(target) == false) {
+                        eleCombobox.classList.remove(ACTIVE, REVERSE);
+                        // aria状态
+                        eleButton.setAttribute('aria-expanded', 'false');
                     }
                 });
 
