@@ -66,6 +66,8 @@ LuLu UI支持Retina视网膜屏幕，同时支持Aria无障碍访问，以及极
 
 因为IE7大势已去，目前modern主题已停止维护。
 
+组件均有测试，不过在内部项目中，没有对外。
+
 <hr>
 
 MIT License
