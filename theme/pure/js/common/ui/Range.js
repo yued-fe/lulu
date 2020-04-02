@@ -19,7 +19,7 @@
 }((typeof global !== 'undefined') ? global
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Tips = window.Tips;
+    var Tips = this.Tips;
     if (typeof require === 'function' && !Tips) {
         Tips = require('common/ui/Tips');
     } else if (!Tips) {

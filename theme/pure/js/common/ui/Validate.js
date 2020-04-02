@@ -7,7 +7,7 @@
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Tips = require('./ErrorTip');
+        global.ErrorTip = require('./ErrorTip');
         module.exports = factory();
     } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);

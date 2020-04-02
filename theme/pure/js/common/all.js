@@ -4116,7 +4116,7 @@
 }((typeof global !== 'undefined') ? global
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Tips = window.Tips;
+    var Tips = this.Tips;
     if (typeof require === 'function' && !Tips) {
         Tips = require('common/ui/Tips');
     } else if (!Tips) {
@@ -9620,7 +9620,7 @@
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Tips = require('./ErrorTip');
+        global.ErrorTip = require('./ErrorTip');
         module.exports = factory();
     } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
