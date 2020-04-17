@@ -209,10 +209,10 @@
         });
         // Edge14-Edge18
         if (eleInput.type == 'color' && window.msCredentials) {
-            eleInput.addEventListener('focus', function (event) {
+            eleInput.addEventListener('focus', function () {
                 this.blur();
             });
-        }        
+        }
 
         // 元素构建
         // track是替换输入框的色块元素的轨道
@@ -666,6 +666,7 @@
     Color.prototype.create = function () {
         // 元素
         var eleContainer = this.element.container;
+        var eleInput = this.element.input;
 
         // switch button
         var strHtmlConvert = '<button class="' + CL.add('switch') + '" role="button">更多</button>';
@@ -714,6 +715,8 @@
             })() +
 
             (function () {
+                var strIdGradient = 'lg-' + eleInput.id;
+                var strIdGradient2 = 'lg2-' + eleInput.id;
                 // more color picker
                 var html = '<div class="' + CL.add('more') + ' colorMoreX">';
                 // color left
@@ -721,7 +724,7 @@
                 <a href="javascript:" class="' + CL.add('cover', 'white') + '" aria-label="色域背景块" role="region"></a><div class="' + CL.add('circle') + ' colorCircle"></div>\
                 <svg>\
                     <defs>\
-                        <linearGradient x1="0" y1="0" x2="1" y2="0" id="colorGradient">\
+                        <linearGradient x1="0" y1="0" x2="1" y2="0" id="' + strIdGradient + '">\
                             <stop offset="0%" stop-color="#ff0000"></stop>\
                             <stop offset="16.66%" stop-color="#ffff00"></stop>\
                             <stop offset="33.33%" stop-color="#00ff00"></stop>\
@@ -731,20 +734,20 @@
                             <stop offset="100%" stop-color="#ff0000"></stop>\
                         </linearGradient>\
                     </defs>\
-                    <rect x="0" y="0" width="180" height="100" fill="url(#colorGradient)"></rect>\
+                    <rect x="0" y="0" width="180" height="100" fill="url(#' + strIdGradient + ')"></rect>\
                 </svg></div><div class="' + CL.add('more', 'r') + '">\
                     <div class="' + CL.add('more', 'fill') + ' colorFill">\
                         <a href="javascript:" class="' + CL.add('more', 'cover') + '" aria-label="明度控制背景条" role="region"></a>\
                         <svg>\
                         <defs>\
-                            <linearGradient x1="0" y1="0" x2="0" y2="1" id="colorGradient2">\
+                            <linearGradient x1="0" y1="0" x2="0" y2="1" id="' + strIdGradient2 + '">\
                                 <stop offset="0%" stop-color="#ffffff"></stop>\
                                 <stop offset="50%" stop-color="rgba(255,255,255,0)"></stop>\
                                 <stop offset="50%" stop-color="rgba(0,0,0,0)"></stop>\
                                 <stop offset="100%" stop-color="' + defaultValue + '"></stop>\
                             </linearGradient>\
                         </defs>\
-                        <rect x="0" y="0" width="16" height="100" fill="url(#colorGradient2)"></rect>\
+                        <rect x="0" y="0" width="16" height="100" fill="url(#' + strIdGradient2 + ')"></rect>\
                     </svg>\
                     </div>\
                     <a href="javascript:" class="' + CL.add('more', 'arrow') + ' colorArrow" role="slider" aria-label="明度控制按钮：100%"></a>\
@@ -789,7 +792,7 @@
         // 目前的颜色值
         var strOldValue = eleInput.value;
         // 取值还是赋值
-        if (typeof value == 'string') {
+        if (typeof strValue == 'string') {
             // 如果是纯字母，则认为是关键字
             if (/^[a-z]{3,}$/.test(strValue)) {
                 document.head.style.backgroundColor = strValue;
@@ -937,7 +940,7 @@
         }
 
         // 当前的颜色值
-        var strValue = value || eleField.value;
+        var strValue = value || objElement.input.value;
         if (strValue == '') {
             // 如果输入框没有值
             // 使用之前一个合法的颜色值作为现在值
@@ -980,11 +983,11 @@
 
             if (isRePosition == true) {
                 if (numColorL != 0) {
-                    eleCircle.style.left = eleCircle.parentElement.clientWidth * numColorH;
-                    eleCircle.style.top = eleCircle.parentElement.clientHeight * numColorS;
+                    eleCircle.style.left = eleCircle.parentElement.clientWidth * numColorH + 'px';
+                    eleCircle.style.top = eleCircle.parentElement.clientHeight * (1 - numColorS) + 'px';
                 }
 
-                eleArrow.style.top = eleArrow.parentElement.clientHeight * (1 - numColorL);
+                eleArrow.style.top = eleArrow.parentElement.clientHeight * (1 - numColorL) + 'px';
             }
         }
 

@@ -133,7 +133,6 @@
             if (!objParams.selector) {
                 return null;
             }
-
             var eleClosestSelector = element.closest(objParams.selector);
             if (eleTrigger.contains(eleClosestSelector) == false) {
                 return null;
@@ -141,7 +140,6 @@
 
             return eleClosestSelector;
         };
-
         // 根据不同事件类型进行逻辑处理
         switch (objParams.eventType) {
             // 默认值，直接显示
@@ -238,16 +236,15 @@
             // 点击或者右键
             case 'click': case 'contextmenu': {
                 eleTrigger.addEventListener(objParams.eventType, function (event) {
+
                     event.preventDefault();
                     // aria支持
                     // 获得委托的选择器匹配元素
                     var eleClosestSelector = funGetClosestChild(event.target);
-
                     if (eleClosestSelector) {
                         // 改变trigger元素
                         this.element.trigger = eleClosestSelector;
                     }
-
                     // 点击即显示
                     if (!objParams.selector || eleClosestSelector) {
                         // 重复右键点击一直显示，非显隐切换

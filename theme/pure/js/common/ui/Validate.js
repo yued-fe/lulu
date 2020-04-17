@@ -1276,7 +1276,7 @@
                 if (typeof content == 'string') {
                     arrValidateKey.forEach(function (key) {
                         this.customValidate.report[key] = content;
-                    });
+                    }.bind(this));
                 } else if (typeof content == 'object') {
                     Object.assign(this.customValidate.report, content);
                 }
