@@ -405,7 +405,6 @@
 
                 // color
                 var numColorH, strColorS;
-                // , numColorL;
 
                 if (eleCircle && eleFill && eleArrow) {
                     if (/white/.test(strCl) == true) {
@@ -789,6 +788,7 @@
         // 元素
         var eleInput = this.element.input;
         var eleThumb = this.element.thumb;
+        var eleField = this.element.field;
         // 目前的颜色值
         var strOldValue = eleInput.value;
         // 取值还是赋值
@@ -804,6 +804,9 @@
             strValue = funRgbToHex(strValue);
             // 赋值
             eleInput.value = strValue;
+            if (eleField) {
+                eleField.value = strValue.replace('#', '');
+            }
             // 按钮上的色块值
             eleThumb.style[BGCOLOR] = strValue;
 
@@ -903,7 +906,6 @@
             } else {
                 numColorL = 0;
             }
-
             return '#' + funHslToHex(numColorH, numColorS, numColorL);
         }
     });
@@ -940,7 +942,7 @@
         }
 
         // 当前的颜色值
-        var strValue = value || objElement.input.value;
+        var strValue = value || eleField.value;
         if (strValue == '') {
             // 如果输入框没有值
             // 使用之前一个合法的颜色值作为现在值
@@ -975,14 +977,15 @@
 
             // 滑块和尖角的颜色和位置
             var strHsl = 'hsl(' + [360 * numColorH, 100 * numColorS + '%', '50%'].join() + ')';
-            // 如果不是默认黑色
-            if (strValue != '000000') {
+
+            // 如果不是默认黑色也不是纯白色
+            if (strValue != '000000' && strValue != 'ffffff') {
                 eleCircle.style[BGCOLOR] = strHsl;
                 eleFill.style[BGCOLOR] = strHsl;
             }
 
             if (isRePosition == true) {
-                if (numColorL != 0) {
+                if (numColorL != 0 && numColorL != 1) {
                     eleCircle.style.left = eleCircle.parentElement.clientWidth * numColorH + 'px';
                     eleCircle.style.top = eleCircle.parentElement.clientHeight * (1 - numColorS) + 'px';
                 }
