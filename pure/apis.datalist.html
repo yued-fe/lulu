@@ -4,26 +4,27 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LuLu UI中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Datalist数据列表" />
-<meta name="keywords" content="LuLu UI, 中文文档, UI框架, LuLu, Web, 前端, Datalist数据列表" />
-<title>LuLu UI pure版中文文档 &raquo; </title>
+<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Datalist数据列表" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Datalist数据列表" />
+<title>LuLu UI pure主题中文文档 &raquo; Datalist数据列表</title>
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
-<link rel="stylesheet" href="./assets/css/mockup.css">
+<link rel="stylesheet" href="../pure/assets/css/mockup.css">
 </head>
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a"><h1 class="logo">LuLu UI pure版中文文档 &raquo; </h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Datalist数据列表</h1></a>
 		<div class="header-right">
-			<select id="selectTheme" class="select-theme">
+			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
 			    <option value="pure" selected>Pure主题</option>
-			    <!-- <option value="lead">Lead主题</option> -->
+			    <!-- <option value="edge">Edge主题</option> -->
 			</select>
 			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
 		</div>
 	</header>
+
 
 <style type="text/css">
 .datalist-container .ui-datalist {
@@ -61,6 +62,7 @@
     <!--[if IE 9]><select disabled style="display:none"><![endif]-->
     <option value="蔡世豪">
     <option value="郑世军">
+    <option value="郑世军">
     <option value="李莲英">
     <option value="高帆">
     <option value="郑工">
@@ -96,22 +98,38 @@
             <p>使用可选参数中的<code>data</code>传参，通过<code>&lt;input&gt;</code>输入框的<code>results</code>属性指定列表最多显示5项。</p>
             <pre>&lt;input id="inputPerson2" class="ui-input" <mark>results</mark>="5"&gt;</pre>
             <pre>new Datalist('#inputPerson2', {
+    <span class="green">// 如果数据是动态变化的，请使用function类型</span>
     data: [{
-        value: '蔡世豪'
+        value: '蔡世豪',
+        id: 1
     }, {
-        value: '李莲英'
+        value: '李莲英',
+        id: 2
     }, {
-        value: '高帆'
+        value: '高帆',
+        id: 3
     }, {
-        value: '郑工'
+        value: '郑工',
+        id: 4
     }, {
-        value: '陈芳'
+        value: '陈芳',
+        id: 5
     }, {
-        value: '李依琳'
+        value: '李依琳',
+        id: 6
     }, {
-        value: '彭玉乐'
+        value: '彭玉乐',
+        id: 7
     }]
 });</pre>
+
+<h5>事件传参</h5>
+<p>实际开发中，开发者更关心的是用户的ID，而不是姓名，此时，可以通过事件对象的<code>detail</code>属性获取，代码示意如下：</p>
+<pre><span class="green">// 演示数据参数如何传递到事件中</span>
+document.querySelector('#inputPerson2').addEventListener('change', function (event) {
+    console.log('用户变化，当前用户id是：' + event.detail.id);
+});</pre>
+<p>在控制台就可以看到对应的输出。</p>
             <h4>3. 姓名匹配-支持拼音</h4>
             <p>Datalist组件默认前值匹配，如果想要模糊匹配，需要使用可选参数中的<code>filter</code>接口修改过滤规则，可以通过插入HTML设置加粗或高亮。</p>
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson3" class="ui-input" list="datalistPerson3"></p>
@@ -475,7 +493,7 @@ new Datalist('#inputEmail', {
                 &nbsp;&nbsp;<span class="green">// 必须</span><br>
                 &nbsp;&nbsp;value: ''   <br>
                 }</code>
-                <p>可以指定其他自定义数据，在输入框的<code>'change'</code><wbr>或<code>'input'</code><wbr>事件中使用<code>myDatalist<wbr>.data[<wbr>myDatalist<wbr>.params<wbr>.index<wbr>]</code>获取选中的值。</p>
+                <p>可以指定其他自定义数据，在输入框的<code>'change'</code><wbr>或<code>'input'</code><wbr>事件中使用<code>event.detail</code>或者<code>myDatalist<wbr>.data[<wbr>myDatalist<wbr>.params<wbr>.index<wbr>]</code>获取选中的值。</p>
                 </td>
               </tr>
               <tr>
@@ -765,7 +783,7 @@ new Drop(listTrigger, listTarget, {
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
 <!-- 底部 -->
-<script src="./assets/js/mockup.js"></script>
+<script src="../pure/assets/js/mockup.js"></script>
 </body>
 </html>
 
@@ -783,21 +801,34 @@ new Datalist('#inputPerson');
 // 使用数据进行匹配
 new Datalist('#inputPerson2', {
     data: [{
-        value: '蔡世豪'
+        value: '蔡世豪',
+        id: 1
     }, {
-        value: '李莲英'
+        value: '李莲英',
+        id: 2
     }, {
-        value: '高帆'
+        value: '高帆',
+        id: 3
     }, {
-        value: '郑工'
+        value: '郑工',
+        id: 4
     }, {
-        value: '陈芳'
+        value: '陈芳',
+        id: 5
     }, {
-        value: '李依琳'
+        value: '李依琳',
+        id: 6
     }, {
-        value: '彭玉乐'
+        value: '彭玉乐',
+        id: 7
     }]
 });
+
+// 演示数据参数如何传递到事件中
+document.querySelector('#inputPerson2').addEventListener('change', function (event) {
+    console.log('用户变化，当前用户id是：' + event.detail.id);
+});
+
 
 // 支持拼音
 new Datalist('#inputPerson3', {
