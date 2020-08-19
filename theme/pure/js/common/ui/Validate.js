@@ -1607,10 +1607,10 @@
 
                             // 插入
                             this.value = paste;
-                        }
 
-                        // 触发input事件
-                        element.dispatchEvent(new CustomEvent('input'));
+                            // 触发input事件
+                            element.dispatchEvent(new CustomEvent('input'));
+                        }
                     });
                 }
             });
