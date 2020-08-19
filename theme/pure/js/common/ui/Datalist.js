@@ -531,6 +531,9 @@
         // 显示的列表数据
         var arrData = data;
 
+        // 这个键盘操作时候需要
+        var numParamsIndex = this.params.index;
+
         // 列表的刷新
         // 根据data和filter得到最终呈现的数据
         if (typeof arrData == 'undefined') {
@@ -554,9 +557,6 @@
         // 列表HTML组装
         var strHtmlList = '';
         if (arrData && arrData.length) {
-            // 先不匹配任何列表项
-            this.params.index = -1;
-
             // 占位符
             var strAttrPlaceholder = eleInput.getAttribute('placeholder');
             var strParamPlaceholder = this.params.placeholder;
@@ -569,9 +569,9 @@
 
                 var strClassList = '';
                 if ((strValue && strValueStrip == strValue) || (!strValue && strValueStrip == strAttrPlaceholder && strValueStrip != strParamPlaceholder)) {
-                    strClassList = ' ' + SELECTED;
-                    // 这个键盘操作时候需要
-                    this.params.index = numIndex;
+                    if (numParamsIndex == numIndex) {
+                        strClassList = ' ' + SELECTED;
+                    }
                 }
                 // 禁用态，禁用态和选中态不能同时存在
                 if (objData[DISABLED] || typeof objData[DISABLED] == 'string') {
@@ -597,7 +597,7 @@
                         '<span class="' + CL.add('value') + '">' + objData.value + '</span>' +
                     '</li>';
                 }
-            }.bind(this));
+            });
         }
 
         if (strHtmlList != '') {
@@ -715,19 +715,27 @@
         // 赋值
         eleInput.value = funDecodeHTML(strValue.trim());
 
+        // 使用的数据对象
+        var objData = this.data[this.params.index];
+
         // 事件
-        if (strValue != eleInput.oldValue) {
+        if (JSON.stringify(objData) != JSON.stringify(eleInput.oldValue) || this.params.index != eleInput.lastIndex) {
             // 赋值时候触发的回调事件们
             eleInput.dispatchEvent(new CustomEvent('change', {
-                'bubbles': true
+                'bubbles': true,
+                'detail': objData
             }));
             // 由于输入框可输入，因此input事件是一定要触发的
             eleInput.dispatchEvent(new CustomEvent('input', {
-                'bubbles': true
+                'bubbles': true,
+                'detail': objData
             }));
         }
 
-        eleInput.oldValue = strValue;
+        // 记住上一次的值和索引
+        eleInput.oldValue = objData;
+        // 记住索引的原因在于，可能两条数据是一样的
+        eleInput.lastIndex = this.params.index;
 
         return this;
     };
@@ -841,7 +849,8 @@
 
                                 // 触发Validate.js中的验证
                                 eleInput.dispatchEvent(new CustomEvent('input', {
-                                    'bubbles': true
+                                    'bubbles': true,
+                                    'detail': arrData[numIndex]
                                 }));
                             }, 17);
                         }
@@ -883,6 +892,8 @@
                         } else {
                             numIndex = arrIndexMatchAble[numIndexFilterMatch];
                         }
+
+                        this.params.index = numIndex;
                     }
 
                     // 上下键的时候，列表数据不动态获取和过滤
