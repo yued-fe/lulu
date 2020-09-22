@@ -232,11 +232,11 @@
             return;
         }
 
-        if (eleTbody.innerHTML.trim() == '') {
+        if (eleTbody.textContent.trim() == '') {
             this.isFirstAjax = true;
             this.ajax();
         } else {
-            // 认为是列表第一页支出，
+            // 认为是列表第一页直出，
             // 这样的交互可以有更好体验
             this.page();
         }
@@ -522,17 +522,18 @@
                 return;
             }
 
-
+            // 请求执行
             var xhr = new XMLHttpRequest();
-
+            // 使用GET方法拉取列表数据
             xhr.open('GET', strUrlAjax);
-
+            // 请求完毕后的处理
             xhr.onload = function () {
                 var json = {};
 
                 try {
                     json = JSON.parse(xhr.responseText) || {};
                 } catch (event) {
+                    funComplete.call(this);
                     funError('解析异常，请稍后重试');
                     return;
                 }
@@ -542,8 +543,8 @@
                 // 关键字支持code或者error
                 // { code: 0 } 或 { error: 0 } 都认为成功
                 if (json.code !== 0 && json.error !== 0) {
+                    funComplete.call(this);
                     funError(json.msg || '返回数据格式不符合要求');
-
                     return;
                 }
 
@@ -560,7 +561,7 @@
                     eleTbody.parentNode.replaceChild(eleTemp.firstChild.firstChild, eleTbody);
                 }
 
-
+                // 内容为空的处理
                 var eleEmpty = objElement.empty;
                 if (!strHtml || !strHtml.trim()) {
                     if (!eleEmpty) {
@@ -607,11 +608,13 @@
 
                 funComplete.call(this);
             }.bind(this);
-
+            // 请求网络异常处理
             xhr.onerror = function () {
                 funError('网络异常，数据没有获取成功，您可以稍后重试！');
+                // 因为IE9不支持oncomplate，
+                // 所以在onload和onerror方法中处理了
                 funComplete.call(this);
-            };
+            }.bind(this);
 
             xhr.send();
 
