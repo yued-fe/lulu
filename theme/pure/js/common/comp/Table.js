@@ -565,7 +565,7 @@
                 var eleEmpty = objElement.empty;
                 if (!strHtml || !strHtml.trim()) {
                     if (!eleEmpty) {
-                        eleEmpty = document.querySelector('div');
+                        eleEmpty = document.createElement('div');
                         eleEmpty.className = CL.empty;
                         // 插入到列表元素后面
                         eleTable.insertAdjacentElement('afterend', eleEmpty);
