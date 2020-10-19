@@ -1188,9 +1188,9 @@
 
                 // 1. 单复选框
                 if (strType == 'radio' && objStyle.opacity != '1') {
-                    eleTarget = element.parentElement.querySelector('label.ui-radio[for=' + strId + ']');
+                    eleTarget = element.parentElement.querySelector('label.ui-radio[for="' + strId + '"]');
                 } else if (strType == 'checkbox' && objStyle.opacity != '1') {
-                    eleTarget = element.parentElement.querySelector('label.ui-checkbox[for=' + strId + ']');
+                    eleTarget = element.parentElement.querySelector('label.ui-checkbox[for="' + strId + '"]');
                 // 下拉框
                 } else if (strType == 'select' || strTag == 'select') {
                     if (objStyle.opacity != '1') {
