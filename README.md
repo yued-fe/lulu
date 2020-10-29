@@ -15,7 +15,16 @@ LuLu UI是阅文集团荣誉出品的前端UI组件库。
 
 LuLu整个项目就是提供一些UI组件的JS和CSS，很纯粹的JS和CSS，没有任何矫揉造作的“变身”处理。
 
-因此，想要使用LuLu UI，直接引入CSS和JS文件地址就可以使用了。
+因此，想要使用LuLu UI，直接引入CSS和JS文件地址就可以使用了（如下代码所示）。
+
+```html
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+```
+```html
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/all.js"></script>
+```
+
+
 
 HTML还是原来的HTML，CSS还是原来的CSS。
 
