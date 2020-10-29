@@ -237,8 +237,7 @@
                             }
                         }
                         // 下拉收起
-                        eleCombobox.classList.
-                        ACTIVE);
+                        eleCombobox.classList.remove(ACTIVE);
                         eleButton.setAttribute('aria-expanded', 'false');
                         // focus
                         eleButton.focus();
