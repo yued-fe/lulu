@@ -264,16 +264,18 @@
                     eleCombobox = document.querySelector(SELECT + '+.' + CL + '.' + ACTIVE);
 
                     if (!eleCombobox) {
-                        return
+                        return;
                     }
-                    
-                    eleButton = eleCombobox.querySelector('.' + CL.add('button'))
+
+                    eleButton = eleCombobox.querySelector('.' + CL.add('button'));
 
                     if (eleCombobox.contains(target) == false) {
                         eleCombobox.classList.remove(ACTIVE);
                         eleCombobox.classList.remove(REVERSE);
                         // aria状态
-                        eleButton.setAttribute('aria-expanded', 'false');
+                        if (eleButton) {
+                            eleButton.setAttribute('aria-expanded', 'false');
+                        }
                     }
                 });
 

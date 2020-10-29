@@ -1418,9 +1418,19 @@
                     // 识别此时的combobox
                     eleCombobox = document.querySelector(SELECT + '+.' + CL + '.' + ACTIVE);
 
-                    if (eleCombobox && eleCombobox.contains(target) == false) {
+                    if (!eleCombobox) {
+                        return;
+                    }
+
+                    eleButton = eleCombobox.querySelector('.' + CL.add('button'));
+
+                    if (eleCombobox.contains(target) == false) {
                         eleCombobox.classList.remove(ACTIVE);
                         eleCombobox.classList.remove(REVERSE);
+                        // aria状态
+                        if (eleButton) {
+                            eleButton.setAttribute('aria-expanded', 'false');
+                        }
                     }
                 });
 
@@ -1612,8 +1622,11 @@
 
         // 列表内容的刷新
         eleDatalist.innerHTML = data.map(function (obj, index) {
-            var arrCl = [CL.add('datalist', 'li'), obj.className];
+            var arrCl = [CL.add('datalist', 'li')];
 
+            if (obj.className) {
+                arrCl.push(obj.className);
+            }
             if (obj[SELECTED]) {
                 arrCl.push(SELECTED);
             }
