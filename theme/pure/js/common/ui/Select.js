@@ -237,7 +237,8 @@
                             }
                         }
                         // 下拉收起
-                        eleCombobox.classList.remove(ACTIVE);
+                        eleCombobox.classList.
+                        ACTIVE);
                         eleButton.setAttribute('aria-expanded', 'false');
                         // focus
                         eleButton.focus();
@@ -270,7 +271,8 @@
                     eleButton = eleCombobox.querySelector('.' + CL.add('button'))
 
                     if (eleCombobox.contains(target) == false) {
-                        eleCombobox.classList.remove(ACTIVE, REVERSE);
+                        eleCombobox.classList.remove(ACTIVE);
+                        eleCombobox.classList.remove(REVERSE);
                         // aria状态
                         eleButton.setAttribute('aria-expanded', 'false');
                     }
