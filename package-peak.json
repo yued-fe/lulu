@@ -1,0 +1,20 @@
+{
+  "name": "lulu-peak-gulp",
+  "version": "3.9.1",
+  "description": "LuLu UI peak theme task of gulp",
+  "main": "",
+  "directories": {},
+  "author": "zhangxinxu",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.7"
+  },
+  "dependencies": {
+    "node-sass": "^4.11.0"
+  }
+}
