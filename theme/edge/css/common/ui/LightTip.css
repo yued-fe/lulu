@@ -1,0 +1,81 @@
+/**
+ *
+ * @LightTip.css
+ * @author xinxuzhang
+ * @create 15-06-25
+ * @edit   17-06-19
+ * @edit   19-09-13 @ziven27 [去jQuery]
+ * @edit   20-05-19 @popeyesailorman [add custom element support]
+**/
+/*
+ * 结构如下：
+ * <ui-lighttip></ui-lighttip>
+ *
+*/
+/* lighttip基础变量 */
+:root {
+    --ui-lighttip-width: 25em; 
+}
+ui-lighttip {
+    display: flex;
+    justify-content: center;
+    width: var(--ui-lighttip-width, 25em);
+    font-size: var(--ui-font, 14px);
+    text-align: left;
+    line-height: 20px;
+    color: var(--ui-white, #ffffff);
+    background-color: var(--ui-dark, #4c5161);
+    border-radius: calc(var(--ui-radius, 4px) - 2px);
+    padding: 15px 10px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+    z-index: 19;
+    outline: none;
+    cursor: default;
+    animation: fadeIn .25s both;
+}
+ui-lighttip:not([open]) {
+    display: none;
+}
+
+ui-lighttip[type="success"] {
+    background-color: var(--ui-green, #1cad70);
+}
+ui-lighttip[type="error"] {
+    background-color: var(--ui-red, #eb4646);
+}
+ui-lighttip[type="warning"] {
+    background-color: var(--ui-orange, #f59b00);
+}
+ui-lighttip[type="success"]::before,
+ui-lighttip[type="error"]::before,
+ui-lighttip[type="warning"]::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M163.038 57.226c-5.217-4.162-5.713-4.289-11.674-7.244-2.683-1.344-6.633 2.113-8.569 4.67l-52.648 67.042-34.301-43.387c-1.94-2.558-5.516-3.499-8.2-2.293-6.11 3.095-5.496 2.992-10.715 7.029-2.386 1.883-2.535 5.245-.597 7.793 0 0 36.97 46.917 41.44 52.565 6.557 8.068 18.483 7.669 24.744 0 4.62-5.781 61.117-78.506 61.117-78.506 1.937-2.559 1.788-5.918-.597-7.669z'/%3E%3C/svg%3E") no-repeat;
+    background-size: contain;
+    transform: translate(-5px, 0);
+}
+ui-lighttip[type="error"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M116.153 99.999l36.484-36.486a7.369 7.369 0 0 0 0-10.423l-5.212-5.213a7.375 7.375 0 0 0-10.425 0l-36.484 36.485-36.485-36.485a7.374 7.374 0 0 0-10.424 0l-5.211 5.213a7.365 7.365 0 0 0 0 10.423L84.88 99.999l-36.483 36.485a7.369 7.369 0 0 0 0 10.426l5.211 5.213a7.38 7.38 0 0 0 10.424 0l36.485-36.486L137 152.122a7.38 7.38 0 0 0 10.425 0l5.212-5.213a7.372 7.372 0 0 0 0-10.426l-36.484-36.484z'/%3E%3C/svg%3E");
+}
+ui-lighttip[type="warning"]::before {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiPjxwYXRoIGQ9Ik00MTMgMTc4YzUuNSAwIDEwLjEgNC42IDEwLjEgMTAuMVY0MTNjMCA1LjUtNC42IDEwLjEtMTAuMSAxMC4xSDE4OC4xYy01LjUgMC0xMC4xLTQuNi0xMC4xLTEwLjFWMTg4LjFjMC01LjUgNC42LTEwLjEgMTAuMS0xMC4xSDQxM20wLTUwSDE4OC4xYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjFWNDEzYzAgMzMuMSAyNyA2MC4xIDYwLjEgNjAuMUg0MTNjMzMuMSAwIDYwLjEtMjcgNjAuMS02MC4xVjE4OC4xYzAtMzMuMS0yNy02MC4xLTYwLjEtNjAuMXptNDIzLjEgMzQ1LjFINjExLjJjLTMzLjEgMC02MC4xLTI3LTYwLjEtNjAuMVYxODguMWMwLTMzLjEgMjctNjAuMSA2MC4xLTYwLjFoMjI0LjljMzMuMSAwIDYwLjEgMjcgNjAuMSA2MC4xVjQxM2MwIDMzLTI3LjEgNjAuMS02MC4xIDYwLjF6TTQxMyA2MDEuM2M1LjUgMCAxMC4xIDQuNiAxMC4xIDEwLjF2MjI0LjljMCA1LjUtNC42IDEwLjEtMTAuMSAxMC4xSDE4OC4xYy01LjUgMC0xMC4xLTQuNi0xMC4xLTEwLjFWNjExLjRjMC01LjUgNC42LTEwLjEgMTAuMS0xMC4xSDQxM20wLTUwSDE4OC4xYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjF2MjI0LjljMCAzMy4xIDI3IDYwLjEgNjAuMSA2MC4xSDQxM2MzMy4xIDAgNjAuMS0yNyA2MC4xLTYwLjFWNjExLjRjMC0zMy0yNy02MC4xLTYwLjEtNjAuMXptNDIzLjEgNTBjNS41IDAgMTAuMSA0LjYgMTAuMSAxMC4xdjIyNC45YzAgNS41LTQuNiAxMC4xLTEwLjEgMTAuMUg2MTEuMmMtNS41IDAtMTAuMS00LjYtMTAuMS0xMC4xVjYxMS40YzAtNS41IDQuNi0xMC4xIDEwLjEtMTAuMWgyMjQuOW0wLTUwSDYxMS4yYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjF2MjI0LjljMCAzMy4xIDI3IDYwLjEgNjAuMSA2MC4xaDIyNC45YzMzLjEgMCA2MC4xLTI3IDYwLjEtNjAuMVY2MTEuNGMwLTMzLTI3LjEtNjAuMS02MC4xLTYwLjF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+");
+}
+
+/* 移动端居中呈现  */
+@media (max-width: 640px) {
+    ui-lighttip {
+        width: auto;
+        padding-left: 1rem; padding-right: 1rem;
+        top: 50%; left: 50%;
+        right: auto;
+        max-width: calc(100% - 2rem - 2em);
+        transform: translate(-50%, -50%);
+    }
+}

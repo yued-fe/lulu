@@ -1,0 +1,208 @@
+@charset "UTF-8";
+/**
+ *
+ * @Button.css
+ * @author zhangxinxu
+ * @create  15-06-12
+ * @edited  17-06-13
+            17-11-07 use png+spin for loading
+            19-07-09 IE9+, no external links
+            20-04-03 version edge
+ * @editor  lennonover
+ */
+
+/* button基础变量 */
+:root {
+    --ui-button-height: var(--ui-component-height, 40px);
+    --ui-button-line-height: var(--ui-line-height, 20px);
+    --ui-button-black: 0,0,0;
+    --ui-button-loading-img: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
+
+}
+
+.ui-button {
+    display: inline-block;
+    line-height: var(--ui-button-line-height);
+    font-size: var(--ui-font, 14px);
+    text-align: center;
+    color: var(--ui-dark, #4c5161);
+    border-radius: var(--ui-radius, 4px);
+    border: 1px solid var(--ui-border, #d0d0d5);
+    padding: calc((var(--ui-button-height) - var(--ui-button-line-height) - 2px) / 2) 15px;
+    min-width: 80px;
+    background-color: var(--ui-white, #ffffff);
+    background-repeat: no-repeat;
+    background-position: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: border-color var(--ui-animate-time, .2s), box-shadow var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s);
+    font-family: inherit;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.ui-button[width="100%"] {
+    width: 100%;
+}
+
+div.ui-button {
+    display: block;
+}
+
+[type="submit"]:not([class]) {
+    position: absolute;
+    clip: rect(0 0 0 0);
+}
+
+/* Chrome/Firefox的outline会由Keyboard.js帮忙呈现 */
+@supports (-webkit-mask: none) {
+    button,
+    [type="button"],
+    [type="submit"],
+    [tabindex] {
+        outline: 0 none;
+    }
+}
+::-moz-focus-inner {
+    border: 0;
+}
+
+.ui-button:hover {
+    color: var(--ui-dark, #4c5161);
+    text-decoration: none;
+}
+.ui-button:not(.disabled):not(.loading):not(:disabled):hover {
+    border-color: var(--ui-dark-border, #ababaf);
+    box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.01),
+        inset 0 0 0 100px rgba(var(--ui-button-black), 0.05);
+}
+.ui-button:not(.disabled):not(.loading):not(:disabled):active {
+    box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.1),
+        inset 0 0 0 100px rgba(var(--ui-button-black), 0.1);
+}
+.ui-button[data-type="primary"],
+.ui-button[data-type="remind"],
+.ui-button[data-type="success"],
+.ui-button[data-type="warning"],
+.ui-button[data-type="warn"],
+.ui-button[data-type="danger"],
+.ui-button[data-type="error"] {
+    border: 0;
+    padding-top: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
+    padding-bottom: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
+    color: var(--ui-white, #ffffff);
+}
+
+/* primary button */
+.ui-button[data-type="primary"],
+.ui-button[data-type="remind"] {
+    background-color: var(--ui-blue, #2a80eb);
+}
+
+/* success button */
+.ui-button[data-type="success"] {
+    background-color: var(--ui-green, #1cad70);
+}
+
+/* warning button */
+.ui-button[data-type="warning"],
+.ui-button[data-type="warn"] {
+    background-color: var(--ui-orange, #f59b00);
+}
+/* danger button */
+.ui-button[data-type="danger"],
+.ui-button[data-type="error"] {
+    background-color: var(--ui-red, #eb4646);
+}
+
+/* disabled status */
+.ui-button.disabled,
+.ui-button:disabled {
+    opacity: var(--ui-opacity, .4);
+    cursor: default;
+}
+/* loading status */
+.ui-button.loading {
+    color: transparent !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    cursor: default;
+}
+/* input按钮，三个点 */
+input.ui-button.loading {
+    --ui-loading-color: var(--ui-blue, #2a80eb);
+    --ui-loading-radial: radial-gradient(3px circle, var(--ui-loading-color), var(--ui-loading-color) 2px, transparent 3px);
+    background-image: var(--ui-loading-radial), var(--ui-loading-radial), var(--ui-loading-radial);
+    background-position-x: calc(50% - 10px), 50%, calc(50% + 10px);
+    background-position-y: 50%;
+    background-size: 5px 5px;
+    animation: bubbling 1s infinite;
+}
+input.ui-button[data-type]:not([data-type="normal"]).loading {
+    --ui-loading-color: var(--ui-white, #fff);
+}
+
+/* button 按钮 */
+.ui-button.loading::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+}
+/* IE10+，:invalid伪类IE10+才支持 */
+.ui-button.loading::before,
+div:invalid {
+    width: 20px;
+    height: 20px;
+    background-color: var(--ui-blue,#2a80eb);
+    -webkit-mask: var(--ui-button-loading-img);
+    mask: var(--ui-button-loading-img);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    margin: auto;
+    animation: spin 1s linear infinite;
+}
+/* IE10+ */
+.ui-button[data-type]:not([data-type="normal"]).loading::before,
+div:invalid {
+    background-color: var(--ui-white,#ffffff);
+}
+
+@keyframes bubbling {
+    0% {
+        background-position-y: 50%, 50%, 50%;
+    }
+    15% {
+        background-position-y: calc(50% - 3px), 50%, 50%;
+    }
+    30% {
+        background-position-y: calc(50% - 1px), calc(50% - 3px), 50%;
+    }
+    45% {
+        background-position-y: 50%, calc(50% - 1px), calc(50% - 3px);
+    }
+    60% {
+        background-position-y: 50%, 50%, calc(50% - 1px);
+    }
+    75% {
+        background-position-y: 50%, 50%,  50%;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* error */
+.ui-button[is-error] {
+    border-color: var(--ui-red, #eb4646) !important;
+}

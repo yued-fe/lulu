@@ -1,0 +1,77 @@
+/**
+ *
+ * @Table.css
+ * @author xinxuzhang
+ * @create 15-06-24
+ *
+**/
+/* table基础变量 */
+:root {
+    --ui-table-cell-height: 50px;
+    --ui-table-line-height: var(--ui-line-height, 20px);
+}
+
+.ui-table,
+[is="ui-table"] {
+    width: -webkit-fill-available;
+    width: fill-available;
+    line-height: var(--ui-table-line-height);
+    table-layout: fixed;
+    border-spacing: 0;
+    font-size: var(--ui-font, 14px);
+    border: 1px solid var(--ui-border, #d0d0d5);
+}
+
+.ui-table thead td,
+.ui-table th,
+[is="ui-table"] thead td,
+[is="ui-table"] th {
+    background-color: var(--ui-light, #f7f9fa);
+    border-bottom: 1px solid var(--ui-light-border, #ededef);
+    font-weight: normal;
+    font-style: normal;
+    margin: 0;
+}
+.ui-table thead td:not([class]):not([align]),
+.ui-table th:not([class]):not([align]),
+[is="ui-table"] thead td:not([class]):not([align]),
+[is="ui-table"] th:not([class]):not([align]) {
+    text-align: left;
+}
+
+.ui-table tbody td,
+[is="ui-table"] tbody td {
+    background-color: var(--ui-white, #ffffff);
+    border-bottom: 1px solid var(--ui-light-border, #ededef);
+}
+
+.ui-table td,
+.ui-table th,
+[is="ui-table"] td,
+[is="ui-table"] th {
+    padding-top: calc((var(--ui-table-cell-height) - var(--ui-table-line-height)) / 2);
+    padding-bottom: calc((var(--ui-table-cell-height) - var(--ui-table-line-height)) / 2 - 1px);
+    padding-right: 20px;
+}
+.ui-table td:first-child,
+.ui-table th:first-child,
+[is="ui-table"] td:first-child,
+[is="ui-table"] th:first-child {
+    padding-left: 20px;
+}
+
+.ui-table tr,
+[is="ui-table"] tr {
+    cursor: default;
+}
+
+.ui-table tr:last-child td,
+[is="ui-table"] tr:last-child td {
+    padding-bottom: calc((var(--ui-table-cell-height) - var(--ui-table-line-height)) / 2);
+    border-bottom: 0;
+}
+
+.ui-table ~ .ui-loading,
+[is="ui-table"] ~ .ui-loading {
+    height: 300px;
+}

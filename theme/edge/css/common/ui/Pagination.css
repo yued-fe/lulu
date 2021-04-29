@@ -1,0 +1,11 @@
+/**
+ *
+ * @Pagination.css
+ * @author xboxyan
+ * @create 20-06-03
+**/
+
+.my-pagination{
+    justify-content: center;
+    --ui-blue: #673AB7
+}

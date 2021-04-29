@@ -1,0 +1,16 @@
+/**
+ * @Placeholder.css
+ * @editor gandaochuan
+ * @edit 20-04-10
+ */
+
+::placeholder {
+    transition: opacity var(--ui-animate-time, .2s);
+    color: var(--ui-gray, #a2a9b6);
+    font-size: var(--ui-font, 14px);
+    opacity: 1; /* fix firfox  */
+}
+
+:focus::placeholder {
+    opacity: var(--ui-opacity, .4);
+}

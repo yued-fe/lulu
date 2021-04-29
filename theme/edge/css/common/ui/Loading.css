@@ -1,0 +1,169 @@
+@charset "UTF-8";
+/**
+ *
+ * @Loading.css
+ * @author zhangxinxu
+ * @create 15-06-23
+ * @edit   19-09-24  add custom element support
+ * @edit by littleLionGuoQing:  20-04-30 支持使用color变色
+ *
+**/
+/*
+ * 结构如下：
+ * <ui-loading></ui-loading>
+ *
+*/
+/* loading基础变量 */
+:root {
+    --ui-loading-img: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
+}
+
+ui-loading,
+.ui-loading {
+    text-align: center;
+    cursor: default;
+    /* icon offset need */
+    box-sizing: border-box;
+}
+ui-loading {
+    display: inline-block;
+    font-size: var(--ui-font, 14px);
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+ui-loading[rows] {
+    display: block;
+}
+ui-loading:not([rows]):not([spin])::before {
+    display: block;
+}
+ui-loading:not([rows]):not([spin])::after {
+    display: none;
+}
+
+/* 更高高度使用style属性内容或者JS控制 */
+ui-loading[rows="2"] {
+    height: 40px;
+}
+ui-loading[rows="3"] {
+    height: 60px;
+}
+ui-loading[rows="4"] {
+    height: 80px;
+}
+ui-loading[rows="5"] {
+    height: 100px;
+}
+ui-loading[rows="6"] {
+    height: 120px;
+}
+ui-loading[rows="7"] {
+    height: 140px;
+}
+ui-loading[rows="8"] {
+    height: 160px;
+}
+ui-loading[rows="9"] {
+    height: 180px;
+}
+ui-loading[rows="10"] {
+    height: 200px;
+}
+ui-loading[rows="11"] {
+    height: 220px;
+}
+ui-loading[rows="12"] {
+    height: 240px;
+}
+ui-loading[rows="13"] {
+    height: 260px;
+}
+ui-loading[rows="14"] {
+    height: 280px;
+}
+ui-loading[rows="15"] {
+    height: 300px;
+}
+ui-loading[width="100%"] {
+    width: 100%;
+}
+ui-loading[height="100%"] {
+    height: 100%;
+}
+
+ui-loading::after,
+.ui-loading::after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+ui-loading::before,
+.ui-loading::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 .5em;
+    background-color: var(--color,#2a80eb);
+    -webkit-mask: var(--ui-loading-img);
+    mask: var(--ui-loading-img);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    animation: spin 1s linear infinite;
+    vertical-align: -4px;
+}
+ui-loading[spin]::before,
+.ui-loading[spin]::before {
+    display: none;
+}
+
+ui-loading[size="1"]::before,
+.ui-loading[size="1"]::before {
+    width: 10px; height: 10px;
+    vertical-align: 0;
+}
+ui-loading[size="3"]::before,
+.ui-loading[size="3"]::before {
+    width: 30px; height: 30px;
+    vertical-align: -8px;
+}
+ui-loading[size="4"]::before,
+.ui-loading[size="4"]::before {
+    width: 40px; height: 40px;
+    vertical-align: -12px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 文本点点点 */
+ui-dot {
+    display: inline-block;
+    height: 1em; line-height: 1;
+    text-align: left;
+    vertical-align: -.25em;
+    overflow: hidden;
+}
+ui-dot::before {
+    display: block;
+    content: '...\A..\A.';
+    white-space: pre-wrap;
+    animation: dot 3s infinite step-start both;
+}
+@keyframes dot {
+    33% {
+        transform: translateY(-2em);
+    }
+    66% {
+        transform: translateY(-1em);
+    }
+}

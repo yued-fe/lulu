@@ -1,0 +1,45 @@
+@charset "UTF-8";
+/**
+ *
+ * @variables.css
+ * @author zhangxinxu
+ * @edited yangfan
+ * @create 20-03-17
+**/
+
+:root {
+    /* 基础颜色变量 */
+    --ui-blue: #2a80eb;
+    --ui-dark-blue: #0057c3;
+    --ui-dark: #4c5161;
+    --ui-gray: #a2a9b6;
+    --ui-dark-gray: #b6bbc6;
+    --ui-light: #f7f9fa;
+    --ui-white: #ffffff;
+    --ui-green: #1cad70;
+    --ui-orange: #f59b00;
+    --ui-red: #eb4646;
+    /* hover的颜色 */
+    --ui-list-hover: #f0f7ff;
+    /* selected的颜色 */
+    --ui-list-selected: #e0f0ff;
+    /* disabled禁用色 */
+    --ui-disabled: #ccd0d7;
+    /* 边框颜色 */
+    --ui-border: #d0d0d5;
+    /* 深一点的边框颜色 */
+    --ui-dark-border: #ababaf;
+    /* 浅一点的边框颜色 */
+    --ui-light-border: #ededef;
+    /* 透明度 */
+    --ui-opacity: .4;
+    /* 圆角变量 */
+    --ui-radius: 4px;
+    /* 基础字号 */
+    --ui-font: 14px;
+    /* 动画时间 */
+    --ui-animate-time: .2s;
+    /* 基本尺寸单元 */
+    --ui-line-height: 20px;
+    --ui-component-height: 40px;
+}

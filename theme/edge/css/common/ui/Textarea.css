@@ -1,0 +1,182 @@
+@charset "UTF-8";
+/**
+ *
+ * @Textarea.css
+ * @author xinxuzhang
+ * @create 15-06-17
+ * @edit   20-04-03 version edge
+ * @editor lennonover
+**/
+
+:root {
+    --ui-textarea-line-height: var(--ui-line-height, 20px);
+}
+
+textarea {
+    font-family: inherit;
+}
+
+textarea.ui-textarea,
+.ui-textarea > textarea {
+    line-height: var(--ui-textarea-line-height);
+    padding: 9px 8px;
+    border: 1px solid var(--ui-border, #d0d0d5);
+    border-radius: var(--ui-radius, 4px);
+    background-color: var(--ui-white, #ffffff);
+    outline: none;
+    color: var(--ui-dark, #4c5161);
+    font-size: var(--ui-font, 14px);
+    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
+    word-break: break-all;
+    vertical-align: top;
+    box-sizing: border-box;
+    max-width: 100%;
+    resize: none;
+    overflow: auto;
+}
+
+textarea[resize] {
+    resize: both;
+}
+textarea[resize="vertical"] {
+    resize: vertical;
+}
+textarea[resize="horizontal"] {
+    resize: horizontal;
+}
+
+div.ui-textarea > textarea {
+    width: 100%;
+}
+
+/* hover */
+.ui-textarea:hover,
+.ui-textarea > textarea:hover {
+    border-color: var(--ui-dark-border, #ababaf);
+}
+
+/* focus */
+.ui-textarea:focus,
+.ui-textarea > textarea:focus {
+    border-color: var(--ui-blue, #2a80eb);
+}
+
+/* textarea with count */
+.ui-textarea-x {
+    position: relative;
+    padding: 2px 9px 32px 3px;
+    border-radius: var(--ui-radius, 4px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ui-textarea-x > textarea {
+    display: block;
+    width: 100%;
+    line-height: var(--ui-textarea-line-height);
+    border: 0 none;
+    padding: 7px 0 9px;
+    right: -6px;
+    color: var(--ui-dark, #4c5161);
+    font-size: var(--ui-font, 14px);
+    outline: none;
+    background: none;
+    word-break: break-all;
+    overflow: auto;
+    resize: none;
+    position: relative;
+    z-index: 1;
+}
+
+.ui-textarea-x > .ui-textarea {
+    position: absolute;
+    border: 1px solid var(--ui-border, #d0d0d5);
+    border-radius: var(--ui-radius, 4px);
+    background-color: var(--ui-white, #ffffff);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
+}
+
+.ui-textarea-x .ui-textarea-count {
+    position: absolute;
+    left: 8px;
+    right: 10px;
+    bottom: 0;
+    line-height: 32px;
+    color: var(--ui-gray, #a2a9b6);
+    font-size: calc(var(--ui-font, 14px) - 2px);
+    text-align: right;
+    z-index: 1;
+}
+.ui-textarea-count slash {
+    margin: 0 1px;
+}
+
+.ui-textarea-x:hover > .ui-textarea {
+    border-color: var(--ui-dark-border, #ababaf);
+}
+
+.ui-textarea-x > textarea:focus ~ .ui-textarea {
+    border-color: var(--ui-blue, #2a80eb);
+}
+
+
+
+/* disabled */
+.ui-textarea:disabled,
+.ui-textarea > textarea:disabled,
+.ui-textarea-x > textarea:disabled ~ .ui-textarea{
+    background-color: var(--ui-light, #f7f9fa);
+}
+.ui-textarea:read-only,
+.ui-textarea > textarea:read-only,
+.ui-textarea-x > :read-only ~ .ui-textarea {
+    background-color: var(--ui-white, #ffffff);
+}
+/* firefox */
+.ui-textarea:-moz-read-only,
+.ui-textarea > textarea:-moz-read-only,
+.ui-textarea-x > :-moz-read-only ~ .ui-textarea {
+    background-color: var(--ui-white, #ffffff);
+}
+
+.ui-textarea:disabled:hover,
+.ui-textarea > textarea:disabled:hover {
+    border-color: var(--ui-border, #d0d0d5);
+}
+
+.ui-textarea:read-only:hover,
+.ui-textarea:read-only:focus,
+.ui-textarea > textarea:read-only:hover,
+.ui-textarea > textarea:read-only:focus  {
+    border-color: var(--ui-border, #d0d0d5);
+}
+/* firefox */
+.ui-textarea:-moz-read-only:hover,
+.ui-textarea:-moz-read-only:focus,
+.ui-textarea > textarea:-moz-read-only:hover,
+.ui-textarea > textarea:-moz-read-only:focus   {
+    border-color: var(--ui-border, #d0d0d5);
+}
+
+textarea:read-only,
+textarea:disabled {
+    resize: none;
+}
+
+/* firefox */
+textarea:-moz-read-only {
+    resize: none;
+}
+/* error */
+.ui-textarea[is-error],
+.ui-textarea > [is-error] {
+    border-color: var(--ui-red, #eb4646) !important;
+}
+.ui-textarea-count > [is-error],
+.ui-textarea-count[is-error] {
+    color: var(--ui-red, #eb4646);
+}

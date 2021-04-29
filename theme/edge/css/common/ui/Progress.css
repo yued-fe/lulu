@@ -1,0 +1,45 @@
+/**
+ *
+ * @Progress.css
+ * @author zhangxinxu
+ * @create 19-10-18
+ * @editor gandaochuan
+ * @edit   20-04-10 
+ *
+**/
+
+/* progress基础变量 */
+:root {
+    --ui-progress-width: 10em;
+    --ui-progress-height: .25em;
+    --ui-progress-background-color: var(--ui-border, #d0d0d5);
+}
+
+.ui-progress {
+    display: inline-block;
+    width: var(--ui-progress-width, 10em);
+    height: var(--ui-progress-height, .25em);
+    vertical-align: calc(.25em - 2px);
+    border: 0;
+    background-color: var(--ui-progress-background-color);
+    border-radius: 1em;
+    overflow: hidden;
+}
+.ui-progress::-moz-progress-bar {
+    background-color: var(--ui-blue);
+}
+.ui-progress::-webkit-progress-bar {
+    background-color: var(--ui-progress-background-color);
+}
+.ui-progress::-webkit-progress-value {
+    background-color: var(--ui-blue);
+}
+
+progress[width="100%"] {
+    width: 100%;
+}
+
+/* For firefox to match no [value] */
+.ui-progress:indeterminate::-moz-progress-bar {
+    background-color: inherit;
+}

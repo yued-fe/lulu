@@ -1,0 +1,64 @@
+@charset "UTF-8";
+/**
+ *
+ * @color.css
+ * @author xinxuzhang
+ * @create 16-04-18
+**/
+/*主色*/
+body,
+.dark {
+    color: #4c5161;
+}
+
+/*蓝色*/
+a,
+.blue,
+a.dark[href]:hover {
+    color: var(--ui-blue, #2a80eb);
+}
+
+/*hover蓝色*/
+a:hover {
+    color: var(--ui-dark-blue, #0057c3);
+}
+
+/* 深蓝色 */
+.dark-blue {
+    color: var(--ui-dark-blue, #0057c3);
+}
+
+/*灰色*/
+.gray {
+    color: var(--ui-gray, #a2a9b6);
+}
+
+/*白色*/
+.white {
+    color: var(--ui-white, #ffffff);
+}
+
+/* 绿色 */
+.green {
+    color: var(--ui-green, #1cad70);
+}
+
+/* 橘色 */
+.orange {
+    color: var(--ui-orange, #f59b00);
+}
+
+/* 红色 */
+.red {
+    color: var(--ui-red, #eb4646);
+}
+
+/* 浅色 */
+.light {
+    color: var(--ui-light, #f7f9fa);
+}
+
+/* diabled禁用灰色 */
+.disabled-gray {
+    color: #ccd0d7;
+}

@@ -86,7 +86,7 @@ LuLu UI支持Retina视网膜屏幕，同时支持Aria无障碍访问，以及极
 * modern主题。基于jQuery，兼容IE7+，针对PC网站。分sass, css和js 3个目录，如果你不想要sass，那这个文件夹就不用管。图片资源在css目录下。
 * peak主题。基于jQuery，兼容IE8+，针对PC网站。分sass, css和js 3个目录，如果你不想要sass，那这个文件夹就不用管。图片资源在css目录下。
 * pure主题。原生JavaScript编写，兼容IE9+，PC，Mobile网站通用。分css和js 2个目录，没有图片资源目录，所有图像CSS内联。
-* edge主题。原生JavaScript编写，ES6 module，兼容最新版的现代浏览器，PC，Mobile网站通用。目前内部beta中。
+* edge主题。原生JavaScript编写，ES6 module，兼容最新版的现代浏览器，PC，Mobile网站通用。目前对外beta中。
 
 组件分ui和comp两个目录，前者是UI组件，后者是基于UI组件整合的前端解决方案。
 

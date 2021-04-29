@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/**
+ *
+ * @Table.css
+ * @author zhangxinxu
+ * @edit 17-10-18 从原Table.css中分离出来
+ *
+**/
+/* table shadow */
+.table-x {
+    background-color: #fff;
+    border: 1px solid var(--ui-border, #d0d0d5);
+}
+
+.table-x table {
+    border: 0;
+}
+
+/* table without data */
+.table-null-x,
+.table-error-x {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    flex-direction: column;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.table-null-x:empty::before {
+    content: '暂无数据';
+}
+.table-error-x:empty::before {
+    content: '数据获取失败';
+}
+
+/* 列表分页 */
+.table-page-x,
+.table-x > ui-pagination {
+    padding: 10px 10px 10px 20px;
+    margin-top: -1px;
+    border-top: 1px solid var(--ui-light-border, #ededed);
+    background-color: var(--ui-light, #f7f9fa);
+    position: relative;
+    overflow: hidden;
+}
+.table-x > ui-pagination {
+    justify-content: flex-end;
+}
+.table-x > ui-pagination:not([current]) {
+    --ui-visibility: hidden;
+}
+@media screen and (max-width: 640px) {
+    .table-page-x {
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+}
+
+.table-page-data {
+    float: left;
+    line-height: 20px;
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.table-page-total {
+    margin: 0 3px;
+}
+
+.table-page-per {
+    display: inline-block;
+    margin-left: 5px;
+    color: var(--ui-blue, #2a80eb);
+    cursor: pointer;
+}
+.table-page-per::after {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 197 200 400'%3E%3Cpath d='M-59.7 271.6c-4.2-4.1-11-4.1-15.3 0l-30.5 29.6-30.5-29.6c-4.2-4.1-11-4.1-15.3 0-4.2 4.1-4.2 10.7 0 14.8l38.2 37c4.2 4.1 11 4.1 15.3 0l38.2-37c4.1-4.1 4.1-10.7-.1-14.8z' fill='%23a2a9b6'/%3E%3Cpath d='M-58.7 471.6c-4.2-4.1-11-4.1-15.3 0l-30.5 29.6-30.5-29.6c-4.2-4.1-11-4.1-15.3 0-4.2 4.1-4.2 10.7 0 14.8l38.2 37c4.2 4.1 11 4.1 15.3 0l38.2-37c4.1-4.1 4.1-10.7-.1-14.8z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
+    background-size: 20px 40px;
+    vertical-align: -5px;
+}
+
+.table-page-per:hover::after {
+    color: var(--ui-blue, #2a80eb);
+    background-position: 0 -20px;
+}
+
+.table-page {
+    float: right;
+    padding-top: 2px;
+}
+
+.table-checkbox td:first-child,
+.table-checkbox th:first-child {
+    width: 20px;
+    padding-right: 0;
+    padding-left: 18px;
+    text-align: right;
+}
+
+.table-checkbox td:first-child + td,
+.table-checkbox th:first-child + th {
+    padding-left: 13px;
+}
+
+.table-checkbox tr:hover td {
+    background-color: var(--ui-list-hover, #f0f7ff);
+}
+
+.table-checkbox tr.selected td {
+    background-color: var(--ui-list-selected, #e0f0ff);
+}
+
+
+/* 表格头部操作，搜索，或者大标题 */
+.table-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--ui-light-border, #ededed);
+}
+
+.table-title {
+    line-height: 56px;
+    font-size: 24px;
+    margin: 0;
+}

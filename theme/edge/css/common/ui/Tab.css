@@ -1,0 +1,80 @@
+/**
+ *
+ * @Tab.css
+ * @author xinxuzhang
+ * @create 15-06-12
+ */
+/* tabs */
+
+ui-tab {
+    cursor: pointer;
+}
+
+.ui-tab-tabs {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid var(--ui-border, #d0d0d5);
+    position: relative;
+    display: flex;
+}
+
+.ui-tab-tab {
+    margin-right: 50px;
+    font-size: calc(var(--ui-font, 14px) + 2px);
+    text-align: center;
+    color: var(--ui-dark, #4c5161);
+    text-decoration: none;
+    border: 0;
+    background: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ui-tab-tab a {
+    display: block;
+    color: inherit;
+}
+
+.ui-tab-tab:hover {
+    color: var(--ui-blue, #2a80eb);
+}
+
+.ui-tab-tabs [open] {
+    line-height: 36px;
+    padding-top: 2px;
+    margin-bottom: -1px;
+    border-bottom: solid;
+    color: var(--ui-blue, #2a80eb);
+    cursor: default;
+}
+.ui-tab-tabs[style*="--ui-tab"]::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: calc(1px * var(--ui-tab-left));
+    width: calc(1px * var(--ui-tab-width));
+    border-bottom: solid var(--ui-blue, #2a80eb);
+    transition: all var(--ui-animate-time, .2s);
+}
+
+[style*="--ui-tab"] > .ui-tab-tab {
+    line-height: 40px;
+    padding-top: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* contents */
+.ui-tab-contents {
+    margin-top: 30px;
+}
+
+/* 有role属性表示JS已经介入了初始化，锚点hash显示功能去除 */
+.ui-tab-content[role]:not(.active),
+.ui-tab-content:not([role]):not(:target) {
+    display: none;
+}
+
+.ui-tab-contents:target-within .ui-tab-content:not(:target) {
+    display: none;
+}

@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/**
+ *
+ * @Switch.css
+ * @author zhangxinxu
+ * @create 15-06-18
+ * @edit   17-06-14    keyboard accessible
+ * @editor shanyerong
+ * @edit   2020-04-30
+**/
+:root {
+    --ui-switch-width: 44px;
+    --ui-switch-height: 26px;
+}
+input[is="ui-switch"] {
+    -webkit-appearance: none;
+    display: inline-flex;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px, inset 1px 0, inset -1px 0, inset 0 -1px;
+    background-clip: content-box;
+    -webkit-appearance: none;
+    width: var(--ui-switch-width, 44px);
+    height: var(--ui-switch-height, 26px);
+    border: 2px solid;
+    border-radius: var(--ui-switch-height, 26px);
+    background-color: currentColor;
+    color: var(--ui-dark-gray, #b6bbc6);
+    font-size: 0;
+    transition: all var(--ui-animate-time, .2s);
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+input[is="ui-switch"]:checked {
+    color: var(--ui-blue, #2a80eb);
+    background-color: var(--ui-blue, #2a80eb);
+}
+input[is="ui-switch"]::before {
+    content: '';
+    flex: 0;
+    transition: flex var(--ui-animate-time, .2s);
+}
+
+input[is="ui-switch"]::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background-color: var(--ui-white, #ffffff);
+    opacity: 1;
+    visibility: visible;
+}
+
+input[is="ui-switch"]:active {
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+input[is="ui-switch"]:checked::before {
+    flex: 1;
+}
+
+input[is="ui-switch"]:disabled {
+    opacity: var(--ui-opacity, .4);
+    cursor: default;
+}
+
+input[is="ui-switch"]:focus:not(:disabled),
+input[is="ui-switch"]:hover:not(:disabled) {
+    color: var(--ui-gray, #a2a9b6);
+}
+
+input[is="ui-switch"]:checked:focus:not(:disabled),
+input[is="ui-switch"]:checked:hover:not(:disabled) {
+    color: var(--ui-dark-blue, #0057c3);
+    background-color: var(--ui-dark-blue, #0057c3);
+}
+
+input[is="ui-switch"]:checked:focus:disabled,
+input[is="ui-switch"]:checked:disabled:hover {
+    color: var(--ui-blue, #2a80eb);
+    background-color: var(--ui-blue, #2a80eb);
+}
