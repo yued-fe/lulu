@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hans-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Loading加载" />
-<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Loading加载" />
-<title>LuLu UI pure主题中文文档 &raquo; Loading加载</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
-<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Loading加载">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Loading加载">
+<title>LuLu UI edge主题中文文档 &raquo; Loading加载</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
 </head>
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Loading加载</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Loading加载</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
-			    <option value="pure" selected>Pure主题</option>
-			    <option value="edge">Edge主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
 			</select>
 			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
 		</div>
@@ -32,12 +32,15 @@
     	<h2 class="section_title">Loading加载</h2>
         <!-- 详细内容 -->
         <article>
-            <h3>作为插件单独使用</h3>
+            <h3>安装与调用</h3>
             <p>loading效果支持以插件形式单独使用，引入下面CSS即可：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Loading.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Loading.css"&gt;</pre>
             <p>如果想要使用loading增强功能，可以引入下面的JS文件（非必须）：</p>
-            <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Loading.js"&gt;&lt;/script&gt;</pre>
-
+            <pre>&lt;script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Loading.js"&gt;&lt;/script&gt;</pre>
+            <p>本组件为<code>web-components</code>，引用时需添加<code><mark>type="module"</mark></code>，也可采用如下方式进行引用：</p>
+            <pre>&lt;script <mark>type="module"</mark>&gt;
+    import "../../theme/edge/js/common/ui/Loading.js";
+&lt;/script&gt;</pre>
             <h3>自定义loading元素</h3>
 
             <h4>图形loading-内联</h4>
@@ -46,6 +49,9 @@
 
             <p>跟随文本-较大尺寸：<ui-loading size="3"></ui-loading></p>
             <pre>&lt;ui-loading size="3"&gt;&lt;/ui-loading&gt;</pre>
+
+            <p>跟随文本-自定义颜色：<ui-loading style="--color: pink"></ui-loading></p>
+            <pre>&lt;ui-loading style="--color: pink"&gt;&lt;/ui-loading&gt;</pre>
 
             <h4>图形loading-块级</h4>
 
@@ -56,6 +62,10 @@
             <p>单行呈现-较大尺寸：</p>
             <ui-loading rows="5" size="3"></ui-loading>
             <pre>&lt;ui-loading rows="5" size="3"&gt;&lt;/ui-loading&gt;</pre>
+
+            <p>单行呈现-较大尺寸-自定义颜色：</p>
+            <ui-loading rows="5" size="3" style="--color: #ff0000"></ui-loading>
+            <pre>&lt;ui-loading rows="5" size="3" style="--color: #ff0000"&gt;&lt;/ui-loading&gt;</pre>
 
             <p>其中：</p>
             <dl>
@@ -83,6 +93,9 @@
                     <li><code>size="4"</code>对应宽高40px。</li>
                 </ul>
                 </dd>
+
+                <dt>--color</dt>
+                <dd>表示loading圈圈图形的颜色。未设置默认为蓝色，设置了则覆盖。</dd>
             </dl>
 
             <h4>文本打点loading</h4>
@@ -97,8 +110,6 @@
             <ui-loading rows="5" size="4">正在加载中<ui-dot></ui-dot></ui-loading>
             <pre>&lt;ui-loading rows="5"&gt;正在加载中&lt;ui-dot&gt;&lt;/ui-dot&gt;&lt;/ui-loading&gt;</pre>
 
-            <p class="tips"><code>&lt;ui-loading&gt;</code>元素在IE9浏览器下默认是静态的，没有动画。可以通过引入Loading.js使IE9浏览器也会有动画效果。</p>
-
 
             <h3>普通元素呈现loading</h3>
 
@@ -107,20 +118,21 @@
             <div class="ui-loading" style="height: 100px;"></div>
             <pre>&lt;div class="ui-loading" style="height: 100px;"&gt;&lt;/div&gt;</pre>
 
-            <p>普通元素的loading效果通过添加类名<code>.ui-loading</code>实现。需要有指定的<code>height</code>高度值才有效果。支持简单的提示文本，例如：</p>
+            <p>普通元素的loading效果通过添加类名<code>.ui-loading</code>实现。支持简单的提示文本，例如：</p>
             <div class="ui-loading" style="height: 100px;">正在加载中<ui-dot></ui-dot></div>
             <pre>&lt;div class="ui-loading" style="height: 100px;"&gt;正在加载中&lt;ui-dot&gt;&lt;/ui-dot&gt;&lt;/div&gt;</pre>
 
-            <p>如果引入Loading.js，可以使用<code>element.loading = true</code>方法进行loading样式的添加，IE9浏览器loading图标也会有旋转动画。</p>
+            <p>如果引入Loading.js，可以使用<code>element.loading = true</code>方法进行loading样式的添加。</p>
 
 
             <h3>Loading效果JS增强</h3>
 
-            <p>Loading.js主要做了下面两件体验增强的事情：</p>
+            <p>Loading.js主要做了下面体验增强的事情：</p>
             <ol>
                 <li>扩展了<code>loading</code>属性。可以设置按钮，或者其他元素为loading状态，可以取消loading状态，以及获取当前元素是否处于loading状态。</li>
-                <li>IE9浏览器下的loading图标也能不停地旋转。</li>
+                <li>扩展了自定义元素<code>&lt;ui-loading&gt;</code>的size和rows属性。支持size和rows属性的获取和设置。即dom.size=4，元素的size属性值也会跟着改变，也可以直接dom.size获取设置的size属性值。</li>
             </ol>
+            <p><mask>注意：</mask>使用自定义元素<code>&lt;ui-loading&gt;</code>的size和rows属性时，需将代码放在带有<code><mark>type="module"</mark></code>的脚本中。</p>
 
             <h4>设置按钮loading</h4>
             <p><button id="loadingBtn" class="ui-button" data-type="primary">点击我</button></p>
@@ -170,89 +182,19 @@
             <h4>语法和参数</h4>
             <pre><span class="green">// 是否正在loading</span>
 var isLoading = element.loading
-<span class="green">设置元素loading</span>
+<span class="green">// 设置元素loading</span>
 element.loading = true;
 <span class="green">// 取消loading效果</span>
-element.loading = false;</pre>
+element.loading = false;
+<span class="green">// 获取<code>&lt;ui-loading&gt;</code>元素的size值</span>
+var size = element.size;
+<span class="green">// 修改<code>&lt;ui-loading&gt;</code>元素的size值</span>
+element.size = 3;</pre>
 
             <p>经测试，不会和浏览器IMG元素和IFRAME元素的原生<code>loading</code>属性相冲突。</p>
 
-            <h3>Loading实例方法</h3>
-            <p>Loading.js中还包含了Loading实例方法。</p>
-            <h4>语法和参数</h4>
-            <pre>var myLoading = new Loading(element, options);</pre>
-            <p>其中：</p>
-            <dl>
-                <dt>element</dt>
-                <dd>必需。Element元素或者String选择器字符串。表示需要显示loading效果的元素或者容器元素。</dd>
-                <dt>options</dt>
-                <dd>可选。Object纯对象。支持的可选参数参见下表：</dd>
-            </dl>
-            <table class="ui-table">
-                <tr>
-                    <th scope="col" width="70">参数名称</th>
-                    <th scope="col" width="70">支持类型</th>
-                    <th scope="col" width="80">默认值</th>
-                    <th scope="col">释义</th>
-                </tr>
-                <tr>
-                    <td>observer</td>
-                    <td>String</td>
-                    <td>'childList'</td>
-                    <td>观察loading显示与隐藏的变动对象。支持参数值为<code>'childList'</code>和<code>'attributes'</code>。
-                        <p><code>'attributes'</code>指通过HTML属性变化显示loading，底层使用自定义的<code>element.loading</code>属性，通过改变元素的<code>class</code>类属性实现loading效果控制，适用于按钮等元素。不过对于按钮等元素，使用<code>new Loading()</code>构造太重了，建议直接使用<code>loading</code>属性进行控制。</p>
-                        <p><code>'childList'</code>指通过子元素列表变化显示loading。会自动清空<code>element</code>所有子元素，然后替换成<code>&lt;ui-loading&gt;</code>元素呈现loading效果。</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>size</td>
-                    <td>Number</td>
-                    <td>2</td>
-                    <td>loading图形的尺寸大小，支持范围1-4，每一号尺寸对应<code>10px</code>。</td>
-                </tr>
-            </table>
-
-            <h4>使用案例</h4>
-            <p>例如上面直接把子元素替换为<code>&lt;ui-loading&gt;</code>元素的案例。可以使用<code>new Loading()</code>构造方法：</p>
-            <a href="javascript:" id="loadingMore3" class="loading-more-a">加载更多</a>
-            <pre>button.addEventListener('click', function () {
-    new Loading(this);
-    <span class="green">// loading完成后执行</span>
-    this.data.loading.hide();
-});</pre>
-            <p>或者下面的语法：</p>
-            <pre>button.addEventListener('click', function () {
-    var myLoading = new Loading(this);
-    <span class="green">// loading完成后执行</span>
-    myLoading.hide();
-});</pre>
-            <p>其中，<code>hide()</code>方法不仅可以隐藏<code>&lt;ui-loading&gt;</code>元素，还可以把初始HTML还原。</p>
-
-            <h4>实例对象</h4>
-            <p><code>myLoading</code>就是返回的实例对象，暴露了以下属性和方法：</p><pre>{
-    <span class="green">// 提示内容显示与否，true或者false</span>
-    display: false,
-    loading: false,
-    <span class="green">// 暴露的元素们</span>
-    element: {
-        <span class="green">// loading元素或者loading元素的容器
-        // 由observer参数决定</span>
-        target: null
-    },
-    params: {
-        <span class="green">// loading触发源自哪里，另外参数'attributes'</span>
-        observer: 'childList',
-        <span class="green">// loading图形尺寸</span>
-        size: 2
-    },
-    <span class="green">// loading元素显示</span>
-    show: function () {},
-    <span class="green">// loading元素隐藏</span>
-    hide: function () {}
-}</pre>
-
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu、littleLionGuoQing</p>
             </div>
         </article>
     </main>
@@ -289,19 +231,19 @@ element.loading = false;</pre>
             <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav active"><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
-            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.loading.html" class="aside_nav active"><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
         </dl>
 
         <dl class="aside_dl">
@@ -330,12 +272,13 @@ element.loading = false;</pre>
     // 滚动条设置判断
     var div = document.createElement('div');
     div.style.width = '100px';
-    div.style.height = '1px';
+    div.style.height = '100px';
     div.style.overflow = 'auto';
     div.style.position = 'absolute';
     div.style.left = '-199px';
     var p = document.createElement('p');
-    p.style.height = '20px';
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
     div.appendChild(p);
     document.body.appendChild(div);
     if (p.clientWidth != 100) {
@@ -348,20 +291,15 @@ element.loading = false;</pre>
 
 <a href="#" id="backtop" class="backtop"></a>
 
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
 <!-- 底部 -->
-<script src="../pure/assets/js/mockup.js"></script>
+<script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Loading.js"></script>
-
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Loading.js"></script>
 <script>
-document.querySelectorAll('.ui-loading').forEach(function (eleLoading) {
-    eleLoading.loading = true;
-});
-
 document.getElementById('loadingBtn').addEventListener('click', function () {
     this.loading = true;
 
@@ -382,14 +320,6 @@ document.getElementById('loadingMore2').addEventListener('click', function () {
 
     setTimeout(function () {
         this.innerHTML = '加载更多';
-    }.bind(this), 1000 + 4000 * Math.random());
-});
-
-document.getElementById('loadingMore3').addEventListener('click', function () {
-    new Loading(this);
-
-    setTimeout(function () {
-        this.data.loading.hide();
     }.bind(this), 1000 + 4000 * Math.random());
 });
 </script>

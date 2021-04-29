@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hans-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于使用与发布" />
-<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 使用与发布" />
-<title>LuLu UI pure主题中文文档 &raquo; 使用与发布</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
-<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于使用与发布">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 使用与发布">
+<title>LuLu UI edge主题中文文档 &raquo; 使用与发布</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
 </head>
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 使用与发布</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 使用与发布</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
-			    <option value="pure" selected>Pure主题</option>
-			    <option value="edge">Edge主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
 			</select>
 			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
 		</div>
@@ -45,25 +45,24 @@
             <p>JS和CSS资源都支持独立引入和批量引入。</p>
             <h5>CSS独立引入</h5>
             <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。类似下面：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/*.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/*.css"&gt;</pre>
             <p>具体使用参见各个组件文档说明。</p>
             <h5>CSS完整引入<sup class="red">推荐</sup></h5>
             <p>如果用到LuLu UI多个组件，我们可以直接引入一个完整的ui.css文件就可以了，可能会有些许冗余，但成本较低，可以忽略。</p>
             <p>如果使用本地资源：</p>
             <pre>&lt;link rel="stylesheet" href="/css/common/ui.css"&gt;</pre>
             <p>如果直接使用线上资源：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css"&gt;</pre>
             <h5>JS独立引入</h5>
-            <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。方法有很多，可以直连：</p>
-            <pre>
-&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/*.js"&gt;&lt;/script&gt;</pre>
-            <p>或者直接使用combo的资源，例如：</p>
-            <pre>&lt;script src="https://qidian.gtimg.com/c/=/lulu/theme/pure/js/common/ui/Follow.js,/lulu/theme/pure/js/common/ui/Keyboard.js,/lulu/theme/pure/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
+            <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。使用示意：</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"&gt;&lt;/script&gt;</pre>
+            <p>Edge主题中的UI组件均采用原生的import/export语法，因此，在引用的时候需要设置<code>type="module"</code>，当然，也可以在JavaScript代码中进行引用，例如：</p>
+            <pre>&lt;script type="module"&gt;
+    import Drop from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js';
+&lt;/script&gt;</pre>
             <h5>JS完整引入<sup class="red">推荐</sup></h5>
-            <p>所有JS都整合在一个JS中，如今流量不值钱，完整引入反而省心。。</p>
-            <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/all.js"&gt;&lt;/script&gt;</pre>
-            <p>all.js中并不包括polyfill.js，如果你的项目还需要兼容IE浏览器，则还需要下面这段代码：</p>
-            <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"&gt;&lt;/script&gt;</pre>
+            <p>所有JS都整合在一个JS中，如今流量不值钱，完整引入反而省心。</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/all.js"&gt;&lt;/script&gt;</pre>
             <h4>资源概览</h4>
             <p>基本目录结构如下：</p>
 <pre>js
@@ -91,8 +90,6 @@
        |    |--Form.js
        |
        |--all.js         <span class="green">// build by running 'node run'</span>
-       |--polyfill.js    <span class="green">// for IE</span>
-
 </pre>
             <p>其中，ui文件夹下为具体每一个小的ui组件；comp文件夹为components缩写，指整合多个ui组件实现的常用解决方案。</p>
             <p>各个JS具体作用参见下表：</p>
@@ -201,33 +198,6 @@
                 </tr>
             </table>
 
-            <h3>关于polyfill.js</h3>
-            <p>LuLu UI pure主题走polyfill机制，采用比较新的API原生开发，对于不支持的浏览器，例如IE，采用polyfill使其也支持，目前支持的API如下：</p>
-            <ul dir="auto">
-            <li>
-            <code>Element.classList</code> for IE9</li>
-            <li>
-            <code>Element.matches()</code> for IE9</li>
-            <li>
-            <code>Element.closest()</code> for IE</li>
-            <li>
-            <code>Element.before()/after()/append()/prepend()/replaceWith()/remove()</code> for IE</li>
-            <li>
-            <code>URL()/URLSearchParams()</code> for IE</li>
-            <li>
-            <code>document.scrollingElement</code> for IE</li>
-            <li>
-            <code>console</code> for IE9-IE10</li>
-            <li>
-            <code>CustomEvent</code> for IE</li>
-            <li>
-            <code>NodeList.forEach()</code> for IE</li>
-            <li>
-            <code>Object.assign()</code> for IE</li>
-            <li>
-            <code>requestAnimationFrame</code> for IE9</li>
-            </ul>
-
             <h3>资源的发布</h3>
             <p>跟着项目走。</p>
 
@@ -270,19 +240,19 @@
             <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
-            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
         </dl>
 
         <dl class="aside_dl">
@@ -311,12 +281,13 @@
     // 滚动条设置判断
     var div = document.createElement('div');
     div.style.width = '100px';
-    div.style.height = '1px';
+    div.style.height = '100px';
     div.style.overflow = 'auto';
     div.style.position = 'absolute';
     div.style.left = '-199px';
     var p = document.createElement('p');
-    p.style.height = '20px';
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
     div.appendChild(p);
     document.body.appendChild(div);
     if (p.clientWidth != 100) {
@@ -329,10 +300,11 @@
 
 <a href="#" id="backtop" class="backtop"></a>
 
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
 <!-- 底部 -->
-<script src="../pure/assets/js/mockup.js"></script>
+<script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/all.js"></script>

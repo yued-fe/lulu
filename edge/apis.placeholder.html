@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hans-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表单输入占位符" />
-<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 表单输入占位符" />
-<title>LuLu UI pure主题中文文档 &raquo; 表单输入占位符</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
-<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表单输入占位符">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 表单输入占位符">
+<title>LuLu UI edge主题中文文档 &raquo; 表单输入占位符</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
 </head>
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 表单输入占位符</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 表单输入占位符</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
-			    <option value="pure" selected>Pure主题</option>
-			    <option value="edge">Edge主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
 			</select>
 			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
 		</div>
@@ -32,9 +32,9 @@
         <h2 class="section_title">表单输入占位符</h2>
         <!-- 详细内容 -->
         <article>
-            <h3>作为插件单独使用</h3>
+            <h3>安装与调用</h3>
             <p>placeholder占位符效果支持单独使用。直接引入Placeholder.css即可，示意：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Placeholder.css"&gt;</pre>
 
             <h3>测试与演示</h3>
             <p>placeholder占位符效果IE10+以及其他浏览器天然支持，只需CSS样式重置下即可，下面是效果：</p>
@@ -42,18 +42,9 @@
             <p><span class="ui-input"><input type="email" placeholder="请输入邮箱"></span></p>
             <div class="ui-input"><input type="email" placeholder="请输入邮箱"></div>
             <p><textarea class="ui-textarea" placeholder="请输入至少100个字，注意，换行效果测试~" rows="4" resize="both"></textarea></p>
-            <p class="tips">如果引入了<a href="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js" target="_blank">polyfill.js</a>，则IE9浏览器自动支持placeholder特性，无需任何初始化，交互风格和高版本IE浏览器一致。</p>
-            <p>下面这部分内容是用来测试IE9浏览器placeholder polyfill是否支持动态特性的，测一下显隐控制和DOM插入是否自动渲染占位符效果。</p>
-            <p>
-                <input type="email" class="ui-input dn" placeholder="请输入邮箱">
-                <input type="url" class="ui-input dn" placeholder="请输入地址">
-                <span class="ui-input dn" style="display:none;"><input placeholder="内部嵌套"></span>
-                <button id="btnToggle" class="mt10">点击显示隐藏的文本框</button>
-            </p>
-            <p><button id="btnInsert">点击插入文本框节点</button></p>
 
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu,gandao</p>
             </div>
         </article>
     </main>
@@ -90,19 +81,19 @@
             <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
-            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
         </dl>
 
         <dl class="aside_dl">
@@ -131,12 +122,13 @@
     // 滚动条设置判断
     var div = document.createElement('div');
     div.style.width = '100px';
-    div.style.height = '1px';
+    div.style.height = '100px';
     div.style.overflow = 'auto';
     div.style.position = 'absolute';
     div.style.left = '-199px';
     var p = document.createElement('p');
-    p.style.height = '20px';
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
     div.appendChild(p);
     document.body.appendChild(div);
     if (p.clientWidth != 100) {
@@ -149,34 +141,10 @@
 
 <a href="#" id="backtop" class="backtop"></a>
 
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
 <!-- 底部 -->
-<script src="../pure/assets/js/mockup.js"></script>
+<script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
-<script>
-var eleBtnToggle = document.getElementById('btnToggle');
-var eleBtnInsert = document.getElementById('btnInsert');
-
-if (eleBtnToggle) {
-    eleBtnToggle.addEventListener('click', function () {
-        this.parentElement.querySelectorAll('.dn').forEach(function (ele) {
-            var display = window.getComputedStyle(ele).display;
-            if (display == 'none') {
-                ele.style.display = 'inline-block';
-                if (ele.tagName != 'INPUT' && ele.querySelector('input')) {
-                    ele.querySelector('input').setAttribute('data-r', Math.random());
-                }
-            } else  {
-                ele.style.display = 'none';
-            }
-        });
-    });
-
-    eleBtnInsert.addEventListener('click', function () {
-        this.parentElement.insertAdjacentHTML('afterend', '<input placeholder="默认样式"> ');
-    });
-}
-</script>
