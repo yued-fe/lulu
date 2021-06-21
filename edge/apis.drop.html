@@ -567,18 +567,47 @@ new Drop('#menuImg').list([{
         }
     }
 });</pre>
+            <hr class="mt30">
+            <p>不使用new Drop()语法实现右键菜单效果，效果示意。</p>
+            <p><button is-drop data-eventtype="contextmenu" data-target="fd">右键我</button></p>
+            <datalist id="fd">
+                <option value="1">删除关键帧</option>
+                <option value="2">新建关键帧</option>
+                <option value="3">移动关键帧</option>
+            </datalist>
 
+            <p>代码如下：</p>
+            <pre>&lt;button is-drop data-eventtype="contextmenu" data-target="fd"&gt;右键我&lt;/button&gt;&lt;/p&gt;
+&lt;datalist id="fd"&gt;
+    &lt;option value="1"&gt;删除关键帧&lt;/option&gt;
+    &lt;option value="2"&gt;新建关键帧&lt;/option&gt;
+    &lt;option value="3"&gt;移动关键帧&lt;/option&gt;
+&lt;/datalist&gt;</pre>
+
+            <p>注意，这种实现不支持嵌套数据结构。</p>
+
+            <p>如果想要知道右键选择的是哪一项，可以使用自定义的<code>'select'</code>事件完成，例如：</p>
+            <pre>button.addEventListener('select', event =&gt; {
+    <span class="green">// event.detail.data包含选择的列表项数据</span>
+    console.log(event.detail.data);
+});</pre>
             <h4>4. &lt;datalist&gt;元素实现下拉列表</h4>
             <p>可以指向一个<code>&lt;datalist&gt;</code>元素实现。代码示意：</p>
             <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t6"&gt;点击我&lt;/ui-drop&gt;
 &lt;datalist id="t6"&gt;
     &lt;option value="1"&gt;列表1&lt;/option&gt;
     &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;option&gt;<span class="green">&lt;!-- 空option当作分隔线 --&gt;</span>&lt;/option&gt;
+    &lt;option value="3"&gt;其他1&lt;/option&gt;
+    &lt;option value="3"&gt;其他2&lt;/option&gt;
 &lt;/datalist&gt;</pre>
             <p><ui-drop class="ui-button" data-type="primary" target="t6">点击我</ui-drop></p>
             <datalist id="t6">
                 <option value="1">列表1</option>
                 <option value="2">列表2</option>
+                <option><!-- 空option当作分隔线 --></option>
+                <option value="3">其他1</option>
+                <option value="3">其他2</option>
             </datalist>
 
             <p>也可以使用<code>list()</code>方法设置，例如有个按钮是：</p>
@@ -592,6 +621,25 @@ new Drop('#menuImg').list([{
     value: '列表2'
 }]);</pre>
             <p>测试：<ui-drop id="d4" class="ui-button" data-type="primary">点击我</ui-drop></p>
+
+            <h4>5. 自定义click事件+异步处理显示</h4>
+            <p>使用一个200毫秒定时器模拟异步请求处理。</p>
+            <pre>&lt;button id="dl5" class="ui-button" data-type="primary"&gt;点击我&lt;/button&gt;</pre>
+            <pre>let drop5 = new Drop(dl5).list({
+    eventType: 'custom'
+});
+
+dl5.addEventListener('click', function () {
+    this.loading = true;
+    setTimeout(() =&gt; {
+        drop5.data = ['项目1', '项目2'];
+        drop5.show();
+
+        this.loading = false;
+    }, 200);
+});</pre>
+
+            <p><button id="dl5" class="ui-button" data-type="primary">点击我</button></p>
 
             <h3>List方法语法和参数</h3>
             <pre>let eleDrop = new Drop(trigger).list(data, options);</pre>
@@ -1249,6 +1297,20 @@ d4.list([{
     id: 2,
     value: '列表2'
 }]);
+
+let drop5 = new Drop(dl5).list({
+    eventType: 'custom'
+});
+
+dl5.addEventListener('click', function () {
+    this.loading = true;
+    setTimeout(() => {
+        drop5.data = ['项目1', '项目2'];
+        drop5.show();
+
+        this.loading = false;
+    }, 200);
+});
 
 // DropPanel demo
 var eleDropPanel = document.querySelector('#dropPanel');
