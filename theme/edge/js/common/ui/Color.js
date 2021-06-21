@@ -127,7 +127,7 @@ class Color extends HTMLInputElement {
         }
 
         if (arrA && arrA.length == 5) {
-            return `#${hex(arrA[1])}${hex(arrA[2])}${hex(arrA[3])}Math.round(arrA[4] * 255).toString(16).padStart(2, '0')`;
+            return `#${hex(arrA[1])}${hex(arrA[2])}${hex(arrA[3])}${Math.round(arrA[4] * 255).toString(16).padStart(2, '0')}`;
         }
 
         return Color.defaultValue;
@@ -135,6 +135,10 @@ class Color extends HTMLInputElement {
 
     get type () {
         return this.getAttribute('type') || 'color';
+    }
+
+    set type (v) {
+        return this.setAttribute('type', v || 'color');
     }
 
     /**
@@ -168,7 +172,7 @@ class Color extends HTMLInputElement {
             } else if (/lump/.test(strCl)) {
                 // 3. 小色块
                 strValue = eleTarget.getAttribute('data-color');
-                this.value = strValue;
+                this.value = '#' + strValue;
             } else if (/switch/.test(strCl)) {
                 // 4. 面板类名切换按钮
                 if (eleTarget.textContent === '更多') {
@@ -824,6 +828,11 @@ class Color extends HTMLInputElement {
                     // 赋值
                     props.set.call(this, strValue);
 
+                    // 可能存在还未和页面建立联系的时候执行value赋值
+                    if (!this.params) {
+                        return;
+                    }
+
                     // 作为常用颜色记录下来
                     const strCommonColors = localStorage.commonColors || '';
                     let arrCommonColors = strCommonColors.split(',');
@@ -885,6 +894,9 @@ class Color extends HTMLInputElement {
 
                 if (strOldValue && strValue != strOldValue) {
                     this.dispatchEvent(new CustomEvent('change', {
+                        'bubbles': true
+                    }));
+                    this.dispatchEvent(new CustomEvent('input', {
                         'bubbles': true
                     }));
                 }

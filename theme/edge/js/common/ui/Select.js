@@ -105,6 +105,11 @@ class Select extends HTMLSelectElement {
     }
 
     create () {
+        // 防止多次重复创建
+        if (this.element && this.element.combobox) {
+            return;
+        }
+
         const strId = ('lulu_' + (this.id || Math.random())).replace('0.', '');
 
         // 创建的列表元素需要的类名
@@ -126,7 +131,7 @@ class Select extends HTMLSelectElement {
                 ${!this.disabled ? 'href="javascript:;" ' : ''}
                 role="button"
             /></a>` : '' }
-           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? '"aria-hidden"="true"' : ''}></div>
+           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''}></div>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;
@@ -169,7 +174,7 @@ class Select extends HTMLSelectElement {
         // 下拉组合框元素的样式
         // 把原<select>的样式复制过来，这样，类似 margin 等样式可以继承过来
         // 布局会更稳定
-        eleCombobox.className = (`${eleSelect.className} ui-select`).trim();
+        eleCombobox.className = (`${eleSelect.className} ${Select.addClass()}`).trim();
 
         // 多选，高度需要同步，因为选项高度不确定
         // eleSelect.style.height 性能很高，offsetHeight会触发重绘，因此优先 style 对象 获取
@@ -228,7 +233,7 @@ class Select extends HTMLSelectElement {
                 }
                 // 获取下拉元素是关键，因为存储了实例对象
                 // 元素什么的都可以直接匹配
-                const eleCombobox = target.closest('.ui-select');
+                const eleCombobox = target.closest('.' + Select.addClass());
                 const eleSelect = eleCombobox && eleCombobox.previousElementSibling;
 
                 if (!eleSelect || !eleSelect.element) {
@@ -412,6 +417,16 @@ class Select extends HTMLSelectElement {
                         option.selected = false;
                     }
                 });
+            }
+        });
+
+        const props = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'selectedIndex');
+        Object.defineProperty(HTMLSelectElement.prototype, 'selectedIndex', {
+            ...props,
+            set (v) {
+                if (this.options[v]) {
+                    this.options[v].selected = true;
+                }
             }
         });
     }

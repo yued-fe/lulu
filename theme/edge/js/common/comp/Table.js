@@ -250,7 +250,7 @@ const Table = (function () {
             let elePer = objElement.drop;
 
             // 触发分页数量的下拉元素
-            if (elePer) {
+            if (elePer && elePer.list) {
                 if (strStoreId && localStorage[strStoreId]) {
                     numCurrentPer = localStorage[strStoreId];
                     objParams.page.per = Number(numCurrentPer);
@@ -712,18 +712,21 @@ const Table = (function () {
                 this.element.drop = eleDrop;
             }
 
-            // 事件绑定和处理
-            this.events();
+            // 为了动态呈现的列表可以先设置参数，后执行，这里延后
+            setTimeout(() => {
+                // 事件绑定和处理
+                this.events();
 
-            // 基于tbody内容决定首次交互的行为
-            if (eleTbody.textContent.trim() == '') {
-                this.isFirstAjax = true;
-                this.ajax();
-            } else {
-                // 认为是列表第一页直出，
-                // 这样的交互可以有更好体验
-                this.page();
-            }
+                // 基于tbody内容决定首次交互的行为
+                if (eleTbody.textContent.trim() == '') {
+                    this.isFirstAjax = true;
+                    this.ajax();
+                } else {
+                    // 认为是列表第一页直出，
+                    // 这样的交互可以有更好体验
+                    this.page();
+                }
+            }, 1);
 
             // 全局事件
             this.dispatchEvent(new CustomEvent('connected'), {

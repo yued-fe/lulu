@@ -435,7 +435,8 @@
 
         // 单复选框点击不focus
         // tabindex>=0 元素点击也不focus（避免outline出现）
-        if (target && target == eleActive && (/^radio|checkbox$/i.test(eleActive.type) || tabindex >= 0) && win.isKeyEvent == false) {
+        // 当然，本身outline不是none
+        if (target && target == eleActive && (/^radio|checkbox$/i.test(eleActive.type) || tabindex >= 0) && win.isKeyEvent == false && /none/.test(getComputedStyle(target).outline) == false) {
             eleActive.blur();
         }
     });
@@ -1143,7 +1144,14 @@ class Tab extends HTMLElement {
 
         // 载入到页面
         if (!this.parentElement) {
-            document.body.append(this);
+            // 使用专门的div包裹，避免暴露过多的细节
+            let eleHidden = document.querySelector('body > div[hidden="tab"]');
+            if (!eleHidden) {
+                eleHidden = document.createElement('div');
+                eleHidden.setAttribute('hidden', 'tab');
+                document.body.append(eleHidden);
+            }
+            eleHidden.append(this);
         }
     }
     get eventType () {
@@ -1327,9 +1335,6 @@ class Tab extends HTMLElement {
                 eleFirstOpenTab.autoSwitch();
             }
         }
-
-        // DOM初始化完毕
-        this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }
 
     // ui-tab元素在页面出现的时候
@@ -1365,6 +1370,11 @@ class Tab extends HTMLElement {
         });
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        // is-tab等类型初始化完毕标志事件
+        if (eleTrigger != this) {
+            eleTrigger.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+        }
     }
 
     /**
@@ -1454,21 +1464,26 @@ window.Tab = Tab;
      */
     function funAutoInitAndWatching () {
         document.querySelectorAll('[is-tab]').forEach(function (eleTab) {
-            new Tab(eleTab);
+            if (!eleTab['ui-tab']) {
+                eleTab['ui-tab'] = new Tab(eleTab);
+            }
         });
         var observerTab = new MutationObserver(function (mutationsList) {
             mutationsList.forEach(function (mutation) {
                 mutation.addedNodes.forEach(function (eleAdd) {
-                    let eleTab = null;
-                    if (eleAdd.tagName) {
-                        if (eleAdd.hasAttribute('is-tab')) {
-                            eleTab = eleAdd;
-                        } else {
-                            eleTab = eleAdd.querySelector('[is-tab]');
+                    if (!eleAdd.tagName) {
+                        return;
+                    }
+                    if (eleAdd.hasAttribute('is-tab')) {
+                        if (!eleAdd['ui-tab']) {
+                            eleAdd['ui-tab'] = new Tab(eleAdd);
                         }
-                        if (eleTab) {
-                            eleTab['ui-tab'] = new Tab(eleTab);
-                        }
+                    } else {
+                        eleAdd.querySelectorAll('[is-tab]').forEach(function (eleTab) {
+                            if (!eleTab['ui-tab']) {
+                                eleTab['ui-tab'] = new Tab(eleTab);
+                            }
+                        });
                     }
                 });
             });
@@ -1596,6 +1611,11 @@ class Select extends HTMLSelectElement {
     }
 
     create () {
+        // 防止多次重复创建
+        if (this.element && this.element.combobox) {
+            return;
+        }
+
         const strId = ('lulu_' + (this.id || Math.random())).replace('0.', '');
 
         // 创建的列表元素需要的类名
@@ -1617,7 +1637,7 @@ class Select extends HTMLSelectElement {
                 ${!this.disabled ? 'href="javascript:;" ' : ''}
                 role="button"
             /></a>` : '' }
-           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? '"aria-hidden"="true"' : ''}></div>
+           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''}></div>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;
@@ -1660,7 +1680,7 @@ class Select extends HTMLSelectElement {
         // 下拉组合框元素的样式
         // 把原<select>的样式复制过来，这样，类似 margin 等样式可以继承过来
         // 布局会更稳定
-        eleCombobox.className = (`${eleSelect.className} ui-select`).trim();
+        eleCombobox.className = (`${eleSelect.className} ${Select.addClass()}`).trim();
 
         // 多选，高度需要同步，因为选项高度不确定
         // eleSelect.style.height 性能很高，offsetHeight会触发重绘，因此优先 style 对象 获取
@@ -1719,7 +1739,7 @@ class Select extends HTMLSelectElement {
                 }
                 // 获取下拉元素是关键，因为存储了实例对象
                 // 元素什么的都可以直接匹配
-                const eleCombobox = target.closest('.ui-select');
+                const eleCombobox = target.closest('.' + Select.addClass());
                 const eleSelect = eleCombobox && eleCombobox.previousElementSibling;
 
                 if (!eleSelect || !eleSelect.element) {
@@ -1905,6 +1925,16 @@ class Select extends HTMLSelectElement {
                 });
             }
         });
+
+        const props = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'selectedIndex');
+        Object.defineProperty(HTMLSelectElement.prototype, 'selectedIndex', {
+            ...props,
+            set (v) {
+                if (this.options[v]) {
+                    this.options[v].selected = true;
+                }
+            }
+        });
     }
 
     /**
@@ -2052,6 +2082,14 @@ class Drop extends HTMLElement {
                 if (typeof value == 'undefined') {
                     value = eleTrigger.getAttribute(prop) || eleTrigger.dataset[prop];
 
+                    if (prop == 'width') {
+                        if (eleTrigger !== this) {
+                            value = eleTrigger.dataset[prop];
+                        } else {
+                            value = eleTrigger.getAttribute(prop);
+                        }
+                    }
+
                     // 部分参数如果没有，则使用默认的参数值
                     if (typeof value == 'undefined' && Drop.defaults[prop]) {
                         value = Drop.defaults[prop];
@@ -2168,6 +2206,10 @@ class Drop extends HTMLElement {
                     this.show();
                 });
             }
+        }
+
+        if (eleTrigger !== this) {
+            document.body.append(this);
         }
     }
 
@@ -2660,8 +2702,12 @@ class Drop extends HTMLElement {
         eleTrigger = eleTrigger || this.element.trigger;
 
         // 触发元素和数据是必须项
-        if (!eleTrigger || !data) {
+        if (!eleTrigger) {
             return this;
+        }
+
+        if (!data) {
+            data = [];
         }
 
         const defaults = {
@@ -2680,8 +2726,13 @@ class Drop extends HTMLElement {
             onSelect: () => {}
         };
 
-        // Drop 配置
-        const objParams = Object.assign({}, defaults, options || {});
+        // 参数处理
+        const objParams = {};
+        options = options || {};
+
+        Object.keys(defaults).forEach(prop => {
+            objParams[prop] = options[prop] || this.params[prop] || defaults[prop];
+        });
 
         // 一些常量
         const SELECTED = 'selected';
@@ -2825,6 +2876,15 @@ class Drop extends HTMLElement {
                     value: '没有数据',
                     disabled: true
                 }];
+            } else {
+                arrListData = arrListData.map(arrData => {
+                    if (typeof arrData == 'string' && arrData !== '-') {
+                        return {
+                            value: arrData
+                        };
+                    }
+                    return arrData;
+                });
             }
 
             // 是否包含选中项
@@ -3034,6 +3094,24 @@ class Drop extends HTMLElement {
 
             // 触发用户自定义选择事件
             (this.params.onSelect || objParams.onSelect).call(this, objItemData, eleClicked);
+
+            // 触发自定义事件 - select
+            this.dispatchEvent(new CustomEvent('select'), {
+                data: objItemData,
+                target: eleClicked
+            });
+
+            // 如果trigger元素非<ui-drop>元素，则也触发一下，同时传递select事件来源
+            // 如果是在Vue中，可以使用@select绑定选择事件
+            if (eleTrigger != this) {
+                eleTrigger.dispatchEvent(new CustomEvent('select', {
+                    detail: {
+                        type: 'ui-drop',
+                        data: objItemData,
+                        target: eleClicked
+                    }
+                }));
+            }
 
             // 不是鼠标右击事件，也不是委托模式更新
             if (objParams.eventType != 'contextmenu' && objParams.selector == '' && !objItemData.href) {
@@ -3276,14 +3354,17 @@ const initAllIsDropAttrAction = (ele) => {
     eleDrops.forEach(eleTrigger => {
         let eleTargetId = eleTrigger.getAttribute('is-drop');
         if (eleTargetId) {
-            eleTrigger.setAttribute('is-drop', '');
             eleTrigger.dataset.target = eleTargetId;
         }
         // 基于data-target获取元素
         eleTargetId = eleTrigger.dataset.target;
         let eleTarget = eleTargetId && document.getElementById(eleTargetId);
         if (eleTarget) {
-            new Drop(eleTrigger, eleTarget);
+            eleTrigger['ui-drop'] = new Drop(eleTrigger, eleTarget);
+            // 隐藏<ui-drop>元素细节
+            eleTrigger['ui-drop'].addEventListener('connected', function () {
+                this.remove();
+            });
         }
     });
 };
@@ -3568,22 +3649,6 @@ class Tips extends HTMLElement {
             }
         });
     }
-    disconnectedCallback () {
-        this.uninstall();
-    }
-    uninstall () {
-        const eleTrigger = this.trigger;
-        eleTrigger.removeEventListener('mouseenter', this.handleMouseEnter);
-        eleTrigger.removeEventListener('mouseleave', this.handleMouseLeave);
-        eleTrigger.removeEventListener('focus', this.handleFocus);
-        eleTrigger.removeEventListener('blur', this.hide);
-        eleTrigger.removeEventListener('click', this.show);
-        document.removeEventListener('mouseup', this.handleMouseUp);
-
-        if (this.target) {
-            this.target.remove();
-        }
-    }
 }
 
 if (!customElements.get('ui-tips')) {
@@ -3626,6 +3691,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
         eleTips.title = this.getAttribute('title') || options.content || '';
     }
 
+    // 移除原始的标题
+    this.removeAttribute('title');
+
     // custom trigger
     if (!this.id) {
         this.id = 'lulu_' + (Math.random() + '').replace('0.', '');
@@ -3647,6 +3715,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 
     this['ui-tips'] = eleTips;
 
+    eleTips.addEventListener('connected', function () {
+        this.remove();
+    });
     document.body.appendChild(eleTips);
 };
 
@@ -3668,8 +3739,15 @@ HTMLElement.prototype.tips = function (content, options = {}) {
                 var nodeRemoved = mutation.removedNodes;
                 if (nodeAdded.length) {
                     nodeAdded.forEach(function (eleAdd) {
-                        if (eleAdd.matches && eleAdd.matches('.ui-tips, [is-tips]') && !eleAdd['ui-tips']) {
+                        if (!eleAdd.matches) {
+                            return;
+                        }
+                        if (eleAdd.matches('.ui-tips, [is-tips]')) {
                             eleAdd.tips();
+                        } else {
+                            eleAdd.querySelectorAll('.ui-tips, [is-tips]').forEach(item => {
+                                item.tips();
+                            });
                         }
                     });
                 }
@@ -4596,7 +4674,7 @@ class Color extends HTMLInputElement {
         }
 
         if (arrA && arrA.length == 5) {
-            return `#${hex(arrA[1])}${hex(arrA[2])}${hex(arrA[3])}Math.round(arrA[4] * 255).toString(16).padStart(2, '0')`;
+            return `#${hex(arrA[1])}${hex(arrA[2])}${hex(arrA[3])}${Math.round(arrA[4] * 255).toString(16).padStart(2, '0')}`;
         }
 
         return Color.defaultValue;
@@ -4604,6 +4682,10 @@ class Color extends HTMLInputElement {
 
     get type () {
         return this.getAttribute('type') || 'color';
+    }
+
+    set type (v) {
+        return this.setAttribute('type', v || 'color');
     }
 
     /**
@@ -4637,7 +4719,7 @@ class Color extends HTMLInputElement {
             } else if (/lump/.test(strCl)) {
                 // 3. 小色块
                 strValue = eleTarget.getAttribute('data-color');
-                this.value = strValue;
+                this.value = '#' + strValue;
             } else if (/switch/.test(strCl)) {
                 // 4. 面板类名切换按钮
                 if (eleTarget.textContent === '更多') {
@@ -5293,6 +5375,11 @@ class Color extends HTMLInputElement {
                     // 赋值
                     props.set.call(this, strValue);
 
+                    // 可能存在还未和页面建立联系的时候执行value赋值
+                    if (!this.params) {
+                        return;
+                    }
+
                     // 作为常用颜色记录下来
                     const strCommonColors = localStorage.commonColors || '';
                     let arrCommonColors = strCommonColors.split(',');
@@ -5354,6 +5441,9 @@ class Color extends HTMLInputElement {
 
                 if (strOldValue && strValue != strOldValue) {
                     this.dispatchEvent(new CustomEvent('change', {
+                        'bubbles': true
+                    }));
+                    this.dispatchEvent(new CustomEvent('input', {
                         'bubbles': true
                     }));
                 }
@@ -5888,9 +5978,15 @@ const Dialog = (() => {
                             }
                         }
 
-                        // 如果是纯文本
-                        if (/<[\w\W]+>/.test(strContent) === false) {
-                            strContent = '<p>' + strContent + '</p>';
+                        let nodes = new DOMParser().parseFromString(strContent, 'text/html').body.childNodes;
+
+                        if (nodes.length == 1) {
+                            // 如果是纯文本
+                            if (nodes[0].nodeType === 3) {
+                                strContent = '<p class="' + CL.add('wrap') + '">' + strContent + '</p>';
+                            }
+                        } else {
+                            strContent = '<div class="' + CL.add('wrap') + '">' + strContent + '</div>';
                         }
 
                         // 主体内容更新
@@ -5958,10 +6054,17 @@ const Dialog = (() => {
                             }
                         }
 
-                        // 如果是纯文本
-                        if (/<[\w\W]+>/.test(strContent) === false) {
-                            strContent = '<p>' + strContent + '</p>';
+                        let nodes = new DOMParser().parseFromString(strContent, 'text/html').body.childNodes;
+
+                        if (nodes.length == 1) {
+                            // 如果是纯文本
+                            if (nodes[0].nodeType === 3) {
+                                strContent = '<p class="' + CL.add('wrap') + '">' + strContent + '</p>';
+                            }
+                        } else {
+                            strContent = '<div class="' + CL.add('wrap') + '">' + strContent + '</div>';
                         }
+
                         // 主体内容设置
                         strContent = '<div class="' + CL.add(objParams.type) + ' ' + CL.add('confirm') + '">' + strContent + '</div>';
 
@@ -6037,8 +6140,13 @@ const Dialog = (() => {
                                 }
                             }
                         }
+
+                        // 基于内容的数据类型，使用不同的默认的弹框关闭方式
+                        this.closeMode = typeof content == 'string' ? 'remove' : 'hide';
+
                         // 是隐藏模式，则eleBody里面的内容保护出来
-                        if (this.closeMode == 'hide') {
+                        // 主要是使用content语法替换内容时候用到，这段代码一般不会执行到
+                        if (this.closeMode == 'hide' && eleBody.innerHTML) {
                             let eleProtect = document.createElement('div');
                             eleProtect.setAttribute('hidden', '');
                             // 遍历并转移
@@ -6052,13 +6160,17 @@ const Dialog = (() => {
                         // 清空主内容区域的内容
                         eleBody.innerHTML = '';
 
-                        // 基于内容的数据类型，使用不同的默认的弹框关闭方式
-                        this.closeMode = typeof content == 'string' ? 'remove' : 'hide';
-
                         if (this.closeMode == 'remove') {
                             eleBody.innerHTML = content;
                         } else {
+                            let eleContentParent = content.parentElement;
+                            let isParentHidden = eleContentParent && eleContentParent.matches('div[hidden]');
+                            // 弹框中显示
                             eleBody.appendChild(content);
+                            // 如果原父级是隐藏div，该div删除
+                            if (isParentHidden && eleContentParent.innerHTML.trim() === '') {
+                                eleContentParent.remove();
+                            }
                             // 如果content是隐藏的则显示
                             if (content.nodeType === 1 && getComputedStyle(content).display == 'none') {
                                 content.removeAttribute('hidden');
@@ -6333,6 +6445,10 @@ const Dialog = (() => {
                 mutation.addedNodes.forEach(function (eleAdd) {
                     if (eleAdd.matches && eleAdd.matches('dialog')) {
                         funDialogRegist(eleAdd);
+                    } else if (eleAdd.querySelector) {
+                        eleAdd.querySelectorAll('dialog').forEach(item => {
+                            funDialogRegist(item);
+                        });
                     }
                 });
             });
@@ -12217,7 +12333,7 @@ const Table = (function () {
             let elePer = objElement.drop;
 
             // 触发分页数量的下拉元素
-            if (elePer) {
+            if (elePer && elePer.list) {
                 if (strStoreId && localStorage[strStoreId]) {
                     numCurrentPer = localStorage[strStoreId];
                     objParams.page.per = Number(numCurrentPer);
@@ -12679,18 +12795,21 @@ const Table = (function () {
                 this.element.drop = eleDrop;
             }
 
-            // 事件绑定和处理
-            this.events();
+            // 为了动态呈现的列表可以先设置参数，后执行，这里延后
+            setTimeout(() => {
+                // 事件绑定和处理
+                this.events();
 
-            // 基于tbody内容决定首次交互的行为
-            if (eleTbody.textContent.trim() == '') {
-                this.isFirstAjax = true;
-                this.ajax();
-            } else {
-                // 认为是列表第一页直出，
-                // 这样的交互可以有更好体验
-                this.page();
-            }
+                // 基于tbody内容决定首次交互的行为
+                if (eleTbody.textContent.trim() == '') {
+                    this.isFirstAjax = true;
+                    this.ajax();
+                } else {
+                    // 认为是列表第一页直出，
+                    // 这样的交互可以有更好体验
+                    this.page();
+                }
+            }, 1);
 
             // 全局事件
             this.dispatchEvent(new CustomEvent('connected'), {
@@ -12862,28 +12981,30 @@ class Form extends HTMLFormElement {
 
             try {
                 json = JSON.parse(xhr.responseText);
-
-                if (json && (json.code == 0 || json.error == 0)) {
-                    // 成功回调
-                    if (optionCallback.success) {
-                        optionCallback.success.call(this, json);
-                    } else {
-                        // 如果没有成功回调，组件自己提示成功
-                        new LightTip(json.msg || '操作成功。', 'success');
-                    }
-                } else {
-                    new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
-
-                    // 失败回调
-                    if (optionCallback.error) {
-                        optionCallback.error.call(this, json);
-                    }
-                }
             } catch (event) {
-                new LightTip(json.msg || '返回数据解析出错。', 'error');
+                new LightTip('返回数据解析出错。', 'error');
                 // 回调
                 if (optionCallback.error) {
                     optionCallback.error.call(this, event);
+                }
+
+                return;
+            }
+
+            if (json && (json.code === 0 || json.error === 0)) {
+                // 成功回调
+                if (optionCallback.success) {
+                    optionCallback.success.call(this, json);
+                } else {
+                    // 如果没有成功回调，组件自己提示成功
+                    new LightTip(json.msg || '操作成功。', 'success');
+                }
+            } else {
+                new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
+
+                // 失败回调
+                if (optionCallback.error) {
+                    optionCallback.error.call(this, json);
                 }
             }
         };

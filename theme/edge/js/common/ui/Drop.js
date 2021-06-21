@@ -46,6 +46,14 @@ class Drop extends HTMLElement {
                 if (typeof value == 'undefined') {
                     value = eleTrigger.getAttribute(prop) || eleTrigger.dataset[prop];
 
+                    if (prop == 'width') {
+                        if (eleTrigger !== this) {
+                            value = eleTrigger.dataset[prop];
+                        } else {
+                            value = eleTrigger.getAttribute(prop);
+                        }
+                    }
+
                     // 部分参数如果没有，则使用默认的参数值
                     if (typeof value == 'undefined' && Drop.defaults[prop]) {
                         value = Drop.defaults[prop];
@@ -162,6 +170,10 @@ class Drop extends HTMLElement {
                     this.show();
                 });
             }
+        }
+
+        if (eleTrigger !== this) {
+            document.body.append(this);
         }
     }
 
@@ -654,8 +666,12 @@ class Drop extends HTMLElement {
         eleTrigger = eleTrigger || this.element.trigger;
 
         // 触发元素和数据是必须项
-        if (!eleTrigger || !data) {
+        if (!eleTrigger) {
             return this;
+        }
+
+        if (!data) {
+            data = [];
         }
 
         const defaults = {
@@ -674,8 +690,13 @@ class Drop extends HTMLElement {
             onSelect: () => {}
         };
 
-        // Drop 配置
-        const objParams = Object.assign({}, defaults, options || {});
+        // 参数处理
+        const objParams = {};
+        options = options || {};
+
+        Object.keys(defaults).forEach(prop => {
+            objParams[prop] = options[prop] || this.params[prop] || defaults[prop];
+        });
 
         // 一些常量
         const SELECTED = 'selected';
@@ -819,6 +840,15 @@ class Drop extends HTMLElement {
                     value: '没有数据',
                     disabled: true
                 }];
+            } else {
+                arrListData = arrListData.map(arrData => {
+                    if (typeof arrData == 'string' && arrData !== '-') {
+                        return {
+                            value: arrData
+                        };
+                    }
+                    return arrData;
+                });
             }
 
             // 是否包含选中项
@@ -1028,6 +1058,24 @@ class Drop extends HTMLElement {
 
             // 触发用户自定义选择事件
             (this.params.onSelect || objParams.onSelect).call(this, objItemData, eleClicked);
+
+            // 触发自定义事件 - select
+            this.dispatchEvent(new CustomEvent('select'), {
+                data: objItemData,
+                target: eleClicked
+            });
+
+            // 如果trigger元素非<ui-drop>元素，则也触发一下，同时传递select事件来源
+            // 如果是在Vue中，可以使用@select绑定选择事件
+            if (eleTrigger != this) {
+                eleTrigger.dispatchEvent(new CustomEvent('select', {
+                    detail: {
+                        type: 'ui-drop',
+                        data: objItemData,
+                        target: eleClicked
+                    }
+                }));
+            }
 
             // 不是鼠标右击事件，也不是委托模式更新
             if (objParams.eventType != 'contextmenu' && objParams.selector == '' && !objItemData.href) {
@@ -1269,14 +1317,17 @@ const initAllIsDropAttrAction = (ele) => {
     eleDrops.forEach(eleTrigger => {
         let eleTargetId = eleTrigger.getAttribute('is-drop');
         if (eleTargetId) {
-            eleTrigger.setAttribute('is-drop', '');
             eleTrigger.dataset.target = eleTargetId;
         }
         // 基于data-target获取元素
         eleTargetId = eleTrigger.dataset.target;
         let eleTarget = eleTargetId && document.getElementById(eleTargetId);
         if (eleTarget) {
-            new Drop(eleTrigger, eleTarget);
+            eleTrigger['ui-drop'] = new Drop(eleTrigger, eleTarget);
+            // 隐藏<ui-drop>元素细节
+            eleTrigger['ui-drop'].addEventListener('connected', function () {
+                this.remove();
+            });
         }
     });
 };

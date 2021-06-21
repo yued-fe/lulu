@@ -435,7 +435,8 @@
 
         // 单复选框点击不focus
         // tabindex>=0 元素点击也不focus（避免outline出现）
-        if (target && target == eleActive && (/^radio|checkbox$/i.test(eleActive.type) || tabindex >= 0) && win.isKeyEvent == false) {
+        // 当然，本身outline不是none
+        if (target && target == eleActive && (/^radio|checkbox$/i.test(eleActive.type) || tabindex >= 0) && win.isKeyEvent == false && /none/.test(getComputedStyle(target).outline) == false) {
             eleActive.blur();
         }
     });

@@ -145,7 +145,14 @@ class Tab extends HTMLElement {
 
         // 载入到页面
         if (!this.parentElement) {
-            document.body.append(this);
+            // 使用专门的div包裹，避免暴露过多的细节
+            let eleHidden = document.querySelector('body > div[hidden="tab"]');
+            if (!eleHidden) {
+                eleHidden = document.createElement('div');
+                eleHidden.setAttribute('hidden', 'tab');
+                document.body.append(eleHidden);
+            }
+            eleHidden.append(this);
         }
     }
     get eventType () {
@@ -329,9 +336,6 @@ class Tab extends HTMLElement {
                 eleFirstOpenTab.autoSwitch();
             }
         }
-
-        // DOM初始化完毕
-        this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }
 
     // ui-tab元素在页面出现的时候
@@ -367,6 +371,11 @@ class Tab extends HTMLElement {
         });
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        // is-tab等类型初始化完毕标志事件
+        if (eleTrigger != this) {
+            eleTrigger.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+        }
     }
 
     /**
@@ -455,21 +464,26 @@ window.Tab = Tab;
      */
     function funAutoInitAndWatching () {
         document.querySelectorAll('[is-tab]').forEach(function (eleTab) {
-            new Tab(eleTab);
+            if (!eleTab['ui-tab']) {
+                eleTab['ui-tab'] = new Tab(eleTab);
+            }
         });
         var observerTab = new MutationObserver(function (mutationsList) {
             mutationsList.forEach(function (mutation) {
                 mutation.addedNodes.forEach(function (eleAdd) {
-                    let eleTab = null;
-                    if (eleAdd.tagName) {
-                        if (eleAdd.hasAttribute('is-tab')) {
-                            eleTab = eleAdd;
-                        } else {
-                            eleTab = eleAdd.querySelector('[is-tab]');
+                    if (!eleAdd.tagName) {
+                        return;
+                    }
+                    if (eleAdd.hasAttribute('is-tab')) {
+                        if (!eleAdd['ui-tab']) {
+                            eleAdd['ui-tab'] = new Tab(eleAdd);
                         }
-                        if (eleTab) {
-                            eleTab['ui-tab'] = new Tab(eleTab);
-                        }
+                    } else {
+                        eleAdd.querySelectorAll('[is-tab]').forEach(function (eleTab) {
+                            if (!eleTab['ui-tab']) {
+                                eleTab['ui-tab'] = new Tab(eleTab);
+                            }
+                        });
                     }
                 });
             });

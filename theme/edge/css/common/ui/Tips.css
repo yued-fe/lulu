@@ -107,13 +107,13 @@
 /* JS生成的，和CSS定位样式不合并，保持独立 */
 .ui-tips-x {
     position: absolute;
+    width: fit-content;
     z-index: 99;
     margin-top: -6px;
-    display: block;
     max-width: 20em;
     padding: calc(6px + var(--ui-tips-triangle-size)) calc(10px + var(--ui-tips-triangle-size));
     line-height: 18px;
-    color: var(--ui-white, #ffffff);
+    color: var(--ui-white, #fff);
     font-size: calc(var(--ui-font, 14px) - 2px);
     font-style: normal;
     text-align: left;

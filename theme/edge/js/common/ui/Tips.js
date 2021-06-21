@@ -241,22 +241,6 @@ class Tips extends HTMLElement {
             }
         });
     }
-    disconnectedCallback () {
-        this.uninstall();
-    }
-    uninstall () {
-        const eleTrigger = this.trigger;
-        eleTrigger.removeEventListener('mouseenter', this.handleMouseEnter);
-        eleTrigger.removeEventListener('mouseleave', this.handleMouseLeave);
-        eleTrigger.removeEventListener('focus', this.handleFocus);
-        eleTrigger.removeEventListener('blur', this.hide);
-        eleTrigger.removeEventListener('click', this.show);
-        document.removeEventListener('mouseup', this.handleMouseUp);
-
-        if (this.target) {
-            this.target.remove();
-        }
-    }
 }
 
 if (!customElements.get('ui-tips')) {
@@ -298,6 +282,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
         eleTips.title = this.getAttribute('title') || options.content || '';
     }
 
+    // 移除原始的标题
+    this.removeAttribute('title');
+
     // custom trigger
     if (!this.id) {
         this.id = 'lulu_' + (Math.random() + '').replace('0.', '');
@@ -319,6 +306,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 
     this['ui-tips'] = eleTips;
 
+    eleTips.addEventListener('connected', function () {
+        this.remove();
+    });
     document.body.appendChild(eleTips);
 };
 
@@ -340,8 +330,15 @@ HTMLElement.prototype.tips = function (content, options = {}) {
                 var nodeRemoved = mutation.removedNodes;
                 if (nodeAdded.length) {
                     nodeAdded.forEach(function (eleAdd) {
-                        if (eleAdd.matches && eleAdd.matches('.ui-tips, [is-tips]') && !eleAdd['ui-tips']) {
+                        if (!eleAdd.matches) {
+                            return;
+                        }
+                        if (eleAdd.matches('.ui-tips, [is-tips]')) {
                             eleAdd.tips();
+                        } else {
+                            eleAdd.querySelectorAll('.ui-tips, [is-tips]').forEach(item => {
+                                item.tips();
+                            });
                         }
                     });
                 }

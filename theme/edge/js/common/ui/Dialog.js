@@ -414,9 +414,15 @@ const Dialog = (() => {
                             }
                         }
 
-                        // 如果是纯文本
-                        if (/<[\w\W]+>/.test(strContent) === false) {
-                            strContent = '<p>' + strContent + '</p>';
+                        let nodes = new DOMParser().parseFromString(strContent, 'text/html').body.childNodes;
+
+                        if (nodes.length == 1) {
+                            // 如果是纯文本
+                            if (nodes[0].nodeType === 3) {
+                                strContent = '<p class="' + CL.add('wrap') + '">' + strContent + '</p>';
+                            }
+                        } else {
+                            strContent = '<div class="' + CL.add('wrap') + '">' + strContent + '</div>';
                         }
 
                         // 主体内容更新
@@ -484,10 +490,17 @@ const Dialog = (() => {
                             }
                         }
 
-                        // 如果是纯文本
-                        if (/<[\w\W]+>/.test(strContent) === false) {
-                            strContent = '<p>' + strContent + '</p>';
+                        let nodes = new DOMParser().parseFromString(strContent, 'text/html').body.childNodes;
+
+                        if (nodes.length == 1) {
+                            // 如果是纯文本
+                            if (nodes[0].nodeType === 3) {
+                                strContent = '<p class="' + CL.add('wrap') + '">' + strContent + '</p>';
+                            }
+                        } else {
+                            strContent = '<div class="' + CL.add('wrap') + '">' + strContent + '</div>';
                         }
+
                         // 主体内容设置
                         strContent = '<div class="' + CL.add(objParams.type) + ' ' + CL.add('confirm') + '">' + strContent + '</div>';
 
@@ -563,8 +576,13 @@ const Dialog = (() => {
                                 }
                             }
                         }
+
+                        // 基于内容的数据类型，使用不同的默认的弹框关闭方式
+                        this.closeMode = typeof content == 'string' ? 'remove' : 'hide';
+
                         // 是隐藏模式，则eleBody里面的内容保护出来
-                        if (this.closeMode == 'hide') {
+                        // 主要是使用content语法替换内容时候用到，这段代码一般不会执行到
+                        if (this.closeMode == 'hide' && eleBody.innerHTML) {
                             let eleProtect = document.createElement('div');
                             eleProtect.setAttribute('hidden', '');
                             // 遍历并转移
@@ -578,13 +596,17 @@ const Dialog = (() => {
                         // 清空主内容区域的内容
                         eleBody.innerHTML = '';
 
-                        // 基于内容的数据类型，使用不同的默认的弹框关闭方式
-                        this.closeMode = typeof content == 'string' ? 'remove' : 'hide';
-
                         if (this.closeMode == 'remove') {
                             eleBody.innerHTML = content;
                         } else {
+                            let eleContentParent = content.parentElement;
+                            let isParentHidden = eleContentParent && eleContentParent.matches('div[hidden]');
+                            // 弹框中显示
                             eleBody.appendChild(content);
+                            // 如果原父级是隐藏div，该div删除
+                            if (isParentHidden && eleContentParent.innerHTML.trim() === '') {
+                                eleContentParent.remove();
+                            }
                             // 如果content是隐藏的则显示
                             if (content.nodeType === 1 && getComputedStyle(content).display == 'none') {
                                 content.removeAttribute('hidden');
@@ -859,6 +881,10 @@ const Dialog = (() => {
                 mutation.addedNodes.forEach(function (eleAdd) {
                     if (eleAdd.matches && eleAdd.matches('dialog')) {
                         funDialogRegist(eleAdd);
+                    } else if (eleAdd.querySelector) {
+                        eleAdd.querySelectorAll('dialog').forEach(item => {
+                            funDialogRegist(item);
+                        });
                     }
                 });
             });

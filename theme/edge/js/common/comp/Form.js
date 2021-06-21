@@ -118,28 +118,30 @@ class Form extends HTMLFormElement {
 
             try {
                 json = JSON.parse(xhr.responseText);
-
-                if (json && (json.code == 0 || json.error == 0)) {
-                    // 成功回调
-                    if (optionCallback.success) {
-                        optionCallback.success.call(this, json);
-                    } else {
-                        // 如果没有成功回调，组件自己提示成功
-                        new LightTip(json.msg || '操作成功。', 'success');
-                    }
-                } else {
-                    new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
-
-                    // 失败回调
-                    if (optionCallback.error) {
-                        optionCallback.error.call(this, json);
-                    }
-                }
             } catch (event) {
-                new LightTip(json.msg || '返回数据解析出错。', 'error');
+                new LightTip('返回数据解析出错。', 'error');
                 // 回调
                 if (optionCallback.error) {
                     optionCallback.error.call(this, event);
+                }
+
+                return;
+            }
+
+            if (json && (json.code === 0 || json.error === 0)) {
+                // 成功回调
+                if (optionCallback.success) {
+                    optionCallback.success.call(this, json);
+                } else {
+                    // 如果没有成功回调，组件自己提示成功
+                    new LightTip(json.msg || '操作成功。', 'success');
+                }
+            } else {
+                new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
+
+                // 失败回调
+                if (optionCallback.error) {
+                    optionCallback.error.call(this, json);
                 }
             }
         };

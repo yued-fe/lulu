@@ -222,20 +222,17 @@
     position: relative;
 }
 
-.ui-dialog-alert > h6,
-.ui-dialog-confirm > h6 {
+.ui-dialog-wrap > h6 {
     font-size: calc(var(--ui-font, 14px) + 1px);
     margin-bottom: 5px;
     margin-top: 0;
 }
 
-.ui-dialog-alert > h6 ~ p,
-.ui-dialog-confirm > h6 ~ p {
+.ui-dialog-wrap > h6 ~ p {
     font-size: var(--ui-font, 14px);
 }
 
-.ui-dialog-alert > p,
-.ui-dialog-confirm > p {
+.ui-dialog-wrap > p {
     margin: 0;
 }
 
