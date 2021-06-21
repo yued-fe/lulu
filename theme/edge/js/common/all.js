@@ -2673,6 +2673,10 @@ class Drop extends HTMLElement {
                                 if (!value) {
                                     value = option.value;
                                     id = option.id || index;
+                                    // 如果依然没有数据，认为是分隔线
+                                    if (!value) {
+                                        return {};
+                                    }
                                 }
                                 return {
                                     id: id,
