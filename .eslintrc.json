@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "amd": true
+        "amd": true,
+        "es6": true
     },
     "globals": {
         "define": true,
@@ -9,8 +10,10 @@
         "console": true
     },
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 8
     },
+    "parser": "babel-eslint",
     "extends": [
         "eslint:recommended"
     ],
@@ -31,8 +34,6 @@
         "no-dupe-keys": 2,
         // switch的case不能重复
         "no-duplicate-case": 2,
-        // 禁止对 function 声明重新赋值
-        "no-func-assign": 2,
         // 禁止把全局对象 (Math 和 JSON) 作为函数调用 错误：var math = Math();
         "no-obj-calls": 2,
         // 禁止正则表达式字面量中出现多个空格
@@ -47,7 +48,7 @@
         // 要求使用 isNaN() 检查 NaN
         "use-isnan": 2,
         // 强制 typeof 表达式与有效的字符串进行比较
-        // typeof foo === "undefimed" 错误
+        // typeof foo === "undefined" 错误
         "valid-typeof": 2,
         // 使用 === 替代 == allow-null允许null和undefined==
         // 禁用 arguments.caller 或 arguments.callee
