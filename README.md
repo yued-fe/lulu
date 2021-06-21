@@ -81,18 +81,20 @@ LuLu UI支持Retina视网膜屏幕，同时支持Aria无障碍访问，以及极
 
 ## 快速了解项目目录结构
 
-所有资源都在<code>/theme/</code>目录下，目前支持3个主题：
+所有资源都在<code>/theme/</code>目录下，目前支持4个主题：
 
 * modern主题。基于jQuery，兼容IE7+，针对PC网站。分sass, css和js 3个目录，如果你不想要sass，那这个文件夹就不用管。图片资源在css目录下。
 * peak主题。基于jQuery，兼容IE8+，针对PC网站。分sass, css和js 3个目录，如果你不想要sass，那这个文件夹就不用管。图片资源在css目录下。
 * pure主题。原生JavaScript编写，兼容IE9+，PC，Mobile网站通用。分css和js 2个目录，没有图片资源目录，所有图像CSS内联。
-* edge主题。原生JavaScript编写，ES6 module，兼容最新版的现代浏览器，PC，Mobile网站通用。目前对外beta中。
+* edge主题。原生JavaScript编写，ES6 module，兼容最新版的现代浏览器，PC，Mobile网站通用，是面向未来的现代Web组件库。
 
 组件分ui和comp两个目录，前者是UI组件，后者是基于UI组件整合的前端解决方案。
 
 更具体信息可以参见：<a href="https://l-ui.com/pure/about.use.html">文档-使用与发布</a>
 
-另外，本git性质上为只读，原始git项目在公司内部，因此tests、docs等目录暂时并未开源。
+文档在gh-pages分支。
+
+另外，本git只展示了输出版本，原始git项目在公司内部，测试和开发目录并未对外，并不是说本项目没有测试用例。
 
 ## 项目成员
 
