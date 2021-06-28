@@ -50,12 +50,11 @@
             <p>本前端轻提示可以单独作为插件使用。</p>
             <p>引入CSS：</p>
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/LightTip.css"&gt;</pre>
-            <p>引用JS：</p>
-            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/LightTip.js"&gt;&lt;/script&gt;</pre>
-            <p>本组件为<code>web-components</code>，引用时需添加<code><mark>type="module"</mark></code>，采用如下方式进行引用
-            </p>
+            <p>本组件为Web Components，引用JS时需添加<code>type="module"</code>，例如直连：</p>
+            <pre>&lt;script <mark>type="module"</mark> src="https://qidian.gtimg.com/lulu/edge/js/common/ui/LightTip.js"&gt;&lt;/script&gt;</pre>
+            <p>或者使用import语法。</p>
             <pre>&lt;script <mark>type="module"</mark>&gt;
-    import 'https://qidian.gtimg.com/lulu/edge/js/common/ui/LightTip.js';
+    import lightTip from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/LightTip.js';
 &lt;/script&gt;</pre>
             
             <h3>概要</h3>

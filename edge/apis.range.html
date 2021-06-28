@@ -36,7 +36,7 @@
             <p>引入如下CSS和JS：</p>
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Range.css"&gt;</pre>
             <pre>&lt;script <mark>type="module"</mark> src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Range.js"&gt;&lt;/script&gt;</pre>
-            <p>本组件为<code>web-components</code>，引用时需添加<code><mark>type="module"</mark></code>，也可采用如下方式进行引用</p>
+            <p>本组件为Web Components，引用时需添加<code>type="module"</code>，也可采用如下方式进行引用</p>
             <pre>&lt;script <mark>type="module"</mark>&gt;
     import "../../theme/edge/js/common/ui/Range.js";
 &lt;/script&gt;</pre>
@@ -169,9 +169,11 @@ rangeButton.addEventListener('click', function () {
                 <button id="rangeMultipleAdd" class="ui-button" data-type="primary">新增区间范围选择框</button>
             </p>
             <pre>button.addEventListener('click', function () {
-    var eleRange = document.createElement('input',<mark>{is:'ui-range'}</mark>); <span class="green">// 注意，这里需要添加{is:'ui-range'}</span>
+    <span class="green">// 注意，这里需要添加{ is: 'ui-range' }</span>
+    var eleRange = document.createElement('input', <mark>{ is: 'ui-range' }</mark>);
     eleRange.setAttribute('type', 'range');
-    eleRange.setAttribute('multiple', ''); <span class="green">// 如果需要区间选择就要加上这句</span>
+    <span class="green">// 如果需要区间选择就要加上这句</span>
+    eleRange.setAttribute('multiple', '');
     <span class="green">// 插入到后面</span>
     eleBtnAdd.parentElement.after(eleRange);
 });</pre>
@@ -203,13 +205,13 @@ rangeButton.addEventListener('click', function () {
             <p>readonly只读测试</p>
             <input type="range" is="ui-rate" max="5" readonly step="0.5" value="3" tabindex="-1">
             <pre>&lt;input type="range" is="ui-rate" readonly max="5" step="0.5" value="3" tabindex="-1"&gt;</pre>
-            <p>温馨提示:</p>
+            <p>温馨提示：</p>
             <ul>
                 <li>1. max step value三者要成倍数的关系（ 若有 --number，也要算在里面 ），否则可能会导致星星展示不全，比如max=100,--number:10,那么step和value就要是5的倍数</li>
-                <li>2. min只能设置0或者不设置，若要设置初始值，请设置value，他的值要和max成倍数关系</li>
+                <li>2. min只能设置0或者不设置，若要设置初始值，请设置value，它的值要和max成倍数关系</li>
             </ul>
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan, sunseekers</p>
             </div>
         </article>
     </main>

@@ -40,7 +40,7 @@
       <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Select.css"&gt;</pre>
       <p>引入JS：</p>
       <pre>&lt;script <mark>type="module"</mark> src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"&gt;&lt;/script&gt;</pre>
-      <p>本组件为<code>web-components</code>，引用时需添加<code><mark>type="module"</mark></code>，也可采用如下方式进行引用</p>
+      <p>本组件为Web Components，引用时需添加<code><mark>type="module"</mark></code>，也可采用如下方式进行引用</p>
       <pre>&lt;script <mark>type="module"</mark>&gt;
     import "../../theme/edge/js/common/ui/Select.js";
 &lt;/script&gt;</pre>
@@ -48,7 +48,7 @@
       <pre>&lt;script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
 
       <h3>基本使用示意</h3>
-      <p>仅需给 select 选择框添加 is="ui-select" 即可；无添加使用原生 select。</p>
+      <p>仅需给 select 选择框添加 is="ui-select" 即可；无添加则依然表现为原生 select。</p>
       <h3>下拉框-单选</h3>
       <h4>赋值</h4>
       <p>测试禁用态样式，以及动态赋值与样式同步变化。</p>
@@ -189,14 +189,14 @@ button.addEventListener('click', function () {
       <h4>参数</h4>
       <p><code>element</code>参数为对应的<code>&lt;select&gt;</code> DOM元素。</p>
       <p class="tips">
-        Select.js下拉方法只能基于原生的&lt;select&gt;元素生成，不支持基于数据生成。如果希望基于数据结构创建下拉列表，可以参考使用DropList.js或者Datalist.js。</p>
+        Select.js下拉方法只能基于原生的&lt;select&gt;元素生成，不支持基于数据生成。如果希望基于数据结构创建下拉列表，可以参考使用Drop.js中的list()方法或者Datalist.js。</p>
 
       <h4>赋值</h4>
       <p>存在特殊场景需要手动改变<code>&lt;select&gt;</code>元素的选中项，建议直接使用value赋值，下拉组件的样式会同步更新。</p>
       <pre>select.value = 'xxx';</pre>
       <p><code>'xxx'</code>是即将被选中的<code>&lt;option&gt;</code>元素的<code>value</code>属性值。</p>
-      <p>当然，我们也可以直接找到对应的<code>&lt;option&gt;</code>元素，然后设置<code>selected=true</code>，但是需要注意的是，我们需要手动refresh下：</p>
-      <pre>select.refresh();</pre>
+      <p>我们也可以直接找到对应的<code>&lt;option&gt;</code>元素，然后设置<code>selected</code>属性值为<code>true</code>。</p>
+      <p>以及使用设置<code>selectedIndex</code>属性值实现进行下拉选项的选中。</p>
 
       <h4>事件处理</h4>
       <p>本下拉组件本身只提供样式支持，至于事件处理，完全和处理原生的<code>&lt;select&gt;</code>下拉框一样。例如：</p>
@@ -274,7 +274,7 @@ button.addEventListener('click', function () {
     <span class="green">// 删除第一个option元素，同样会自动UI更新</span>
     select[0].remove();
 });</pre>
-      <p class="tips">可以看到，无论是初始化，事件，禁用或者添加，隐藏和删除，下拉框组件都严格遵循“面向HTML开发”的设计理念，也就是Select.js下拉所有处理都是围绕原生的&lt;select&gt;元素展开，大家千万不要对美化后的下拉框元素进行行为上的处理。</p>
+      <p class="tips">可以看到，无论是初始化，事件，禁用或者添加，隐藏和删除，下拉框组件都严格遵循“面向HTML开发”的设计理念，也就是Select.js下拉所有处理都是围绕原生的&lt;select&gt;元素展开，大家千万不要对美化后的下拉框元素进行DOM处理。</p>
 
       <h4>关于大数据量时候的性能</h4>
       <p>如果遇到需要同时渲染数百或上千个下拉框的场景，需要提前对<code>&lt;select&gt;</code>元素通过<code>style</code>属性，或者<code>width</code>属性设置好宽度（支持数值以及任意长度单位）。可以极大地提升渲染性能，因为渲染的瓶颈就是下拉元素的宽度获取，如果提前设置好，则速度可以大大提升。

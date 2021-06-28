@@ -37,7 +37,7 @@
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Button.css"&gt;</pre>
 
             <h3>原生&lt;button&gt;按钮</h3>
-            <p>在Pure主题下，LuLu UI推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
+            <p>推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
             <h4>基本状态</h4>
             <p><button class="ui-button">基本按钮</button> <button class="ui-button" data-type="normal">正常按钮</button></p>
             <pre>&lt;button class="ui-button"&gt;基本按钮&lt;/button&gt;
@@ -83,7 +83,6 @@
             <p><input type="button" class="ui-button loading" value="input标签"> <input type="button" class="ui-button loading" value="input标签" data-type="primary"></p>
             <pre>&lt;input class="ui-button <mark>loading</mark>" value="input标签"&gt;
 &lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="primary"&gt;</pre>
-            <p>Tips: 所有按钮的loading效果在IE9浏览器下是静态的三个点。</p>
 
             <h3>&lt;a&gt;标签按钮们</h3>
             <p><code>&lt;a&gt;</code>标签按钮的优点是可以作为链接使用，如果是纯按钮，推荐使用<code>&lt;button&gt;</code>标签。</p>
@@ -127,7 +126,7 @@
             </p>
             <pre>&lt;a href="javascript:" class="ui-button <mark>loading</mark>" role="button">点击loading绽放&lt;/a></pre>
 
-            <p class="tips">如果引入了Loading.js，也可以使用<code>dom.loading()</code>和<code>dom.unloading()</code>语句来增加和移除loading效果。相比直接使用classList API添加删除会有更好的无障碍访问体验。</p>
+            <p class="tips">如果引入了Loading.js，也可以使用<code>dom.loading=true</code>和<code>dom.loading=false</code>语句来增加和移除loading效果。</p>
 
             <h3>&lt;label&gt;标签按钮</h3>
             <p>实际开发时候，<code>&lt;label&gt;</code>标签按钮都是与原生表单按钮组合使用，例如提交按钮在表单外部（更推荐在提交按钮上使用<code>form</code>属性）。</p>
@@ -139,7 +138,7 @@
             <p>此时，点击按钮可以触发表单提交行为。</p>
             <pre>&lt;input id="someId" type="submit"&gt;
 &lt;label class="ui-button" for="someId" data-type="primary" role="button"&gt;关联的label标签按钮&lt;/label&gt;</pre>
-            <p>LuLu UI的Keyborad.js对<code>outline</code>的交互做了优化，如果对这方面要求较高，可以考虑引入。</p>
+            <p>LuLu UI的Keyborad.js对<code>outline</code>的交互做了优化，强烈建议引入。</p>
 
             <h4>按钮禁用</h4>
             <p><input id="someId2" type="submit" disabled><label class="ui-button disabled" for="someId2" data-type="primary">关联的label标签按钮</label></p>
@@ -160,10 +159,10 @@
             <div class="ui-button" role="button" data-type="danger" tabindex="0">div标签为块状按钮</div>
             <pre>&lt;div class="ui-button" data-type="danger" role="button" tabindex="0"&gt;div标签为块状按钮&lt;/div&gt;</pre>
 
-            <p class="tips">普通标签设置<code>tabindex</code>属性会有<code>outline</code>轮廓，Button.css默认去除了，但是影响了键盘无障碍访问。此时可以引入LuLu的Keyboard.css和Keyboard.js实现体验优化。</p>
+            <p class="tips">普通标签设置<code>tabindex</code>属性会有<code>outline</code>轮廓，Button.css默认去除了，但是影响了键盘无障碍访问。此时可以引入LuLu UI的Keyboard.css和Keyboard.js实现体验优化。</p>
 
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu，lennonover</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
         </article>
     </main>

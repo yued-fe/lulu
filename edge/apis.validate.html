@@ -41,7 +41,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Tips.css"&gt;</pre>
             <p>JS为：</p>
             <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Validate.js"&gt;&lt;/script&gt;</pre>
-            <p>或者使用合并地址：</p>
+            <p>或者<code>import</code>导入：</p>
             <pre>&lt;script&gt;
     import Validate from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/Validate.js';
 &lt;/script&gt;</pre>
@@ -72,7 +72,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                     <div class="clearfix mt15">
                         <label class="left">手机号<span class="red abs">*</span></label>
                         <div class="ovh pb2">
-                            <span class="ui-input"><input type="tel" name="tel" required placeholder="忽略兼容模式"></span>
+                            <span class="ui-input"><input type="tel" name="tel" required placeholder="会自动过滤非必要字符"></span>
                             <span class="gray ml20 mt10 f14">type='tel', required, 复制：132-0803-3621</span>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                     <div class="clearfix mt15">
                         <label class="left">每日限额<span class="red abs">*</span></label>
                         <div class="ovh">
-                            <input type="number" class="ui-input w100" min="5" max="500" size="5" required placeholder="直接输入数值">
+                            <input type="number" class="ui-input w100" min="5" max="500" size="5" required placeholder="输入数值">
                             <span class="gray ml20 mt10 f14">type='number', min='5', max='500', required</span>
                         </div>
                     </div>

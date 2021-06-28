@@ -74,11 +74,11 @@
 &lt;textarea class="ui-textarea" <mark>disabled</mark>&gt;&lt;/textarea&gt;</pre>
 
             <h4>文本域出错</h4>
-            非嵌套结构出错：<textarea class="ui-textarea error"></textarea>
-            <pre>&lt;textarea class="ui-textarea <mark>error</mark>">&lt;/textarea></pre>
+            非嵌套结构出错：<textarea class="ui-textarea" is-error></textarea>
+            <pre>&lt;textarea class="ui-textarea" <mark>is-error</mark>&gt;&lt;/textarea&gt;</pre>
             <p>嵌套结构出错：</p>
-            <div class="ui-textarea mt10"><textarea class="error"></textarea></div>
-            <pre>&lt;div class="ui-textarea">&lt;textarea class="<mark>error</mark>">&lt;/textarea>&lt;/div></pre>
+            <div class="ui-textarea mt10"><textarea is-error></textarea></div>
+            <pre>&lt;div class="ui-textarea"&gt;&lt;textarea <mark>is-error</mark>&gt;&lt;/textarea&gt;&lt;/div&gt;</pre>
 
 
             <h3>带计数的文本域</h3>
@@ -94,7 +94,7 @@
     &lt;textarea <span class="gray">id="someId"</span> maxlength="250" rows="5">&lt;/textarea>
     &lt;div class="ui-textarea">&lt;/div>
     <span class="green">&lt;-- 点击任意区域文本域都能focus，可缺省 --&gt;</span>
-    <span class="gray">&lt;label for="forFocusable" class="ui-textarea-count">
+    <span class="gray">&lt;label for="someId" class="ui-textarea-count">
         &lt;span>0&lt;/span>/&lt;span>250&lt;/span>
     &lt;/label></span>
 &lt;/div></pre>

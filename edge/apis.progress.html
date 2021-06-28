@@ -43,11 +43,17 @@
             </p>
             <pre>&lt;progress class="ui-progress"&gt;&lt;/progress&gt;</pre>
             <p class="tips">Firefox浏览器下没有设置默认<code>value</code>值的时候，进度是100%填满，Chrome浏览器是当作0处理，本组件已经使用<code>:indeterminate</code>伪类进行的兼容处理。</p>
+            <p>除了支持<code>class</code>属性，还支持<code>is</code>属性，例如：</p>
+            <pre>&lt;progress <mark>is="ui-progress"</mark>&gt;&lt;/progress&gt;</pre>
+            <p>效果如下：</p>
+            <progress is="ui-progress"></progress>
             <h4>2. 设置value</h4>
             <p>
                 上传中：<progress class="ui-progress" value="0.5"></progress>
+                <progress is="ui-progress" value="0.5"></progress>
             </p>
-            <pre>&lt;progress class="ui-progress" <mark>value="0.5"</mark>&gt;&lt;/progress&gt;</pre>
+            <pre>&lt;progress class="ui-progress" <mark>value="0.5"</mark>&gt;&lt;/progress&gt;
+&lt;progress is="ui-progress" <mark>value="0.5"</mark>&gt;&lt;/progress&gt;</pre>
             <p><code>&lt;progress&gt;</code>元素默认范围是0-1。</p>
             <h4>3. 设置max</h4>
             <p>

@@ -36,12 +36,20 @@
             <blockquote align="center" style="background-color: #f5f5f5; outline:.5em solid #f5f5f5;box-shadow: 40px 0 #f5f5f5, -40px 0 #f5f5f5;">所有创新都发生在事物边缘，所有的颠覆都来自边缘</blockquote>
 
             <p>Edge主题使用原生JavaScript编写，使用了JavaScript和CSS前沿的新语法和新特性，React和Vue项目均适用。</p>
+            <p>包括：</p>
+            <ul>
+                <li>ES6 import/export</li>
+                <li>Web Components</li>
+                <li>Customized build-in elements</li>
+                <li>MutationObserver</li>
+                <li>Proxy、Object.defineProperty</li>
+            </ul>
             <p>LuLu UI Edge主题适用于不需要考虑兼容IE浏览器的网站开发。</p>
 
             <h3>LuLu UI Edge主题的优势？</h3>
 
             <h4>使用成本更低了</h4>
-            <p>对于大部分组件，已经告别初始化和HTML结构限制，直接引入直接引入CSS和JS文件资源就可以了，无需安装配置，学习和使用成本极低。</p>
+            <p>所有组件都已经告别初始化和HTML结构限制，直接引入CSS和JS文件资源就可以了，无需安装配置，学习和使用成本极低。</p>
             <p>没有任何需要外链的图片资源，资源占用进一步减小。</p>
 
             <p>过去的体验细节继续保留，比如无障碍访问的支持，同时，由于Edge主题不需要考虑兼容性，因此，在视觉表现上也有明显的提升。</p>
@@ -50,11 +58,11 @@
             <h4>面向设计开发</h4>
             <p>关于面向设计开发可参见这里：“<a href="https://www.zhangxinxu.com/wordpress/?p=4892" target="_blank">面向设计的半封装web组件开发</a>”。</p>
 
-            <p>面向设计最大的特点在于能够对设计进行最完美的还原，可以很好地展现设计品质。有别于现有组件，然后再制约设计的设计策略。</p>
+            <p>面向设计最大的特点在于能够对设计进行最完美的还原，可以很好地展现设计品质。有别于先有组件，然后再制约设计的设计策略。</p>
             <p>所以，LuLu UI是没有版本的概念的，只有一条核心线自己往前走。当新项目过来需要使用的时候，完全拷贝LuLu UI到项目开发目录中，然后根据当前项目的设计风格，对HTML和JS进行结构上的调整，是放心大胆的调整。</p>
             <p>因此，LuLu UI组件不是传统的大而全，而是走极简轻便灵活方向，表现为模块低耦合，层级扁平；API非常少，尤其一些基本组件，直接就没有API。</p>
             <p>LuLu UI没有版本概念，只有主题，目前有morden、peak, pure和edge四个主题，寓意为“现代”、“巅峰”、“纯粹”和“边缘”。</p>
-            <p>modern版本兼容到IE7（依赖jQuery），peak版本兼容到IE8（依赖jQuery），pure版本兼容到IE9（原生JS），edge版本为前沿版本，不兼容IE。</p>
+            <p>本文档对应的是edge版本，不兼容IE浏览器，Safari浏览器需要引入<a href="https://qidian.gtimg.com/lulu/edge/js/common/all.js">safari-polyfill</a>。</p>
             <h4>基于HTML开发</h4>
             <p>相对于其他UI框架，LuLu UI技术栈更偏向HTML和CSS，以便更友好地还原设计和增强体验。</p>
             <p>具体而言，LuLu UI基于HTML开发，实现前端开发分离，具体可参考“<a href="https://www.zhangxinxu.com/wordpress/?p=5180">顺势而为，HTML发展与UI组件设计进化</a>”。</p>
@@ -63,9 +71,11 @@
             <p>想要修改日期范围，很简单，直接改变原生的属性值就好了：</p>
             <pre>input.setAttribute('min', '2019-09-05');
 input.setAttribute('max', '2029-09-05');</pre>
-            <p>组件自动就会同步，就跟原生的时间选择组件感觉一样！</p>
+            <p>组件自动就会同步，就跟原生的时间选择组件使用体验一致，因此可以兼容主流的第三方框架，例如：</p>
+            <pre>&lt;input type="date" :min="min" :max="max" @change="someMethod" is="ui-datetime"&gt;</pre>
+
             <p>所谓UI组件，本来就应该只负责UI，跟业务没有瓜葛才对。</p>
-            <p>LuLu中的很多UI组件都是采用这样的设计思想。</p>
+            <p>Edge主题中的UI组件都是采用这样的设计思想。</p>
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>

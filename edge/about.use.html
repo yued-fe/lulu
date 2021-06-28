@@ -60,9 +60,19 @@
             <pre>&lt;script type="module"&gt;
     import Drop from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js';
 &lt;/script&gt;</pre>
-            <h5>JS完整引入<sup class="red">推荐</sup></h5>
-            <p>所有JS都整合在一个JS中，如今流量不值钱，完整引入反而省心。</p>
+            <h5>JS完整引入</h5>
+            <p>所有JS都整合在一个JS中。</p>
             <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/all.js"&gt;&lt;/script&gt;</pre>
+            <p>完整引用的all.js并没有任何export暴露，因此：</p>
+            <ul>
+                <li><code>type="module"</code>不是必需的。</li>
+                <li>可以使用暴露在全局的对象进行构造，类似Dialog、LightTip等。</li>
+            </ul>
+
+            <h5>兼容Safari浏览器</h5>
+            <p>由于Safari浏览器目前还不支持内置自定义元素，因此，对于部分UI组件，如果需要兼容Safari浏览器，还需要引入下面这段JS：</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
+
             <h4>资源概览</h4>
             <p>基本目录结构如下：</p>
 <pre>js
@@ -116,7 +126,7 @@
                 </tr>
                 <tr>
                     <td>Dialog.js</td>
-                    <td>弹框。带有黑色半透明遮罩的弹框。内置alert和confirm等常用提示弹框。支持ajax异步加载弹框内容。</td>
+                    <td>弹框。带有黑色半透明遮罩的弹框。内置alert和confirm等常用提示弹框。</td>
                     <td>Loading.js</td>
                 </tr>
                 <tr>
@@ -136,7 +146,7 @@
                 </tr>
                 <tr>
                     <td>Keyboard.js</td>
-                    <td>键盘增强。作用是让lulu所有组件都能使用键盘无障碍访问。</td>
+                    <td>键盘增强。作用是让LuLu UI的所有组件都能使用键盘无障碍访问。</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -146,7 +156,7 @@
                 </tr>
                 <tr>
                     <td>Loading.js</td>
-                    <td>按钮，容器等loading交互控制。</td>
+                    <td>按钮、容器等loading交互控制。</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -166,7 +176,7 @@
                 </tr>
                 <tr>
                     <td>Tab.js</td>
-                    <td>选项卡。</td>
+                    <td>支持任意1v1的交互效果，例如选项卡。</td>
                     <td>-</td>
                 </tr>
                 <tr>

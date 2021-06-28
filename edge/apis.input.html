@@ -67,14 +67,14 @@
 
             <h4>出错</h4>
             <p>
-                文本框出错：<input class="ui-input error" required size="12"> <span class="ui-input"><input class="error" required size="12"></span>
+                文本框出错：<input class="ui-input" required size="12" is-error> <span class="ui-input"><input is-error required size="12"></span>
             </p>
-            <pre>&lt;input class="ui-input <mark>error</mark>" required>
-&lt;span class="ui-input">&lt;input class="<mark>error</mark>" required>&lt;/span></pre>
-            <p><small class="gray">Tips: 实际开发<code>.error</code>类名会由ErrorTip.js自动添加</small>，通常无需手动添加。</p>
+            <pre>&lt;input class="ui-input" <mark>is-error</mark> required>
+&lt;span class="ui-input">&lt;input <mark>is-error</mark> required>&lt;/span></pre>
+            <p class="tips">实际开发[is-error]属性会由ErrorTip.js自动添加，无需手动添加。</p>
 
             <h3>带计数的文本框</h3>
-            <p>这里演示静态效果，输入文本内容，输入框右侧的数值并不会变化，如果想要变化，需要引入Validate.js并对表单元素进行实例方法初始化。</p>
+            <p>这里演示静态效果，输入文本内容，输入框右侧的数值并不会变化，如果想要变化，需要引入Form.js并设置表单元素的<code>is</code>属性为<code>ui-form</code>。</p>
             <h4>带计数的文本框</h4>
             <div class="ui-input-x">
                 <input id="someId" maxlength="20" name="search" placeholder="占位符">
@@ -168,11 +168,11 @@
 
             <label class="db mb10">块状+出错：</label>
             <div class="ui-input ui-input-search">
-                <input type="search" class="error">
+                <input type="search" is-error>
                 <button class="ui-icon-search">搜索</button>
             </div>
             <pre>&lt;div class="ui-input ui-input-search"&gt;
-    &lt;input type="search" class="error"&gt;
+    &lt;input type="search" is-error&gt;
     &lt;button class="ui-icon-search"&gt;搜索&lt;/button&gt;
 &lt;/div&gt;</pre>
 
@@ -188,11 +188,11 @@
 
             <label class="db mb10">input标签按钮出错：</label>
             <span class="ui-input ui-input-search" align="end">
-                <input type="search" class="error">
+                <input type="search" is-error>
                 <input type="submit" class="ui-icon-search" value="搜索">
             </span>
             <pre>&lt;span class="ui-input ui-input-search" align="end"&gt;
-    &lt;input type="search" class="error"&gt;
+    &lt;input type="search" is-error&gt;
     &lt;input type="submit" class="ui-icon-search" value="搜索"&gt;
 &lt;/span&gt;</pre>
 

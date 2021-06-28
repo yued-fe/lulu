@@ -139,9 +139,9 @@
             <pre>button.addEventListener('click', function () {
     <mark>this.loading = true;</mark>
     <span class="green">// 一段时间后loading效果去除</span>
-    setTimeout(function () {
+    setTimeout(() =&gt; {
         <mark>this.loading = false;</mark>
-    }.bind(this), 2000);
+    }, 2000);
 });</pre>
             <h4>设置普通元素loading</h4>
             <p>例如下面这种“加载更多”按钮交互。</p>
@@ -303,23 +303,23 @@ element.size = 3;</pre>
 document.getElementById('loadingBtn').addEventListener('click', function () {
     this.loading = true;
 
-    setTimeout(function () {
+    setTimeout(() => {
         this.loading = false;
-    }.bind(this), 1000 + 4000 * Math.random());
+    }, 1000 + 4000 * Math.random());
 });
 document.getElementById('loadingMore').addEventListener('click', function () {
     this.loading = true;
 
-    setTimeout(function () {
+    setTimeout(() => {
         this.loading = false;
-    }.bind(this), 1000 + 4000 * Math.random());
+    }, 1000 + 4000 * Math.random());
 });
 
 document.getElementById('loadingMore2').addEventListener('click', function () {
     this.innerHTML = '<ui-loading></ui-loading>';
 
-    setTimeout(function () {
+    setTimeout(() => {
         this.innerHTML = '加载更多';
-    }.bind(this), 1000 + 4000 * Math.random());
+    }, 1000 + 4000 * Math.random());
 });
 </script>
