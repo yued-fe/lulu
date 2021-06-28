@@ -355,6 +355,7 @@ const Table = (function () {
 
             // ajax地址是必需项
             if (!objAjax.url) {
+                this.element.pagination.loading = false;
                 return this;
             }
 

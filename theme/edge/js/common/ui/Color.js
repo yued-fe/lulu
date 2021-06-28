@@ -464,7 +464,7 @@ class Color extends HTMLInputElement {
         const strHtmlCurrent =
         `<div class="${Color.addClass('current')}">
             <i class="${isSupportOpacity ? Color.addClass('current', 'square', 'opacity')  : Color.addClass('current', 'square')} colorCurrent"></i>
-            #<input class="${Color.addClass('current', 'input')}" value="${this.value}">
+            #<input class="${Color.addClass('current', 'input')}" value="${this.value.replace('#', '')}">
         </div>`;
 
         // const arrBasicColor = this.params.color.basic;

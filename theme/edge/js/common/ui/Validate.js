@@ -1403,11 +1403,15 @@ const Validate = (() => {
 
             // 是否从<label>元素寻找提示关键字
             const isLabel = this.params.label;
+
             // 遍历元素并匹配
-            if (!this.element.form.elements) {
+            let eleFormCollection = this.element.form.elements || this.element.form.querySelectorAll('input, textarea, select');
+
+            if (!eleFormCollection.length) {
                 return this;
             }
-            [...this.element.form.elements].forEach(eleInput => {
+
+            [...eleFormCollection].forEach(eleInput => {
                 const strId = eleInput.id;
 
                 // 是否使用自定义的验证和提示
@@ -1555,47 +1559,49 @@ const Validate = (() => {
 
                 // 手机号码粘贴的优化处理
                 if (/^checkbox|radio|range$/i.test(strAttrType) == false) {
-                    element.addEventListener('paste', function (event) {
-                        // 剪切板数据对象
-                        // 输入框类型
-                        const type = this.getAttribute('type') || this.type;
-                        // 剪切板数据对象
-                        const clipboardData = event.clipboardData || window.clipboardData;
-                        // 粘贴内容
-                        let paste = '';
-                        // 剪切板对象可以获取
-                        if (!clipboardData) {
-                            return;
-                        }
-                        // 获取选中的文本内容
-                        let textSelected = this.value.slice(element.selectionStart, element.selectionEnd);
-
-                        // 只有输入框没有数据，或全选状态才处理
-                        if (this.value.trim() == '' || textSelected === this.value) {
-                            // 阻止冒泡和默认粘贴行为
-                            event.preventDefault();
-                            event.stopPropagation();
-                            // 获取粘贴数据
-                            paste = clipboardData.getData('text') || '';
-                            // 进行如下处理
-                            // 除非是password，其他都过滤前后空格
-                            if (type != 'password') {
-                                paste = paste.trim();
+                    ['paste', 'drop'].forEach(eventType => {
+                        element.addEventListener(eventType, function (event) {
+                            // 剪切板数据对象
+                            // 输入框类型
+                            const type = this.getAttribute('type') || this.type;
+                            // 剪切板数据对象
+                            const objPassData = event.clipboardData || event.dataTransfer;
+                            // 粘贴或拖拽内容
+                            let strPassText = '';
+                            // 剪切板对象可以获取
+                            if (!objPassData) {
+                                return;
                             }
-                            // 邮箱处理，可能会使用#代替@避免被爬虫抓取
-                            if (type == 'email') {
-                                paste = paste.replace('#', '@');
-                            } else if (type == 'tel') {
-                                // 手机号处理
-                                paste = document.validate.getTel(paste);
+                            // 获取选中的文本内容
+                            let textSelected = this.value.slice(element.selectionStart, element.selectionEnd);
+
+                            // 只有输入框没有数据，或全选状态才处理
+                            if (this.value.trim() == '' || textSelected === this.value) {
+                                // 阻止冒泡和默认粘贴行为
+                                event.preventDefault();
+                                event.stopPropagation();
+                                // 获取粘贴数据
+                                strPassText = objPassData.getData('text') || '';
+                                // 进行如下处理
+                                // 除非是password，其他都过滤前后空格
+                                if (type != 'password') {
+                                    strPassText = strPassText.trim();
+                                }
+                                // 邮箱处理，可能会使用#代替@避免被爬虫抓取
+                                if (type == 'email') {
+                                    strPassText = strPassText.replace('#', '@');
+                                } else if (type == 'tel') {
+                                    // 手机号处理
+                                    strPassText = document.validate.getTel(strPassText);
+                                }
+
+                                // 插入
+                                this.value = strPassText;
+
+                                // 触发input事件
+                                element.dispatchEvent(new CustomEvent('input'));
                             }
-
-                            // 插入
-                            this.value = paste;
-
-                            // 触发input事件
-                            element.dispatchEvent(new CustomEvent('input'));
-                        }
+                        });
                     });
                 }
             });

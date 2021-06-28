@@ -214,9 +214,9 @@ class Drop extends HTMLElement {
         let eleTarget = this.element.target;
 
         // 页面中的<ui-drop>元素如果没有target
-        // 强制绑定事件
+        // 强制绑定事件，这样<ui-drop>元素可以实现open切换效果
         if (!eleTarget) {
-            this.events(true);
+            this.events(this.element.trigger === this);
         } else if (eleTarget.matches('datalist')) {
             this.list(eleTarget);
         }
@@ -422,34 +422,36 @@ class Drop extends HTMLElement {
 
             // 点击或者右键
             case 'click': case 'contextmenu': {
-                !eleTrigger.isBindDropEvents && eleTrigger.addEventListener(objParams.eventType, event => {
-                    event.preventDefault();
-                    // aria支持
-                    // 获得委托的选择器匹配元素
-                    const eleClosestSelector = funGetClosestChild(event.target);
+                if (!eleTrigger.isBindDropEvents || eleTrigger.isBindDropEvents !== objParams.eventType) {
+                    eleTrigger.addEventListener(objParams.eventType, event => {
+                        event.preventDefault();
+                        // aria支持
+                        // 获得委托的选择器匹配元素
+                        const eleClosestSelector = funGetClosestChild(event.target);
 
-                    if (eleClosestSelector) {
-                        // 改变trigger元素
-                        this.element.trigger = eleClosestSelector;
-                    }
-
-                    // 点击即显示
-                    if (!objParams.selector || eleClosestSelector) {
-                        // 连续右键点击保持显示，非显隐切换
-                        if (objParams.eventType == 'contextmenu') {
-                            objParams.position = [event.pageX, event.pageY];
-                            this.show();
-
-                            return;
+                        if (eleClosestSelector) {
+                            // 改变trigger元素
+                            this.element.trigger = eleClosestSelector;
                         }
 
-                        if (!this.open) {
-                            this.show();
-                        } else {
-                            this.hide();
+                        // 点击即显示
+                        if (!objParams.selector || eleClosestSelector) {
+                            // 连续右键点击保持显示，非显隐切换
+                            if (objParams.eventType == 'contextmenu') {
+                                objParams.position = [event.pageX, event.pageY];
+                                this.show();
+
+                                return;
+                            }
+
+                            if (!this.open) {
+                                this.show();
+                            } else {
+                                this.hide();
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 break;
             }
@@ -473,9 +475,11 @@ class Drop extends HTMLElement {
                     this.hide();
                 }
             });
+
+            eleTrigger.isBindDocMouseUp = true;
         }
 
-        eleTrigger.isBindDropEvents = true;
+        eleTrigger.isBindDropEvents = objParams.eventType || true;
 
         // 窗体尺寸改变生活的重定位
         window.addEventListener('resize', () => {

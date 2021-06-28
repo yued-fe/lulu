@@ -136,6 +136,13 @@ class Form extends HTMLFormElement {
                     // 如果没有成功回调，组件自己提示成功
                     new LightTip(json.msg || '操作成功。', 'success');
                 }
+
+                // 支持绑定success事件
+                this.dispatchEvent(new CustomEvent('success'), {
+                    detail: {
+                        data: json
+                    }
+                });
             } else {
                 new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
 

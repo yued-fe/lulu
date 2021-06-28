@@ -262,7 +262,7 @@ class Pagination extends HTMLElement {
             // 将数组映射成每一页的节点
             const html = arr.map((el, index) => {
                 // <button class="ui-page" data-current="2" aria-label="第2页，共20页">2</button>
-                return `<${item} class="ui-page" ${index + 1 == current ? 'current' : ''} data-current="${index + 1}" aria-label="第${index + 1}页，共${this.count}页">${index + 1}</${item}>`;
+                return `<${item} class="ui-page" data-current="${index + 1}" aria-label="第${index + 1}页，共${this.count}页">${index + 1}</${item}>`;
             }).join('');
             this.page.innerHTML = html;
         }
@@ -416,6 +416,7 @@ class Pagination extends HTMLElement {
         this.left = this.shadowRoot.getElementById('left');
         this.right = this.shadowRoot.getElementById('right');
         this.wrap = this.shadowRoot.getElementById('wrap');
+
         this.render(this.per, this.total);
         this.page.addEventListener('click', (ev) => {
             const item = ev.target.closest('.ui-page');
@@ -469,35 +470,37 @@ class Pagination extends HTMLElement {
 
         // 分页内容准备完毕
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        // 插入完成初始化的内容
+        this.innerHTML = '&#x3000';
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
+        if (!this.page || oldValue === newValue) {
+            return;
+        }
         let eleTrigger = this.element && this.element.trigger;
 
-        if (name == 'per' && this.page) {
+        if (name == 'per') {
             this.render(newValue, this.total);
             // 普通元素分页数据per数据同步
             if (eleTrigger) {
                 eleTrigger.dataset.per = newValue;
             }
-        }
-        if (name == 'total' && this.page) {
+        } else if (name == 'total') {
             this.render(this.per, newValue);
             // 普通元素分页数据total数据同步
             if (eleTrigger) {
                 eleTrigger.dataset.total = newValue;
             }
-        }
-        if (name == 'loading' && this.page) {
+        } else if (name == 'loading') {
             this.wrap.disabled = newValue !== null;
 
             // 普通元素分页数据loading状态同步
             if (eleTrigger) {
                 eleTrigger.dataset.loading = newValue !== null;
             }
-        }
-
-        if (name == 'current' && this.page && oldValue !== newValue) {
+        } else if (name == 'current' && oldValue !== newValue) {
             // 一定程度上避免冗余的渲染
             clearTimeout(this.timerRender);
             this.timerRender = setTimeout(() => {
@@ -508,15 +511,13 @@ class Pagination extends HTMLElement {
             if (eleTrigger) {
                 eleTrigger.dataset.current = newValue;
             }
-            if (this.isConnected) {
-                this.dispatchEvent(new CustomEvent('change', {
-                    detail: {
-                        current: Number(newValue),
-                        per: this.per,
-                        total: this.total
-                    }
-                }));
-            }
+            this.dispatchEvent(new CustomEvent('change', {
+                detail: {
+                    current: Number(newValue),
+                    per: this.per,
+                    total: this.total
+                }
+            }));
         }
     }
 }
@@ -546,11 +547,16 @@ export default Pagination;
             item['ui-pagination'] = pagination;
             pagination.htmlFor = strId;
             pagination.setAttribute('current', current);
+            // 删除自定义元素，隐藏不必要的细节
+            pagination.addEventListener('connected', () => {
+                pagination.remove();
+            });
             document.body.append(pagination);
             const shadowRoot = item.attachShadow({
                 mode: 'open'
             });
             shadowRoot.append(pagination.shadowRoot);
+            item.setAttribute('defined', '');
         });
     };
 

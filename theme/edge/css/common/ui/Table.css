@@ -14,12 +14,17 @@
 .ui-table,
 [is="ui-table"] {
     width: -webkit-fill-available;
-    width: fill-available;
+    width: -moz-available;
+    width: stretch;
     line-height: var(--ui-table-line-height);
     table-layout: fixed;
     border-spacing: 0;
     font-size: var(--ui-font, 14px);
     border: 1px solid var(--ui-border, #d0d0d5);
+}
+.ui-table[width="100%"],
+[is="ui-table"][width="100%"] {
+    width: 100%;
 }
 
 .ui-table thead td,

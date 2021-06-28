@@ -2250,9 +2250,9 @@ class Drop extends HTMLElement {
         let eleTarget = this.element.target;
 
         // 页面中的<ui-drop>元素如果没有target
-        // 强制绑定事件
+        // 强制绑定事件，这样<ui-drop>元素可以实现open切换效果
         if (!eleTarget) {
-            this.events(true);
+            this.events(this.element.trigger === this);
         } else if (eleTarget.matches('datalist')) {
             this.list(eleTarget);
         }
@@ -2458,34 +2458,36 @@ class Drop extends HTMLElement {
 
             // 点击或者右键
             case 'click': case 'contextmenu': {
-                !eleTrigger.isBindDropEvents && eleTrigger.addEventListener(objParams.eventType, event => {
-                    event.preventDefault();
-                    // aria支持
-                    // 获得委托的选择器匹配元素
-                    const eleClosestSelector = funGetClosestChild(event.target);
+                if (!eleTrigger.isBindDropEvents || eleTrigger.isBindDropEvents !== objParams.eventType) {
+                    eleTrigger.addEventListener(objParams.eventType, event => {
+                        event.preventDefault();
+                        // aria支持
+                        // 获得委托的选择器匹配元素
+                        const eleClosestSelector = funGetClosestChild(event.target);
 
-                    if (eleClosestSelector) {
-                        // 改变trigger元素
-                        this.element.trigger = eleClosestSelector;
-                    }
-
-                    // 点击即显示
-                    if (!objParams.selector || eleClosestSelector) {
-                        // 连续右键点击保持显示，非显隐切换
-                        if (objParams.eventType == 'contextmenu') {
-                            objParams.position = [event.pageX, event.pageY];
-                            this.show();
-
-                            return;
+                        if (eleClosestSelector) {
+                            // 改变trigger元素
+                            this.element.trigger = eleClosestSelector;
                         }
 
-                        if (!this.open) {
-                            this.show();
-                        } else {
-                            this.hide();
+                        // 点击即显示
+                        if (!objParams.selector || eleClosestSelector) {
+                            // 连续右键点击保持显示，非显隐切换
+                            if (objParams.eventType == 'contextmenu') {
+                                objParams.position = [event.pageX, event.pageY];
+                                this.show();
+
+                                return;
+                            }
+
+                            if (!this.open) {
+                                this.show();
+                            } else {
+                                this.hide();
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 break;
             }
@@ -2509,9 +2511,11 @@ class Drop extends HTMLElement {
                     this.hide();
                 }
             });
+
+            eleTrigger.isBindDocMouseUp = true;
         }
 
-        eleTrigger.isBindDropEvents = true;
+        eleTrigger.isBindDropEvents = objParams.eventType || true;
 
         // 窗体尺寸改变生活的重定位
         window.addEventListener('resize', () => {
@@ -5015,7 +5019,7 @@ class Color extends HTMLInputElement {
         const strHtmlCurrent =
         `<div class="${Color.addClass('current')}">
             <i class="${isSupportOpacity ? Color.addClass('current', 'square', 'opacity')  : Color.addClass('current', 'square')} colorCurrent"></i>
-            #<input class="${Color.addClass('current', 'input')}" value="${this.value}">
+            #<input class="${Color.addClass('current', 'input')}" value="${this.value.replace('#', '')}">
         </div>`;
 
         // const arrBasicColor = this.params.color.basic;
@@ -11177,11 +11181,15 @@ const Validate = (() => {
 
             // 是否从<label>元素寻找提示关键字
             const isLabel = this.params.label;
+
             // 遍历元素并匹配
-            if (!this.element.form.elements) {
+            let eleFormCollection = this.element.form.elements || this.element.form.querySelectorAll('input, textarea, select');
+
+            if (!eleFormCollection.length) {
                 return this;
             }
-            [...this.element.form.elements].forEach(eleInput => {
+
+            [...eleFormCollection].forEach(eleInput => {
                 const strId = eleInput.id;
 
                 // 是否使用自定义的验证和提示
@@ -11329,47 +11337,49 @@ const Validate = (() => {
 
                 // 手机号码粘贴的优化处理
                 if (/^checkbox|radio|range$/i.test(strAttrType) == false) {
-                    element.addEventListener('paste', function (event) {
-                        // 剪切板数据对象
-                        // 输入框类型
-                        const type = this.getAttribute('type') || this.type;
-                        // 剪切板数据对象
-                        const clipboardData = event.clipboardData || window.clipboardData;
-                        // 粘贴内容
-                        let paste = '';
-                        // 剪切板对象可以获取
-                        if (!clipboardData) {
-                            return;
-                        }
-                        // 获取选中的文本内容
-                        let textSelected = this.value.slice(element.selectionStart, element.selectionEnd);
-
-                        // 只有输入框没有数据，或全选状态才处理
-                        if (this.value.trim() == '' || textSelected === this.value) {
-                            // 阻止冒泡和默认粘贴行为
-                            event.preventDefault();
-                            event.stopPropagation();
-                            // 获取粘贴数据
-                            paste = clipboardData.getData('text') || '';
-                            // 进行如下处理
-                            // 除非是password，其他都过滤前后空格
-                            if (type != 'password') {
-                                paste = paste.trim();
+                    ['paste', 'drop'].forEach(eventType => {
+                        element.addEventListener(eventType, function (event) {
+                            // 剪切板数据对象
+                            // 输入框类型
+                            const type = this.getAttribute('type') || this.type;
+                            // 剪切板数据对象
+                            const objPassData = event.clipboardData || event.dataTransfer;
+                            // 粘贴或拖拽内容
+                            let strPassText = '';
+                            // 剪切板对象可以获取
+                            if (!objPassData) {
+                                return;
                             }
-                            // 邮箱处理，可能会使用#代替@避免被爬虫抓取
-                            if (type == 'email') {
-                                paste = paste.replace('#', '@');
-                            } else if (type == 'tel') {
-                                // 手机号处理
-                                paste = document.validate.getTel(paste);
+                            // 获取选中的文本内容
+                            let textSelected = this.value.slice(element.selectionStart, element.selectionEnd);
+
+                            // 只有输入框没有数据，或全选状态才处理
+                            if (this.value.trim() == '' || textSelected === this.value) {
+                                // 阻止冒泡和默认粘贴行为
+                                event.preventDefault();
+                                event.stopPropagation();
+                                // 获取粘贴数据
+                                strPassText = objPassData.getData('text') || '';
+                                // 进行如下处理
+                                // 除非是password，其他都过滤前后空格
+                                if (type != 'password') {
+                                    strPassText = strPassText.trim();
+                                }
+                                // 邮箱处理，可能会使用#代替@避免被爬虫抓取
+                                if (type == 'email') {
+                                    strPassText = strPassText.replace('#', '@');
+                                } else if (type == 'tel') {
+                                    // 手机号处理
+                                    strPassText = document.validate.getTel(strPassText);
+                                }
+
+                                // 插入
+                                this.value = strPassText;
+
+                                // 触发input事件
+                                element.dispatchEvent(new CustomEvent('input'));
                             }
-
-                            // 插入
-                            this.value = paste;
-
-                            // 触发input事件
-                            element.dispatchEvent(new CustomEvent('input'));
-                        }
+                        });
                     });
                 }
             });
@@ -11759,7 +11769,7 @@ class Pagination extends HTMLElement {
             // 将数组映射成每一页的节点
             const html = arr.map((el, index) => {
                 // <button class="ui-page" data-current="2" aria-label="第2页，共20页">2</button>
-                return `<${item} class="ui-page" ${index + 1 == current ? 'current' : ''} data-current="${index + 1}" aria-label="第${index + 1}页，共${this.count}页">${index + 1}</${item}>`;
+                return `<${item} class="ui-page" data-current="${index + 1}" aria-label="第${index + 1}页，共${this.count}页">${index + 1}</${item}>`;
             }).join('');
             this.page.innerHTML = html;
         }
@@ -11913,6 +11923,7 @@ class Pagination extends HTMLElement {
         this.left = this.shadowRoot.getElementById('left');
         this.right = this.shadowRoot.getElementById('right');
         this.wrap = this.shadowRoot.getElementById('wrap');
+
         this.render(this.per, this.total);
         this.page.addEventListener('click', (ev) => {
             const item = ev.target.closest('.ui-page');
@@ -11966,35 +11977,37 @@ class Pagination extends HTMLElement {
 
         // 分页内容准备完毕
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        // 插入完成初始化的内容
+        this.innerHTML = '&#x3000';
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
+        if (!this.page || oldValue === newValue) {
+            return;
+        }
         let eleTrigger = this.element && this.element.trigger;
 
-        if (name == 'per' && this.page) {
+        if (name == 'per') {
             this.render(newValue, this.total);
             // 普通元素分页数据per数据同步
             if (eleTrigger) {
                 eleTrigger.dataset.per = newValue;
             }
-        }
-        if (name == 'total' && this.page) {
+        } else if (name == 'total') {
             this.render(this.per, newValue);
             // 普通元素分页数据total数据同步
             if (eleTrigger) {
                 eleTrigger.dataset.total = newValue;
             }
-        }
-        if (name == 'loading' && this.page) {
+        } else if (name == 'loading') {
             this.wrap.disabled = newValue !== null;
 
             // 普通元素分页数据loading状态同步
             if (eleTrigger) {
                 eleTrigger.dataset.loading = newValue !== null;
             }
-        }
-
-        if (name == 'current' && this.page && oldValue !== newValue) {
+        } else if (name == 'current' && oldValue !== newValue) {
             // 一定程度上避免冗余的渲染
             clearTimeout(this.timerRender);
             this.timerRender = setTimeout(() => {
@@ -12005,15 +12018,13 @@ class Pagination extends HTMLElement {
             if (eleTrigger) {
                 eleTrigger.dataset.current = newValue;
             }
-            if (this.isConnected) {
-                this.dispatchEvent(new CustomEvent('change', {
-                    detail: {
-                        current: Number(newValue),
-                        per: this.per,
-                        total: this.total
-                    }
-                }));
-            }
+            this.dispatchEvent(new CustomEvent('change', {
+                detail: {
+                    current: Number(newValue),
+                    per: this.per,
+                    total: this.total
+                }
+            }));
         }
     }
 }
@@ -12043,11 +12054,16 @@ window.Pagination = Pagination;
             item['ui-pagination'] = pagination;
             pagination.htmlFor = strId;
             pagination.setAttribute('current', current);
+            // 删除自定义元素，隐藏不必要的细节
+            pagination.addEventListener('connected', () => {
+                pagination.remove();
+            });
             document.body.append(pagination);
             const shadowRoot = item.attachShadow({
                 mode: 'open'
             });
             shadowRoot.append(pagination.shadowRoot);
+            item.setAttribute('defined', '');
         });
     };
 
@@ -12442,6 +12458,7 @@ const Table = (function () {
 
             // ajax地址是必需项
             if (!objAjax.url) {
+                this.element.pagination.loading = false;
                 return this;
             }
 
@@ -13003,6 +13020,13 @@ class Form extends HTMLFormElement {
                     // 如果没有成功回调，组件自己提示成功
                     new LightTip(json.msg || '操作成功。', 'success');
                 }
+
+                // 支持绑定success事件
+                this.dispatchEvent(new CustomEvent('success'), {
+                    detail: {
+                        data: json
+                    }
+                });
             } else {
                 new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
 

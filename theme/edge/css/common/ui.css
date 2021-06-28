@@ -2326,11 +2326,13 @@ ui-dot::before {
  * @Pagination.css
  * @author xboxyan
  * @create 20-06-03
+ * @editd 21-06-25 by zhangxinxu
 **/
 
-.my-pagination{
-    justify-content: center;
-    --ui-blue: #673AB7
+ui-pagination:not(:defined),
+[is-pagination]:not([defined]){
+    display: flex;
+    height: 30px;
 }/**
  * @Placeholder.css
  * @editor gandaochuan
@@ -2364,7 +2366,8 @@ ui-dot::before {
     --ui-progress-background-color: var(--ui-border, #d0d0d5);
 }
 
-.ui-progress {
+.ui-progress,
+[is="ui-progress"] {
     display: inline-block;
     width: var(--ui-progress-width, 10em);
     height: var(--ui-progress-height, .25em);
@@ -2374,13 +2377,16 @@ ui-dot::before {
     border-radius: 1em;
     overflow: hidden;
 }
-.ui-progress::-moz-progress-bar {
+.ui-progress::-moz-progress-bar,
+[is="ui-progress"]::-moz-progress-bar {
     background-color: var(--ui-blue);
 }
-.ui-progress::-webkit-progress-bar {
+.ui-progress::-webkit-progress-bar,
+[is="ui-progress"]::-webkit-progress-bar {
     background-color: var(--ui-progress-background-color);
 }
-.ui-progress::-webkit-progress-value {
+.ui-progress::-webkit-progress-value,
+[is="ui-progress"]::-webkit-progress-value {
     background-color: var(--ui-blue);
 }
 
@@ -2389,7 +2395,8 @@ progress[width="100%"] {
 }
 
 /* For firefox to match no [value] */
-.ui-progress:indeterminate::-moz-progress-bar {
+.ui-progress:indeterminate::-moz-progress-bar,
+[is="ui-progress"]:indeterminate::-moz-progress-bar {
     background-color: inherit;
 }
 
@@ -3169,12 +3176,17 @@ ui-tab {
 .ui-table,
 [is="ui-table"] {
     width: -webkit-fill-available;
-    width: fill-available;
+    width: -moz-available;
+    width: stretch;
     line-height: var(--ui-table-line-height);
     table-layout: fixed;
     border-spacing: 0;
     font-size: var(--ui-font, 14px);
     border: 1px solid var(--ui-border, #d0d0d5);
+}
+.ui-table[width="100%"],
+[is="ui-table"][width="100%"] {
+    width: 100%;
 }
 
 .ui-table thead td,
