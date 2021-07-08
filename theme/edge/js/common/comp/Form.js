@@ -138,11 +138,11 @@ class Form extends HTMLFormElement {
                 }
 
                 // 支持绑定success事件
-                this.dispatchEvent(new CustomEvent('success'), {
+                this.dispatchEvent(new CustomEvent('success', {
                     detail: {
                         data: json
                     }
-                });
+                }));
             } else {
                 new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
 
@@ -206,11 +206,11 @@ class Form extends HTMLFormElement {
         }, this.params.validate || {});
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-form'
             }
-        });
+        }));
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }

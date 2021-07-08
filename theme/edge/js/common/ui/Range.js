@@ -131,11 +131,11 @@ class XRange extends HTMLInputElement {
         }
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-range'
             }
-        });
+        }));
 
         this.render();
 

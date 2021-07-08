@@ -730,11 +730,11 @@ const Table = (function () {
             }, 1);
 
             // 全局事件
-            this.dispatchEvent(new CustomEvent('connected'), {
+            this.dispatchEvent(new CustomEvent('connected', {
                 detail: {
                     type: 'ui-table'
                 }
-            });
+            }));
 
             this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
         }

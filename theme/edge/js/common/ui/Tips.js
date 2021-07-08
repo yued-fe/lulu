@@ -235,11 +235,11 @@ class Tips extends HTMLElement {
         this.events();
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-tips'
             }
-        });
+        }));
     }
 }
 

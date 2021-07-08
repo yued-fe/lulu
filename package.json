@@ -1,6 +1,6 @@
 {
   "name": "lu2",
-  "version": "2021.06.21",
+  "version": "2021.07.08",
   "description": "Simple and flexible UI component library based on native HTML and JavaScript",
   "main": "./theme",
   "directories": {},

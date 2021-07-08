@@ -364,11 +364,11 @@ class Tab extends HTMLElement {
         });
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-tab'
             }
-        });
+        }));
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
 

@@ -219,6 +219,8 @@ class Drop extends HTMLElement {
             this.events(this.element.trigger === this);
         } else if (eleTarget.matches('datalist')) {
             this.list(eleTarget);
+        } else if (eleTarget.matches('dialog')) {
+            this.panel(eleTarget);
         }
 
         // 无障碍访问设置
@@ -228,11 +230,11 @@ class Drop extends HTMLElement {
         }
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-drop'
             }
-        });
+        }));
     }
 
     // open属性变化的时候
@@ -1124,6 +1126,7 @@ class Drop extends HTMLElement {
      * 兼容以下两种语法
      * new Drop().panel(eleTrigger, options);
      * new Drop(eleTrigger).panel(options);
+     * new Drop(eleTrigger).panel(eleTarget);
      * @returns {object} 返回当前自定义元素
      */
     panel (eleTrigger, options) {
@@ -1133,6 +1136,38 @@ class Drop extends HTMLElement {
             options = arguments[1];
         } else if (arguments.length === 1) {
             options = arguments[0];
+
+            if (options.matches && options.matches('dialog')) {
+                let eleTarget = options;
+                // 按钮信息
+                let strButtons = eleTarget.dataset.buttons || '';
+
+                options = {
+                    content: eleTarget.innerHTML,
+                    title: eleTarget.title,
+                    buttons: [{
+                        value: strButtons.split(',')[0].trim(),
+                        events: () => {
+                            eleTarget.dispatchEvent(new CustomEvent('ensure', {
+                                detail: {
+                                    drop: this
+                                }
+                            }));
+                        }
+                    }, {
+                        value: (strButtons.split(',')[1] || '').trim(),
+                        events: () => {
+                            eleTarget.dispatchEvent(new CustomEvent('cancel', {
+                                detail: {
+                                    drop: this
+                                }
+                            }));
+                            this.hide();
+                        }
+                    }]
+                };
+            }
+
             eleTrigger = null;
         }
         if (typeof eleTrigger === 'string') {

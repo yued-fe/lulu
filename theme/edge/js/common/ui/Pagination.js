@@ -462,11 +462,11 @@ class Pagination extends HTMLElement {
         });
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-pagination'
             }
-        });
+        }));
 
         // 分页内容准备完毕
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));

@@ -866,6 +866,13 @@ const Dialog = (() => {
             // 事件
             dialog.events();
         }
+
+        // 回调
+        dialog.dispatchEvent(new CustomEvent('connected', {
+            detail: {
+                type: 'ui-dialog'
+            }
+        }));
     };
 
     // 弹框观察并注册

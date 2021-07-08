@@ -1363,11 +1363,11 @@ class Tab extends HTMLElement {
         });
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-tab'
             }
-        });
+        }));
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
 
@@ -1993,11 +1993,11 @@ class Select extends HTMLSelectElement {
         this.resizeObserver.observe(this);
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-select'
             }
-        });
+        }));
 
         // 渲染
         this.render();
@@ -2255,6 +2255,8 @@ class Drop extends HTMLElement {
             this.events(this.element.trigger === this);
         } else if (eleTarget.matches('datalist')) {
             this.list(eleTarget);
+        } else if (eleTarget.matches('dialog')) {
+            this.panel(eleTarget);
         }
 
         // 无障碍访问设置
@@ -2264,11 +2266,11 @@ class Drop extends HTMLElement {
         }
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-drop'
             }
-        });
+        }));
     }
 
     // open属性变化的时候
@@ -3160,6 +3162,7 @@ class Drop extends HTMLElement {
      * 兼容以下两种语法
      * new Drop().panel(eleTrigger, options);
      * new Drop(eleTrigger).panel(options);
+     * new Drop(eleTrigger).panel(eleTarget);
      * @returns {object} 返回当前自定义元素
      */
     panel (eleTrigger, options) {
@@ -3169,6 +3172,38 @@ class Drop extends HTMLElement {
             options = arguments[1];
         } else if (arguments.length === 1) {
             options = arguments[0];
+
+            if (options.matches && options.matches('dialog')) {
+                let eleTarget = options;
+                // 按钮信息
+                let strButtons = eleTarget.dataset.buttons || '';
+
+                options = {
+                    content: eleTarget.innerHTML,
+                    title: eleTarget.title,
+                    buttons: [{
+                        value: strButtons.split(',')[0].trim(),
+                        events: () => {
+                            eleTarget.dispatchEvent(new CustomEvent('ensure', {
+                                detail: {
+                                    drop: this
+                                }
+                            }));
+                        }
+                    }, {
+                        value: (strButtons.split(',')[1] || '').trim(),
+                        events: () => {
+                            eleTarget.dispatchEvent(new CustomEvent('cancel', {
+                                detail: {
+                                    drop: this
+                                }
+                            }));
+                            this.hide();
+                        }
+                    }]
+                };
+            }
+
             eleTrigger = null;
         }
         if (typeof eleTrigger === 'string') {
@@ -3651,11 +3686,11 @@ class Tips extends HTMLElement {
         this.events();
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-tips'
             }
-        });
+        }));
     }
 }
 
@@ -3857,11 +3892,11 @@ class LightTip extends HTMLElement {
         });
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-lighttip'
             }
-        });
+        }));
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
@@ -4452,11 +4487,11 @@ class XRange extends HTMLInputElement {
         }
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-range'
             }
-        });
+        }));
 
         this.render();
 
@@ -6438,6 +6473,13 @@ const Dialog = (() => {
             // 事件
             dialog.events();
         }
+
+        // 回调
+        dialog.dispatchEvent(new CustomEvent('connected', {
+            detail: {
+                type: 'ui-dialog'
+            }
+        }));
     };
 
     // 弹框观察并注册
@@ -7507,11 +7549,11 @@ const Datalist = (() => {
             }
 
             // 全局事件
-            this.dispatchEvent(new CustomEvent('connected'), {
+            this.dispatchEvent(new CustomEvent('connected', {
                 detail: {
                     type: 'ui-datalist'
                 }
-            });
+            }));
         }
     }
 
@@ -9758,11 +9800,11 @@ const DateTime = (() => {
             this.events();
 
             // 全局事件
-            this.dispatchEvent(new CustomEvent('connected'), {
+            this.dispatchEvent(new CustomEvent('connected', {
                 detail: {
                     type: 'ui-datetime'
                 }
-            });
+            }));
         }
     }
 
@@ -11969,11 +12011,11 @@ class Pagination extends HTMLElement {
         });
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-pagination'
             }
-        });
+        }));
 
         // 分页内容准备完毕
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
@@ -12833,11 +12875,11 @@ const Table = (function () {
             }, 1);
 
             // 全局事件
-            this.dispatchEvent(new CustomEvent('connected'), {
+            this.dispatchEvent(new CustomEvent('connected', {
                 detail: {
                     type: 'ui-table'
                 }
-            });
+            }));
 
             this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
         }
@@ -13022,11 +13064,11 @@ class Form extends HTMLFormElement {
                 }
 
                 // 支持绑定success事件
-                this.dispatchEvent(new CustomEvent('success'), {
+                this.dispatchEvent(new CustomEvent('success', {
                     detail: {
                         data: json
                     }
-                });
+                }));
             } else {
                 new LightTip((json && json.msg) || '返回数据格式不符合要求。', 'error');
 
@@ -13090,11 +13132,11 @@ class Form extends HTMLFormElement {
         }, this.params.validate || {});
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-form'
             }
-        });
+        }));
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }

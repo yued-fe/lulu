@@ -1020,11 +1020,11 @@ const Datalist = (() => {
             }
 
             // 全局事件
-            this.dispatchEvent(new CustomEvent('connected'), {
+            this.dispatchEvent(new CustomEvent('connected', {
                 detail: {
                     type: 'ui-datalist'
                 }
-            });
+            }));
         }
     }
 

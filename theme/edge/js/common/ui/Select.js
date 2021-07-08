@@ -487,11 +487,11 @@ class Select extends HTMLSelectElement {
         this.resizeObserver.observe(this);
 
         // 全局事件
-        this.dispatchEvent(new CustomEvent('connected'), {
+        this.dispatchEvent(new CustomEvent('connected', {
             detail: {
                 type: 'ui-select'
             }
-        });
+        }));
 
         // 渲染
         this.render();
