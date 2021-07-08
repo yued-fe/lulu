@@ -11274,6 +11274,9 @@ const Validate = (() => {
         count () {
             // 即时验证
             const eleForm = this.element.form;
+            // 原生value属性描述符
+            const propsInput = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+            const propsTextarea = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value');
             // 遍历计数元素
             eleForm.querySelectorAll('input, textarea').forEach(function (element) {
                 // 对maxlength进行处理
@@ -11358,6 +11361,29 @@ const Validate = (() => {
                 };
                 // 事件
                 element.addEventListener('input', funCount);
+
+                if (strTag == 'input') {
+                    Object.defineProperty(element, 'value', {
+                        ...propsInput,
+                        set (value) {
+                            // 赋值
+                            propsInput.set.call(this, value);
+                            // 计数
+                            funCount();
+                        }
+                    });
+                } else if (strTag == 'textarea') {
+                    Object.defineProperty(element, 'value', {
+                        ...propsTextarea,
+                        set (value) {
+                            // 赋值
+                            propsTextarea.set.call(this, value);
+                            // 计数
+                            funCount();
+                        }
+                    });
+                }
+
                 // 一开始就计数
                 funCount();
             });
