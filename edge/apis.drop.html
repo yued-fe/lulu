@@ -797,7 +797,23 @@ new Drop(eleDropPanel).panel({
 });</pre>
             <p>测试：<ui-drop id="d5" class="ui-button" data-type="primary">点击我</ui-drop></p>
 
-
+            <h4>3. 轻弹框内容直接DOM显示</h4>
+            <p>如果<code>&lt;ui-drop&gt;</code>元素关联的元素是<code>&lt;dialog&gt;</code>元素（切勿设置<code>is="ui-dialog"</code>），会认为是轻弹框提示。</p>
+            <p>测试：<ui-drop class="ui-button" data-type="primary" target="dg">ui-drop元素</ui-drop>
+            <button class="ui-button" data-type="primary" data-target="dg" is-drop>ui-drop元素</button></p>
+            <dialog id="dg" data-buttons="删除">耶，成功显示！</dialog>
+            
+            <p>相关代码如下：</p>
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="dg"&gt;ui-drop元素&lt;/ui-drop&gt;
+&lt;button class="ui-button" data-type="primary" data-target="dg" is-drop&gt;ui-drop元素&lt;/button&gt;&lt;/p&gt;
+&lt;dialog id="dg" data-buttons="删除"&gt;耶，成功显示！&lt;/dialog&gt;</pre>
+            <p>按钮文字通过<code>data-buttons</code>属性设置，使用逗号分隔，如果只设置第一个“确定”按钮的文字内容，无需逗号。</p>
+            <p>点击确定按钮和取消按钮会分别触发<code>&lt;dialog&gt;</code>元素的<code>'ensure'</code>和<code>'cancel'</code>事件。</p>
+            <p>例如，本例中，点击“删除”的事件是这么处理的。</p>
+            <pre>dg.addEventListener('ensure', function (event) {
+    console.log('点击了删除按钮');
+    event.detail.drop.hide();
+});</pre>
             <h3>Panel方法语法和参数</h3>
             <p>语法如下：</p>
             <pre>let eleDrop = new Drop(trigger).panel(options);</pre>
@@ -1352,5 +1368,10 @@ new Drop(eleDropPanel2).panel({
 
 d5.panel({
     content: '你好，LuLu UI!',
+});
+
+dg.addEventListener('ensure', function (event) {
+    console.log('点击了删除按钮');
+    event.detail.drop.hide();
 });
 </script>
