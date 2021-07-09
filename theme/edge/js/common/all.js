@@ -11360,6 +11360,7 @@ const Validate = (() => {
                     }
                 };
                 // 事件
+                element.count = funCount;
                 element.addEventListener('input', funCount);
 
                 if (strTag == 'input') {
@@ -11386,6 +11387,17 @@ const Validate = (() => {
 
                 // 一开始就计数
                 funCount();
+            });
+
+            // reset事件不会自动计数处理
+            eleForm.addEventListener('reset', function () {
+                this.querySelectorAll('input, textarea').forEach(function (element) {
+                    if (element.count) {
+                        setTimeout(() => {
+                            element.count();
+                        }, 1);
+                    }
+                });
             });
 
             return this;
@@ -11465,10 +11477,38 @@ const Validate = (() => {
                 return this;
             }
 
+            // 下面三个是不同事件的验证提示
+            const funReportValidity = (event) => {
+                if (this.params.immediate == false) {
+                    return;
+                }
+                this.reportValidity(event.target);
+            };
+
+            const funReportFocus = (event) => {
+                if (this.params.immediate) {
+                    setTimeout(function () {
+                        document.validate.focusable = 0;
+
+                        this.reportValidity(event.target);
+                    }.bind(this), 20);
+                }
+            };
+
+            const funReportInput = (event) => {
+                if (this.params.immediate == false) {
+                    return;
+                }
+
+                document.validate.focusable = false;
+                this.reportValidity(event.target);
+                event.target.lastValue = event.target.value;
+            };
+
             eleForm.querySelectorAll('input, select, textarea').forEach(function (element) {
                 // type类型筛选
-                const strType = element.type;
-                const strAttrType = element.getAttribute('type');
+                let strType = element.type;
+                let strAttrType = element.getAttribute('type');
                 // 给每个控件绑定即时验证
                 if (strType == 'button' || strType == 'submit' || strType == 'reset' || strType == 'file' || strType == 'image') {
                     return;
@@ -11476,46 +11516,59 @@ const Validate = (() => {
 
                 // 不同类别不同事件
                 if (strType == 'radio' || strType == 'checkbox') {
-                    element.addEventListener('click', function () {
-                        if (this.params.immediate == false) {
-                            return;
-                        }
-                        this.reportValidity(element);
-                    }.bind(this));
+                    element.addEventListener('click', funReportValidity);
                 } else if (/select/.test(strType) || /range|date|time|hour|minute|hidden/.test(strAttrType)) {
-                    element.addEventListener('change', function () {
-                        if (this.params.immediate == false) {
-                            return;
-                        }
-                        this.reportValidity(element);
-                    }.bind(this));
+                    element.addEventListener('change', funReportValidity);
                 } else {
                     // 输入
-                    element.addEventListener('focus', function () {
-                        if (this.params.immediate) {
-                            setTimeout(function () {
-                                document.validate.focusable = 0;
-
-                                this.reportValidity(element);
-                            }.bind(this), 20);
-                        }
-                    }.bind(this));
-
-                    element.addEventListener('input', function () {
-                        if (this.params.immediate == false) {
-                            return;
-                        }
-
-                        document.validate.focusable = false;
-
-                        this.reportValidity(element);
-
-                        element.lastValue = element.value;
-                    }.bind(this));
+                    element.addEventListener('focus', funReportFocus);
+                    element.addEventListener('input', funReportInput);
                 }
-            }.bind(this));
+            });
 
             eleForm.isImmediated = true;
+
+            // 如果表单重置，移除所有的即时验证绑定
+            const funRemoveValidate = function () {
+                [...eleForm.elements].forEach(element => {
+                    // type类型筛选
+                    let strType = element.type;
+                    // 给每个控件绑定即时验证
+                    if (['button', 'submit', 'reset', 'file', 'image'].includes(strType)) {
+                        return;
+                    }
+
+                    let strAttrType = element.getAttribute('type');
+                    // 不同类别不同事件
+                    if (strType == 'radio' || strType == 'checkbox') {
+                        element.removeEventListener('click', funReportValidity);
+                    } else if (/select/.test(strType) || /range|date|time|hour|minute|hidden/.test(strAttrType)) {
+                        element.removeEventListener('change', funReportValidity);
+                    } else {
+                        // 输入
+                        element.removeEventListener('focus', funReportFocus);
+                        element.removeEventListener('input', funReportInput);
+                    }
+                });
+
+                [...eleForm.querySelectorAll('.valided')].forEach(element => {
+                    element.classList.remove('valided');
+                });
+                [...eleForm.querySelectorAll('[is-error]')].forEach(element => {
+                    // 因此可能的提错误示
+                    let objErrorTip = element.data && element.data.errorTip;
+                    if (objErrorTip) {
+                        objErrorTip.hide();
+                    }
+
+                    element.removeAttribute('is-error');
+                });
+
+                eleForm.isImmediated = false;
+
+                eleForm.removeEventListener('reset', funRemoveValidate);
+            };
+            eleForm.addEventListener('reset', funRemoveValidate);
 
             return this;
         }
