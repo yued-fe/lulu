@@ -68,7 +68,7 @@ const Datalist = (() => {
          */
         static stripHTML (str) {
             if (typeof str == 'string') {
-                return str.replace(/<\/?[^>]*>/g, '');
+                return str.replace(/<\/?[^<>]*>/g, '').replace(/<\/?[^<>]*>/g, '');
             }
 
             return '';
@@ -100,12 +100,12 @@ const Datalist = (() => {
          */
         static decodeHTML (str) {
             if (typeof str == 'string') {
-                return str.replace(/&lt;|&gt;|&amp;/g, (matches) => {
+                return str.replace(/&lt;|&gt;|&amp;/gi, (matches) => {
                     return {
                         '&lt;': '<',
                         '&gt;': '>',
                         '&amp;': '&'
-                    }[matches];
+                    }[matches.toLowerCase()];
                 });
             }
 
@@ -130,6 +130,12 @@ const Datalist = (() => {
                 // 走<datalist>元素获取数据
                     let eleDatalist = document.getElementById(strAttrList);
                     if (!eleDatalist) {
+                        // 有可能是内容在后面渲染，没来得及识别
+                        setTimeout(() => {
+                            if (document.getElementById(strAttrList)) {
+                                this.convertData();
+                            }
+                        }, 1);
                         return;
                     }
                     // 去掉浏览器原生的行为
@@ -146,6 +152,10 @@ const Datalist = (() => {
                             // value和label是必须的
                             // 降低filter中出错概率
                             objAttr.value = objAttr.value || '';
+                            // 如果没有设置value值，尝试使用内容值作为value值
+                            if (!eleOption.hasAttribute('value')) {
+                                objAttr.value = eleOption.textContent || '';
+                            }
                             objAttr.label = objAttr.label || '';
 
                             return objAttr;
@@ -393,7 +403,7 @@ const Datalist = (() => {
             this.datalist = arrData;
             // 列表HTML组装
             let strHtmlList = '';
-            if (arrData?.length) {
+            if (arrData && arrData.length) {
                 // 先不匹配任何列表项
                 this.params.index = -1;
 
@@ -495,7 +505,7 @@ const Datalist = (() => {
             // 所以，我们使用普通的ul列表元素模拟
             if (!this.element.target) {
                 // 看看是否有list属性值
-                let strId = this.element.datalist?.id;
+                let strId = this.element.datalist && this.element.datalist.id;
                 if (!strId) {
                     // 如果没有关联id，创建之
                     strId = `lulu_${Math.random()}`.replace('0.', '');
@@ -506,7 +516,7 @@ const Datalist = (() => {
                 const eleTarget = document.createElement('div');
                 eleTarget.classList.add(CL);
                 eleTarget.addEventListener('click', (event) => {
-                    if (event.touches?.length) {
+                    if (event.touches && event.touches.length) {
                         event = event.touches[0];
                     }
 
@@ -715,7 +725,7 @@ const Datalist = (() => {
                     case 'ArrowUp':
                     case 'ArrowDown': {
                         // UP-38
-                        if (this.display == true && arrData?.length) {
+                        if (this.display == true && arrData && arrData.length) {
                             event.preventDefault();
 
                             // 过滤出可以用来选中的索引
@@ -1025,6 +1035,8 @@ const Datalist = (() => {
                     type: 'ui-datalist'
                 }
             }));
+
+            this.isConnectedCallback = true;
         }
     }
 

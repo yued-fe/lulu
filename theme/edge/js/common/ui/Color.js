@@ -70,6 +70,14 @@ class Color extends HTMLInputElement {
 
     // 16进制颜色转换成hsl颜色表示
     static funHexToHsl (hex) {
+        hex = (hex || '').replace('#', '');
+
+        if (hex.length == 3 || hex.length == 4) {
+            hex = hex.split('').map(function (char) {
+                return char + char;
+            }).join('');
+        }
+
         const r = parseInt(hex.slice(0, 2), 16) / 255;
         const g = parseInt(hex.slice(2, 4), 16) / 255;
         const b = parseInt(hex.slice(4, 6), 16) / 255;
@@ -468,7 +476,7 @@ class Color extends HTMLInputElement {
         </div>`;
 
         // const arrBasicColor = this.params.color.basic;
-        const arrBasicColorPreset = this.params.color.basicpreset;
+        const arrBasicColorPreset = this.params.color.basicPreset;
         const arrFixedColor = this.params.color.fixed;
 
         // body
@@ -964,7 +972,7 @@ class Color extends HTMLInputElement {
 
         this.params.color = {
             basic: arrBasicColor,
-            basicpreset: arrBasicColorPreset,
+            basicPreset: arrBasicColorPreset,
             fixed: arrFixedColor
         };
 
@@ -987,6 +995,15 @@ class Color extends HTMLInputElement {
                 this.position();
             }
         });
+
+        // 全局事件
+        this.dispatchEvent(new CustomEvent('connected', {
+            detail: {
+                type: 'ui-color'
+            }
+        }));
+
+        this.isConnectedCallback = true;
     }
 }
 

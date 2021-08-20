@@ -144,7 +144,7 @@ class Tab extends HTMLElement {
         this.setParams(options);
 
         // 载入到页面
-        if (!this.parentElement) {
+        if (eleTrigger && !this.parentElement && eleTrigger != this) {
             // 使用专门的div包裹，避免暴露过多的细节
             let eleHidden = document.querySelector('body > div[hidden="tab"]');
             if (!eleHidden) {
@@ -246,6 +246,8 @@ class Tab extends HTMLElement {
             this.open = !this.open;
         }
 
+        const location = window.location;
+
         // 历史记录的处理
         if (this.history == true && strName && /tab\d{10,16}/.test(strName) == false) {
             if (!this.element.target) {
@@ -265,7 +267,7 @@ class Tab extends HTMLElement {
             }
 
             // 改变当前URL
-            history.replaceState(null, document.title, location.href.split('?')[0] + '?' + objURLParams.toString() + strHash);
+            window.history.replaceState(null, document.title, location.href.split('?')[0] + '?' + objURLParams.toString() + strHash);
         }
     }
 
@@ -356,7 +358,7 @@ class Tab extends HTMLElement {
         this.events();
 
         // URL查询看看能不能获取到记录的选项卡状态信息
-        let objURLParams = new URLSearchParams(location.search);
+        let objURLParams = new URLSearchParams(window.location.search);
         objURLParams.forEach((value, key) => {
             if (eleTrigger && eleTarget && this.name == key && eleTarget.id == value && !eleTrigger.hasAttribute('open')) {
                 eleTrigger.click();
@@ -370,11 +372,23 @@ class Tab extends HTMLElement {
             }
         }));
 
+        this.isConnectedCallback = true;
+
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
 
         // is-tab等类型初始化完毕标志事件
         if (eleTrigger != this) {
             eleTrigger.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+            if (eleTrigger.hasAttribute('is-tab')) {
+                eleTrigger.dispatchEvent(new CustomEvent('connected', {
+                    detail: {
+                        type: 'ui-tab'
+                    }
+                }));
+                // 设置定义完毕标志量
+                eleTrigger.setAttribute('defined', '');
+            }
         }
     }
 

@@ -736,6 +736,8 @@ const Table = (function () {
                 }
             }));
 
+            this.isConnectedCallback = true;
+
             this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
         }
     }

@@ -379,8 +379,6 @@ const Dialog = (() => {
                  */
                 alert: {
                     value: function (content, options) {
-                        const objElement = this.element;
-
                         if (!content) {
                             return;
                         }
@@ -435,11 +433,9 @@ const Dialog = (() => {
                             content: strContent
                         });
 
-                        this.show();
+                        this.type = 'alert';
 
-                        if (objElement.button0) {
-                            objElement.button0.focus();
-                        }
+                        this.show();
 
                         return this;
                     }
@@ -453,8 +449,6 @@ const Dialog = (() => {
                  */
                 confirm: {
                     value: function (content, options) {
-                        const objElement = this.element;
-
                         if (!content) {
                             return;
                         }
@@ -512,11 +506,9 @@ const Dialog = (() => {
                             content: strContent
                         });
 
-                        this.show();
+                        this.type = 'confirm';
 
-                        if (objElement.button0) {
-                            objElement.button0.focus();
-                        }
+                        this.show();
 
                         return this;
                     }
@@ -660,12 +652,16 @@ const Dialog = (() => {
 
                         if (this.open == true) {
                             var eleActiveElement = document.activeElement;
-                            if (eleDialog != eleActiveElement) {
-                                this.lastActiveElement = eleActiveElement;
-                            }
-
-                            // 键盘索引起始位置变为在弹框元素上
-                            if (eleDialog) {
+                            if (this.type == 'alert' || this.type == 'confirm') {
+                                if (this.element.button0 != eleActiveElement) {
+                                    this.lastActiveElement = eleActiveElement;
+                                }
+                                this.element.button0.focus();
+                            } else if (eleDialog) {
+                                if (eleDialog != eleActiveElement) {
+                                    this.lastActiveElement = eleActiveElement;
+                                }
+                                // 键盘索引起始位置变为在弹框元素上
                                 eleDialog.focus();
                             }
                         } else if (eleLastActiveElement && eleLastActiveElement.tagName.toLowerCase() != 'body') {
@@ -873,6 +869,11 @@ const Dialog = (() => {
                 type: 'ui-dialog'
             }
         }));
+
+        // 设置定义完毕标志量
+        dialog.setAttribute('defined', '');
+
+        dialog.isConnectedCallback = true;
     };
 
     // 弹框观察并注册

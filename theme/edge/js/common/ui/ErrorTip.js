@@ -200,6 +200,14 @@ class ErrorTip {
         if (this.callback && this.callback.show) {
             this.callback.show.call(this, eleTrigger, eleTips);
         }
+
+        // 触发自定义的 show 事件
+        eleTrigger.dispatchEvent(new CustomEvent('show', {
+            detail: {
+                type: 'ui-errortip',
+                content: this.content
+            }
+        }));
     }
 
     /**
@@ -220,12 +228,19 @@ class ErrorTip {
 
         eleTips.style.display = 'none';
 
+        this.display = false;
+
         // 隐藏的回调
         if (this.callback && this.callback.hide) {
             this.callback.hide.call(this, eleTrigger, eleTips);
         }
 
-        this.display = false;
+        // 触发自定义的 hide 事件
+        eleTrigger.dispatchEvent(new CustomEvent('hide', {
+            detail: {
+                type: 'ui-errortip'
+            }
+        }));
     }
 }
 
@@ -240,6 +255,8 @@ window.ErrorTip = ErrorTip;
  */
 HTMLElement.prototype.errorTip = function (content, options = {}) {
     new ErrorTip(this, content, options);
+
+    return this;
 };
 
 export default ErrorTip;

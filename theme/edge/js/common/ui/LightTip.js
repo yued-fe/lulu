@@ -69,6 +69,8 @@ class LightTip extends HTMLElement {
                 type: 'ui-lighttip'
             }
         }));
+
+        this.isConnectedCallback = true;
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
@@ -92,7 +94,7 @@ class LightTip extends HTMLElement {
     }
 
     zIndex () {
-        // 只对<body>子元素进行层级最大化计算处理，这里lighttip默认的z-index值是9
+        // 只对<body>子元素进行层级最大化计算处理，这里lighttip默认的z-index值是19
         var numZIndexNew = 19;
         this.parentElement && [...this.parentElement.childNodes].forEach(function (eleChild) {
             if (eleChild.nodeType != 1) {
@@ -143,6 +145,11 @@ class LightTip extends HTMLElement {
     static normal (text, time = 3000) {
         return this.custom(text, 'normal', time);
     }
+    // loading
+    static loading (text) {
+        text = text || '正在加载中...';
+        return this.custom(text, 'loading');
+    }
     // 调用方法处理
     static custom (text = '', type, time) {
         // 如果是静态方法执行
@@ -151,7 +158,12 @@ class LightTip extends HTMLElement {
             return LightTip.custom.apply(document.createElement('ui-lighttip'), arguments);
         }
 
-        if (!text) {
+        if (typeof text == 'object') {
+            type = text;
+            text = '';
+        }
+
+        if (typeof text != 'string') {
             return this;
         }
 
@@ -166,6 +178,13 @@ class LightTip extends HTMLElement {
         if (typeof type === 'number') {
             LightTip.custom.call(this, text, time, type);
             return;
+        }
+
+        if (type == 'loading') {
+            if (!text) {
+                text = '正在加载中...';
+            }
+            time = 999999;
         }
 
         if (time) {

@@ -130,7 +130,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     // 如果目标元素隐藏，则不处理
     if (objBoundTarget.width * objBoundTarget.height === 0) {
         eleTarget.style.position = strOriginPosition || '';
-        window.console.error((eleTarget.id ? 'id为' + eleTarget.id + '的' : '') + '目前元素尺寸为0，无法定位');
+        window.console.warn((eleTarget.id ? 'id为' + eleTarget.id + '的' : '') + '目前元素尺寸为0，无法定位');
         return;
     }
 
@@ -153,7 +153,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
 
     // 暴露给实例
     const element = {
-        target: eleTarget
+        follow: eleTarget
     };
 
     this.element = this.element ? Object.assign(this.element, element) : element;

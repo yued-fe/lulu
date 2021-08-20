@@ -14,8 +14,10 @@
 */
 /* lighttip基础变量 */
 :root {
-    --ui-lighttip-width: 25em; 
+    --ui-lighttip-width: 25em;
+    --ui-loading-lighttip: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
 }
+
 ui-lighttip {
     display: flex;
     justify-content: center;
@@ -78,4 +80,35 @@ ui-lighttip[type="warning"]::before {
         max-width: calc(100% - 2rem - 2em);
         transform: translate(-50%, -50%);
     }
+}
+
+/* 全局loading */
+ui-lighttip[type="loading"] {
+    top: 50%;
+    left: 50%;
+    width: auto;
+    padding-right: calc(10px + .5em);
+    max-width: calc(100% - 2rem - 2em);
+    transform: translate(-50%, -50%);
+    border-radius: var(--ui-radius, 4px);
+    background-color: rgba(25, 28, 34, 0.88);
+    visibility: hidden;
+    opacity: 0;
+}
+ui-lighttip[type="loading"][open]::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 .5em;
+    background: var(--ui-loading-lighttip) no-repeat center / 100%;
+    animation: spin 1s linear infinite;
+    filter: brightness(100);
+}
+ui-lighttip[type="loading"][open]{
+    visibility: visible;
+    opacity: 1;
+}
+ui-lighttip[type="loading"]::before{
+    display: none;
 }

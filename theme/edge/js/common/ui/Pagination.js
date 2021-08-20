@@ -421,6 +421,7 @@ class Pagination extends HTMLElement {
         this.page.addEventListener('click', (ev) => {
             const item = ev.target.closest('.ui-page');
             if (item) {
+                this.nativeClick = true;
                 this.current = Number(item.dataset.current);
             }
         });
@@ -435,11 +436,13 @@ class Pagination extends HTMLElement {
                 case 'ArrowDown':
                 case 'PageDown':
                     ev.preventDefault();
+                    this.nativeClick = true;
                     this.current--;
                     break;
                 case 'ArrowUp':
                 case 'PageUp':
                     ev.preventDefault();
+                    this.nativeClick = true;
                     this.current++;
                     break;
                 case 'ArrowLeft':
@@ -453,10 +456,12 @@ class Pagination extends HTMLElement {
             }
         });
         this.left.addEventListener('click', () => {
+            this.nativeClick = true;
             this.current--;
             this.left.focus();
         });
         this.right.addEventListener('click', () => {
+            this.nativeClick = true;
             this.current++;
             this.right.focus();
         });
@@ -468,11 +473,10 @@ class Pagination extends HTMLElement {
             }
         }));
 
+        this.isConnectedCallback = true;
+
         // 分页内容准备完毕
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
-
-        // 插入完成初始化的内容
-        this.innerHTML = '&#x3000';
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
@@ -511,13 +515,26 @@ class Pagination extends HTMLElement {
             if (eleTrigger) {
                 eleTrigger.dataset.current = newValue;
             }
-            this.dispatchEvent(new CustomEvent('change', {
-                detail: {
-                    current: Number(newValue),
-                    per: this.per,
-                    total: this.total
+            if (this.nativeClick) {
+                this.nativeClick = false;
+                this.dispatchEvent(new CustomEvent('change', {
+                    detail: {
+                        current: Number(newValue),
+                        per: this.per,
+                        total: this.total
+                    }
+                }));
+
+                if (eleTrigger && eleTrigger != this) {
+                    eleTrigger.dispatchEvent(new CustomEvent('change', {
+                        detail: {
+                            current: Number(newValue),
+                            per: this.per,
+                            total: this.total
+                        }
+                    }));
                 }
-            }));
+            }
         }
     }
 }
@@ -528,35 +545,69 @@ if (!customElements.get('ui-pagination')) {
 
 window.Pagination = Pagination;
 
-export default Pagination;
+// 给 HTML 元素扩展 pagination 方法
+HTMLElement.prototype.pagination = function (options) {
+    if (this.matches('ui-pagination') || this['ui-pagination']) {
+        return this;
+    }
+
+    const {
+        total = 0,
+        current = 1,
+        per = 15,
+        href = null,
+        loading = false
+    } = this.dataset;
+
+    let objParams = Object.assign({}, {
+        per,
+        total,
+        href,
+        loading
+    }, options || {});
+
+    const pagination = new Pagination(objParams);
+
+    const strId = this.id || ('lulu_' + Math.random()).replace('0.', '');
+    this.innerHTML = '';
+    this.id = strId;
+    this['ui-pagination'] = pagination;
+    pagination.htmlFor = strId;
+    pagination.setAttribute('current', current);
+    // 删除自定义元素，隐藏不必要的细节
+    pagination.addEventListener('connected', () => {
+        // 所有普通元素也触发 connected 生命周期事件
+        this.dispatchEvent(new CustomEvent('connected', {
+            detail: {
+                type: 'ui-pagination'
+            }
+        }));
+
+        // 原分页从页面中删除
+        pagination.remove();
+
+        // DOM 执行完毕
+        this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+    });
+    document.body.append(pagination);
+    // 转移shadow dom
+    const shadowRoot = this.attachShadow({
+        mode: 'open'
+    });
+    shadowRoot.append(pagination.shadowRoot);
+
+    // 设置定义完毕标志量
+    this.setAttribute('defined', '');
+
+    return this;
+};
 
 (function () {
     const initAllPagination = (ele) => {
         const elePaginations = ele || document.querySelectorAll('[is-pagination]');
+
         elePaginations.forEach(item => {
-            const {total = 0, current = 1, per = 15, href = null, loading = false} = item.dataset;
-            const pagination = new Pagination({
-                per,
-                total,
-                href,
-                loading
-            });
-            const strId = ('lulu_' + Math.random()).replace('0.', '');
-            item.innerHTML = '';
-            item.id = strId;
-            item['ui-pagination'] = pagination;
-            pagination.htmlFor = strId;
-            pagination.setAttribute('current', current);
-            // 删除自定义元素，隐藏不必要的细节
-            pagination.addEventListener('connected', () => {
-                pagination.remove();
-            });
-            document.body.append(pagination);
-            const shadowRoot = item.attachShadow({
-                mode: 'open'
-            });
-            shadowRoot.append(pagination.shadowRoot);
-            item.setAttribute('defined', '');
+            item.pagination();
         });
     };
 
@@ -593,3 +644,5 @@ export default Pagination;
         window.addEventListener('DOMContentLoaded', autoInitAndWatchingIsPaginationAttr);
     }
 })();
+
+export default Pagination;

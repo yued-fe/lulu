@@ -57,7 +57,8 @@ input:-moz-read-only {
     cursor: default;
 }
 input.ui-input,
-.ui-input > input {
+.ui-input > input,
+[is="ui-input"] {
     height: var(--ui-input-height);
     line-height: var(--ui-input-line-height);
     padding: calc((var(--ui-input-height) - var(--ui-input-line-height) - 2px) / 2) 8px;
@@ -72,13 +73,15 @@ input.ui-input,
 }
 
 .ui-input:hover,
-.ui-input:hover > input {
+.ui-input:hover > input,
+[is="ui-input"]:hover {
     border-color: var(--ui-dark-border, #ababaf);
 }
 
 .ui-input:focus,
-.ui-input > input:focus {
-    border-color: var(--ui-blue);
+.ui-input > input:focus,
+[is="ui-input"]:focus {
+    border-color: var(--ui-blue, #2a80eb);
 }
 
 span.ui-input {
@@ -93,45 +96,18 @@ input[width="100%"] {
 /* input with count */
 .ui-input-x {
     position: relative;
-    padding: 0 56px 0 3px;
-    border-radius: var(--ui-radius, 4px);
-    box-sizing: border-box;
-    overflow: hidden;
+}
+span.ui-input-x {
+    display: inline-block;
 }
 
 .ui-input-x > input {
     display: block;
     width: 100%;
-    height: var(--ui-input-height);
-    line-height: var(--ui-input-line-height);
-    padding: calc((var(--ui-input-height) - var(--ui-input-line-height) - 2px) / 2) 0 calc((var(--ui-input-height) - var(--ui-input-line-height) - 2px) / 2);
-    border: 0 none;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    right: -6px;
-    color: var(--ui-dark, #4c5161);
-    font-size: var(--ui-font, 14px);
-    outline: none;
-    background: none;
-    background-clip: content-box;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
+    padding-right: 56px;
 }
 
-.ui-input-x > .ui-input {
-    position: absolute;
-    border: 1px solid var(--ui-border, #d0d0d5);
-    border-radius: var(--ui-radius, 4px);
-    background-color: var(--ui-white, #fff);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
-}
-
-.ui-input-x .ui-input-count {
+input ~ .ui-input-count {
     line-height: 38px;
     padding: 0 2px;
     color: var(--ui-gray, #a2a9b6);
@@ -141,23 +117,10 @@ input[width="100%"] {
     font-family: sans-serif;
     right: 8px;
     top: 1px;
-    z-index: 1;
+    pointer-events: none;
 }
 .ui-input-count slash {
     margin: 0 1px;
-}
-.ui-input-x > input:not(:disabled):not(:read-only):hover ~ .ui-input {
-    border-color: var(--ui-dark-border, #ababaf);
-}
-.ui-input-x > input:not(:disabled):not(:read-only):focus ~ .ui-input {
-    border-color: var(--ui-blue, #2a80eb);
-}
-/* firefox */
-.ui-input-x > input:not(:disabled):not(:-moz-read-only):hover ~ .ui-input {
-    border-color: var(--ui-dark-border, #ababaf);
-}
-.ui-input-x > input:not(:disabled):not(:-moz-read-only):focus ~ .ui-input {
-    border-color: var(--ui-blue, #2a80eb);
 }
 
 /* type=[search] with icon */
@@ -266,38 +229,46 @@ input.ui-icon-search {
 }
 
 input.ui-input:disabled,
+[is="ui-input"]:disabled,
 .ui-input > input:disabled,
 .ui-input-x > :disabled ~ .ui-input {
     background-color: var(--ui-light, #f7f9fa);
 }
 
 input.ui-input:disabled,
+[is="ui-input"]:disabled,
 .ui-input > input:disabled,
 .ui-input-x > input:disabled {
     color: var(--ui-gray, #a2a9b6);
 }
 
 .ui-input:disabled:hover,
+[is="ui-input"]:disabled:hover,
 .ui-input > input:disabled:hover,
 .ui-input:hover > input:disabled {
     border-color: var(--ui-border, #d0d0d5);
 }
 .ui-input:read-only:hover,
 .ui-input:read-only:focus,
+[is="ui-input"]:read-only:hover,
+[is="ui-input"]:read-only:focus,
 .ui-input > input:read-only:hover,
 .ui-input > input:read-only:focus {
     border-color: var(--ui-border, #d0d0d5);
 }
 /* firefox */
 .ui-input:-moz-read-only:hover,
+[is="ui-input"]:-moz-read-only:hover,
 .ui-input > input:-moz-read-only:hover,
 .ui-input:-moz-read-only:focus,
+[is="ui-input"]:-moz-read-only:focus,
 .ui-input > input:-moz-read-only:focus {
     border-color: var(--ui-border, #d0d0d5);
 }
 
 /* error */
 .ui-input[is-error],
+[is="ui-input"][is-error],
 .ui-input > [is-error] {
     border-color: var(--ui-red, #eb4646) !important;
 }

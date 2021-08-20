@@ -988,8 +988,12 @@ const Validate = (() => {
 
                 if (typeof valid == 'undefined') {
                     valid = element.validity.valid;
+                } else {
+                    // 触发验证通过与否的自定义事件
+                    element.dispatchEvent(new CustomEvent(valid ? 'valid' : 'invalid'));
                 }
 
+                // 获取提示应该显示的元素
                 const eleTarget = this.getTarget(element);
 
                 if (!eleTarget) {
@@ -1040,6 +1044,7 @@ const Validate = (() => {
                     return this;
                 }
 
+                // 出错显示逻辑
                 const funShow = function () {
                     const eleControl = document.validate.errorTip.control;
                     const eleTipTarget = document.validate.errorTip.target;
@@ -1209,6 +1214,13 @@ const Validate = (() => {
             configurable: true
         });
 
+        Object.defineProperty(prop, 'validationMessage', {
+            get () {
+                return document.validate.getReportText(this);
+            },
+            configurable: true
+        });
+
         Object.defineProperty(prop, 'checkValidity', {
             value () {
                 return this.validity.valid;
@@ -1276,7 +1288,7 @@ const Validate = (() => {
         /**
          * 验证实例方法主体
          * @param {Object}   el       通常值验证的表单元素
-         * @param {Function} callback 验证成功的回调
+         * @param {Function} callback 可选，表示验证成功的回调，可以使用自定义 DOM 事件代替
          * @param {Object}   options  可选参数
          */
         constructor (element, callback, options) {
@@ -1324,10 +1336,16 @@ const Validate = (() => {
                         },
                         method: function () {}
                     }*/
-                ],
-                onError () { },
-                onSuccess () { }
+                ]
             };
+
+            if (typeof callback == 'object') {
+                options = callback;
+                // 下一行其实去掉也没什么事，
+                // 放着是防止以后有什么新逻辑，
+                // 没有这一行可能会导致报错
+                callback = null;
+            }
 
             const objParams = Object.assign({}, defaults, options || {});
 
@@ -1343,8 +1361,11 @@ const Validate = (() => {
                 }
                 event.preventDefault();
 
-                if (this.checkValidity() && typeof callback == 'function') {
-                    callback.call(this, eleForm);
+                if (this.checkValidity()) {
+                    if (typeof callback == 'function') {
+                        callback.call(this, eleForm);
+                    }
+                    eleForm.dispatchEvent(new CustomEvent('valid'));
                 }
 
                 return false;
@@ -1353,11 +1374,6 @@ const Validate = (() => {
             // 暴露的数据
             this.element = {
                 form: eleForm
-            };
-
-            this.callback = {
-                error: objParams.onError,
-                success: objParams.onSuccess
             };
 
             this.params = {
@@ -1524,7 +1540,7 @@ const Validate = (() => {
                     eleLabel.setAttribute('for', strId);
                 }
 
-                const eleMin = eleLabel.querySelector('span') || eleLabel;
+                const eleMin = eleLabel.querySelector('span, output') || eleLabel;
 
                 // 计数，标红方法
                 const funCount = function () {
@@ -1535,8 +1551,10 @@ const Validate = (() => {
                     // 超出范围或范围不足
                     if (length != 0 && (length > strAttrMaxLength || (strAttrMinLength && length < strAttrMinLength))) {
                         eleMin.classList.add('error');
+                        eleMin.toggleAttribute('is-error', true);
                     } else {
                         eleMin.classList.remove('error');
+                        eleMin.toggleAttribute('is-error', false);
                     }
                 };
                 // 事件
@@ -1764,20 +1782,22 @@ const Validate = (() => {
 
             document.validate.focusable = true;
 
-            eleForm.querySelectorAll('input, select, textarea').forEach(function (element) {
+            eleForm.querySelectorAll('input, select, textarea').forEach(element => {
                 // 还没有出现不合法的验证
                 if (isAllPass == true || this.params.multiple) {
                     // multiple参数为true的时候，其他都要标红，但提示仅出现在第一个错误元素上
-                    const isPass = document.validate.styleError(element);
+                    const isPass = element.validity.valid;
 
                     if (isAllPass == true && isPass == false) {
+                        // reportValidity方法也会执行styleError
+                        // 因此 styleError 这句在 else 中执行
                         this.reportValidity(element);
                         isAllPass = false;
+                    } else {
+                        document.validate.styleError(element, isPass);
                     }
-                    // 回调触发
-                    this.callback[isPass ? 'success' : 'error'].call(this, element);
                 }
-            }.bind(this));
+            });
 
             // 当有过一次提交之后，开启即时验证
             if (!eleForm.isImmediated && this.params.immediate) {
@@ -1803,5 +1823,64 @@ const Validate = (() => {
 
 // 为了直接使用
 window.Validate = Validate;
+
+/**
+ * 给任意 <form> 元素 注入 validate 方法
+ */
+HTMLFormElement.prototype.validate = function () {
+    new Validate(this);
+
+    return this;
+};
+
+// 观察is-validate属性，并认为绑定验证
+(function () {
+    const initAllValidate = (ele) => {
+        const eleValidates = ele || document.querySelectorAll('[is-validate]');
+
+        eleValidates.forEach(item => {
+            item.validate();
+            item.dispatchEvent(new CustomEvent('connected', {
+                detail: {
+                    type: 'ui-validate'
+                }
+            }));
+            item.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+        });
+    };
+
+    /**
+     * 初始化并监听页面包含is-pagination属性的DOM节点变化
+     */
+    const autoInitAndWatchingValidate = () => {
+        // 先实例化已有is-pagination属性的DOM节点，再监听后续的节点变化
+        initAllValidate();
+        const observer = new MutationObserver(mutationsList => {
+            mutationsList.forEach(mutation => {
+                mutation.addedNodes && mutation.addedNodes.forEach(eleAdd => {
+                    if (!eleAdd.tagName) {
+                        return;
+                    }
+                    if (eleAdd.hasAttribute('is-validate')) {
+                        initAllValidate([eleAdd]);
+                    } else {
+                        initAllValidate(eleAdd.querySelectorAll('[is-validate]'));
+                    }
+                });
+            });
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    };
+
+    if (document.readyState != 'loading') {
+        autoInitAndWatchingValidate();
+    } else {
+        window.addEventListener('DOMContentLoaded', autoInitAndWatchingValidate);
+    }
+})();
 
 export default Validate;

@@ -99,7 +99,6 @@ ui-loading::after,
     height: 100%;
     vertical-align: middle;
 }
-
 ui-loading::before,
 .ui-loading::before {
     content: '';
@@ -146,14 +145,16 @@ ui-loading[size="4"]::before,
 }
 
 /* 文本点点点 */
-ui-dot {
+ui-dot,
+[is-dot] {
     display: inline-block;
     height: 1em; line-height: 1;
     text-align: left;
     vertical-align: -.25em;
     overflow: hidden;
 }
-ui-dot::before {
+ui-dot::before,
+[is-dot]::before {
     display: block;
     content: '...\A..\A.';
     white-space: pre-wrap;

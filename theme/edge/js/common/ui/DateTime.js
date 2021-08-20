@@ -2234,6 +2234,8 @@ const DateTime = (() => {
                     type: 'ui-datetime'
                 }
             }));
+
+            this.isConnectedCallback = true;
         }
     }
 

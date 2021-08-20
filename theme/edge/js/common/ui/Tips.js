@@ -14,8 +14,19 @@ class Tips extends HTMLElement {
         return ['title', 'reverse', 'for', 'eventType', 'align'];
     }
 
-    constructor () {
+    constructor (trigger, content, options) {
         super();
+
+        // trigger可以是ID选择器
+        if (typeof trigger == 'string' && /^#?\w+(?:[-_]\w+)*$/.test(trigger)) {
+            trigger = document.getElementById(trigger.replace('#', ''));
+        }
+
+        if (trigger && trigger.tips) {
+            trigger.tips(content, options);
+
+            return trigger['ui-tips'];
+        }
 
         this.target = null;
     }
@@ -105,6 +116,10 @@ class Tips extends HTMLElement {
 
         // DOM
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        if (eleTrigger != this) {
+            eleTrigger.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+        }
     }
 
     show () {
@@ -222,7 +237,7 @@ class Tips extends HTMLElement {
     connectedCallback () {
         let eleTrigger = this.trigger;
         // format title
-        this.title;
+        eleTrigger.originTitle = this.title;
 
         // 更语义
         // 非focusable元素使其focusable
@@ -240,6 +255,19 @@ class Tips extends HTMLElement {
                 type: 'ui-tips'
             }
         }));
+
+        if (eleTrigger != this && eleTrigger.hasAttribute('is-tips')) {
+            eleTrigger.dispatchEvent(new CustomEvent('connected', {
+                detail: {
+                    type: 'ui-tips'
+                }
+            }));
+
+            // 设置定义完毕标志量
+            eleTrigger.setAttribute('defined', '');
+        }
+
+        this.isConnectedCallback = true;
     }
 }
 
@@ -247,9 +275,11 @@ if (!customElements.get('ui-tips')) {
     customElements.define('ui-tips', Tips);
 }
 
+window.Tips = Tips;
+
 /**
  * 给任意 dom 注入 tips 方法
- * @param options {eventType, align, onShow, onHide}
+ * @param options {eventType, align}
  */
 HTMLElement.prototype.tips = function (content, options = {}) {
     // 如果是CSS驱动的tips提示效果
@@ -296,12 +326,6 @@ HTMLElement.prototype.tips = function (content, options = {}) {
     }
     if (options.align) {
         eleTips.align = options.align;
-    }
-    if (options.onShow) {
-        eleTips.addEventListener('show', options.onShow.bind(this));
-    }
-    if (options.onHide) {
-        eleTips.addEventListener('hide', options.onHide.bind(this));
     }
 
     this['ui-tips'] = eleTips;
@@ -373,3 +397,5 @@ HTMLElement.prototype.tips = function (content, options = {}) {
         window.addEventListener('DOMContentLoaded', funTipsInitAndWatching);
     }
 })();
+
+export default Tips;

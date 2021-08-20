@@ -13,30 +13,35 @@ class XRange extends HTMLInputElement {
 
     constructor () {
         super();
-        this.tips = this.dataset.tips;
     }
 
     get defaultrange () {
         return this.getAttribute('range') || `${this.getAttribute('from') || this.min || 0},${this.getAttribute('to') || this.max || 100}`;
     }
 
+    set vertical (value) {
+        return this.toggleAttribute('vertical', value);
+    }
     get vertical () {
         return this.getAttribute('vertical') !== null;
     }
 
+    set multiple (value) {
+        return this.toggleAttribute('multiple', value);
+    }
     get multiple () {
         return this.getAttribute('multiple') !== null;
     }
 
     get from () {
-        if (this.element?.otherRange) {
-            return Math.min(this.value, this.element?.otherRange?.value);
+        if (this.element && this.element.otherRange) {
+            return Math.min(this.value, this.element.otherRange.value);
         }
         return '';
     }
 
     get to () {
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             return Math.max(this.value, this.element.otherRange.value);
         }
         return '';
@@ -50,13 +55,13 @@ class XRange extends HTMLInputElement {
 
     get isFrom () {
         // 是否为起始range
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             return this.value - this.element.otherRange.value < 0;
         }
     }
 
     set from (v) {
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             if (this.isFrom) {
                 this.value = v;
             } else {
@@ -66,7 +71,7 @@ class XRange extends HTMLInputElement {
     }
 
     set to (v) {
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             if (!this.isFrom) {
                 this.value = v;
             } else {
@@ -84,6 +89,8 @@ class XRange extends HTMLInputElement {
     }
 
     connectedCallback () {
+        this.tips = this.dataset.tips;
+        // 一些事件
         this.addEventListener('input', this.render);
         this.addEventListener('change', this.change);
         this.addEventListener('touchstart', this.stopPropagation);
@@ -137,6 +144,8 @@ class XRange extends HTMLInputElement {
             }
         }));
 
+        this.isConnectedCallback = true;
+
         this.render();
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
@@ -149,10 +158,10 @@ class XRange extends HTMLInputElement {
         if (this.vertical) {
             this.resizeObserver.unobserve(this);
         }
-        if (this.element?.otherRange && !this.exchange) {
+        if (this.element && this.element.otherRange && !this.exchange) {
             this.element.otherRange.remove();
         }
-        if (this.element?.splitRange && !this.exchange) {
+        if (this.element && this.element.splitRange && !this.exchange) {
             this.element.splitRange.remove();
         }
     }
@@ -163,7 +172,7 @@ class XRange extends HTMLInputElement {
 
     attributeChangedCallback (name, oldValue, newValue) {
         if (oldValue !== newValue) {
-            if (name === 'disabled' && this.element?.otherRange) {
+            if (name === 'disabled' && this.element && this.element.otherRange) {
                 this.element.otherRange.disabled = newValue !== null;
             } else {
                 this.render();
@@ -172,7 +181,7 @@ class XRange extends HTMLInputElement {
     }
 
     change () {
-        if (!this.element?.otherRange) {
+        if (!this.element && this.element.otherRange) {
             return;
         }
         // 保持html结构和视觉上一致，也就是初始值在前面，结束值在后面，如果不一致就调换位置，目的是为tab键切换正常
@@ -196,12 +205,13 @@ class XRange extends HTMLInputElement {
         const max = this.max || 100;
         const min = this.min || 0;
         this.style.setProperty('--percent', (this.value - min) / (max - min));
-        if (this.tips) {
+
+        if (typeof this.tips == 'string') {
             this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
         }
         this.style.setProperty('--from', this.from);
         this.style.setProperty('--to', this.to);
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             this.element.otherRange.style.setProperty('--from', this.from);
             this.element.otherRange.style.setProperty('--to', this.to);
         }
@@ -209,7 +219,7 @@ class XRange extends HTMLInputElement {
 
     addEventListener (...par) {
         document.addEventListener.apply(this, par);
-        if (this.element?.otherRange) {
+        if (this.element && this.element.otherRange) {
             document.addEventListener.apply(this.element.otherRange, par);
         }
     }

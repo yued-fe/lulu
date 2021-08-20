@@ -20,7 +20,8 @@
 
 }
 
-.ui-button {
+.ui-button,
+[is="ui-button"] {
     display: inline-block;
     line-height: var(--ui-button-line-height);
     font-size: var(--ui-font, 14px);
@@ -41,15 +42,17 @@
     overflow: visible;
 }
 
-.ui-button[width="100%"] {
+.ui-button[width="100%"],
+[is="ui-button"][width="100%"] {
     width: 100%;
 }
 
-div.ui-button {
+div.ui-button,
+div[is="ui-button"] {
     display: block;
 }
 
-[type="submit"]:not([class]) {
+[type="submit"]:not([class]):not([is]) {
     position: absolute;
     clip: rect(0 0 0 0);
 }
@@ -67,26 +70,46 @@ div.ui-button {
     border: 0;
 }
 
-.ui-button:hover {
+.ui-button:hover, 
+[is="ui-button"]:hover {
     color: var(--ui-dark, #4c5161);
     text-decoration: none;
 }
-.ui-button:not(.disabled):not(.loading):not(:disabled):hover {
+.ui-button:not(.disabled):not(.loading):not(:disabled):hover,
+[is="ui-button"]:not(.disabled):not(.loading):not(:disabled):hover  {
     border-color: var(--ui-dark-border, #ababaf);
     box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.01),
         inset 0 0 0 100px rgba(var(--ui-button-black), 0.05);
 }
-.ui-button:not(.disabled):not(.loading):not(:disabled):active {
+.ui-button:not(.disabled):not(.loading):not(:disabled):active,
+[is="ui-button"]:not(.disabled):not(.loading):not(:disabled):active {
     box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.1),
         inset 0 0 0 100px rgba(var(--ui-button-black), 0.1);
 }
 .ui-button[data-type="primary"],
 .ui-button[data-type="remind"],
 .ui-button[data-type="success"],
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"],
+.ui-button[data-type^="warn"],
 .ui-button[data-type="danger"],
-.ui-button[data-type="error"] {
+.ui-button[data-type="error"],
+.ui-button[type="primary"],
+.ui-button[type="remind"],
+.ui-button[type="success"],
+.ui-button[type^="warn"],
+.ui-button[type="danger"],
+.ui-button[type="error"],
+[is="ui-button"][data-type="primary"],
+[is="ui-button"][data-type="remind"],
+[is="ui-button"][data-type="success"],
+[is="ui-button"][data-type^="warn"],
+[is="ui-button"][data-type="danger"],
+[is="ui-button"][data-type="error"],
+[is="ui-button"][type="primary"],
+[is="ui-button"][type="remind"],
+[is="ui-button"][type="success"],
+[is="ui-button"][type^="warn"],
+[is="ui-button"][type="danger"],
+[is="ui-button"][type="error"] {
     border: 0;
     padding-top: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
     padding-bottom: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
@@ -95,34 +118,54 @@ div.ui-button {
 
 /* primary button */
 .ui-button[data-type="primary"],
-.ui-button[data-type="remind"] {
+.ui-button[data-type="remind"],
+.ui-button[type="primary"],
+.ui-button[type="remind"],
+[is="ui-button"][data-type="primary"],
+[is="ui-button"][data-type="remind"],
+[is="ui-button"][type="primary"],
+[is="ui-button"][type="remind"] {
     background-color: var(--ui-blue, #2a80eb);
 }
 
 /* success button */
-.ui-button[data-type="success"] {
+.ui-button[data-type="success"],
+.ui-button[type="success"],
+[is="ui-button"][data-type="success"],
+[is="ui-button"][type="success"] {
     background-color: var(--ui-green, #1cad70);
 }
 
 /* warning button */
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"] {
+.ui-button[data-type^="warn"],
+.ui-button[type^="warn"],
+[is="ui-button"][data-type^="warn"],
+[is="ui-button"][type^="warn"] {
     background-color: var(--ui-orange, #f59b00);
 }
 /* danger button */
 .ui-button[data-type="danger"],
-.ui-button[data-type="error"] {
+.ui-button[data-type="error"],
+.ui-button[type="danger"],
+.ui-button[type="error"],
+[is="ui-button"][data-type="danger"],
+[is="ui-button"][data-type="error"],
+[is="ui-button"][type="danger"],
+[is="ui-button"][type="error"] {
     background-color: var(--ui-red, #eb4646);
 }
 
 /* disabled status */
 .ui-button.disabled,
-.ui-button:disabled {
+.ui-button:disabled,
+[is="ui-button"].disabled,
+[is="ui-button"]:disabled {
     opacity: var(--ui-opacity, .4);
     cursor: default;
 }
 /* loading status */
-.ui-button.loading {
+.ui-button.loading,
+[is="ui-button"].loading {
     color: transparent !important;
     background-position: center;
     background-repeat: no-repeat;
@@ -130,7 +173,8 @@ div.ui-button {
     cursor: default;
 }
 /* input按钮，三个点 */
-input.ui-button.loading {
+input.ui-button.loading,
+input[is="ui-button"].loading {
     --ui-loading-color: var(--ui-blue, #2a80eb);
     --ui-loading-radial: radial-gradient(3px circle, var(--ui-loading-color), var(--ui-loading-color) 2px, transparent 3px);
     background-image: var(--ui-loading-radial), var(--ui-loading-radial), var(--ui-loading-radial);
@@ -139,26 +183,24 @@ input.ui-button.loading {
     background-size: 5px 5px;
     animation: bubbling 1s infinite;
 }
-input.ui-button[data-type]:not([data-type="normal"]).loading {
+input.ui-button[data-type]:not([data-type="normal"]).loading,
+input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
     --ui-loading-color: var(--ui-white, #fff);
 }
 
 /* button 按钮 */
-.ui-button.loading::before {
+.ui-button.loading::before,
+[is="ui-button"].loading::before {
     content: "";
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    background-repeat: no-repeat;
-}
-/* IE10+，:invalid伪类IE10+才支持 */
-.ui-button.loading::before,
-div:invalid {
     width: 20px;
     height: 20px;
     background-color: var(--ui-blue,#2a80eb);
+    background-repeat: no-repeat;
     -webkit-mask: var(--ui-button-loading-img);
     mask: var(--ui-button-loading-img);
     -webkit-mask-size: 100% 100%;
@@ -166,9 +208,21 @@ div:invalid {
     margin: auto;
     animation: spin 1s linear infinite;
 }
-/* IE10+ */
+/* 有底色按钮 */
 .ui-button[data-type]:not([data-type="normal"]).loading::before,
-div:invalid {
+.ui-button[type="primary"].loading::before,
+.ui-button[type="remind"].loading::before,
+.ui-button[type="success"].loading::before,
+.ui-button[type^="warn"].loading::before,
+.ui-button[type="danger"].loading::before,
+.ui-button[type="error"].loading::before,
+[is="ui-button"][data-type]:not([data-type="normal"]).loading::before,
+[is="ui-button"][type="primary"].loading::before,
+[is="ui-button"][type="remind"].loading::before,
+[is="ui-button"][type="success"].loading::before,
+[is="ui-button"][type^="warn"].loading::before,
+[is="ui-button"][type="danger"].loading::before,
+[is="ui-button"][type="error"].loading::before {
     background-color: var(--ui-white,#ffffff);
 }
 
@@ -203,6 +257,7 @@ div:invalid {
 }
 
 /* error */
-.ui-button[is-error] {
+.ui-button[is-error],
+[is="ui-button"][is-error] {
     border-color: var(--ui-red, #eb4646) !important;
 }

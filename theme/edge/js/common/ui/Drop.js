@@ -109,14 +109,22 @@ class Drop extends HTMLElement {
                         eleTarget.id = strId;
                     }
 
+                    let eleTrigger = this.element.trigger;
+
                     // 如果用户直接使用this.element.target赋值，则需要同步target属性值
-                    if (this.element.trigger == this) {
+                    if (eleTrigger == this) {
                         // 此if判断可以避免死循环
                         if (this.target != strId) {
                             this.target = strId;
                         }
-                    } else if (this.element.trigger) {
-                        this.element.trigger.setAttribute('data-target', strId);
+                    } else if (eleTrigger) {
+                        let strAttrTarget = eleTrigger.dataset.target;
+                        if (strAttrTarget && document.querySelector('datalist[id="' + strAttrTarget + '"]')) {
+                            // 如果匹配的是<datalist>元素
+                            eleTrigger.setAttribute('data-target2', strId);
+                        } else {
+                            eleTrigger.setAttribute('data-target', strId);
+                        }
                     }
                 }
 
@@ -151,16 +159,6 @@ class Drop extends HTMLElement {
         // 参数设置
         this.setParams(options);
 
-        // 默认的aria状态设置
-        if (eleTrigger.open) {
-            eleTrigger.setAttribute('aria-expanded', 'true');
-        } else {
-            eleTrigger.setAttribute('aria-expanded', 'false');
-        }
-
-        // 事件绑定处理
-        this.events();
-
         // 如果默认open为true，则显示
         if (this.open) {
             if (document.readyState != 'loading') {
@@ -173,6 +171,13 @@ class Drop extends HTMLElement {
         }
 
         if (eleTrigger !== this) {
+            // 隐藏<ui-drop>元素细节
+            this.addEventListener('connected', function () {
+                this.remove();
+            });
+
+            eleTrigger['ui-drop'] = this;
+
             document.body.append(this);
         }
     }
@@ -205,53 +210,6 @@ class Drop extends HTMLElement {
     }
     set open (value) {
         this.toggleAttribute('open', value);
-    }
-
-    /**
-     * <ui-drop>元素进入页面中的时候
-     */
-    connectedCallback () {
-        let eleTarget = this.element.target;
-
-        // 页面中的<ui-drop>元素如果没有target
-        // 强制绑定事件，这样<ui-drop>元素可以实现open切换效果
-        if (!eleTarget) {
-            this.events(this.element.trigger === this);
-        } else if (eleTarget.matches('datalist')) {
-            this.list(eleTarget);
-        } else if (eleTarget.matches('dialog')) {
-            this.panel(eleTarget);
-        }
-
-        // 无障碍访问设置
-        if (!this.querySelector('a, button') && !this.closest('a, button')) {
-            this.tabIndex = 0;
-            this.role = 'button';
-        }
-
-        // 全局事件
-        this.dispatchEvent(new CustomEvent('connected', {
-            detail: {
-                type: 'ui-drop'
-            }
-        }));
-    }
-
-    // open属性变化的时候
-    attributeChangedCallback (name, oldValue, newValue) {
-        if (name == 'target') {
-            let eleTarget = document.getElementById(newValue);
-            if (eleTarget) {
-                this.element.target = eleTarget;
-            }
-        } else if (name == 'open') {
-            let strAriaExpanded = this.element.trigger.getAttribute('aria-expanded');
-            if (this.open && strAriaExpanded == 'false') {
-                this.show();
-            } else if (!this.open && strAriaExpanded == 'true') {
-                this.hide();
-            }
-        }
     }
 
     // 设置参数方法
@@ -287,6 +245,7 @@ class Drop extends HTMLElement {
         let eleTrigger = this.element.trigger;
         let eleTarget = this.element.target;
 
+        // 如果没有target 并且不是无视没有target，返回
         if (!eleTarget && !isIgnoreTarget) {
             return;
         }
@@ -319,6 +278,19 @@ class Drop extends HTMLElement {
                 break;
             }
             case 'hover': case 'mouseover': case 'mouseenter': {
+                // 如果不是无视target
+                if (!eleTarget) {
+                    setTimeout(() => {
+                        // vue, react等框架渲染时候，target可能会滞后
+                        // 所以加个定时器处理
+                        if (this.element.target) {
+                            this.events();
+                        }
+                    }, 1);
+                    // 一定要返回，否则下面的会报错
+                    // click事件可以不返回，因为target不存在也可以触发
+                    return;
+                }
                 // hover处理需要增加延时
                 eleTarget.timerHover = null;
                 // 同时，从trigger移动到target也需要延时，
@@ -457,6 +429,10 @@ class Drop extends HTMLElement {
 
                 break;
             }
+
+            default: {
+                break;
+            }
         }
 
         // 点击页面空白区域隐藏
@@ -489,6 +465,10 @@ class Drop extends HTMLElement {
         });
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+        if (eleTrigger != this) {
+            eleTrigger.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+        }
     }
 
     /**
@@ -637,6 +617,46 @@ class Drop extends HTMLElement {
                     // 支持从原生的列表元素中获取数据信息
                     if (argument.matches('datalist')) {
                         data = function () {
+                            // 所有分组元素
+                            let eleOptgroups = argument.querySelectorAll('optgroup');
+                            // 如果有任意一个分组元素设置了label，那么就是标题分组
+                            // 如果只是optgroup标签包括，那么使用分隔线分隔
+                            let isSubTitle = !!argument.querySelector('optgroup[label]');
+
+                            // 如果有分组
+                            if (eleOptgroups.length) {
+                                let arrData = [];
+
+                                eleOptgroups.forEach(optgroup => {
+                                    if (isSubTitle) {
+                                        arrData.push({
+                                            id: '-1',
+                                            value: optgroup.label,
+                                            disabled: optgroup.disabled,
+                                            className: optgroup.className,
+                                            heading: true
+                                        });
+                                    } else {
+                                        // 分隔线
+                                        arrData.push({});
+                                    }
+
+                                    optgroup.querySelectorAll('option').forEach(option => {
+                                        arrData.push({
+                                            id: option.value,
+                                            value: option.innerHTML || option.value,
+                                            selected: option.selected,
+                                            disabled: optgroup.disabled || option.disabled,
+                                            className: option.className,
+                                            label: option.label,
+                                            accessKey: option.accessKey
+                                        });
+                                    });
+                                });
+
+                                return arrData;
+                            }
+
                             return [...argument.querySelectorAll('option')].map((option, index) => {
                                 let value = option.innerHTML;
                                 let id = option.value;
@@ -652,7 +672,10 @@ class Drop extends HTMLElement {
                                     id: id,
                                     value: value,
                                     selected: option.selected,
-                                    disabled: option.disabled
+                                    className: option.className,
+                                    disabled: option.disabled,
+                                    label: option.label,
+                                    accessKey: option.accessKey
                                 };
                             });
                         };
@@ -905,29 +928,45 @@ class Drop extends HTMLElement {
                             strAttrLabel = ' aria-label="' + objData.label + '"';
                         }
 
+                        // accesskey快捷访问
+                        let strAttrAccess = '';
+                        if (objData.accessKey) {
+                            strAttrAccess = ` accesskey="${objData.accessKey}"`;
+                        }
+
                         // 如果数据不含选中项，使用存储的索引值进行匹配
                         if (isSomeItemSelected == false && strMatchIndex == arrCurrentIndex.join('-')) {
                             objData[SELECTED] = true;
                         }
 
                         // 类名
-                        let strAttrClass = CL.add('li');
+                        let strAttrClass = CL.add('li') + ' ' + objData.className;
                         if (objData[SELECTED]) {
                             strAttrClass = strAttrClass + ' ' + SELECTED;
+                        }
+
+                        strAttrClass = strAttrClass.trim();
+
+                        // 如果是标题元素
+                        if (objData.heading == true) {
+                            if (objData.disabled) {
+                                strAttrClass += ' disabled';
+                            }
+                            strHtmlStep += '<div class="' + strAttrClass + '"' + strAttrLabel + ' role="heading">' + objData.value + '</div>';
+                            return;
                         }
 
                         // 禁用态和非禁用使用标签区分
                         // 如果想要支持多级，data-index值可以"1-2"这样
                         if (objData[DISABLED] != true) {
-                            strHtmlStep += '<a href="' + strAttrHref + '"' + strAttrTarget + strAttrLabel + ' class="' + strAttrClass + '" data-index="' + arrCurrentIndex.join('-') + '" role="option" aria-selected="' + (objData[SELECTED] || 'false') + '" ' + strAttrSublist + '>' + objData.value + '</a>';
+                            strHtmlStep += '<a href="' + strAttrHref + '"' + strAttrTarget + strAttrLabel + strAttrAccess + ' class="' + strAttrClass + '" data-index="' + arrCurrentIndex.join('-') + '" role="option" aria-selected="' + (objData[SELECTED] || 'false') + '" ' + strAttrSublist + '>' + objData.value + '</a>';
 
                             if (objData.data) {
                                 strHtmlStep += '<div class="' + CL.add('xx') + '"><div class="' + CL.add('x') + '" role="listbox">' + funStep(objData.data, arrCurrentIndex) + '</div></div>';
                             }
                         } else {
-                            strHtmlStep += '<span class="' + strAttrClass + '"' + strAttrLabel + '>' + objData.value + '</span>';
+                            strHtmlStep += '<span class="' + strAttrClass + '"' + strAttrLabel + strAttrAccess + '>' + objData.value + '</span>';
                         }
-
                     });
 
                     return strHtmlStep;
@@ -1070,10 +1109,12 @@ class Drop extends HTMLElement {
             (this.params.onSelect || objParams.onSelect).call(this, objItemData, eleClicked);
 
             // 触发自定义事件 - select
-            this.dispatchEvent(new CustomEvent('select'), {
-                data: objItemData,
-                target: eleClicked
-            });
+            this.dispatchEvent(new CustomEvent('select', {
+                detail: {
+                    data: objItemData,
+                    target: eleClicked
+                }
+            }));
 
             // 如果trigger元素非<ui-drop>元素，则也触发一下，同时传递select事件来源
             // 如果是在Vue中，可以使用@select绑定选择事件
@@ -1343,6 +1384,76 @@ class Drop extends HTMLElement {
 
         return this;
     }
+
+    /**
+     * <ui-drop>元素进入页面中的时候
+    **/
+    connectedCallback () {
+        let eleTarget = this.element.target;
+        let eleTrigger = this.element.trigger;
+
+        // 默认的aria状态设置
+        if (eleTrigger.open) {
+            eleTrigger.setAttribute('aria-expanded', 'true');
+        } else {
+            eleTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        // 页面中的<ui-drop>元素如果没有target
+        // 强制绑定事件，这样<ui-drop>元素可以实现open切换效果
+        if (!eleTarget) {
+            this.events(eleTrigger === this);
+        } else if (eleTarget.matches('datalist')) {
+            this.list(eleTarget);
+        } else if (eleTarget.matches('dialog')) {
+            this.panel(eleTarget);
+        } else {
+            this.events();
+        }
+
+        // 无障碍访问设置
+        if (!this.querySelector('a, button') && !this.closest('a, button')) {
+            this.tabIndex = 0;
+            this.role = 'button';
+        }
+
+        // 全局事件
+        this.dispatchEvent(new CustomEvent('connected', {
+            detail: {
+                type: 'ui-drop'
+            }
+        }));
+
+        if (eleTrigger != this && eleTrigger.hasAttribute('is-drop')) {
+            eleTrigger.dispatchEvent(new CustomEvent('connected', {
+                detail: {
+                    type: 'ui-drop'
+                }
+            }));
+
+            // 设置定义完毕标志量
+            eleTrigger.setAttribute('defined', '');
+        }
+
+        this.isConnectedCallback = true;
+    }
+
+    // open属性变化的时候
+    attributeChangedCallback (name, oldValue, newValue) {
+        if (name == 'target') {
+            let eleTarget = document.getElementById(newValue);
+            if (eleTarget) {
+                this.element.target = eleTarget;
+            }
+        } else if (name == 'open') {
+            let strAriaExpanded = this.element.trigger.getAttribute('aria-expanded');
+            if (this.open && strAriaExpanded == 'false') {
+                this.show();
+            } else if (!this.open && strAriaExpanded == 'true') {
+                this.hide();
+            }
+        }
+    }
 }
 
 window.Drop = Drop;
@@ -1350,6 +1461,15 @@ window.Drop = Drop;
 if (!customElements.get('ui-drop')) {
     customElements.define('ui-drop', Drop);
 }
+
+// 给 HTML 元素扩展 drop 方法
+HTMLElement.prototype.drop = function (eleTarget, options) {
+    if (!this.matches('ui-drop, [is-drop]') && !this['ui-drop']) {
+        this['ui-drop'] = new Drop(this, eleTarget, options);
+    }
+
+    return this;
+};
 
 /**
  * 初始化所有包含is-drop属性的节点
@@ -1359,7 +1479,7 @@ const initAllIsDropAttrAction = (ele) => {
     const eleDrops = ele || document.querySelectorAll('[is-drop]');
     eleDrops.forEach(eleTrigger => {
         let eleTargetId = eleTrigger.getAttribute('is-drop');
-        if (eleTargetId) {
+        if (eleTargetId && !eleTrigger.dataset.target) {
             eleTrigger.dataset.target = eleTargetId;
         }
         // 基于data-target获取元素
@@ -1367,10 +1487,6 @@ const initAllIsDropAttrAction = (ele) => {
         let eleTarget = eleTargetId && document.getElementById(eleTargetId);
         if (eleTarget) {
             eleTrigger['ui-drop'] = new Drop(eleTrigger, eleTarget);
-            // 隐藏<ui-drop>元素细节
-            eleTrigger['ui-drop'].addEventListener('connected', function () {
-                this.remove();
-            });
         }
     });
 };

@@ -14,16 +14,16 @@
     ** 作用包括：
     ** 1. 统一IE浏览器和其它浏览器的快捷访问行为；
     ** 2. 增加单独accesskey属性值对应按键按下的focus行为；
-    ** 3. 增加accesskey生效的前置键按下的提示行为，例如window上Alt键提示，Mac下的Alt + control组合提示等；
+    ** 3. windows系统下Firefox也支持 Alt + key的访问能力；
     ** 4. 增加shift + '?'(keyCode=191)键的提示行为支持；
     */
 
     // 操作系统和浏览器设备检测
-    var ua = navigator.userAgent;
+    var ua = navigator.platform || navigator.userAgent;
 
     var system = 'windows';
 
-    if (/Mac\sOS\sX/i.test(ua)) {
+    if (/mac/i.test(ua)) {
         system = 'mac';
     }
 
@@ -37,11 +37,7 @@
 
     // 快捷键组合
     var keyPrefix = ({
-        windows: browser == 'moz' ? {
-            ctrlKey: false,
-            altKey: true,
-            shiftKey: true
-        } : {
+        windows: {
             ctrlKey: false,
             altKey: true,
             shiftKey: false
@@ -135,7 +131,7 @@
         doc.hasTipsShow = null;
     };
 
-    // IE9+
+    // accesskey键盘处理
     doc.addEventListener('keydown', function (event) {
         // 当前元素是否是可输入的input或者textarea
         var isTargetInputable = false;
@@ -157,7 +153,7 @@
         var arrAcceeekey = arrElesOwnAccesskey.map(function (ele) {
             return ele.getAttribute('accesskey');
         });
-        // windows下图下直接event.key就是按下的键对于的内容，但OS X系统却没有key属性，有的是event.keyIdentifier，表示字符的Unicode值
+        // windows下图下直接event.key就是按下的键对应的内容，但老的OS X系统却没有key属性，有的是event.keyIdentifier，表示字符的Unicode值
         // 根据这个判断按键是否有对应的匹配
         var indexMatch = -1;
         arrAcceeekey.forEach(function (accesskey, index) {
@@ -173,9 +169,13 @@
             if (isTargetInputable) {
                 return;
             }
+
             // focus高亮
             if (arrElesOwnAccesskey[indexMatch]) {
-                arrElesOwnAccesskey[indexMatch].focus();
+                // 延时目的是让后面的键盘高亮逻辑可以顺利执行
+                setTimeout(function () {
+                    arrElesOwnAccesskey[indexMatch].focus();
+                }, 1);
                 // 阻止内容输入
                 event.preventDefault();
             }
@@ -184,26 +184,13 @@
             if (event.keyCode == 191 && !isTargetInputable) {
                 doc.hasTipsShow ? removeTips() : tips(arrElesOwnAccesskey);
             }
-        // 3. 增加accesskey生效的前置键按下的提示行为
-        } else if (event.altKey == keyPrefix.altKey && event.shiftKey == keyPrefix.shiftKey && event.ctrlKey == keyPrefix.ctrlKey) {
-            if (indexMatch == -1) {
-                event.preventDefault();
-                doc.hasTipsShow ? removeTips() : tips(arrElesOwnAccesskey);
-            } else {
-                removeTips();
-            }
-
-            // 4. IE浏览器和其他浏览器行为一致的处理
-            if (browser == 'ie' && arrElesOwnAccesskey[indexMatch] && !isTargetInputable) {
-                // click行为触发
-                arrElesOwnAccesskey[indexMatch].click();
-            }
+        } else if (arrElesOwnAccesskey[indexMatch] && !isTargetInputable && (browser == 'ie' || browser == 'moz') && event.altKey && !event.shiftKey && !event.ctrlKey) {
+            arrElesOwnAccesskey[indexMatch].click();
         }
     });
     doc.addEventListener('mousedown', function () {
         removeTips();
     });
-
 
     /*
     ** CSS :focus或者JS的focus事件让下拉或浮层元素显示的时候键盘交互支持
@@ -224,16 +211,10 @@
     // 高亮类名的添加与删除
     var classList = {
         add: function (ele) {
-            ele.className = ele.className + ' ' + className;
+            ele.classList.add(className);
         },
         remove: function (ele) {
-            if (ele.className && ele.className.split) {
-                ele.className = ele.className.split(/\s+/).filter(function (cl) {
-                    if (cl != className) {
-                        return cl;
-                    }
-                }).join(' ');
-            }
+            ele.classList.remove(className);
         },
         removeAll: function () {
             [].slice.call(doc.querySelectorAll('.' + className)).forEach(function (ele) {
@@ -241,24 +222,20 @@
             });
         },
         has: function (ele) {
-            if (!ele.className || !ele.className.split) {
-                return false;
-            }
-
-            return ele.className.split(/\s+/).filter(function (cl) {
-                if (cl == className) {
-                    return cl;
-                }
-            }).length > 0;
+            ele.classList.contains(className);
         }
     };
 
+    // 是否是键盘事件
+    var timerKeyEvent = null;
     win.isKeyEvent = false;
-    //键盘事件
+
     doc.addEventListener('keydown', function (event) {
         win.isKeyEvent = true;
 
-        setTimeout(function () {
+        clearTimeout(timerKeyEvent);
+
+        timerKeyEvent = setTimeout(function () {
             win.isKeyEvent = false;
         }, 100);
 
@@ -290,11 +267,13 @@
             [].slice.call(eleEscAll).forEach(function (eleEsc) {
                 var idEsc = eleEsc.id;
 
-                eleFirstMatchAttrTarget = idEsc && doc.querySelector('a[data-target="' + idEsc + '"],input[data-target="' + idEsc + '"],button[data-target="' + idEsc + '"],ui-drop[target="' + idEsc + '"]');
+                eleFirstMatchAttrTarget = idEsc && doc.querySelector('[data-target="' + idEsc + '"],[data-target2="' + idEsc + '"],ui-drop[target="' + idEsc + '"]');
 
                 if (eleFirstMatchAttrTarget && eleEsc.style.display !== 'none' && eleEsc.clientHeight > 0) {
                     if (eleFirstMatchAttrTarget.hide) {
                         eleFirstMatchAttrTarget.hide();
+                    } else if (eleFirstMatchAttrTarget['ui-drop']) {
+                        eleFirstMatchAttrTarget['ui-drop'].hide();
                     } else {
                         eleFirstMatchAttrTarget.click();
                     }
@@ -315,7 +294,6 @@
         if (!attrFocus && !attrTarget) {
             return;
         }
-
 
         if (attrFocus) {
             target = doc.getElementById(attrFocus);
@@ -460,7 +438,7 @@
         var objStyleTarget = window.getComputedStyle(target);
 
         // 键盘高亮
-        if (objStyleTarget.outlineStyle == 'none' && (!event.path || event.path[0] === target)) {
+        if (/none|auto/.test(objStyleTarget.outlineStyle) && (!event.path || event.path[0] === target)) {
             classList.add(target);
         }
     });

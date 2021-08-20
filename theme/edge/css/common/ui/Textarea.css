@@ -17,7 +17,9 @@ textarea {
 }
 
 textarea.ui-textarea,
-.ui-textarea > textarea {
+[is="ui-textarea"],
+.ui-textarea > textarea,
+textarea ~ .ui-textarea-count {
     line-height: var(--ui-textarea-line-height);
     padding: 9px 8px;
     border: 1px solid var(--ui-border, #d0d0d5);
@@ -45,118 +47,111 @@ textarea[resize="horizontal"] {
     resize: horizontal;
 }
 
-div.ui-textarea > textarea {
+div.ui-textarea > textarea,
+textarea[width="100%"] {
     width: 100%;
 }
 
 /* hover */
 .ui-textarea:hover,
-.ui-textarea > textarea:hover {
+.ui-textarea > textarea:hover,
+[is="ui-textarea"]:hover,
+:hover > .ui-textarea-count {
     border-color: var(--ui-dark-border, #ababaf);
 }
 
 /* focus */
 .ui-textarea:focus,
-.ui-textarea > textarea:focus {
+.ui-textarea > textarea:focus,
+[is="ui-textarea"]:focus,
+:focus ~ .ui-textarea-count {
     border-color: var(--ui-blue, #2a80eb);
 }
 
 /* textarea with count */
 .ui-textarea-x {
     position: relative;
-    padding: 2px 9px 32px 3px;
-    border-radius: var(--ui-radius, 4px);
-    box-sizing: border-box;
+    z-index: 0;
     overflow: hidden;
 }
-
+span.ui-textarea-x {
+    display: inline-block;
+}
+.ui-textarea-x > textarea:only-child {
+    padding-bottom: 32px;
+}
+.ui-textarea-x > textarea:not(:only-child) {
+    padding-bottom: 0;
+    margin: 1px 1px 33px;
+    width: calc(100% - 2px);
+    border: 0;
+    background: none;
+}
 .ui-textarea-x > textarea {
     display: block;
     width: 100%;
-    line-height: var(--ui-textarea-line-height);
-    border: 0 none;
-    padding: 7px 0 9px;
-    right: -6px;
-    color: var(--ui-dark, #4c5161);
-    font-size: var(--ui-font, 14px);
-    outline: none;
-    background: none;
-    word-break: break-all;
-    overflow: auto;
-    resize: none;
-    position: relative;
-    z-index: 1;
+    /* for Firefox */
+    margin: 0;
 }
 
-.ui-textarea-x > .ui-textarea {
+textarea ~ .ui-textarea-count {
     position: absolute;
-    border: 1px solid var(--ui-border, #d0d0d5);
-    border-radius: var(--ui-radius, 4px);
-    background-color: var(--ui-white, #ffffff);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
-}
-
-.ui-textarea-x .ui-textarea-count {
-    position: absolute;
-    left: 8px;
-    right: 10px;
-    bottom: 0;
-    line-height: 32px;
+    left: 0; right: 0; bottom: 0; top: 0;
+    padding-bottom: 5px;
     color: var(--ui-gray, #a2a9b6);
     font-size: calc(var(--ui-font, 14px) - 2px);
-    text-align: right;
-    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    z-index: -1;
 }
 .ui-textarea-count slash {
     margin: 0 1px;
 }
 
-.ui-textarea-x:hover > .ui-textarea {
-    border-color: var(--ui-dark-border, #ababaf);
-}
-
-.ui-textarea-x > textarea:focus ~ .ui-textarea {
-    border-color: var(--ui-blue, #2a80eb);
-}
-
-
-
 /* disabled */
 .ui-textarea:disabled,
+[is="ui-textarea"]:disabled,
 .ui-textarea > textarea:disabled,
-.ui-textarea-x > textarea:disabled ~ .ui-textarea{
+:disabled ~ .ui-textarea-count {
     background-color: var(--ui-light, #f7f9fa);
 }
 .ui-textarea:read-only,
+[is="ui-textarea"]:read-only,
 .ui-textarea > textarea:read-only,
-.ui-textarea-x > :read-only ~ .ui-textarea {
+:read-only ~ .ui-textarea-count {
     background-color: var(--ui-white, #ffffff);
 }
 /* firefox */
 .ui-textarea:-moz-read-only,
+[is="ui-textarea"]:-moz-read-only,
 .ui-textarea > textarea:-moz-read-only,
-.ui-textarea-x > :-moz-read-only ~ .ui-textarea {
+:-moz-read-only ~ .ui-textarea-count {
     background-color: var(--ui-white, #ffffff);
 }
 
 .ui-textarea:disabled:hover,
-.ui-textarea > textarea:disabled:hover {
+[is="ui-textarea"]:disabled:hover,
+.ui-textarea > textarea:disabled:hover,
+.ui-textarea-x:hover :disabled ~ .ui-textarea-count {
     border-color: var(--ui-border, #d0d0d5);
 }
 
 .ui-textarea:read-only:hover,
 .ui-textarea:read-only:focus,
+[is="ui-textarea"]:read-only:hover,
+[is="ui-textarea"]:read-only:focus,
 .ui-textarea > textarea:read-only:hover,
-.ui-textarea > textarea:read-only:focus  {
+.ui-textarea > textarea:read-only:focus,
+:read-only ~ .ui-textarea-count:hover,
+:read-only ~ .ui-textarea-count:focus  {
     border-color: var(--ui-border, #d0d0d5);
 }
 /* firefox */
 .ui-textarea:-moz-read-only:hover,
 .ui-textarea:-moz-read-only:focus,
+[is="ui-textarea"]:-moz-read-only:hover,
+[is="ui-textarea"]:-moz-read-only:focus,
 .ui-textarea > textarea:-moz-read-only:hover,
 .ui-textarea > textarea:-moz-read-only:focus   {
     border-color: var(--ui-border, #d0d0d5);
@@ -173,7 +168,9 @@ textarea:-moz-read-only {
 }
 /* error */
 .ui-textarea[is-error],
-.ui-textarea > [is-error] {
+[is="ui-textarea"][is-error],
+.ui-textarea > [is-error],
+[is-error] ~ .ui-textarea-count {
     border-color: var(--ui-red, #eb4646) !important;
 }
 .ui-textarea-count > [is-error],

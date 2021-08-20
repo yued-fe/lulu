@@ -132,7 +132,8 @@ select[hidden] + .ui-select {
 }
 
 .ui-select-icon,
-.ui-select-text:only-child::after {
+.ui-select-text:only-child::after,
+.ui-select-button:empty::after {
     position: absolute;
     width: 20px;
     height: 20px;
@@ -142,7 +143,8 @@ select[hidden] + .ui-select {
     right: 7px;
     top: 10px;
 }
-.ui-select-text:only-child::after {
+.ui-select-text:only-child::after,
+.ui-select-button:empty::after {
     content: "";
 }
 
@@ -208,6 +210,10 @@ select[hidden] + .ui-select {
     bottom: 39px;
 }
 
+.ui-select-intent {
+    text-indent: 1em;
+}
+
 .ui-select-datalist-li {
     display: block;
     line-height: 20px;
@@ -220,12 +226,25 @@ select[hidden] + .ui-select {
     transition: background-color var(--ui-animate-time, .2s);
     overflow: hidden;
 }
+h6.ui-select-datalist-li,
+.ui-select-datalist-li[role="heading"] {
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 6px;
+}
 .ui-select-datalist-li[href] {
     cursor: pointer;
 }
 
 .ui-select-datalist-li:not(:only-child):empty {
     display: none;
+}
+
+.ui-select-datalist-hr:not(:first-child) {
+    border: 0;
+    border-bottom: 1px solid var(--ui-border, #d0d0d5);
+    margin: 7px 12px;
+    opacity: .4;
 }
 
 /* reset default a:hover */

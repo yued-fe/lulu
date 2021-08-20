@@ -125,6 +125,16 @@ class Form extends HTMLFormElement {
                     optionCallback.error.call(this, event);
                 }
 
+                // 触发出错自定义事件
+                this.dispatchEvent(new CustomEvent('error', {
+                    detail: {
+                        data: {
+                            code: -1,
+                            msg: '解析出错'
+                        }
+                    }
+                }));
+
                 return;
             }
 
@@ -135,6 +145,8 @@ class Form extends HTMLFormElement {
                 } else {
                     // 如果没有成功回调，组件自己提示成功
                     new LightTip(json.msg || '操作成功。', 'success');
+                    // 表单重置
+                    this.reset();
                 }
 
                 // 支持绑定success事件
@@ -150,6 +162,13 @@ class Form extends HTMLFormElement {
                 if (optionCallback.error) {
                     optionCallback.error.call(this, json);
                 }
+
+                // 触发出错自定义事件
+                this.dispatchEvent(new CustomEvent('error', {
+                    detail: {
+                        data: json
+                    }
+                }));
             }
         };
 
@@ -160,6 +179,13 @@ class Form extends HTMLFormElement {
             if (optionCallback.error) {
                 optionCallback.error.apply(this, arguments);
             }
+            // 触发出错自定义事件
+            this.dispatchEvent(new CustomEvent('error', {
+                detail: {
+                    code: -1,
+                    msg: '网络异常'
+                }
+            }));
         };
 
         // 请求结束，无论成功还是失败
@@ -172,6 +198,9 @@ class Form extends HTMLFormElement {
             if (optionCallback.complete) {
                 optionCallback.complete.apply(this, arguments);
             }
+
+            // 支持绑定complete事件
+            this.dispatchEvent(new CustomEvent('complete'));
         };
 
         xhr.send(objFormData);
@@ -180,8 +209,8 @@ class Form extends HTMLFormElement {
     connectedCallback () {
         // 表单提交按钮元素的获取
         let eleSubmit = [...this.elements].filter(function (control) {
-            return control.matches('[type="image"], [type="submit"]');
-        })[0] || this.querySelector('button:nth-last-of-type()');
+            return control.type && /^(?:submit|image)$/i.test(control.type);
+        })[0] || this.querySelector('button:nth-last-of-type(1)');
 
         if (!eleSubmit) {
             eleSubmit = (() => {
@@ -211,6 +240,8 @@ class Form extends HTMLFormElement {
                 type: 'ui-form'
             }
         }));
+
+        this.isConnectedCallback = true;
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }

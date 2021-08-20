@@ -6,6 +6,10 @@
  * @create 20-12-15
  *
 **/
+
+ui-drop[tabindex="0"] {
+    cursor: pointer;
+}
 ui-drop ~ .ui-drop-target {
     position: absolute;
     z-index: 9;
@@ -54,6 +58,9 @@ ui-drop:not([open]) ~ .ui-drop-target {
     margin: 7px 12px;
     opacity: .4;
 }
+.ui-droplist-hr:first-child {
+    display: none;
+}
 
 a.ui-droplist-li:hover {
     color: var(--ui-dark, #4c5161);
@@ -67,7 +74,17 @@ span.ui-droplist-li {
     color: var(--ui-gray, #a2a9b6);
     cursor: default;
 }
-
+.ui-droplist-li[role="heading"] {
+    font-weight: 700;
+    padding-bottom: 5px;
+    cursor: default;
+}
+[role="heading"] ~ .ui-droplist-li:not([role="heading"]) {
+    padding-left: 24px;
+}
+.ui-droplist-li.disabled {
+    opacity: var(--ui-opacity, .4);
+}
 
 .ui-droplist-li[data-sublist]::before {
     transform: rotate(-90deg);

@@ -35,6 +35,9 @@ class Select extends HTMLSelectElement {
         return ['ui', 'select'].concat([].slice.call(arguments)).join('-');
     }
 
+    set multiple (value) {
+        return this.toggleAttribute('multiple', Boolean(value));
+    }
     get multiple () {
         return this.hasAttribute('multiple');
     }
@@ -55,16 +58,53 @@ class Select extends HTMLSelectElement {
     }
 
     getData () {
-        const options = this.options;
-        return options.length
-            ? [].slice.call(options).map(option => ({
+        if (!this.options.length) {
+            return [{
+                html: ''
+            }];
+        }
+        // 所有分组元素
+        let eleOptgroups = this.querySelectorAll('optgroup');
+        // 如果有任意一个分组元素设置了label，那么就是标题分组
+        // 如果只是optgroup标签包括，那么使用分隔线分隔
+        let isIntent = !!this.querySelector('optgroup[label]');
+
+        // 如果有分组
+        if (eleOptgroups.length) {
+            let arrData = [];
+
+            eleOptgroups.forEach(optgroup => {
+                arrData.push({
+                    html: optgroup.label,
+                    disabled: optgroup.disabled,
+                    className: optgroup.className,
+                    divide: !isIntent
+                });
+
+                optgroup.querySelectorAll('option').forEach(option => {
+                    arrData.push({
+                        html: option.innerHTML,
+                        value: option.value,
+                        selected: option.selected,
+                        disabled: optgroup.disabled || option.disabled,
+                        className: option.className,
+                        intent: isIntent
+                    });
+                });
+            });
+
+            return arrData;
+        }
+
+        return [].slice.call(this.options).map(option => {
+            return {
                 html: option.innerHTML,
                 value: option.value,
                 selected: option.selected,
                 disabled: option.disabled,
                 className: option.className
-            }))
-            : [{html: ''}];
+            };
+        });
     }
 
     // 获取<select>元素原始状态下的尺寸
@@ -165,6 +205,9 @@ class Select extends HTMLSelectElement {
         const eleCombobox = this.element.combobox;
         const eleButton = this.element.button;
         const eleDatalist = this.element.datalist;
+        if (!eleDatalist) {
+            return;
+        }
         // id
         const strId = eleDatalist.id;
 
@@ -180,30 +223,56 @@ class Select extends HTMLSelectElement {
         // eleSelect.style.height 性能很高，offsetHeight会触发重绘，因此优先 style 对象 获取
         if (isMultiple) {
             eleCombobox.style.height = eleSelect.style.height || (eleSelect.offsetHeight + 'px');
-        } else {
+        } else if (eleSelect[eleSelect.selectedIndex]) {
             // 按钮元素中的文案
             const strHtmlSelected = eleSelect[eleSelect.selectedIndex].innerHTML;
             // 按钮赋值
             eleButton.innerHTML = `<span class="${Select.addClass('text')}">${strHtmlSelected}</span><i class="${Select.addClass('icon')}" aria-hidden="true"></i>`;
         }
         // 列表内容的刷新
-        eleDatalist.innerHTML = data.map((obj, index) => {
-            const arrCl = [Select.addClass('datalist', 'li'), obj.className];
+        let index = -1;
+        eleDatalist.innerHTML = data.map((obj) => {
+            let arrCl = [Select.addClass('datalist', 'li'), obj.className];
             if (obj.selected) arrCl.push('selected');
             if (obj.disabled) arrCl.push('disabled');
+
+            // 如果有分隔线
+            if (typeof obj.divide != 'undefined') {
+                if (obj.divide) {
+                    arrCl = [Select.addClass('datalist', 'hr'), obj.className];
+                    return `<div class="${arrCl.join(' ')}"></div>`;
+                }
+
+                return `<div class="${arrCl.join(' ')}" role="heading">${obj.html}</div>`;
+            }
+
+            // 这才是有效的索引
+            index++;
+
+            // 如果有缩进
+            if (obj.intent) {
+                arrCl.push(Select.addClass('intent'));
+            }
+
+            // 如果没有项目内容
+            if (!obj.html) {
+                return `<span class="${arrCl.join(' ')} disabled"></span>`;
+            }
+
             // 复选模式列表不参与无障碍访问识别，因此HTML相对简单
-            return `${
-                isMultiple
-                    ? `<a class="${arrCl.join(' ')}" data-index=${index}>${obj.html}</a>`
-                    : `<a
-                        ${obj.disabled ? '' : ' href="javascript:" '}
-                        class="${arrCl.join(' ')}"
-                        data-index=${index}
-                        data-target="${strId}"
-                        role="option"
-                        aria-selected="${obj.selected}"
-                    >${obj.html}</a>`
-            }`;
+            if (isMultiple) {
+                return `<a class="${arrCl.join(' ')}" data-index=${index}>${obj.html}</a>`;
+            }
+
+            // 单选模式返回内容
+            return `<a
+                ${obj.disabled ? '' : ' href="javascript:" '}
+                class="${arrCl.join(' ')}"
+                data-index=${index}
+                data-target="${strId}"
+                role="option"
+                aria-selected="${obj.selected}"
+            >${obj.html}</a>`;
         }).join('');
     }
 
@@ -259,7 +328,7 @@ class Select extends HTMLSelectElement {
                         var arrDataScrollTop = eleCombobox.dataScrollTop;
                         var eleDatalistSelected = eleDatalist.querySelector('.selected');
                         // 严格验证
-                        if (arrDataScrollTop && arrDataScrollTop[1] === eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] === eleDatalistSelected.innerText) {
+                        if (arrDataScrollTop && eleDatalistSelected && arrDataScrollTop[1] === eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] === eleDatalistSelected.innerText) {
                             eleDatalist.scrollTop = arrDataScrollTop[0];
                             // 重置
                             delete eleCombobox.dataScrollTop;
@@ -492,6 +561,8 @@ class Select extends HTMLSelectElement {
                 type: 'ui-select'
             }
         }));
+
+        this.isConnectedCallback = true;
 
         // 渲染
         this.render();
