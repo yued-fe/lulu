@@ -2,7 +2,7 @@
 
 LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
-形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，在<strong>面向外部用户的桌面端网站</strong>中最能体现 LuLu UI 的优势。
+形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>。
 
 <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
