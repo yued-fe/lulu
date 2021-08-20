@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Datalist数据列表</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Datalist数据列表</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -80,9 +80,9 @@
 </datalist>
 
             <p><strong>HTML代码</strong></p>
-            <pre>&lt;input id="inputPerson" class="ui-input" <mark>list</mark>="datalistPerson" <mark>is="ui-datalist"</mark>&gt;
+            <pre>&lt;input id="i1" class="ui-input" <mark>list</mark>="d0" <mark>is="ui-datalist"</mark>&gt;
 <span class="green">&lt;!-- 员工数据 --&gt;</span>
-&lt;datalist id="datalistPerson"&gt;
+&lt;datalist id="d0"&gt;
     &lt;option value="蔡世豪"&gt;
     <span class="gray">...</span>
     &lt;option value="彭玉乐"&gt;
@@ -100,7 +100,7 @@
             <h4>2. 姓名匹配-基于数据</h4>
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson2" is="ui-datalist" class="ui-input" results="5"></p>
             <p>使用可选参数中的<code>data</code>传参，通过<code>&lt;input&gt;</code>输入框的<code>results</code>属性指定列表最多显示5项。</p>
-            <pre>&lt;input id="i2" class="ui-input" <mark>results</mark>="5"&gt;</pre>
+            <pre>&lt;input id="i2" class="ui-input" <mark>results</mark>="5" is="ui-datalist"&gt;</pre>
             <pre>
 i2.params.data = [{
     value: '新数据蔡世豪',
@@ -143,7 +143,7 @@ i2.params.data = [{
     <option value="彭玉乐" label="pengyule">
 </datalist>
             <p>可以把拼音数据写在<code>label</code>属性上，然后使用<code>filter</code>参数进行匹配过滤。</p>
-            <pre>&lt;input id="i3" class="ui-input" list="d3"&gt;
+            <pre>&lt;input id="i3" class="ui-input" list="d3" is="ui-datalist"&gt;
 &lt;datalist id="d3"&gt;
     &lt;option value="蔡世豪" label="caishihao"&gt;
     &lt;option value="郑世军" label="zhengshijun"&gt;
@@ -683,18 +683,18 @@ c0.appendChild(s0.element.target);</pre>
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">

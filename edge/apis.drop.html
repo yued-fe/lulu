@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Drop下拉</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Drop下拉</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -29,6 +29,9 @@
     td img {
         max-width: 100%;
         object-fit: contain;
+    }
+    [data-target="fd"] {
+        zoom: 1.5;
     }
 </style>
 
@@ -49,7 +52,7 @@
 &lt;/script&gt;</pre>
 
             <h3>概述</h3>
-            
+
             <p>Drop组件支持3种使用方式，2个扩展子组件。</p>
             <p>3种使用方式分别是：</p>
             <ol>
@@ -57,17 +60,17 @@
                 <li>普通元素上设置<code>is-drop</code>属性；</li>
                 <li>传统的<code>new Drop()</code>构造语法。</li>
             </ol>
-            
+
             <p>2个扩展子组件分别是：</p>
             <ol>
                 <li>下拉列表；</li>
                 <li>下拉面板；</li>
             </ol>
-            
+
             <p>下面具体介绍Drop组件的使用。</p>
 
             <h3>&lt;ui-drop&gt;自定义元素</h3>
-            
+
             <h4>1. open属性变化与相邻元素的显示</h4>
             <p><code>&lt;ui-drop&gt;</code>自定义元素默认自带<code>'click'</code>事件，会根据点击的是否是当前元素切换<code>open</code>属性，因此，<code>&lt;ui-drop&gt;</code>自定义元素即使不设置任何参数，也是可以实现一些基本的交互效果的。</p>
             <p>例如下面这段HTML代码，无需任何额外的JavaScript代码就可以实现相邻<code>&lt;div&gt;</code>元素的下拉效果：</p>
@@ -86,7 +89,7 @@
             测试：<ui-drop><button class="ui-button" data-type="primary">点击我</button></ui-drop>
             <div class="some-target"><img src="https://imgservices-1252317822.image.myqcloud.com/image/20200929/luhzoeerjd.png" alt=""></div>
 <style>:not([open]) + .some-target {
-    display: none;    
+    display: none;
 }</style>
 
             <h4>2. 指定目标元素</h4>
@@ -108,9 +111,37 @@
             <pre>&lt;ui-drop <mark>target="t1"</mark> class="ui-button" data-type="primary"&gt;click我&lt;/ui-drop&gt;</pre>
             效果测试：<ui-drop target="t1" class="ui-button" data-type="primary">click我</ui-drop>
 
+            <hr>
+
+            <p>支持每次显示指向不同的目标元素，例如：</p>
+            <pre>&lt;ui-drop target="t1" id="df1"&gt;click我&lt;/ui-drop&gt;</pre>
+            <pre>df1.addEventListener('hide', function () {
+    if (this.target == 't1') {
+        this.target = 't2';
+    } else if (this.target == 't2') {
+        this.target = 't1';
+    }
+});</pre>
+            <p>
+                效果测试：<ui-drop target="t1" id="df1" class="ui-button" data-type="primary">click我</ui-drop>
+            </p>
+            <hr>
+            <p>下面这个例子演示虽然<code>target</code>属性值不变，但是目标元素实际上每次都是新的DOM节点。</p>
+            <pre>&lt;ui-drop target="area" id="df2"&gt;click我&lt;/ui-drop&gt;
+&lt;div id="tx"&gt;&lt;textarea id="area" hidden&gt;首次显示&lt;/textarea&gt;&lt;/div&gt;</pre>
+            <pre>df2.addEventListener('hide', function () {
+    tx.innerHTML = `&lt;textarea id="area" hidden&gt;每次都是新的：${+new Date()}&lt;/textarea&gt;`;
+    this.element.target = tx.querySelector('#area');
+});</pre>
+            <p>对着这种场景，需要手动重新更新组件的<code>target</code>对象。</p>
+            <p>
+                效果测试：<ui-drop target="area" id="df2" class="ui-button" data-type="primary">click我</ui-drop>
+            </p>
+            <div id="tx"><textarea id="area" hidden>首次显示</textarea></div>
+
             <h4>3. 指定交互事件类型</h4>
             <p>Drop组件除了支持默认是<code>'click'</code>点击事件，还支持<code>'hover'</code>鼠标悬停事件以及<code>'null'</code>无绑定事件。</p>
-            <p>事件的类型通过<code>eventType</code>属性（大小写任意）设置。</p>            
+            <p>事件的类型通过<code>eventType</code>属性（大小写任意）设置。</p>
 
             <p>例如这个鼠标hover事件案例：<ui-drop target="t2" eventtype="hover" class="blue">hover我</ui-drop></p>
             <div id="t2" class="ui-droplist-x" hidden>
@@ -220,7 +251,7 @@ drop4.addEventListener('hide', () => {
             <p>此时<code>eleDrop</code>就是一个存在内存中的<code>&lt;ui-drop&gt;</code>元素。</p>
 
             <p>因此，<code>&lt;ui-drop&gt;</code>元素包含的属性和方法均可以在<code>eleDrop</code>对象中使用。</p>
-            
+
             <p>例如执行<code>eleDrop.hide()</code>可以隐藏下拉元素。</p>
 
             <h4>1. 基本使用演示</h4>
@@ -248,7 +279,7 @@ d3.addEventListener('hide', function () {
 
             <h4>3. 事件的委托</h4>
             <p><code>new Drop()</code>构造语法支持一个特有的<code>selector</code>参数，可以让<code>trigger</code>元素的某些子元素作为下拉元素显示的事件源，适用于下拉触发元素是动态生成的场景。</p>
-            <p>例如：</p>        
+            <p>例如：</p>
             <pre>&lt;p id="freshBtn"&gt;&lt;a&gt;内容&lt;/a&gt;&lt;/p&gt;
 &lt;img id="i1" src="9.png"&gt;</pre>
             <!-- <pre>freshBtn.innerHTML = '&lt;a&gt;'+ Math.random() +'&lt;/a&gt;';</pre> -->
@@ -359,7 +390,7 @@ new Drop('#freshBtn2', i1.cloneNode(), {
             <p>上表所有参数均支持直接在DOM元素上设置，其中<code>onShow</code>和<code>onHide</code>参数对应的效果需要通过<code>addEventListener</code>方法进行设置，例如：</p>
             <pre>trigger.addEventListener('show', function () {});
 trigger.addEventListener('hide', function () {});</pre>
-            
+
             <p>其余所有参数均采用<code>data-*</code>的自定义参数的形式进行设置，注意保持小写，例如：</p>
             <pre>&lt;a <mark>data-offsets</mark>="10, 10" <mark>data-eventtype</mark>="hover" <mark>data-edge-adjust</mark>="false" <mark>data-target</mark>="i1" is-drop&gt;经过我&lt;/a&gt;</pre>
             <a data-offsets="10, 10" data-eventtype="hover" data-edge-adjust="false" data-target="i1" is-drop>经过我</a>
@@ -367,7 +398,15 @@ trigger.addEventListener('hide', function () {});</pre>
             <p>对于<code>&lt;ui-drop&gt;</code>元素，则无需使用<code>data-*</code>，直接设置对应参数即可，且不区分大小写，例如：</p>
             <pre>&lt;ui-drop <mark>offsets</mark>="10, 10" <mark>eventType</mark>="hover" <mark>edgeAdjust</mark>="false" <mark>target</mark>="i1"&gt;经过我&lt;/ui-drop&gt;</pre>
             <ui-drop class="blue" offsets="10, 10" eventType="hover" edgeAdjust="false" target="i1">经过我</ui-drop>
-            
+
+            <h4>DOM扩展drop()方法</h4>
+
+            <p>本组件还支持<code>element.drop()</code>语法，使用场景和底层实现和<code>new Drop()</code>构造语法一致。</p>
+
+            <p>例如：</p>
+            <pre>&lt;button type="primary" id="b4" is="ui-button"&gt;点击我&lt;/button&gt;</pre>
+            <pre>b4.drop(t3);</pre>
+            <p><button type="primary" id="b4" is="ui-button">点击我</button></p>
 
             <h3>Drop拓展的List方法</h3>
 
@@ -568,23 +607,73 @@ new Drop('#menuImg').list([{
     }
 });</pre>
             <hr class="mt30">
-            <p>不使用new Drop()语法实现右键菜单效果，效果示意。</p>
-            <p><button is-drop data-eventtype="contextmenu" data-target="fd">右键我</button></p>
+            <p>不使用new Drop()语法实现右键菜单效果，同时示意尺寸设置和快捷键设置。</p>
+            <p><button is-drop data-eventtype="contextmenu" data-width="160" data-target="fd">右键我</button></p>
             <datalist id="fd">
-                <option value="1">删除关键帧</option>
-                <option value="2">新建关键帧</option>
-                <option value="3">移动关键帧</option>
+                <option value="1" accesskey="l">删除关键帧</option>
+                <option value="2" accesskey="m">移动关键帧</option>
+                <option value="3" accesskey="n">新建关键帧</option>
             </datalist>
 
+<style>
+.ui-droplist-li[accesskey] {
+    display: flex;
+    justify-content: space-between;
+}
+.ui-droplist-li[accesskey]::after {
+    content: '[Alt+' attr(accesskey) ']';
+    text-transform: capitalize;
+    color: var(--ui-gray);
+    font-size: 12px;
+    flex: none;
+}
+.mac .ui-droplist-li[accesskey]::after {
+    content: '[Ctrl+Alt+' attr(accesskey) ']';
+}
+</style>
+
+<script>
+if (/mac/i.test(navigator.platform || navigator.userAgent)) {
+    let tri = document.querySelector('[data-target="fd"]');
+    tri.dataset.width = 180;
+    tri.addEventListener('show', function () {
+        this['ui-drop'].element.target.classList.add('mac');
+    });
+}
+</script>
+
             <p>代码如下：</p>
-            <pre>&lt;button is-drop data-eventtype="contextmenu" data-target="fd"&gt;右键我&lt;/button&gt;&lt;/p&gt;
+            <pre>&lt;button is-drop data-eventtype="contextmenu" data-target="fd" is="ui-button"&gt;右键我&lt;/button&gt;&lt;/p&gt;
 &lt;datalist id="fd"&gt;
-    &lt;option value="1"&gt;删除关键帧&lt;/option&gt;
-    &lt;option value="2"&gt;新建关键帧&lt;/option&gt;
-    &lt;option value="3"&gt;移动关键帧&lt;/option&gt;
+    &lt;option value="1" accesskey="l"&gt;删除关键帧&lt;/option&gt;
+    &lt;option value="2" accesskey="m"&gt;移动关键帧&lt;/option&gt;
+    &lt;option value="3" accesskey="n"&gt;新建关键帧&lt;/option&gt;
 &lt;/datalist&gt;</pre>
 
             <p>注意，这种实现不支持嵌套数据结构。</p>
+            <p>以及，这里提示快捷键的效果非组件内置效果，如有需要，请自行复制下面的CSS代码到自己的项目中：</p>
+            <pre>.ui-droplist-li[accesskey] {
+    display: flex;
+    justify-content: space-between;
+}
+.ui-droplist-li[accesskey]::after {
+    content: '[Alt+' attr(accesskey) ']';
+    text-transform: capitalize;
+    color: var(--ui-gray, #a2a9b6);
+    font-size: 12px;
+    flex: none;
+}
+.mac .ui-droplist-li[accesskey]::after {
+    content: '[Ctrl+Alt+ ' attr(accesskey) ']';
+}</pre>
+            <p>由于 MAC 设备使用不同的快捷组合键，因此，这里还使用了一段 JS 做了其他处理</p>
+<pre>if (/mac/i.test(navigator.platform || navigator.userAgent)) {
+    let tri = document.querySelector('[data-target="fd"]');
+    tri.dataset.width = 180;
+    tri.addEventListener('show', function () {
+        this['ui-drop'].element.target.classList.add('mac');
+    });
+}</pre>
 
             <p>如果想要知道右键选择的是哪一项，可以使用自定义的<code>'select'</code>事件完成，例如：</p>
             <pre>button.addEventListener('select', event =&gt; {
@@ -593,7 +682,7 @@ new Drop('#menuImg').list([{
 });</pre>
             <h4>4. &lt;datalist&gt;元素实现下拉列表</h4>
             <p>可以指向一个<code>&lt;datalist&gt;</code>元素实现。代码示意：</p>
-            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t6"&gt;点击我&lt;/ui-drop&gt;
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t6"&gt;点击我-空option&lt;/ui-drop&gt;
 &lt;datalist id="t6"&gt;
     &lt;option value="1"&gt;列表1&lt;/option&gt;
     &lt;option value="2"&gt;列表2&lt;/option&gt;
@@ -603,7 +692,7 @@ new Drop('#menuImg').list([{
     &lt;option value="4"&gt;其他2&lt;/option&gt;
     &lt;option value="5"&gt;&lt;mark&gt;标记&lt;/mark&gt;&lt;/option&gt;
 &lt;/datalist&gt;</pre>
-            <p><ui-drop class="ui-button" data-type="primary" target="t6">点击我</ui-drop></p>
+            <p>实时效果：<ui-drop class="ui-button" data-type="primary" target="t6">点击我-空option</ui-drop></p>
             <datalist id="t6">
                 <option value="1">列表1</option>
                 <option value="2">列表2</option>
@@ -614,6 +703,70 @@ new Drop('#menuImg').list([{
                 <option value="5"><mark>标记</mark></option>
             </datalist>
 
+            <hr>
+
+            <p>也可以使用<code>&lt;optgroup&gt;</code>元素表示分隔线。</p>
+            <p>相关代码如下所示：</p>
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t7"&gt;点击我-optgroup&lt;/ui-drop&gt;
+&lt;datalist id="t7"&gt;
+    &lt;optgroup&gt;
+        &lt;option value="1"&gt;列表1&lt;/option&gt;
+        &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup&gt;
+        &lt;option value="3"&gt;其他1&lt;/option&gt;
+        &lt;option value="4"&gt;其他2&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/datalist&gt;</pre>
+            <p>实时效果：<ui-drop class="ui-button" data-type="primary" target="t7">点击我-optgroup</ui-drop></p>
+            <datalist id="t7">
+                <optgroup>
+                    <option value="1">列表1</option>
+                    <option value="2">列表2</option>
+                </optgroup>
+                <optgroup>
+                    <option value="3">其他1</option>
+                    <option value="4">其他2</option>
+                </optgroup>
+            </datalist>
+
+            <hr>
+
+            <p>如果<code>&lt;optgroup&gt;</code>元素有<code>label</code>属性值，则该属性值会作为小标题元素呈现。</p>
+            <p>相关代码如下所示：</p>
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t8"&gt;点击我-label标题&lt;/ui-drop&gt;
+&lt;datalist id="t8"&gt;
+    &lt;optgroup label="标题A"&gt;
+        &lt;option value="1"&gt;列表1&lt;/option&gt;
+        &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="标题B" disabled&gt;
+        &lt;option value="3"&gt;禁用1&lt;/option&gt;
+        &lt;option value="4"&gt;禁用2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="标题C"&gt;
+        &lt;option value="5"&gt;其他1&lt;/option&gt;
+        &lt;option value="6" disabled&gt;其他2&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/datalist&gt;</pre>
+            <p>实时效果：<ui-drop class="ui-button" data-type="primary" target="t8">点击我-label标题</ui-drop></p>
+
+            <datalist id="t8">
+                <optgroup label="标题A">
+                    <option value="1">列表1</option>
+                    <option value="2">列表2</option>
+                </optgroup>
+                <optgroup label="标题B" disabled>
+                    <option value="3">禁用1</option>
+                    <option value="4">禁用2</option>
+                </optgroup>
+                <optgroup label="标题C">
+                    <option value="5">其他1</option>
+                    <option value="6" disabled>其他2</option>
+                </optgroup>
+            </datalist>
+
+            <h4>5. 自定义元素直接执行list()方法</h4>
             <p>也可以使用<code>list()</code>方法设置，例如有个按钮是：</p>
             <pre>&lt;ui-drop id="d4" class="ui-button" data-type="primary"&gt;点击我&lt;/ui-drop&gt;</pre>
             <p>则使用下面的JS代码就可以有下拉列表效果了：</p>
@@ -626,7 +779,12 @@ new Drop('#menuImg').list([{
 }]);</pre>
             <p>测试：<ui-drop id="d4" class="ui-button" data-type="primary">点击我</ui-drop></p>
 
-            <h4>5. 自定义click事件+异步处理显示</h4>
+            <p>如果希望列表点击时候按钮文字不变，可以设置 <code>selector</code> 属性值为 <code>trigger</code>匹配的选择器即可。例如：</p>
+            <pre>&lt;ui-drop id="d4_2" class="ui-button" data-type="primary" <mark>selector="ui-drop"</mark>&gt;点击我&lt;/ui-drop&gt;</pre>
+
+            <p>测试：<ui-drop id="d4_2" class="ui-button" data-type="primary" selector="ui-drop">点击我</ui-drop></p>
+
+            <h4>6. 自定义click事件+异步处理显示</h4>
             <p>使用一个200毫秒定时器模拟异步请求处理。</p>
             <pre>&lt;button id="dl5" class="ui-button" data-type="primary"&gt;点击我&lt;/button&gt;</pre>
             <pre>let drop5 = new Drop(dl5).list({
@@ -654,8 +812,8 @@ dl5.addEventListener('click', function () {
                 <dt>trigger</dt>
                 <dd>必需。Object DOM对象或String选择器字符串。表示按钮或者委托容器元素（如果可选selector参数不为空）。</dd>
                 <dt>data</dt>
-                <dd>必需。Array数组或者Function函数或者<code>&lt;datalist&gt;</code>元素。如果是Function类型，则执行后需要返回数组。数组项都是纯对象，列表呈现需要的是<code>value</code>,
-                <code>selected</code>, <code>disabled</code>等属性，如果有<code>href</code>属性则表示链接，其他属性为自定义使用, 例如：</dd>
+                <dd>必需。Array数组或者Function函数或者<code>&lt;datalist&gt;</code>元素。如果是Function类型，则执行后需要返回数组。数组项都是纯对象，列表呈现需要的是<code>value</code>、
+                <code>selected</code>、<code>disabled</code>等属性，如果有<code>href</code>属性则表示链接，其他属性为自定义使用, 例如<code>target</code>、<code>label</code>、<code>className</code>、<code>heading</code>、<code>accessKey</code>等：</dd>
                 <dd><pre>[{
     <span class="blue">id</span>: 1,
     <span class="red">value</span>: '所有评论',
@@ -802,7 +960,7 @@ new Drop(eleDropPanel).panel({
             <p>测试：<ui-drop class="ui-button" data-type="primary" target="dg">ui-drop元素</ui-drop>
             <button class="ui-button" data-type="primary" data-target="dg" is-drop>ui-drop元素</button></p>
             <dialog id="dg" data-buttons="删除">耶，成功显示！</dialog>
-            
+
             <p>相关代码如下：</p>
             <pre>&lt;ui-drop class="ui-button" data-type="primary" target="dg"&gt;ui-drop元素&lt;/ui-drop&gt;
 &lt;button class="ui-button" data-type="primary" data-target="dg" is-drop&gt;ui-drop元素&lt;/button&gt;&lt;/p&gt;
@@ -1000,18 +1158,18 @@ new Drop(eleDropPanel).panel({
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">
@@ -1110,6 +1268,8 @@ let d3 = new Drop('#b3', t3, {
 d3.addEventListener('hide', function () {
     this.element.trigger.dataset.type = 'primary';
 });
+
+b4.drop(t3);
 
 // 委托Drop.js
 var i1 = document.querySelector('#i1');
@@ -1317,6 +1477,13 @@ d4.list([{
     id: 2,
     value: '列表2'
 }]);
+d4_2.list([{
+    id: 1,
+    value: '列表1'
+}, {
+    id: 2,
+    value: '列表2'
+}]);
 
 let drop5 = new Drop(dl5).list({
     eventType: 'custom'
@@ -1373,5 +1540,17 @@ d5.panel({
 dg.addEventListener('ensure', function (event) {
     console.log('点击了删除按钮');
     event.detail.drop.hide();
+});
+
+df1.addEventListener('hide', function () {
+    if (this.target == 't1') {
+        this.target = 't2';
+    } else if (this.target == 't2') {
+        this.target = 't1';
+    }
+});
+df2.addEventListener('hide', function () {
+    tx.innerHTML = `<textarea id="area" hidden>每次都是新的：${+new Date()}</textarea>`;
+    this.element.target = tx.querySelector('#area');
 });
 </script>

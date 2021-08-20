@@ -115,18 +115,18 @@ body, .dark{color:#4c5161}a, .blue, a.dark[href]:hover{color:#2a80eb;color:var(-
 
 .section_main{display:block;min-height:calc(100vh - 62px);font-size:medium;line-height:1.75;max-width: 1520px; margin-left: auto; margin-right: auto; padding-left: 20px;min-width: 0;}
 .section_title{margin: 1.25em 0 .75em;font-size:32px}
-.section_main h3 { margin: 2em 0 .5em; font-size: 28px; font-family: x-locale-heading-primary,zillaslab,Palatino,"Palatino Linotype",x-locale-heading-secondary,'Source Han Serif SC',STZhongsong,simsun,serif;
+article h3 { margin: 2em 0 .5em; font-size: 28px; font-family: x-locale-heading-primary,zillaslab,Palatino,"Palatino Linotype",x-locale-heading-secondary,'Source Han Serif SC',STZhongsong,simsun,serif;
     border-bottom: 3px solid #f0f3f9;
 }
-.section_main h3:nth-of-type(1) {
+article h3:nth-of-type(1) {
     margin-top: .5em;
 }
-.section_main h4 {
+article h4 {
     font-size: 125%;
     margin: 1.25em 0 .75em;
     font-family: 'Source Han Sans CN', 'HYQihei 60S', 'Hiragino Sans GB', STXihei,  simhei;
 }
-.section_main h5, .section_main h6 { font-size: 100%; margin: 1.5em 0 1em; }
+article h5, article h6 { font-size: 100%; margin: 1.5em 0 1em; }
 .section_main code { border: 1px solid #EAEAEA; background-color: #f5f5f5; border-radius: 3px; padding: 0 4px; margin-left: 2px; margin-right: 2px; font-family: Consolas, monospace; }
 .section_main pre { padding: 12px 1em; margin: 1em 0; background-color: #f5f7f9; font-family: Consolas, monospace; font-size: 100%; white-space: pre-wrap; word-break: break-word; border-radius: 4px; box-shadow: inset 1px 0 #e3e5e8, inset 0 1px #e3e5e8, 0 1px #eaf0f5, 1px 0 #eaf0f5; tab-size: 2;}
 .section_main p { margin: 1em 0; color: #666; overflow-wrap: break-word; }

@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Select下拉框</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Select下拉框</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -50,6 +50,10 @@
       <h3>基本使用示意</h3>
       <p>仅需给 select 选择框添加 is="ui-select" 即可；无添加则依然表现为原生 select。</p>
       <h3>下拉框-单选</h3>
+      <h4>空数据</h4>
+      <select is="ui-select"></select>
+      <pre>&lt;select is="ui-select"&gt;&lt;/select&gt;</pre>
+
       <h4>赋值</h4>
       <p>测试禁用态样式，以及动态赋值与样式同步变化。</p>
       <p>
@@ -87,6 +91,73 @@ button.addEventListener('click', function () {
 });
 </pre>
       <p class="tips">和浏览器原生行为一样，value赋值不会触发change事件。</p>
+
+      <h4>分组</h4>
+
+      <p>支持<code>&lt;optgroup&gt;</code>元素分组。</p>
+      <p>
+        <select is="ui-select">
+            <optgroup label="分组1">
+              <option>选项 1.1</option>
+            </optgroup>
+            <optgroup label="分组2">
+              <option>选项 2.1</option>
+              <option>选项 2.2</option>
+            </optgroup>
+            <optgroup label="分组3" disabled>
+              <option>选项 3.1</option>
+              <option>选项 3.2</option>
+              <option>选项 3.3</option>
+            </optgroup>
+          </select>
+      </p>
+      <pre>&lt;select is="ui-select"&gt;
+  &lt;optgroup label="分组1"&gt;
+    &lt;option&gt;选项 1.1&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="分组2"&gt;
+    &lt;option&gt;选项 2.1&lt;/option&gt;
+    &lt;option&gt;选项 2.2&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="分组3" disabled&gt;
+    &lt;option&gt;选项 3.1&lt;/option&gt;
+    &lt;option&gt;选项 3.2&lt;/option&gt;
+    &lt;option&gt;选项 3.3&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</pre>
+
+      <p>如果没有<code>&lt;optgroup&gt;</code>元素设置<code>label</code>描述，则分组使用分隔线分割。</p>
+      <p>
+        <select is="ui-select">
+            <optgroup>
+              <option>选项 1.1</option>
+            </optgroup>
+            <optgroup>
+              <option>选项 2.1</option>
+              <option disabled>选项 2.2</option>
+            </optgroup>
+            <optgroup>
+              <option>选项 3.1</option>
+              <option>选项 3.2</option>
+              <option>选项 3.3</option>
+            </optgroup>
+          </select>
+      </p>
+      <pre>&lt;select is="ui-select"&gt;
+  &lt;optgroup&gt;
+    &lt;option&gt;选项 1.1&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup&gt;
+    &lt;option&gt;选项 2.1&lt;/option&gt;
+    &lt;option disabled&gt;选项 2.2&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup&gt;
+    &lt;option&gt;选项 3.1&lt;/option&gt;
+    &lt;option&gt;选项 3.2&lt;/option&gt;
+    &lt;option&gt;选项 3.3&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</pre>
+
       <h4>隐藏</h4>
       <p>
         <select is="ui-select" style="width:150px;">
@@ -338,18 +409,18 @@ button.addEventListener('click', function () {
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">
@@ -468,7 +539,7 @@ button.addEventListener('click', function () {
         }
     });
 
-    document.querySelector('select').addEventListener('change', function () {
+    document.querySelector('p select').addEventListener('change', function () {
         console.log('来自下拉框：我变化了');
     });
 </script>

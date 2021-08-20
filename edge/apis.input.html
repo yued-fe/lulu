@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 静态控件之文本框</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 静态控件之文本框</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -44,8 +44,11 @@
             <form>
                 最简单的input标签：<input class="ui-input" name="username">
             </form>
-            <pre><span class="green">/* type='text'可缺省 */</span>
-&lt;input class="ui-input"&gt;</pre>
+            <pre>&lt;input class="ui-input"&gt;</pre>
+            <p>支持使用<code>is</code>属性进行设置，效果是一样的：<input is="ui-input"></p>
+            <pre>&lt;input <mark>is="ui-input"</mark>&gt;</pre>
+            <p></p>
+
             <p>
                 input内置-内联标签：<span class="ui-input"><input></span>
             </p>
@@ -54,55 +57,64 @@
                 input内置-块状标签(宽度100%自适应父容器)：<div class="ui-input mt10"><input></div>
             </div>
             <pre>&lt;div class="ui-input"&gt;&lt;input&gt;&lt;/div&gt;</pre>
+            <p>width属性设置宽度100%：<br><input class="ui-input" width="100%"></p>
+            <pre>&lt;input class="ui-input" <mark>width="100%"</mark>&gt;</pre>
 
             <h4>只读和禁用</h4>
             <p>
-                <label>文本框只读：</label><input class="ui-input" value="只读" readonly>
+                <label>文本框只读：</label><input class="ui-input" value="只读" readonly> <input is="ui-input" value="只读" readonly>
             </p>
             <p>
-                <label>文本框禁用：</label><input class="ui-input" value="禁用" disabled>
+                <label>文本框禁用：</label><input class="ui-input" value="禁用" disabled> <input is="ui-input" value="禁用" disabled>
             </p>
             <pre>&lt;input class="ui-input" value="只读" <mark>readonly</mark>>
-&lt;input class="ui-input" value="禁用" <mark>disabled</mark>&gt;</pre>
+&lt;input class="ui-input" value="禁用" <mark>disabled</mark>&gt;
+&lt;input is="ui-input" value="只读" <mark>readonly</mark>>
+&lt;input is="ui-input" value="禁用" <mark>disabled</mark>&gt;</pre>
 
             <h4>出错</h4>
             <p>
-                文本框出错：<input class="ui-input" required size="12" is-error> <span class="ui-input"><input is-error required size="12"></span>
+                文本框出错：<input class="ui-input" required size="12" is-error> <input is="ui-input" size="12" is-error> <span class="ui-input"><input is-error required size="12"></span>
             </p>
-            <pre>&lt;input class="ui-input" <mark>is-error</mark> required>
-&lt;span class="ui-input">&lt;input <mark>is-error</mark> required>&lt;/span></pre>
+            <pre>&lt;input class="ui-input" <mark>is-error</mark> required&gt;
+&lt;input is="ui-input" <mark>is-error</mark>&gt;
+&lt;span class="ui-input">&lt;input <mark>is-error</mark> required>&lt;/span&gt;</pre>
             <p class="tips">实际开发[is-error]属性会由ErrorTip.js自动添加，无需手动添加。</p>
 
             <h3>带计数的文本框</h3>
             <p>这里演示静态效果，输入文本内容，输入框右侧的数值并不会变化，如果想要变化，需要引入Form.js并设置表单元素的<code>is</code>属性为<code>ui-form</code>。</p>
+            <p>本主题计数效果的DOM结构有别于其他主题，因为无需兼容IE浏览器，可以直接在<code>&lt;input&gt;</code>元素上使用<code>padding</code>撑开右侧间隙。</p>
             <h4>带计数的文本框</h4>
             <div class="ui-input-x">
-                <input id="someId" maxlength="20" name="search" placeholder="占位符">
-                <div class="ui-input"></div>
-                <label for="someId" class="ui-input-count">
-                    <output>0</output>/<span>20</span>
+                <input class="ui-input" maxlength="200" name="search" placeholder="占位符">
+                <label class="ui-input-count">
+                    <output>0</output>/<span>200</span>
                 </label>
             </div>
             <pre>&lt;div class="ui-input-x"&gt;
-    &lt;input <span class="gray">id="someId"</span> maxlength="20" placeholder="占位符"&gt;
-    &lt;div class="ui-input"&gt;&lt;/div&gt;
-    <span class="gray">&lt;label for="someId" class="ui-input-count"&gt;
-        &lt;output&gt;0&lt;/output&gt;/&lt;span&gt;20&lt;/span&gt;
+    &lt;input class="ui-input" maxlength="200" placeholder="占位符"&gt;
+    <span class="gray">&lt;label class="ui-input-count"&gt;
+        &lt;output&gt;0&lt;/output&gt;/&lt;span&gt;200&lt;/span&gt;
     &lt;/label&gt;</span>
 &lt;/div&gt;</pre>
-            <p><code>someId</code>这个<code>id</code>注意不要重复，这里只是演示<code>&lt;input&gt;</code>元素的<code>id</code>和<code>&lt;label&gt;</code>需要保持一致，大家拷贝代码的时候注意修改去重。</p>
-            <p>如果希望<code>.ui-input-x</code>这个<code>&lt;div&gt;</code>元素不是100%自适应外部容器，可以指定<code>width</code>大小。</p>
-            <div class="tips">如果使用了Validate.js验证，<code>&lt;label&gt;</code>元素可缺省，直接下面代码结构：
-            <pre>&lt;div class="ui-input-x">
-    &lt;input maxlength="20">
-    &lt;div class="ui-input">&lt;/div>
-&lt;/div></pre></div>
+            <p>支持内联：
+            <span class="ui-input-x">
+                <input is="ui-input" maxlength="20">
+                <span class="ui-input-count"><span>0</span>/20</span>
+            </span></p>
+            <pre>&lt;span class="ui-input-x"&gt;
+    &lt;input is="ui-input" maxlength="20"&gt;
+    &lt;span class="ui-input-count"&gt;&lt;span&gt;0&lt;/span&gt;/20&lt;/span&gt;
+&lt;/span&gt;</pre>
+            <div class="tips">如果使用了Validate验证，表示数量的元素可缺省：
+            <pre>&lt;div class="ui-input-x"&gt;
+    &lt;input class="ui-input" maxlength="20"&gt;
+&lt;/div&gt;</pre></div>
 
             <h4>其它状态</h4>
             <p>禁用状态：</p>
             <div class="ui-input-x">
-                <input id="someId2" maxlength="20" name="username" value="禁用中..." disabled>
-                <div class="ui-input"></div>
+                <input id="someId2" class="ui-input" maxlength="20" name="username" value="禁用中..." disabled>
                 <label for="someId2" class="ui-input-count">
                     <output>0</output>/<span>20</span>
                 </label>
@@ -117,8 +129,9 @@
             <p>搜索：<input type="search" class="ui-input" accesskey="/"></p>
             <pre><span class="green">/* type='search'必须，类名'ui-input-search'可缺省 */</span>
 &lt;input type="search" class="ui-input"></pre>
+            <p>支持使用<code>is</code>属性：<input type="search" is="ui-input"></p>
+            <pre>&lt;input type="search" is="ui-input"></pre>
             <p>除了<code>type</code>属性值不一样，其他使用和普通文本框一样。</p>
-
 
             <h3>带搜索图标的搜索框</h3>
             <p>
@@ -236,18 +249,18 @@
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">

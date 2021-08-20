@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Validate表单验证</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Validate表单验证</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -130,6 +130,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                                 <option value="wh">武汉</option>
                             </select>
                             <span class="gray ml20 mt10 f14">required</span>
+                            <span id="cityError" class="red ml20 f14"></span>
                         </div>
                     </div>
                     <div class="clearfix mt15">
@@ -150,13 +151,9 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                         <label class="left">姓名</label>
                         <div class="cell">
                             <div class="ui-input-x" style="max-width:300px;">
-                                <input id="admin_name" name="admin_name" minlength="2" maxlength="20" lang="zh">
-                                <div class="ui-input"></div>
-                                <label for="admin_name" class="ui-input-count">
-                                    <span>0</span>/<span>20</span>
-                                </label>
+                                <input id="adminName" class="ui-input" name="adminName" maxlength="20" lang="zh">
                             </div>
-                            <span class="gray db mt5 f14">minlength="2", maxlength="20", lang="zh"(2个字母1个汉字)</span>
+                            <span class="gray db mt5 f14">maxlength="20", lang="zh"(2个字母1个汉字)</span>
                         </div>
                     </div>
                     <div class="fix mt15">
@@ -170,8 +167,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                         <label class="left">备注</label>
                         <div class="cell">
                             <div class="ui-textarea-x" style="max-width:500px;">
-                                <textarea id="txtCount" minlength="5" maxlength="200" rows="5" placeholder="如果输入，至少5个字">测试</textarea>
-                                <div class="ui-textarea"></div>
+                                <textarea id="txtCount" class="ui-textarea" minlength="5" maxlength="200" rows="5" placeholder="如果输入，至少5个字">测试</textarea>
                             </div>
                             <span class="gray db mt5 f14">minlength="5", maxlength="200"</span>
                         </div>
@@ -317,25 +313,20 @@ new Validate('#validateForm', function () {
                 <td>是否使用关联<code>&lt;label&gt;</code>元素中裸露的文字作为提示关键字，会自动过滤冒号，此参数非常实用。</td>
               </tr>
               <tr>
-              <tr>
-                <td>onSuccess</td>
-                <td>Function</td>
-                <td>function () {}</td>
-                <td>当前表单元素验证通过时候执行的回调。其中上下文<code>this</code>指当前实例对象，支持一个参数，表示当前验证的元素。</td>
-              </tr>
-              <tr>
-
-              <tr>
-                <td>onError</td>
-                <td>Function</td>
-                <td>function () {}</td>
-                <td>当前表单元素验证没有通过的时候执行的回调。其中上下文<code>this</code>指当前实例对象，支持一个参数，表示当前验证的元素。</td>
-              </tr>
             </table>
+
+            <h4>事件</h4>
+
+            <p>参与表单验证的所有控件元素均支持原生的<code>valid</code>和<code>invalid</code>事件，分别在验证通过和验证不通过的时候触发（本文档页面对底部案例有使用示意）。</p>
+
+            <p>另外，当所有表单控件元素都验证通过的时候，会触发表单元素自定义的<code>valid</code>事件，例如：</p>
+            <pre>form.addEventListener('valid', function () {
+    <span class="green">// 表单验证通过</span>                
+});</pre>
 
             <h4 id="validityStateH4">validate可选参数深入</h4>
             <p>validate参数实际使用多这样：</p>
-            <pre>new Validate('formId', null, {
+            <pre>new Validate('formId', {
     <mark>validate</mark>: [{
         id: 'inputId',
         report: {
@@ -347,7 +338,7 @@ new Validate('#validateForm', function () {
     }]
 });</pre>
             <p>如果validate参数值的数组项只有一个，可以直接使用该数组项作为参数，示意：</p>
-            <pre>new Validate('formId', null, {
+            <pre>new Validate('formId', {
     validate: <mark>{</mark>
         id: 'inputId',
         report: {},
@@ -399,7 +390,7 @@ new Validate('#validateForm', function () {
             <p>如果我们想要改变出现的提示文案，可以有下面两种方法：</p>
             <ol>
                 <li>借助Validate实例方法，我们可以随便找个输入框的祖先元素当作表单元素（实际开发外面需要有<code>&lt;form&gt;</code>元素，这里示意省略了）。
-                    <pre>new Validate(input.parentElement, null, {
+                    <pre>new Validate(input.parentElement, {
     validate: {
         id: 'input',
         report: {
@@ -436,7 +427,7 @@ button.addEventListener('click', function () {
             <pre>&lt;input class="ui-input"&gt;
 &lt;button class="ui-button" data-type="primary"&gt;点我&lt;/button&gt;</pre>
             <p>此时，我们观察<code>&lt;input&gt;</code>输入框对应的HTML代码，可以看到没有设置<code>required</code>属性，默认状态下，认为是合法的。如果我们希望此时内容为空也提示错误，而HTML又没法设置，怎么办呢？可以使用<code>method</code>参数，JS代码如下：</p>
-            <pre>new Validate(input.parentElement, null, {
+            <pre>new Validate(input.parentElement, {
     validate: {
         id: 'input',
         method: function (element) {
@@ -459,8 +450,7 @@ button.addEventListener('click', function () {
 button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
-            <p>不过直接<code>Element.customValidity</code>赋值，如果不是非常特殊场景，建议不要使用，以避免出现意料之外的问题。</p>
-</li>
+                </li>
                 <li>然后演示下隐藏元素的提示，有些表单控件是隐藏在页面中的，例如<code>'hidden'</code>类型输入框，或者一些很丑的拿不出台面的元素。Validate组件对LuLu UI内置的表单元素已经做了提示元素转移，但是并不能覆盖所有的场景，此时，需要开发人员针对具体的场景进行调整。
                     <p>有两种做法，一是通过<code>data-target</code>属性关联，还有一种是在DOM对象上使用dataTarget属性关联。</p>
                     <p>例如一个更换头像功能，点击按钮图像上会出现提示：</p>
@@ -491,6 +481,50 @@ button.addEventListener('click', function () {
 <soan class="green">// 其余代码同上...</soan></pre>
                 </li>
             </ol>
+
+            <h3>扩展调用方法</h3>
+
+            <p>为了更好地适应多种使用场景，本组件还支持下面两种调用方法：</p>
+
+            <ol>
+                <li>form.validate()语法；</li>
+                <li>is-validate自定义属性；</li>
+            </ol>
+
+            <h4>form.validate()语法</h4>
+
+            <p><code>form.validate()</code>语法仅支持<code>&lt;form&gt;</code>元素，使用示意：</p>
+            <pre>&lt;form id="f0"&gt;
+    &lt;input type="search" class="ui-input" required&gt;
+    &lt;button type="submit" class="ui-button" data-type="primary"&gt;搜索&lt;/button&gt;
+&lt;/form&gt;</pre>
+            <pre>f0.validate();
+f0.addEventListener('valid', function () {
+    new Dialog().alert('验证通过');
+});</pre>
+
+            <form id="f0">
+                <input type="search" class="ui-input" required>
+                <button type="submit" class="ui-button" data-type="primary">搜索</button>
+            </form>
+
+            <h4>is-validate自定义属性</h4>
+
+            <p>给任意的元素设置<code>is-validate</code>属性，就会自动进行表单验证初始化的设置。</p>
+            <p>例如：</p>
+            <pre>&lt;form id="f1" is-validate&gt;
+    &lt;input type="search" class="ui-input" required&gt;
+    &lt;button type="submit" class="ui-button" data-type="primary"&gt;搜索&lt;/button&gt;
+&lt;/form&gt;</pre>
+            <pre>f1.addEventListener('valid', function () {
+    new Dialog().alert('同样验证通过');
+});</pre>
+            <form id="f1" is-validate>
+                <input type="search" class="ui-input" required>
+                <button type="submit" class="ui-button" data-type="primary">搜索</button>
+            </form>
+
+            <p>当使用<code>is-validate</code>属性语法的时候，支持<code>connected</code>和<code>DOMContentLoaded</code>生命周期事件。</p>
 
             <h3>document.validate对象</h3>
 
@@ -623,6 +657,10 @@ typeMismatch: false
 valueMissing: false
 <span class="green">// 验证通过与否</span>
 valid: true</pre></dd>
+                <dt>Element.validationMessage</dt>
+                <dd>返回当前表单控件元素的验证提示信息，如果是空字符串，则表示验证无误</dd>
+                <dt>Element.willValidate</dt>
+                <dd>当前表单控件元素是否可以参与验证，此属性本组件并未重定义，完全原生，因此，返回值和本组件行为可能会有不一致的地方。例如hidden类型的输入框返回值是false，但是本组件对于hidden类型的输入框也进行了验证。</dd>
             </dl>
             <h4>方法</h4>
             <dl>
@@ -649,11 +687,6 @@ var myValidate = eleForm.data.validate;</pre>
     element: {
         form: null
     },
-    <span class="green">// 回调</span>
-    callback: {
-        error: function () {},
-        success: function () {}
-    };
     <span class="green">// 自定义提示和方法的数据</span>
     data: [],
     <span class="green">// 是否阻止表单验证，
@@ -724,7 +757,7 @@ new Validate('#commentForm', function () {
             <p>根据近20多个大小项目实践，上面规则没有出现提示异常。</p>
 
             <h5>关于计数</h5>
-            <p>Validate组件默认计数交互是配合<code>.ui-input-x > input + .ui-input</code>和<code>.ui-textarea-x > input + .ui-textarea</code>的HTML结构实现的，计数内容自动创建，并定位在右下角。</p>
+            <p>Validate组件默认计数交互是配合<code>.ui-input-x > input.ui-input</code>和<code>.ui-textarea-x > textarea.ui-textarea</code>的HTML结构实现的，计数内容自动创建，并定位在右下角。</p>
             <p>但是，可能有产品不喜欢这样的交互，希望位置在其他地方，本组件也是支持的。两点：</p>
             <ol>
                 <li><code>&lt;label&gt;</code>元素的<code>for</code>属性值和输入框元素的<code>id</code>值一致；</li>
@@ -733,8 +766,6 @@ new Validate('#commentForm', function () {
             <p>此时就会有自动计数和超过范围时候的颜色高亮提示效果。</p>
             <p>如果<code>&lt;label&gt;</code>元素中还有其他内容，则计数字符需要用一个<code>span</code>标签包起来。</p>
             <pre>&lt;label for="comment" class="ui-textarea-count"&gt;<mark>&lt;span&gt;0&lt;/span&gt;</mark>/200&lt;/label&gt;</pre>
-
-
 
             <h4>非表单元素的验证</h4>
             <p>建议所有的验证和提交走原生的<code>&lt;form&gt;</code>元素。</p>
@@ -824,6 +855,42 @@ button.addEventListener('click', function () {
             <pre>button.addEventListener('click', function () {
     document.querySelector('#code').reportValidity();
 });</pre>
+
+            <h4>使用文字进行错误提示</h4>
+
+            <p>有时候，设计师设计的出错提示是内嵌在页面中的一段文字，而不是浮层提示，本组件也是可以支持的，但是，虽说支持，其实是有能力实现这样的效果，组件本文并未内置这样的交互支持，因为这样的设计是和 LuLu UI 的理念不相符的。</p>
+
+            <p>实现原理：</p>
+            <ol>
+                <li>隐藏ErrorTip效果；</li>
+                <li>通过输入框的valid/invalid事件控制提示文字的显隐；</li>
+            </ol>
+
+            <p>比方说下面这个例子：</p>
+
+            <iframe id="validFrame" frameborder="0" width="100%" height="120"></iframe>
+
+            <p>代码示意如下：</p>
+            <pre><span class="green">/* 隐藏红色出错提示 */</span>
+.ui-tips-error { 
+    display: none;
+}</pre>
+            <pre>&lt;form id="validateForm"&gt;
+    &lt;p&gt;
+        邮箱：&lt;input type="email" id="email" is="ui-input" name="email" required&gt;
+        &lt;output id="result" style="color:red;"&gt;&lt;/output&gt;
+    &lt;/p&gt;
+    &lt;button type="submit" class="ui-button" data-type="primary"&gt;提交&lt;/button&gt;
+&lt;/form&gt;</pre>
+            <pre>new Validate('#validateForm');
+<span class="green">// 自定义成功和出错提示处理</span>
+email.addEventListener('valid', function () {
+    result.innerHTML = '';
+});
+email.addEventListener('invalid', function () {
+    result.innerHTML = this.validationMessage;
+});</pre>
+
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
@@ -863,18 +930,18 @@ button.addEventListener('click', function () {
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">
@@ -994,11 +1061,18 @@ new Validate('#validateForm', function () {
     }]
 });
 
+inputPwd.addEventListener('valid', function () {
+    console.log('密码验证OK');
+});
+inputPwd.addEventListener('invalid', function () {
+    console.log(this.validationMessage);
+});
+
 buttonA.addEventListener('click', function () {
     inputA.reportValidity();
 });
 
-new Validate(inputB.parentElement, null, {
+new Validate(inputB.parentElement, {
     validate: {
         id: 'inputB',
         report: {
@@ -1017,7 +1091,7 @@ buttonC.addEventListener('click', function () {
     inputC.reportValidity();
 });
 
-new Validate(inputD.parentElement, null, {
+new Validate(inputD.parentElement, {
     validate: {
         id: 'inputD',
         method: function (input) {
@@ -1051,6 +1125,15 @@ document.validate.name.idcard = '身份证';
 
 buttonF.addEventListener('click', function () {
     inputF.reportValidity();
+});
+
+// form.validate()方法
+f0.validate();
+f0.addEventListener('valid', function () {
+    new Dialog().alert('验证通过');
+});
+f1.addEventListener('valid', function () {
+    new Dialog().alert('同样验证通过');
 });
 
 
@@ -1094,7 +1177,6 @@ document.querySelector('#validButton').addEventListener('click', function () {
     aloneValidate.reportValidity(eleInputCode);
 });
 
-
 document.querySelectorAll('article a[href^="#"]').forEach(function (eleLink) {
     eleLink.addEventListener('click', function (event) {
         var eleTarget = document.querySelector(this.getAttribute('href'));
@@ -1105,4 +1187,35 @@ document.querySelectorAll('article a[href^="#"]').forEach(function (eleLink) {
         }
     });
 });
+
+// 使用内联文本进行出错提示
+let prefixUrl = 'https://qidian.gtimg.com/lulu';
+if (/localhost/.test(location.host)) {
+    prefixUrl = 'http://localhost:10086/theme'
+}
+let htmlInFrame = `
+<link rel="stylesheet" href="${prefixUrl}/edge/css/common/form.css">
+<link rel="stylesheet" href="${prefixUrl}/edge/css/common/ui/Tips.css">
+<style>.ui-tips-error{display:none;}</style>
+<form id="validateForm">
+    <p>
+        邮箱：<input type="email" id="email" is="ui-input" name="email" required>
+        <output id="result" style="color:red;"></output>
+    </p>
+    <button type="submit" class="ui-button" data-type="primary">提交</button>
+</form>
+<script type="module" src="${prefixUrl}/edge/js/common/ui/Validate.js"><\/script>
+<script type="module">
+new Validate('#validateForm');
+// 自定义成功和出错提示处理
+email.addEventListener('valid', function () {
+    result.innerHTML = '';
+});
+email.addEventListener('invalid', function () {
+    result.innerHTML = this.validationMessage;
+});
+<\/script>`;
+validFrame.src = URL.createObjectURL(new Blob([htmlInFrame], {
+  'type': 'text/html'
+}));
 </script>

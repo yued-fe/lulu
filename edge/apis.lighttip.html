@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI pure版中文文档 &raquo; LightTip轻提示</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; LightTip轻提示</h1></a>
 		<div class="header-right">
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
@@ -123,12 +123,16 @@ ele.open = true;</pre>
 new LightTip('失败提示', 2000, 'error');
 new LightTip('常规提示', {
     time: 4000
-});</pre>
+});
+new LightTip('loading提示', 'loading');</pre>
             <p>
                 演示兼测试：<button id="lightTipSucc" class="ui-button" data-type="success">成功轻提示</button>
                 <button id="lightTipError" class="ui-button" data-type="danger">失败轻提示</button>
                 <button id="lightTipNormal" class="ui-button" data-type="primary">常规轻提示</button>
+                <button id="lightTipLoading" class="ui-button" data-type="primary">loading提示</button>
             </p>
+
+            <p class="tips">推荐使用 document.loading = true / false 语法控制全局loading效果，详见“<a href="apis.loading.html">Loading效果</a>”。</p>
 
             <h3>语法和参数</h3>
             <h4>语法</h4>
@@ -168,6 +172,7 @@ new LightTip(content, time?, type?);</pre>
             <pre>import lightTip from './LightTip.js';
 lightTip.success('成功');
 lightTip.error('失败');
+lightTip.loading('正在加载中...');
 lightTip.custom('自定义', {
     type: 'warning'
 });</pre>
@@ -175,12 +180,14 @@ lightTip.custom('自定义', {
             <p>
                 演示兼测试：<button id="b3" class="ui-button" data-type="success">成功轻提示</button>
                 <button id="b4" class="ui-button" data-type="danger">失败轻提示</button>
+                <button id="b6" class="ui-button" data-type="danger">loading提示</button>
                 <button id="b5" class="ui-button" data-type="primary">常规轻提示</button>
             </p>
 
             <h4>静态方法语法</h4>
             <pre>lightTip.success(content, time);
-lightTip.error(content, time);</pre>
+lightTip.error(content, time);
+lightTip.loading(content);</pre>
             <pre>lightTip.custom(content, {
     type: 'warning',
     time: 4000
@@ -231,18 +238,18 @@ lightTip.custom(content, type, time);
             <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
             <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
             <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
-            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
         </dl>
         <div class="aside_divide"></div>
         <dl class="aside_dl">
             <dt class="aside_dt">组件</dt>
-            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>            
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
             <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
             <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
             <dd><a href="./apis.lighttip.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
             <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
-            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>            
-            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>            
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
         </dl>
 
         <dl class="aside_dl">
@@ -322,6 +329,10 @@ lightTip.custom(content, type, time);
             time: 4000
         });
     });
+    document.querySelector('#lightTipLoading').addEventListener('click', function () {
+         new LightTip('loading提示', 'loading');
+    });
+    
 
     // 自定义提示
     b3.addEventListener('click', function () {
@@ -340,5 +351,8 @@ lightTip.custom(content, type, time);
         lightTip.custom('自定义', {
             type: 'warning'
         });
+    });
+    b6.addEventListener('click', function () {
+        lightTip.loading('正在加载中...');
     });
 </script>
