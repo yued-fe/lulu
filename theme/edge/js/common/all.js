@@ -4655,10 +4655,6 @@ class XRange extends HTMLInputElement {
         return ['max', 'min', 'step', 'disabled'];
     }
 
-    constructor () {
-        super();
-    }
-
     get defaultrange () {
         return this.getAttribute('range') || `${this.getAttribute('from') || this.min || 0},${this.getAttribute('to') || this.max || 100}`;
     }
@@ -4666,6 +4662,7 @@ class XRange extends HTMLInputElement {
     set vertical (value) {
         return this.toggleAttribute('vertical', value);
     }
+
     get vertical () {
         return this.getAttribute('vertical') !== null;
     }
@@ -4673,6 +4670,7 @@ class XRange extends HTMLInputElement {
     set multiple (value) {
         return this.toggleAttribute('multiple', value);
     }
+
     get multiple () {
         return this.getAttribute('multiple') !== null;
     }
@@ -4695,6 +4693,7 @@ class XRange extends HTMLInputElement {
         if (this.multiple) {
             return this.from + ',' + this.to;
         }
+        return '';
     }
 
     get isFrom () {
@@ -4702,6 +4701,7 @@ class XRange extends HTMLInputElement {
         if (this.element && this.element.otherRange) {
             return this.value - this.element.otherRange.value < 0;
         }
+        return false;
     }
 
     set from (v) {
@@ -4825,7 +4825,7 @@ class XRange extends HTMLInputElement {
     }
 
     change () {
-        if (!this.element && this.element.otherRange) {
+        if (!(this.element && this.element.otherRange)) {
             return;
         }
         // 保持html结构和视觉上一致，也就是初始值在前面，结束值在后面，如果不一致就调换位置，目的是为tab键切换正常
