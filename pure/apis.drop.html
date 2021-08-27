@@ -30,6 +30,7 @@
         max-width: 100%;
         object-fit: contain;
     }
+    #t1, #t2 { border: 1px solid; padding:20px; background-color: #fff; position: absolute; z-index: 1; display: none; }
 </style>
 
 <div class="main">
@@ -49,7 +50,7 @@
 
             <h4>1. 鼠标hover事件</h4>
             <p>经过我：<a href="javascript:" id="dropHover">hover我</a></p>
-            <div id="dropTarget1" class="dn abs zx1" style="padding:20px; background-color: #fff;">
+            <div id="t1">
                 <button>按钮1</button>
                 <p class="mt10">
                     <a href="javascript:">测试1</a>
@@ -65,10 +66,10 @@ new Drop(eleTrigger, eleTarget, {
         target.style.border = '2px solid #333';
     }
 });</pre>
-            <p>其中，<code>eleTrigger</code>是点击的按钮元素，<code>eleTarget</code>是显示的浮层元素。</p>
+            <p>其中，<code>eleTrigger</code> 是点击的按钮元素，<code>eleTarget</code> 是显示的浮层元素。</p>
             <h4>2. 点击事件</h4>
-            <p>点击我：<a href="javascript:" id="dropClick">click我</a></p>
-            <div id="dropTarget2" class="dn abs zx1" style="padding:20px; background-color: #fff;">
+            <p>点击我：<a href="javascript:" id="b0">click 我</a></p>
+            <div id="t2">
                 <button>按钮2</button>
                 <p class="mt10">
                     <a href="javascript:">测试2</a>
@@ -77,10 +78,10 @@ new Drop(eleTrigger, eleTarget, {
             <pre>new Drop(eleTrigger, eleTarget, {
     eventType: 'click'
 });</pre>
-            <h4>3. 动态trigger与呈现示例之click</h4>
+            <h4>3. 动态 trigger 与呈现示例之 click</h4>
             <p id="freshBtn"><a href="javascript:">内容</a></p>
-            <img id="targetImg1" class="dn zx1 abs" src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162429.png">
-            <p><a href="javascript:" class="ui-button" data-type="primary" onclick="freshBtn.innerHTML = '<a href=javascript:>'+ Math.random() +'</a>';">上面链接HTML刷新</a></p>
+            <img id="i1" class="dn zx1 abs" src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162429.png">
+            <p><a href="javascript:" class="ui-button" data-type="primary" onclick="freshBtn.innerHTML = '<a href=javascript:>'+ Math.random() +'</a>';">上面链接 HTML 刷新</a></p>
             <pre>&lt;p id="freshBtn">&lt;a>内容&lt;/a>&lt;/p></pre>
             <pre>document.querySelector("#freshBtn").html('&lt;a>'+ Math.random() +'&lt;/a>');</pre>
             <pre><span class="green">// 委托Drop.js</span>
@@ -88,7 +89,7 @@ new Drop(document.querySelector("#freshBtn"), eleImg, {
     eventType: 'click',
     selector: 'a'
 });</pre>
-            <p>如果我们下拉触发元素是动态生成的，则可以借助<code>selector</code>参数进行委托实现。</p>
+            <p>如果我们下拉触发元素是动态生成的，则可以借助 <code>selector</code> 参数进行委托实现。</p>
 
             <h4>4. 动态trigger与呈现示例之hover</h4>
             <ol id="freshBtn2">
@@ -103,11 +104,22 @@ new Drop(document.querySelector("#freshBtn"), eleImg, {
             </ol>
             <p><a href="javascript:" class="ui-button" data-type="primary" onclick="document.querySelector('#freshBtn2').innerHTML = ('<li><a href=javascript:>'+ Math.random() +'</a></li><li>内容纯文本</li>').repeat(4);">上面链接HTML刷新</a></p>
             <pre><span class="green">// hover委托</span>
-new Drop(document.querySelector("#freshBtn2"), eleImg, {
+new Drop(button, img, {
     eventType: 'hover',
     selector: 'a',
     edgeAdjust: false
 });</pre>
+            <h3>is-drop快捷语法</h3>
+
+            <p>如果不想使用 <code>new Drop()</code> 构造语法，则可以给按钮元素设置 <code>is-drop</code> 属性达到同样的效果。</p>
+            <p>点击我：<a href="javascript:" is-drop="t2">click me</a></p>
+            <pre>&lt;a href="javascript:" <mark>is-drop="t2"</mark>&gt;click me&lt;/a&gt;</pre>
+            <p>其中 <code>is-drop</code> 的属性值 <code>t2</code> 就是浮层元素的 <code>id</code>。</p>
+
+            <p>支持通过 <code>data-*</code> 自定义属性传参，示意：</p>
+            <p>点击我：<button data-position="5-7" is-drop="t2">click me</button></p>
+            <pre>&lt;button <mark>data-position</mark>="5-7" is-drop="t2"&gt;click me&lt;/button&gt;</pre>
+
             <h3>Drop语法和参数</h3>
             <p>语法为：</p>
             <pre>var myDrop = new Drop(trigger, target, options);</pre>
@@ -153,8 +165,7 @@ new Drop(document.querySelector("#freshBtn2"), eleImg, {
                     <td>String</td>
                     <td>'7-5'</td>
                     <td>表示触发元素和浮层元素的定位关系。<wbr>基于<code>'trigger<wbr>-target'</code>规则，数字表示对应元素的位置，具体如下图。例如<code>'7-5'</code>就表示触发元素的位置<code>7</code>个浮层元素的<code>5</code>对齐。
-                        <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png"
-                                height="240" onload="if(screen.width<640){this.removeAttribute('height')}"></p>
+                        <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240" onload="if(screen.width<640){this.removeAttribute('height')}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -318,14 +329,7 @@ new Drop('#menuImg').list([{
         data: [{
             id: '3-2-1',
             value: '0px'
-        }, {
-            id: '3-2-2',
-            value: '5px'
-        }, {
-            id: '3-2-3',
-            value: '10px',
-            disabled: true
-        }, {
+        }, ..., {
             id: '3-2-3',
             value: '15px'
         }]
@@ -349,34 +353,7 @@ new Drop('#menuImg').list([{
                 eleImg.style.marginRight = 'auto';
                 break;
             }
-            case '1': {
-                eleImg.style.display = 'block';
-                eleImg.style.marginLeft = 'auto';
-                eleImg.style.marginRight = 'auto';
-                break;
-            }
-            case '2': {
-                eleImg.style.display = 'block';
-                eleImg.style.marginLeft = 'auto';
-                eleImg.style.marginRight = '';
-                break;
-            }
-            case '3-1': {
-                eleImg.style.filter = 'grayscale(100%)';
-                break;
-            }
-            case '3-2-1': {
-                eleImg.style.filter = 'blur(0)';
-                break;
-            }
-            case '3-2-2': {
-                eleImg.style.filter = 'blur(5px)';
-                break;
-            }
-            case '3-2-4': {
-                eleImg.style.filter = 'blur(15px)';
-                break;
-            }
+            ...
             case '3-3': {
                 eleImg.style.filter = 'sepia(100%)';
                 break;
@@ -384,6 +361,39 @@ new Drop('#menuImg').list([{
         }
     }
 });</pre>
+
+            <h4>is-drop快捷使用</h4>
+
+            <p>此案例适合 Vue 等框架场景中使用。</p>
+            <div id="app1">
+                <template v-if="1">
+                    <button class="ui-button" data-type="primary" is-drop @connected="setListData">点击我</button>
+                </template>
+            </div>
+            <p>代码示意：</p>
+            <pre>&lt;div id="app1"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;button class="ui-button" data-type="primary" is-drop @connected="setListData"&gt;点击我&lt;/button&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+<pre>new Vue({
+    el: '#app1',
+    methods: {
+      setListData: function (event) {
+          event.detail.drop.list([{
+              id: 1,
+              value: '选项1'
+          }, {
+              id: 2,
+              value: '选项2'
+          }, {
+              id: 3,
+              value: '选项3'
+          }]);
+      }
+    }
+  });</pre>
+            <p>关键点是使用自定义的 connected 事件进行列表数据的绑定执行。</p>
 
             <h3>List方法语法和参数</h3>
             <pre>var myDrop = new Drop(trigger).list(data, options);</pre>
@@ -503,12 +513,11 @@ new Drop('#menuImg').list([{
 
             <h4>演示和代码</h4>
             <p class="clearfix">
-                <a href="javascript:" id="dropPanel" class="dark f14 p5"><i class="icon_del"></i>删除评论</a>
-                <a href="javascript:" id="dropPanel2" class="dark f14 p5"><i class="icon_del"></i>更多内容，更大宽度</a>
+                <a href="javascript:" id="dp" class="dark f14 p5"><i class="icon_del"></i>删除评论</a>
+                <a href="javascript:" id="dp2" class="dark f14 p5"><i class="icon_del"></i>更多内容，更大宽度</a>
             </p>
 <pre><span class="green">// 轻弹框面板</span>
-var eleDropPanel = document.querySelector('#dropPanel');
-new Drop(eleDropPanel).panel({
+new Drop(dp).panel({
     title: '删除评论',
     content: '删除后，您的粉丝在文章中将无法看到该评论。',
     buttons: [{
@@ -521,15 +530,40 @@ new Drop(eleDropPanel).panel({
         }
     }, {}]
 });</pre>
-                                <pre>
-var eleDropPanel2 = document.querySelector('#dropPanel2');
-new Drop(eleDropPanel2).panel({
+                <pre>
+new Drop(dp2).panel({
     eventType: "hover",
     title: '删除多图文消息',
     content: '...',
     buttons: [{}],
     width: 400
 });</pre>
+
+            <h4>is-drop快捷使用</h4>
+
+            <p>此案例适合 Vue 等框架场景中使用。</p>
+            <div id="app2">
+                <template v-if="1">
+                    <button class="ui-button" data-type="primary" is-drop @connected="setPanelData">点击我</button>
+                </template>
+            </div>
+            <p>代码示意：</p>
+            <pre>&lt;div id="app2"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;button class="ui-button" data-type="primary" is-drop @connected="setPanelData"&gt;点击我&lt;/button&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+<pre>new Vue({
+    el: '#app2',
+    methods: {
+        setPanelData: function (event) {
+          event.detail.drop.panel({
+            title: '删除',
+            content: '确认删除？'
+        });
+      }
+    }
+  });</pre>
 
             <h3>Panel方法语法和参数</h3>
             <p>语法如下：</p>
@@ -789,10 +823,10 @@ new Drop(eleDropPanel2).panel({
 <script>
 var Drop = window.Drop;
 
-var eleTabIndex1 = document.querySelector('#dropTarget1');
-var eleTabIndex2 = document.querySelector('#dropTarget2');
+var eleTabIndex1 = document.querySelector('#t1');
+var eleTabIndex2 = document.querySelector('#t2');
 var eleDropHover = document.querySelector('#dropHover');
-var eleDropClick = document.querySelector('#dropClick');
+var eleDropClick = document.querySelector('#b0');
 
 new Drop(eleDropHover, eleTabIndex1, {
     eventType: 'hover',
@@ -805,7 +839,7 @@ new Drop(eleDropClick, eleTabIndex2, {
 });
 
 // 委托Drop.js
-var eleTargetImg1 = document.querySelector('#targetImg1');
+var eleTargetImg1 = document.querySelector('#i1');
 var eleTargetImg2 = eleTargetImg1.cloneNode();
 
 new Drop(document.querySelector('#freshBtn'), eleTargetImg1, {
@@ -1006,8 +1040,8 @@ new Drop('#menuImg').list([{
 
 
 // DropPanel demo
-var eleDropPanel = document.querySelector('#dropPanel');
-var eleDropPanel2 = document.querySelector('#dropPanel2');
+var eleDropPanel = document.querySelector('#dp');
+var eleDropPanel2 = document.querySelector('#dp2');
 // DropPanel示意
 new Drop(eleDropPanel).panel({
     title: '删除评论',
@@ -1037,5 +1071,38 @@ new Drop(eleDropPanel2).panel({
     </ul>',
     buttons: [{}],
     width: 400
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+new Vue({
+  el: '#app1',
+  methods: {
+    setListData: function (event) {
+        event.detail.drop.list([{
+            id: 1,
+            value: '选项1'
+        }, {
+            id: 2,
+            value: '选项2'
+        }, {
+            id: 3,
+            value: '选项3'
+        }]);
+    }
+  }
+});
+
+new Vue({
+    el: '#app2',
+    methods: {
+        setPanelData: function (event) {
+          event.detail.drop.panel({
+            title: '删除',
+            content: '确认删除？'
+        });
+      }
+    }
 });
 </script>

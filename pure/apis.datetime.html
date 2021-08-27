@@ -37,6 +37,8 @@
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Input.css"&gt;
 &lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Button.css"&gt;
 &lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Date.css"&gt;</pre>
+            <p>或者合并地址：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/c/=/lulu/pure/css/common/ui/Input.css,/lulu/pure/css/common/ui/Date.css,/lulu/pure/css/common/ui/Button.css"&gt;</pre>
             <p>JS为：</p>
             <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"&gt;&lt;/script&gt;
 &lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
@@ -44,9 +46,9 @@
             <pre>&lt;script src="https://qidian.gtimg.com/c/=/lulu/pure/js/common/ui/Follow.js,/lulu/pure/js/common/ui/DateTime.js"&gt;&lt;/script&gt;</pre>
 
             <h3>基本效果演示</h3>
-            <p>基于HTML5时间选择框的日期时间选择控件，使用原生的<code>min</code>，<code>max</code>作为时间范围，部分日期选择类型支持<code>step</code>控制步阶。</p>
+            <p>基于 HTML5 时间选择框的日期时间选择控件，使用原生的 <code>min</code>，<code>max</code> 作为时间范围，部分日期选择类型支持 <code>step</code> 控制步阶。</p>
             <p>所有时间输入框为空则使用今天作为默认日期。</p>
-            <p>只读。</p>
+            <p>然后，因为要兼容 IE 浏览器（让光标无法聚焦），所以在 Pure 主题中，所有的时间选择器输入框都需要使用嵌套结构（非嵌套功能也是正常的）。</p>
             <h4>1. 选择日期</h4>
             <p>无初始值-内联：<span class="ui-input ui-date-input"><input type="date" id="date1" min="2018-07-31" max="2024-02-22"></span>
             </p>
@@ -56,14 +58,14 @@
             </div>
             <pre>&lt;div class="ui-input ui-date-input"&gt;&lt;input type="date" value="2015-07-23"&gt;&lt;/div&gt;</pre>
 
-            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>date</code>即可，使用<code>min</code>和<code>max</code>控制日期范围。</p>
+            <p><code>&lt;input&gt;</code> 输入框的 <code>type</code> 属性设置为 <code>date</code> 即可，使用 <code>min</code> 和 <code>max</code> 控制日期范围。</p>
 
-            <p>内联输入框保持原本内联特性，默认可以和文字一行显示，宽度大小为输入框尺寸，80%~90%的开发场景都是使用内联输入框。</p>
-            <p>块级输入框默认不可以和文字在一行显示，如果想要在一行显示，需要布局支持，块级输入框最大特点是宽度100%自适应外部容器元素的宽度，也是其推荐的使用场景。本文档页面本着演示目的，块级输入框尺寸很宽，实际开发肯定要限定宽度的啦，所以不要在意。</p>
+            <p>内联输入框保持原本内联特性，默认可以和文字一行显示，宽度大小为输入框尺寸，80%~90% 的开发场景都是使用内联输入框。</p>
+            <p>块级输入框默认不可以和文字在一行显示，如果想要在一行显示，需要布局支持，块级输入框最大特点是宽度 100% 自适应外部容器元素的宽度，也是其推荐的使用场景。本文档页面本着演示目的，块级输入框尺寸很宽，实际开发肯定要限定宽度的啦，所以不要在意。</p>
 
             <p><strong>禁用：</strong><span class="ui-input ui-date-input"><input type="date" disabled></span></p>
             <pre>&lt;span class="ui-input ui-date-input"&gt;&lt;input type="date" disabled&gt;&lt;/span&gt;</pre>
-            <p>禁用只要设置输入框<code>disabled</code>即可。</p>
+            <p>禁用只要设置输入框 <code>disabled</code> 即可。</p>
 
 
             <h4>2. 选择年</h4>
@@ -71,14 +73,14 @@
             <pre>&lt;span class="ui-input ui-year-input"&gt;&lt;input type="year" min="2015" max="2020"&gt;&lt;/span&gt;</pre>
             有初始值-块级：<div class="ui-input ui-year-input"><input type="year" value="2015"></div>
             <pre>&lt;div class="ui-input ui-year-input"&gt;&lt;input type="year" value="2015"&gt;&lt;/div&gt;</pre>
-            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>year</code>即可，使用<code>min</code>和<code>max</code>控制年份范围。</p>
+            <p><code>&lt;input&gt;</code> 输入框的 <code>type</code> 属性设置为 <code>year</code> 即可，使用 <code>min</code> 和 <code>max</code> 控制年份范围。</p>
 
             <h4>3. 选择月</h4>
             <p>无初始值-内联：<span class="ui-input ui-month-input"><input type="month" min="2019-09" max="2050-10"></span></p>
             <pre>&lt;span class="ui-input ui-month-input"&gt;&lt;input type="month" min="2019-09" max="2050-10"&gt;&lt;/span&gt;</pre>
             有初始值-块级：<div class="ui-input ui-month-input"><input type="month" value="2015-07"></div>
             <pre>&lt;div class="ui-input ui-month-input"&gt;&lt;input type="month" value="2015-07"&gt;&lt;/div&gt;</pre>
-            <p><code>&lt;input&gt;</code>输入框的<code>type</code>属性设置为<code>month</code>即可，使用<code>min</code>和<code>max</code>控制月份范围。</p>
+            <p><code>&lt;input&gt;</code> 输入框的 <code>type</code> 属性设置为 <code>month</code> 即可，使用 <code>min</code> 和 <code>max</code> 控制月份范围。</p>
 
             <h4>4. 选择时间</h4>
             <p>小时分钟均可选择-无初始值-内联：<span class="ui-input ui-time-input"><input type="time" max="23:10"></span></p>
@@ -94,6 +96,7 @@
             <p>选择小时, 早8点至晚8点：<span class="ui-input ui-time-input"><input type="hour" value="09:20" min="8" max="20"></span></p>
             <pre>&lt;span class="ui-input ui-time-input"&gt;&lt;input type="hour" value="09:20" min="8" max="20"&gt;&lt;/span&gt;</pre>
 
+            <p class="tips">如果希望精确到秒，可以使用 Edge 主题的 DateTime.js。</p>
 
             <h4>5. 月份范围</h4>
             <p>无初始值-有范围限制-内联：<span class="ui-input ui-month-range-input"><input type="month-range" min="2018-03" max="2022-04"></span></p>
@@ -137,7 +140,7 @@
 
             <p>标记特殊的日子，例如国庆节，劳动节等。</p>
             <p><span class="ui-input ui-date-input"><input type="date" id="festival" value="2022-10-02"></span></p>
-            <p>日期下拉每个日期元素上会有一个<code>data-date</code>属性，其值为当前完整年月日，于是我们就通过CSS的属性选择器进行日期匹配，改变UI样式，显示特殊的日期。例如国庆节：</p>
+            <p>日期下拉每个日期元素上会有一个 <code>data-date</code> 属性，其值为当前完整年月日，于是我们就通过CSS的属性选择器进行日期匹配，改变 UI 样式，显示特殊的日期。例如国庆节：</p>
             <pre>.ui-date-item[data-date$="10-01"] {
     position: relative;
     color: transparent;
@@ -210,13 +213,38 @@ myDateTime.element.container.addEventListener('mouseover', function (event) {
     }
 });
 </pre>
+            <h4>9. 原始 UI</h4>
+            <p>
+                <input type="date" is-visible>
+            </p>
+            <pre>&lt;input type="date" <mark>is-visible</mark>&gt;</pre>
+
+            <p>设置 <code>is-visible</code> 属性。</p>
+            <p>IE 浏览器会表现为普通输入框。</p>
+
+            <h3>动态加载和删除</h3>
+
+            <button id="bi" class="ui-button" data-type="primary">添加</button>
+            <button id="br" class="ui-button" data-type="danger">删除</button>
+
+            <pre>&lt;button id="bi" class="ui-button" data-type="primary"&gt;添加&lt;/button&gt;
+&lt;button id="br" class="ui-button" data-type="danger"&gt;删除&lt;/button&gt;</pre>
+            <pre>bi.addEventListener('click', function () {
+    this.insertAdjacentHTML('afterend', '&lt;p&gt;&lt;span class="ui-input ui-date-input"&gt;&lt;input type="date"&gt;&lt;/span&gt;&lt;/p&gt;');
+});
+br.addEventListener('click', function () {
+    var prev = this.previousElementSibling;
+    if (prev.matches('p')) {
+        prev.remove();
+    }
+});</pre>
 
             <h3>语法和参数</h3>
-            <p>本组件基于HTML5原生表单特性实现。因此，大部分情况下，大家无需再使用额外的JS或自定义参数进行处理，只要写好上面示意的HTML代码就可以了，比传统实现轻松很多。</p>
-            <p>不同的<code>type</code>类型代码不同的时间选择框，例如<code>'date'</code>就是选择日期的。<code>min/max</code>为可以选择的时间范围。部分时间选择支持<code>step</code>, 比方说<code>type='time'</code>, 默认<code>step</code>的值是<code>5</code>，也就是分钟选择间隔是<code>5</code>分钟，如果您设置<code>step='10'</code>, 则可选择的时间间隔就是<code>10</code>分钟。</p>
+            <p>本组件基于 HTML5 原生表单特性实现。因此，大部分情况下，大家无需再使用额外的 JS 或自定义参数进行处理，只要写好上面示意的HTML代码就可以了，比传统实现轻松很多。</p>
+            <p>不同的 <code>type</code> 类型代码不同的时间选择框，例如 <code>'date'</code> 就是选择日期的。<code>min/max</code> 为可以选择的时间范围。部分时间选择支持 <code>step</code>, 比方说 <code>type='time'</code>，默认 <code>step</code> 的值是<code>5</code>，也就是分钟选择间隔是 <code>5</code> 分钟，如果您设置 <code>step='10'</code>，则可选择的时间间隔就是 <code>10</code> 分钟。</p>
             <h4>语法</h4>
             <pre>var myDateTime = new DateTime(element, options);</pre>
-            <p>实际开发使用不到上面语法，因为LuLu UI会自动识别日期输入框并初始化。</p>
+            <p>实际开发使用不到上面语法，因为 LuLu UI 会自动识别日期输入框并初始化。</p>
             <h4>参数</h4>
             <dl>
                 <dt>element</dt>
@@ -278,7 +306,7 @@ myDateTime.element.container.addEventListener('mouseover', function (event) {
 });</pre>
 
             <h3>实例对象的属性和方法</h3>
-            <p><code>myDateTime</code>就是日期选择实例对象，包含了下面这些属性和方法：</p>
+            <p><code>myDateTime</code> 就是日期选择实例对象，包含了下面这些属性和方法：</p>
             <pre>{
     element: {
         <span class="green">// 容器</span>
@@ -424,7 +452,6 @@ myDateTime.element.container.addEventListener('mouseover', function (event) {
 </html>
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"></script>
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/DateTime.js"></script>
-
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Tips.js"></script>
 <script>
 // 下面是事件触发测试
@@ -468,4 +495,14 @@ var myDateTime = new DateTime('#dateContainer');
         }
     });
 })();
+
+bi.addEventListener('click', function () {
+    this.insertAdjacentHTML('afterend', '<p><span class="ui-input ui-date-input"><input type="date"></span></p>');
+});
+br.addEventListener('click', function () {
+    var prev = this.previousElementSibling;
+    if (prev.matches('p')) {
+        prev.remove();
+    }
+});
 </script>

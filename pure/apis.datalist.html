@@ -37,6 +37,9 @@
     box-shadow: none;
     padding: 0;
 }
+#app {
+    height: 40px;
+}
 </style>
 
 <div class="main">
@@ -458,6 +461,43 @@ new Datalist('#inputEmail', {
             };
         });
     }
+});</pre>
+
+            <h3>is-datalist与初始化</h3>
+
+            <p>对于 Vue 或 Preact 等框架，直接获取 DOM 元素然后进行组件初始化是不太方便的，此时，可以使用 <code>is-datalist</code> 属性和 <code>connected</code> 自定义事件进行处理。</p>
+
+            <p>例如：</p>
+
+            <div id="app">
+                <template v-if="1">
+                    <input class="ui-input" :results="results" @connected="setParams" is-datalist>
+                </template>
+            </div>
+
+            <pre>&lt;div id="app"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;input class="ui-input" :results="results" @connected="setParams" <mark>is-datalist</mark>&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+            <pre>new Vue({
+  el: '#app',
+  data: {
+    results: 5
+  },
+  methods: {
+    setParams: function (event) {
+        new Datalist(event.target, {
+            data: [{
+                value: '蔡世豪',
+                id: 1
+            }, ..., {
+                value: '彭玉乐',
+                id: 7
+            }]
+        });
+    }
+  }
 });</pre>
 
             <h3>语法和参数</h3>
@@ -1022,5 +1062,43 @@ new Drop(eleListTrigger, eleListTarget, {
             input.click();
         }
     }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    results: 5
+  },
+  methods: {
+    setParams: function (event) {
+        new Datalist(event.target, {
+            data: [{
+                value: '蔡世豪',
+                id: 1
+            }, {
+                value: '李莲英',
+                id: 2
+            }, {
+                value: '高帆',
+                id: 3
+            }, {
+                value: '郑工',
+                id: 4
+            }, {
+                value: '陈芳',
+                id: 5
+            }, {
+                value: '李依琳',
+                id: 6
+            }, {
+                value: '彭玉乐',
+                id: 7
+            }]
+        });
+    }
+  }
 });
 </script>

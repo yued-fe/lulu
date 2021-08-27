@@ -41,20 +41,25 @@
 
             <h3>分页组件自定义元素</h3>
             <h4>基本的效果和使用</h4>
-            <p>无需初始化，直接使用自定义的<code>&lt;ui-pagination&gt;</code>元素即可。效果如下：</p>
+            <p>无需初始化，直接使用自定义的 <code>&lt;ui-pagination&gt;</code> 元素即可。效果如下：</p>
             <ui-pagination total="100"></ui-pagination>
             <p>HTML代码如下：</p>
             <pre>&lt;ui-pagination total="100"&gt;&lt;/ui-pagination&gt;</pre>
-            <p>支持<code>total</code>，<code>current</code>，<code>per</code>，<code>mode</code>，<code>href</code>这5个自定义参数。</p>
+            <p>支持 <code>total</code>，<code>current</code>，<code>per</code>，<code>mode</code>，<code>href</code> 这5个自定义参数。</p>
             <p>如果有点击事情需要处理，可以这样绑定：</p>
-            <pre>var elePagination = document.querySelector('ui-pagination');
-if (elePagination.data) {
-    elePagination.data.pagination.callback.click = function (eleClicked, current) {
+            <pre>var p = document.querySelector('ui-pagination');
+if (p.data) {
+    p.data.pagination.callback.click = function (eleClicked, current) {
         <span class="green">// this就是当前实例对象</span>
         console.log(current);
     };
 }</pre>
-            <p>自定义元素是一种快捷使用方式，少部分参数功能较弱，例如<code>href</code>参数默认不支持Function类型，需要通过暴露的<code>params</code>对象进行重置。</p>
+            <p>也可以使用自定义的 change 事件处理：</p>
+            <pre>p.addEventListener('change', function () {
+    console.log(this.data.pagination.params.current);                
+});</pre>
+
+            <p>自定义元素是一种快捷使用方式，少部分参数功能较弱，例如 <code>href</code> 参数默认不支持 Function 类型，需要通过暴露的 <code>params</code> 对象进行重置。</p>
 
             <h4>其他自定义参数测试</h4>
             <ui-pagination total="100" current="5" per="10" mode="short"></ui-pagination>
@@ -75,8 +80,8 @@ if (elePagination.data) {
     this.textContent = '修改成功';
     this.disabled = true;
 });</pre>
-            <h4>DOM插入与渲染测试</h4>
-            <p>同时测试下设置动态href链接地址（见代码红色高亮部分）。</p>
+            <h4>DOM 插入与渲染测试</h4>
+            <p>同时测试下设置动态 href 链接地址（见代码红色高亮部分）。</p>
             <p>
                 <button id="buttonInsert" class="ui-button" data-type="primary">插入一个&lt;ui-pagination&gt;分页元素</button>
             </p>
@@ -85,6 +90,17 @@ if (elePagination.data) {
             <pre>button.addEventListener('click', function () {
     this.parentElement.insertAdjacentHTML('afterend', '&lt;ui-pagination total="66" <mark>href="?pageid=${current}"</mark>&gt;&lt;/ui-pagination&gt;');
 });</pre>
+
+            <h3>is-pagination语法</h3>
+
+            <p>无需初始化，直接使用 <code>is-pagination</code> 属性也可以实现分页效果。效果如下：</p>
+            <div id="p0" data-total="100" data-current="5" data-per="10" is-pagination></div>
+            <div data-total="100" data-current="5" data-per="10" data-mode="short" is-pagination></div>
+            <p>代码示意：</p>
+            <pre>&lt;div data-total="100" data-current="5" data-per="10" <mark>is-pagination</mark>&gt;&lt;/div&gt;
+&lt;div data-total="100" data-current="5" data-per="10" data-mode="short" <mark>is-pagination</mark>&gt;&lt;/div&gt;</pre>
+
+            <p>可以看到，分页数据使用 <code>data-*</code> 属性设置。</p>
 
 
             <h3>分页组件实例方法构造</h3>
@@ -214,12 +230,12 @@ new Pagination(document.querySelector('#testPage2'), {
             <p>上面自定义<code>&lt;ui-pagination&gt;</code>元素添加<code>click</code>事件就是使用这个特性实现的。</p>
 
             <h4>其他说明</h4>
-            <p>如果需要手动刷新分页数据，建议使用实例的<code>refresh()</code>方法，而不是每次都<code>new</code>一个新的实例，避免不必要的内存开销。</p>
-            <p>在<code>refresh()</code>方法执行之前，我们需要改变实例的一些属性值，比方说，总数目或者每页数目，我们直接修改实例对象的属性值就可以了。</p>
+            <p>如果需要手动刷新分页数据，建议使用实例的 <code>refresh()</code> 方法，而不是每次都 <code>new</code> 一个新的实例，避免不必要的内存开销。</p>
+            <p>在 <code>refresh()</code> 方法执行之前，我们需要改变实例的一些属性值，比方说，总数目或者每页数目，我们直接修改实例对象的属性值就可以了。</p>
             <p>例如，每页的条目数从<code>15</code>变成<code>30</code>, 则：</p>
             <pre>myPage.params.per = 30;
 myPage.refresh();</pre>
-            <p>如果你只想获得<strong>分页字符串</strong>，可以使用<code>create()</code>方法，使用举例：</p>
+            <p>如果你只想获得<strong>分页字符串</strong>，可以使用 <code>create()</code> 方法，使用举例：</p>
             <pre>var objMyPage = new Pagination(null, {
   total: 400,
   current: 1,
@@ -336,6 +352,10 @@ console.log(objMyPage.create());</pre>
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Pagination.js"></script>
 <script>
+p0.addEventListener('change', function () {
+    console.log('选择分页是：', this.data.pagination.params.current);                
+});
+
 var eleInputTotal = document.querySelector('#inputTotal');
 var eleInputPer = document.querySelector('#inputPer');
 

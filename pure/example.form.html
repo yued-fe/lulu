@@ -168,7 +168,41 @@ beforeSend: function (xhr, formData) {
                 <dd>可选。Object。<code>optionValidate</code>参数和<a href="./api.validate.html">表单验证Validate</a>的<code>options</code>可选参数完全对应，不赘述。</dd>
             </dl>
 
-            <h4>实例对象</h4>
+            <h3>is-from语法</h3>
+            <p>设置了 <code>is-form</code> 属性的 <code>&lt;form&gt;</code> 元素在和页面建立联系的时候，会触发自定义的 <code>connected</code> 事件。</p>
+
+            <p>对于一些不太方便获取 DOM 元素的场景，可以使用这个语法进行 Form 实例的构造。</p>
+
+            <div id="app">
+                <template v-if="1">
+                    <form action="https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/submit.php" method="post" is-form @connected="setForm">
+                        <input type="tel" class="ui-input" name="tel" required>
+                        <button type="submit" class="ui-button" data-type="primary">点我</button>
+                    </form>
+                </template>
+            </div>
+
+            <p>代码如下所示：</p>
+            <pre>&lt;div id="app"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;form action="/submit" method="post" <mark>is-form</mark> @connected="setForm"&gt;
+            &lt;input type="tel" class="ui-input" name="tel" required&gt;
+            &lt;button type="submit" class="ui-button" data-type="primary"&gt;点我&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+            <pre>new Vue({
+    el: '#app',
+    methods: {
+        setForm: function (event) {
+            new Form(event.target, function () {
+                new Dialog().alert('请求成功');
+            });
+        }
+    }
+});</pre>
+
+            <h3>实例对象</h3>
             <pre>var myForm = new Form();</pre>
             <p>myForm暴露了一些属性和方法，如下：</p>
             <pre>{
@@ -349,4 +383,18 @@ var myForm = new Form('form', {
 });
 
 new Form('#formGet');
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+new Vue({
+    el: '#app',
+    methods: {
+        setForm: function (event) {
+            new Form(event.target, function () {
+                new Dialog().alert('请求成功');
+            });
+        }
+    }
+});
 </script>

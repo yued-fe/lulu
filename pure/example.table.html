@@ -387,6 +387,25 @@ eleBtnDelete.addEventListener('click', function () {
 }</pre>
             <p><strong>尤其需要注意的是上面加粗的<code>ajax</code>实例方法</strong>，当我们进行一些外部操作，然后希望刷新列表的时候，只要调用下这个示例方法（注意注意，无需再new一个实例），传入需要的Ajax参数就可以了。</p>
 
+            <h3>is-table语法</h3>
+
+            <p>设置了 <code>is-table</code> 属性的 <code>&lt;table&gt;</code> 元素在和页面建立联系的时候，会触发自定义的 <code>connected</code> 事件。</p>
+
+            <table class="ui-table" id="tb0" is-table>
+                <tbody><tr><td>空表格</td></tr></tbody>
+            </table>
+
+            <pre>&lt;table class="ui-table" id="tb0" is-table&gt;
+    &lt;tbody&gt;空表格&lt;/tbody&gt;
+&lt;/table&gt;</pre>
+            <pre>tb0.addEventListener('connected', function () {
+    new Table(this);
+});</pre>
+
+            <script>tb0.addEventListener('connected', function () {
+    new Table(this);
+});</script>
+
 
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>

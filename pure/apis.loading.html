@@ -60,8 +60,8 @@
             <p>其中：</p>
             <dl>
                 <dt>rows</dt>
-                <dd>表示loading提示元素的行数，和<code>&lt;textarea&gt;</code>元素应用，会有对应的高度表现，最大值是<code>15</code>。</dd>
-                <dd>如果我们想要手动设置<code>&lt;ui-loading&gt;</code>元素的高度，可以类似下面这样处理：</dd>
+                <dd>表示 loading 提示元素的行数，和 <code>&lt;textarea&gt;</code> 元素相同，会有对应的高度表现，最大值是<code>15</code>。</dd>
+                <dd>如果我们想要手动设置 <code>&lt;ui-loading&gt;</code> 元素的高度，可以类似下面这样处理：</dd>
                 <ui-loading class="some-classname" rows="auto"></ui-loading>
                 <dd>
                     <pre style="margin-top: 0;">&lt;ui-loading class="some-classname" rows="auto"&gt;&lt;/ui-loading&gt;</pre>
@@ -74,7 +74,7 @@
                 </dd>
 
                 <dt>size</dt>
-                <dd>表示loading圈圈图形的大小。目前支持<code>size</code>范围是<code>1-4</code>，默认值是<code>2</code>。
+                <dd>表示 loading 圈圈图形的大小。目前支持 <code>size</code> 范围是 <code>1-4</code>，默认值是<code>2</code>。
                     <p><strong>其中：</strong></p>
                 <ul>
                     <li><code>size="1"</code>对应宽高10px；</li>
@@ -97,29 +97,29 @@
             <ui-loading rows="5" size="4">正在加载中<ui-dot></ui-dot></ui-loading>
             <pre>&lt;ui-loading rows="5"&gt;正在加载中&lt;ui-dot&gt;&lt;/ui-dot&gt;&lt;/ui-loading&gt;</pre>
 
-            <p class="tips"><code>&lt;ui-loading&gt;</code>元素在IE9浏览器下默认是静态的，没有动画。可以通过引入Loading.js使IE9浏览器也会有动画效果。</p>
+            <p class="tips"><code>&lt;ui-loading&gt;</code>元素在 IE9 浏览器下默认是静态的，没有动画。可以通过引入 Loading.js 使 IE9 浏览器也会有动画效果。</p>
 
 
             <h3>普通元素呈现loading</h3>
 
-            <p>多用在使用JavaScript动态处理交互效果的场景下。</p>
+            <p>多用在使用 JavaScript 动态处理交互效果的场景下。</p>
 
             <div class="ui-loading" style="height: 100px;"></div>
             <pre>&lt;div class="ui-loading" style="height: 100px;"&gt;&lt;/div&gt;</pre>
 
-            <p>普通元素的loading效果通过添加类名<code>.ui-loading</code>实现。需要有指定的<code>height</code>高度值才有效果。支持简单的提示文本，例如：</p>
+            <p>普通元素的 loading 效果通过添加类名 <code>.ui-loading</code>实现。需要有指定的 <code>height</code> 高度值才有效果。支持简单的提示文本，例如：</p>
             <div class="ui-loading" style="height: 100px;">正在加载中<ui-dot></ui-dot></div>
             <pre>&lt;div class="ui-loading" style="height: 100px;"&gt;正在加载中&lt;ui-dot&gt;&lt;/ui-dot&gt;&lt;/div&gt;</pre>
 
-            <p>如果引入Loading.js，可以使用<code>element.loading = true</code>方法进行loading样式的添加，IE9浏览器loading图标也会有旋转动画。</p>
+            <p>如果引入 Loading.js，可以使用 <code>element.loading = true</code> 方法进行 loading 样式的添加，IE9 浏览器 loading 图标也会有旋转动画。</p>
 
 
             <h3>Loading效果JS增强</h3>
 
-            <p>Loading.js主要做了下面两件体验增强的事情：</p>
+            <p>Loading.js 主要做了下面两件体验增强的事情：</p>
             <ol>
-                <li>扩展了<code>loading</code>属性。可以设置按钮，或者其他元素为loading状态，可以取消loading状态，以及获取当前元素是否处于loading状态。</li>
-                <li>IE9浏览器下的loading图标也能不停地旋转。</li>
+                <li>扩展了 <code>loading</code> 属性。可以设置按钮，或者其他元素为 loading 状态，可以取消 loading 状态，以及获取当前元素是否处于 loading 状态。</li>
+                <li>IE9浏览器下的 loading 图标也能不停地旋转。</li>
             </ol>
 
             <h4>设置按钮loading</h4>
@@ -160,9 +160,9 @@
             <pre>button.addEventListener('click', function () {
     <mark>this.loading = true;</mark>
 });</pre>
-            <p>实际开发，建议先清除按钮元素里面的文本内容，再执行<code>button.loading = true</code>。</p>
+            <p>实际开发，建议先清除按钮元素里面的文本内容，再执行 <code>button.loading = true</code>。</p>
 
-            <p>当然，我们也可以直接把子元素替换为<code>&lt;ui-loading&gt;</code>元素。例如：</p>
+            <p>当然，我们也可以直接把子元素替换为 <code>&lt;ui-loading&gt;</code> 元素。例如：</p>
             <a href="javascript:" id="loadingMore2" class="loading-more-a">加载更多</a>
             <pre>button.addEventListener('click', function () {
     this.innerHTML = '&lt;ui-loading&gt;&lt;/ui-loading&gt;';
@@ -175,18 +175,18 @@ element.loading = true;
 <span class="green">// 取消loading效果</span>
 element.loading = false;</pre>
 
-            <p>经测试，不会和浏览器IMG元素和IFRAME元素的原生<code>loading</code>属性相冲突。</p>
+            <p>经测试，不会和浏览器 IMG 元素和 IFRAME 元素的原生<code>loading</code>属性相冲突。</p>
 
             <h3>Loading实例方法</h3>
-            <p>Loading.js中还包含了Loading实例方法。</p>
+            <p>Loading.js 中还包含了 Loading 实例方法。</p>
             <h4>语法和参数</h4>
             <pre>var myLoading = new Loading(element, options);</pre>
             <p>其中：</p>
             <dl>
                 <dt>element</dt>
-                <dd>必需。Element元素或者String选择器字符串。表示需要显示loading效果的元素或者容器元素。</dd>
+                <dd>必需。Element元素或者String选择器字符串。表示需要显示 loading 效果的元素或者容器元素。</dd>
                 <dt>options</dt>
-                <dd>可选。Object纯对象。支持的可选参数参见下表：</dd>
+                <dd>可选。Object 纯对象。支持的可选参数参见下表：</dd>
             </dl>
             <table class="ui-table">
                 <tr>
@@ -199,21 +199,21 @@ element.loading = false;</pre>
                     <td>observer</td>
                     <td>String</td>
                     <td>'childList'</td>
-                    <td>观察loading显示与隐藏的变动对象。支持参数值为<code>'childList'</code>和<code>'attributes'</code>。
-                        <p><code>'attributes'</code>指通过HTML属性变化显示loading，底层使用自定义的<code>element.loading</code>属性，通过改变元素的<code>class</code>类属性实现loading效果控制，适用于按钮等元素。不过对于按钮等元素，使用<code>new Loading()</code>构造太重了，建议直接使用<code>loading</code>属性进行控制。</p>
-                        <p><code>'childList'</code>指通过子元素列表变化显示loading。会自动清空<code>element</code>所有子元素，然后替换成<code>&lt;ui-loading&gt;</code>元素呈现loading效果。</p>
+                    <td>观察loading显示与隐藏的变动对象。支持参数值为 <code>'childList'</code> 和 <code>'attributes'</code>。
+                        <p><code>'attributes'</code> 指通过 HTML 属性变化显示 loading，底层使用自定义的 <code>element.loading</code> 属性，通过改变元素的 <code>class</code> 类属性实现 loading 效果控制，适用于按钮等元素。不过对于按钮等元素，使用 <code>new Loading()</code> 构造太重了，建议直接使用 <code>loading</code> 属性进行控制。</p>
+                        <p><code>'childList'</code>指通过子元素列表变化显示 loading。会自动清空 <code>element</code> 所有子元素，然后替换成 <code>&lt;ui-loading&gt;</code> 元素呈现 loading 效果。</p>
                     </td>
                 </tr>
                 <tr>
                     <td>size</td>
                     <td>Number</td>
                     <td>2</td>
-                    <td>loading图形的尺寸大小，支持范围1-4，每一号尺寸对应<code>10px</code>。</td>
+                    <td>loading 图形的尺寸大小，支持范围 1-4，每一号尺寸对应 <code>10px</code>。</td>
                 </tr>
             </table>
 
             <h4>使用案例</h4>
-            <p>例如上面直接把子元素替换为<code>&lt;ui-loading&gt;</code>元素的案例。可以使用<code>new Loading()</code>构造方法：</p>
+            <p>例如上面直接把子元素替换为 <code>&lt;ui-loading&gt;</code>元素的案例。可以使用 <code>new Loading()</code> 构造方法：</p>
             <a href="javascript:" id="loadingMore3" class="loading-more-a">加载更多</a>
             <pre>button.addEventListener('click', function () {
     new Loading(this);
@@ -226,7 +226,7 @@ element.loading = false;</pre>
     <span class="green">// loading完成后执行</span>
     myLoading.hide();
 });</pre>
-            <p>其中，<code>hide()</code>方法不仅可以隐藏<code>&lt;ui-loading&gt;</code>元素，还可以把初始HTML还原。</p>
+            <p>其中，<code>hide()</code> 方法不仅可以隐藏 <code>&lt;ui-loading&gt;</code> 元素，还可以把初始 HTML 还原。</p>
 
             <h4>实例对象</h4>
             <p><code>myLoading</code>就是返回的实例对象，暴露了以下属性和方法：</p><pre>{

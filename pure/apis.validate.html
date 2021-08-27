@@ -49,11 +49,11 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
             <h3>基础功能演示</h3>
             <p>基于HTML5规范的表单验证交互组件。依赖ErrorTip组件。</p>
             <ul>
-                <li>内置type类型包括：<code>email</code>, <code>tel</code>, <code>url</code>, <code>zipcode</code>, <code>number</code>, <code>date</code>, <code>hour</code>, <code>minute</code>, <code>time</code>, <code>date-range</code>以及<code>month-range</code>。在高版本IE浏览器的向下兼容模式下，会自动将一些type直接text化，这在原生浏览器下是没有问题的。真实用户场景不会存在此问题，如果大家实在拗不过测试同学，可以在<code>type</code>类型后面加个空格，例如<code>type='email '</code>. 这些类型输入框默认内置正则表达式。</li>
+                <li>内置type类型包括：<code>email</code>，<code>tel</code>，<code>url</code>，<code>zipcode</code>，<code>number</code>，<code>date</code>，<code>hour</code>，<code>minute</code>，<code>time</code>，<code>date-range</code> 以及 <code>month-range</code>。在高版本 IE 浏览器的向下兼容模式下，会自动将一些 type 直接 text 化，这在原生浏览器下是没有问题的。真实用户场景不会存在此问题，如果大家实在拗不过测试同学，可以在<code>type</code>类型后面加个空格，例如<code>type='email '</code>. 这些类型输入框默认内置正则表达式。</li>
                 <li>自定义正则表达式，使用原生HTML5属性<code>pattern</code>. 例如：<code>pattern="^\d{16}$"</code>.</li>
                 <li>范围超出，如数值输入，range数值范围选择，以及日期和时间的起止限制，使用原生<code>min</code>, <code>max</code>, <code>step</code>属性。</li>
                 <li>内容长度限制，使用原生<code>maxlength</code>, 以及<code>minlength</code>。本组件会自动选择超出部分的文字。</li>
-                <li>内置计数和计数验证功能，只要使用UI组件通用的HTML和类名结构(可参考文本框和文本域静态UI组件相关文档)。中英文计数规则使用<code>lang</code>属性控制。没有<code>lang</code>属性，表示中英文<code>1:1</code>; <code>lang="en"</code>表示后面的数值是字符数，1个汉字等于2个英文字符, <code>lang="zh"</code>表示后面的数值是汉字数，2个字母等于1个汉字。</li>
+                <li>内置计数和计数验证功能，只要使用 U 组件通用的HTML和类名结构(可参考文本框和文本域静态 UI 组件相关文档)。中英文计数规则使用 <code>lang</code> 属性控制。没有 <code>lang</code> 属性，表示中英文<code>1:1</code>; <code>lang="en"</code>表示后面的数值是字符数，1个汉字等于2个英文字符, <code>lang="zh"</code> 表示后面的数值是汉字数，2个字母等于1个汉字。</li>
                 <li>支持指定提示信息和自定义验证方法，具体<a href="#labelCount">参见这里</a>。</li>
             </ul>
 
@@ -492,6 +492,37 @@ button.addEventListener('click', function () {
                 </li>
             </ol>
 
+            <h3>is-validate语法</h3>
+
+            <p>如果表单元素设置了布尔属性 <code>is-validate</code>，则该表单元素和页面建立联系的时候会触发自定义的 connected 事件，此时，可以对当前表单元素进行事件绑定处理，此语法往往和 Vue、Preact等框架一起使用。</p>
+
+            <div id="app">
+                <template v-if="1">
+                    <form is-validate @connected="setValidate">
+                        <input type="search" class="ui-input" required> <button type="submit" class="ui-button" data-type="primary">点我</button>
+                    </form>
+                </template>
+            </div>
+
+            <p>代码如下所示：</p>
+            <pre>&lt;div id="app"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;form is-validate @connected="setValidate"&gt;
+            &lt;input type="search" class="ui-input" required&gt; &lt;button type="submit" class="ui-button" data-type="primary"&gt;点我&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+            <pre>new Vue({
+    el: '#app',
+    methods: {
+        setValidate: function (event) {
+            new Validate(event.target, function (form) {
+                new Dialog().alert('搜索内容是：' + form.querySelector('input').value);
+                form.reset();
+            });
+        }
+    }
+});</pre>
             <h3>document.validate对象</h3>
 
             <p><code>document.validate</code>对象和Validate组件的核心，或者说Validate组件是基于<code>document.validate</code>对象封装而来。包括对DOM元素重置的</p>
@@ -623,6 +654,8 @@ typeMismatch: false
 valueMissing: false
 <span class="green">// 验证通过与否</span>
 valid: true</pre></dd>
+                <dt>Element.validationMessage</dt>
+                <dd>返回当前表单控件元素的验证提示信息，如果是空字符串，则表示验证无误</dd>
             </dl>
             <h4>方法</h4>
             <dl>
@@ -1106,5 +1139,20 @@ document.querySelectorAll('article a[href^="#"]').forEach(function (eleLink) {
             event.preventDefault();
         }
     });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+new Vue({
+    el: '#app',
+    methods: {
+        setValidate: function (event) {
+            new Validate(event.target, function (form) {
+                new Dialog().alert('搜索内容是：' + form.querySelector('input').value);
+                form.reset();
+            });
+        }
+    }
 });
 </script>

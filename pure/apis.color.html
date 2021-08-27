@@ -44,31 +44,37 @@
             <pre>&lt;script src="https://qidian.gtimg.com/c/=/lulu/pure/js/common/ui/Follow.js,/lulu/pure/js/common/ui/Drop.js,/lulu/pure/js/common/ui/Color.js"&gt;&lt;/script&gt;</pre>
 
             <h3>基础使用示意</h3>
-            <p>基于HTML5 <code>type="color"</code>区域选择框实现的颜色选择组件。</p>
+            <p>基于 HTML5 <code>type="color"</code> 区域选择框实现的颜色选择组件。</p>
 
             <h4>基本使用示意</h4>
             <p><span id="CC" class="vm">颜色为：</span><input type="color" id="colorPicker" class="ui-color-input"></p>
 
-            <p>无需任何初始化，只要输入框的type类型为<code>color</code>就可以了，如下示意：</p>
+            <p>无需任何初始化，只要输入框的 type 类型为 <code>color</code> 就可以了，如下示意：</p>
             <pre>&lt;input type="color" class="ui-color-input"&gt;</pre>
             <p>默认颜色为纯黑色。</p>
 
             <h4>指定初始颜色</h4>
-            <p>我们也可以指定初始<code>value</code>颜色值，使用<code>#RRGGBB</code>格式，例如，初始颜色为红色，则代码如下：</p>
+            <p>我们也可以指定初始 <code>value</code> 颜色值，使用 <code>#RRGGBB</code> 格式，例如，初始颜色为红色，则代码如下：</p>
             <pre>&lt;input type="color" class="ui-color-input" <mark>value="#ff0000"</mark>&gt;</pre>
             <p>效果为：<input type="color" class="ui-color-input" value="#ff0000"></p>
 
             <h4>颜色变化事件</h4>
-            <p>直接给<code>type='color'</code>输入框绑定原生的<code>'change'</code>事件就可以了。</p>
-            <p>例如“基本使用示意”那里标题跟着变色的JS代码为：</p>
+            <p>直接给 <code>type='color'</code> 输入框绑定原生的 <code>'change'</code> 事件就可以了。</p>
+            <p>例如“基本使用示意”那里标题跟着变色的 JS 代码为：</p>
             <pre>input.addEventListener('change', function () {
     title.style.color = this.value;
 });</pre>
 
+            <h4>使用原生时间选择器</h4>
+            <p>设置 <code>is-visible</code> 属性即可。</p>
+            <p>原始 UI：<input type="color" is-visible></p>
+            <pre>&lt;input type="color" is-visible&gt;</pre>
+            <p>在 IE 浏览器下会表现为普通输入框。</p>
+
             <h3>深入应用示意</h3>
 
             <h4>动态颜色赋值</h4>
-            <p>如果在颜色选择器已经完成初始化之后，想要使用JavaScript代码修改显示的颜色，则可以使用实例对象暴露的<code>value()</code>方法。例如：</p>
+            <p>如果在颜色选择器已经完成初始化之后，想要使用 JavaScript 代码修改显示的颜色，则可以使用实例对象暴露的 <code>value()</code> 方法。例如：</p>
             <p><input type="color" id="myColor" class="ui-color-input"> <button id="colorButton" class="ui-button" data-type="primary">变成红色</button></p>
             <p>HTML和JS代码如下：</p>
             <pre>&lt;input type="color" id="input" class="ui-color-input"&gt;
@@ -79,9 +85,9 @@ button.addEventListener('click', function () {
     // input.data.color就是存储在输入框DOM元素对象上的实例方法</span>
     input.data.color.value('#ff0000');
 });</pre>
-            <p>本Color组件也支持颜色关键字赋值，例如：</p>
-            <p><input type="color" id="myColor2" class="ui-color-input"> <button id="colorButton2" class="ui-button" data-type="primary">变成mediumseagreen</button></p>
-            <p>HTML和JS代码如下：</p>
+            <p>本 Color 组件也支持颜色关键字赋值，例如：</p>
+            <p><input type="color" id="myColor2" class="ui-color-input"> <button id="colorButton2" class="ui-button" data-type="primary">变成 mediumseagreen</button></p>
+            <p>HTML 和 JS 代码如下：</p>
             <pre>&lt;input type="color" id="input2" class="ui-color-input"&gt;
 &lt;button id="button2"&gt;变成mediumseagreen&lt;/button&gt;</pre>
             <pre><span class="green">// 点击按钮</span>
@@ -90,6 +96,21 @@ button2.addEventListener('click', function () {
     input2.data.color.value('mediumseagreen');
 });</pre>
 
+            <h3>动态插入删除</h3>
+
+            <button class="ui-button" id="bi" data-type="primary">点击插入</button>
+            <button class="ui-button" id="br" data-type="danger">点击删除</button>
+            <pre>&lt;button class="ui-button" id="bi" data-type="primary"&gt;点击插入&lt;/button&gt;
+&lt;button class="ui-button" id="br" data-type="danger"&gt;点击删除&lt;/button&gt;</pre>
+            <pre>bi.addEventListener('click', function () {
+    this.insertAdjacentHTML('afterend', '&lt;p&gt;&lt;input type="color"&gt;&lt;/p&gt;');
+});
+br.addEventListener('click', function () {
+    var prev = this.previousElementSibling;
+    if (prev.matches('p')) {
+        prev.remove();
+    }
+});</pre>
 
             <h3>语法和参数</h3>
             <p>语法如下：</p>
@@ -97,9 +118,9 @@ button2.addEventListener('click', function () {
             <p>其中：</p>
             <dl>
                 <dt>element</dt>
-                <dd>必需。Element元素对象或者String元素选择器。</dd>
+                <dd>必需。Element 元素对象或者 String 元素选择器。</dd>
                 <dt>options</dt>
-                <dd>可选。Object纯对象。支持可选参数见下表：</dd>
+                <dd>可选。Object 纯对象。支持可选参数见下表：</dd>
             </dl>
             <table width="100%" class="ui-table">
               <tr>
@@ -145,10 +166,10 @@ button2.addEventListener('click', function () {
               </tr>
             </table>
 
-            <p>本组件依赖Drop.js组件。</p>
+            <p>本组件依赖 Drop.js 组件。</p>
 
             <h4>关于实例对象</h4>
-            <p>myColor就是返回的实例对象，暴露了以下属性和方法：</p>
+            <p>myColor 就是返回的实例对象，暴露了以下属性和方法：</p>
             <pre>{
     element: {
         <span class="green">// 输入框</span>
@@ -190,7 +211,7 @@ button2.addEventListener('click', function () {
     hide: function() {},
     ...
 }</pre>
-            <p>本组件由于默认就执行，因为没有调用<code>new Color()</code>方法的机会，此时<code>myColor</code>可以通过输入框元素获取。假设输入框元素DOM对象是<code>input</code>，则此时<code>myColor</code>可以使用下面方法获取：</p>
+            <p>本组件由于默认就执行，因为没有调用 <code>new Color()</code> 方法的机会，此时 <code>myColor</code> 可以通过输入框元素获取。假设输入框元素 DOM 对象是 <code>input</code>，则此时 <code>myColor</code> 可以使用下面方法获取：</p>
             <pre>myColor = input.data.color;</pre>
 
 
@@ -326,4 +347,13 @@ eleColorButton2.addEventListener('click', function () {
 });
 
 
+bi.addEventListener('click', function () {
+    this.insertAdjacentHTML('afterend', '<p><input type="color"></p>');
+});
+br.addEventListener('click', function () {
+    var prev = this.previousElementSibling;
+    if (prev.matches('p')) {
+        prev.remove();
+    }
+});
 </script>
