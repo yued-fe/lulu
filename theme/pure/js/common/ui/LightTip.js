@@ -5,7 +5,7 @@
  * @Created: 15-06-25
  * @Update: 19-09-13 @ziven27 [去jQuery]
  */
-
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -14,9 +14,11 @@
     } else {
         global.LightTip = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 顶部的请提示效果

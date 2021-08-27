@@ -1110,7 +1110,9 @@
         };
 
         // 遍历页面上匹配的元素
-        funSyncRefresh(document.querySelectorAll(strSelector));
+        setTimeout(function () {
+            funSyncRefresh(document.querySelectorAll(strSelector));
+        }, 1);
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {

@@ -4,6 +4,8 @@
  * @version
  * Created: 17-06-13
  */
+
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -12,9 +14,11 @@
     } else {
         factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
     var doc = document;
     var win = window;
 
@@ -76,8 +80,7 @@
         var d = 0;
         var e;
 
-        for (d; d < a.length; d += 1) a.charCodeAt(d) >= 55296 && a.charCodeAt(d) <= 56319 ? (e = (65536 + 1024 * (Number(a.charCodeAt(d)) - 55296) + Number(a.charCodeAt(d + 1)) - 56320).toString(16), d += 1) : e = a.charCodeAt(d).toString(16),
-            c += b + e;
+        for (d; d < a.length; d += 1) a.charCodeAt(d) >= 55296 && a.charCodeAt(d) <= 56319 ? (e = (65536 + 1024 * (Number(a.charCodeAt(d)) - 55296) + Number(a.charCodeAt(d + 1)) - 56320).toString(16), d += 1) : e = a.charCodeAt(d).toString(16), c += b + e;
 
         return c.substr(b.length);
     };
@@ -148,7 +151,6 @@
         doc.hasTipsShow = null;
     };
 
-
     // IE9+
     doc.addEventListener('keydown', function (event) {
         // 当前元素是否是可输入的input或者textarea
@@ -187,9 +189,13 @@
             if (isTargetInputable) {
                 return;
             }
+
             // focus高亮
             if (arrElesOwnAccesskey[indexMatch]) {
-                arrElesOwnAccesskey[indexMatch].focus();
+                // 延时目的是让后面的键盘高亮逻辑可以顺利执行
+                setTimeout(function () {
+                    arrElesOwnAccesskey[indexMatch].focus();
+                }, 1);
                 // 阻止内容输入
                 event.preventDefault();
             }
@@ -198,22 +204,11 @@
             if (event.keyCode == 191 && !isTargetInputable) {
                 doc.hasTipsShow ? removeTips() : tips(arrElesOwnAccesskey);
             }
-        // 3. 增加accesskey生效的前置键按下的提示行为
-        } else if (event.altKey == keyPrefix.altKey && event.shiftKey == keyPrefix.shiftKey && event.ctrlKey == keyPrefix.ctrlKey) {
-            if (indexMatch == -1) {
-                event.preventDefault();
-                doc.hasTipsShow ? removeTips() : tips(arrElesOwnAccesskey);
-            } else {
-                removeTips();
-            }
-
-            // 4. IE浏览器和其他浏览器行为一致的处理
-            if (browser == 'ie' && arrElesOwnAccesskey[indexMatch] && !isTargetInputable) {
-                // click行为触发
-                arrElesOwnAccesskey[indexMatch].click();
-            }
+        } else if (arrElesOwnAccesskey[indexMatch] && !isTargetInputable && (browser == 'ie' || browser == 'moz') && event.altKey && !event.shiftKey && !event.ctrlKey) {
+            arrElesOwnAccesskey[indexMatch].click();
         }
     });
+
     doc.addEventListener('mousedown', function () {
         removeTips();
     });
