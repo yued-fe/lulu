@@ -6,6 +6,8 @@
  * @edit:    19-09-10 native js rewrite
  */
 
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -14,9 +16,11 @@
     } else {
         global.Pagination = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 分页组件
@@ -70,8 +74,12 @@
             // 参数还可以取自element元素
             var objParamsFromElement = {};
             for (var keyParam in defaults) {
-                if (elePagination.hasAttribute(keyParam)) {
-                    objParamsFromElement[keyParam] = element.getAttribute(keyParam);
+                var strAttr = element.getAttribute(keyParam);
+                if (typeof strAttr != 'string') {
+                    strAttr = elePagination.dataset[keyParam];
+                }
+                if (typeof strAttr == 'string') {
+                    objParamsFromElement[keyParam] = strAttr;
                 }
             }
 
@@ -143,8 +151,6 @@
         });
     };
 
-
-
     /**
      * 分页相关的事件处理
      * @return {[type]} [description]
@@ -168,6 +174,13 @@
             // 改变全局暴露的current值
             this.params.current = numCurrent * 1;
 
+            // 外部的 HTML 属性也同步
+            if (elePagination.hasAttribute('current')) {
+                elePagination.setAttribute('current', numCurrent);
+            } else if (elePagination.hasAttribute('data-current')) {
+                elePagination.setAttribute('data-current', numCurrent);
+            }
+
             // 当前的类名，onClick回调可以准确识别点击DOM元素
             var strClassName = eleClicked.className;
 
@@ -176,7 +189,6 @@
 
             // 此时由于HTML刷新，原来的eleClicked元素已经不复存在
             // 因此需要重新获取一遍
-
             if (/prev/.test(strClassName)) {
                 eleClicked = elePagination.querySelector('.' + CL.add('prev'));
             } else if (/next/.test(strClassName)) {
@@ -200,7 +212,8 @@
 
             this.callback.click.call(this, eleClicked, this.params.current);
 
-
+            // 触发自定义事件
+            elePagination.dispatchEvent(new CustomEvent('change'));
         }.bind(this));
     };
 
@@ -356,12 +369,13 @@
     };
 
     /**
-     * 支持自定义的<lu-pagination>元素
+     * 支持自定义的<ui-pagination>元素
      * @return {[type]}   [description]
      */
     var funAutoInitAndWatching = function () {
+        var strSelector = 'ui-pagination, [is-pagination]';
         // 遍历页面上所有的<ui-pagination>元素
-        document.querySelectorAll('ui-pagination').forEach(function (elePagination) {
+        document.querySelectorAll(strSelector).forEach(function (elePagination) {
             new Pagination(elePagination);
         });
 
@@ -370,7 +384,7 @@
         }
         // 同步更新分页内容的方法
         var funSyncRefresh = function (node) {
-            if (node.nodeType != 1 || node.matches('ui-pagination') == false) {
+            if (node.nodeType != 1 || node.matches(strSelector) == false) {
                 return;
             }
             // 元素
@@ -394,7 +408,13 @@
                 mutationsList.forEach(function (mutation) {
                     if (mutation.type == 'childList') {
                         mutation.addedNodes.forEach(function (eleAdd) {
-                            funSyncRefresh(eleAdd);
+                            if (eleAdd.matches && eleAdd.matches(strSelector)) {
+                                funSyncRefresh(eleAdd);
+                            } else if (eleAdd.querySelector) {
+                                eleAdd.querySelectorAll(strSelector).forEach(function (elePagination) {
+                                    funSyncRefresh(elePagination);
+                                });
+                            }
                         });
                     }
                 });

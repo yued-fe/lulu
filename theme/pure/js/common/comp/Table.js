@@ -7,6 +7,7 @@
  *           19-12-03 ES5原生语法支持
 **/
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Drop = require('../ui/Drop');
@@ -18,9 +19,11 @@
     } else {
         global.Table = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Drop = this.Drop;
     var Pagination = this.Pagination;
     var Loading = this.Loading;
@@ -173,7 +176,8 @@
         };
 
         // 参数合并
-        var objParams = Object.assign({}, defaults, options || {});
+        options = options || {};
+        var objParams = Object.assign({}, defaults, options);
 
         // 分页合并
         if (options.pageOptions) {
@@ -760,6 +764,67 @@
 
         return this;
     };
+
+    // 对is-table属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'table[is-table]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Table;
 }));

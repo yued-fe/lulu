@@ -7,7 +7,7 @@
  * @edit   17-06-16     keyboard support
  *         19-09-23    pure theme
 **/
-[type="range"],
+[type="range"]:not([is-visible]),
 .ui-range-input {
     height: 20px;
     margin: 0;

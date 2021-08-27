@@ -4,6 +4,8 @@
  * @version
  * Created: 16-06-03
  */
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Drop = require('./Drop');
@@ -13,9 +15,11 @@
     } else {
         global.Color = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     // require
     var Drop = this.Drop;
     if (typeof require == 'function' && !Drop) {
@@ -143,8 +147,8 @@
             return '#' + rgb.repeat(Math.ceil(6 / rgb.length)).slice(0, 6);
         }
 
-        // 如果是rgb(a)色值
-        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        // 如果是rgb(a)色值，防止不合法的值报错
+        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i) || [];
         var hex = function (x) {
             return ('0' + parseInt(x, 10).toString(16)).slice(-2);
         };
@@ -182,6 +186,11 @@
 
         // el需要是原生的type=color的输入框
         if (!element) {
+            return;
+        }
+
+        // 必须是透明度为0
+        if (window.getComputedStyle(element).opacity !== '0') {
             return;
         }
 
@@ -432,7 +441,8 @@
 
         // 输入框事件
         eleField.addEventListener('input', function () {
-            var value = this.value;
+            // 获取面板中的input
+            var value = this.element.field.value;
             if (/^[0-9A-F]{6}$/i.test(value)) {
                 this.match();
             } else if (/^[0-9A-F]{3}$/i.test(value)) {
@@ -445,12 +455,12 @@
                 var strValue = eleField.value;
                 var strOldvalue = strValue;
                 if (strValue) {
-                    strValue = $.rgbToHex('#' + strValue);
+                    strValue = funRgbToHex('#' + strValue);
                     if (strValue != strOldvalue) {
                         // 支持输入#000
                         eleField.value = strValue;
                     }
-                    this.value('#' + strValue);
+                    this.value(strValue);
                 }
                 this.hide();
             }
@@ -459,6 +469,7 @@
         // 滑块拖动事件
         var objPosArrow = {};
         var objPosCircle = {};
+
         // 三角上下
         eleArrow.addEventListener(objEventType.start, function (event) {
             event.preventDefault();
@@ -469,6 +480,65 @@
             objPosArrow.pageY = event.pageY;
             objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
         });
+
+        eleFill.addEventListener(objEventType.start, function (event) {
+            event.preventDefault();
+
+            // 5. 渐变色的覆盖层
+            // offsetLeft, offsetTop
+            var eleTarget = event.target;
+            var objRect = eleTarget.getBoundingClientRect();
+            var numOffsetTop = event.pageY - window.pageYOffset - objRect.top;
+
+            eleArrow.style.top = numOffsetTop + 'px';
+
+            if (event.touches && event.touches.length) {
+                event = event.touches[0];
+            }
+            objPosArrow.pageY = event.pageY;
+            objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
+
+            // 赋值，此次赋值，无需重定位
+            eleField.value = this.getValueByStyle().replace('#', '');
+
+            this.match(false);
+        }.bind(this));
+
+        // 圆圈移动
+        eleCircle.parentElement.querySelectorAll('a').forEach(function (eleRegion) {
+            eleRegion.addEventListener(objEventType.start, function (event) {
+                event.preventDefault();
+                if (event.touches && event.touches.length) {
+                    event = event.touches[0];
+                }
+
+                objPosCircle.pageY = event.pageY;
+                objPosCircle.pageX = event.pageX;
+                // 当前位移位置
+                eleCircle.style.left = event.offsetX + 'px';
+                eleCircle.style.top = event.offsetY + 'px';
+                objPosCircle.top = parseFloat(event.offsetY);
+                objPosCircle.left = parseFloat(event.offsetX);
+
+                // 最大位置范围
+                var objMaxPos = {
+                    top: eleCircle.parentElement.clientHeight,
+                    left: eleCircle.parentElement.clientWidth
+                };
+                // 根据目标位置位置和变色
+                var numColorH = event.offsetX / objMaxPos.left;
+                var strColorS = 1 - event.offsetY / objMaxPos.top;
+
+                var strHsl = 'hsl(' + [360 * numColorH, 100 * strColorS + '%', '50%'].join() + ')';
+
+                eleCircle.style[BGCOLOR] = strHsl;
+
+                // 赋值，此次赋值，无需重定位
+                eleField.value = this.getValueByStyle().replace('#', '');
+
+                this.match(false);
+            }.bind(this));
+        }.bind(this));
 
         // 圆圈移动
         eleCircle.addEventListener(objEventType.start, function (event) {
@@ -518,6 +588,8 @@
                     top: objPosCircle.top + (event.pageY - objPosCircle.pageY),
                     left: objPosCircle.left + (event.pageX - objPosCircle.pageX)
                 };
+
+                // 最大位置范围
                 var objMaxPos = {
                     top: eleCircle.parentElement.clientHeight,
                     left: eleCircle.parentElement.clientWidth
@@ -1060,31 +1132,40 @@
         // 遍历页面上的range元素
         var strSelector = 'input[type="color"]';
 
-        document.querySelectorAll(strSelector).forEach(function (eleColorInput) {
-            if (!(eleColorInput.data && eleColorInput.data.color) && window.getComputedStyle(eleColorInput).opacity == '0') {
-                new Color(eleColorInput);
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
+                return;
             }
-        });
+            if (!nodes.forEach) {
+                if (nodes.matches && nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
+            }
+
+            if (!nodes.length) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    if (action == 'remove' && node.data && node.data.color) {
+                        node.data.color.element.track.remove();
+                        node.data.color.element.container.remove();
+                    } else if (!node.data || !node.data.color) {
+                        new Color(node);
+                    }
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
             return;
         }
-
-        var funSyncRefresh = function (node, action) {
-            if (node.nodeType != 1) {
-                return;
-            }
-
-            if (node.matches(strSelector)) {
-                if (action == 'remove' && node.data && node.data.color) {
-                    node.data.color.element.track.remove();
-                    node.data.color.element.container.remove();
-                } else if (action == 'add' && window.getComputedStyle(node).opacity == '0') {
-                    new Color(node);
-                }
-            }
-        };
 
         // DOM Insert自动初始化
         // IE11+使用MutationObserver
@@ -1131,6 +1212,11 @@
     } else {
         window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
     }
+
+    // 颜色转换静态方法暴露
+    Color.funHexToHsl = funHexToHsl;
+    Color.funHslToHex = funHslToHex;
+    Color.funRgbToHex = funRgbToHex;
 
     return Color;
 }));

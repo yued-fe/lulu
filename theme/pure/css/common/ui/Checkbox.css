@@ -6,7 +6,7 @@
  * @create 15-06-18
  * @edit 17-06-14    focusable
 **/
-input[type="checkbox"]:not(.ui-visible) {
+input[type="checkbox"]:not([ui-visible]) {
     position: absolute;
     opacity: 0;
     width: 20px;
@@ -15,7 +15,7 @@ input[type="checkbox"]:not(.ui-visible) {
     z-index: -1;
 }
 
-.ui-visible + .ui-checkbox {
+[ui-visible] + .ui-checkbox {
     display: none;
 }
 

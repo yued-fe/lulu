@@ -6,6 +6,7 @@
  * @editd:   19-11-12
  */
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -15,9 +16,11 @@
     } else {
         global.DateTime = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -87,7 +90,7 @@
             eleTrigger = document.querySelector(element);
         }
 
-        if (!eleTrigger) {
+        if (!eleTrigger || eleTrigger.hasAttribute('is-visible')) {
             return this;
         }
 
@@ -162,11 +165,13 @@
         // 下拉元素
         var eleLabel = document.createElement('label');
         eleLabel.classList.add(CL.date('arrow'));
-        // eleLabel.setAttribute('for', strId);
 
         // 插入到文本框的后面
-        eleInput.insertAdjacentElement('afterend', eleLabel);
-        eleInput.setAttribute('lang', 'zh-Hans-CN');
+        if (getComputedStyle(eleTrigger).position != 'static') {
+            eleInput.insertAdjacentElement('afterend', eleLabel);
+        } else {
+            eleTrigger = eleInput;
+        }
 
         // 初始值
         var strInitValue = eleInput.value;
@@ -1966,19 +1971,37 @@
             return;
         }
 
-        var funSyncRefresh = function (node) {
-            if (node.nodeType != 1 || node.tagName != 'INPUT' || (node.data && node.data.dateTime)) {
+        var strSelector = 'input[type^="date"],input[type^="year"],input[type^="month"],input[type^="time"],input[type^="hour"],input[type^="minute"]';
+
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
                 return;
             }
 
-            var strType = node.getAttribute('type');
-            if (/^date|year|month|time|hour|minute/.test(strType)) {
-                new DateTime(node);
+            if (nodes.matches && nodes.querySelector) {
+                if (nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
             }
+
+            if (!nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches) {
+                    if (action == 'remove' && node.data && node.data.dateTime) {
+                        node.data.dateTime.element.container.remove();
+                    } else if (!node.data || !node.data.color) {
+                        new DateTime(node);
+                    }
+                }
+            });
         };
 
-        document.querySelectorAll('input[type]').forEach(funSyncRefresh);
-
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
@@ -1991,13 +2014,12 @@
         if (window.MutationObserver) {
             var observerSelect = new MutationObserver(function (mutationsList) {
                 mutationsList.forEach(function (mutation) {
-                    var nodeAdded = mutation.addedNodes;
-
-                    if (nodeAdded.length) {
-                        nodeAdded.forEach(function (eleAdd) {
-                            funSyncRefresh.call(mutation, eleAdd);
-                        });
-                    }
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        funSyncRefresh.call(mutation, eleAdd);
+                    });
+                    mutation.removedNodes.forEach(function (eleRemove) {
+                        funSyncRefresh.call(mutation, eleRemove, 'remove');
+                    });
                 });
             });
 
@@ -2010,6 +2032,11 @@
                 // 插入节点
                 funSyncRefresh(event.target);
             });
+            document.body.addEventListener('DOMNodeRemoved', function (event) {
+                // 删除节点
+                // 这里方法执行的时候，元素还在页面上
+                funSyncRefresh(event.target, 'remove');
+            });
         }
     };
 
@@ -2018,7 +2045,6 @@
     } else {
         window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
     }
-
 
     return DateTime;
 }));

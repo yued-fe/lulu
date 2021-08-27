@@ -6,6 +6,8 @@
  * @edit:    17-06-19
  */
 
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -15,10 +17,12 @@
     } else {
         global.Tips = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
-        
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -195,7 +199,7 @@
         // 设置定时器对象
         var timerTips;
         // 如果是不支持hover行为的浏览器，hover变click
-        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone'); 
+        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone');
         if (isHover && objParams.eventType == 'hover') {
             objParams.eventType = 'click';
         }
@@ -310,17 +314,17 @@
         // 关键字参数与位置
         if (strAlign == 'center') {
             strPosition = '5-7';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '7-5';
             }
         } else if (strAlign == 'left') {
             strPosition = '1-4';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '4-1';
             }
         } else if (strAlign == 'right') {
             strPosition = '2-3';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '3-2';
             }
         } else if (/^\d-\d$/.test(strAlign)) {
@@ -376,9 +380,11 @@
         return this;
     };
 
+    var strSelector = '.' + CL + ', .jsTips,[is-tips]';
+
     // 自动初始化.ui-tips和.jsTips类名元素
     window.addEventListener('DOMContentLoaded', function () {
-        new Tips('.' + CL + ', .jsTips');
+        new Tips(strSelector);
     });
 
     // 全局委托
@@ -387,13 +393,13 @@
         if (!eleTrigger || !eleTrigger.closest) {
             return;
         }
-        eleTrigger = eleTrigger.closest('.' + CL + ', .jsTips');
+        eleTrigger = eleTrigger.closest(strSelector);
 
         if (eleTrigger && (!eleTrigger.data || !eleTrigger.data.tips)) {
             new Tips(eleTrigger);
 
             var objTips = eleTrigger.data.tips;
-            if (objTips && eleTrigger.classList.contains('jsTips')) {
+            if (objTips && (eleTrigger.classList.contains('jsTips') || eleTrigger.hasAttribute('is-tips'))) {
                 objTips.show();
             }
         }

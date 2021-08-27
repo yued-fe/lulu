@@ -5,6 +5,8 @@
  * Created: 15-06-30
  */
 
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         this.Follow = require('./Follow');
@@ -14,9 +16,11 @@
     } else {
         global.Drop = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -45,13 +49,13 @@
      */
     Drop.prototype.init = function (eleTrigger, eleTarget, options) {
         if (typeof eleTrigger == 'string') {
-            eleTrigger = document.querySelector(eleTrigger);
+            eleTrigger = document.getElementById(eleTrigger) || document.querySelector(eleTrigger);
         }
         if (typeof eleTarget == 'string') {
-            eleTarget = document.querySelector(eleTarget);
+            eleTarget = document.getElementById(eleTarget) || document.querySelector(eleTarget);
         }
 
-        if (typeof eleTarget == 'object' && typeof eleTarget.nodeType != 'number') {
+        if (eleTarget && typeof eleTarget == 'object' && typeof eleTarget.nodeType != 'number') {
             options = eleTarget;
             eleTarget = null;
         }
@@ -69,6 +73,28 @@
             onShow: function () { },
             onHide: function () { }
         };
+
+        options = options || {};
+
+        for (var key in defaults) {
+            if (typeof options[key] == 'undefined' && eleTrigger) {
+                var strAttr = eleTrigger.getAttribute('data-' + key.toLowerCase());
+                if (strAttr !== null) {
+                    if (key == 'edgeAdjust' && strAttr == 'false') {
+                        options[key] = false;
+                    } else if (key == 'offsets') {
+                        var arrOffsets = strAttr.split(/,|\s+/);
+                        var objOffsets = {
+                            x: Number(arrOffsets[0].trim()) || 0,
+                            y: Number(arrOffsets[1].trim()) || 0
+                        };
+                        options[key] = objOffsets;
+                    } else {
+                        options[key] = strAttr;
+                    }
+                }
+            }
+        }
 
         var objParams = Object.assign({}, defaults, options || {});
 
@@ -268,7 +294,7 @@
         }
 
         // 点击页面空白区域隐藏
-        document.addEventListener('click', function (event) {
+        document.addEventListener('mouseup', function (event) {
             var eleClicked = event && event.target;
 
             if (!eleClicked || this.display != true) {
@@ -1010,6 +1036,83 @@
 
         return this;
     };
+
+    // is-drop 属性下的快捷语法
+    var funAutoInitAndWatching = function () {
+        var strSelector = '[is-drop]';
+
+        // 同步更新分页内容的方法
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.nodeType !== 1) {
+                    return;
+                }
+                var attrDrop = node.getAttribute('is-drop');
+                var objOption = {
+                    eventType: node.getAttribute('data-eventtype') || 'click'
+                };
+                var objDrop = null;
+                if (attrDrop) {
+                    objDrop = new Drop(node, attrDrop, objOption);
+                } else {
+                    objDrop = new Drop(node, objOption);
+                }
+
+                node.dispatchEvent(new CustomEvent('connected', {
+                    detail: {
+                        drop: objDrop
+                    }
+                }));
+            });
+        };
+
+        // 所有 is-drop 元素初始设置
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert检测自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    if (mutation.type == 'childList') {
+                        mutation.addedNodes.forEach(function (eleAdd) {
+                            if (eleAdd.matches && eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        });
+                    }
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Drop;
 }));

@@ -73,8 +73,7 @@ button.ui-button {
 .ui-button[data-type="primary"],
 .ui-button[data-type="remind"],
 .ui-button[data-type="success"],
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"],
+.ui-button[data-type^="warn"],
 .ui-button[data-type="danger"],
 .ui-button[data-type="error"] {
     border: 0;
@@ -95,8 +94,7 @@ button.ui-button {
 }
 
 /* warning button */
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"] {
+.ui-button[data-type^="warn"] {
     background-color: #f59b00;
 }
 /* danger button */
@@ -186,7 +184,7 @@ div:invalid {
 /* error */
 .ui-button.error {
     border-color: #eb4646 !important;
-}@charset "UTF-8";
+}
 /**
  *
  * @Checkbox.css
@@ -194,7 +192,7 @@ div:invalid {
  * @create 15-06-18
  * @edit 17-06-14    focusable
 **/
-input[type="checkbox"]:not(.ui-visible) {
+input[type="checkbox"]:not([ui-visible]) {
     position: absolute;
     opacity: 0;
     width: 20px;
@@ -203,7 +201,7 @@ input[type="checkbox"]:not(.ui-visible) {
     z-index: -1;
 }
 
-.ui-visible + .ui-checkbox {
+[ui-visible] + .ui-checkbox {
     display: none;
 }
 
@@ -276,18 +274,15 @@ input[type="checkbox"]:not(.ui-visible) {
     color: #eb4646;
 }
 
-@charset "UTF-8";
+
 /**
  *
  * @Color.css
  * @author xinxuzhang
  * @create 16-06-03
 **/
-input[type='color'] {
-    opacity: 0;
-}
-
-.ui-color-input {
+.ui-color-input,
+[type='color']:not([is-visible]) {
     width: 40px; height: 40px;
     margin: 0; padding: 0;
     border: 0 none;
@@ -464,6 +459,7 @@ input[type='color'] {
     background-clip: content-box;
     -ms-transform: translate(-11px, -11px);
     transform: translate(-11px, -11px);
+    pointer-events: none;
 }
 
 .ui-color-more-r {
@@ -665,7 +661,7 @@ datalist {
 .ui-datalist-label + .ui-datalist-value {
     margin-right: 60px;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Date.css
@@ -673,39 +669,39 @@ datalist {
  * @create 15-07-03
  *
 **/
-::-webkit-clear-button,
-::-webkit-inner-spin-button,
-::-webkit-calendar-picker-indicator {
+:not([is-visible])::-webkit-clear-button,
+:not([is-visible])::-webkit-inner-spin-button,
+:not([is-visible])::-webkit-calendar-picker-indicator {
     display: none;
 }
 
-[type="date"]::-webkit-datetime-edit-text {
+[type="date"]:not([is-visible])::-webkit-datetime-edit-text {
     color: transparent;
-    background: linear-gradient(to bottom, transparent 9px, #4c5161 9px, #4c5161 10px, transparent 10px) no-repeat center;
-    background-size: 80% 100%;
+    background: linear-gradient(#4c5161, #4c5161) no-repeat center;
+    background-size: 80% 1px;
 }
 
-::-webkit-datetime-edit-text,
-::-webkit-datetime-edit-year-field,
-::-webkit-datetime-edit-month-field,
-::-webkit-datetime-edit-day-field,
-::-webkit-datetime-edit-hour-field,
-::-webkit-datetime-edit-minute-field,
-::-webkit-datetime-edit-ampm-field {
+:not([is-visible])::-webkit-datetime-edit-text,
+:not([is-visible])::-webkit-datetime-edit-year-field,
+:not([is-visible])::-webkit-datetime-edit-month-field,
+:not([is-visible])::-webkit-datetime-edit-day-field,
+:not([is-visible])::-webkit-datetime-edit-hour-field,
+:not([is-visible])::-webkit-datetime-edit-minute-field,
+:not([is-visible])::-webkit-datetime-edit-ampm-field {
     background: none;
     color: #4c5161;
 }
-:disabled::-webkit-datetime-edit-text,
-:disabled::-webkit-datetime-edit-year-field,
-:disabled::-webkit-datetime-edit-month-field,
-:disabled::-webkit-datetime-edit-day-field,
-:disabled::-webkit-datetime-edit-hour-field,
-:disabled::-webkit-datetime-edit-minute-field,
-:disabled::-webkit-datetime-edit-ampm-field {
+:not([is-visible]):disabled::-webkit-datetime-edit-text,
+:not([is-visible]):disabled::-webkit-datetime-edit-year-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-month-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-day-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-hour-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-minute-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-ampm-field {
     opacity: .4;
 }
 
-:valid::-webkit-datetime-edit {
+:not([is-visible]):valid::-webkit-datetime-edit {
     visibility: hidden;
 }
 
@@ -719,11 +715,11 @@ datalist {
     position: relative;
 }
 
-[class].ui-date-input > input,
-[class].ui-year-input > input,
-[class].ui-month-input > input,
-[class].ui-time-input > input,
-[class].ui-hour-input > input,
+.ui-date-input > input:not([is-visible]),
+.ui-year-input > input:not([is-visible]),
+.ui-month-input > input:not([is-visible]),
+.ui-time-input > input:not([is-visible]),
+.ui-hour-input > input:not([is-visible]),
 [class].ui-date-range-input > input,
 [class].ui-month-range-input > input {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -739,7 +735,6 @@ datalist {
     background-color: #f7f9fa;
 }
 
-
 span.ui-date-input > input {
     width: 125px;
 }
@@ -748,7 +743,6 @@ span.ui-year-input > input,
 span.ui-time-input > input {
     width: 85px;
 }
-
 
 span.ui-month-input > input {
     width: 125px;
@@ -1124,7 +1118,7 @@ span.ui-date-item {
     border-left-width: 1px;
     margin-right: 3px;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Dialog.css
@@ -1539,7 +1533,7 @@ a:hover .ui-droplist-arrow:empty,
 .ui-dropanel-footer .ui-button:first-child {
     margin-left: 0;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Input.css
@@ -1929,7 +1923,7 @@ input.ui-input:disabled,
         transform: translate(-50%, -50%);
     }
 }
-@charset "UTF-8";
+
 /**
  *
  * @Loading.css
@@ -2098,7 +2092,7 @@ ui-dot::before {
     66% {
         transform: translateY(-1em);
     }
-}@charset "UTF-8";
+}
 /**
  *
  * @Pagination.css
@@ -2324,7 +2318,7 @@ progress[width="100%"] {
     height: 100%;
 }
 
-@charset "UTF-8";
+
 /**
  *
  * @Radio.css
@@ -2332,7 +2326,7 @@ progress[width="100%"] {
  * @create 15-06-17
  * @edit 17-06-14 focusable
 **/
-input[type="radio"]:not(.ui-visible) {
+input[type="radio"]:not([ui-visible]) {
     position: absolute;
     opacity: 0;
     width: 20px; height: 20px;
@@ -2340,7 +2334,7 @@ input[type="radio"]:not(.ui-visible) {
     z-index: -1;
 }
 
-.ui-visible + .ui-radio {
+[ui-visible] + .ui-radio {
     display: none;
 }
 
@@ -2395,7 +2389,7 @@ input[type="radio"]:not(.ui-visible) {
 .error.ui-radio {
     border-color: #eb4646;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Range.css
@@ -2404,7 +2398,7 @@ input[type="radio"]:not(.ui-visible) {
  * @edit   17-06-16     keyboard support
  *         19-09-23    pure theme
 **/
-[type="range"],
+[type="range"]:not([is-visible]),
 .ui-range-input {
     height: 20px;
     margin: 0;
@@ -2541,7 +2535,7 @@ select[opacity="1"],
 select[opacity="100%"],
 select[style*="opacity:1"],
 select[style*="opacity: 1"],
-select.ui-visible {
+select[is-visible] {
     opacity: 1;
     border-right-width: 1px;
 }
@@ -2677,6 +2671,10 @@ select.ui-visible {
     bottom: 39px;
 }
 
+.ui-select-intent {
+    text-indent: 1em;
+}
+
 .ui-select-datalist-li {
     display: block;
     line-height: 20px;
@@ -2689,12 +2687,24 @@ select.ui-visible {
     transition: background-color .15s;
     overflow: hidden;
 }
+.ui-select-datalist-li[role="heading"] {
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 6px;
+}
 .ui-select-datalist-li[href] {
     cursor: pointer;
 }
 
 .ui-select-datalist-li:not(:only-child):empty {
     display: none;
+}
+
+.ui-select-datalist-hr:not(:first-child) {
+    border: 0;
+    border-bottom: 1px solid #d0d0d5;
+    margin: 7px 12px;
+    opacity: .38;
 }
 
 /* reset default a:hover */
@@ -2738,7 +2748,7 @@ select:disabled + .ui-select .ui-select-datalist {
 select.error {
     border-color: #eb4646;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Switch.css
@@ -2940,7 +2950,7 @@ select.error {
 .ui-table ~ .ui-loading {
     height: 300px;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Textarea.css
@@ -3102,7 +3112,7 @@ textarea:disabled {
 .ui-textarea-count > .error,
 .ui-textarea-count.error {
     color: #eb4646;
-}@charset "UTF-8";
+}
 /**
  *
  * @Tips.css
@@ -3162,12 +3172,14 @@ textarea:disabled {
 }
 
 /* 朝下的情况 */
-.reverse.ui-tips[data-title]::before {
+.reverse.ui-tips[data-title]::before,
+[reverse].ui-tips[data-title]::before {
     bottom: auto;
     top: calc(100% + 12px);
 }
 
-.reverse.ui-tips[data-title]::after {
+.reverse.ui-tips[data-title]::after,
+[reverse].ui-tips[data-title]::after {
     border-color: transparent transparent #373c42;
     bottom: auto;
     top: 100%;
@@ -3263,7 +3275,7 @@ textarea:disabled {
 .ui-tips-error .ui-tips-arrow {
     border-top-color: #eb4646;
 }
-@charset "UTF-8";
+
 /**
  *
  * @Table.css

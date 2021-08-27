@@ -6,7 +6,7 @@
  * @edit:    19-09-21 native js rewrite by lennonover
  * @review   19-09-25 by zhangxinxu
  */
-
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -15,9 +15,11 @@
     } else {
         global.Tab = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 可定制的极简选项卡切换效果

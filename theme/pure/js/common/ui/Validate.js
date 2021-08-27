@@ -5,6 +5,8 @@
  * Created: 15-08-19
  */
 
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.ErrorTip = require('./ErrorTip');
@@ -14,9 +16,11 @@
     } else {
         global.Validate = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
 
     var ErrorTip = this.ErrorTip;
     if (typeof require == 'function' && !ErrorTip) {
@@ -1231,6 +1235,13 @@
             configurable: true
         });
 
+        Object.defineProperty(prop, 'validationMessage', {
+            get: function () {
+                return document.validate.getReportText(this);
+            },
+            configurable: true
+        });
+
         Object.defineProperty(prop, 'checkValidity', {
             value: function () {
                 return this.validity.valid;
@@ -1734,6 +1745,68 @@
             document.validate.reportValidity(element, content);
         }
     };
+
+
+    // 对is-validate属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'form[is-validate]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Validate;
 }));

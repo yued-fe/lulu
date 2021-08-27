@@ -6,6 +6,7 @@
  * @edit:    19-09-24 remove jQuery by 5ibinbin
  * @review:  19-09-27 by zhangxinxu
  */
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -16,7 +17,9 @@
     } else {
         global.Range = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
+    // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Tips = this.Tips;
@@ -88,6 +91,11 @@
             return this;
         }
 
+        // 如果 eleRange 不是隐藏状态，则认为是原生显示
+        if (window.getComputedStyle(eleRange).visibility !== 'hidden') {
+            return;
+        }
+
         if (eleRange.data && eleRange.data.range) {
             return eleRange.data.range;
         }
@@ -118,7 +126,7 @@
         eleThumb.classList.add(CL.add('thumb'));
 
         // 是否反向
-        if (objParams.reverse || eleRange.classList.contains(REVERSE)) {
+        if (objParams.reverse || eleRange.classList.contains(REVERSE) || eleRange.hasAttribute(REVERSE)) {
             objParams.reverse = true;
             eleThumb.classList.add(REVERSE);
         }
@@ -285,7 +293,7 @@
                 if (this.tips) {
                     this.tips.content = this.params.tips.call(eleThumb, eleRange.value);
                     this.tips.show();
-                }                
+                }
             }
         }.bind(this));
 
@@ -298,7 +306,7 @@
                     this.tips.hide();
                 }
                 eleThumb.classList.remove(ACTIVE);
-            }            
+            }
         }.bind(this));
 
         // 键盘支持，左右
@@ -462,30 +470,44 @@
             strSelector = 'input.' + CL.add('input') + ',.' + CL.add('input') + '>input';
         }
 
-        document.querySelectorAll(strSelector).forEach(function (eleRange) {
-            if (!(eleRange.data && eleRange.data.range) && window.getComputedStyle(eleRange).visibility == 'hidden') {
-                new Range(eleRange);
+        // 自动绑定 range 输入框
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
+                return;
             }
-        });
+            if (!nodes.forEach) {
+                if (nodes.matches && nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else if (nodes.querySelector) {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
+            }
+
+            if (!nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches(strSelector)) {
+                    if (action == 'remove' && node.data && node.data.range) {
+                        var objElement = node.data.range.element;
+                        if (objElement.thumb && objElement.thumb.data && objElement.thumb.data.tips) {
+                            objElement.thumb.data.tips.element.tips.remove();
+                        }
+                        objElement.container.remove();
+                    } else if (!node.data || !node.data.range) {
+                        new Range(node);
+                    }
+                }
+            });
+        };
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
             return;
         }
 
-        var funSyncRefresh = function (node, action) {
-            if (node.nodeType != 1) {
-                return;
-            }
-
-            if (node.matches(strSelector)) {
-                if (action == 'remove' && node.data && node.data.range) {
-                    node.data.range.element.container.remove();
-                } else if (window.getComputedStyle(node).visibility == 'hidden' && action == 'add') {
-                    new Range(node);
-                }
-            }
-        };
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // DOM Insert自动初始化
         // IE11+使用MutationObserver

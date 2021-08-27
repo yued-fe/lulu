@@ -6,6 +6,7 @@
  * @edited   19-12-02    ES5原生语法支持
  */
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.LightTip = require('../ui/LightTip');
@@ -17,9 +18,11 @@
     } else {
         global.Form = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var LightTip = this.LightTip;
     var Loading = this.Loading;
     var Validate = this.Validate;
@@ -208,6 +211,8 @@
                     } else {
                         // 如果没有成功回调，组件自己提示成功
                         new LightTip().success(json.msg || '操作成功。');
+                        // 重置
+                        eleForm.reset();
                     }
                 } else {
                     new LightTip().error((json && json.msg) || '返回数据格式不符合要求。');
@@ -266,6 +271,67 @@
 
         return this;
     };
+
+    // 对is-form属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'form[is-form]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Form;
 }));

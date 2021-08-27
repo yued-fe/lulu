@@ -483,6 +483,7 @@
 
     return {};
 }));
+
 /**
  * @Follow.js
  * @author zhangxinxu
@@ -490,6 +491,8 @@
  * @Created: 15-06-25
  * @edited:  17-06-19
  */
+
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -499,9 +502,11 @@
     } else {
         global.Follow = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 绝对定位元素的定位效果
@@ -515,46 +520,121 @@
      * 文档见：https://www.zhangxinxu.com/wordpress/?p=1328 position()方法
     **/
     var Follow = function (eleTrigger, eleTarget, options) {
+        // 默认参数值
         var defaults  = {
             offsets: {
                 x: 0,
                 y: 0
             },
+            safeArea: [0, 0, 0, 0],
             // eleTrigger-eleTarget
-            // 也可以是[left, top]数组，不过用到场景不多
             position: '4-1',
             // 边缘位置自动调整
             edgeAdjust: true
         };
 
-        var objParams = Object.assign({}, defaults, options || {});
+        // 判断第一个参数是否是DOM元素，不是的话判断是否是对象，是对象则将第一个参数当作options
+        if (eleTarget && Object.prototype.toString.call(eleTarget) === '[object Object]') {
+            options = eleTarget;
+            eleTarget = null;
+        }
 
+        for (var keyOption in (options || (options = {}))) {
+            if (typeof options[keyOption] == 'undefined') {
+                delete options[keyOption];
+            }
+        }
+
+        var objParams = Object.assign({}, defaults, options);
+
+        // eleTarget 非必须，可 eleTrigger 元素 html 属性指定
         if (!eleTarget) {
-            return;
+            var strTarget = eleTrigger.getAttribute('is-follow') || eleTrigger.dataset.target;
+            if (!strTarget) {
+                return;
+            }
+            eleTarget = document.getElementById(strTarget) || document.querySelector('.' + strTarget) || document.querySelector(strTarget);
+            if (!eleTarget) {
+                return;
+            }
+        }
+
+        // 合法的位置关系数据
+        var arrLegalPosition = ['4-1', '1-4', '5-7', '2-3', '2-1', '6-8', '3-4', '4-3', '8-6', '1-2', '7-5', '3-2'];
+
+        // eleTrigger 元素属性指定 options，传入的 options 参数优先级更高
+        // offsets
+        var dataOffsets = eleTrigger.dataset.offsets;
+        var arrOffsets = [];
+        if (objParams.offsets.map && objParams.offsets.length) {
+            arrOffsets = objParams.offsets;
+        } else if (typeof objParams.offsets == 'string') {
+            arrOffsets = objParams.offsets.trim().split(/,\s*|\s+/);
+        }
+        if (dataOffsets && !options.offsets) {
+            arrOffsets = dataOffsets.trim().split(/,\s*|\s+/);
+        }
+
+        // 如果arrOffsets有值
+        if (arrOffsets.length) {
+            objParams.offsets = {};
+            objParams.offsets.x = arrOffsets[0];
+            objParams.offsets.y = arrOffsets[1] || arrOffsets[0];
+        }
+
+        var dataOffsetX = eleTrigger.dataset.offsetX;
+        var dataOffsetY = eleTrigger.dataset.offsetY;
+
+        if (dataOffsetX) {
+            objParams.offsets.x = dataOffsetX;
+        }
+        if (dataOffsetY) {
+            objParams.offsets.y = dataOffsetY;
+        }
+
+        // 转数值
+        objParams.offsets.x *= 1;
+        objParams.offsets.y *= 1;
+
+        // position
+        var dataPosition = eleTrigger.dataset.position;
+        var dataAlign = eleTrigger.dataset.align;
+        // data-align是否符合合法位置关系
+        var isDataAlignMatch = arrLegalPosition.some(function (strLegalPosition) {
+            return strLegalPosition === dataAlign;
+        });
+        // 若没有设置 data-position，设置了 data-align 也行，若都设置了以 data-position 的值为准
+        if (!dataPosition && dataAlign && isDataAlignMatch) {
+            dataPosition = dataAlign;
+        }
+        if (dataPosition && (!options || !options.position)) {
+            objParams.position = dataPosition;
+        }
+
+        // edge-adjust
+        var dataEdgeAdjust = eleTrigger.dataset.edgeAdjust || objParams.edgeAdjust;
+        // data-edge-adjust 字符串为 0、none、false 认为是 false，其他都是 true
+        var isEdgeAdjust = !((dataEdgeAdjust === '0') || (dataEdgeAdjust === 'none') || (dataEdgeAdjust === 'false') || (dataEdgeAdjust === false));
+        if (typeof dataEdgeAdjust == 'string' && typeof objParams.edgeAdjust != 'boolean') {
+            objParams.edgeAdjust = isEdgeAdjust;
         }
 
         // 先绝对定位，以便获取更准确的尺寸
-        eleTarget.style.position = 'absolute';
+        var strOriginPosition = eleTarget.style.position;
+        if (strOriginPosition != 'absolute') {
+            eleTarget.style.position = 'absolute';
+        }
 
         // 触发元素和目标元素的坐标数据
         var objBoundTrigger = eleTrigger.getBoundingClientRect();
         var objBoundTarget = eleTarget.getBoundingClientRect();
 
         // 如果目标元素隐藏，则不处理
-        if (objBoundTarget.width * objBoundTarget.height == 0) {
+        if (objBoundTarget.width * objBoundTarget.height === 0) {
+            eleTarget.style.position = strOriginPosition || '';
+            window.console.warn((eleTarget.id ? 'id为' + eleTarget.id + '的' : '') + '目前元素尺寸为0，无法定位');
             return;
         }
-
-        var eleOffsetParent = eleTarget.offsetParent;
-        var objBoundOffsetParent = eleOffsetParent.getBoundingClientRect();
-
-        // 暴露给实例
-        this.element = {
-            trigger: eleTrigger,
-            target: eleTarget
-        };
-
-        this.params = objParams;
 
         // 页面的水平和垂直滚动距离
         var numScrollTop = window.pageYOffset;
@@ -564,6 +644,25 @@
         var numWinWidth = window.innerWidth;
         var numWinHeight = window.innerHeight;
 
+        // 如果trigger元素全部都在屏幕外，则不进行边缘调整
+        if ((objBoundTrigger.left < 0 && objBoundTrigger.right < 0) || (objBoundTrigger.top < 0 && objBoundTrigger.bottom < 0) || (objBoundTrigger.left > numWinWidth && objBoundTrigger.right > numWinWidth) || (objBoundTrigger.top > numWinHeight && objBoundTrigger.bottom > numWinHeight)) {
+            objParams.edgeAdjust = isEdgeAdjust = false;
+        }
+
+        // target的包含块祖先元素，也就是定位元素
+        var eleOffsetParent = eleTarget.offsetParent;
+        var objBoundOffsetParent = eleOffsetParent.getBoundingClientRect();
+
+        // 暴露给实例
+        var element = {
+            follow: eleTarget,
+            target: eleTarget,
+            trigger: eleTrigger
+        };
+
+        this.element = this.element ? Object.assign(this.element, element) : element;
+        this.params = this.params ? Object.assign(this.params, objParams) : objParams;
+
         // 参数中设置的偏移位置
         var objOffsets = objParams.offsets;
         // target元素所在的offset偏移
@@ -572,14 +671,15 @@
 
         // 如果是body元素，同时没有设置定位属性的话，忽略
         // 因为此时margin有值或者margin重叠时候会有定位bug
-        if (eleOffsetParent == document.body && window.getComputedStyle(eleOffsetParent).position == 'static') {
+        if (eleOffsetParent === document.body && window.getComputedStyle(eleOffsetParent).position === 'static') {
             numOffsetTop = 0;
             numOffsetLeft = 0;
         }
 
         // 直接嫁接在offsets对象上，可以大大简化后续处理的逻辑
-        objOffsets.x -= numOffsetLeft;
-        objOffsets.y -= numOffsetTop;
+        // 减去包含块元素的偏移位置，这样的objOffsets尺寸是精准的定位尺寸
+        // objOffsets.x -= numOffsetLeft;
+        // objOffsets.y -= numOffsetTop;
 
         // 这是指定位置
         // 支持具体坐标值
@@ -589,14 +689,14 @@
         var numTargetLeft, numTargetTop;
 
         // 如果直接指定了坐标
-        if (typeof strPosition != 'string' && strPosition.length == 2) {
+        if (typeof strPosition !== 'string' && strPosition.length === 2) {
             var arrPosition = strPosition;
 
             numTargetLeft = arrPosition[0] + objOffsets.x;
             numTargetTop = arrPosition[1] + objOffsets.y;
 
             // 边缘检测
-            if (objParams.edgeAdjust == true) {
+            if (objParams.edgeAdjust === true) {
                 if (numTargetLeft + objBoundTarget.width > numWinWidth + numScrollLeft) {
                     numTargetLeft = numWinWidth + numScrollLeft - objBoundTarget.width - objOffsets.x;
                 }
@@ -616,227 +716,265 @@
             return;
         }
 
-        // 合法的位置关系数据
-        var arrLegalPosition = ['4-1', '1-4', '5-7', '2-3', '2-1', '6-8', '3-4', '4-3', '8-6', '1-2', '7-5', '3-2'];
 
         // 是否对齐匹配的标志量
-        var isAlignMatch = false;
-
         // 遍历，以确定设定的对齐是否有匹配
-        isAlignMatch = arrLegalPosition.some(function (strLegalPosition) {
-            return strLegalPosition == strPosition;
+        var isAlignMatch = arrLegalPosition.some(function (strLegalPosition) {
+            return strLegalPosition === strPosition;
         });
 
         // 如果没有匹配的对齐方式，使用默认的对齐方式
-        if (isAlignMatch == false) {
+        if (isAlignMatch === false) {
             strPosition = defaults.position;
         }
 
-        // 确定定位方位，是上下左右的哪个
-        var funDirection = function (position) {
-            var direction = 'bottom';
-            //确定方向
-            switch (position) {
+        // 自动调整距离边缘的安全距离
+        var arrSafeArea = eleTrigger.dataset.safeArea || objParams.safeArea;
+        // 字符串转数组
+        if (typeof arrSafeArea == 'string') {
+            arrSafeArea = arrSafeArea.trim().split(/(?:,\s*|\s+)/);
+        }
+        arrSafeArea = arrSafeArea.map(function (val) {
+            return parseFloat(val) || 0;
+        });
+        // 数量的处理
+        if (arrSafeArea.length == 1) {
+            arrSafeArea = arrSafeArea.concat(arrSafeArea[0], arrSafeArea[0], arrSafeArea[0]);
+        } else if (arrSafeArea.length == 2) {
+            arrSafeArea.push(arrSafeArea[0]);
+            arrSafeArea.push(arrSafeArea[1]);
+        } else if (arrSafeArea.length == 3) {
+            arrSafeArea.push(arrSafeArea[1]);
+        }
+
+        // 是否超出边界的判断
+        // 只考虑在视区的情况，页面的滚动距离不处理
+        var objIsOverflow = {
+            // 键使用trigger-target方位表示
+            // 例如'left-right'表示trigger元素的左边缘和target元素右边缘对齐时候是否溢出
+            'left-right': objBoundTarget.width + objOffsets.x + arrSafeArea[3] > objBoundTrigger.left,
+            'top-bottom': objBoundTrigger.top - (objBoundTarget.height + objOffsets.y + arrSafeArea[0]) < 0,
+            'right-left': objBoundTrigger.right + objBoundTarget.width + objOffsets.x + arrSafeArea[1] > numWinWidth,
+            'bottom-top': objBoundTrigger.bottom + objBoundTarget.height + objOffsets.y + arrSafeArea[2] > numWinHeight,
+            // 新增4个方位
+            'right-right': objBoundTarget.width + objOffsets.x + arrSafeArea[3] > objBoundTrigger.right,
+            'left-left': objBoundTrigger.left + objBoundTarget.width + objOffsets.x + arrSafeArea[1] > numWinWidth,
+            'bottom-bottom': objBoundTarget.height + objOffsets.y + arrSafeArea[0] > objBoundTrigger.bottom,
+            'top-top': objBoundTrigger.top + objBoundTarget.height + objOffsets.y + arrSafeArea[2] > numWinHeight
+        };
+
+        var strDirection = 'bottom';
+
+        var funGetPosition = function () {
+            // 定位的处理
+            // 有别于之前的逻辑
+            // 直接枚举处理，覆盖所有的情况，之前是方位调整比较粗放
+            switch (strPosition) {
                 case '1-4': case '5-7': case '2-3': {
-                    direction = 'top';
+                    // 如果在上方显示
+                    // top坐标是确定的
+                    numTargetTop = objBoundTrigger.top - objBoundTarget.height;
+                    // left坐标确定
+                    if (strPosition === '1-4') {
+                        numTargetLeft = objBoundTrigger.left;
+                    } else if (strPosition === '5-7') {
+                        numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width) / 2;
+                    } else {
+                        numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width);
+                    }
+
+                    strDirection = 'top';
+
+                    // 如果上方超出，则看看下方有没有空间
+                    if (isEdgeAdjust && objIsOverflow['top-bottom']) {
+                        if (!objIsOverflow['bottom-top']) {
+                            strPosition = ({
+                                '1-4': '4-1',
+                                '5-7': '7-5',
+                                '2-3': '3-2'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        } else if (!objIsOverflow['left-right'] || !objIsOverflow['right-left']) {
+                            // 上下无空间，但是左侧或右侧有空间
+                            // 随便给个水平方向就好
+                            strPosition = ({
+                                '1-4': '2-1',
+                                '5-7': '6-8',
+                                '2-3': '3-4'
+                            })[strPosition];
+                            funGetPosition();
+                        }
+                    }
+
                     break;
                 }
                 case '2-1': case '6-8': case '3-4': {
-                    direction = 'right';
-                    break;
-                }
-                case '1-2': case '8-6': case '4-3': {
-                    direction = 'left';
+                    // left坐标固定
+                    numTargetLeft = objBoundTrigger.right;
+                    // top坐标确定
+                    if (strPosition === '2-1') {
+                        numTargetTop = objBoundTrigger.top;
+                    } else if (strPosition === '6-8') {
+                        numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height) / 2;
+                    } else {
+                        numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height);
+                    }
+
+                    strDirection = 'right';
+
+                    // 如果右侧超出，则看看左方有没有空间
+                    if (isEdgeAdjust && objIsOverflow['right-left']) {
+                        if (!objIsOverflow['left-right']) {
+                            strPosition = ({
+                                '2-1': '1-2',
+                                '6-8': '8-6',
+                                '3-4': '4-3'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        } else if (!objIsOverflow['top-bottom'] || !objIsOverflow['bottom-top']) {
+                            strPosition = ({
+                                '2-1': '1-4',
+                                '6-8': '5-7',
+                                '3-4': '2-3'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        }
+                    }
+
                     break;
                 }
                 case '4-1': case '7-5': case '3-2': {
-                    direction = 'bottom';
+                    // top坐标是确定的
+                    numTargetTop = objBoundTrigger.bottom;
+                    // left坐标确定
+                    if (strPosition === '4-1') {
+                        numTargetLeft = objBoundTrigger.left;
+                    } else if (strPosition === '7-5') {
+                        numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width) / 2;
+                    } else {
+                        numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width);
+                    }
+
+                    strDirection = 'bottom';
+
+                    // 如果下方超出，则看看上方有没有空间
+                    if (isEdgeAdjust && objIsOverflow['bottom-top']) {
+                        if (!objIsOverflow['top-bottom']) {
+                            strPosition = ({
+                                '4-1': '1-4',
+                                '7-5': '5-7',
+                                '3-2': '2-3'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        } else if (!objIsOverflow['left-right'] || !objIsOverflow['right-left']) {
+                            // 上下无空间，但是左侧或右侧有空间
+                            // 随便给个水平方向就好
+                            strPosition = ({
+                                '4-1': '2-1',
+                                '7-5': '6-8',
+                                '3-2': '3-4'
+                            })[strPosition];
+                            funGetPosition();
+                        }
+                    }
+
+                    break;
+                }
+                case '1-2': case '8-6': case '4-3': {
+                    // left坐标固定
+                    numTargetLeft = objBoundTrigger.left - objBoundTarget.width;
+
+                    // top坐标确定
+                    if (strPosition === '1-2') {
+                        numTargetTop = objBoundTrigger.top;
+                    } else if (strPosition === '8-6') {
+                        numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height) / 2;
+                    } else {
+                        numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height);
+                    }
+
+                    strDirection = 'left';
+
+                    // 如果左侧超出，则看看右侧有没有空间
+                    if (isEdgeAdjust && objIsOverflow['left-right']) {
+                        if (!objIsOverflow['right-left']) {
+                            strPosition = ({
+                                '1-2': '2-1',
+                                '8-6': '6-8',
+                                '4-3': '3-4'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        } else if (!objIsOverflow['top-bottom'] || !objIsOverflow['bottom-top']) {
+                            strPosition = ({
+                                '1-2': '1-4',
+                                '8-6': '5-7',
+                                '4-3': '2-3'
+                            })[strPosition];
+                            // 再执行一次
+                            funGetPosition();
+                        }
+                    }
+
                     break;
                 }
             }
-
-            return direction;
         };
 
-        // 居中判断
-        var funCenterJudge = function (position) {
-            if (position === '5-7' || position === '6-8' || position === '8-6' || position === '7-5') {
-                return true;
-            }
+        funGetPosition();
 
-            return false;
-        };
+        numTargetLeft = numTargetLeft + objOffsets.x - numOffsetLeft;
+        numTargetTop = numTargetTop + objOffsets.y - numOffsetTop;
 
-        // 是否超出边界的判断
-        var funOverflowJudge = function (direction) {
-            return ({
-                left: objBoundTarget.width + objOffsets.x > objBoundTrigger.left - numScrollLeft,
-                top: objBoundTarget.height + objOffsets.y > objBoundTrigger.top - numScrollTop,
-                right: objBoundTrigger.right + objBoundTarget.width + objOffsets.x > numWinWidth + numScrollLeft,
-                bottom: objBoundTrigger.bottom + objBoundTarget.height + objOffsets.y > numWinHeight + numScrollTop
-            })[direction] || false;
-        };
-
-        // 此时的方向
-        var strDirection = funDirection(strPosition);
-
-        // 边缘过界判断
-        // 只会调整一次
-        if (objParams.edgeAdjust && funOverflowJudge(strDirection)) {
-            // 这是居中位置的调整，是更换方向
-            if (funCenterJudge(strPosition)) {
-                var center = {
-                    '5-7': '7-5',
-                    '7-5': '5-7',
-                    '6-8': '8-6',
-                    '8-6': '6-8'
-                };
-                strPosition = center[strPosition];
+        // 边界溢出，当前方位的安全举例处理
+        if (isEdgeAdjust) {
+            // 水平方向的微调
+            if (strDirection == 'top') {
+                numTargetTop = numTargetTop - arrSafeArea[2];
+            } else if (strDirection == 'bottom') {
+                numTargetTop = numTargetTop + arrSafeArea[0];
+            } else if (strDirection == 'left') {
+                numTargetLeft = numTargetLeft - arrSafeArea[1];
             } else {
-                // 这是其他位置调整
-                // 判断隔壁方向位置是否足够，如果足够，就是要这个坐标参数
-                var objDirectionHash = {
-                    top: {
-                        left: '3-2',
-                        right: '4-1'
-                    },
-                    right: {
-                        bottom: '1-2',
-                        top: '4-3'
-                    },
-                    bottom: {
-                        left: '2-3',
-                        right: '1-4'
-                    },
-                    left: {
-                        bottom: '2-1',
-                        top: '3-4'
-                    }
-                };
-                var objDirection = objDirectionHash[strDirection];
-                var arrDirection = Object.keys(objDirection);
-
-                if (!funOverflowJudge(arrDirection[0]) || funOverflowJudge(arrDirection[1])) {
-                    strPosition = objDirection[arrDirection[0]];
-                } else {
-                    strPosition = objDirection[arrDirection[1]];
-                }
+                numTargetLeft = numTargetLeft + arrSafeArea[3];
             }
         }
 
-        // 是否变换了方向
-        var strNewDirection = funDirection(strPosition);
-        var strFirst = strPosition.split('-')[0];
-
-        //确定left, top值
-        switch (strNewDirection) {
-            case 'top': {
-                // 如果在上方显示
-                // top坐标是确定的
-                numTargetTop = objBoundTrigger.top - objBoundTarget.height + numScrollTop;
-                // left坐标确定
-                if (strFirst == '1') {
-                    numTargetLeft = objBoundTrigger.left;
-                } else if (strFirst === '5') {
-                    numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width) / 2;
-                } else {
-                    numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width);
-                }
-
-                numTargetLeft += numScrollLeft;
-
-                break;
-            }
-            case 'right': {
-                // left坐标固定
-                numTargetLeft = objBoundTrigger.right + numScrollLeft;
-                // top坐标确定
-                if (strFirst == '2') {
-                    numTargetTop = objBoundTrigger.top;
-                } else if (strFirst === '6') {
-                    numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height) / 2;
-                } else {
-                    numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height);
-                }
-
-                numTargetTop += numScrollTop;
-
-                break;
-            }
-            case 'bottom': {
-                // top坐标是确定的
-                numTargetTop = objBoundTrigger.bottom + numScrollTop;
-                // left坐标确定
-                if (strFirst == '4') {
-                    numTargetLeft = objBoundTrigger.left;
-                } else if (strFirst === '7') {
-                    numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width) / 2;
-                } else {
-                    numTargetLeft = objBoundTrigger.left - (objBoundTarget.width - objBoundTrigger.width);
-                }
-
-                numTargetLeft += numScrollLeft;
-
-                break;
-            }
-            case 'left': {
-                // left坐标固定
-                numTargetLeft = objBoundTrigger.left - objBoundTarget.width + numScrollLeft;
-
-                // top坐标确定
-                if (strFirst == '1') {
-                    numTargetTop = objBoundTrigger.top;
-                } else if (strFirst == '8') {
-                    numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height) / 2;
-                } else {
-                    numTargetTop = objBoundTrigger.top - (objBoundTarget.height - objBoundTrigger.height);
-                }
-
-                numTargetTop += numScrollTop;
-
-                break;
-            }
-        }
-
-        if (objParams.edgeAdjust && funCenterJudge(strPosition)) {
-            // 是居中定位
-            // 变更的不是方向，而是offset大小
-            // 偏移处理
-            if (strPosition == '7-5' || strPosition == '5-7') {
-                // 左右是否超出
-                if (numTargetLeft - numScrollLeft < 0.5 * numWinWidth) {
-                    // 左半边，判断左边缘
-                    if (numTargetLeft - numScrollLeft < 0) {
-                        numTargetLeft = numScrollLeft;
-                    }
-                } else if (numTargetLeft - numScrollLeft + objBoundTarget.width > numWinWidth) {
-                    numTargetLeft = numWinWidth + numScrollLeft - objBoundTarget.width;
-                }
-                // 下面两个else if 判断上下是否超出
-            } else if (numTargetTop - numScrollTop < 0.5 * numWinHeight) {
-                // 左半边，判断左边缘
-                if (numTargetTop - numScrollTop < 0) {
-                    numTargetTop = numScrollTop;
-                }
-            } else if (numTargetTop - numScrollTop + objBoundTarget.height > numWinHeight) {
-                numTargetTop = numWinHeight + numScrollTop - objBoundTarget.height;
-            }
-        }
-
-        if (strNewDirection == 'top' || strNewDirection == 'left') {
-            numTargetLeft = numTargetLeft - objOffsets.x;
-            numTargetTop = numTargetTop - objOffsets.y;
-        } else {
-            numTargetLeft = numTargetLeft + objOffsets.x;
-            numTargetTop = numTargetTop + objOffsets.y;
-        }
+        // 加上滚动距离
+        numTargetTop += numScrollTop;
+        numTargetLeft += numScrollLeft;
 
         //浮动框显示
         eleTarget.style.left = Math.round(numTargetLeft) + 'px';
         eleTarget.style.top = Math.round(numTargetTop) + 'px';
 
+        // // 此时的eleTarget位置
+        objBoundTarget = eleTarget.getBoundingClientRect();
+        // 对立分享水平方向的微调
+        if (isEdgeAdjust) {
+            if (strDirection == 'top' || strDirection == 'bottom') {
+                if (objBoundTarget.left < arrSafeArea[3]) {
+                    numTargetLeft = numTargetLeft + (arrSafeArea[3] - objBoundTarget.left);
+                } else if (objBoundTarget.right + arrSafeArea[1] > numWinWidth) {
+                    numTargetLeft = numTargetLeft - (objBoundTarget.right + arrSafeArea[1] - numWinWidth);
+                }
+            } else if (objBoundTarget.top < arrSafeArea[0]) {
+                numTargetTop += arrSafeArea[0] - objBoundTarget.top;
+            } else if (objBoundTarget.bottom + arrSafeArea[2] > numWinHeight) {
+                numTargetTop -= (objBoundTarget.bottom + arrSafeArea[2] - numWinHeight);
+            }
+
+            //浮动框显示
+            eleTarget.style.left = Math.round(numTargetLeft) + 'px';
+            eleTarget.style.top = Math.round(numTargetTop) + 'px';
+        }
+
         eleTarget.setAttribute('data-align', strPosition);
-        eleTarget.setAttribute('data-direction', strNewDirection);
+        eleTarget.setAttribute('data-direction', strDirection);
 
         // z-index自动最高
         this.zIndex();
@@ -877,6 +1015,7 @@
 
     return Follow;
 }));
+
 /**
  * @Tab.js
  * @author zhangxinxu
@@ -885,7 +1024,7 @@
  * @edit:    19-09-21 native js rewrite by lennonover
  * @review   19-09-25 by zhangxinxu
  */
-
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -894,9 +1033,11 @@
     } else {
         global.Tab = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 可定制的极简选项卡切换效果
@@ -1153,6 +1294,7 @@
 
     return Tab;
 }));
+
 /**
  * @Select.js
  * @author zhangxinxu
@@ -1162,6 +1304,8 @@
  * @edit:    09-08-28  native js rewrite
 **/
 
+/* global module, global */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -1170,9 +1314,11 @@
     } else {
         global.Select = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+// eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 模拟下拉框效果
@@ -1361,7 +1507,7 @@
                             var arrDataScrollTop = eleCombobox.dataScrollTop;
                             var eleDatalistSelected = eleDatalist.querySelector('.' + SELECTED);
                             // 严格验证
-                            if (arrDataScrollTop && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
+                            if (arrDataScrollTop && eleDatalistSelected && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
                                 eleDatalist.scrollTop = arrDataScrollTop[0];
                                 // 重置
                                 delete eleCombobox.dataScrollTop;
@@ -1554,10 +1700,42 @@
                 html: ''
             }];
         }
+        // 所有分组元素
+        var eleOptgroups = eleSelect.querySelectorAll('optgroup');
+        // 如果有任意一个分组元素设置了label，那么就是标题分组
+        // 如果只是optgroup标签包括，那么使用分隔线分隔
+        var isIntent = !!eleSelect.querySelector('optgroup[label]');
+
+        // 如果有分组
+        if (eleOptgroups.length) {
+            var arrData = [];
+
+            eleOptgroups.forEach(function (optgroup) {
+                arrData.push({
+                    html: optgroup.label,
+                    disabled: optgroup.disabled,
+                    className: optgroup.className,
+                    hr: !isIntent
+                });
+
+                optgroup.querySelectorAll('option').forEach(function (option) {
+                    arrData.push({
+                        html: option.label || option.innerHTML,
+                        value: option.value,
+                        selected: option.selected,
+                        disabled: optgroup.disabled || option.disabled,
+                        className: option.className,
+                        intent: isIntent
+                    });
+                });
+            });
+
+            return arrData;
+        }
 
         return [].slice.call(eleOptions).map(function (option) {
             return {
-                html: option.innerHTML,
+                html: option.label || option.innerHTML,
                 value: option.value,
                 selected: option.selected,
                 disabled: option.disabled,
@@ -1620,8 +1798,9 @@
             })() + '</span><i class="' + CL.add('icon') + '" aria-hidden="true"></i>';
         }
 
+        var index = -1;
         // 列表内容的刷新
-        eleDatalist.innerHTML = data.map(function (obj, index) {
+        eleDatalist.innerHTML = data.map(function (obj) {
             var arrCl = [CL.add('datalist', 'li')];
 
             if (obj.className) {
@@ -1632,6 +1811,30 @@
             }
             if (obj[DISABLED]) {
                 arrCl.push(DISABLED);
+            }
+
+            // 如果有分隔线
+            if (typeof obj.hr != 'undefined') {
+                if (obj.hr) {
+                    arrCl = [CL.add('datalist', 'hr'), obj.className];
+                    return '<div class="' + arrCl.join(' ') + '"></div>';
+                }
+
+                return '<div class="' + arrCl.join(' ') + '" role="heading">' + obj.html + '</div>';
+            }
+
+            // 这才是有效的索引
+            index++;
+
+            // 如果有缩进
+            if (obj.intent) {
+                arrCl.push(CL.add('intent'));
+            }
+
+            // 如果没有项目内容
+            if (!obj.html) {
+                arrCl.push(DISABLED);
+                return '<span class="' + arrCl.join(' ') + '"></span>';
             }
 
             // 复选模式列表不参与无障碍访问识别，因此HTML相对简单
@@ -1857,12 +2060,15 @@
 
     return Select;
 }));
+
 /**
  * @Drop.js
  * @author zhangxinxu
  * @version
  * Created: 15-06-30
  */
+
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -1873,9 +2079,11 @@
     } else {
         global.Drop = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -1904,13 +2112,13 @@
      */
     Drop.prototype.init = function (eleTrigger, eleTarget, options) {
         if (typeof eleTrigger == 'string') {
-            eleTrigger = document.querySelector(eleTrigger);
+            eleTrigger = document.getElementById(eleTrigger) || document.querySelector(eleTrigger);
         }
         if (typeof eleTarget == 'string') {
-            eleTarget = document.querySelector(eleTarget);
+            eleTarget = document.getElementById(eleTarget) || document.querySelector(eleTarget);
         }
 
-        if (typeof eleTarget == 'object' && typeof eleTarget.nodeType != 'number') {
+        if (eleTarget && typeof eleTarget == 'object' && typeof eleTarget.nodeType != 'number') {
             options = eleTarget;
             eleTarget = null;
         }
@@ -1928,6 +2136,28 @@
             onShow: function () { },
             onHide: function () { }
         };
+
+        options = options || {};
+
+        for (var key in defaults) {
+            if (typeof options[key] == 'undefined' && eleTrigger) {
+                var strAttr = eleTrigger.getAttribute('data-' + key.toLowerCase());
+                if (strAttr !== null) {
+                    if (key == 'edgeAdjust' && strAttr == 'false') {
+                        options[key] = false;
+                    } else if (key == 'offsets') {
+                        var arrOffsets = strAttr.split(/,|\s+/);
+                        var objOffsets = {
+                            x: Number(arrOffsets[0].trim()) || 0,
+                            y: Number(arrOffsets[1].trim()) || 0
+                        };
+                        options[key] = objOffsets;
+                    } else {
+                        options[key] = strAttr;
+                    }
+                }
+            }
+        }
 
         var objParams = Object.assign({}, defaults, options || {});
 
@@ -2127,7 +2357,7 @@
         }
 
         // 点击页面空白区域隐藏
-        document.addEventListener('click', function (event) {
+        document.addEventListener('mouseup', function (event) {
             var eleClicked = event && event.target;
 
             if (!eleClicked || this.display != true) {
@@ -2870,8 +3100,86 @@
         return this;
     };
 
+    // is-drop 属性下的快捷语法
+    var funAutoInitAndWatching = function () {
+        var strSelector = '[is-drop]';
+
+        // 同步更新分页内容的方法
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.nodeType !== 1) {
+                    return;
+                }
+                var attrDrop = node.getAttribute('is-drop');
+                var objOption = {
+                    eventType: node.getAttribute('data-eventtype') || 'click'
+                };
+                var objDrop = null;
+                if (attrDrop) {
+                    objDrop = new Drop(node, attrDrop, objOption);
+                } else {
+                    objDrop = new Drop(node, objOption);
+                }
+
+                node.dispatchEvent(new CustomEvent('connected', {
+                    detail: {
+                        drop: objDrop
+                    }
+                }));
+            });
+        };
+
+        // 所有 is-drop 元素初始设置
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert检测自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    if (mutation.type == 'childList') {
+                        mutation.addedNodes.forEach(function (eleAdd) {
+                            if (eleAdd.matches && eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        });
+                    }
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
+
     return Drop;
 }));
+
 /**
  * @Tips.js
  * @author zhangxinxu
@@ -2879,6 +3187,8 @@
  * @Created: 15-06-25
  * @edit:    17-06-19
  */
+
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -2889,10 +3199,12 @@
     } else {
         global.Tips = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
-        
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -3069,7 +3381,7 @@
         // 设置定时器对象
         var timerTips;
         // 如果是不支持hover行为的浏览器，hover变click
-        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone'); 
+        var isHover = getComputedStyle(document.documentElement).getPropertyValue('--hoverNone');
         if (isHover && objParams.eventType == 'hover') {
             objParams.eventType = 'click';
         }
@@ -3184,17 +3496,17 @@
         // 关键字参数与位置
         if (strAlign == 'center') {
             strPosition = '5-7';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '7-5';
             }
         } else if (strAlign == 'left') {
             strPosition = '1-4';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '4-1';
             }
         } else if (strAlign == 'right') {
             strPosition = '2-3';
-            if (eleTrigger.classList.contains(REVERSE)) {
+            if (eleTrigger.classList.contains(REVERSE) || eleTrigger.hasAttribute(REVERSE)) {
                 strPosition = '3-2';
             }
         } else if (/^\d-\d$/.test(strAlign)) {
@@ -3250,9 +3562,11 @@
         return this;
     };
 
+    var strSelector = '.' + CL + ', .jsTips,[is-tips]';
+
     // 自动初始化.ui-tips和.jsTips类名元素
     window.addEventListener('DOMContentLoaded', function () {
-        new Tips('.' + CL + ', .jsTips');
+        new Tips(strSelector);
     });
 
     // 全局委托
@@ -3261,13 +3575,13 @@
         if (!eleTrigger || !eleTrigger.closest) {
             return;
         }
-        eleTrigger = eleTrigger.closest('.' + CL + ', .jsTips');
+        eleTrigger = eleTrigger.closest(strSelector);
 
         if (eleTrigger && (!eleTrigger.data || !eleTrigger.data.tips)) {
             new Tips(eleTrigger);
 
             var objTips = eleTrigger.data.tips;
-            if (objTips && eleTrigger.classList.contains('jsTips')) {
+            if (objTips && (eleTrigger.classList.contains('jsTips') || eleTrigger.hasAttribute('is-tips'))) {
                 objTips.show();
             }
         }
@@ -3275,6 +3589,7 @@
 
     return Tips;
 }));
+
 
 /**
  * @LightTip.js
@@ -3614,13 +3929,14 @@
 
     return LightTip;
 }));
+
 /**
  * @ErrorTip.js
  * @author zhangxinxu
  * @version
  * Created: 15-07-01
  */
-
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -3630,9 +3946,11 @@
     } else {
         global.ErrorTip = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
 
     if (typeof require == 'function' && !Follow) {
@@ -3856,6 +4174,7 @@
 
     return ErrorTip;
 }));
+
 /**
  * @Loading.js
  * @author zhangxinxu
@@ -4105,6 +4424,7 @@
 
     return Loading;
 }));
+
 /**
  * @Range.js
  * @author zhangxinxu
@@ -4113,6 +4433,7 @@
  * @edit:    19-09-24 remove jQuery by 5ibinbin
  * @review:  19-09-27 by zhangxinxu
  */
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -4123,7 +4444,9 @@
     } else {
         global.Range = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
+    // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Tips = this.Tips;
@@ -4195,6 +4518,11 @@
             return this;
         }
 
+        // 如果 eleRange 不是隐藏状态，则认为是原生显示
+        if (window.getComputedStyle(eleRange).visibility !== 'hidden') {
+            return;
+        }
+
         if (eleRange.data && eleRange.data.range) {
             return eleRange.data.range;
         }
@@ -4225,7 +4553,7 @@
         eleThumb.classList.add(CL.add('thumb'));
 
         // 是否反向
-        if (objParams.reverse || eleRange.classList.contains(REVERSE)) {
+        if (objParams.reverse || eleRange.classList.contains(REVERSE) || eleRange.hasAttribute(REVERSE)) {
             objParams.reverse = true;
             eleThumb.classList.add(REVERSE);
         }
@@ -4392,7 +4720,7 @@
                 if (this.tips) {
                     this.tips.content = this.params.tips.call(eleThumb, eleRange.value);
                     this.tips.show();
-                }                
+                }
             }
         }.bind(this));
 
@@ -4405,7 +4733,7 @@
                     this.tips.hide();
                 }
                 eleThumb.classList.remove(ACTIVE);
-            }            
+            }
         }.bind(this));
 
         // 键盘支持，左右
@@ -4569,30 +4897,44 @@
             strSelector = 'input.' + CL.add('input') + ',.' + CL.add('input') + '>input';
         }
 
-        document.querySelectorAll(strSelector).forEach(function (eleRange) {
-            if (!(eleRange.data && eleRange.data.range) && window.getComputedStyle(eleRange).visibility == 'hidden') {
-                new Range(eleRange);
+        // 自动绑定 range 输入框
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
+                return;
             }
-        });
+            if (!nodes.forEach) {
+                if (nodes.matches && nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else if (nodes.querySelector) {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
+            }
+
+            if (!nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches(strSelector)) {
+                    if (action == 'remove' && node.data && node.data.range) {
+                        var objElement = node.data.range.element;
+                        if (objElement.thumb && objElement.thumb.data && objElement.thumb.data.tips) {
+                            objElement.thumb.data.tips.element.tips.remove();
+                        }
+                        objElement.container.remove();
+                    } else if (!node.data || !node.data.range) {
+                        new Range(node);
+                    }
+                }
+            });
+        };
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
             return;
         }
 
-        var funSyncRefresh = function (node, action) {
-            if (node.nodeType != 1) {
-                return;
-            }
-
-            if (node.matches(strSelector)) {
-                if (action == 'remove' && node.data && node.data.range) {
-                    node.data.range.element.container.remove();
-                } else if (window.getComputedStyle(node).visibility == 'hidden' && action == 'add') {
-                    new Range(node);
-                }
-            }
-        };
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // DOM Insert自动初始化
         // IE11+使用MutationObserver
@@ -4642,12 +4984,15 @@
 
     return Range;
 }));
+
 /**
  * @Color.js
  * @author zhangxinxu
  * @version
  * Created: 16-06-03
  */
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Drop = require('./Drop');
@@ -4657,9 +5002,11 @@
     } else {
         global.Color = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     // require
     var Drop = this.Drop;
     if (typeof require == 'function' && !Drop) {
@@ -4787,8 +5134,8 @@
             return '#' + rgb.repeat(Math.ceil(6 / rgb.length)).slice(0, 6);
         }
 
-        // 如果是rgb(a)色值
-        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        // 如果是rgb(a)色值，防止不合法的值报错
+        arr = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i) || [];
         var hex = function (x) {
             return ('0' + parseInt(x, 10).toString(16)).slice(-2);
         };
@@ -4826,6 +5173,11 @@
 
         // el需要是原生的type=color的输入框
         if (!element) {
+            return;
+        }
+
+        // 必须是透明度为0
+        if (window.getComputedStyle(element).opacity !== '0') {
             return;
         }
 
@@ -5076,7 +5428,8 @@
 
         // 输入框事件
         eleField.addEventListener('input', function () {
-            var value = this.value;
+            // 获取面板中的input
+            var value = this.element.field.value;
             if (/^[0-9A-F]{6}$/i.test(value)) {
                 this.match();
             } else if (/^[0-9A-F]{3}$/i.test(value)) {
@@ -5089,12 +5442,12 @@
                 var strValue = eleField.value;
                 var strOldvalue = strValue;
                 if (strValue) {
-                    strValue = $.rgbToHex('#' + strValue);
+                    strValue = funRgbToHex('#' + strValue);
                     if (strValue != strOldvalue) {
                         // 支持输入#000
                         eleField.value = strValue;
                     }
-                    this.value('#' + strValue);
+                    this.value(strValue);
                 }
                 this.hide();
             }
@@ -5103,6 +5456,7 @@
         // 滑块拖动事件
         var objPosArrow = {};
         var objPosCircle = {};
+
         // 三角上下
         eleArrow.addEventListener(objEventType.start, function (event) {
             event.preventDefault();
@@ -5113,6 +5467,65 @@
             objPosArrow.pageY = event.pageY;
             objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
         });
+
+        eleFill.addEventListener(objEventType.start, function (event) {
+            event.preventDefault();
+
+            // 5. 渐变色的覆盖层
+            // offsetLeft, offsetTop
+            var eleTarget = event.target;
+            var objRect = eleTarget.getBoundingClientRect();
+            var numOffsetTop = event.pageY - window.pageYOffset - objRect.top;
+
+            eleArrow.style.top = numOffsetTop + 'px';
+
+            if (event.touches && event.touches.length) {
+                event = event.touches[0];
+            }
+            objPosArrow.pageY = event.pageY;
+            objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
+
+            // 赋值，此次赋值，无需重定位
+            eleField.value = this.getValueByStyle().replace('#', '');
+
+            this.match(false);
+        }.bind(this));
+
+        // 圆圈移动
+        eleCircle.parentElement.querySelectorAll('a').forEach(function (eleRegion) {
+            eleRegion.addEventListener(objEventType.start, function (event) {
+                event.preventDefault();
+                if (event.touches && event.touches.length) {
+                    event = event.touches[0];
+                }
+
+                objPosCircle.pageY = event.pageY;
+                objPosCircle.pageX = event.pageX;
+                // 当前位移位置
+                eleCircle.style.left = event.offsetX + 'px';
+                eleCircle.style.top = event.offsetY + 'px';
+                objPosCircle.top = parseFloat(event.offsetY);
+                objPosCircle.left = parseFloat(event.offsetX);
+
+                // 最大位置范围
+                var objMaxPos = {
+                    top: eleCircle.parentElement.clientHeight,
+                    left: eleCircle.parentElement.clientWidth
+                };
+                // 根据目标位置位置和变色
+                var numColorH = event.offsetX / objMaxPos.left;
+                var strColorS = 1 - event.offsetY / objMaxPos.top;
+
+                var strHsl = 'hsl(' + [360 * numColorH, 100 * strColorS + '%', '50%'].join() + ')';
+
+                eleCircle.style[BGCOLOR] = strHsl;
+
+                // 赋值，此次赋值，无需重定位
+                eleField.value = this.getValueByStyle().replace('#', '');
+
+                this.match(false);
+            }.bind(this));
+        }.bind(this));
 
         // 圆圈移动
         eleCircle.addEventListener(objEventType.start, function (event) {
@@ -5162,6 +5575,8 @@
                     top: objPosCircle.top + (event.pageY - objPosCircle.pageY),
                     left: objPosCircle.left + (event.pageX - objPosCircle.pageX)
                 };
+
+                // 最大位置范围
                 var objMaxPos = {
                     top: eleCircle.parentElement.clientHeight,
                     left: eleCircle.parentElement.clientWidth
@@ -5704,31 +6119,40 @@
         // 遍历页面上的range元素
         var strSelector = 'input[type="color"]';
 
-        document.querySelectorAll(strSelector).forEach(function (eleColorInput) {
-            if (!(eleColorInput.data && eleColorInput.data.color) && window.getComputedStyle(eleColorInput).opacity == '0') {
-                new Color(eleColorInput);
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
+                return;
             }
-        });
+            if (!nodes.forEach) {
+                if (nodes.matches && nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
+            }
+
+            if (!nodes.length) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    if (action == 'remove' && node.data && node.data.color) {
+                        node.data.color.element.track.remove();
+                        node.data.color.element.container.remove();
+                    } else if (!node.data || !node.data.color) {
+                        new Color(node);
+                    }
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
             return;
         }
-
-        var funSyncRefresh = function (node, action) {
-            if (node.nodeType != 1) {
-                return;
-            }
-
-            if (node.matches(strSelector)) {
-                if (action == 'remove' && node.data && node.data.color) {
-                    node.data.color.element.track.remove();
-                    node.data.color.element.container.remove();
-                } else if (action == 'add' && window.getComputedStyle(node).opacity == '0') {
-                    new Color(node);
-                }
-            }
-        };
 
         // DOM Insert自动初始化
         // IE11+使用MutationObserver
@@ -5776,8 +6200,14 @@
         window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
     }
 
+    // 颜色转换静态方法暴露
+    Color.funHexToHsl = funHexToHsl;
+    Color.funHslToHex = funHslToHex;
+    Color.funRgbToHex = funRgbToHex;
+
     return Color;
 }));
+
 /**
  * @Dialog.js
  * @author  zhangxinxu
@@ -6527,6 +6957,7 @@
 
     return Dialog;
 }));
+
 /**
  * @Datalist.js
  * @author zhangxinxu
@@ -6534,6 +6965,9 @@
  * Created: 16-03-28
  * @description 多功能下拉数据列表
 **/
+
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -6543,7 +6977,9 @@
     } else {
         global.Datalist = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
+    // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
@@ -6955,7 +7391,11 @@
         }
 
         // 务必灭了浏览器内置的autocomplete
-        eleInput.setAttribute('autocomplete', 'off');
+        if (eleInput.form) {
+            eleInput.setAttribute('autocomplete', 'off');
+        } else {
+            eleInput.setAttribute('autocomplete', 'new-password');
+        }
 
         // 上面的数据方法准备完毕，下面事件
         this.events();
@@ -7612,8 +8052,71 @@
         this.display = false;
     };
 
+    // is-datalist 属性实时watch
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'input[is-datalist]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        // 遍历页面上匹配的元素
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
+
     return Datalist;
 }));
+
 /**
  * @DateTime.js
  * @author zhangxinxu
@@ -7622,6 +8125,7 @@
  * @editd:   19-11-12
  */
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -7631,9 +8135,11 @@
     } else {
         global.DateTime = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
@@ -7703,7 +8209,7 @@
             eleTrigger = document.querySelector(element);
         }
 
-        if (!eleTrigger) {
+        if (!eleTrigger || eleTrigger.hasAttribute('is-visible')) {
             return this;
         }
 
@@ -7778,11 +8284,13 @@
         // 下拉元素
         var eleLabel = document.createElement('label');
         eleLabel.classList.add(CL.date('arrow'));
-        // eleLabel.setAttribute('for', strId);
 
         // 插入到文本框的后面
-        eleInput.insertAdjacentElement('afterend', eleLabel);
-        eleInput.setAttribute('lang', 'zh-Hans-CN');
+        if (getComputedStyle(eleTrigger).position != 'static') {
+            eleInput.insertAdjacentElement('afterend', eleLabel);
+        } else {
+            eleTrigger = eleInput;
+        }
 
         // 初始值
         var strInitValue = eleInput.value;
@@ -9582,19 +10090,37 @@
             return;
         }
 
-        var funSyncRefresh = function (node) {
-            if (node.nodeType != 1 || node.tagName != 'INPUT' || (node.data && node.data.dateTime)) {
+        var strSelector = 'input[type^="date"],input[type^="year"],input[type^="month"],input[type^="time"],input[type^="hour"],input[type^="minute"]';
+
+        var funSyncRefresh = function (nodes, action) {
+            if (!nodes) {
                 return;
             }
 
-            var strType = node.getAttribute('type');
-            if (/^date|year|month|time|hour|minute/.test(strType)) {
-                new DateTime(node);
+            if (nodes.matches && nodes.querySelector) {
+                if (nodes.matches(strSelector)) {
+                    nodes = [nodes];
+                } else {
+                    nodes = nodes.querySelectorAll(strSelector);
+                }
             }
+
+            if (!nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches) {
+                    if (action == 'remove' && node.data && node.data.dateTime) {
+                        node.data.dateTime.element.container.remove();
+                    } else if (!node.data || !node.data.color) {
+                        new DateTime(node);
+                    }
+                }
+            });
         };
 
-        document.querySelectorAll('input[type]').forEach(funSyncRefresh);
-
+        funSyncRefresh(document.querySelectorAll(strSelector));
 
         // 如果没有开启观察，不监听DOM变化
         if (window.watching === false) {
@@ -9607,13 +10133,12 @@
         if (window.MutationObserver) {
             var observerSelect = new MutationObserver(function (mutationsList) {
                 mutationsList.forEach(function (mutation) {
-                    var nodeAdded = mutation.addedNodes;
-
-                    if (nodeAdded.length) {
-                        nodeAdded.forEach(function (eleAdd) {
-                            funSyncRefresh.call(mutation, eleAdd);
-                        });
-                    }
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        funSyncRefresh.call(mutation, eleAdd);
+                    });
+                    mutation.removedNodes.forEach(function (eleRemove) {
+                        funSyncRefresh.call(mutation, eleRemove, 'remove');
+                    });
                 });
             });
 
@@ -9626,6 +10151,11 @@
                 // 插入节点
                 funSyncRefresh(event.target);
             });
+            document.body.addEventListener('DOMNodeRemoved', function (event) {
+                // 删除节点
+                // 这里方法执行的时候，元素还在页面上
+                funSyncRefresh(event.target, 'remove');
+            });
         }
     };
 
@@ -9635,15 +10165,17 @@
         window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
     }
 
-
     return DateTime;
 }));
+
 /**
  * @Validate.js
  * @author zhangxinxu
  * @version
  * Created: 15-08-19
  */
+
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -9654,9 +10186,11 @@
     } else {
         global.Validate = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
 
     var ErrorTip = this.ErrorTip;
     if (typeof require == 'function' && !ErrorTip) {
@@ -10871,6 +11405,13 @@
             configurable: true
         });
 
+        Object.defineProperty(prop, 'validationMessage', {
+            get: function () {
+                return document.validate.getReportText(this);
+            },
+            configurable: true
+        });
+
         Object.defineProperty(prop, 'checkValidity', {
             value: function () {
                 return this.validity.valid;
@@ -11375,8 +11916,71 @@
         }
     };
 
+
+    // 对is-validate属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'form[is-validate]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
+
     return Validate;
 }));
+
 /**
  * @Pagination.js
  * @author zhangxinxu
@@ -11384,6 +11988,8 @@
  * @Created: 15-06-26
  * @edit:    19-09-10 native js rewrite
  */
+
+/* global module */
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -11393,9 +11999,11 @@
     } else {
         global.Pagination = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 分页组件
@@ -11449,8 +12057,12 @@
             // 参数还可以取自element元素
             var objParamsFromElement = {};
             for (var keyParam in defaults) {
-                if (elePagination.hasAttribute(keyParam)) {
-                    objParamsFromElement[keyParam] = element.getAttribute(keyParam);
+                var strAttr = element.getAttribute(keyParam);
+                if (typeof strAttr != 'string') {
+                    strAttr = elePagination.dataset[keyParam];
+                }
+                if (typeof strAttr == 'string') {
+                    objParamsFromElement[keyParam] = strAttr;
                 }
             }
 
@@ -11522,8 +12134,6 @@
         });
     };
 
-
-
     /**
      * 分页相关的事件处理
      * @return {[type]} [description]
@@ -11547,6 +12157,13 @@
             // 改变全局暴露的current值
             this.params.current = numCurrent * 1;
 
+            // 外部的 HTML 属性也同步
+            if (elePagination.hasAttribute('current')) {
+                elePagination.setAttribute('current', numCurrent);
+            } else if (elePagination.hasAttribute('data-current')) {
+                elePagination.setAttribute('data-current', numCurrent);
+            }
+
             // 当前的类名，onClick回调可以准确识别点击DOM元素
             var strClassName = eleClicked.className;
 
@@ -11555,7 +12172,6 @@
 
             // 此时由于HTML刷新，原来的eleClicked元素已经不复存在
             // 因此需要重新获取一遍
-
             if (/prev/.test(strClassName)) {
                 eleClicked = elePagination.querySelector('.' + CL.add('prev'));
             } else if (/next/.test(strClassName)) {
@@ -11579,7 +12195,8 @@
 
             this.callback.click.call(this, eleClicked, this.params.current);
 
-
+            // 触发自定义事件
+            elePagination.dispatchEvent(new CustomEvent('change'));
         }.bind(this));
     };
 
@@ -11735,12 +12352,13 @@
     };
 
     /**
-     * 支持自定义的<lu-pagination>元素
+     * 支持自定义的<ui-pagination>元素
      * @return {[type]}   [description]
      */
     var funAutoInitAndWatching = function () {
+        var strSelector = 'ui-pagination, [is-pagination]';
         // 遍历页面上所有的<ui-pagination>元素
-        document.querySelectorAll('ui-pagination').forEach(function (elePagination) {
+        document.querySelectorAll(strSelector).forEach(function (elePagination) {
             new Pagination(elePagination);
         });
 
@@ -11749,7 +12367,7 @@
         }
         // 同步更新分页内容的方法
         var funSyncRefresh = function (node) {
-            if (node.nodeType != 1 || node.matches('ui-pagination') == false) {
+            if (node.nodeType != 1 || node.matches(strSelector) == false) {
                 return;
             }
             // 元素
@@ -11773,7 +12391,13 @@
                 mutationsList.forEach(function (mutation) {
                     if (mutation.type == 'childList') {
                         mutation.addedNodes.forEach(function (eleAdd) {
-                            funSyncRefresh(eleAdd);
+                            if (eleAdd.matches && eleAdd.matches(strSelector)) {
+                                funSyncRefresh(eleAdd);
+                            } else if (eleAdd.querySelector) {
+                                eleAdd.querySelectorAll(strSelector).forEach(function (elePagination) {
+                                    funSyncRefresh(elePagination);
+                                });
+                            }
                         });
                     }
                 });
@@ -11800,6 +12424,7 @@
 
     return Pagination;
 }));
+
 /**
  * @Table.js
  * @author   zhangxinxu
@@ -11809,6 +12434,7 @@
  *           19-12-03 ES5原生语法支持
 **/
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Drop = require('../ui/Drop');
@@ -11820,9 +12446,11 @@
     } else {
         global.Table = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Drop = this.Drop;
     var Pagination = this.Pagination;
     var Loading = this.Loading;
@@ -11975,7 +12603,8 @@
         };
 
         // 参数合并
-        var objParams = Object.assign({}, defaults, options || {});
+        options = options || {};
+        var objParams = Object.assign({}, defaults, options);
 
         // 分页合并
         if (options.pageOptions) {
@@ -12563,8 +13192,70 @@
         return this;
     };
 
+    // 对is-table属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'table[is-table]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
+
     return Table;
 }));
+
 /**
  * @Form.js
  * @author zhangxinxu
@@ -12573,6 +13264,7 @@
  * @edited   19-12-02    ES5原生语法支持
  */
 
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.LightTip = require('../ui/LightTip');
@@ -12584,9 +13276,11 @@
     } else {
         global.Form = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var LightTip = this.LightTip;
     var Loading = this.Loading;
     var Validate = this.Validate;
@@ -12775,6 +13469,8 @@
                     } else {
                         // 如果没有成功回调，组件自己提示成功
                         new LightTip().success(json.msg || '操作成功。');
+                        // 重置
+                        eleForm.reset();
                     }
                 } else {
                     new LightTip().error((json && json.msg) || '返回数据格式不符合要求。');
@@ -12833,6 +13529,67 @@
 
         return this;
     };
+
+    // 对is-form属性观察
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'form[is-form]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Form;
 }));

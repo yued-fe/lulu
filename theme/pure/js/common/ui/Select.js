@@ -7,6 +7,8 @@
  * @edit:    09-08-28  native js rewrite
 **/
 
+/* global module, global */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -15,9 +17,11 @@
     } else {
         global.Select = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+// eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     /**
      * 模拟下拉框效果
@@ -206,7 +210,7 @@
                             var arrDataScrollTop = eleCombobox.dataScrollTop;
                             var eleDatalistSelected = eleDatalist.querySelector('.' + SELECTED);
                             // 严格验证
-                            if (arrDataScrollTop && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
+                            if (arrDataScrollTop && eleDatalistSelected && arrDataScrollTop[1] == eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] == eleDatalistSelected.innerText) {
                                 eleDatalist.scrollTop = arrDataScrollTop[0];
                                 // 重置
                                 delete eleCombobox.dataScrollTop;
@@ -399,10 +403,42 @@
                 html: ''
             }];
         }
+        // 所有分组元素
+        var eleOptgroups = eleSelect.querySelectorAll('optgroup');
+        // 如果有任意一个分组元素设置了label，那么就是标题分组
+        // 如果只是optgroup标签包括，那么使用分隔线分隔
+        var isIntent = !!eleSelect.querySelector('optgroup[label]');
+
+        // 如果有分组
+        if (eleOptgroups.length) {
+            var arrData = [];
+
+            eleOptgroups.forEach(function (optgroup) {
+                arrData.push({
+                    html: optgroup.label,
+                    disabled: optgroup.disabled,
+                    className: optgroup.className,
+                    hr: !isIntent
+                });
+
+                optgroup.querySelectorAll('option').forEach(function (option) {
+                    arrData.push({
+                        html: option.label || option.innerHTML,
+                        value: option.value,
+                        selected: option.selected,
+                        disabled: optgroup.disabled || option.disabled,
+                        className: option.className,
+                        intent: isIntent
+                    });
+                });
+            });
+
+            return arrData;
+        }
 
         return [].slice.call(eleOptions).map(function (option) {
             return {
-                html: option.innerHTML,
+                html: option.label || option.innerHTML,
                 value: option.value,
                 selected: option.selected,
                 disabled: option.disabled,
@@ -465,8 +501,9 @@
             })() + '</span><i class="' + CL.add('icon') + '" aria-hidden="true"></i>';
         }
 
+        var index = -1;
         // 列表内容的刷新
-        eleDatalist.innerHTML = data.map(function (obj, index) {
+        eleDatalist.innerHTML = data.map(function (obj) {
             var arrCl = [CL.add('datalist', 'li')];
 
             if (obj.className) {
@@ -477,6 +514,30 @@
             }
             if (obj[DISABLED]) {
                 arrCl.push(DISABLED);
+            }
+
+            // 如果有分隔线
+            if (typeof obj.hr != 'undefined') {
+                if (obj.hr) {
+                    arrCl = [CL.add('datalist', 'hr'), obj.className];
+                    return '<div class="' + arrCl.join(' ') + '"></div>';
+                }
+
+                return '<div class="' + arrCl.join(' ') + '" role="heading">' + obj.html + '</div>';
+            }
+
+            // 这才是有效的索引
+            index++;
+
+            // 如果有缩进
+            if (obj.intent) {
+                arrCl.push(CL.add('intent'));
+            }
+
+            // 如果没有项目内容
+            if (!obj.html) {
+                arrCl.push(DISABLED);
+                return '<span class="' + arrCl.join(' ') + '"></span>';
             }
 
             // 复选模式列表不参与无障碍访问识别，因此HTML相对简单

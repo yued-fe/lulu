@@ -55,7 +55,7 @@ select[opacity="1"],
 select[opacity="100%"],
 select[style*="opacity:1"],
 select[style*="opacity: 1"],
-select.ui-visible {
+select[is-visible] {
     opacity: 1;
     border-right-width: 1px;
 }
@@ -191,6 +191,10 @@ select.ui-visible {
     bottom: 39px;
 }
 
+.ui-select-intent {
+    text-indent: 1em;
+}
+
 .ui-select-datalist-li {
     display: block;
     line-height: 20px;
@@ -203,12 +207,24 @@ select.ui-visible {
     transition: background-color .15s;
     overflow: hidden;
 }
+.ui-select-datalist-li[role="heading"] {
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 6px;
+}
 .ui-select-datalist-li[href] {
     cursor: pointer;
 }
 
 .ui-select-datalist-li:not(:only-child):empty {
     display: none;
+}
+
+.ui-select-datalist-hr:not(:first-child) {
+    border: 0;
+    border-bottom: 1px solid #d0d0d5;
+    margin: 7px 12px;
+    opacity: .38;
 }
 
 /* reset default a:hover */

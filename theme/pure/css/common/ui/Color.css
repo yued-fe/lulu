@@ -5,11 +5,8 @@
  * @author xinxuzhang
  * @create 16-06-03
 **/
-input[type='color'] {
-    opacity: 0;
-}
-
-.ui-color-input {
+.ui-color-input,
+[type='color']:not([is-visible]) {
     width: 40px; height: 40px;
     margin: 0; padding: 0;
     border: 0 none;
@@ -186,6 +183,7 @@ input[type='color'] {
     background-clip: content-box;
     -ms-transform: translate(-11px, -11px);
     transform: translate(-11px, -11px);
+    pointer-events: none;
 }
 
 .ui-color-more-r {

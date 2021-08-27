@@ -58,12 +58,14 @@
 }
 
 /* 朝下的情况 */
-.reverse.ui-tips[data-title]::before {
+.reverse.ui-tips[data-title]::before,
+[reverse].ui-tips[data-title]::before {
     bottom: auto;
     top: calc(100% + 12px);
 }
 
-.reverse.ui-tips[data-title]::after {
+.reverse.ui-tips[data-title]::after,
+[reverse].ui-tips[data-title]::after {
     border-color: transparent transparent #373c42;
     bottom: auto;
     top: 100%;

@@ -6,7 +6,7 @@
  * @create 15-06-17
  * @edit 17-06-14 focusable
 **/
-input[type="radio"]:not(.ui-visible) {
+input[type="radio"]:not([ui-visible]) {
     position: absolute;
     opacity: 0;
     width: 20px; height: 20px;
@@ -14,7 +14,7 @@ input[type="radio"]:not(.ui-visible) {
     z-index: -1;
 }
 
-.ui-visible + .ui-radio {
+[ui-visible] + .ui-radio {
     display: none;
 }
 

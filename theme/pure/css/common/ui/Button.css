@@ -73,8 +73,7 @@ button.ui-button {
 .ui-button[data-type="primary"],
 .ui-button[data-type="remind"],
 .ui-button[data-type="success"],
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"],
+.ui-button[data-type^="warn"],
 .ui-button[data-type="danger"],
 .ui-button[data-type="error"] {
     border: 0;
@@ -95,8 +94,7 @@ button.ui-button {
 }
 
 /* warning button */
-.ui-button[data-type="warning"],
-.ui-button[data-type="warn"] {
+.ui-button[data-type^="warn"] {
     background-color: #f59b00;
 }
 /* danger button */

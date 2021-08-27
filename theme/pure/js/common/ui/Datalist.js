@@ -5,6 +5,9 @@
  * Created: 16-03-28
  * @description 多功能下拉数据列表
 **/
+
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -14,7 +17,9 @@
     } else {
         global.Datalist = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
+    // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
@@ -426,7 +431,11 @@
         }
 
         // 务必灭了浏览器内置的autocomplete
-        eleInput.setAttribute('autocomplete', 'off');
+        if (eleInput.form) {
+            eleInput.setAttribute('autocomplete', 'off');
+        } else {
+            eleInput.setAttribute('autocomplete', 'new-password');
+        }
 
         // 上面的数据方法准备完毕，下面事件
         this.events();
@@ -1082,6 +1091,68 @@
         // 隐藏状态标记
         this.display = false;
     };
+
+    // is-datalist 属性实时watch
+    var funAutoInitAndWatching = function () {
+        // 目标选择器
+        var strSelector = 'input[is-datalist]';
+
+        var funSyncRefresh = function (nodes) {
+            if (!nodes || !nodes.forEach) {
+                return;
+            }
+
+            nodes.forEach(function (node) {
+                if (node.matches && node.matches(strSelector)) {
+                    node.dispatchEvent(new CustomEvent('connected'));
+                }
+            });
+        };
+
+        // 遍历页面上匹配的元素
+        funSyncRefresh(document.querySelectorAll(strSelector));
+
+        // 如果没有开启观察，不监听DOM变化
+        if (window.watching === false) {
+            return;
+        }
+
+        // DOM Insert自动初始化
+        // IE11+使用MutationObserver
+        // IE9-IE10使用Mutation Events
+        if (window.MutationObserver) {
+            var observerSelect = new MutationObserver(function (mutationsList) {
+                mutationsList.forEach(function (mutation) {
+                    mutation.addedNodes.forEach(function (eleAdd) {
+                        if (eleAdd.matches) {
+                            if (eleAdd.matches(strSelector)) {
+                                funSyncRefresh([eleAdd]);
+                            } else if (eleAdd.querySelector) {
+                                funSyncRefresh(eleAdd.querySelectorAll(strSelector));
+                            }
+                        }
+                    });
+                });
+            });
+
+            observerSelect.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        } else {
+            document.body.addEventListener('DOMNodeInserted', function (event) {
+                // 插入节点
+                funSyncRefresh([event.target]);
+            });
+        }
+    };
+
+    // 监听-免初始绑定
+    if (document.readyState != 'loading') {
+        funAutoInitAndWatching();
+    } else {
+        window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+    }
 
     return Datalist;
 }));

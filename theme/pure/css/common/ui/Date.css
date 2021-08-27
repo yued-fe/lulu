@@ -6,39 +6,39 @@
  * @create 15-07-03
  *
 **/
-::-webkit-clear-button,
-::-webkit-inner-spin-button,
-::-webkit-calendar-picker-indicator {
+:not([is-visible])::-webkit-clear-button,
+:not([is-visible])::-webkit-inner-spin-button,
+:not([is-visible])::-webkit-calendar-picker-indicator {
     display: none;
 }
 
-[type="date"]::-webkit-datetime-edit-text {
+[type="date"]:not([is-visible])::-webkit-datetime-edit-text {
     color: transparent;
-    background: linear-gradient(to bottom, transparent 9px, #4c5161 9px, #4c5161 10px, transparent 10px) no-repeat center;
-    background-size: 80% 100%;
+    background: linear-gradient(#4c5161, #4c5161) no-repeat center;
+    background-size: 80% 1px;
 }
 
-::-webkit-datetime-edit-text,
-::-webkit-datetime-edit-year-field,
-::-webkit-datetime-edit-month-field,
-::-webkit-datetime-edit-day-field,
-::-webkit-datetime-edit-hour-field,
-::-webkit-datetime-edit-minute-field,
-::-webkit-datetime-edit-ampm-field {
+:not([is-visible])::-webkit-datetime-edit-text,
+:not([is-visible])::-webkit-datetime-edit-year-field,
+:not([is-visible])::-webkit-datetime-edit-month-field,
+:not([is-visible])::-webkit-datetime-edit-day-field,
+:not([is-visible])::-webkit-datetime-edit-hour-field,
+:not([is-visible])::-webkit-datetime-edit-minute-field,
+:not([is-visible])::-webkit-datetime-edit-ampm-field {
     background: none;
     color: #4c5161;
 }
-:disabled::-webkit-datetime-edit-text,
-:disabled::-webkit-datetime-edit-year-field,
-:disabled::-webkit-datetime-edit-month-field,
-:disabled::-webkit-datetime-edit-day-field,
-:disabled::-webkit-datetime-edit-hour-field,
-:disabled::-webkit-datetime-edit-minute-field,
-:disabled::-webkit-datetime-edit-ampm-field {
+:not([is-visible]):disabled::-webkit-datetime-edit-text,
+:not([is-visible]):disabled::-webkit-datetime-edit-year-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-month-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-day-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-hour-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-minute-field,
+:not([is-visible]):disabled::-webkit-datetime-edit-ampm-field {
     opacity: .4;
 }
 
-:valid::-webkit-datetime-edit {
+:not([is-visible]):valid::-webkit-datetime-edit {
     visibility: hidden;
 }
 
@@ -52,11 +52,11 @@
     position: relative;
 }
 
-[class].ui-date-input > input,
-[class].ui-year-input > input,
-[class].ui-month-input > input,
-[class].ui-time-input > input,
-[class].ui-hour-input > input,
+.ui-date-input > input:not([is-visible]),
+.ui-year-input > input:not([is-visible]),
+.ui-month-input > input:not([is-visible]),
+.ui-time-input > input:not([is-visible]),
+.ui-hour-input > input:not([is-visible]),
 [class].ui-date-range-input > input,
 [class].ui-month-range-input > input {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -72,7 +72,6 @@
     background-color: #f7f9fa;
 }
 
-
 span.ui-date-input > input {
     width: 125px;
 }
@@ -81,7 +80,6 @@ span.ui-year-input > input,
 span.ui-time-input > input {
     width: 85px;
 }
-
 
 span.ui-month-input > input {
     width: 125px;

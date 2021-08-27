@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 /**
  * @description 一些兼容IE浏览器的原生方法合集，
  *              大多数方法源自开源项目
@@ -243,6 +244,22 @@ if ('document' in self) {
 
         testElement = null;
     }());
+}
+
+if (!document.documentElement.dataset) {
+    Object.defineProperty(HTMLElement.prototype, 'dataset', {
+        get: function () {
+            var attrs = this.attributes;
+            var obj = {};
+            for (var i = attrs.length - 1; i >= 0; i--) {
+                obj[attrs[i].name] = attrs[i].value;
+            }
+            return obj;
+        },
+        set: function () {
+
+        }
+    });
 }
 
 /**

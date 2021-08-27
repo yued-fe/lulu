@@ -4,7 +4,7 @@
  * @version
  * Created: 15-07-01
  */
-
+/* global module */
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         global.Follow = require('./Follow');
@@ -14,9 +14,11 @@
     } else {
         global.ErrorTip = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function (require) {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function (require) {
     var Follow = this.Follow;
 
     if (typeof require == 'function' && !Follow) {
