@@ -3280,12 +3280,12 @@ class Drop extends HTMLElement {
             if (options.matches && options.matches('dialog')) {
                 let eleTarget = options;
                 // 按钮信息
-                let strButtons = eleTarget.dataset.buttons || '';
-
-                options = {
-                    content: eleTarget.innerHTML,
-                    title: eleTarget.title,
-                    buttons: [{
+                let strButtons = eleTarget.dataset.buttons;
+                var arrButtons = [];
+                // 如果data-buttons为空字符串，或者是 null、false, 则不显示按钮
+                if (strButtons !== '' && strButtons !== 'null' && strButtons !== 'false') {
+                    strButtons = strButtons || '';
+                    arrButtons = [{
                         value: strButtons.split(',')[0].trim(),
                         events: () => {
                             eleTarget.dispatchEvent(new CustomEvent('ensure', {
@@ -3304,7 +3304,13 @@ class Drop extends HTMLElement {
                             }));
                             this.hide();
                         }
-                    }]
+                    }];
+                }
+
+                options = {
+                    content: eleTarget.innerHTML,
+                    title: eleTarget.title,
+                    buttons: arrButtons
                 };
             }
 
@@ -3319,6 +3325,16 @@ class Drop extends HTMLElement {
         if (!eleTrigger) {
             return this;
         }
+
+        options = options || {};
+
+        // 支持从 trigger 元素上获取部分参数
+        ['width', 'eventType', 'selector', 'offsets', 'position'].forEach(function (strKey) {
+            let strAttrKey = eleTrigger.getAttribute(strKey) || eleTrigger.dataset[strKey];
+            if (strAttrKey && typeof options[strKey] == 'undefined') {
+                options[strKey] = strAttrKey;
+            }
+        });
 
         const defaults = {
             title: '',
@@ -3337,7 +3353,7 @@ class Drop extends HTMLElement {
         };
 
         // Drop 配置
-        const objParams = Object.assign({}, defaults, options || {});
+        const objParams = Object.assign({}, defaults, options);
 
         // ui类名
         // 类名变量
