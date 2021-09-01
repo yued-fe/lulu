@@ -2704,11 +2704,33 @@ class Drop extends HTMLElement {
      * new Drop(eleTrigger, options).list(data);
      */
     list (eleTrigger, data, options) {
+        // datalist 元素的 option 转为列表数据
+        const funGetDataByOption = function (option) {
+            let obj = {
+                id: option.id || option.value,
+                value: option.innerHTML || option.value,
+                className: option.className,
+                disabled: option.disabled,
+                label: option.label,
+                accessKey: option.accessKey
+            };
+            // disabled处理
+            let eleOptgroup = option.closest('optgroup');
+            if (eleOptgroup && eleOptgroup.disabled) {
+                obj.disabled = true;
+            }
+            // href 属性处理
+            if (option.hasAttribute('href')) {
+                obj.href = option.getAttribute('href');
+            }
+
+            return obj;
+        };
         // 基于类型进行参数判断
         [...arguments].forEach(argument => {
             const strTypeArgument = typeof argument;
             if (strTypeArgument === 'string') {
-                eleTrigger = document.querySelector(argument);
+                eleTrigger = document.getElementById(argument) || document.querySelector(argument);
             } else if (strTypeArgument === 'function') {
                 data = argument;
             } else if (strTypeArgument === 'object') {
@@ -2741,15 +2763,7 @@ class Drop extends HTMLElement {
                                     }
 
                                     optgroup.querySelectorAll('option').forEach(option => {
-                                        arrData.push({
-                                            id: option.value,
-                                            value: option.innerHTML || option.value,
-                                            selected: option.selected,
-                                            disabled: optgroup.disabled || option.disabled,
-                                            className: option.className,
-                                            label: option.label,
-                                            accessKey: option.accessKey
-                                        });
+                                        arrData.push(funGetDataByOption(option));
                                     });
                                 });
 
@@ -2757,25 +2771,15 @@ class Drop extends HTMLElement {
                             }
 
                             return [...argument.querySelectorAll('option')].map((option, index) => {
-                                let value = option.innerHTML;
-                                let id = option.value;
-                                if (!value) {
-                                    value = option.value;
-                                    id = option.id || index;
-                                    // 如果依然没有数据，认为是分隔线
-                                    if (!value) {
-                                        return {};
-                                    }
+                                let objOption = funGetDataByOption(option);
+                                if (!objOption.value) {
+                                    return {};
                                 }
-                                return {
-                                    id: id,
-                                    value: value,
-                                    selected: option.selected,
-                                    className: option.className,
-                                    disabled: option.disabled,
-                                    label: option.label,
-                                    accessKey: option.accessKey
-                                };
+                                if (!objOption.id) {
+                                    objOption.id = index;
+                                }
+
+                                return objOption;
                             });
                         };
                         if (eleTrigger == argument) {
@@ -3007,7 +3011,12 @@ class Drop extends HTMLElement {
                         const arrCurrentIndex = arrIndex.concat(numIndex);
 
                         // 一些属性值
-                        const strAttrHref = objData.href || 'javascript:';
+                        let strAttrHref = objData.href;
+                        if (typeof strAttrHref != 'string') {
+                            strAttrHref = 'javascript:';
+                        } else if (!strAttrHref) {
+                            strAttrHref = location.href.split('#')[0];
+                        }
 
                         // target属性
                         let strAttrTarget = '';
