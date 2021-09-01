@@ -16,12 +16,17 @@
 	<header class="header">
 		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 静态控件之文本框</h1></a>
 		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
 			    <option value="pure">Pure主题</option>
 			    <option value="edge" selected>Edge主题</option>
 			</select>
-			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
 		</div>
 	</header>
 
@@ -226,7 +231,7 @@
         </dl>
         <dl class="aside_dl">
             <dt class="aside_dt">全局</dt>
-            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
         </dl>
         <dl class="aside_dl">
             <dt class="aside_dt">布局</dt>
@@ -311,6 +316,7 @@
 <script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
 <script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
 <script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
 <!-- 底部 -->
 <script src="../edge/assets/js/mockup.js"></script>
 </body>

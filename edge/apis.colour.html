@@ -16,12 +16,17 @@
 	<header class="header">
 		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 组件颜色</h1></a>
 		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
 			    <option value="pure">Pure主题</option>
 			    <option value="edge" selected>Edge主题</option>
 			</select>
-			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
 		</div>
 	</header>
 
@@ -76,6 +81,33 @@
                     <p>#1cad70</p>
                 </div>
             </div>
+
+            <h3>颜色变量</h3>
+            <p>默认的颜色变量名称如下所示：</p>
+            <pre><span class="green">/* 基础颜色变量 */</span>
+--ui-blue: #2a80eb;
+--ui-dark-blue: #0057c3;
+--ui-dark: #4c5161;
+--ui-gray: #a2a9b6;
+--ui-dark-gray: #b6bbc6;
+--ui-light: #f7f9fa;
+--ui-white: #ffffff;
+--ui-green: #1cad70;
+--ui-orange: #f59b00;
+--ui-red: #eb4646;
+<span class="green">/* hover 的颜色 */</span>
+--ui-list-hover: #f0f7ff;
+<span class="green">/* selected 的颜色 */</span>
+--ui-list-selected: #e0f0ff;
+<span class="green">/* disabled 禁用色 */</span>
+--ui-disabled: #ccd0d7;
+<span class="green">/* 边框颜色 */</span>
+--ui-border: #d0d0d5;
+<span class="green">/* 深一点的边框颜色 */</span>
+--ui-dark-border: #ababaf;
+<span class="green">/* 浅一点的边框颜色 */</span>
+--ui-light-border: #ededef;</pre>
+
             <h3>控制文字的颜色</h3>
             <p>如果有引入下面的CSS：</p>
             <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/color.css"&gt;</pre>
@@ -100,6 +132,8 @@
             <pre>&lt;span class="green"&gt;审核成功&lt;/span&gt;</pre>
             <p><span class="red">审核没有通过</span><br><span class="green">审核成功</span></p>
 
+            
+
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
@@ -116,7 +150,7 @@
         </dl>
         <dl class="aside_dl">
             <dt class="aside_dt">全局</dt>
-            <dd><a href="./apis.colour.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+            <dd><a href="./apis.colour.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
         </dl>
         <dl class="aside_dl">
             <dt class="aside_dt">布局</dt>
@@ -201,6 +235,7 @@
 <script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
 <script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
 <script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
 <!-- 底部 -->
 <script src="../edge/assets/js/mockup.js"></script>
 </body>
