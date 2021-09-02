@@ -74,6 +74,21 @@
     visibility: visible;
 }
 
+[is="ui-checkbox"]:indeterminate {
+    color: var(--ui-blue, #2a80eb);
+    background-color: var(--ui-blue, #2a80eb);
+}
+[is="ui-checkbox"]:not(:disabled):indeterminate:focus,
+[is="ui-checkbox"]:not(:disabled):indeterminate:hover {
+    color: var(--ui-dark-blue, #0057c3);
+    background-color: var(--ui-dark-blue, #0057c3);
+}
+[is="ui-checkbox"]:indeterminate::after {
+    opacity: 1;
+    visibility: visible;
+    background-image: linear-gradient(90deg, #fff 22%, transparent 22%, transparent 78%, #fff 78%), linear-gradient(#fff 22%, currentColor 22%, currentColor 78%, #fff 78%);;
+}
+
 [is="ui-checkbox"]:disabled {
     opacity: var(--ui-opacity, .4);
 }
