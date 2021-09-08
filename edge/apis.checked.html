@@ -45,55 +45,63 @@
 
             <h3>模拟单选框</h3>
             <h4>常规使用</h4>
+            <p>添加 <code>is="ui-radio"</code> 属性。</p>
             <p>
                 <input type="radio" id="radio1" name="radio"  is="ui-radio" is="ui-radio"><label for="radio1" class="mr30 f14">单选项1</label>
                 <input type="radio" id="radio2" name="radio"  is="ui-radio"><label for="radio2" class="mr30 f14">单选项2</label>
                 <input type="radio" id="radio3" name="radio"  is="ui-radio"><label for="radio3" class="mr30 f14">单选项3</label>
             </p>
-            <pre>&lt;input type="radio" id="radio1" name="radio" <mark>is="ui-radio"</mark>&gt;
-&lt;label for="radio1"&gt;单选项1&lt;/label&gt;
-<span class="green">&lt;!-- 美化的radio元素需要添加is="ui-radio" --&gt;</span></pre>
+            <pre>&lt;input type="radio" id="r1" name="radio" <mark>is="ui-radio"</mark>&gt;
+&lt;label for="r1"&gt;单选项1&lt;/label&gt;</pre>
             <h4>禁用效果</h4>
-            <p>单选框禁用和原生单选框禁用方法一样，直接设置原生单选框的<code>disabled</code>属性即可：</p>
+            <p>单选框禁用和原生单选框禁用方法一样，直接设置原生单选框的 <code>disabled</code> 属性即可：</p>
             <p>
                 <input type="radio" id="radio4" name="radioDisabled" is="ui-radio" disabled><label for="radio4" class="mr30 f14">单选项4</label>
                 <input type="radio" id="radio5" name="radioDisabled" is="ui-radio" disabled checked><label for="radio5" class="mr30 f14">单选项5</label>
             </p>
-            <pre>&lt;input type="radio" id="radio4" name="radioDisabled" is="ui-radio" <mark>disabled</mark>&gt;
-&lt;label for="radio4"&gt;单选项4&lt;/label&gt;
-&lt;input type="radio" id="radio5" name="radioDisabled" is="ui-radio" <mark>disabled</mark> checked&gt;
-&lt;label for="radio5"&gt;单选项5&lt;/label&gt;</pre>
+            <pre>&lt;input type="radio" id="r4" name="rd" is="ui-radio" <mark>disabled</mark>&gt;
+&lt;label for="r4"&gt;单选项4&lt;/label&gt;
+&lt;input type="radio" id="r5" name="rd" is="ui-radio" <mark>disabled</mark> checked&gt;
+&lt;label for="r5"&gt;单选项5&lt;/label&gt;</pre>
             <h3>模拟复选框</h3>
             <h4>常规使用</h4>
+            <p>添加 <code>is="ui-checkbox"</code> 属性。</p>
             <p>
                 <input type="checkbox" id="checkbox1" name="checkbox" is="ui-checkbox"><label for="checkbox1" class="mr30 f14">复选项1</label>
                 <input type="checkbox" id="checkbox2" name="checkbox" is="ui-checkbox" checked><label for="checkbox2" class="mr30 f14">复选项2</label>
                 <input type="checkbox" id="checkbox3" name="checkbox" is="ui-checkbox"><label for="checkbox3" class="mr30 f14">复选项3</label>
             </p>
-            <pre>&lt;input type="checkbox" id="checkbox1" name="checkbox" <mark>is="ui-checkbox"</mark>>
-&lt;label for="checkbox1">复选项1&lt;/label>
-<span class="green">&lt;!-- 美化的checkbox元素需要添加is="ui-checkbox" --&gt;</span></pre>
+            <pre>&lt;input type="checkbox" id="c1" name="checkbox" <mark>is="ui-checkbox"</mark>&gt;
+&lt;label for="c1">复选项1&lt;/label&gt;</pre>
+            
+            <h4>半选</h4>
+            
+            <p><input type="checkbox" id="ci" is="ui-checkbox"><label for="ci" class="ml5 f14">全选</label></p>
+            <p>半选效果需要 JS 设置才有效果：</p>
+            <pre>&lt;input type="checkbox" id="ci" is="ui-checkbox"&gt;</pre>
+            <pre>ci.indeterminate = true;</pre>
+
             <h4>禁用态</h4>
-            <p>禁用效果直接在原生的复选框元素上<code>disabled</code>属性就可以了：</p>
+            <p>禁用效果直接在原生的复选框元素上 <code>disabled</code> 属性就可以了：</p>
             <p>
                 <input type="checkbox" id="checkbox4" name="checkbox" is="ui-checkbox" disabled><label for="checkbox4" class="mr30 f14">复选项4</label>
                 <input type="checkbox" id="checkbox5" name="checkbox" is="ui-checkbox" disabled checked><label for="checkbox5" class="mr30 f14">复选项5</label>
             </p>
-            <pre>&lt;input type="checkbox" id="checkbox4" name="checkbox" is="ui-checkbox" <mark>disabled</mark>&gt;&lt;label for="checkbox4"&gt;复选项4&lt;/label&gt;
-&lt;input type="checkbox" id="checkbox5" name="checkbox" is="ui-checkbox" <mark>disabled</mark> checked&gt;
-&lt;label for="checkbox5"&gt;复选项5&lt;/label&gt;</pre>
+            <pre>&lt;input type="checkbox" id="c4" name="c" is="ui-checkbox" <mark>disabled</mark>&gt;&lt;label for="c4"&gt;复选项4&lt;/label&gt;
+&lt;input type="checkbox" id="c5" name="c" is="ui-checkbox" <mark>disabled</mark> checked&gt;
+&lt;label for="c5"&gt;复选项5&lt;/label&gt;</pre>
 
             <h3>单复选框原生态</h3>
-            <p>如果希望某些场景还是使用原生的单复选框，不添加<code>is="ui-checkbox"</code>即可，示意：</p>
+            <p>如果希望某些场景还是使用原生的单复选框，不添加 <code>is="ui-checkbox"</code> 即可，示意：</p>
             <p>
                 <input type="checkbox" id="checkbox6" ><label for="checkbox6" class="mr30 f14">复选项6</label>
                 <input type="radio" id="radio6" ></label><label for="radio6" class="mr30 f14">单选框6</label>
             </p>
-            <pre>&lt;input type="checkbox" id="checkbox6" &gt;&lt;label for="checkbox5" class="mr30 f14"&gt;复选项6&lt;/label&gt;
-&lt;input type="radio" id="radio6" &gt;&lt;label for="radio6"&gt;单选框6&lt;/label&gt;</pre>
+            <pre>&lt;input type="checkbox" id="c6" &gt;&lt;label for="c6" class="mr30 f14"&gt;复选项6&lt;/label&gt;
+&lt;input type="radio" id="r6" &gt;&lt;label for="r6"&gt;单选框6&lt;/label&gt;</pre>
 
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu,ShineaSYR</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu, ShineaSYR</p>
             </div>
         </article>
     </main>
@@ -199,3 +207,7 @@
 <script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
+
+<script>
+    ci.indeterminate = true;
+</script>

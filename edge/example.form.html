@@ -130,6 +130,11 @@ myForm.callback.success = function (json) {
 
     // 表单重置
     this.reset();
+};
+<span class="green">// xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据</span>
+myForm.callback.beforeSend = function (xhr, formData) {
+    <span class="green">// 增加请求头信息</span>
+    xhr.setRequestHeader('From', 'LuLu UI');
 };</pre>
 
             <h3>语法和参数</h3>
@@ -376,6 +381,11 @@ myForm.addEventListener('connected', function () {
 
         // 表单重置
         this.reset();
+    };
+
+    // xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据
+    this.callback.beforeSend = function (xhr, formData) {
+        xhr.setRequestHeader('From', 'LuLu UI');
     };
 });
 </script>

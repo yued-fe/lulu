@@ -30,7 +30,7 @@
 		</div>
 	</header>
 
-
+<style id="style"></style>
 <div class="main">
     <!-- 主内容 -->
     <main class="section_main">
@@ -77,7 +77,7 @@ button.addEventListener('click', function () {
 
             <p>如果自定义元素不方便使用，也可以在普通HTML元素上添加<code>is-tips</code>实现提示效果，例如：</p>
             <pre>&lt;i <mark>is-tips</mark> title="注销">&lt;/i></pre>
-            <p>效果为：<i class="icon_del dib" is-tips title="删除"></i></p>
+            <p>效果为：<i class="icon_del dib" is-tips title="删除自身" onclick="this.remove()"></i></p>
             <p><code>is-tips</code>触发的黑色提示浮层定位是基于JS计算，不受布局限制。同样也支持动态插入元素的提示效果。</p>
 
             <p>支持<code>&lt;br&gt;</code>换行：<i class="icon_del dib" is-tips title="第一行<br>第二行"></i></p>
@@ -100,7 +100,7 @@ button.addEventListener('click', function () {
             <pre>&lt;ui-tips title="朝下提示" <mark>reverse</mark>>&lt;/ui-tips></pre>
 
 
-            <!-- align -->
+            <h5>align / data-align 属性设置对齐</h5>
 
             <p>内容较多，小三角偏移在右侧的黑色tips: <i class="icon_del dib" is-tips data-align="right" title="点击此按钮会注销你的账户，您的目前的操作都不能执行，直到你重新登录"></i> <ui-tips class="icon_del dib" align="right" title="ui-tips自定义元素支持还使用align属性进行设置"></ui-tips></p>
             <p>使用<code>data-align</code>控制，可以使用<code>'right'</code>关键字，这里也可以使用<code>2-3</code>：</p>
@@ -116,7 +116,13 @@ button.addEventListener('click', function () {
             <p>方向朝左的黑色tips: <a href="javascript:" is-tips class="icon_del" data-align="8-6" title="提示在左"></a></p>
             <pre> &lt;a href is-tips <mark>data-align="8-6"</mark> title="提示在左"&gt;&lt;/a&gt;</pre>
 
-            <h4>element.tips语法</h4>
+            <h4>右侧边缘测试</h4>
+
+            <p>
+                <button type="primary" id="bre" is="ui-button">点击图标右边缘对齐</button>
+            </p>
+
+            <h3>element.tips语法</h3>
             <div>
                 效果示意：<span id="useTips" class="icon_del"></span>
             </div>
@@ -133,7 +139,8 @@ icon.addEventListener('hide', function () {
     console.log('hide tips');
 });
 </pre>
-            <h4>new Tips语法</h4>
+
+            <h3>new Tips语法</h3>
 
             <p>效果示意：<i id="newTip1" class="icon_del dib" title="提示内容来自title属性"></i> <i id="newTip2" class="icon_del dib"></i></p>
 
@@ -208,6 +215,7 @@ const eleTips = new Tips(trigger, content, options);</pre>
                         <p>具体的坐标值指使用<code>'target-trigger'</code><wbr>这种定位规则的参数值，不同位置与对应的值见下图所示：</p>
                         <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240" onload="if(screen.width<640){this.removeAttribute('height');}"></p>
                         例如<code>'6-8'</code>表示触发元素的位置<code>'6'</code>和浮层元素的位置<code>'8'</code>对齐，于是就有了左侧垂直居中定位效果。</p>
+                    </td>
                 </tr>
             </table>
 
@@ -539,4 +547,15 @@ eleBtnSearch3.addEventListener('click', function () {
 
 new Tips('#newTip1');
 new Tips('#newTip2', '提示内容来自传参');
+
+// 右侧边缘
+bre.addEventListener('click', function () {
+    if (!style.innerHTML) {
+        style.innerHTML = '.icon_del{position:absolute;right:15px;}';
+        this.innerHTML = '还原';
+    } else {
+        style.innerHTML = '';
+        this.innerHTML = '右对齐';
+    }
+});
 </script>
