@@ -109,27 +109,27 @@ class XRange extends HTMLInputElement {
         this.element = this.element || {};
         // 区间选择
         if (this.multiple && !this.element.otherRange) {
+            if (getComputedStyle(this.parentNode).position === 'static') {
+                // 给父级添加一个定位，不然相对宽度会有问题
+                this.parentNode.style.position = 'relative';
+            }
             Object.assign(this.element, {
                 otherRange: this.cloneNode(false),
-                splitRange: document.createElement('Q')
             });
             this.element.otherRange.tips = this.tips;
             this.element.otherRange.element = {
                 otherRange: this
             };
-            this.element.splitRange.hidden = true;
             if (this.vertical) {
                 this.after(this.element.otherRange);
-                this.element.otherRange.after(this.element.splitRange);
+                this.setAttribute('data-range','from');
+                this.element.otherRange.setAttribute('data-range','to');
             } else {
                 this.before(this.element.otherRange);
-                this.after(this.element.splitRange);
+                this.setAttribute('data-range','to');
+                this.element.otherRange.setAttribute('data-range','from');
             }
             this.range = this.defaultrange;
-            if (getComputedStyle(this.parentNode).position === 'static') {
-                // 给父级添加一个定位，不然相对宽度会有问题
-                this.parentNode.style.position = 'relative';
-            }
         }
 
         // CSS使用的是[is="ui-range"]控制的选择框样式，因此，该属性是必须的
@@ -161,9 +161,6 @@ class XRange extends HTMLInputElement {
         if (this.element && this.element.otherRange && !this.exchange) {
             this.element.otherRange.remove();
         }
-        if (this.element && this.element.splitRange && !this.exchange) {
-            this.element.splitRange.remove();
-        }
     }
 
     stopPropagation (ev) {
@@ -193,8 +190,12 @@ class XRange extends HTMLInputElement {
             this.exchange = true;
             if (isTop || isRight) {
                 this.element.otherRange.before(this);
+                this.setAttribute('data-range','from');
+                this.element.otherRange.setAttribute('data-range','to');
             } else {
                 this.element.otherRange.after(this);
+                this.setAttribute('data-range','to');
+                this.element.otherRange.setAttribute('data-range','from');
             }
             this.exchange = false;
             this.focus();
@@ -207,7 +208,13 @@ class XRange extends HTMLInputElement {
         this.style.setProperty('--percent', (this.value - min) / (max - min));
 
         if (typeof this.tips == 'string') {
-            this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
+            if (/^\d+$/.test(this.tips)) {
+                this.dataset.tips = this.value;
+            } else if (/^\${value}/.test(this.tips)) {
+                this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
+            } else {
+                this.dataset.tips = this.tips.replace(/\d+/, this.value);
+            }
         }
         this.style.setProperty('--from', this.from);
         this.style.setProperty('--to', this.to);

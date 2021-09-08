@@ -74,6 +74,18 @@
     visibility: visible;
 }
 
+[is="ui-checkbox"]:indeterminate::after {
+    opacity: 1;
+    visibility: visible;
+    color: var(--ui-blue, #2a80eb);
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 8px 8px;
+}
+[is="ui-checkbox"]:indeterminate:hover::after,
+[is="ui-checkbox"]:indeterminate:focus::after {
+    color: var(--ui-dark-blue, #0057c3);
+}
+
 [is="ui-checkbox"]:disabled {
     opacity: var(--ui-opacity, .4);
 }

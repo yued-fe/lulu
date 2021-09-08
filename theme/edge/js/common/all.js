@@ -3995,16 +3995,12 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 (function () {
     // 处理所有非 <ui-tips /> 的情况: .ui-tips, [is-tips="css"], [is-tips]
     let funTipsInitAndWatching = function () {
-        const tips = document.querySelectorAll('.ui-tips, [is-tips]');
-        tips.forEach((item) => {
+        const strSelector = '.ui-tips, [is-tips]';
+        document.querySelectorAll(strSelector).forEach((item) => {
             item.tips();
         });
 
         var observerTips = new MutationObserver(function (mutationsList) {
-        // 此时不检测DOM变化
-            if (window.watching === false) {
-                return;
-            }
             mutationsList.forEach(function (mutation) {
                 var nodeAdded = mutation.addedNodes;
                 var nodeRemoved = mutation.removedNodes;
@@ -4013,10 +4009,10 @@ HTMLElement.prototype.tips = function (content, options = {}) {
                         if (!eleAdd.matches) {
                             return;
                         }
-                        if (eleAdd.matches('.ui-tips, [is-tips]')) {
+                        if (eleAdd.matches(strSelector)) {
                             eleAdd.tips();
                         } else {
-                            eleAdd.querySelectorAll('.ui-tips, [is-tips]').forEach(item => {
+                            eleAdd.querySelectorAll(strSelector).forEach(item => {
                                 item.tips();
                             });
                         }
@@ -4025,14 +4021,16 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 
                 if (nodeRemoved.length) {
                     nodeRemoved.forEach(function (eleRemove) {
-                        // 删除对应的<ui-tips>元素，如果有
-                        if (eleRemove.tagName && eleRemove['ui-tips']) {
-                            eleRemove['ui-tips'].remove();
+                        if (!eleRemove.matches) {
+                            return;
                         }
-                        if (eleRemove.childNodes.length) {
-                            eleRemove.childNodes.forEach(function (ele) {
-                                if (ele['ui-tips']) {
-                                    ele['ui-tips'].remove();
+                        // 删除对应的<ui-tips>元素，如果有
+                        if (eleRemove['ui-tips'] && eleRemove['ui-tips'].target) {
+                            eleRemove['ui-tips'].target.remove();
+                        } else {
+                            eleRemove.querySelectorAll(strSelector).forEach(function (item) {
+                                if (item['ui-tips'] && item['ui-tips'].target) {
+                                    item['ui-tips'].target.remove();
                                 }
                             });
                         }
@@ -4778,27 +4776,27 @@ class XRange extends HTMLInputElement {
         this.element = this.element || {};
         // 区间选择
         if (this.multiple && !this.element.otherRange) {
+            if (getComputedStyle(this.parentNode).position === 'static') {
+                // 给父级添加一个定位，不然相对宽度会有问题
+                this.parentNode.style.position = 'relative';
+            }
             Object.assign(this.element, {
                 otherRange: this.cloneNode(false),
-                splitRange: document.createElement('Q')
             });
             this.element.otherRange.tips = this.tips;
             this.element.otherRange.element = {
                 otherRange: this
             };
-            this.element.splitRange.hidden = true;
             if (this.vertical) {
                 this.after(this.element.otherRange);
-                this.element.otherRange.after(this.element.splitRange);
+                this.setAttribute('data-range','from');
+                this.element.otherRange.setAttribute('data-range','to');
             } else {
                 this.before(this.element.otherRange);
-                this.after(this.element.splitRange);
+                this.setAttribute('data-range','to');
+                this.element.otherRange.setAttribute('data-range','from');
             }
             this.range = this.defaultrange;
-            if (getComputedStyle(this.parentNode).position === 'static') {
-                // 给父级添加一个定位，不然相对宽度会有问题
-                this.parentNode.style.position = 'relative';
-            }
         }
 
         // CSS使用的是[is="ui-range"]控制的选择框样式，因此，该属性是必须的
@@ -4830,9 +4828,6 @@ class XRange extends HTMLInputElement {
         if (this.element && this.element.otherRange && !this.exchange) {
             this.element.otherRange.remove();
         }
-        if (this.element && this.element.splitRange && !this.exchange) {
-            this.element.splitRange.remove();
-        }
     }
 
     stopPropagation (ev) {
@@ -4862,8 +4857,12 @@ class XRange extends HTMLInputElement {
             this.exchange = true;
             if (isTop || isRight) {
                 this.element.otherRange.before(this);
+                this.setAttribute('data-range','from');
+                this.element.otherRange.setAttribute('data-range','to');
             } else {
                 this.element.otherRange.after(this);
+                this.setAttribute('data-range','to');
+                this.element.otherRange.setAttribute('data-range','from');
             }
             this.exchange = false;
             this.focus();
@@ -4876,7 +4875,13 @@ class XRange extends HTMLInputElement {
         this.style.setProperty('--percent', (this.value - min) / (max - min));
 
         if (typeof this.tips == 'string') {
-            this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
+            if (/^\d+$/.test(this.tips)) {
+                this.dataset.tips = this.value;
+            } else if (/^\${value}/.test(this.tips)) {
+                this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
+            } else {
+                this.dataset.tips = this.tips.replace(/\d+/, this.value);
+            }
         }
         this.style.setProperty('--from', this.from);
         this.style.setProperty('--to', this.to);
@@ -13586,10 +13591,6 @@ class Form extends HTMLFormElement {
             });
         }
 
-        if (optionCallback.beforeSend) {
-            optionCallback.beforeSend.call(this, xhr, objFormData);
-        }
-
         // 请求类型不同，数据地址也不一样
         let strSearchParams = '';
 
@@ -13606,6 +13607,10 @@ class Form extends HTMLFormElement {
         // 4. 请求走起来
         let xhr = new XMLHttpRequest();
         xhr.open(strMethod, strUrl);
+
+        if (optionCallback.beforeSend) {
+            optionCallback.beforeSend.call(this, xhr, objFormData);
+        }
 
         // 请求结束
         xhr.onload = () => {

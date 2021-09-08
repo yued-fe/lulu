@@ -91,10 +91,6 @@ class Form extends HTMLFormElement {
             });
         }
 
-        if (optionCallback.beforeSend) {
-            optionCallback.beforeSend.call(this, xhr, objFormData);
-        }
-
         // 请求类型不同，数据地址也不一样
         let strSearchParams = '';
 
@@ -111,6 +107,10 @@ class Form extends HTMLFormElement {
         // 4. 请求走起来
         let xhr = new XMLHttpRequest();
         xhr.open(strMethod, strUrl);
+
+        if (optionCallback.beforeSend) {
+            optionCallback.beforeSend.call(this, xhr, objFormData);
+        }
 
         // 请求结束
         xhr.onload = () => {

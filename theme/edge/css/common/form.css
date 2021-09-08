@@ -382,6 +382,18 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
     visibility: visible;
 }
 
+[is="ui-checkbox"]:indeterminate::after {
+    opacity: 1;
+    visibility: visible;
+    color: var(--ui-blue, #2a80eb);
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 8px 8px;
+}
+[is="ui-checkbox"]:indeterminate:hover::after,
+[is="ui-checkbox"]:indeterminate:focus::after {
+    color: var(--ui-dark-blue, #0057c3);
+}
+
 [is="ui-checkbox"]:disabled {
     opacity: var(--ui-opacity, .4);
 }
@@ -1702,6 +1714,8 @@ progress[width="100%"] {
     background-color: var(--ui-light,#f7f9fa);
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, .25);
 }
+
+/* 黑色提示效果 */
 input[data-tips]{
     position: relative;
 }
@@ -1816,31 +1830,45 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 /* 区域选择 */
 [is="ui-range"][multiple]{
-    position: absolute;
     pointer-events: none;
     vertical-align: top;
 }
 [is="ui-range"][multiple]::-webkit-slider-runnable-track {
-    /* background: none; */
     background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
 }
-[is="ui-range"][multiple]+[is="ui-range"][multiple] {
-    position: relative;
+
+[is="ui-range"][multiple][data-range="from"] {
+    position: absolute;
+}
+[is="ui-range"][multiple][data-range="to"] {
     opacity: 1;
 }
-[is="ui-range"][multiple]+[is="ui-range"][multiple]:disabled::-webkit-slider-thumb{
-    box-shadow: 0 1px 3px 1px rgb(0 0 0 / 10%);
+[is="ui-range"][multiple][data-range="to"]:disabled::-webkit-slider-thumb {
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .1);
 }
-[is="ui-range"][multiple]+[is="ui-range"][multiple]::-webkit-slider-runnable-track {
+[is="ui-range"][multiple][data-range="to"]::-webkit-slider-runnable-track {
     background: none;
 }
 [is="ui-range"][multiple]::-webkit-slider-thumb {
     pointer-events: all;
     position: relative;
 }
-[is="ui-range"][multiple]::-webkit-slider-thumb:active{
+[is="ui-range"][multiple]::-webkit-slider-thumb:active {
     z-index: 1;
 }
+
+/* Firefox 范围选择 */
+[is="ui-range"][multiple]::-moz-range-thumb {
+    pointer-events: initial;
+}
+[is="ui-range"][multiple]::-moz-range-track {
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+}
+[is="ui-range"][multiple][data-range="to"]::-moz-range-progress {
+    background: none;
+}
+
+/* 星星评分 */
 
 [is="ui-rate"]:enabled {
     cursor: pointer;

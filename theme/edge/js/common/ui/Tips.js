@@ -339,16 +339,12 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 (function () {
     // 处理所有非 <ui-tips /> 的情况: .ui-tips, [is-tips="css"], [is-tips]
     let funTipsInitAndWatching = function () {
-        const tips = document.querySelectorAll('.ui-tips, [is-tips]');
-        tips.forEach((item) => {
+        const strSelector = '.ui-tips, [is-tips]';
+        document.querySelectorAll(strSelector).forEach((item) => {
             item.tips();
         });
 
         var observerTips = new MutationObserver(function (mutationsList) {
-        // 此时不检测DOM变化
-            if (window.watching === false) {
-                return;
-            }
             mutationsList.forEach(function (mutation) {
                 var nodeAdded = mutation.addedNodes;
                 var nodeRemoved = mutation.removedNodes;
@@ -357,10 +353,10 @@ HTMLElement.prototype.tips = function (content, options = {}) {
                         if (!eleAdd.matches) {
                             return;
                         }
-                        if (eleAdd.matches('.ui-tips, [is-tips]')) {
+                        if (eleAdd.matches(strSelector)) {
                             eleAdd.tips();
                         } else {
-                            eleAdd.querySelectorAll('.ui-tips, [is-tips]').forEach(item => {
+                            eleAdd.querySelectorAll(strSelector).forEach(item => {
                                 item.tips();
                             });
                         }
@@ -369,14 +365,16 @@ HTMLElement.prototype.tips = function (content, options = {}) {
 
                 if (nodeRemoved.length) {
                     nodeRemoved.forEach(function (eleRemove) {
-                        // 删除对应的<ui-tips>元素，如果有
-                        if (eleRemove.tagName && eleRemove['ui-tips']) {
-                            eleRemove['ui-tips'].remove();
+                        if (!eleRemove.matches) {
+                            return;
                         }
-                        if (eleRemove.childNodes.length) {
-                            eleRemove.childNodes.forEach(function (ele) {
-                                if (ele['ui-tips']) {
-                                    ele['ui-tips'].remove();
+                        // 删除对应的<ui-tips>元素，如果有
+                        if (eleRemove['ui-tips'] && eleRemove['ui-tips'].target) {
+                            eleRemove['ui-tips'].target.remove();
+                        } else {
+                            eleRemove.querySelectorAll(strSelector).forEach(function (item) {
+                                if (item['ui-tips'] && item['ui-tips'].target) {
+                                    item['ui-tips'].target.remove();
                                 }
                             });
                         }
