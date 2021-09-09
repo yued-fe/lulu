@@ -73,10 +73,6 @@
     opacity: 1;
     visibility: visible;
 }
-
-[is="ui-checkbox"]:indeterminate {
-    background-color: #ffffff;
-}
 [is="ui-checkbox"]:not(:disabled):indeterminate:focus,
 [is="ui-checkbox"]:not(:disabled):indeterminate:hover {
     color: var(--ui-dark-blue, #0057c3);
