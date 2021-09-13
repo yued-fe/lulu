@@ -2,7 +2,7 @@
 
 LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
-形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>。
+形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>，以及需要轻量与敏捷的项目。
 
 <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
@@ -28,7 +28,7 @@ LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/all.js"></script>
 ```
 
-您也可以支持直接单独引入某一个组件，例如：
+您也可以直接单独引入某一个组件，例如：
 
 ```html
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Dialog.css">
@@ -37,38 +37,7 @@ LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Dialog.js"></script>
 ```
 
-如果是 Edge 主题，还需要添加<code>type="module"</code>，例如：
-
-```html
-<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Dialog.js"></script>
-```
-
-LuLu UI 也支持 import 引入，例如在 Vue-CLI 环境中：
-
-```js
-npm install lu2
-```
-
-因为 lulu 的包名称已经被使用了，所以使用了 lu2，表示 2 个 lu。
-
-```html
-<script>
-import Dialog from 'lu2/theme/pure/js/common/ui/Dialog'
-</script>
-```
-```html
-<style src="lu2/theme/pure/css/common/ui/Dialog.css"></style>
-```
-
-React 框架中：
-
-```js
-import "lu2/theme/edge/css/common/ui/Button.css";
-import "lu2/theme/edge/css/common/ui/Dialog.css";
-import Dialog from "lu2/theme/edge/js/common/ui/Dialog.js";
-```
-
-Edge 主题还支持在原生环境中 import 引入，例如：
+Edge主题还支持浏览器原生的 import 引入，例如：
 
 ```html
 <script type="module">
@@ -87,7 +56,32 @@ LuLu UI 既保留了传统插件即插即用的特性，也支持适合多人合
 * 单人完成的某个简单运营活动页，需要个弹框提示功能，可以直接引入 LuLu UI 中的 Dialog.js，就可以使用了。
 * 某网站看中了 LuLu UI 某一个组件，例如日期选择功能，想拿过来使用，`<script>` 引入日期选择JS，然后就可以使用了。
 * 对于多人合作大型项目，可以基于 AMD/CMD 规范，或者 ES6 原生的 import/export 进行模块化加载与开发。
-* 对于 Vue 或者 React 项目，想要使用某个组件，但又不希望引入一大堆东西，则 LuLu UI 非常合适，支持 Vue/React 单独引入。
+* 对于 Vue 或者 React 项目，想要使用某个组件，但又不希望引入一大堆东西，则 LuLu UI 非常合适，支持 Vue/React 单独引入（见下方使用示意）。
+
+#### 在Vue/React中使用
+
+安装：
+```js
+npm install lu2
+```
+
+在 Vue-CLI 环境中：
+```html
+<script>
+import Dialog from 'lu2/theme/pure/js/common/ui/Dialog'
+</script>
+```
+```html
+<style src="lu2/theme/pure/css/common/ui/Dialog.css"></style>
+```
+
+React 框架中：
+
+```js
+import "lu2/theme/edge/css/common/ui/Button.css";
+import "lu2/theme/edge/css/common/ui/Dialog.css";
+import Dialog from "lu2/theme/edge/js/common/ui/Dialog.js";
+```
 
 ## 成熟
 
@@ -109,16 +103,20 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 
 所有资源都在 <code>/theme/</code> 目录下，目前支持4个主题：
 
-* Modern 主题。基于 jQuery，兼容 IE7+，针对 PC 网站。分 sass, css 和 js 3个目录，如果你不想要 sass，那这个文件夹就不用管。图片资源在 css 目录下。
-* Peak 主题。基于 jQuery，兼容 IE8+，针对PC网站。分 sass, css 和 js 3个目录，如果你不想要 sass，那这个文件夹就不用管。图片资源在 css 目录下。
-* Pure 主题。原生 JavaScript 编写，兼容 IE9+，PC，Mobile 网站通用。分 css 和 js 2个目录，没有图片资源目录，所有图像 CSS 内联。
-* Edge 主题。原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库。
+* Modern 主题<br>
+  基于 jQuery，兼容 IE7+，针对 PC 网站。分 sass, css 和 js 3个目录，如果你不想要 sass，那这个文件夹就不用管。图片资源在 css 目录下。
+* Peak 主题<br>
+  基于 jQuery，兼容 IE8+，针对PC网站。分 sass, css 和 js 3个目录，如果你不想要 sass，那这个文件夹就不用管。图片资源在 css 目录下。
+* Pure 主题<br>
+  原生 JavaScript 编写，兼容 IE9+，PC，Mobile 网站通用。分 css 和 js 2个目录，没有图片资源目录，所有图像 CSS 内联。
+* Edge 主题<br>
+  原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库。
 
 组件分 ui 和 comp 两个目录，前者是 UI 组件，后者是基于 UI 组件整合的前端解决方案。
 
 更具体信息可以参见：
-<a href="https://l-ui.com/pure/about.use.html">文档-使用与发布（Pure主题）</a>
-<a href="https://l-ui.com/edge/about.use.html">文档-使用与发布（Edge主题）</a>
+* <a href="https://l-ui.com/pure/about.use.html">文档-使用与发布（Pure主题）</a>
+* <a href="https://l-ui.com/edge/about.use.html">文档-使用与发布（Edge主题）</a>
 
 文档在 gh-pages 分支。
 
