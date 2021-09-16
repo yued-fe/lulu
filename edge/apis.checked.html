@@ -76,7 +76,10 @@
             
             <h4>半选</h4>
             
-            <p><input type="checkbox" id="ci" is="ui-checkbox"><label for="ci" class="ml5 f14">全选</label></p>
+            <p>
+                <input type="checkbox" id="ci" is="ui-checkbox"><label for="ci" class="ml5 f14">全选</label>
+                <input type="checkbox" id="ci2" is="ui-checkbox" disabled><label class="ml5">全选禁用</label>
+            </p>
             <p>半选效果需要 JS 设置才有效果：</p>
             <pre>&lt;input type="checkbox" id="ci" is="ui-checkbox"&gt;</pre>
             <pre>ci.indeterminate = true;</pre>
@@ -210,4 +213,5 @@
 
 <script>
     ci.indeterminate = true;
+    ci2.indeterminate = true;
 </script>
