@@ -389,8 +389,9 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 8px 8px;
 }
-[is="ui-checkbox"]:indeterminate:hover::after,
-[is="ui-checkbox"]:indeterminate:focus::after {
+
+[is="ui-checkbox"]:not(:disabled):indeterminate:focus,
+[is="ui-checkbox"]:not(:disabled):indeterminate:hover {
     color: var(--ui-dark-blue, #0057c3);
 }
 

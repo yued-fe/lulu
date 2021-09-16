@@ -341,7 +341,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
     let funTipsInitAndWatching = function () {
         const strSelector = '.ui-tips, [is-tips]';
         document.querySelectorAll(strSelector).forEach((item) => {
-            item.tips();
+            if (item.tips) {
+                item.tips();
+            }
         });
 
         var observerTips = new MutationObserver(function (mutationsList) {

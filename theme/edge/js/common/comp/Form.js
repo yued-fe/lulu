@@ -75,6 +75,7 @@ class Form extends HTMLFormElement {
         let strUrl = this.action.split('#')[0] || location.href.split('#')[0];
         // 请求类型
         let strMethod = this.method || 'POST';
+        let strEnctype = this.enctype;
 
         // 提交数据
         // 1. 菊花转起来
@@ -92,11 +93,9 @@ class Form extends HTMLFormElement {
         }
 
         // 请求类型不同，数据地址也不一样
-        let strSearchParams = '';
+        let strSearchParams = new URLSearchParams(objFormData).toString();
 
         if (strMethod.toLowerCase() == 'get') {
-            strSearchParams = new URLSearchParams(objFormData).toString();
-
             if (strUrl.split('?').length > 1) {
                 strUrl = strUrl + '&' + strSearchParams;
             } else {
@@ -107,6 +106,10 @@ class Form extends HTMLFormElement {
         // 4. 请求走起来
         let xhr = new XMLHttpRequest();
         xhr.open(strMethod, strUrl);
+
+        if (strEnctype) {
+            xhr.setRequestHeader('Content-Type', strEnctype);
+        }
 
         if (optionCallback.beforeSend) {
             optionCallback.beforeSend.call(this, xhr, objFormData);
@@ -203,7 +206,11 @@ class Form extends HTMLFormElement {
             this.dispatchEvent(new CustomEvent('complete'));
         };
 
-        xhr.send(objFormData);
+        if (strEnctype && strEnctype.toLowerCase() === 'application/x-www-form-urlencoded') {
+            xhr.send(strSearchParams);
+        } else {
+            xhr.send(objFormData);
+        }
     }
 
     connectedCallback () {
