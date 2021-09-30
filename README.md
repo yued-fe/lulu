@@ -1,15 +1,23 @@
+<p align="center">
+  <img src="https://imgservices-1252317822.image.myqcloud.com/image/093020210104728/9999e481.svg" width="227" height="98">
+</p>
+<p align="center">追本溯源，穿越沉浮</p>
+<p align="center">
+    <img src="https://img.shields.io/npm/v/lu2.svg" height="20"> <img src="https://img.shields.io/apm/l/vim-mode.svg" height="20">
+</p>
+
 # LuLu UI
 
 LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
-形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>，以及需要轻量与敏捷的项目。
+形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>，或者需要轻量与敏捷的项目。
 
 <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
 ## 文档
 
-* <a href="https://l-ui.com/">LuLu UI API中文文档</a>（GitHub托管，访问有延迟）
-* <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI API中文文档</a>（国内服务器托管，速度可以）
+* <a href="https://l-ui.com/">LuLu UI API 中文文档</a>（GitHub托管，访问有延迟）
+* <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI API 中文文档</a>（国内服务器托管，速度可以）
 
 ## 教程
 
@@ -37,7 +45,7 @@ LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如
 <script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Dialog.js"></script>
 ```
 
-Edge主题还支持浏览器原生的 import 引入，例如：
+Edge 主题还支持浏览器原生的 import 引入，例如：
 
 ```html
 <script type="module">
