@@ -1615,6 +1615,15 @@ span.ui-date-item {
     visibility: hidden;
 }
 
+/* 触碰设备按钮点击区域扩大 */
+@media (pointer: coarse) {
+    .ui-dialog-footer {
+        display: flex;
+    }
+    .ui-dialog-footer .ui-button {
+        flex: 1;
+    }
+}
 /**
  *
  * @Drop.css
