@@ -95,3 +95,10 @@
 [is="ui-checkbox"][is-error] {
     color: var(--ui-red, #eb4646) !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-checkbox"],
+    [is="ui-checkbox"]::after {
+        transition: none;
+    }
+}

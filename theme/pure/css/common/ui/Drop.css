@@ -166,3 +166,13 @@ a:hover .ui-droplist-arrow:empty,
 .ui-dropanel-footer .ui-button:first-child {
     margin-left: 0;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-datalist-x,
+    .ui-dropanel-x {
+        animation: none;
+    }
+    .ui-dropanel-close {
+        transition: none;
+    }
+}

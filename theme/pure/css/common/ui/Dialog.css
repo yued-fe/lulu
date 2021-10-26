@@ -246,3 +246,15 @@
         max-width: calc(100vw - 16px);
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-dialog-animation,
+    .ui-dialog-animation .ui-dialog {
+        animation: none;
+    }
+    .ui-dialog-container + .ui-dialog-container,
+    .ui-dialog-close,
+    .ui-dialog-footer {
+        transition: none;
+    }
+}

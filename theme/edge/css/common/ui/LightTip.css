@@ -112,3 +112,9 @@ ui-lighttip[type="loading"][open]{
 ui-lighttip[type="loading"]::before{
     display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    ui-lighttip {
+        animation: none;
+    }
+}

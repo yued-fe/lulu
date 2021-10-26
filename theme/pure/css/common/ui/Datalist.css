@@ -98,3 +98,12 @@ datalist {
 .ui-datalist-label + .ui-datalist-value {
     margin-right: 60px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-datalist {
+        animation: none;
+    }
+    .ui-datalist-option {
+        transition: none;
+    }
+}

@@ -14,3 +14,9 @@
 :focus::placeholder {
     opacity: var(--ui-opacity, .4);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    ::placeholder {
+        transition: none;
+    }
+}

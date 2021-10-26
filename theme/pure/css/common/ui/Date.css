@@ -455,3 +455,13 @@ span.ui-date-item {
     border-left-width: 1px;
     margin-right: 3px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-date-container {
+        animation: none;
+    }
+    .ui-date-arrow::before,
+    .ui-date-container a {
+        transition: none;
+    }
+}

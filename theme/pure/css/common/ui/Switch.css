@@ -67,3 +67,10 @@
 :checked:disabled + .ui-switch:hover {
     color: #2a80eb;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-switch,
+    .ui-switch::before {
+        transition: none;
+    }
+}

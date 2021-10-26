@@ -168,6 +168,11 @@ class Pagination extends HTMLElement {
             display: contents;
             visibility: var(--ui-visibility, initial);
         }
+        @media (prefers-reduced-motion: reduce) {
+            .ui-page {
+                transition: none;
+            }
+        }
         </style>
         <fieldset id="wrap" class="pagination-wrap">
             <${el} class="ui-page ui-page-prev" id="left">

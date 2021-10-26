@@ -72,6 +72,7 @@ datalist {
 .ui-datalist-datalist > .selected {
     background-color: var(--ui-list-selected, #e0f0ff);
 }
+
 .ui-datalist-datalist > .disabled {
     opacity: var(--ui-opacity, .4);
     cursor: default;
@@ -97,4 +98,13 @@ datalist {
 
 .ui-datalist-label + .ui-datalist-value {
     margin-right: 60px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-datalist {
+        animation: none;
+    }
+    .ui-datalist-option {
+        transition: none;
+    }
 }

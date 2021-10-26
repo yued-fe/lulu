@@ -286,3 +286,15 @@
 .ui-color-button-ensure:active {
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1), inset 0 0 0 100px rgba(0,0,0,.1);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-color-container {
+        animation: none;
+    }
+    .ui-color-thumb,
+    .ui-color-switch,
+    .ui-color-button-cancel,
+    .ui-color-button-ensure {
+        transition: none;
+    }
+}

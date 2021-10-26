@@ -1,6 +1,6 @@
 /* placeholder */
 ::-webkit-input-placeholder {
-    -webkit-transition: opacity .15s;
+    transition: opacity .15s;
     color: #a2a9b6;
     line-height: inherit;
     font-size: 14px;
@@ -38,4 +38,19 @@
 
 :focus:-ms-input-placeholder {
     opacity: .38;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::-webkit-input-placeholder {
+        transition: none;
+    }
+    :-ms-input-placeholder {
+        transition: none;
+    }
+    ::-moz-placeholder {
+        transition: none;
+    }
+    ::placeholder {
+        transition: none;
+    }
 }

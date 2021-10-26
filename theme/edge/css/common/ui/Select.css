@@ -288,3 +288,11 @@ select:disabled + .ui-select .ui-select-datalist {
 select[is-error] {
     border-color: var(--ui-red, #eb4646);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-select-button,
+    .ui-select,
+    .ui-select-datalist-li {
+        transition: none;
+    }
+}

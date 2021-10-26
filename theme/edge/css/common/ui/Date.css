@@ -500,3 +500,13 @@ span.ui-date-item {
 .ui-time-item[data-visibility="false"] {
     display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-date-container {
+        animation: none;
+    }
+    [is="ui-datetime"],
+    .ui-date-container a {
+        transition: none;
+    }
+}

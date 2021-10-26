@@ -24,7 +24,6 @@ input:not([type=search])::-ms-clear {
     margin-right: -2px;
     background: #b6bbc6 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiNGRkYiIGQ9Ik0wIDB2MjAwaDIwMFYwSDB6bTE1MS42MzYgMTM2LjQ4MmE3LjM3NCA3LjM3NCAwIDAgMSAwIDEwLjQyN2wtNS4yMTIgNS4yMWE3LjM3MiA3LjM3MiAwIDAgMS0xMC40MjYgMGwtMzYuNDgzLTM2LjQ4NUw2My4wMyAxNTIuMTJhNy4zNyA3LjM3IDAgMCAxLTEwLjQyNCAwbC01LjIxLTUuMjFhNy4zNyA3LjM3IDAgMCAxIDAtMTAuNDI4TDgzLjg4IDEwMCA0Ny4zOTYgNjMuNTE0YTcuMzY4IDcuMzY4IDAgMCAxIDAtMTAuNDI1bDUuMjEtNS4yMWE3LjM2OCA3LjM2OCAwIDAgMSAxMC40MjYgMEw5OS41MTYgODQuMzYgMTM2IDQ3Ljg4YTcuMzcgNy4zNyAwIDAgMSAxMC40MjUgMGw1LjIxMiA1LjIxYTcuMzcgNy4zNyAwIDAgMSAwIDEwLjQyNUwxMTUuMTUzIDEwMGwzNi40ODMgMzYuNDgyeiIvPjwvc3ZnPg==) no-repeat center;
     background-size: 20px 20px;
-    -webkit-transition: background-color .15s;
     transition: background-color .15s;
     cursor: pointer;
 }
@@ -157,7 +156,8 @@ input[width="100%"] {
     padding-left: 40px;
 }
 
-.ui-input-search[align="right"] > :not(.ui-icon-search) {
+.ui-input-search[align="right"] > :not(.ui-icon-search),
+.ui-input-search[align="end"] > :not(.ui-icon-search) {
     padding-right: 40px;
     padding-left: 9px;
 }
@@ -180,7 +180,8 @@ input[width="100%"] {
     overflow: hidden;
 }
 
-[align="right"] > .ui-icon-search {
+[align="right"] > .ui-icon-search,
+[align="end"] > .ui-icon-search {
     left: auto; right: 3px;
 }
 
@@ -253,11 +254,6 @@ input.ui-input:disabled,
 .ui-input-x > :disabled ~ .ui-input {
     background-color: #f7f9fa;
 }
-/*input.ui-input[readonly],
-.ui-input > input[readonly],
-.ui-input-x > [readonly] ~ .ui-input {
-    background-image: linear-gradient(to bottom right, #fff 50%, transparent 50%);
-}*/
 
 input.ui-input:disabled,
 .ui-input > input:disabled,
@@ -283,4 +279,14 @@ input.ui-input:disabled,
 .ui-input-count > .error,
 .ui-input-count.error {
     color: #eb4646;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [type=search]::-webkit-search-cancel-button,
+    input.ui-input,
+    .ui-input > input,
+    .ui-input-x > .ui-input,
+    .ui-icon-search {
+        transition: none;
+    }
 }

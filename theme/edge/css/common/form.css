@@ -87,6 +87,13 @@
     overflow: visible;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-button,
+    [is="ui-button"] {
+        transition: none;
+    }
+}
+
 .ui-button[width="100%"],
 [is="ui-button"][width="100%"] {
     width: 100%;
@@ -403,6 +410,14 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
 [is="ui-checkbox"][is-error] {
     color: var(--ui-red, #eb4646) !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-checkbox"],
+    [is="ui-checkbox"]::after {
+        transition: none;
+    }
+}
+
 /**
  *
  * @Color.css
@@ -689,18 +704,13 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
 }
 
 .ui-color-opacity {
-    /* margin-left: 25px; */
     margin-top: 12px;
     text-align: center;
-    
 }
+
 .ui-color-opacity-range {
     width: 180px;
 }
-/* .ui-color-more-opacity {
-    float: left;
-    margin-top: 12px;
-} */
 
 .ui-color-footer {
     margin-top: 15px;
@@ -757,6 +767,16 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
         inset 0 0 0 100px rgba(0, 0, 0, 0.1);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-color-container {
+        animation: none;
+    }
+    .ui-color-switch,
+    .ui-color-button-cancel,
+    .ui-color-button-ensure {
+        transition: none;
+    }
+}
 /**
  *
  * @Date.css
@@ -1258,6 +1278,17 @@ span.ui-date-item {
 .ui-time-item[data-visibility="false"] {
     display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-date-container {
+        animation: none;
+    }
+    [is="ui-datetime"],
+    .ui-date-container a {
+        transition: none;
+    }
+}
+
 /**
  *
  * @Input.css
@@ -1484,7 +1515,6 @@ input.ui-icon-search {
 }
 [is-error] ~ input.ui-icon-search {
     background-color: var(--ui-red, #eb4646);
-
 }
 
 input.ui-input:disabled,
@@ -1535,7 +1565,16 @@ input.ui-input:disabled,
 .ui-input-count[is-error] {
     color: var(--ui-red, #eb4646);
 }
-/**
+
+@media (prefers-reduced-motion: reduce) {
+    [type="search"]::-webkit-search-cancel-button,
+    input.ui-input,
+    .ui-input > input,
+    [is="ui-input"],
+    .ui-icon-search {
+        transition: none;
+    }
+}/**
  * @Placeholder.css
  * @editor gandaochuan
  * @edit 20-04-10
@@ -1550,6 +1589,12 @@ input.ui-input:disabled,
 
 :focus::placeholder {
     opacity: var(--ui-opacity, .4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::placeholder {
+        transition: none;
+    }
 }
 /**
  *
@@ -1664,6 +1709,11 @@ progress[width="100%"] {
     border-color: var(--ui-red, #eb4646) !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-radio"] {
+        transition: none;
+    }
+}
 /**
  *
  * @Range.css
@@ -1817,14 +1867,14 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 [is="ui-range"][data-tips][vertical]::before,
 [is="ui-range"][data-tips][vertical]::after {
-    transition: all .15s .15s,bottom 0s, left 0s;
+    transition: all .15s .15s, bottom 0s, left 0s;
     bottom: calc( var(--percent,.5) * 100% );
     left: 50%;
     top: auto;
 }
 [is="ui-range"][data-tips][vertical][reverse]::before,
 [is="ui-range"][data-tips][vertical][reverse]::after {
-    transition: all .15s .15s,top 0s, left 0s;
+    transition: all .15s .15s, top 0s, left 0s;
     top: calc( (1 - var(--percent, .5)) * 100% );
     left: 50%;
     bottom: auto;
@@ -1943,6 +1993,18 @@ _::-moz-range-track {
 [is="ui-rate"]::-moz-range-thumb {
     width: 0;
     opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-range"]::-webkit-slider-thumb,
+    input[data-tips]::before,
+    input[data-tips]::after,
+    [is="ui-range"][data-tips][vertical]::before,
+    [is="ui-range"][data-tips][vertical]::after,
+    [is="ui-range"][data-tips][vertical][reverse]::before,
+    [is="ui-range"][data-tips][vertical][reverse]::after {
+        transition: none;
+    }
 }/**
  *
  * @Select.css
@@ -2234,6 +2296,14 @@ select[is-error] {
     border-color: var(--ui-red, #eb4646);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-select-button,
+    .ui-select,
+    .ui-select-datalist-li {
+        transition: none;
+    }
+}
+
 /**
  *
  * @Switch.css
@@ -2318,6 +2388,14 @@ input[is="ui-switch"]:checked:disabled:hover {
     color: var(--ui-blue, #2a80eb);
     background-color: var(--ui-blue, #2a80eb);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    input[is="ui-switch"],
+    input[is="ui-switch"]::before {
+        transition: none;
+    }
+}
+
 /**
  *
  * @Textarea.css
@@ -2495,4 +2573,13 @@ textarea:-moz-read-only {
 .ui-textarea-count > [is-error],
 .ui-textarea-count[is-error] {
     color: var(--ui-red, #eb4646);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    textarea.ui-textarea,
+    [is="ui-textarea"],
+    .ui-textarea > textarea,
+    textarea ~ .ui-textarea-count {
+        transition: none;
+    }
 }

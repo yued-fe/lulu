@@ -265,3 +265,15 @@
         flex: 1;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-dialog-animation,
+    .ui-dialog-animation .ui-dialog {
+        animation: none;
+    }
+    [is="ui-dialog"] + [is="ui-dialog"],
+    .ui-dialog-close::before,
+    .ui-dialog-footer {
+        transition: none;
+    }
+}

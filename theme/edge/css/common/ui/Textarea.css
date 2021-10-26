@@ -177,3 +177,12 @@ textarea:-moz-read-only {
 .ui-textarea-count[is-error] {
     color: var(--ui-red, #eb4646);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    textarea.ui-textarea,
+    [is="ui-textarea"],
+    .ui-textarea > textarea,
+    textarea ~ .ui-textarea-count {
+        transition: none;
+    }
+}

@@ -120,3 +120,8 @@ span.ui-page-next {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-page {
+        transition: none;
+    }
+}

@@ -42,6 +42,13 @@
     overflow: visible;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-button,
+    [is="ui-button"] {
+        transition: none;
+    }
+}
+
 .ui-button[width="100%"],
 [is="ui-button"][width="100%"] {
     width: 100%;

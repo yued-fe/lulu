@@ -83,3 +83,10 @@ input[is="ui-switch"]:checked:disabled:hover {
     color: var(--ui-blue, #2a80eb);
     background-color: var(--ui-blue, #2a80eb);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    input[is="ui-switch"],
+    input[is="ui-switch"]::before {
+        transition: none;
+    }
+}

@@ -51,7 +51,7 @@
     left: 0;
     width: 0;
     border-bottom: 3px solid #2a80eb;
-    transition: all .35s;
+    transition: .35s;
 }
 
 .ui-tab-tabs > .ui-tab-line ~ .ui-tab-tab {
@@ -74,4 +74,10 @@
 
 .ui-tab-contents:target-within .ui-tab-content:not(:target) {
     display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-tab-line {
+        transition: none;
+    }
 }

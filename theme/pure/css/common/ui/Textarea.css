@@ -161,3 +161,11 @@ textarea:disabled {
 .ui-textarea-count.error {
     color: #eb4646;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    textarea.ui-textarea,
+    .ui-textarea > textarea,
+    .ui-textarea-x > .ui-textarea {
+        transition: none;
+    }
+}

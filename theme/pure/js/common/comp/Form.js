@@ -162,6 +162,7 @@
         var strUrl = eleForm.action.split('#')[0] || location.href.split('#')[0];
         // 请求类型
         var strMethod = eleForm.method || 'POST';
+        var strEnctype = eleForm.enctype;
 
         // IE9不支持cros跨域
         if (!history.pushState && new URL(strUrl).host != location.host) {
@@ -177,15 +178,11 @@
 
         // 3. 数据
         var objFormData = new FormData(eleForm);
-        if (optionCallback.beforeSend) {
-            optionCallback.beforeSend.call(this, xhr, objFormData);
-        }
+
         // 请求类型不同，数据地址也不一样
-        var strSearchParams = '';
+        var strSearchParams = new URLSearchParams(objFormData).toString();
 
         if (strMethod.toLowerCase() == 'get') {
-            strSearchParams = new URLSearchParams(objFormData).toString();
-
             if (strUrl.split('?').length > 1) {
                 strUrl = strUrl + '&' + strSearchParams;
             } else {
@@ -196,6 +193,14 @@
         // 4. 请求走起来
         var xhr = new XMLHttpRequest();
         xhr.open(strMethod, strUrl);
+
+        if (strEnctype) {
+            xhr.setRequestHeader('Content-Type', strEnctype);
+        }
+
+        if (optionCallback.beforeSend) {
+            optionCallback.beforeSend.call(this, xhr, objFormData);
+        }
 
         // 请求结束
         xhr.onload = function () {
@@ -259,7 +264,11 @@
             }
         };
 
-        xhr.send(objFormData);
+        if (strEnctype && strEnctype.toLowerCase() === 'application/x-www-form-urlencoded') {
+            xhr.send(strSearchParams);
+        } else {
+            xhr.send(objFormData);
+        }
     };
 
     /**

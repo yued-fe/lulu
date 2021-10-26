@@ -88,3 +88,8 @@ input[type="checkbox"]:not([ui-visible]) {
     color: #eb4646;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ui-checkbox {
+        transition: none;
+    }
+}

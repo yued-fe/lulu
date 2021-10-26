@@ -185,3 +185,9 @@ div:invalid {
 .ui-button.error {
     border-color: #eb4646 !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-button {
+        transition: none;
+    }
+}

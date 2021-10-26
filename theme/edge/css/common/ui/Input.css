@@ -225,7 +225,6 @@ input.ui-icon-search {
 }
 [is-error] ~ input.ui-icon-search {
     background-color: var(--ui-red, #eb4646);
-
 }
 
 input.ui-input:disabled,
@@ -275,4 +274,14 @@ input.ui-input:disabled,
 .ui-input-count > [is-error],
 .ui-input-count[is-error] {
     color: var(--ui-red, #eb4646);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [type="search"]::-webkit-search-cancel-button,
+    input.ui-input,
+    .ui-input > input,
+    [is="ui-input"],
+    .ui-icon-search {
+        transition: none;
+    }
 }

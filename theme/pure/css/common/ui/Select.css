@@ -268,3 +268,11 @@ select:disabled + .ui-select .ui-select-datalist {
 select.error {
     border-color: #eb4646;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-select,
+    .ui-select-button,
+    .ui-select-datalist-li {
+        transition: none;
+    }
+}

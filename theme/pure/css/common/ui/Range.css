@@ -88,3 +88,10 @@ div.ui-range-input > input {
 :disabled + .ui-range .ui-range-thumb {
     cursor: inherit;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-range,
+    .ui-range-thumb {
+        transition: none;
+    }
+}

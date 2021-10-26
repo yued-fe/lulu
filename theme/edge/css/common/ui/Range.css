@@ -152,14 +152,14 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 [is="ui-range"][data-tips][vertical]::before,
 [is="ui-range"][data-tips][vertical]::after {
-    transition: all .15s .15s,bottom 0s, left 0s;
+    transition: all .15s .15s, bottom 0s, left 0s;
     bottom: calc( var(--percent,.5) * 100% );
     left: 50%;
     top: auto;
 }
 [is="ui-range"][data-tips][vertical][reverse]::before,
 [is="ui-range"][data-tips][vertical][reverse]::after {
-    transition: all .15s .15s,top 0s, left 0s;
+    transition: all .15s .15s, top 0s, left 0s;
     top: calc( (1 - var(--percent, .5)) * 100% );
     left: 50%;
     bottom: auto;
@@ -278,4 +278,16 @@ _::-moz-range-track {
 [is="ui-rate"]::-moz-range-thumb {
     width: 0;
     opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-range"]::-webkit-slider-thumb,
+    input[data-tips]::before,
+    input[data-tips]::after,
+    [is="ui-range"][data-tips][vertical]::before,
+    [is="ui-range"][data-tips][vertical]::after,
+    [is="ui-range"][data-tips][vertical][reverse]::before,
+    [is="ui-range"][data-tips][vertical][reverse]::after {
+        transition: none;
+    }
 }

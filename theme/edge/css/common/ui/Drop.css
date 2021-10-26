@@ -176,7 +176,7 @@ a:hover .ui-droplist-arrow:empty,
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     background: var(--ui-dark-gray, #b6bbc6);
-    transition: background var(--ui-animate-time, .2s);
+    transition: background-color var(--ui-animate-time, .2s);
     --mask-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20200%20200%22%20%3E%3Cpath%20d%3D%22M116.152%2C99.999l36.482-36.486c2.881-2.881%2C2.881-7.54%2C0-10.42%20l-5.215-5.215c-2.871-2.881-7.539-2.881-10.42%2C0l-36.484%2C36.484L64.031%2C47.877c-2.881-2.881-7.549-2.881-10.43%2C0l-5.205%2C5.215%20c-2.881%2C2.881-2.881%2C7.54%2C0%2C10.42l36.482%2C36.486l-36.482%2C36.482c-2.881%2C2.881-2.881%2C7.549%2C0%2C10.43l5.205%2C5.215%20c2.881%2C2.871%2C7.549%2C2.871%2C10.43%2C0l36.484-36.488L137%2C152.126c2.881%2C2.871%2C7.549%2C2.871%2C10.42%2C0l5.215-5.215%20c2.881-2.881%2C2.881-7.549%2C0-10.43L116.152%2C99.999z%22%2F%3E%3C%2Fsvg%3E");
     -webkit-mask: var(--mask-image) no-repeat center / 100% 100%;
     mask: var(--mask-image) no-repeat center / 100% 100%;
@@ -202,4 +202,14 @@ a:hover .ui-droplist-arrow:empty,
 
 .ui-dropanel-footer .ui-button:first-child {
     margin-left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-droplist-x,
+    .ui-dropanel-x {
+        animation: none;
+    }
+    .ui-dropanel-close::before {
+        transition: none;
+    }
 }

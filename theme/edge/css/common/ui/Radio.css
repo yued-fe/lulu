@@ -60,3 +60,9 @@
 [is="ui-radio"][is-error] {
     border-color: var(--ui-red, #eb4646) !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    [is="ui-radio"] {
+        transition: none;
+    }
+}

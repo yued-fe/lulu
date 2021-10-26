@@ -78,3 +78,9 @@ ui-tab {
 .ui-tab-contents:target-within .ui-tab-content:not(:target) {
     display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-tab-tabs[style*="--ui-tab"]::after {
+        transition: none;
+    }
+}
