@@ -1658,6 +1658,9 @@ class Select extends HTMLSelectElement {
         let strOriginPosition = window.getComputedStyle(this).position;
         this.originPosition = strOriginPosition;
 
+        // 滚动宽度
+        var isCustomScroll = /windows/i.test(navigator.userAgent);
+
         // 直接插入对应的片段内容
         this.insertAdjacentHTML('afterend', `<div role="combobox" style="width: ${this.getWidth()}">
            ${!this.multiple ? `<a
@@ -1669,7 +1672,7 @@ class Select extends HTMLSelectElement {
                 ${!this.disabled ? 'href="javascript:;" ' : ''}
                 role="button"
             /></a>` : '' }
-           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''}></div>
+           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></div>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;

@@ -2190,21 +2190,21 @@ select[hidden] + .ui-select {
     border-color: var(--ui-blue, #2a80eb);
 }
 
-.ui-select-datalist::-webkit-scrollbar {
+[data-custom-scroll="true"]::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
-.ui-select-datalist::-webkit-scrollbar-thumb {
+[data-custom-scroll="true"]::-webkit-scrollbar-thumb {
     background-color: #bbb;
     border-radius: calc(var(--ui-radius, 4px) + 4px);
 }
 
-.ui-select-datalist::-webkit-scrollbar-thumb:hover {
+[data-custom-scroll="true"]::-webkit-scrollbar-thumb:hover {
     background-color: #aaa;
 }
 
-.ui-select-datalist::-webkit-scrollbar-track-piece {
+[data-custom-scroll="true"]::-webkit-scrollbar-track-piece {
     background-color: #ddd;
 }
 
