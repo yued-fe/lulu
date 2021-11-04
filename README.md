@@ -80,6 +80,7 @@ import Dialog from 'lu2/theme/pure/js/common/ui/Dialog'
 </script>
 ```
 ```html
+<style src="lu2/theme/pure/css/common/ui/Button.css"></style>
 <style src="lu2/theme/pure/css/common/ui/Dialog.css"></style>
 ```
 
@@ -89,6 +90,15 @@ React 框架中：
 import "lu2/theme/edge/css/common/ui/Button.css";
 import "lu2/theme/edge/css/common/ui/Dialog.css";
 import Dialog from "lu2/theme/edge/js/common/ui/Dialog.js";
+```
+
+Svelte 框架中：
+
+```js
+import Dialog from 'lu2/theme/pure/js/common/ui/Dialog.js';
+// 或者全局引入
+// import 'lu2/theme/pure/js/common/all.js';
+import 'lu2/theme/pure/css/common/ui.css';
 ```
 
 ## 成熟
