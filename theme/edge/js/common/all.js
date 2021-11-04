@@ -4794,12 +4794,12 @@ class XRange extends HTMLInputElement {
             };
             if (this.vertical) {
                 this.after(this.element.otherRange);
-                this.setAttribute('data-range','from');
-                this.element.otherRange.setAttribute('data-range','to');
+                this.setAttribute('data-range', 'from');
+                this.element.otherRange.setAttribute('data-range', 'to');
             } else {
                 this.before(this.element.otherRange);
-                this.setAttribute('data-range','to');
-                this.element.otherRange.setAttribute('data-range','from');
+                this.setAttribute('data-range', 'to');
+                this.element.otherRange.setAttribute('data-range', 'from');
             }
             this.range = this.defaultrange;
         }
@@ -4862,12 +4862,12 @@ class XRange extends HTMLInputElement {
             this.exchange = true;
             if (isTop || isRight) {
                 this.element.otherRange.before(this);
-                this.setAttribute('data-range','from');
-                this.element.otherRange.setAttribute('data-range','to');
+                this.setAttribute('data-range', 'from');
+                this.element.otherRange.setAttribute('data-range', 'to');
             } else {
                 this.element.otherRange.after(this);
-                this.setAttribute('data-range','to');
-                this.element.otherRange.setAttribute('data-range','from');
+                this.setAttribute('data-range', 'to');
+                this.element.otherRange.setAttribute('data-range', 'from');
             }
             this.exchange = false;
             this.focus();
@@ -12749,6 +12749,9 @@ const Table = (function () {
 
     // 一些元素类名
     let CL = {
+        // 容器
+        container: 'table-x',
+        // 为空
         empty: 'table-null-x',
         // 错误
         error: 'table-error-x',
@@ -13082,7 +13085,10 @@ const Table = (function () {
 
             // ajax地址是必需项
             if (!objAjax.url) {
-                this.element.pagination.loading = false;
+                if (this.element.pagination) {
+                    this.element.pagination.loading = false;
+                }
+
                 return this;
             }
 
@@ -13404,40 +13410,47 @@ const Table = (function () {
                 this.params.template = eleTemplate.innerHTML;
             }
 
+            // 容器
+            let eleContainer = this.closest('.' + CL.container);
+
             // 分页元素
-            let elePagination = this.parentElement.querySelector('ui-pagination');
-            if (elePagination) {
-                this.element.pagination = elePagination;
+            let elePagination = null;
+            if (eleContainer) {
+                elePagination = eleContainer.querySelector('ui-pagination');
 
-                // 设置分页的参数
-                this.setParams({
-                    page: {
-                        current: elePagination.current,
-                        total: elePagination.total,
-                        per: elePagination.per
+                if (elePagination) {
+                    this.element.pagination = elePagination;
+
+                    // 设置分页的参数
+                    this.setParams({
+                        page: {
+                            current: elePagination.current,
+                            total: elePagination.total,
+                            per: elePagination.per
+                        }
+                    });
+                } else {
+                    // 创建一个分页元素
+                    elePagination = document.createElement('ui-pagination');
+                    this.element.pagination = elePagination;
+                    // 分页内容显示
+                    let elePage = eleContainer.querySelector('.' + CL.page);
+                    if (elePage) {
+                        elePage.appendChild(elePagination);
                     }
-                });
-            } else {
-                // 创建一个分页元素
-                elePagination = document.createElement('ui-pagination');
-                this.element.pagination = elePagination;
-                // 分页内容显示
-                let elePage = this.parentElement.querySelector('.' + CL.page);
-                if (elePage) {
-                    elePage.appendChild(elePagination);
                 }
-            }
 
-            // loading元素
-            let eleLoading = this.parentElement.querySelector('ui-loading');
-            if (eleLoading) {
-                this.element.loading = eleLoading;
-            }
+                // loading元素
+                let eleLoading = eleContainer.querySelector('ui-loading');
+                if (eleLoading) {
+                    this.element.loading = eleLoading;
+                }
 
-            // 下拉列表，切换分页元素
-            let eleDrop = this.parentElement.querySelector('ui-drop[data-type="per"]');
-            if (eleDrop) {
-                this.element.drop = eleDrop;
+                // 下拉列表，切换分页元素
+                let eleDrop = eleContainer.querySelector('ui-drop[data-type="per"]');
+                if (eleDrop) {
+                    this.element.drop = eleDrop;
+                }
             }
 
             // 为了动态呈现的列表可以先设置参数，后执行，这里延后

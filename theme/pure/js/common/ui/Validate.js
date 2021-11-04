@@ -22,7 +22,7 @@
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
 
-    var ErrorTip = this.ErrorTip;
+    var ErrorTip = (this || self).ErrorTip;
     if (typeof require == 'function' && !ErrorTip) {
         ErrorTip = require('common/ui/ErrorTip');
     } else if (!ErrorTip) {

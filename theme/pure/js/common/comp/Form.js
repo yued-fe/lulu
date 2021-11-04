@@ -23,9 +23,9 @@
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var LightTip = this.LightTip;
-    var Loading = this.Loading;
-    var Validate = this.Validate;
+    var LightTip = (this || self).LightTip;
+    var Loading = (this || self).Loading;
+    var Validate = (this || self).Validate;
     // require
     if (typeof require == 'function') {
         // 轻tips
@@ -40,16 +40,18 @@
         if (!Validate) {
             Validate = require('common/ui/Validate');
         }
-    } else if (!Validate) {
+    } else if (!Validate || !LightTip || !Loading) {
         window.console.error('need Validate.js');
 
-        return {};
-    } else if (!LightTip) {
-        window.console.error('need LightTip.js');
+        if (!LightTip) {
+            window.console.error('need LightTip.js');
+        } else if (!Loading) {
+            window.console.warn('need Loading.js');
+        } else {
+            window.console.error('need Validate.js');
+        }
 
         return {};
-    } else if (!Loading) {
-        window.console.warn('need Loading.js');
     }
 
     /**

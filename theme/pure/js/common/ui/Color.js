@@ -21,7 +21,7 @@
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
     // require
-    var Drop = this.Drop;
+    var Drop = (this || self).Drop;
     if (typeof require == 'function' && !Drop) {
         Drop = require('common/ui/Drop');
     } else if (!Drop) {
@@ -1139,12 +1139,12 @@
             if (!nodes.forEach) {
                 if (nodes.matches && nodes.matches(strSelector)) {
                     nodes = [nodes];
-                } else {
+                } else if (nodes.querySelector) {
                     nodes = nodes.querySelectorAll(strSelector);
                 }
             }
 
-            if (!nodes.length) {
+            if (!nodes.length || !nodes.forEach) {
                 return;
             }
 

@@ -5,15 +5,9 @@
  * Created: 17-06-13
  */
 
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        factory();
-    }
+    factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -478,7 +472,6 @@
 
     return {};
 }));
-
 /**
  * @Follow.js
  * @author zhangxinxu
@@ -487,16 +480,10 @@
  * @edited:  17-06-19
  */
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Follow = factory();
-    }
+    global.Follow = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -516,7 +503,7 @@
     **/
     var Follow = function (eleTrigger, eleTarget, options) {
         // 默认参数值
-        var defaults  = {
+    var defaults  = {
             offsets: {
                 x: 0,
                 y: 0
@@ -1010,7 +997,6 @@
 
     return Follow;
 }));
-
 /**
  * @Tab.js
  * @author zhangxinxu
@@ -1019,15 +1005,9 @@
  * @edit:    19-09-21 native js rewrite by lennonover
  * @review   19-09-25 by zhangxinxu
  */
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Tab = factory();
-    }
+    global.Tab = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -1046,7 +1026,7 @@
     var STATE = 'active';
 
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-tab'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -1289,7 +1269,6 @@
 
     return Tab;
 }));
-
 /**
  * @Select.js
  * @author zhangxinxu
@@ -1302,13 +1281,7 @@
 /* global module, global */
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Select = factory();
-    }
+    global.Select = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
 // eslint-disable-next-line
@@ -1332,7 +1305,7 @@
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui', SELECT].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -2055,7 +2028,6 @@
 
     return Select;
 }));
-
 /**
  * @Drop.js
  * @author zhangxinxu
@@ -2063,29 +2035,16 @@
  * Created: 15-06-30
  */
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        this.Follow = require('./Follow');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Drop = factory();
-    }
+    global.Drop = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
-    if (typeof require == 'function' && !Follow) {
-        Follow = require('common/ui/Follow');
-    } else if (!Follow) {
-        window.console.error('need Follow.js');
-        return {};
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Follow = (this || self).Follow;
 
     /**
      * 实例方法
@@ -2094,7 +2053,7 @@
      * @param {Object} options 可选参数
      */
     var Drop = function (eleTrigger, eleTarget, options) {
-        this.init(eleTrigger, eleTarget, options);
+    this.init(eleTrigger, eleTarget, options);
         return this;
     };
 
@@ -3174,7 +3133,6 @@
 
     return Drop;
 }));
-
 /**
  * @Tips.js
  * @author zhangxinxu
@@ -3183,31 +3141,17 @@
  * @edit:    17-06-19
  */
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Follow = require('./Follow');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Tips = factory();
-    }
+    global.Tips = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
-    var Follow = this.Follow;
-    if (typeof require == 'function' && !Follow) {
-        Follow = require('common/ui/Follow');
-    } else if (!Follow) {
-        window.console.error('need Follow.js');
-
-        return {};
-    }
+    var Follow = (this || self).Follow;
 
     /**
      * 黑色tips效果
@@ -3217,7 +3161,7 @@
 
     // 类名变量
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-tips'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -3585,7 +3529,6 @@
     return Tips;
 }));
 
-
 /**
  * @LightTip.js
  * @author zhangxinxu
@@ -3593,15 +3536,9 @@
  * @Created: 15-06-25
  * @Update: 19-09-13 @ziven27 [去jQuery]
  */
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.LightTip = factory();
-    }
+    global.LightTip = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -3619,7 +3556,7 @@
 
     // 类名变量
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-lightip'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -3926,37 +3863,21 @@
 
     return LightTip;
 }));
-
 /**
  * @ErrorTip.js
  * @author zhangxinxu
  * @version
  * Created: 15-07-01
  */
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Follow = require('./Follow');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.ErrorTip = factory();
-    }
+    global.ErrorTip = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
-
-    if (typeof require == 'function' && !Follow) {
-        Follow = require('common/ui/Follow');
-    } else if (!Follow) {
-        window.console.error('need Follow.js');
-
-        return {};
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Follow = (this || self).Follow;
 
     /**
      * 红色的tips错误提示效果
@@ -3966,7 +3887,7 @@
 
     // 类名变量
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-tips'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -4171,7 +4092,6 @@
 
     return ErrorTip;
 }));
-
 /**
  * @Loading.js
  * @author zhangxinxu
@@ -4180,23 +4100,21 @@
  * @Log: 2017-09-19 loading类名的添加基于标签，而非类名
  */
 
+
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Loading = factory();
-    }
+    global.Loading = factory();
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     var LOADING = 'loading';
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui', LOADING].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -4421,7 +4339,6 @@
 
     return Loading;
 }));
-
 /**
  * @Range.js
  * @author zhangxinxu
@@ -4430,29 +4347,16 @@
  * @edit:    19-09-24 remove jQuery by 5ibinbin
  * @review:  19-09-27 by zhangxinxu
  */
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Tips = require('./Tips');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Range = factory();
-    }
+    global.Range = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Tips = this.Tips;
-    if (typeof require === 'function' && !Tips) {
-        Tips = require('common/ui/Tips');
-    } else if (!Tips) {
-        window.console.error('need Tips.js');
-        return {};
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Tips = (this || self).Tips;
 
     /**
      * 基于HTML原生range范围选择框的模拟选择框效果
@@ -4466,7 +4370,7 @@
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui', 'range'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -4981,38 +4885,23 @@
 
     return Range;
 }));
-
 /**
  * @Color.js
  * @author zhangxinxu
  * @version
  * Created: 16-06-03
  */
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Drop = require('./Drop');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Color = factory();
-    }
+    global.Color = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+        : ((typeof self !== 'undefined') ? self : this)), function () {
     // require
-    var Drop = this.Drop;
-    if (typeof require == 'function' && !Drop) {
-        Drop = require('common/ui/Drop');
-    } else if (!Drop) {
-        window.console.error('need Drop.js');
-
-        return {};
-    }
+    var Drop = (this || self).Drop;
 
     /**
      * 基于HTML原生color颜色选择
@@ -5022,7 +4911,7 @@
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-color'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -6123,12 +6012,12 @@
             if (!nodes.forEach) {
                 if (nodes.matches && nodes.matches(strSelector)) {
                     nodes = [nodes];
-                } else {
+                } else if (nodes.querySelector) {
                     nodes = nodes.querySelectorAll(strSelector);
                 }
             }
 
-            if (!nodes.length) {
+            if (!nodes.length || !nodes.forEach) {
                 return;
             }
 
@@ -6204,7 +6093,6 @@
 
     return Color;
 }));
-
 /**
  * @Dialog.js
  * @author  zhangxinxu
@@ -6212,15 +6100,9 @@
  * @created 15-06-18
 *  @edited  19-11-01
  */
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Dialog = factory();
-    }
+    global.Dialog = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -6234,7 +6116,7 @@
      * @example
      * var myDialog = new Dialog(options);
      * button.addEventListener('click', function() {
-           myDialog.remove();
+       myDialog.remove();
        });
      */
 
@@ -6956,7 +6838,6 @@
 
     return Dialog;
 }));
-
 /**
  * @Datalist.js
  * @author zhangxinxu
@@ -6965,30 +6846,16 @@
  * @description 多功能下拉数据列表
 **/
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Follow = require('./Follow');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Datalist = factory();
-    }
+    global.Datalist = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
-
-    if (typeof require == 'function' && !Follow) {
-        Follow = require('common/ui/Follow');
-    } else if (!Follow) {
-        window.console.error('need Follow.js');
-        return {};
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Follow = (this || self).Follow;
 
     /**
      * 数据下拉列表
@@ -7006,7 +6873,7 @@
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui', DATALIST].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -8117,7 +7984,6 @@
 
     return Datalist;
 }));
-
 /**
  * @DateTime.js
  * @author zhangxinxu
@@ -8126,32 +7992,19 @@
  * @editd:   19-11-12
  */
 
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Follow = require('./Follow');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.DateTime = factory();
-    }
+    global.DateTime = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
-    if (typeof require == 'function' && !Follow) {
-        Follow = require('common/ui/Follow');
-    } else if (!Follow) {
-        window.console.error('need Follow.js');
-        return {};
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Follow = (this || self).Follow;
 
     // 样式类名统一处理
     var CL = {
-        toString: function () {
+    toString: function () {
             return 'ui-datetime';
         }
     };
@@ -10168,7 +10021,6 @@
 
     return DateTime;
 }));
-
 /**
  * @Validate.js
  * @author zhangxinxu
@@ -10176,36 +10028,23 @@
  * Created: 15-08-19
  */
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.ErrorTip = require('./ErrorTip');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Validate = factory();
-    }
+    global.Validate = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
-    var ErrorTip = this.ErrorTip;
-    if (typeof require == 'function' && !ErrorTip) {
-        ErrorTip = require('common/ui/ErrorTip');
-    } else if (!ErrorTip) {
-        window.console.error('need ErrorTip.js');
-        return {};
-    }
+    var ErrorTip = (this || self).ErrorTip;
 
     /**
      * 基于HTML5规范的表单验证方法
      * 根据原生属性:type, required, min, max, minlength, maxlength, step, pattern等属性进行验证
      * 使用原生checkValidity方法名，以及{
-        badInput: false
+    badInput: false
         customError: false
         patternMismatch: false
         rangeOverflow: false
@@ -11983,7 +11822,6 @@
 
     return Validate;
 }));
-
 /**
  * @Pagination.js
  * @author zhangxinxu
@@ -11992,16 +11830,10 @@
  * @edit:    19-09-10 native js rewrite
  */
 
-/* global module */
+
 
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Pagination = factory();
-    }
+    global.Pagination = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
@@ -12016,7 +11848,7 @@
     // ui类名
     // 类名变量
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-page'].concat([].slice.call(arguments)).join('-');
         },
         join: function () {
@@ -12427,7 +12259,6 @@
 
     return Pagination;
 }));
-
 /**
  * @Table.js
  * @author   zhangxinxu
@@ -12437,46 +12268,22 @@
  *           19-12-03 ES5原生语法支持
 **/
 
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.Drop = require('../ui/Drop');
-        global.Pagination = require('../ui/Pagination');
-        global.Loading = require('../ui/Loading');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Table = factory();
-    }
+    global.Table = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Drop = this.Drop;
-    var Pagination = this.Pagination;
-    var Loading = this.Loading;
-
-    if (typeof require == 'function') {
-        if (!Pagination) {
-            Pagination = require('common/ui/Pagination');
-        }
-        if (!Drop) {
-            Drop = require('common/ui/Drop');
-        }
-        // 加载动效
-        if (!Loading) {
-            Loading = require('common/ui/Loading');
-        }
-    } else if (!Loading) {
-        window.console.warn('suggest include Loading.js');
-    }
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var Drop = (this || self).Drop;
+    var Pagination = (this || self).Pagination;
+    var Loading = (this || self).Loading;
 
     // 滚动到顶部缓动实现
     // rate表示缓动速率，默认是2
     window.scrollTopTo = function (top, callback) {
-        var scrollTop = document.scrollingElement.scrollTop;
+    var scrollTop = document.scrollingElement.scrollTop;
         var rate = 2;
 
         var funTop = function () {
@@ -12508,6 +12315,8 @@
 
     // 一些元素类名
     var CL = {
+        container: 'table-x',
+        // 为空
         empty: 'table-null-x',
         // 错误
         error: 'table-error-x',
@@ -12617,17 +12426,30 @@
         // 表格元素
         var eleTable = element;
         // 容器元素
-        var eleContainer = eleTable.parentElement;
+        var eleContainer = eleTable.closest('.' + CL.container);
+
         // 空元素
-        var eleEmpty = eleContainer.querySelector('.' + CL.empty);
+        var eleEmpty = null;
         // loading元素
-        var eleLoading = eleContainer.querySelector(CL.loading + ', .' + CL.loading);
+        var eleLoading = null;
 
         // 分页相关的元素
-        var eleTotal = eleContainer.querySelector('.' + CL.total);
-        var elePer = eleContainer.querySelector('.' + CL.per);
-        var eleData = eleContainer.querySelector('.' + CL.data);
-        var elePage = eleContainer.querySelector('.' + CL.page);
+        var eleTotal = null;
+        var elePer = null;
+        var eleData = null;
+        var elePage = null;
+
+        if (eleContainer) {
+            eleEmpty = eleContainer.querySelector('.' + CL.empty);
+            // loading元素
+            eleLoading = eleContainer.querySelector(CL.loading + ', .' + CL.loading);
+
+            // 分页相关的元素
+            eleTotal = eleContainer.querySelector('.' + CL.total);
+            elePer = eleContainer.querySelector('.' + CL.per);
+            eleData = eleContainer.querySelector('.' + CL.data);
+            elePage = eleContainer.querySelector('.' + CL.page);
+        }
 
         // 元素之类
         this.element = {
@@ -13143,6 +12965,8 @@
         }
         var objPage = this.params.page;
 
+        console.log(this.pagination);
+
         // 显示分页
         if (this.pagination) {
             this.pagination.params = Object.assign(this.pagination.params, objPage);
@@ -13168,6 +12992,8 @@
                     }
                 }.bind(this)
             });
+
+            console.log(this.pagination);
         }
     };
 
@@ -13260,7 +13086,6 @@
 
     return Table;
 }));
-
 /**
  * @Form.js
  * @author zhangxinxu
@@ -13269,51 +13094,18 @@
  * @edited   19-12-02    ES5原生语法支持
  */
 
-/* global module */
+
 (function (global, factory) {
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        global.LightTip = require('../ui/LightTip');
-        global.Loading = require('../ui/Loading');
-        global.Validate = require('../ui/Validate');
-        module.exports = factory();
-    } else if (typeof define === 'function' && (define.amd || define.cmd)) {
-        define(factory);
-    } else {
-        global.Form = factory();
-    }
+    global.Form = factory();
     // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var LightTip = this.LightTip;
-    var Loading = this.Loading;
-    var Validate = this.Validate;
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+    var LightTip = (this || self).LightTip;
+    var Loading = (this || self).Loading;
+    var Validate = (this || self).Validate;
     // require
-    if (typeof require == 'function') {
-        // 轻tips
-        if (!LightTip) {
-            LightTip = require('common/ui/LightTip');
-        }
-        // 加载
-        if (!Loading) {
-            Loading = require('common/ui/Loading');
-        }
-        // 验证
-        if (!Validate) {
-            Validate = require('common/ui/Validate');
-        }
-    } else if (!Validate) {
-        window.console.error('need Validate.js');
-
-        return {};
-    } else if (!LightTip) {
-        window.console.error('need LightTip.js');
-
-        return {};
-    } else if (!Loading) {
-        window.console.warn('need Loading.js');
-    }
 
     /**
      * 表单解决方案组件

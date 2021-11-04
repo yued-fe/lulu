@@ -6,6 +6,8 @@
  * @Log: 2017-09-19 loading类名的添加基于标签，而非类名
  */
 
+/* global module */
+
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -14,9 +16,11 @@
     } else {
         global.Loading = factory();
     }
+    // eslint-disable-next-line
 }((typeof global !== 'undefined') ? global
-: ((typeof window !== 'undefined') ? window
-    : ((typeof self !== 'undefined') ? self : this)), function () {
+    // eslint-disable-next-line
+    : ((typeof window !== 'undefined') ? window
+        : ((typeof self !== 'undefined') ? self : this)), function () {
 
     var LOADING = 'loading';
 

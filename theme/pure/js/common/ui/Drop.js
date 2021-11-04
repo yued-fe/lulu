@@ -9,7 +9,7 @@
 
 (function (global, factory) {
     if (typeof exports === 'object' && typeof module !== 'undefined') {
-        this.Follow = require('./Follow');
+        global.Follow = require('./Follow');
         module.exports = factory();
     } else if (typeof define === 'function' && (define.amd || define.cmd)) {
         define(factory);
@@ -21,7 +21,7 @@
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
+    var Follow = (this || self).Follow;
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');
     } else if (!Follow) {

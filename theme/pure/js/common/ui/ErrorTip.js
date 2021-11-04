@@ -19,7 +19,7 @@
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Follow = this.Follow;
+    var Follow = (this || self).Follow;
 
     if (typeof require == 'function' && !Follow) {
         Follow = require('common/ui/Follow');

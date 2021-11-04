@@ -122,12 +122,12 @@ class XRange extends HTMLInputElement {
             };
             if (this.vertical) {
                 this.after(this.element.otherRange);
-                this.setAttribute('data-range','from');
-                this.element.otherRange.setAttribute('data-range','to');
+                this.setAttribute('data-range', 'from');
+                this.element.otherRange.setAttribute('data-range', 'to');
             } else {
                 this.before(this.element.otherRange);
-                this.setAttribute('data-range','to');
-                this.element.otherRange.setAttribute('data-range','from');
+                this.setAttribute('data-range', 'to');
+                this.element.otherRange.setAttribute('data-range', 'from');
             }
             this.range = this.defaultrange;
         }
@@ -190,12 +190,12 @@ class XRange extends HTMLInputElement {
             this.exchange = true;
             if (isTop || isRight) {
                 this.element.otherRange.before(this);
-                this.setAttribute('data-range','from');
-                this.element.otherRange.setAttribute('data-range','to');
+                this.setAttribute('data-range', 'from');
+                this.element.otherRange.setAttribute('data-range', 'to');
             } else {
                 this.element.otherRange.after(this);
-                this.setAttribute('data-range','to');
-                this.element.otherRange.setAttribute('data-range','from');
+                this.setAttribute('data-range', 'to');
+                this.element.otherRange.setAttribute('data-range', 'from');
             }
             this.exchange = false;
             this.focus();
