@@ -24,9 +24,9 @@
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
         : ((typeof self !== 'undefined') ? self : this)), function (require) {
-    var Drop = this.Drop;
-    var Pagination = this.Pagination;
-    var Loading = this.Loading;
+    var Drop = (this || self).Drop;
+    var Pagination = (this || self).Pagination;
+    var Loading = (this || self).Loading;
 
     if (typeof require == 'function') {
         if (!Pagination) {
@@ -41,6 +41,7 @@
         }
     } else if (!Loading) {
         window.console.warn('suggest include Loading.js');
+        return {};
     }
 
     // 滚动到顶部缓动实现
@@ -78,6 +79,8 @@
 
     // 一些元素类名
     var CL = {
+        container: 'table-x',
+        // 为空
         empty: 'table-null-x',
         // 错误
         error: 'table-error-x',
@@ -187,17 +190,30 @@
         // 表格元素
         var eleTable = element;
         // 容器元素
-        var eleContainer = eleTable.parentElement;
+        var eleContainer = eleTable.closest('.' + CL.container);
+
         // 空元素
-        var eleEmpty = eleContainer.querySelector('.' + CL.empty);
+        var eleEmpty = null;
         // loading元素
-        var eleLoading = eleContainer.querySelector(CL.loading + ', .' + CL.loading);
+        var eleLoading = null;
 
         // 分页相关的元素
-        var eleTotal = eleContainer.querySelector('.' + CL.total);
-        var elePer = eleContainer.querySelector('.' + CL.per);
-        var eleData = eleContainer.querySelector('.' + CL.data);
-        var elePage = eleContainer.querySelector('.' + CL.page);
+        var eleTotal = null;
+        var elePer = null;
+        var eleData = null;
+        var elePage = null;
+
+        if (eleContainer) {
+            eleEmpty = eleContainer.querySelector('.' + CL.empty);
+            // loading元素
+            eleLoading = eleContainer.querySelector(CL.loading + ', .' + CL.loading);
+
+            // 分页相关的元素
+            eleTotal = eleContainer.querySelector('.' + CL.total);
+            elePer = eleContainer.querySelector('.' + CL.per);
+            eleData = eleContainer.querySelector('.' + CL.data);
+            elePage = eleContainer.querySelector('.' + CL.page);
+        }
 
         // 元素之类
         this.element = {
@@ -713,6 +729,8 @@
         }
         var objPage = this.params.page;
 
+        console.log(this.pagination);
+
         // 显示分页
         if (this.pagination) {
             this.pagination.params = Object.assign(this.pagination.params, objPage);
@@ -738,6 +756,8 @@
                     }
                 }.bind(this)
             });
+
+            console.log(this.pagination);
         }
     };
 
