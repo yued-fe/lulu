@@ -2659,6 +2659,7 @@ select[is-visible] {
     vertical-align: middle;
     font-size: 14px;
     transition: opacity .2s;
+    text-align: left;
     position: relative;
 }
 

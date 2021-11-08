@@ -72,6 +72,7 @@ select[multiple] > option:disabled {
     vertical-align: middle;
     font-size: var(--ui-font, 14px);
     transition: opacity var(--ui-animate-time, .2s);
+    text-align: start;
     position: relative;
 }
 
