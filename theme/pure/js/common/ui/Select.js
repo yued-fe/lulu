@@ -86,7 +86,6 @@
 
         // 3. 创建下拉组合框元素
         var eleCombobox = document.createElement('div');
-        eleCombobox.setAttribute('role', 'combobox');
 
         // 4. 创建下拉点击按钮元素
         var eleButton = document.createElement('a');
