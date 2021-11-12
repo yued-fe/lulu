@@ -70,6 +70,8 @@
             history: true,
             // tab 切换时 滑动效果
             slide: false,
+            // 自动播放，0 或 false 表示不自动播放，单位毫秒
+            autoplay: 0,
             // 发生状态变化时候的回调
             onSwitch: function () {}
         };
@@ -272,6 +274,32 @@
                 this.show(event.target);
             }.bind(this), false);
         }.bind(this));
+
+        // 定时播放
+        if (objParams.autoplay && objParams.autoplay > 0) {
+            this.timerSlide = setInterval(function () {
+                this.show(eleTabs[this.params.index + 1] || eleTabs[0]);
+            }.bind(this), objParams.autoplay);
+
+            // 鼠标经过停止自动播放
+            eleTabs.forEach(function (eleTab) {
+                var elePanel = this.getPanel(eleTab);
+
+                [eleTab, elePanel].forEach(function (eleTarget) {
+                    if (!eleTarget) {
+                        return;
+                    }
+                    eleTarget.addEventListener('mouseenter', function () {
+                        clearInterval(this.timerSlide);
+                    }.bind(this), false);
+                    eleTarget.addEventListener('mouseleave', function () {
+                        this.timerSlide = setInterval(function () {
+                            this.show(eleTabs[this.params.index + 1] || eleTabs[0]);
+                        }.bind(this), objParams.autoplay);
+                    }.bind(this), false);
+                }.bind(this));
+            }.bind(this));
+        }
     };
 
     return Tab;
