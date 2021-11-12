@@ -1614,6 +1614,7 @@ class Select extends HTMLSelectElement {
         }
         return strAttrWidth;
     }
+
     set width (value) {
         if (/\d/.test(value) == false) {
             return;
@@ -1662,7 +1663,7 @@ class Select extends HTMLSelectElement {
         var isCustomScroll = /windows/i.test(navigator.userAgent);
 
         // 直接插入对应的片段内容
-        this.insertAdjacentHTML('afterend', `<div role="combobox" style="width: ${this.getWidth()}">
+        this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()}">
            ${!this.multiple ? `<a
                 class="${BUTTON_CLASS}"
                 data-target="${strId}"
