@@ -19,6 +19,10 @@ LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 * <a href="https://l-ui.com/">LuLu UI API 中文文档</a>（GitHub托管，访问有延迟）
 * <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI API 中文文档</a>（国内服务器托管，速度可以）
 
+关于适合使用 LuLu UI 的场景，可以访问下面的视频介绍：
+
+<a href="https://www.bilibili.com/video/BV19f4y1N7X1#reply5813355891"><img src="https://imgservices-1252317822.image.myqcloud.com/image/112220210184445/0c589289.png" width="360" height="240"></a>
+
 ## 教程
 
 * <a href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">LuLu UI 中文教程</a>
