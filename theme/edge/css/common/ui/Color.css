@@ -34,6 +34,15 @@
     background-image: linear-gradient(to right bottom, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)), linear-gradient(to top right, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px));
 }
 
+/* for firefox */
+[is="ui-color"],
+_::-moz-color-swatch {
+    padding: 8px;
+}
+[is="ui-color"]::-moz-color-swatch {
+    border: 1px solid var(--ui-light, #f7f9fa);
+}
+
 .ui-color-container {
     display: none;
     position: absolute;
