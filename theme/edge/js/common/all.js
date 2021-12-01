@@ -1691,6 +1691,12 @@ class Select extends HTMLSelectElement {
             this.style.position = 'absolute';
         }
 
+        // 是否在 body 容器中定位
+        if (this.dataset.sibling == 'false') {
+            this.element.datalist.dataset.sibling = 'false';
+            document.body.appendChild(this.element.datalist);
+        }
+
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
     }
 
@@ -1790,6 +1796,36 @@ class Select extends HTMLSelectElement {
     }
 
     /**
+     * 下拉的层级处理
+     */
+    zIndex () {
+        let eleTarget = this.element.datalist;
+        // 返回eleTarget才是的样式计算对象
+        let objStyleTarget = window.getComputedStyle(eleTarget);
+        // 此时元素的层级
+        let numZIndexTarget = Number(objStyleTarget.zIndex);
+        // 用来对比的层级，也是最小层级
+        let numZIndexNew = 19;
+
+        // 只对同级子元素进行层级最大化计算处理
+        document.body.childNodes.forEach((eleChild) => {
+            if (eleChild.nodeType !== 1) return;
+
+            let objStyleChild = window.getComputedStyle(eleChild);
+
+            let numZIndexChild = objStyleChild.zIndex * 1;
+
+            if (numZIndexChild && eleTarget !== eleChild && objStyleChild.display !== 'none') {
+                numZIndexNew = Math.max(numZIndexChild + 1, numZIndexNew);
+            }
+        });
+
+        if (numZIndexNew !== numZIndexTarget) {
+            eleTarget.style.zIndex = numZIndexNew;
+        }
+    }
+
+    /**
      * 单选下拉框的事件
      */
     createNormalEvent () {
@@ -1804,7 +1840,21 @@ class Select extends HTMLSelectElement {
                 }
                 // 获取下拉元素是关键，因为存储了实例对象
                 // 元素什么的都可以直接匹配
-                const eleCombobox = target.closest('.' + Select.addClass());
+                let eleCombobox = target.closest('.' + Select.addClass());
+                let eleDatalist;
+                let eleButton;
+
+                // 如果点击的是 body 定位的下拉列表元素
+                if (!eleCombobox) {
+                    eleDatalist = target.closest('.' + Select.addClass('datalist') + '[data-sibling]');
+                    if (eleDatalist) {
+                        eleButton = document.querySelector(`a[data-target="${eleDatalist.id}"]`);
+                        if (eleButton) {
+                            eleCombobox = eleButton.closest('.' + Select.addClass());
+                        }
+                    }
+                }
+
                 const eleSelect = eleCombobox && eleCombobox.previousElementSibling;
 
                 if (!eleSelect || !eleSelect.element) {
@@ -1812,23 +1862,42 @@ class Select extends HTMLSelectElement {
                 }
 
                 const objElement = eleSelect.element;
-                const eleButton = objElement.button;
-                const eleDatalist = objElement.datalist;
+                eleButton = objElement.button;
+                eleDatalist = objElement.datalist;
+
+                const isNotSibling = (eleSelect.dataset.sibling == 'false');
 
                 // 下面判断点击的是按钮还是列表了
                 if (eleButton.contains(target)) {
                     if (eleSelect.disabled) return false;
                     // 显示与隐藏
                     eleCombobox.classList.toggle('active');
+                    // 显示
                     if (eleCombobox.classList.contains('active')) {
+                        let objBoundButton = eleButton.getBoundingClientRect();
+                        if (isNotSibling) {
+                            eleDatalist.classList.add('active');
+                            eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
+                            eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
+                            eleDatalist.style.width = eleSelect.getWidth();
+                            // 层级
+                            eleSelect.zIndex();
+                        }
+
                         // 边界判断
-                        var isOverflow = eleDatalist.getBoundingClientRect().bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
+                        let objBoundDatalist = eleDatalist.getBoundingClientRect();
+                        var isOverflow = objBoundDatalist.bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
                         eleCombobox.classList[isOverflow ? 'add' : 'remove']('reverse');
+
+                        if (isOverflow && isNotSibling) {
+                            eleDatalist.style.top = (objBoundButton.top + document.scrollingElement.scrollTop - objBoundDatalist.height + 1) + 'px';
+                        }
                         // aria状态
                         eleButton.setAttribute('aria-expanded', 'true');
                         // 滚动与定位
                         var arrDataScrollTop = eleCombobox.dataScrollTop;
                         var eleDatalistSelected = eleDatalist.querySelector('.selected');
+
                         // 严格验证
                         if (arrDataScrollTop && eleDatalistSelected && arrDataScrollTop[1] === eleDatalistSelected.getAttribute('data-index') && arrDataScrollTop[2] === eleDatalistSelected.innerText) {
                             eleDatalist.scrollTop = arrDataScrollTop[0];
@@ -1839,6 +1908,10 @@ class Select extends HTMLSelectElement {
                         eleCombobox.classList.remove('reverse');
                         // aria状态
                         eleButton.setAttribute('aria-expanded', 'false');
+                        // 隐藏列表
+                        if (isNotSibling) {
+                            eleDatalist.classList.remove('active');
+                        }
                     }
                 } else if (eleDatalist.contains(target)) {
                     // 点击的列表元素
@@ -1851,6 +1924,7 @@ class Select extends HTMLSelectElement {
                     var indexOption = eleList.getAttribute('data-index');
                     // 存储可能的滚动定位需要的数据
                     var scrollTop = eleDatalist.scrollTop;
+
                     eleCombobox.dataScrollTop = [scrollTop, indexOption, eleList.innerText];
 
                     // 修改下拉选中项
@@ -1863,6 +1937,8 @@ class Select extends HTMLSelectElement {
                     // 下拉收起
                     eleCombobox.classList.remove('active');
                     eleButton.setAttribute('aria-expanded', 'false');
+                    eleDatalist.classList.remove('active');
+                    
                     // focus
                     eleButton.focus();
                     eleButton.blur();
@@ -1887,7 +1963,22 @@ class Select extends HTMLSelectElement {
                 }
                 // 识别此时的combobox
                 const eleCombobox = document.querySelector('select+.ui-select.active');
-                if (eleCombobox && !eleCombobox.contains(target)) {
+                if (!eleCombobox) {
+                    return;
+                }
+
+                // 对应的下拉元素
+                const eleSelect = eleCombobox.previousElementSibling;
+                const isNotSibling = (eleSelect.dataset.sibling == 'false');
+
+                if (isNotSibling) {
+                    const eleDatalist = eleSelect.element && eleSelect.element.datalist;
+                    if (!eleDatalist.contains(target) && !eleCombobox.contains(target)) {
+                        eleCombobox.classList.remove('active');
+                        eleCombobox.classList.remove('reverse');
+                        eleDatalist.classList.remove('active');
+                    }
+                } else if (!eleCombobox.contains(target)) {
                     eleCombobox.classList.remove('active');
                     eleCombobox.classList.remove('reverse');
                 }
