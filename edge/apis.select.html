@@ -93,15 +93,49 @@ button.addEventListener('click', function () {
 <span class="green">// 或者</span>
 button.addEventListener('click', function () {
     select[1].setAttribute('selected', true);
-});
-</pre>
+});</pre>
       <p class="tips">和浏览器原生行为一样，value赋值不会触发change事件。</p>
+
+      <h4>作为 body 子元素重定位</h4>
+
+      <p>本下拉组件默认定位是 CSS 定位，如果祖先容器存在 <code>overflow:hidden</code> 声明，就有可能剪裁下拉列表，此时可以试试在 <code>&lt;select&gt;</code> 元素上设置 <code>data-sibling="false"</code>，例如：</p>
+
+      <pre>&lt;select is="ui-select" <mark>data-sibling="false"</mark>&gt;
+  &lt;option value="1"&gt;选项1&lt;/option&gt;
+  &lt;option value="2"&gt;选项2&lt;/option&gt;
+  &lt;option value="3"&gt;选项3&lt;/option&gt;
+&lt;/select&gt;</pre>
+
+      <div style="overflow: hidden; padding-bottom: 12px; position: relative;">
+        看看剪裁没？<select is="ui-select">
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+        </select> <label class="ml20">再看看这个剪裁没？</label> <select is="ui-select" data-sibling="false">
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+        </select>
+      </div>
+
+      <p>局部滚动定位测试：</p>
+
+      <div style="width: 300px; height: 100px; border: 1px dotted; overflow: auto; transform: scale(1); text-align: center;">
+        <div style="width: 600px;">&nbsp;</div>
+        <select is="ui-select" data-sibling="false">
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+        </select>
+      </div>
+
+      <p>另外，如果下拉元素设置了 <code>data-sibling="false"</code>，则在移动端，下拉列表是全屏展示的列表效果。</p>
 
       <h4>分组</h4>
 
-      <p>支持<code>&lt;optgroup&gt;</code>元素分组。</p>
+      <p>支持 <code>&lt;optgroup&gt;</code> 元素分组。</p>
       <p>
-        <select is="ui-select">
+        <select is="ui-select" data-sibling="false">
             <optgroup label="分组1">
               <option>选项 1.1</option>
             </optgroup>
@@ -131,9 +165,9 @@ button.addEventListener('click', function () {
   &lt;/optgroup&gt;
 &lt;/select&gt;</pre>
 
-      <p>如果没有<code>&lt;optgroup&gt;</code>元素设置<code>label</code>描述，则分组使用分隔线分割。</p>
+      <p>如果没有 <code>&lt;optgroup&gt;</code> 元素设置 <code>label</code> 描述，则分组使用分隔线分割。</p>
       <p>
-        <select is="ui-select">
+        <select is="ui-select" data-sibling="false">
             <optgroup>
               <option>选项 1.1</option>
             </optgroup>
@@ -192,8 +226,8 @@ button.addEventListener('click', function () {
       </p>
       <p>主要测试记住上一次滚动条位置的细节。</p>
 
-      <h4>width属性宽度外部自适应</h4>
-      <p>本组件给<code>&lt;select&gt;</code>元素扩展了<code>width</code>属性，可以用来设置下拉框的尺寸，支持百分比值，例如：</p>
+      <h4>width 属性宽度外部自适应</h4>
+      <p>本组件给 <code>&lt;select&gt;</code> 元素扩展了 <code>width</code> 属性，可以用来设置下拉框的尺寸，支持百分比值，例如：</p>
       <pre>&lt;select is="ui-select" <mark>width="100%"</mark>&gt;
     &lt;option&gt;选项1&lt;/option&gt;
     &lt;option&gt;选项2&lt;/option&gt;
@@ -210,13 +244,13 @@ button.addEventListener('click', function () {
 
       <p><select is="ui-select" width="200"><option>选项1</option></select> <select is="ui-select" width="8rem"><option>选项1</option></select></p>
 
-      <p>使用<code>width</code>属性进行尺寸设置虽然方便，但是渲染需要在组件JS加载完成之后执行，因此，在网速较慢的场景下，视觉上可以感知到尺寸的变化过程，体验不好。</p>
-      <p>此时可以提前预设好相关的CSS样式，例如希望<code>&lt;select&gt;</code>宽度50%，可以自行在CSS中设置如下所示代码（100%宽度 Select.css 已经内置）。</p>
+      <p>使用 <code>width</code> 属性进行尺寸设置虽然方便，但是渲染需要在组件JS加载完成之后执行，因此，在网速较慢的场景下，视觉上可以感知到尺寸的变化过程，体验不好。</p>
+      <p>此时可以提前预设好相关的CSS样式，例如希望 <code>&lt;select&gt;</code> 宽度 50%，可以自行在 CSS 中设置如下所示代码（100% 宽度 Select.css 已经内置）。</p>
       <pre>select[width="50%"] {
     width: 50%;
 }</pre>
 
-      <p>当然，也可以直接使用<code>style</code>属性进行设置，例如：</p>
+      <p>当然，也可以直接使用 <code>style</code> 属性进行设置，例如：</p>
       <pre>&lt;select is="ui-select" style="width: 50%"&gt;</pre>
       <select is="ui-select" style="width: 50%">
         <option>选项1</option>
@@ -247,35 +281,35 @@ button.addEventListener('click', function () {
       <pre>multipleSelect.addEventListener('change', function () {
     result.innerHTML = this.value;
 });</pre>
-      <p>使“选项1,选项4”选中的JavaScript代码示意：</p>
+      <p>使“选项1,选项4”选中的 JavaScript 代码示意：</p>
       <pre>button.addEventListener('click', function () {
-    <span class="green">// option元素没有设置value属性会把text作为value值
-    // 因此这里使用的是text文本值进行赋值，实际开发不是这样哟</span>
+    <span class="green">// option 元素没有设置 value 属性会把 text 作为 value 值
+    // 因此这里使用的是 text 文本值进行赋值，实际开发不是这样哟</span>
     multipleSelect.value = '选项1,选项4';
     <span class="green">// value赋值不会触发change事件（和浏览器原生行为保持一致）
     // 需要我们手动触发</span>
     multipleSelect.dispatchEvent(new CustomEvent('change'));
 });</pre>
       <h3>语法和参数</h3>
-      <p>绝大多数场景下，大家无需关心语法和参数，也不需要初始化，直接引入Select.js即可。如果遇到特殊场景，下拉框没有初始化，可以使用下面的语法。</p>
+      <p>绝大多数场景下，大家无需关心语法和参数，也不需要初始化，直接引入 Select.js 即可。如果遇到特殊场景，下拉框没有初始化，可以使用下面的语法。</p>
 
       <h4>语法</h4>
       <pre>element.refresh();</pre>
 
       <h4>参数</h4>
-      <p><code>element</code>参数为对应的<code>&lt;select&gt;</code> DOM元素。</p>
+      <p><code>element</code> 参数为对应的 <code>&lt;select&gt;</code> DOM 元素。</p>
       <p class="tips">
-        Select.js下拉方法只能基于原生的&lt;select&gt;元素生成，不支持基于数据生成。如果希望基于数据结构创建下拉列表，可以参考使用Drop.js中的list()方法或者Datalist.js。</p>
+        Select.js 下拉方法只能基于原生的 &lt;select&gt; 元素生成，不支持基于数据生成。如果希望基于数据结构创建下拉列表，可以参考使用 Drop.js 中的 list() 方法或者 Datalist.js。</p>
 
       <h4>赋值</h4>
-      <p>存在特殊场景需要手动改变<code>&lt;select&gt;</code>元素的选中项，建议直接使用value赋值，下拉组件的样式会同步更新。</p>
+      <p>存在特殊场景需要手动改变 <code>&lt;select&gt;</code> 元素的选中项，建议直接使用 value 赋值，下拉组件的样式会同步更新。</p>
       <pre>select.value = 'xxx';</pre>
-      <p><code>'xxx'</code>是即将被选中的<code>&lt;option&gt;</code>元素的<code>value</code>属性值。</p>
-      <p>我们也可以直接找到对应的<code>&lt;option&gt;</code>元素，然后设置<code>selected</code>属性值为<code>true</code>。</p>
-      <p>以及使用设置<code>selectedIndex</code>属性值实现进行下拉选项的选中。</p>
+      <p><code>'xxx'</code> 是即将被选中的 <code>&lt;option&gt;</code> 元素的 <code>value</code> 属性值。</p>
+      <p>我们也可以直接找到对应的 <code>&lt;option&gt;</code> 元素，然后设置 <code>selected</code> 属性值为 <code>true</code>。</p>
+      <p>以及使用设置 <code>selectedIndex</code> 属性值实现进行下拉选项的选中。</p>
 
       <h4>事件处理</h4>
-      <p>本下拉组件本身只提供样式支持，至于事件处理，完全和处理原生的<code>&lt;select&gt;</code>下拉框一样。例如：</p>
+      <p>本下拉组件本身只提供样式支持，至于事件处理，完全和处理原生的 <code>&lt;select&gt;</code> 下拉框一样。例如：</p>
       <pre>select.addEventListener('change', function () {
     console.log('来自下拉框：我变化了');
 });</pre>
@@ -285,20 +319,20 @@ button.addEventListener('click', function () {
       <p><img src="https://qidian.qpic.cn/qidian_common/349573/b647ba30a7c00747f316cdc17e82cc52/0" height="117"></p>
 
       <h4>元素禁用</h4>
-      <p>想要实现自定义下拉控件的禁用效果，直接<code>&lt;select&gt;</code>元素添加<code>disabled</code>属性就可以了。例如：</p>
+      <p>想要实现自定义下拉控件的禁用效果，直接 <code>&lt;select&gt;</code> 元素添加 <code>disabled</code> 属性就可以了。例如：</p>
       <p>
         <select is="ui-select" id="selectDisabled" style="width:100px;" disabled>
           <option>请选择</option>
         </select>
         <button id="enableButton" class="ui-button" data-type="primary"
-                onclick="selectDisabled.disabled = !selectDisabled.disabled;">切换disabled状态
+                onclick="selectDisabled.disabled = !selectDisabled.disabled;">切换 disabled 状态
         </button>
       </p>
       <pre>&lt;select is="ui-select" style="width:100px;" <mark>disabled</mark>>
     &lt;option>请选择&lt;/option>
 &lt;/select></pre>
 
-      <p>复选框的禁用也是增加一个<code>disabled</code>属性。例如：</p>
+      <p>复选框的禁用也是增加一个 <code>disabled</code> 属性。例如：</p>
       <p><select is="ui-select" multiple disabled>
         <option>选项1</option>
         <option>选项2</option>
@@ -309,7 +343,7 @@ button.addEventListener('click', function () {
 &lt;/select&gt;</pre>
 
       <h4>元素隐藏</h4>
-      <p>如果想要隐藏(不占据空间的隐藏)，可以给原生的<code>&lt;select&gt;</code>元素增加HTML5原生隐藏属性<code>hidden</code>，下拉框和后面的自定义下拉框会一并隐藏。</p>
+      <p>如果想要隐藏(不占据空间的隐藏)，可以给原生的 <code>&lt;select&gt;</code> 元素增加 HTML5 原生隐藏属性 <code>hidden</code>，下拉框和后面的自定义下拉框会一并隐藏。</p>
       <pre>&lt;select is="ui-select" <mark>hidden</mark>&gt;
     &lt;option&gt;选项&lt;/option&gt;
 &lt;/select&gt;</pre>
@@ -334,7 +368,7 @@ button.addEventListener('click', function () {
       <h4>元素删除</h4>
       <p>
         <button id="btnRemove" class="ui-button" data-type="primary">删除原生下拉元素</button>
-        <button id="btnRemoveOption" class="ui-button" data-type="primary">删除第一个option元素</button>
+        <button id="btnRemoveOption" class="ui-button" data-type="primary">删除第一个 option 元素</button>
       </p>
       <p>
         <select is="ui-select" id="selRemove">
@@ -350,18 +384,26 @@ button.addEventListener('click', function () {
     <span class="green">// 删除第一个option元素，同样会自动UI更新</span>
     select[0].remove();
 });</pre>
-      <p class="tips">可以看到，无论是初始化，事件，禁用或者添加，隐藏和删除，下拉框组件都严格遵循“面向HTML开发”的设计理念，也就是Select.js下拉所有处理都是围绕原生的&lt;select&gt;元素展开，大家千万不要对美化后的下拉框元素进行DOM处理。</p>
+      <p class="tips">可以看到，无论是初始化，事件，禁用或者添加，隐藏和删除，下拉框组件都严格遵循“面向 HTML 开发”的设计理念，也就是 Select.js 下拉所有处理都是围绕原生的 &lt;select&gt; 元素展开，大家千万不要对美化后的下拉框元素进行 DOM 处理。</p>
 
       <h4>关于大数据量时候的性能</h4>
-      <p>如果遇到需要同时渲染数百或上千个下拉框的场景，需要提前对<code>&lt;select&gt;</code>元素通过<code>style</code>属性，或者<code>width</code>属性设置好宽度（支持数值以及任意长度单位）。可以极大地提升渲染性能，因为渲染的瓶颈就是下拉元素的宽度获取，如果提前设置好，则速度可以大大提升。
+      <p>如果遇到需要同时渲染数百或上千个下拉框的场景，需要提前对 <code>&lt;select&gt;</code> 元素通过 <code>style</code> 属性，或者 <code>width</code> 属性设置好宽度（支持数值以及任意长度单位）。可以极大地提升渲染性能，因为渲染的瓶颈就是下拉元素的宽度获取，如果提前设置好，则速度可以大大提升。
       </p>
       <p>当然，常规开发完全不用在意这个细节，交互体验完全无感知。</p>
 
       <h4>一些限制</h4>
-      <p>下拉采用的相对元素的绝对定位，列表元素在DOM内部，因此，如果父级存在<code>overflow:hidden</code>，可能会让下拉部分列表无法显示，这个需要注意下。</p>
+      <p>下拉采用的相对元素的绝对定位，列表元素在 DOM 内部，因此，如果父级存在 <code>overflow:hidden</code>，可能会让下拉部分列表无法显示，这个需要注意下。</p>
 
       <p>最后测试下底部边缘朝上显示：</p>
       <select is="ui-select">
+        <option>请选择</option>
+        <option>选项1</option>
+        <option>选项2</option>
+        <option>选项3</option>
+        <option>选项4</option>
+        <option>选项5</option>
+        <option>选项6</option>
+      </select> <select is="ui-select" data-sibling="false">
         <option>请选择</option>
         <option>选项1</option>
         <option>选项2</option>
@@ -376,7 +418,7 @@ button.addEventListener('click', function () {
           <use xlink:href="#icon-persons"></use>
         </svg>
         <h6 class="contributors-h">本页贡献者：</h6>
-        <p id="contributorsP" class="contributors-p">HSDPA-wen</p>
+        <p id="contributorsP" class="contributors-p">HSDPA-wen, zhangxinxu</p>
       </div>
     </article>
   </main>

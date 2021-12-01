@@ -288,7 +288,7 @@ this.params.form.validate = [];</pre>
                 <ui-pagination per="10"></ui-pagination>
             </div>
 
-            <p>完整的HTML代码如下所示：</p>
+            <p>完整的HTML代码如下所示（注意：<strong>.table-x 类名是必须的</strong>）：</p>
             <pre>&lt;div class="table-x"&gt;
     &lt;table <mark>is="ui-table"</mark> <mark class="orange">data-url="/get"</mark>&gt;
         &lt;thead&gt;
@@ -319,7 +319,6 @@ this.params.form.validate = [];</pre>
                      
             <p>在本演示中，就是使用的<code>data-url</code>属性指定Ajax数据拉取的URL地址。</p>
             <p>分页的交互行为组件内置，使用的时候无需关心细节。</p>
-
             
             <h3>综合交互案例演示</h3>
             <p>本案例演示重点在分页与列表交互，复选框选中与列表交互，列表中动态内容的事件处理，以及外部的搜索、删除如何影响列表的显示。</p>
@@ -671,9 +670,9 @@ myTable.params.ajax.url = '/someUrl';</pre></li>
     }                
 });</pre>
             <p>myTable还支持如下两个自定义事件。</p>
-            <table width="100%" class="ui-table">
+            <table width="100%" class="ui-table" is="ui-table">
                 <tr>
-                  <th width="80">事件名称</th>
+                  <th width="150">事件名称</th>
                   <th>释义</th>
                 </tr>
                 <tr>
