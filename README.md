@@ -21,7 +21,7 @@ LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
 关于适合使用 LuLu UI 的场景，可以访问下面的视频介绍：
 
-<a href="https://www.bilibili.com/video/BV19f4y1N7X1#reply5813355891"><img src="https://imgservices-1252317822.image.myqcloud.com/image/112220210184445/0c589289.png" width="360" height="240"></a>
+<a href="https://www.bilibili.com/video/BV19f4y1N7X1"><img src="https://imgservices-1252317822.image.myqcloud.com/image/112220210184445/0c589289.png" width="360" height="240"></a>
 
 ## 教程
 
@@ -156,7 +156,7 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 
 LuLu UI 的设计理念、使用方式完全不同于常规 UI 组件库。
 
-LuLu UI 没有版本概念，发包均已发包日期作为版号。
+LuLu UI 没有版本概念，发包均以发包日期作为版号。
 
 <hr>
 
