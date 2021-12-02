@@ -369,9 +369,6 @@ button.addEventListener('click', function () {
             <p>如果遇到需要同时渲染数百或上千个下拉框的场景，需要提前对 <code>&lt;select&gt;</code> 元素通过 <code>style</code> 属性，或者 <code>width</code> 属性设置好宽度（支持数值以及任意长度单位）。可以极大地提升渲染性能，因为渲染的瓶颈就是下拉元素的宽度获取，如果提前设置好，则速度可以大大提升。</p>
             <p>当然，常规开发完全不用在意这个细节，交互体验完全无感知。</p>
 
-            <h4>一些限制</h4>
-            <p>下拉采用的相对元素的绝对定位，列表元素在DOM内部，因此，如果父级存在 <code>overflow:hidden</code>，可能会让部分列表无法显示，这个需要注意下。</p>
-
             <p>最后测试下底部边缘朝上显示：</p>
             <select>
                 <option>请选择</option>
