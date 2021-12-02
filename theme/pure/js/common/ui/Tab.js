@@ -41,7 +41,6 @@
         }
     };
 
-
     var Tab = function (elements, options) {
         // 元素的获取与判断
         var eleTabs = elements;

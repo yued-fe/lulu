@@ -2730,7 +2730,8 @@ select[is-visible] {
     right: 0;
     top: 39px;
     display: none;
-    max-height: 304px;
+    box-sizing: border-box;
+    max-height: 306px;
     padding: 0;
     border: 1px solid #2a80eb;
     background-color: #fff;
@@ -2775,7 +2776,8 @@ select[is-visible] {
     background-color: #ddd;
 }
 
-.active > .ui-select-datalist {
+.active > .ui-select-datalist,
+.ui-select-datalist.active {
     display: block;
 }
 

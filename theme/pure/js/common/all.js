@@ -1034,7 +1034,6 @@
         }
     };
 
-
     var Tab = function (elements, options) {
         // 元素的获取与判断
         var eleTabs = elements;
@@ -1304,6 +1303,7 @@
  * @Created: 15-06-18
  * @edit:    07-06-15  rewrite
  * @edit:    09-08-28  native js rewrite
+ * @edit:    21-12-02  append to body for re-position
 **/
 
 /* global module, global */
@@ -1394,7 +1394,7 @@
         eleButton.classList.add(CL.add('button'));
 
         // 5. 创建下拉列表元素
-        var eleDatalist = document.createElement('div');
+        var eleDatalist = document.createElement('ui-select-list');
         eleDatalist.id = strId;
         eleDatalist.setAttribute('role', 'listbox');
         eleDatalist.setAttribute('aria-expanded', 'true');
@@ -1404,7 +1404,6 @@
         // multiple没有button
         if (isMultiple == false) {
             eleCombobox.appendChild(eleButton);
-            eleCombobox.appendChild(eleDatalist);
             // 插入到下拉框的后面
             eleSelect.style.display = 'none';
             eleSelect.insertAdjacentElement('afterend', eleCombobox);
@@ -1470,6 +1469,18 @@
                     // 获取下拉元素是关键，因为存储了实例对象
                     // 元素什么的都可以直接匹配
                     eleCombobox = target.closest('.' + CL);
+
+                    // 如果点击的是 body 定位的下拉列表元素
+                    if (!eleCombobox) {
+                        eleDatalist = target.closest('ui-select-list');
+                        if (eleDatalist && eleDatalist.id) {
+                            eleButton = document.querySelector('a[data-target="' + eleDatalist.id + '"]');
+                            if (eleButton) {
+                                eleCombobox = eleButton.closest('.' + CL);
+                            }
+                        }
+                    }
+
                     eleSelect = eleCombobox && eleCombobox.previousElementSibling;
 
                     if (!eleSelect || !eleSelect.data || !eleSelect.data.select) {
@@ -1492,9 +1503,29 @@
                         eleCombobox.classList.toggle(ACTIVE);
 
                         if (eleCombobox.classList.contains(ACTIVE)) {
+                            // 1. 为防止 overflow 剪裁下拉列表，改为 body 定位
+                            // 2. 为防止默认状态下，大量的 DOM 作为 <body> 子元素呈现，改为交互后 append 处理
+                            if (!document.body.contains(eleDatalist)) {
+                                document.body.appendChild(eleDatalist);
+                            }
+
+                            // 使用 JS 计算定位，为减少依赖，就不引用 Follow.js 了
+                            var objBoundButton = eleButton.getBoundingClientRect();
+                            eleDatalist.classList.add(ACTIVE);
+                            eleDatalist.style.left = (objBoundButton.left + window.pageXOffset) + 'px';
+                            eleDatalist.style.top = (objBoundButton.bottom + window.pageYOffset - 1) + 'px';
+                            eleDatalist.style.width = objBoundButton.width + 'px';
+                            // 层级
+                            this.zIndex();
+
                             // 边界判断
-                            var isOverflow = eleDatalist.getBoundingClientRect().bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
+                            var objBoundDatalist = eleDatalist.getBoundingClientRect();
+                            var isOverflow = objBoundDatalist.bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
+                            // 如果超出边界
                             eleCombobox.classList[isOverflow ? 'add' : 'remove'](REVERSE);
+                            if (isOverflow) {
+                                eleDatalist.style.top = (objBoundButton.top + window.pageYOffset - objBoundDatalist.height + 1) + 'px';
+                            }
                             // aria状态
                             eleButton.setAttribute('aria-expanded', 'true');
 
@@ -1511,6 +1542,8 @@
                             eleCombobox.classList.remove(REVERSE);
                             // aria状态
                             eleButton.setAttribute('aria-expanded', 'false');
+                            // 隐藏列表
+                            eleDatalist.remove();
                         }
                     } else if (eleDatalist.contains(target)) {
                         // 点击的列表元素
@@ -1535,6 +1568,8 @@
                         // 下拉收起
                         eleCombobox.classList.remove(ACTIVE);
                         eleButton.setAttribute('aria-expanded', 'false');
+                        eleDatalist.remove();
+
                         // focus
                         eleButton.focus();
                         eleButton.blur();
@@ -1549,7 +1584,7 @@
                             }));
                         }
                     }
-                });
+                }.bind(this));
 
                 document.addEventListener('mouseup', function (event) {
                     var target = event.target;
@@ -1564,10 +1599,12 @@
                     }
 
                     eleButton = eleCombobox.querySelector('.' + CL.add('button'));
+                    eleDatalist = document.getElementById(eleButton.getAttribute('data-target'));
 
-                    if (eleCombobox.contains(target) == false) {
+                    if (eleDatalist && eleCombobox.contains(target) == false && eleDatalist.contains(target) == false) {
                         eleCombobox.classList.remove(ACTIVE);
                         eleCombobox.classList.remove(REVERSE);
+                        eleDatalist.remove();
                         // aria状态
                         if (eleButton) {
                             eleButton.setAttribute('aria-expanded', 'false');
@@ -1841,6 +1878,39 @@
         }).join('');
 
         return this;
+    };
+
+    /**
+     * 下拉列表元素zIndex实时最大化
+     * @return {[type]} [description]
+     */
+    Select.prototype.zIndex = function () {
+        var eleDatalist = document.querySelector('body > ui-select-list.active');
+        // 返回eleTarget才是的样式计算对象
+        var objStyleTarget = window.getComputedStyle(eleDatalist);
+        // 此时元素的层级
+        var numZIndexTarget = objStyleTarget.zIndex;
+        // 用来对比的层级，也是最小层级
+        var numZIndexNew = 19;
+
+        // 只对<body>子元素进行层级最大化计算处理
+        document.body.childNodes.forEach(function (eleChild) {
+            if (eleChild.nodeType != 1) {
+                return;
+            }
+
+            var objStyleChild = window.getComputedStyle(eleChild);
+
+            var numZIndexChild = objStyleChild.zIndex * 1;
+
+            if (numZIndexChild && eleDatalist != eleChild && objStyleChild.display != 'none') {
+                numZIndexNew = Math.max(numZIndexChild + 1, numZIndexNew);
+            }
+        });
+
+        if (numZIndexNew != numZIndexTarget) {
+            eleDatalist.style.zIndex = numZIndexNew;
+        }
     };
 
     /**
