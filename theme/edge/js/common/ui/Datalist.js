@@ -32,15 +32,11 @@ const Datalist = (() => {
     };
 
     let objEventType = {
-        start: 'mousedown',
-        move: 'mousemove',
         end: 'mouseup'
     };
 
     if ('ontouchstart' in document) {
         objEventType = {
-            start: 'touchstart',
-            move: 'touchmove',
             end: 'touchend'
         };
     }

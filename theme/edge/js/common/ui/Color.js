@@ -242,15 +242,13 @@ class Color extends HTMLInputElement {
         const objPosArrow = {};
         const objPosCircle = {};
         // 三角上下
-        eleArrow.addEventListener(Color.objEventType.start, (event) => {
+        eleArrow.addEventListener('pointerdown', (event) => {
             event.preventDefault();
-            if (event.touches && event.touches.length) {
-                event = event.touches[0];
-            }
+
             objPosArrow.pageY = event.pageY;
             objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
         });
-        eleFill.addEventListener(Color.objEventType.start, (event) => {
+        eleFill.addEventListener('pointerdown', (event) => {
             event.preventDefault();
 
             // 5. 渐变色的覆盖层
@@ -265,20 +263,14 @@ class Color extends HTMLInputElement {
             this.isTrustedEvent = true;
             this.value = this.getValueByStyle();
 
-            if (event.touches && event.touches.length) {
-                event = event.touches[0];
-            }
             objPosArrow.pageY = event.pageY;
             objPosArrow.top = parseFloat(window.getComputedStyle(eleArrow).top);
         });
 
         // 范围上下左右
         eleCircle.parentElement.querySelectorAll('a').forEach((eleRegion) => {
-            eleRegion.addEventListener(Color.objEventType.start, (event) => {
+            eleRegion.addEventListener('pointerdown', (event) => {
                 event.preventDefault();
-                if (event.touches && event.touches.length) {
-                    event = event.touches[0];
-                }
 
                 objPosCircle.pageY = event.pageY;
                 objPosCircle.pageX = event.pageX;
@@ -294,13 +286,10 @@ class Color extends HTMLInputElement {
             });
         });
 
-        document.addEventListener(Color.objEventType.move, (event) => {
+        document.addEventListener('pointermove', (event) => {
             if (typeof objPosArrow.top == 'number') {
                 event.preventDefault();
 
-                if (event.touches && event.touches.length) {
-                    event = event.touches[0];
-                }
                 let numTop = objPosArrow.top + (event.pageY - objPosArrow.pageY);
                 const numMaxTop = eleArrow.parentElement.clientHeight;
 
@@ -316,10 +305,6 @@ class Color extends HTMLInputElement {
                 this.value = this.getValueByStyle();
             } else if (typeof objPosCircle.top == 'number') {
                 event.preventDefault();
-
-                if (event.touches && event.touches.length) {
-                    event = event.touches[0];
-                }
 
                 const objPos = {
                     top: event.pageY - objPosCircle.pageY + objPosCircle.top,
@@ -362,7 +347,7 @@ class Color extends HTMLInputElement {
         }, {
             passive: false
         });
-        document.addEventListener(Color.objEventType.end, () => {
+        document.addEventListener('pointerup', () => {
             objPosArrow.top = null;
             objPosCircle.top = null;
         });
@@ -1005,21 +990,6 @@ class Color extends HTMLInputElement {
 
         this.isConnectedCallback = true;
     }
-}
-
-// 静态属性
-Color.objEventType = {
-    start: 'mousedown',
-    move: 'mousemove',
-    end: 'mouseup'
-};
-
-if ('ontouchstart' in document) {
-    Color.objEventType = {
-        start: 'touchstart',
-        move: 'touchmove',
-        end: 'touchend'
-    };
 }
 
 Color.defaultValue = '#000000';

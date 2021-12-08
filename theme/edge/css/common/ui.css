@@ -472,6 +472,7 @@ _::-moz-color-swatch {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
     font-size: var(--ui-font, 14px);
     animation: fadeIn var(--ui-animate-time, .2s);
+    touch-action: none;
     --safe-area: 3px;
     z-index: 21;
 }
