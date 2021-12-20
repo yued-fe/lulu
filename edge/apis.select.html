@@ -96,22 +96,12 @@ button.addEventListener('click', function () {
 });</pre>
       <p class="tips">和浏览器原生行为一样，value赋值不会触发change事件。</p>
 
-      <h4>作为 body 子元素重定位</h4>
+      <h4>剪裁、滚动与定位</h4>
 
-      <p>本下拉组件默认定位是 CSS 定位，如果祖先容器存在 <code>overflow:hidden</code> 声明，就有可能剪裁下拉列表，此时可以试试在 <code>&lt;select&gt;</code> 元素上设置 <code>data-sibling="false"</code>，例如：</p>
-
-      <pre>&lt;select is="ui-select" <mark>data-sibling="false"</mark>&gt;
-  &lt;option value="1"&gt;选项1&lt;/option&gt;
-  &lt;option value="2"&gt;选项2&lt;/option&gt;
-  &lt;option value="3"&gt;选项3&lt;/option&gt;
-&lt;/select&gt;</pre>
+      <p>测试祖先容器存在 <code>overflow:hidden</code> 声明，会不会剪裁下拉列表：</p>
 
       <div style="overflow: hidden; padding-bottom: 12px; position: relative;">
         看看剪裁没？<select is="ui-select">
-          <option value="1">选项1</option>
-          <option value="2">选项2</option>
-          <option value="3">选项3</option>
-        </select> <label class="ml20">再看看这个剪裁没？</label> <select is="ui-select" data-sibling="false">
           <option value="1">选项1</option>
           <option value="2">选项2</option>
           <option value="3">选项3</option>
@@ -122,20 +112,18 @@ button.addEventListener('click', function () {
 
       <div style="width: 300px; height: 100px; border: 1px dotted; overflow: auto; transform: scale(1); text-align: center;">
         <div style="width: 600px;">&nbsp;</div>
-        <select is="ui-select" data-sibling="false">
+        <select is="ui-select">
           <option value="1">选项1</option>
           <option value="2">选项2</option>
           <option value="3">选项3</option>
         </select>
       </div>
 
-      <p>另外，如果下拉元素设置了 <code>data-sibling="false"</code>，则在移动端，下拉列表是全屏展示的列表效果。</p>
-
       <h4>分组</h4>
 
       <p>支持 <code>&lt;optgroup&gt;</code> 元素分组。</p>
       <p>
-        <select is="ui-select" data-sibling="false">
+        <select is="ui-select">
             <optgroup label="分组1">
               <option>选项 1.1</option>
             </optgroup>
@@ -167,7 +155,7 @@ button.addEventListener('click', function () {
 
       <p>如果没有 <code>&lt;optgroup&gt;</code> 元素设置 <code>label</code> 描述，则分组使用分隔线分割。</p>
       <p>
-        <select is="ui-select" data-sibling="false">
+        <select is="ui-select">
             <optgroup>
               <option>选项 1.1</option>
             </optgroup>
@@ -396,14 +384,6 @@ button.addEventListener('click', function () {
 
       <p>最后测试下底部边缘朝上显示：</p>
       <select is="ui-select">
-        <option>请选择</option>
-        <option>选项1</option>
-        <option>选项2</option>
-        <option>选项3</option>
-        <option>选项4</option>
-        <option>选项5</option>
-        <option>选项6</option>
-      </select> <select is="ui-select" data-sibling="false">
         <option>请选择</option>
         <option>选项1</option>
         <option>选项2</option>
