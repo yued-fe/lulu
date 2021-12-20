@@ -94,12 +94,14 @@
             <h3>带计数的文本域</h3>
             <p>这里演示静态效果，输入文本内容，输入框右下角的数值并不会变化。</p>
             <p>本主题计数效果的DOM结构有别于其他主题，因为无需兼容IE浏览器，可以使用更加简洁的HTML结构进行实现。</p>
-            <div class="ui-textarea-x" style="max-width:500px;">
-                <textarea id="someId" class="ui-textarea" placeholder="带计数的文本域" maxlength="250" rows="5"></textarea>
-                <label for="someId" class="ui-textarea-count">
-                    <span>0</span>/<span>250</span>
-                </label>
-            </div>
+            <form is-validate>
+                <div class="ui-textarea-x" style="max-width:500px;">
+                    <textarea id="someId" class="ui-textarea" placeholder="带计数的文本域" maxlength="250" rows="5"></textarea>
+                    <label for="someId" class="ui-textarea-count">
+                        <span>0</span>/<span>250</span>
+                    </label>
+                </div>
+            </form>
             <pre>&lt;div class="ui-textarea-x" style="max-width:500px;">
     &lt;textarea <span class="gray">id="someId"</span> class="ui-textarea" maxlength="250" rows="5">&lt;/textarea&gt;
     <span class="green">&lt;-- 点击任意区域文本域都能focus，可缺省 --&gt;</span>
@@ -245,4 +247,4 @@
 <script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
-
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Validate.js"></script>

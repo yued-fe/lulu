@@ -89,24 +89,27 @@
             <h3>带计数的文本框</h3>
             <p>这里演示静态效果，输入文本内容，输入框右侧的数值并不会变化，如果想要变化，需要引入Form.js并设置表单元素的<code>is</code>属性为<code>ui-form</code>。</p>
             <p>本主题计数效果的DOM结构有别于其他主题，因为无需兼容IE浏览器，可以直接在<code>&lt;input&gt;</code>元素上使用<code>padding</code>撑开右侧间隙。</p>
+
             <h4>带计数的文本框</h4>
-            <div class="ui-input-x">
-                <input class="ui-input" maxlength="200" name="search" placeholder="占位符">
-                <label class="ui-input-count">
-                    <output>0</output>/<span>200</span>
-                </label>
-            </div>
+            <form is-validate>
+                <div class="ui-input-x">
+                    <input class="ui-input" maxlength="200" name="search" placeholder="占位符">
+                    <label class="ui-input-count">
+                        <output>0</output>/<span>200</span>
+                    </label>
+                </div>
+            </form>
             <pre>&lt;div class="ui-input-x"&gt;
     &lt;input class="ui-input" maxlength="200" placeholder="占位符"&gt;
     <span class="gray">&lt;label class="ui-input-count"&gt;
         &lt;output&gt;0&lt;/output&gt;/&lt;span&gt;200&lt;/span&gt;
     &lt;/label&gt;</span>
 &lt;/div&gt;</pre>
-            <p>支持内联：
+            <form is-validate>支持内联：
             <span class="ui-input-x">
                 <input is="ui-input" maxlength="20">
                 <span class="ui-input-count"><span>0</span>/20</span>
-            </span></p>
+            </span></form>
             <pre>&lt;span class="ui-input-x"&gt;
     &lt;input is="ui-input" maxlength="20"&gt;
     &lt;span class="ui-input-count"&gt;&lt;span&gt;0&lt;/span&gt;/20&lt;/span&gt;
@@ -321,4 +324,4 @@
 <script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
-
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Validate.js"></script>
