@@ -172,10 +172,10 @@ class Select extends HTMLSelectElement {
                 aria-owns="${strId}"
                 aria-expanded="false"
                 style="display: ${this.multiple ? 'none' : 'block'}"
-                ${!this.disabled ? 'href="javascript:;" ' : ''}
+                ${!this.disabled ? 'href="javascript:" ' : ''}
                 role="button"
             /></a>` : '' }
-           <div id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></div>
+           <ui-select-list id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></ui-select-list>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;
@@ -191,12 +191,6 @@ class Select extends HTMLSelectElement {
         // 变成绝对定位，不占据任何空间
         if (strOriginPosition != 'fixed') {
             this.style.position = 'absolute';
-        }
-
-        // 是否在 body 容器中定位
-        if (this.dataset.sibling == 'false') {
-            this.element.datalist.dataset.sibling = 'false';
-            document.body.appendChild(this.element.datalist);
         }
 
         this.dispatchEvent(new CustomEvent('DOMContentLoaded'));
@@ -348,7 +342,7 @@ class Select extends HTMLSelectElement {
 
                 // 如果点击的是 body 定位的下拉列表元素
                 if (!eleCombobox) {
-                    eleDatalist = target.closest('.' + Select.addClass('datalist') + '[data-sibling]');
+                    eleDatalist = target.closest('ui-select-list');
                     if (eleDatalist) {
                         eleButton = document.querySelector(`a[data-target="${eleDatalist.id}"]`);
                         if (eleButton) {
@@ -367,8 +361,6 @@ class Select extends HTMLSelectElement {
                 eleButton = objElement.button;
                 eleDatalist = objElement.datalist;
 
-                const isNotSibling = (eleSelect.dataset.sibling == 'false');
-
                 // 下面判断点击的是按钮还是列表了
                 if (eleButton.contains(target)) {
                     if (eleSelect.disabled) return false;
@@ -376,22 +368,24 @@ class Select extends HTMLSelectElement {
                     eleCombobox.classList.toggle('active');
                     // 显示
                     if (eleCombobox.classList.contains('active')) {
+                        document.body.appendChild(eleDatalist);
+                        // 按钮的尺寸和位置
                         let objBoundButton = eleButton.getBoundingClientRect();
-                        if (isNotSibling) {
-                            eleDatalist.classList.add('active');
-                            eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
-                            eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
-                            eleDatalist.style.width = eleSelect.getWidth();
-                            // 层级
-                            eleSelect.zIndex();
-                        }
+                        // 下拉列表的尺寸和位置设置
+                        eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
+                        eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
+                        eleDatalist.style.width = eleCombobox.getBoundingClientRect().width + 'px';
+                        // 列表显示
+                        eleDatalist.classList.add('active');
+                        // 层级
+                        eleSelect.zIndex();
 
                         // 边界判断
                         let objBoundDatalist = eleDatalist.getBoundingClientRect();
                         var isOverflow = objBoundDatalist.bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
                         eleCombobox.classList[isOverflow ? 'add' : 'remove']('reverse');
 
-                        if (isOverflow && isNotSibling) {
+                        if (isOverflow) {
                             eleDatalist.style.top = (objBoundButton.top + document.scrollingElement.scrollTop - objBoundDatalist.height + 1) + 'px';
                         }
                         // aria状态
@@ -411,9 +405,7 @@ class Select extends HTMLSelectElement {
                         // aria状态
                         eleButton.setAttribute('aria-expanded', 'false');
                         // 隐藏列表
-                        if (isNotSibling) {
-                            eleDatalist.classList.remove('active');
-                        }
+                        eleDatalist.remove();
                     }
                 } else if (eleDatalist.contains(target)) {
                     // 点击的列表元素
@@ -439,7 +431,7 @@ class Select extends HTMLSelectElement {
                     // 下拉收起
                     eleCombobox.classList.remove('active');
                     eleButton.setAttribute('aria-expanded', 'false');
-                    eleDatalist.classList.remove('active');
+                    eleDatalist.remove();
                     
                     // focus
                     eleButton.focus();
@@ -471,18 +463,11 @@ class Select extends HTMLSelectElement {
 
                 // 对应的下拉元素
                 const eleSelect = eleCombobox.previousElementSibling;
-                const isNotSibling = (eleSelect.dataset.sibling == 'false');
-
-                if (isNotSibling) {
-                    const eleDatalist = eleSelect.element && eleSelect.element.datalist;
-                    if (!eleDatalist.contains(target) && !eleCombobox.contains(target)) {
-                        eleCombobox.classList.remove('active');
-                        eleCombobox.classList.remove('reverse');
-                        eleDatalist.classList.remove('active');
-                    }
-                } else if (!eleCombobox.contains(target)) {
+                const eleDatalist = eleSelect.element && eleSelect.element.datalist;
+                if (!eleDatalist.contains(target) && !eleCombobox.contains(target)) {
                     eleCombobox.classList.remove('active');
                     eleCombobox.classList.remove('reverse');
+                    eleDatalist.remove();
                 }
             });
 

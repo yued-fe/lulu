@@ -160,6 +160,7 @@ select[hidden] + .ui-select {
     padding: 0;
     border: 1px solid var(--ui-blue, #2a80eb);
     background-color: var(--ui-white, #fff);
+    font-size: 14px;
     overflow: auto;
     overscroll-behavior: none;
     -ms-scroll-chaining: none;
@@ -303,38 +304,5 @@ select[is-error] {
     .ui-select,
     .ui-select-datalist-li {
         transition: none;
-    }
-}
-
-/* 不可精确点击场景 */
-@media (any-hover: none) and (max-width: 480px) {
-    a.ui-select-button:only-child {
-        border-radius: var(--ui-radius, 4px);
-    }
-    [data-sibling].ui-select-datalist.active {
-        position: fixed;
-        left: 0!important; top: 0!important; right: 0; bottom: 0;
-        background-color: rgba(0, 0, 0, .75);
-        width: auto!important;
-        border: 0;
-        display: flex;
-        flex-direction: column;
-        max-height: none;
-        font-size: medium;
-    }
-    .ui-select-datalist-li:first-child {
-        margin-top: auto;
-    }
-    .ui-select-datalist-li {
-        padding: .75em 1.25em;
-        line-height: 1.5;
-        flex: none;
-    }
-    .ui-select-datalist-hr:not(:first-child) {
-        padding: .625em 1.25em;
-    }
-    h6.ui-select-datalist-li, 
-    .ui-select-datalist-li[role="heading"] {
-        padding-bottom: .625em;
     }
 }
