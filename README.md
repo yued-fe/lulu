@@ -16,8 +16,8 @@ LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
 ## 文档
 
-* <a href="https://l-ui.com/">LuLu UI API 中文文档</a>（GitHub托管，访问有延迟）
-* <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI API 中文文档</a>（国内服务器托管，速度可以）
+* <a href="https://l-ui.com/">LuLu UI 中文文档兼演示</a>（GitHub 托管，访问有延迟，IE8 无法访问）
+* <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI 中文文档兼演示</a>（国内服务器托管，速度可以，IE8 可以访问）
 
 关于适合使用 LuLu UI 的场景，可以访问下面的视频介绍：
 
@@ -34,10 +34,24 @@ LuLu 整个项目就是提供一些 UI 组件的 JS 和 CSS，很纯粹的 JS �
 LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如下面的代码引用了全部的 UI 组件库：
 
 ```html
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
-```
-```html
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/all.js"></script>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuLu UI Pure 主题</title>
+    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.min.css">
+</head>
+<body>
+    <!-- 
+      组件使用这里 
+    -->
+
+    <script src="https://qidian.gtimg.com/lulu/pure/js/common/all.min.js"></script>
+    <script>// 业务代码这里</script>
+</body>
+</html>
 ```
 
 您也可以直接单独引入某一个组件，例如：
