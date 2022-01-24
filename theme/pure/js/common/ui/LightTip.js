@@ -142,6 +142,32 @@
         return this;
     };
 
+    /**
+     * 不同内容的提示位置不重叠的处理
+     * @return {Object} 返回当前实例对象
+     */
+    LightTip.prototype.position = function () {
+        var elesOpen = [].slice.call(document.querySelectorAll('.' + CL + '[open]'));
+        // 基于 data-tid 排序
+        var elesOpenSort = elesOpen.sort(function (eleA, eleB) {
+            return (eleA.tid || 0) - (eleB.tid || 0);
+        });
+        // 确定提示内容
+        var objMatchText = {};
+        var numTop = 10;
+
+        // 基于排序确定位置
+        elesOpenSort.forEach(function (ele) {
+            var strText = ele.textContent;
+            if (typeof objMatchText[strText] == 'undefined') {
+                objMatchText[strText] = numTop;
+                numTop = numTop + ele.offsetHeight + 10;
+            }
+            ele.style.top = objMatchText[strText] + 'px';
+        });
+
+        return this;
+    };
 
     /**
      * LightTip显示
@@ -188,7 +214,15 @@
         // 显示一定时间之后消失
         this.timerRemove = setTimeout(function () {
             this.remove();
+            // 隐藏后再次定位
+            this.position();
         }.bind(this), objParams.duration);
+
+        // 标记定时器 ID，这样可以确认 DOM 的先后顺序
+        eleContainer.tid = this.timerRemove;
+
+        // 定位
+        this.position();
 
         return this;
     };

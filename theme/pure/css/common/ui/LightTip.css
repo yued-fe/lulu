@@ -18,8 +18,10 @@
     padding: 15px 1em;
     background-color: #4c5161;
     animation: fadeIn .25s both;
+    transition: top .2s;
     position: fixed;
-    top: 0; left: 1rem; right: 1rem;
+    top: 10px; 
+    left: 1rem; right: 1rem;
     z-index: 19;
     outline: none;
     cursor: default;
@@ -66,10 +68,7 @@
 @media screen and (max-width: 640px) {
     .ui-lightip {
         width: auto;
-        top: 50%; left: 50%;
-        right: auto;
         max-width: calc(100% - 2rem - 2em);
-        transform: translate(-50%, -50%);
     }
 }
 

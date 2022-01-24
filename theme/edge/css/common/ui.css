@@ -2210,7 +2210,7 @@ ui-lighttip {
     border-radius: calc(var(--ui-radius, 4px) - 2px);
     padding: 15px 10px;
     position: fixed;
-    top: calc(var(--ui-sort-index, 0) * 60px);
+    top: calc(var(--ui-sort-index, 0) * 60px + 10px);
     left: 50%;
     -webkit-transform: translate(-50%,0);
     transform: translate(-50%,0);
@@ -2256,10 +2256,7 @@ ui-lighttip[type="warning"]::before {
     ui-lighttip {
         width: auto;
         padding-left: 1rem; padding-right: 1rem;
-        top: 50%; left: 50%;
-        right: auto;
         max-width: calc(100% - 2rem - 2em);
-        transform: translate(-50%, -50%);
     }
 }
 
