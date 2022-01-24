@@ -80,12 +80,17 @@ class LightTip extends HTMLElement {
                 clearTimeout(this.timer);
                 this.timer = setTimeout(() => {
                     this[this.closeMode]();
+                    this.position();
                 }, this.time);
 
+                this.setAttribute('data-tid', this.timer);
                 this.classList.add('ESC');
 
                 // 组件的 z-index 层级计算
                 this.zIndex();
+
+                // 组件的定位，不同的提示位置不重叠
+                this.position();
             } else {
                 this.classList.remove('ESC');
             }
@@ -109,6 +114,28 @@ class LightTip extends HTMLElement {
         this.style.zIndex = numZIndexNew;
     }
 
+    // 定位处理
+    position () {
+        var elesOpen = [...document.querySelectorAll('ui-lighttip[open]:not([type="loading"])')];
+        // 基于 data-tid 排序
+        var elesOpenSort = elesOpen.sort(function (eleA, eleB) {
+            return (eleA.getAttribute('data-tid') || 0) - (eleB.getAttribute('data-tid') || 0);
+        });
+        // 确定提示内容
+        var objMatchText = {};
+        var numIndex = -1;
+
+        elesOpenSort.forEach((ele) => {
+            let strText = ele.textContent;
+            if (typeof objMatchText[strText] == 'undefined') {
+                numIndex++;
+                objMatchText[strText] = numIndex;
+            }
+            ele.style.setProperty('--ui-sort-index', objMatchText[strText]);
+        });
+    }
+
+    // 新的元素层级总是最高
     tabIndex () {
         var eleContainer = this;
         var eleLastActive = LightTip.lastActiveElement;

@@ -2210,13 +2210,14 @@ ui-lighttip {
     border-radius: calc(var(--ui-radius, 4px) - 2px);
     padding: 15px 10px;
     position: fixed;
-    top: 0;
+    top: calc(var(--ui-sort-index, 0) * 60px);
     left: 50%;
     -webkit-transform: translate(-50%,0);
     transform: translate(-50%,0);
     z-index: 19;
     outline: none;
     cursor: default;
+    transition: top var(--ui-animate-time, .2s);
     animation: fadeIn .25s both;
 }
 ui-lighttip:not([open]) {
