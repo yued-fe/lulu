@@ -44,9 +44,10 @@
             <h3>原生&lt;button&gt;按钮</h3>
             <p>推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
             <h4>基本状态</h4>
-            <p><button class="ui-button">默认按钮</button> <button class="ui-button" type="normal">正常按钮</button></p>
+            <p><button class="ui-button">默认按钮</button></p>
             <pre>&lt;button class="ui-button"&gt;默认按钮&lt;/button&gt;</pre>
-            <pre>&lt;button class="ui-button" <mark>data-type="normal"</mark>&gt;基本按钮&lt;/button&gt;</pre>
+            <button class="ui-button" type="normal">正常按钮</button>
+            <pre>&lt;button <mark>type="normal"</mark> class="ui-button"&gt;正常按钮&lt;/button&gt;</pre>
             <hr>
             <p><button class="ui-button" width="100%">宽度100%按钮</button></p>
             <pre>&lt;button class="ui-button" <mark>width="100%"</mark>&gt;宽度100%按钮&lt;/button&gt;</pre>
@@ -55,25 +56,25 @@
                 <button class="ui-button" type="primary">主按钮</button>
                 <button class="ui-button" type="primary">主按钮文字很多</button>
             </p>
-            <pre>&lt;button class="ui-button" <mark>type="primary"</mark>&gt;主按钮&lt;/button&gt;</pre>
+            <pre>&lt;button <mark>type="primary"</mark> class="ui-button"&gt;主按钮&lt;/button&gt;</pre>
             <hr>
             <p>
                 <button class="ui-button" type="success">绿色系</button>
                 <button class="ui-button" type="success">绿色系按钮文字很多</button>
             </p>
-            <pre>&lt;button class="ui-button" <mark>type="success"</mark>&gt;绿色系&lt;/button&gt;</pre>
+            <pre>&lt;button <mark>type="success"</mark> class="ui-button"&gt;绿色系&lt;/button&gt;</pre>
             <hr>
             <p>
                 <button class="ui-button" type="warn">橙色</button>
                 <button class="ui-button" type="warning">橙色文字很多</button>
             </p>
-            <pre>&lt;button class="ui-button" <span class="red">type="warning"</span>&gt;橙色&lt;/button></pre>
+            <pre>&lt;button <span class="red">type="warning"</span> class="ui-button"&gt;橙色&lt;/button></pre>
             <hr>
             <p>
                 <button class="ui-button" type="danger">红色</button>
                 <button class="ui-button" type="error">红色文字很多</button>
             </p>
-            <pre>&lt;button class="ui-button" <span class="red">type="danger"</span>&gt;红色&lt;/button></pre>
+            <pre>&lt;button <span class="red">type="danger"</span> class="ui-button"&gt;红色&lt;/button></pre>
 
             <h4>is 属性语法</h4>
             <p>支持<code>is="ui-button"</code>设置。</p>
@@ -88,30 +89,43 @@
             <p>效果为：<button is="ui-button" type="primary">主按钮</button> <button is="ui-button" type="danger">危险按钮</button></p>
 
             <h4>禁用状态</h4>
-            <p>对于原生按钮，禁用按钮只需要添加<code>disabled</code>属性即可，不仅样式处于禁用态，且元素的原生行为（如表单提交行为，键盘focus行为）也都会被禁止。</p>
+            <p>对于原生按钮，禁用按钮只需要添加 <code>disabled</code> 属性即可，不仅样式处于禁用态，且元素的原生行为（如表单提交行为，键盘 focus 行为）也都会被禁止。</p>
             <p>例如：</p>
             <p><button type="normal" class="ui-button" disabled>button按钮禁用</button> <button type="primary" is="ui-button" disabled>button按钮禁用</button></p>
             <pre>&lt;button type="normal" class="ui-button" <mark>disabled</mark>&gt;button按钮禁用&lt;/button&gt;
 &lt;button type="primary" is="ui-button" <mark>disabled</mark>&gt;button按钮禁用&lt;/button&gt;</pre>
-            <p>对于<code>&lt;input&gt;</code>标签按钮同样适用，但更推荐使用<code>&lt;button&gt;</code>标签按钮，因为loading效果更好。</p>
+
+            <p>对于 <code>&lt;input&gt;</code> 标签按钮同样适用，但更推荐使用 <code>&lt;button&gt;</code> 标签按钮，因为 loading 效果更好。</p>
             <p><input type="button" class="ui-button" value="input标签" data-type="danger" disabled></p>
             <pre>&lt;input type="button" class="ui-button" value="input标签" data-type="danger" <mark>disabled</mark>&gt;</pre>
 
             <h4>loading状态</h4>
-            <p><button class="ui-button loading">button标签</button> <button type="normal" class="ui-button loading">button标签</button> <button class="ui-button loading" data-type="primary">button标签</button></p>
-            <p><button is="ui-button" class="loading">button标签</button> <button type="primary" is="ui-button" class="loading" >button标签</button></p>
-            <pre>&lt;button class="ui-button <mark>loading</mark>"&gt;button标签&lt;/button&gt;
-&lt;button class="ui-button <mark>loading</mark>" data-type="primary"&gt;button标签&lt;/button&gt;</pre>
-            <pre>&lt;button is="ui-button" class="loading"&gt;button标签&lt;/button&gt;
+            <p>
+                <button class="ui-button loading">button 标签</button>
+                <button type="normal" class="ui-button loading">button 标签</button>
+                <button type="primary" class="ui-button loading">button 标签</button>
+            </p>
+            <p>
+                <button type="normal" is="ui-button" class="loading">button 标签</button>
+                <button type="primary" is="ui-button" class="loading" >button 标签</button>
+            </p>
+            <pre>&lt;button class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;
+&lt;button type="normal" class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;
+&lt;button type="primary" class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;</pre>
+            <pre>&lt;button type="normal" is="ui-button" class="loading"&gt;button 标签&lt;/button&gt;
 &lt;button type="primary" is="ui-button" class="loading" &gt;button标签&lt;/button&gt;</pre>
-            <p>由于<code>&lt;input&gt;</code>按钮不支持伪元素，因此，<code>&lt;input&gt;</code>按钮的loading效果只能使用背景图模拟，效果如下：</p>
-            <p><input type="button" class="ui-button loading" value="input标签"> <input type="button" class="ui-button loading" value="input标签" data-type="normal"> <input type="button" class="ui-button loading" value="input标签" data-type="primary"></p>
+            <p>由于 <code>&lt;input&gt;</code> 按钮不支持伪元素，因此，<code>&lt;input&gt;</code> 按钮的 loading 效果只能使用背景图模拟，效果如下：</p>
+            <p>
+                <input type="button" class="ui-button loading" value="input标签">
+                <input type="button" class="ui-button loading" value="input标签" data-type="normal">
+                <input type="button" class="ui-button loading" value="input标签" data-type="primary">
+            </p>
             <pre>&lt;input class="ui-button <mark>loading</mark>" value="input标签"&gt;
 &lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="normal"&gt;
 &lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="primary"&gt;</pre>
 
-            <h3>&lt;a&gt;标签按钮们</h3>
-            <p><code>&lt;a&gt;</code>标签按钮的优点是可以作为链接使用，如果是纯按钮，推荐使用<code>&lt;button&gt;</code>标签。</p>
+            <h3>&lt;a&gt; 标签按钮们</h3>
+            <p><code>&lt;a&gt;</code> 标签按钮的优点是可以作为链接使用，如果是纯按钮，推荐使用 <code>&lt;button&gt;</code> 标签。</p>
             <h4>基本状态</h4>
             <p>
                 <a href="javascript:" class="ui-button" role="button">基本按钮</a>
@@ -130,7 +144,7 @@
             <h4>按钮禁用</h4>
             <p>和<code>&lt;button&gt;</code>标签按钮相比有两点变化：一是需要移除<code>href</code>属性（使元素无法被键盘focus），二是使用<code>disabled</code>类名而非属性（视觉上表现为禁用态）。</p>
             <p>
-                <a class="ui-button disabled">白色按钮禁用</a>
+                <a type="normal" class="ui-button disabled">白色按钮禁用</a>
                 <a class="ui-button disabled" data-type="primary">蓝色按钮禁用</a>
                 <a class="ui-button disabled" data-type="success">绿色按钮禁用</a>
                 <a class="ui-button disabled" data-type="warning">橙色按钮禁用</a>
@@ -138,10 +152,10 @@
             </p>
             <p>HTML代码示意：</p>
             <pre>&lt;a type="normal" class="ui-button <mark>disabled</mark>"&gt;白色按钮禁用&lt;/a&gt;
-&lt;a class="ui-button <mark>disabled</mark>" type="primary"&gt;蓝色按钮禁用&lt;/a&gt;
-&lt;a class="ui-button <mark>disabled</mark>" type="success"&gt;绿色按钮禁用&lt;/a&gt;
-&lt;a class="ui-button <mark>disabled</mark>" type="warning"&gt;橙色按钮禁用&lt;/a&gt;
-&lt;a class="ui-button <mark>disabled</mark>" type="danger"&gt;红色按钮禁用&lt;/a&gt;</pre>
+&lt;a type="primary" class="ui-button <mark>disabled</mark>"&gt;蓝色按钮禁用&lt;/a&gt;
+&lt;a type="success" class="ui-button <mark>disabled</mark>"&gt;绿色按钮禁用&lt;/a&gt;
+&lt;a type="warning" class="ui-button <mark>disabled</mark>"&gt;橙色按钮禁用&lt;/a&gt;
+&lt;a type="danger" class="ui-button <mark>disabled</mark>"&gt;红色按钮禁用&lt;/a&gt;</pre>
             <p>另外，<code>&lt;a&gt;</code>标签按钮的禁用态仅仅是视觉上表现为禁用，实际上依然可以响应点击事件，所以还是需要JS在逻辑中增加按钮是否可用的判断，因此推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
             <h4>按钮loading</h4>
             <p id="testLoading">
@@ -154,11 +168,6 @@
             <pre>&lt;a href="javascript:" class="ui-button <mark>loading</mark>" role="button">点击loading绽放&lt;/a></pre>
 
             <p class="tips">如果引入了Loading.js，也可以使用<code>dom.loading=true</code>和<code>dom.loading=false</code>语句来增加和移除loading效果。</p>
-
-            <h4>按钮禁用</h4>
-            <p><input id="someId2" type="submit" disabled><label class="ui-button disabled" for="someId2" data-type="primary">关联的label标签按钮</label></p>
-            <pre>&lt;input id="someId2" type="submit" <mark>disabled</mark>&gt;
-&lt;label class="ui-button <mark>disabled</mark>" for="someId2" data-type="primary"&gt;关联的label标签按钮&lt;/label&gt;</pre>
 
             <h3>普通标签按钮</h3>
             <p>使用场景有限，不推荐使用，毕竟语义和可访问性都需要额外处理，除非你的项目对这些并不在意，如内部项目。</p>
