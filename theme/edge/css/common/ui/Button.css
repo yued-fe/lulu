@@ -15,9 +15,8 @@
 :root {
     --ui-button-height: var(--ui-component-height, 40px);
     --ui-button-line-height: var(--ui-line-height, 20px);
-    --ui-button-black: 0,0,0;
+    --ui-button-color: var(--ui-dark, #4c5161);
     --ui-button-loading-img: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
-
 }
 
 .ui-button,
@@ -26,17 +25,16 @@
     line-height: var(--ui-button-line-height);
     font-size: var(--ui-font, 14px);
     text-align: center;
-    color: var(--ui-dark, #4c5161);
+    color: var(--ui-white, #fff);
     border-radius: var(--ui-radius, 4px);
-    border: 1px solid var(--ui-border, #d0d0d5);
-    padding: calc((var(--ui-button-height) - var(--ui-button-line-height) - 2px) / 2) 15px;
+    border: 1px solid var(--ui-button-color);
+    padding: calc((var(--ui-button-height) - var(--ui-button-line-height) - 2px) / 2) calc(var(--ui-button-height) / 2.5);
     min-width: 80px;
-    background-color: var(--ui-white, #ffffff);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: var(--ui-button-color) no-repeat center;
     text-decoration: none;
     box-sizing: border-box;
     transition: border-color var(--ui-animate-time, .2s), box-shadow var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s);
+    fill: currentColor;
     font-family: inherit;
     cursor: pointer;
     overflow: visible;
@@ -79,48 +77,26 @@ div[is="ui-button"] {
 
 .ui-button:hover, 
 [is="ui-button"]:hover {
-    color: var(--ui-dark, #4c5161);
+    color: var(--ui-white, #fff);
     text-decoration: none;
 }
 .ui-button:not(.disabled):not(.loading):not(:disabled):hover,
 [is="ui-button"]:not(.disabled):not(.loading):not(:disabled):hover  {
-    border-color: var(--ui-dark-border, #ababaf);
-    box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.01),
-        inset 0 0 0 100px rgba(var(--ui-button-black), 0.05);
+    filter: brightness(1.05);
 }
-.ui-button:not(.disabled):not(.loading):not(:disabled):active,
-[is="ui-button"]:not(.disabled):not(.loading):not(:disabled):active {
-    box-shadow: inset 0 1px 2px rgba(var(--ui-button-black), 0.1),
-        inset 0 0 0 100px rgba(var(--ui-button-black), 0.1);
+
+.ui-button:not(.disabled):not(.loading):active,
+[is="ui-button"]:not(.disabled):not(.loading):active {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 100px rgba(0, 0, 0, 0.1);
 }
-.ui-button[data-type="primary"],
-.ui-button[data-type="remind"],
-.ui-button[data-type="success"],
-.ui-button[data-type^="warn"],
-.ui-button[data-type="danger"],
-.ui-button[data-type="error"],
-.ui-button[type="primary"],
-.ui-button[type="remind"],
-.ui-button[type="success"],
-.ui-button[type^="warn"],
-.ui-button[type="danger"],
-.ui-button[type="error"],
-[is="ui-button"][data-type="primary"],
-[is="ui-button"][data-type="remind"],
-[is="ui-button"][data-type="success"],
-[is="ui-button"][data-type^="warn"],
-[is="ui-button"][data-type="danger"],
-[is="ui-button"][data-type="error"],
-[is="ui-button"][type="primary"],
-[is="ui-button"][type="remind"],
-[is="ui-button"][type="success"],
-[is="ui-button"][type^="warn"],
-[is="ui-button"][type="danger"],
-[is="ui-button"][type="error"] {
-    border: 0;
-    padding-top: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
-    padding-bottom: calc((var(--ui-button-height) - var(--ui-button-line-height)) / 2);
-    color: var(--ui-white, #ffffff);
+.ui-button[type="normal"],
+.ui-button[data-type="normal"],
+[is="ui-button"][type="normal"],
+[is="ui-button"][data-type="normal"] {
+    --ui-button-color: var(--ui-white, #fff);
+    color: var(--ui-dark, #4c5161);
+    border-color: var(--ui-border);
 }
 
 /* primary button */
@@ -132,7 +108,7 @@ div[is="ui-button"] {
 [is="ui-button"][data-type="remind"],
 [is="ui-button"][type="primary"],
 [is="ui-button"][type="remind"] {
-    background-color: var(--ui-blue, #2a80eb);
+    --ui-button-color: var(--ui-blue, #2a80eb);
 }
 
 /* success button */
@@ -140,7 +116,7 @@ div[is="ui-button"] {
 .ui-button[type="success"],
 [is="ui-button"][data-type="success"],
 [is="ui-button"][type="success"] {
-    background-color: var(--ui-green, #1cad70);
+    --ui-button-color: var(--ui-green, #1cad70);
 }
 
 /* warning button */
@@ -148,7 +124,7 @@ div[is="ui-button"] {
 .ui-button[type^="warn"],
 [is="ui-button"][data-type^="warn"],
 [is="ui-button"][type^="warn"] {
-    background-color: var(--ui-orange, #f59b00);
+    --ui-button-color: var(--ui-orange, #f59b00);
 }
 /* danger button */
 .ui-button[data-type="danger"],
@@ -159,7 +135,7 @@ div[is="ui-button"] {
 [is="ui-button"][data-type="error"],
 [is="ui-button"][type="danger"],
 [is="ui-button"][type="error"] {
-    background-color: var(--ui-red, #eb4646);
+    --ui-button-color: var(--ui-red, #eb4646);
 }
 
 /* disabled status */
@@ -174,15 +150,14 @@ div[is="ui-button"] {
 .ui-button.loading,
 [is="ui-button"].loading {
     color: transparent !important;
-    background-position: center;
-    background-repeat: no-repeat;
+    pointer-events: none;
     position: relative;
     cursor: default;
 }
 /* input按钮，三个点 */
 input.ui-button.loading,
 input[is="ui-button"].loading {
-    --ui-loading-color: var(--ui-blue, #2a80eb);
+    --ui-loading-color: var(--ui-white, #fff);
     --ui-loading-radial: radial-gradient(3px circle, var(--ui-loading-color), var(--ui-loading-color) 2px, transparent 3px);
     background-image: var(--ui-loading-radial), var(--ui-loading-radial), var(--ui-loading-radial);
     background-position-x: calc(50% - 10px), 50%, calc(50% + 10px);
@@ -190,9 +165,8 @@ input[is="ui-button"].loading {
     background-size: 5px 5px;
     animation: bubbling 1s infinite;
 }
-input.ui-button[data-type]:not([data-type="normal"]).loading,
-input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
-    --ui-loading-color: var(--ui-white, #fff);
+input[data-type="normal"].loading {
+    --ui-loading-color: var(--ui-blue, #2a80eb);
 }
 
 /* button 按钮 */
@@ -206,8 +180,7 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
     bottom: 0;
     width: 20px;
     height: 20px;
-    background-color: var(--ui-blue,#2a80eb);
-    background-repeat: no-repeat;
+    background-color: var(--ui-white,#fff);
     -webkit-mask: var(--ui-button-loading-img);
     mask: var(--ui-button-loading-img);
     -webkit-mask-size: 100% 100%;
@@ -216,21 +189,9 @@ input[is="ui-button"][data-type]:not([data-type="normal"]).loading  {
     animation: spin 1s linear infinite;
 }
 /* 有底色按钮 */
-.ui-button[data-type]:not([data-type="normal"]).loading::before,
-.ui-button[type="primary"].loading::before,
-.ui-button[type="remind"].loading::before,
-.ui-button[type="success"].loading::before,
-.ui-button[type^="warn"].loading::before,
-.ui-button[type="danger"].loading::before,
-.ui-button[type="error"].loading::before,
-[is="ui-button"][data-type]:not([data-type="normal"]).loading::before,
-[is="ui-button"][type="primary"].loading::before,
-[is="ui-button"][type="remind"].loading::before,
-[is="ui-button"][type="success"].loading::before,
-[is="ui-button"][type^="warn"].loading::before,
-[is="ui-button"][type="danger"].loading::before,
-[is="ui-button"][type="error"].loading::before {
-    background-color: var(--ui-white,#ffffff);
+[data-type="normal"].loading::before,
+[type="normal"].loading::before {
+    background-color: var(--ui-blue,#2a80eb);
 }
 
 @keyframes bubbling {
