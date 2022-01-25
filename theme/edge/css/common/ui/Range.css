@@ -132,38 +132,7 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::before,
 input[data-tips][reverse]:not([data-tips*="$"]):active::after {
     transform: translate(-50%, var(--ui-range-thumb-size));
 }
-/* vertical */
-[is="ui-range"][vertical]{
-    position: relative;
-    width: 20px;
-    height: 150px;
-}
-[is="ui-range"][data-tips][vertical] {
-    border-width: calc(var(--ui-range-thumb-size) * 0.5) 0;
-}
-[is="ui-range"][vertical]::-webkit-slider-container {
-    transform: rotate(-90deg);
-    width: var(--h, 150px);
-    height: 2px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
-}
-[is="ui-range"][data-tips][vertical]::before,
-[is="ui-range"][data-tips][vertical]::after {
-    transition: all .15s .15s, bottom 0s, left 0s;
-    bottom: calc( var(--percent,.5) * 100% );
-    left: 50%;
-    top: auto;
-}
-[is="ui-range"][data-tips][vertical][reverse]::before,
-[is="ui-range"][data-tips][vertical][reverse]::after {
-    transition: all .15s .15s, top 0s, left 0s;
-    top: calc( (1 - var(--percent, .5)) * 100% );
-    left: 50%;
-    bottom: auto;
-}
+
 /* 区域选择 */
 [is="ui-range"][multiple]{
     pointer-events: none;

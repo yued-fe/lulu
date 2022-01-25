@@ -15,14 +15,6 @@ class XRange extends HTMLInputElement {
         return this.getAttribute('range') || `${this.getAttribute('from') || this.min || 0},${this.getAttribute('to') || this.max || 100}`;
     }
 
-    set vertical (value) {
-        return this.toggleAttribute('vertical', value);
-    }
-
-    get vertical () {
-        return this.getAttribute('vertical') !== null;
-    }
-
     set multiple (value) {
         return this.toggleAttribute('multiple', value);
     }
@@ -94,18 +86,7 @@ class XRange extends HTMLInputElement {
         this.addEventListener('input', this.render);
         this.addEventListener('change', this.change);
         this.addEventListener('touchstart', this.stopPropagation);
-        // 垂直方向
-        if (this.vertical) {
-            this.resizeObserver = new ResizeObserver(entries => {
-                for (let entry of entries) {
-                    const {
-                        height
-                    } = entry.contentRect;
-                    this.style.setProperty('--h', height + 'px');
-                }
-            });
-            this.resizeObserver.observe(this);
-        }
+
         this.element = this.element || {};
         // 区间选择
         if (this.multiple && !this.element.otherRange) {
@@ -120,15 +101,9 @@ class XRange extends HTMLInputElement {
             this.element.otherRange.element = {
                 otherRange: this
             };
-            if (this.vertical) {
-                this.after(this.element.otherRange);
-                this.setAttribute('data-range', 'from');
-                this.element.otherRange.setAttribute('data-range', 'to');
-            } else {
-                this.before(this.element.otherRange);
-                this.setAttribute('data-range', 'to');
-                this.element.otherRange.setAttribute('data-range', 'from');
-            }
+            this.before(this.element.otherRange);
+            this.setAttribute('data-range', 'to');
+            this.element.otherRange.setAttribute('data-range', 'from');
             this.range = this.defaultrange;
         }
 
@@ -155,9 +130,7 @@ class XRange extends HTMLInputElement {
         this.removeEventListener('input', this.render);
         this.removeEventListener('change', this.change);
         this.removeEventListener('touchstart', this.stopPropagation);
-        if (this.vertical) {
-            this.resizeObserver.unobserve(this);
-        }
+
         if (this.element && this.element.otherRange && !this.exchange) {
             this.element.otherRange.remove();
         }
@@ -182,10 +155,10 @@ class XRange extends HTMLInputElement {
             return;
         }
         // 保持html结构和视觉上一致，也就是初始值在前面，结束值在后面，如果不一致就调换位置，目的是为tab键切换正常
-        const isLeft = !this.isFrom && this.nextElementSibling === this.element.otherRange && !this.vertical;
-        const isRight = this.isFrom && this.nextElementSibling !== this.element.otherRange && !this.vertical;
-        const isTop = !this.isFrom && this.nextElementSibling !== this.element.otherRange && this.vertical;
-        const isBottom = this.isFrom && this.nextElementSibling === this.element.otherRange && this.vertical;
+        const isLeft = !this.isFrom && this.nextElementSibling === this.element.otherRange;
+        const isRight = this.isFrom && this.nextElementSibling !== this.element.otherRange;
+        const isTop = !this.isFrom && this.nextElementSibling !== this.element.otherRange;
+        const isBottom = this.isFrom && this.nextElementSibling === this.element.otherRange;
         if (isTop || isRight || isBottom || isLeft) {
             this.exchange = true;
             if (isTop || isRight) {
