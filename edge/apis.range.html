@@ -90,8 +90,8 @@ r0.addEventListener('input', function () {
             <h4>区域范围选择</h4>
             <p>有时候可能需要的区域范围选择器，比如温度区间（从 20℃ 到 40℃），添加<code>multiple</code>属性即可实现。</p>
             <p>
-                <input id="multipleRangeDemo" type="range" data-tips="${value}℃" is="ui-range" multiple>
-                <sup id="multipleRangeOut"></sup>
+                <input id="mrDemo" type="range" data-tips="${value}℃" is="ui-range" multiple>
+                <sup id="mrOut"></sup>
             </p>
             <p>HTML如下：</p>
             <pre>&lt;input type="range" data-tips="${value}℃" is="ui-range" <mark>multiple</mark>&gt;</pre>
@@ -112,43 +112,27 @@ r0.addEventListener('input', function () {
                 <button id="multipleBtn3" class="ui-button" data-type="primary">设置 range 为 20,80</button>
             </p>
             <p>
-                <input id="multipleRange" type="range" data-tips="${value}℃" is="ui-range" multiple>
+                <input id="mr" type="range" data-tips="${value}℃" is="ui-range" multiple>
             </p>
-            <pre>multipleRange.from; <span class="green">// 获取</span>
-multipleRange.from = 20; <span class="green">// 设置</span>
-multipleRange.to;
-multipleRange.to = 80;
-multipleRange.range;
-multipleRange.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</span></pre>
-            <h4>垂直范围选择</h4>
-            <p>有时候可能需要垂直的范围选择器，添加 <code>vertical</code> 属性即可实现。</p>
-            <p>
-                <input type="range" data-tips="${value}" is="ui-range" vertical>
-                <input type="range" data-tips="${value}" is="ui-range" vertical reverse>
-                <input type="range" data-tips="${value}℃" is="ui-range" multiple vertical>
-                <input type="range" data-tips="${value}℃" is="ui-range" multiple vertical reverse>
-            </p>
-            <p>HTML如下：</p>
-            <pre>&lt;input type="range" data-tips="${value}" <mark>is="ui-range" vertical</mark>&gt;
-&lt;input type="range" data-tips="${value}" <mark>is="ui-range" vertical reverse</mark>&gt;
-&lt;input type="range" data-tips="${value}℃" <mark>is="ui-range" multiple vertical reverse</mark>&gt;
-&lt;input type="range" data-tips="${value}℃" <mark>is="ui-range" multiple vertical reverse</mark>&gt;</pre>
-            <p>默认尺寸是 20px*150px，可通过 CSS 修改。</p>
-            <p></p>
-            <p class="tips">Safari 浏览器部分支持，滑竿拖动依然是水平方向，Firefox 浏览器完全不支持垂直范围选择</p>
+            <pre>mr.from; <span class="green">// 获取</span>
+mr.from = 20; <span class="green">// 设置</span>
+mr.to;
+mr.to = 80;
+mr.range;
+mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</span></pre>
+
             <h4>动态改变选中的范围值</h4>
             <p><input type="range" id="randomRange" min="1" data-tips="${value}" is="ui-range"></p>
             <p><button id="rangeButton" class="ui-button" data-type="primary">改变值（随机）</button></p>
             <p><input type="range" id="randomMultipleRange" min="1" data-tips="${value}" is="ui-range" multiple></p>
             <p><button id="rangeMultipleButton" class="ui-button" data-type="primary">改变区域值（随机）</button></p>
             <p>HTML 代码和 JS 代码如下：</p>
-            <pre>&lt;p&gt;&lt;input type="range" id="randomRange" min="1" data-tips="${value}" <mark>is="ui-range"</mark>&gt;&lt;/p&gt;
-&lt;button id="rangeButton"&gt;改变值（随机）&lt;/button&gt;</pre>
+            <pre>&lt;p&gt;&lt;input type="range" id="rr" min="1" data-tips="${value}" <mark>is="ui-range"</mark>&gt;&lt;/p&gt;
+&lt;button id="rb"&gt;改变值（随机）&lt;/button&gt;</pre>
 
-            <pre>var randomRange = document.querySelector('#randomRange');
-rangeButton.addEventListener('click', function () {
-    randomRange<mark>.value</mark> = Math.ceil(100 * Math.random());<span class="green">// 和原生相同，使用 <mark>.value</mark>就可以了</span>
-    randomMultipleRange<mark>.range</mark> = '20,80';<span class="green">// 区间选择可使用 <mark>.range（from/to）</mark>进行赋值</span>
+            <pre>rb.addEventListener('click', function () {
+    rr<mark>.value</mark> = Math.ceil(100 * Math.random());<span class="green">// 和原生相同，使用 .value 就可以了</span>
+    rmr<mark>.range</mark> = '20,80';<span class="green">// 区间选择可使用 .range（from/to） 进行赋值</span>
 });
 </pre>
             <h4>disabled 禁用测试</h4>
@@ -392,18 +376,18 @@ rangeButton.addEventListener('click', function () {
         rangeMultipleDisabled.disabled = !rangeMultipleDisabled.disabled;
     });
 
-    var multipleRange = document.getElementById('multipleRange');
+    var mr = document.getElementById('mr');
 
     multipleBtn1.addEventListener('click', function () {
-        multipleRange.from = 20;
+        mr.from = 20;
     });
 
     multipleBtn2.addEventListener('click', function () {
-        multipleRange.to = 80;
+        mr.to = 80;
     });
 
     multipleBtn3.addEventListener('click', function () {
-        multipleRange.range = '20,80';
+        mr.range = '20,80';
     });
 
     var randomMultipleRange = document.getElementById('randomMultipleRange');
@@ -412,9 +396,9 @@ rangeButton.addEventListener('click', function () {
         randomMultipleRange.range = Math.ceil(100 * Math.random())+','+Math.ceil(100 * Math.random());
     });
 
-    var multipleRangeDemo = document.getElementById('multipleRangeDemo');
-    multipleRangeDemo.addEventListener('input', function (ev) {
-        multipleRangeOut.innerText = this.range;
+    var mrDemo = document.getElementById('mrDemo');
+    mrDemo.addEventListener('input', function (ev) {
+        mrOut.innerText = this.range;
     })
 })();
 </script>
