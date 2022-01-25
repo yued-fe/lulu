@@ -154,9 +154,9 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 * <a href="https://l-ui.com/pure/about.use.html">文档-使用与发布（Pure主题）</a>
 * <a href="https://l-ui.com/edge/about.use.html">文档-使用与发布（Edge主题）</a>
 
-文档在 gh-pages 分支。
+文档在 <a href="https://github.com/yued-fe/lulu/tree/gh-pages">gh-pages 分支</a>。
 
-另外，本 git 只展示了输出版本，原始 git 项目在公司内部，测试和开发目录并未对外，并不是说本项目没有测试用例。
+另外，本 git 只展示了输出版本，原始 git 项目在公司内部，测试目录并未对外，并不是说本项目没有测试用例，以及 theme 中的 CSS 和 JS 文件就是开发版本，非编译版本，fork 项目后可直接二次开发。
 
 ## 项目成员
 
@@ -168,9 +168,9 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 
 组件均有测试，不过在内部项目中，没有对外。
 
-LuLu UI 的设计理念、使用方式完全不同于常规 UI 组件库。
+LuLu UI 的设计理念、使用方式不同于常规 UI 组件库。
 
-LuLu UI 没有版本概念，发包均以发包日期作为版号。
+LuLu UI 没有版本概念，均以发包日期作为版本号。
 
 <hr>
 
