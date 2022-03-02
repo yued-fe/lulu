@@ -47,7 +47,7 @@
       <pre>&lt;script <mark>type="module"</mark> src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"&gt;&lt;/script&gt;</pre>
       <p>本组件为Web Components，引用时需添加<code><mark>type="module"</mark></code>，也可采用如下方式进行引用</p>
       <pre>&lt;script <mark>type="module"</mark>&gt;
-    import "../../theme/edge/js/common/ui/Select.js";
+    import "https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js";
 &lt;/script&gt;</pre>
       <p>本组件为内置自定义元素组件，如果需要兼容Safari浏览器，还需要引入下面的JS。</p>
       <pre>&lt;script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
@@ -100,7 +100,7 @@ button.addEventListener('click', function () {
 
       <p>测试祖先容器存在 <code>overflow:hidden</code> 声明，会不会剪裁下拉列表：</p>
 
-      <div style="overflow: hidden; padding-bottom: 12px; position: relative;">
+      <div id="x1" style="overflow: hidden; padding-bottom: 12px; position: relative;">
         看看剪裁没？<select is="ui-select">
           <option value="1">选项1</option>
           <option value="2">选项2</option>
@@ -569,5 +569,9 @@ button.addEventListener('click', function () {
 
     document.querySelector('p select').addEventListener('change', function () {
         console.log('来自下拉框：我变化了');
+    });
+
+    x1.addEventListener('click', function (e) {
+      e.stopPropagation();
     });
 </script>

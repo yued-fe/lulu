@@ -153,10 +153,11 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
 
             <h3>增删监听测试</h3>
             <p>
-                <button id="rangeAdd" class="ui-button" data-type="primary">新增范围选择框</button>
-                <button id="rangeClone" class="ui-button" data-type="primary" disabled>克隆范围选择框</button>
-                <button id="rangeMultipleAdd" class="ui-button" data-type="primary">新增区间范围选择框</button>
+                <button id="b4" class="ui-button" type="primary">新增范围选择框</button>
+                <button id="b5" class="ui-button" type="primary" disabled>克隆范围选择框</button>
+                <button id="b6" class="ui-button" type="primary">新增区间范围选择框</button>
             </p>
+            <div id="x0"></div>
             <pre>button.addEventListener('click', function () {
     <span class="green">// 注意，这里需要添加{ is: 'ui-range' }</span>
     var range = document.createElement('input', <mark>{ is: 'ui-range' }</mark>);
@@ -170,11 +171,11 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
 
             <p>也可以直接通过 innerHTML 添加方式</p>
             <p>
-                <button id="btnDelete" class="ui-button" data-type="danger">删除下面的范围选择框</button>
-                <button id="btnMultipleDelete" class="ui-button" data-type="danger">删除下面的区间范围选择框</button>
+                <button id="b7" class="ui-button" data-type="danger">删除下面的范围选择框</button>
+                <button id="b8" class="ui-button" data-type="danger">删除下面的区间范围选择框</button>
             </p>
-            <p><input type="range" is="ui-range" id="rangeDelete" ></p>
-            <p><input type="range" is="ui-range" multiple id="rangeMultipleDelete" ></p>
+            <p><input type="range" is="ui-range" id="r7" ></p>
+            <p><input type="range" is="ui-range" multiple id="r8" ></p>
             <pre>button.addEventListener('click', function () {
     range.remove();
     this.disabled = true;
@@ -199,7 +200,14 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
             <ol>
                 <li>max step value 三者要成倍数的关系（ 若有 --number，也要算在里面 ），否则可能会导致星星展示不全，比如max=100,--number:10, 那么 step 和 value 就要是 5 的倍数</li>
                 <li>min 只能设置 0 或者不设置，若要设置初始值，请设置 value，它的值要和 max 成倍数关系</li>
+                <li><p>尺寸大小通过 <code>font-size</code> 属性控制，如下所示。</p>
+
+                    <p>字号大小：<input type="range" id="rf" min="12" max="20" value="16" data-tips="${value}px" is="ui-range"></p>
+                    <input type="range" id="rs" is="ui-rate" max="5" value="3"></li>
             </ol>
+
+            
+
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan, sunseekers</p>
             </div>
@@ -323,47 +331,42 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
         randomRange.value = Math.ceil(100 * Math.random());
     });
 
-    var eleBtnAdd = document.getElementById('rangeAdd');
-    var eleBtnClone = document.getElementById('rangeClone');
-    eleBtnAdd.addEventListener('click', function () {
-        var eleRange = document.createElement('input', { is:'ui-range' });
-        eleRange.setAttribute('type', 'range');
-        eleRange.dataset.tips = '${value}';
+    b4.addEventListener('click', function () {
+        var r = document.createElement('input', { is:'ui-range' });
+        r.setAttribute('type', 'range');
+        r.dataset.tips = '${value}';
         // 插入到后面
-        eleBtnAdd.parentElement.after(eleRange);
+        x0.append(r);
         const br = document.createElement('BR');
-        eleRange.after(br);
-        eleBtnClone.disabled = false;
+        r.after(br);
+        b5.disabled = false;
     });
 
-    eleBtnClone.addEventListener('click', function () {
-        var eleRange = this.parentElement.nextElementSibling;
-        if (eleRange.hasAttribute('is')) {
+    b5.addEventListener('click', function () {
+        var eleRange = x0.querySelector('input:not([multiple])');
+        if (eleRange) {
             eleRange.after(eleRange.cloneNode(true));
         }
     });
 
-    rangeMultipleAdd.addEventListener('click', function () {
-        var eleRange = document.createElement('input', { is:'ui-range' });
-        eleRange.setAttribute('type', 'range');
-        eleRange.setAttribute('multiple', '');
+    b6.addEventListener('click', function () {
+        var r = document.createElement('input', { is:'ui-range' });
+        r.setAttribute('type', 'range');
+        r.setAttribute('multiple', '');
         // 插入到后面
-        eleBtnAdd.parentElement.after(eleRange);
+        x0.append(r);
         const br = document.createElement('BR');
-        eleRange.after(br);
+        r.after(br);
     });
 
-    var eleBtnDelete = document.getElementById('btnDelete');
-    var eleRangeDelete = document.getElementById('rangeDelete');
-    eleBtnDelete.addEventListener('click', function () {
-        eleRangeDelete.remove();
+    b7.addEventListener('click', function () {
+        r7.remove();
         this.disabled = true;
     });
 
-    var eleBtnMultipleDelete = document.getElementById('btnMultipleDelete');
-    var rangeMultipleDelete = document.getElementById('rangeMultipleDelete');
-    eleBtnMultipleDelete.addEventListener('click', function () {
-        rangeMultipleDelete.remove();
+    var r8 = document.getElementById('r8');
+    b8.addEventListener('click', function () {
+        r8.remove();
         this.disabled = true;
     });
 
@@ -399,6 +402,10 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
     var mrDemo = document.getElementById('mrDemo');
     mrDemo.addEventListener('input', function (ev) {
         mrOut.innerText = this.range;
-    })
+    });
+
+    rf.addEventListener('input', function () {
+        rs.style.fontSize = this.value + 'px';
+    });
 })();
 </script>
