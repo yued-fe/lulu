@@ -143,6 +143,7 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 
 [is="ui-range"][multiple][data-range="from"] {
+    display: block;
     position: absolute;
 }
 [is="ui-range"][multiple][data-range="to"] {

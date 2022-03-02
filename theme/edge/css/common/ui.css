@@ -2487,7 +2487,7 @@ ui-pagination:not(:defined),
     transition: opacity var(--ui-animate-time, .2s);
     color: var(--ui-gray, #a2a9b6);
     font-size: var(--ui-font, 14px);
-    opacity: 1; /* fix firfox  */
+    opacity: 1; /* fix firefox  */
 }
 
 :focus::placeholder {
@@ -2761,6 +2761,7 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 
 [is="ui-range"][multiple][data-range="from"] {
+    display: block;
     position: absolute;
 }
 [is="ui-range"][multiple][data-range="to"] {
