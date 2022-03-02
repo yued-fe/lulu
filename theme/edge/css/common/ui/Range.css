@@ -51,6 +51,32 @@
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, .25);
 }
 
+/* Firefox */
+[is="ui-range"]::-moz-range-track {
+    background: var(--ui-light-border, #ededef);
+    height: 4px;
+}
+
+[is="ui-rate"]::-moz-range-track {
+    background: var(--ui-light-border, #ededef);
+    height: inherit;
+}
+
+[is="ui-range"]::-moz-range-progress {
+    background: var(--ui-blue, #2a80eb);
+    height: 4px;
+}
+
+[is="ui-range"]::-moz-range-thumb {
+    width: var(--ui-range-thumb-size);
+    height: var(--ui-range-thumb-size);
+    border: none;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
+}
+
+
 /* 黑色提示效果 */
 input[data-tips]{
     position: relative;
@@ -175,7 +201,6 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
 }
 
 /* 星星评分 */
-
 [is="ui-rate"]:enabled {
     cursor: pointer;
 }
@@ -226,20 +251,6 @@ _::-moz-range-track {
     height: 2em;
 }
 
-[is="ui-range"]::-moz-range-track {
-    background: var(--ui-light-border, #ededef);
-    height: 4px;
-}
-
-[is="ui-rate"]::-moz-range-track {
-    background: var(--ui-light-border, #ededef);
-    height: inherit;
-}
-
-[is="ui-range"]::-moz-range-progress {
-    background: var(--ui-blue, #2a80eb);
-    height: 4px;
-}
 [is="ui-rate"]::-moz-range-progress {
     background: var(--ui-orange, #f59b00);
     height: inherit;
