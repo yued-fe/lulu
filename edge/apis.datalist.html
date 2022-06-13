@@ -130,7 +130,7 @@ i2.params.data = [{
     userid: 7
 }];</pre>
 
-            <p>实际开发中，开发者更关心的往往是是<code>usedid</code>值，而不是用户选择的姓名名称，此时可以通过<code>event.detail</code>获取，例如：</p>
+            <p>实际开发中，开发者更关心的往往是是<code>userid</code>值，而不是用户选择的姓名名称，此时可以通过<code>event.detail</code>获取，例如：</p>
             <pre>input.addEventListener('change', function (event) {
     console.log('选择的数据是：', event.detail);
 });</pre>
