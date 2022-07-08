@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于Drop下拉列表">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Drop下拉列表">
+<title>LuLu UI hope主题中文文档 &raquo; Drop下拉列表</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ui.css">
+<link rel="stylesheet" href="../hope/assets/css/mockup.css">
+<script type="module" src="../hope/assets/js/code-run.js"></script>
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Drop下拉列表</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge">Edge主题</option>
+				<option value="hope" selected>Hope主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+<style>
+    td img {
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .dl-p a {
+        padding: .5rem 1rem;
+    }
+</style>
+
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+        <h2 class="section_title">Drop下拉列表</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>本组件依赖于 Drop 下拉，扩展了一个名为 <code>list</code> 的方法。</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/Drop/list.css"&gt;</pre>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Drop/list.js"&gt;&lt;/script&gt;</pre>
+
+            <h3>使用示意与指南</h3>
+
+            <h4>1. 基本效果演示</h4>
+
+            <code-run title="基本的列表选择" open>
+                <div slot="preview">
+                    <p class="dl-p">
+                        <a href="javascript:" class="dlPage ui-droplist-arrow">跳转到</a>
+                        <a href="javascript:" id="dlCom" class="ui-droplist-arrow">所有评论</a>
+                        <a href="javascript:" id="dlDeal" class="ui-droplist-arrow"><i class="icon_undeal"></i>未处理</a>
+                    </p>
+                </div>
+                <div slot="code">
+                    <pre>// 下拉导航链接列表
+new Drop('.dlPage').list([{
+    href: 'http://www.qidian.com/',
+    value: '起点中文网',
+    target: '_lulu'
+}, {
+    href: 'http://www.hongxiu.com/',
+    value: '红袖添香',
+    target: '_lulu'
+}, {
+    href: 'http://www.xs8.cn/',
+    value: '言情小说吧',
+    target: '_lulu',
+    disabled: true
+}, {
+    value: '其他',
+    data: [{
+        href: 'http://www.qidian.com/',
+        value: '1-起点中文网',
+        target: '_lulu'
+    }, {
+        href: 'http://www.hongxiu.com/',
+        value: '1-红袖添香',
+        target: '_lulu'
+    }, {
+        value: '1-其他',
+        data: [{
+            href: 'http://www.qidian.com/',
+            value: '2-起点中文网',
+            target: '_lulu'
+        }, {
+            href: 'http://www.hongxiu.com/',
+            value: '2-红袖添香',
+            target: '_lulu'
+        }]
+    }]
+}], {
+    width: 100
+});</pre>
+<pre>// 评论筛选列表
+new Drop(document.querySelector('#dlCom')).list([{
+    id: 1,
+    value: '所有评论'
+}, {
+    id: 2,
+    value: '未通过评论'
+}, {
+    id: 3,
+    value: '未审核评论'
+}, {
+    id: 4,
+    value: '已通过评论'
+}], {
+    onSelect: function (obj) {
+        console.log('选中的评论id是：' + obj.id);
+    }
+});</pre>
+<pre>// 评论状态修改列表
+new Drop('#dlDeal').list([{
+    value: '&lt;i class="icon_undeal"&gt;&lt;/i&gt;未处理'
+}, {
+    value: '&lt;i class="icon_pass"&gt;&lt;/i&gt;已通过'
+}, {
+    value: '&lt;i class="icon_unpass"&gt;&lt;/i&gt;未通过'
+}], {
+    position: '7-5'
+});</pre>
+                </div>
+            </code-run>
+
+
+
+            <h4>2. 动态列表数据+列表选择不会改变trigger元素</h4>
+            <p>列表默认选中后会改变点击元素里面的内容，如果希望列表选择后按钮的内容不发生变化，可以设置<code>selector</code>参数的值为和当前点击元素的匹配的选择器即可。</p>
+
+            <code-run title="列表选择值不会变化" open>
+                <div slot="preview">
+                    <p>
+                        <button id="dlMove" is="ui-button" type="primary">移动到</button>
+                    </p>
+                    <p class="mt10">
+                        <select id="dlSel" is="ui-select">
+                            <option value="1">分组1</option>
+                            <option value="2">分组2</option>
+                            <option value="3">分组3</option>
+                            <option value="4">分组4</option>
+                        </select>
+                    </p>
+                </div>
+                <div slot="code">
+                    <pre>// 基于数据的列表
+new Drop(trigger).list(function () {
+    return [...select.querySelectorAll('option')].map(function (option) {
+        return {
+            id: option.value,
+            value: option.innerHTML,
+            disabled: option.selected
+        };
+    });
+}, {
+    selector: 'button',
+    onSelect: function (obj) {
+        eleSelDropList.querySelector('option[value="' + obj.id + '"]').selected = true;
+    }
+});</pre>
+                </div>
+            </code-run>
+
+
+            <h4>3. &lt;datalist&gt;元素实现下拉列表</h4>
+            <p>可以指向一个<code>&lt;datalist&gt;</code>元素实现。代码示意：</p>
+            <pre>&lt;ui-drop class="ui-button" type="primary" target="t6"&gt;点击我-空option&lt;/ui-drop&gt;
+&lt;datalist id="t6"&gt;
+    &lt;option value="1"&gt;列表1&lt;/option&gt;
+    &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;!-- 空option当作分隔线 --&gt;
+    &lt;option&gt;&lt;/option&gt;
+    &lt;option value="3"&gt;其他1&lt;/option&gt;
+    &lt;option value="4"&gt;其他2&lt;/option&gt;
+    &lt;option value="5"&gt;&lt;mark&gt;标记&lt;/mark&gt;&lt;/option&gt;
+&lt;/datalist&gt;</pre>
+            <code-run title="空option分隔线" open>
+                <div slot="preview">
+                    <p>实时效果：<ui-drop class="ui-button" type="primary" target="t6">点击我-空option</ui-drop></p>
+                    <datalist id="t6">
+                        <option value="1">列表1</option>
+                        <option value="2">列表2</option>
+                        <!-- 空option当作分隔线 -->
+                        <option></option>
+                        <option value="3">其他1</option>
+                        <option value="4">其他2</option>
+                        <option value="5"><mark>标记</mark></option>
+                    </datalist>
+                </div>
+            </code-run>
+
+            <p>也可以使用<code>&lt;optgroup&gt;</code>元素表示分隔线。</p>
+            <p>相关代码如下所示：</p>
+            <pre>&lt;ui-drop class="ui-button" type="primary" target="t7"&gt;点击我-optgroup&lt;/ui-drop&gt;
+&lt;datalist id="t7"&gt;
+    &lt;optgroup&gt;
+        &lt;option value="1"&gt;列表1&lt;/option&gt;
+        &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup&gt;
+        &lt;option value="3"&gt;其他1&lt;/option&gt;
+        &lt;option value="4"&gt;其他2&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/datalist&gt;</pre>
+            <code-run title="optgroup与列表分组" open>
+                <div slot="preview">
+                    <p>实时效果：<ui-drop class="ui-button" type="primary" target="t7">点击我-optgroup</ui-drop></p>
+                    <datalist id="t7">
+                        <optgroup>
+                            <option value="1">列表1</option>
+                            <option value="2">列表2</option>
+                        </optgroup>
+                        <optgroup>
+                            <option value="3">其他1</option>
+                            <option value="4">其他2</option>
+                        </optgroup>
+                    </datalist>
+                </div>
+            </code-run>
+
+            <p>如果<code>&lt;optgroup&gt;</code>元素有<code>label</code>属性值，则该属性值会作为小标题元素呈现。</p>
+            <p>相关代码如下所示：</p>
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t8"&gt;点击我-label标题&lt;/ui-drop&gt;
+&lt;datalist id="t8"&gt;
+    &lt;optgroup label="标题A"&gt;
+        &lt;option value="1"&gt;列表1&lt;/option&gt;
+        &lt;option value="2"&gt;列表2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="标题B" disabled&gt;
+        &lt;option value="3"&gt;禁用1&lt;/option&gt;
+        &lt;option value="4"&gt;禁用2&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="标题C"&gt;
+        &lt;option value="5"&gt;其他1&lt;/option&gt;
+        &lt;option value="6" disabled&gt;其他2&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/datalist&gt;</pre>
+
+            <code-run title="label标签与列表标题" open>
+                <div slot="preview">
+                    <p>实时效果：<ui-drop class="ui-button" data-type="primary" target="t8">点击我-label标题</ui-drop></p>
+
+                    <datalist id="t8">
+                        <optgroup label="标题A">
+                            <option value="1">列表1</option>
+                            <option value="2">列表2</option>
+                        </optgroup>
+                        <optgroup label="标题B" disabled>
+                            <option value="3">禁用1</option>
+                            <option value="4">禁用2</option>
+                        </optgroup>
+                        <optgroup label="标题C">
+                            <option value="5">其他1</option>
+                            <option value="6" disabled>其他2</option>
+                        </optgroup>
+                    </datalist>
+                </div>
+            </code-run>
+
+            <h4>4. 自定义元素直接执行 list() 方法</h4>
+            <p>也可以使用 <code>list()</code> 方法设置，例如有个按钮是：</p>
+            <pre>&lt;ui-drop id="d4" is="ui-button" type="primary"&gt;点击我&lt;/ui-drop&gt;</pre>
+            <p>则使用下面的JS代码就可以有下拉列表效果了：</p>
+            <pre>d4.list([{
+    id: 1,
+    value: '列表1'
+}, {
+    id: 2,
+    value: '列表2'
+}]);</pre>
+            <code-run title="list() 方法" open>
+                <div slot="preview">
+                    <p>测试：<ui-drop id="d4" is="ui-button" type="primary">点击我</ui-drop></p>
+                </div>
+            </code-run>
+
+            <p>如果希望列表点击时候按钮文字不变，可以设置 <code>selector</code> 属性值为 <code>trigger</code>匹配的选择器即可。例如：</p>
+            <pre>&lt;ui-drop id="d4_2" class="ui-button" data-type="primary" selector="ui-drop"&gt;点击我&lt;/ui-drop&gt;</pre>
+
+            <code-run title="selector参数" open>
+                <div slot="preview">
+                    <p>测试：<ui-drop id="d4_2" class="ui-button" data-type="primary" selector="ui-drop">点击我</ui-drop></p>
+                </div>
+            </code-run>
+
+            <h4>5. 自定义click事件+异步处理显示</h4>
+            <p>使用一个200毫秒定时器模拟异步请求处理。</p>
+            <pre>&lt;button id="dl5" class="ui-button" data-type="primary"&gt;点击我&lt;/button&gt;</pre>
+            <pre>let drop5 = new Drop(dl5).list({
+    eventType: 'custom'
+});
+
+dl5.addEventListener('click', function () {
+    this.loading = true;
+    setTimeout(() =&gt; {
+        drop5.data = ['项目1', '项目2'];
+        drop5.show();
+
+        this.loading = false;
+    }, 200);
+});</pre>
+
+            <code-run title="模拟异步处理" open>
+                <div slot="preview">
+                    <p><button id="dl5" class="ui-button" data-type="primary">点击我</button></p>
+                </div>
+            </code-run>
+
+            <h3>语法和参数</h3>
+            <pre>let eleDrop = new Drop(trigger).list(data, options);</pre>
+            <p>或者</p>
+            <pre>let eleDrop = new Drop().list(trigger, data, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>trigger</dt>
+                <dd>必需。Object DOM 对象或 String 选择器字符串。表示按钮或者委托容器元素（如果可选 selector 参数不为空）。</dd>
+                <dt>data</dt>
+                <dd>必需。Array 数组或者 Function 函数或者 <code>&lt;datalist&gt;</code> 元素。如果是 Function 类型，则执行后需要返回数组。数组项都是纯对象，列表呈现需要的是 <code>value</code>、
+                <code>selected</code>、<code>disabled</code> 等属性，如果有 <code>href</code> 属性则表示链接，其他属性为自定义使用, 例如 <code>target</code>、<code>label</code>、<code>className</code>、<code>heading</code>、<code>accessKey</code>等：</dd>
+                <dd><pre>[{
+    id: 1,
+    value: '所有评论',
+    selected: true
+}, {
+    id: 2,
+    value: '未审核评论',
+    disabled: true
+}, {
+    id: 3,
+    value: '链接',
+    href: '//l-ui.com',
+    target: '_blank'
+}]</pre></dd>
+                <dd>红色的关键字是组件可识别的关键属性，其余属性(蓝色)可以在 <code>onSelect</code> 回调中为己所用。</dd>
+                <dd>可使用 <code>data</code> 属性嵌套多层级列表，例如：<pre>[{
+    value: '多级列表',
+    data: [{
+        value: '二级列表1'
+    }, {
+        value: '二级列表2'
+    }]
+}]</pre></dd>
+                <dd>可以使用字符串<code>'-'</code>，或者<code>null</code>或者<code>{}</code>表示分隔线。例如：<pre>[{
+    id: '0',
+    value: '居左显示'
+}, {
+    id: '1',
+    value: '居中显示'
+}, {
+    id: '2',
+    value: '居右显示'
+}, {}, {
+    id: '3',
+    value: '应用滤镜'
+}]</pre></dd>
+
+                <dt>options</dt>
+                <dd>可选。Object 纯对象。可选参数，具体见下表：</dd>
+            </dl>
+
+            <table class="ui-table">
+                <tr>
+                    <th scope="col" width="80">参数名称</th>
+                    <th scope="col" width="80">支持类型</th>
+                    <th scope="col" width="120">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+                <tr>
+                    <td>event<wbr>Type</td>
+                    <td>String</td>
+                    <td>'click'</td>
+                    <td>表示触发元素显示的事件，默认是 <code>'click'</code>, click 时候显示下拉列表。还可以是 <code>'null'</code> 表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code> 表示hover时候显示下拉；如果是其他字符串，需要手动调用 <code>show()</code> 方法才显示，隐藏也需要自己控制。</td>
+                </tr>
+                <tr>
+                    <td>offsets</td>
+                    <td>Object</td>
+                    <td><span class="db">{<br>
+                    &nbsp;&nbsp;x: 0,<br>
+                    &nbsp;&nbsp;y: 0<br>
+                }</span></td>
+                    <td>表示浮动元素的偏移大小，相对于右上角偏移，数值越大右上角偏移越大。</td>
+                </tr>
+                <tr>
+                    <td>position</td>
+                    <td>String</td>
+                    <td>'4-1'</td>
+                    <td>表示触发元素和浮层元素的定位关系。具体参见Drop方法中的 <code>position</code>参数。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>selector</td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>同Drop的selector参数，委托用。</td>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td>String<br>Number</td>
+                    <td>''</td>
+                    <td>下拉列表的宽度，默认 CSS 中是 111 像素宽度。</td>
+                </tr>
+                <tr>
+                    <td>onShow</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层显示时候的回调方法。函数的上下文 <code>this</code> 为当前 <code>eleDrop</code> 元素，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>onHide</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前<code>eleDrop</code>元素，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                    <td>onSelect</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>选择某一个下拉元素的时候的回调。上下文 <code>this</code> 为当前 <code>eleDrop</code> 元素。支持两个参数，第一个参数为对应的纯对象数据，如 <code>{ id: 1, <wbr> value: '所有评论' }</code>；第二个参数当前选中的列表元素（<code>data-index</code> 标记了索引值）。</td>
+                </tr>
+            </table>
+
+            <div class="contributors">
+                <svg>
+                    <use xlink:href="#icon-persons"></use>
+                </svg>
+                <h6 class="contributors-h">本页贡献者：</h6>
+                <p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.html" class="aside_nav ">设计思考</a></dd>
+            <dd><a href="./use.html" class="aside_nav ">快速上手</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">样式</dt>
+            <dd><a href="./colour.html" class="aside_nav ">颜色与主题</a></dd>
+            <dd><a href="./layout.html" class="aside_nav ">既定布局</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">元素衍生</dt>
+            <dd><a href="./hr.html" class="aside_nav ">Hr 分隔线</a></dd>
+            <dd><a href="./button.html" class="aside_nav ">Button 按钮</a></dd>
+
+            <dd><a href="./input.html" class="aside_nav ">Input 文本框</a>
+                <!-- <dd-li>
+                    <a href="./input-password.html" class="aside_nav ">Password 密码框</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./textarea.html" class="aside_nav ">Textarea 文本域</a></dd>
+
+            <dd><a href="./checkbox.html" class="aside_nav ">Checkbox 多选</a>
+                <dd-li>
+                    <a href="./checkbox-switch.html" class="aside_nav ">Switch 开关</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./radio.html" class="aside_nav ">Radio 单选</a></dd>
+
+            <dd><a href="./progress.html" class="aside_nav ">Progress 进度</a></dd>
+
+            <dd><a href="./select.html" class="aside_nav ">Select 下拉框</a></dd>
+            <dd><a href="./range.html" class="aside_nav ">Range 范围选择</a>
+                <dd-li>
+                    <a href="./range-star.html" class="aside_nav ">Star 评分</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./color.html" class="aside_nav ">Color 颜色选择</a></dd>
+            <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
+            <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
+                <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
+                <dd-li><a href="./validate.html" class="aside_nav ">Validate 表单验证</a></dd-li>
+            </dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">交互</dt>
+            <dd><a href="./loading.html" class="aside_nav ">Loading 效果</a>
+                <!-- <dd-li>
+                    <a href="" class="aside_nav ">Pulldown 下拉</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./overlay.html" class="aside_nav ">Overlay 覆盖</a>
+                <dd-li><a href="./popup.html" class="aside_nav ">Popup 弹出</a></dd-li>
+                <dd-li><a href="./dialog.html" class="aside_nav ">Dialog 弹框</a></dd-li>
+            </dd>
+            
+            <dd><a href="./float.html" class="aside_nav ">Float 浮层</a>
+                <dd-li>
+                    <a href="./toast.html" class="aside_nav ">Toast 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./lighttip.html" class="aside_nav ">LightTip 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./followtext.html" class="aside_nav ">FollowText 提示</a>
+                </dd-li>
+            </dd>
+
+            <dd><a href="./pagination.html" class="aside_nav ">Pagination 分页</a></dd>
+
+            <dd><a href="./drop.html" class="aside_nav ">Drop 下拉</a>
+                <dd-li>
+                    <a href="drop-list.html" class="aside_nav active">Drop 列表</a>
+                </dd-li>
+            </dd>
+            
+            <dd>
+                <a href="./rel.html" class="aside_nav ">Rel 切换</a>
+                <dd-li>
+                    <a href="./tab.html" class="aside_nav ">Tab 选项卡</a>
+                </dd-li>
+            </dd>
+            <dd>
+                <a href="./snap.html" class="aside_nav ">Snap 滚动</a>
+                <dd-li>
+                    <a href="snap-swipe.html" class="aside_nav ">SnapSwipe 轮播</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-cell.html" class="aside_nav ">SnapCell 滑动单元格</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-tab.html" class="aside_nav ">SnapTab 滑动式选项卡</a>
+                </dd-li>
+            </dd>
+            
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+<!-- 底部 -->
+<script src="../hope/assets/js/mockup.js"></script>
+<script src="../hope/assets/js/highlight.min.js"></script>
+<script>
+document.querySelectorAll('pre').forEach((el) => {
+    hljs.highlightElement(el);
+});
+</script>
+</body>
+</html>
+<script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Drop/list.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Loading.js"></script>
+<script type="module">
+// 下拉列表
+new Drop('.dlPage').list([{
+    href: 'https://www.qidian.com/',
+    value: '起点中文网',
+    target: '_lulu'
+}, {
+    href: 'https://www.hongxiu.com/',
+    value: '红袖添香',
+    target: '_lulu'
+}, {
+    href: 'https://www.xs8.cn/',
+    value: '言情小说吧',
+    target: '_lulu',
+    disabled: true
+}, {
+    value: '其他',
+    data: [{
+        href: 'https://www.qidian.com/',
+        value: '1-起点中文网',
+        target: '_lulu'
+    }, {
+        href: 'https://www.hongxiu.com/',
+        value: '1-红袖添香',
+        target: '_lulu'
+    }, {
+        value: '1-其他',
+        data: [{
+            href: 'https://www.qidian.com/',
+            value: '2-起点中文网',
+            target: '_lulu'
+        }, {
+            href: 'https://www.hongxiu.com/',
+            value: '2-红袖添香',
+            target: '_lulu'
+        }]
+    }]
+}], {
+    width: 100
+});
+
+// 评论筛选列表
+var dropListApi = new Drop('#dlCom').list([{
+    id: 1,
+    value: '所有评论'
+}, {
+    id: 2,
+    value: '未通过评论'
+}, {
+    id: 3,
+    value: '未审核评论'
+}, {
+    id: 4,
+    value: '已通过评论'
+}], {
+    onSelect: function (obj) {
+        console.log('选中的评论id是：' + obj.id);
+    }
+});
+
+
+// 评论状态修改列表
+new Drop('#dlDeal').list([{
+    value: '<i class="icon_undeal"></i>未处理'
+}, {
+    value: '<i class="icon_pass"></i>已通过'
+}, {
+    value: '<i class="icon_unpass"></i>未通过'
+}], {
+    position: '7-5'
+});
+
+// 基于数据的列表
+var eleDropListMove = document.querySelector('#dlMove');
+var eleSelDropList = document.querySelector('#dlSel');
+new Drop(eleDropListMove).list(function () {
+    var data = [];
+    eleSelDropList.querySelectorAll('option').forEach(function (eleOption) {
+        var obj = {
+            id: eleOption.value,
+            value: eleOption.innerHTML
+        };
+        if (eleOption.selected) {
+            obj.disabled = true;
+        }
+        data.push(obj);
+    });
+
+    return data;
+}, {
+    selector: 'button',
+    onSelect: function (obj) {
+        eleSelDropList.querySelector('option[value="' + obj.id + '"]').selected = true;
+    }
+});
+
+
+d4.list([{
+    id: 1,
+    value: '列表1'
+}, {
+    id: 2,
+    value: '列表2'
+}]);
+d4_2.list([{
+    id: 1,
+    value: '列表1'
+}, {
+    id: 2,
+    value: '列表2'
+}]);
+
+let drop5 = new Drop(dl5).list({
+    eventType: 'custom'
+});
+
+dl5.addEventListener('click', function () {
+    this.loading = true;
+    setTimeout(() => {
+        drop5.data = ['项目1', '项目2'];
+        drop5.show();
+
+        this.loading = false;
+    }, 200);
+});
+
+</script>
