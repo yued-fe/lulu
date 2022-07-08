@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/**
+ *
+ * @Star.css
+ * @author zhangmin
+ * @create 20-04-30
+ * @edited 22-03-01 by zhangxinxu
+**/
+
+/* 星星评分 */
+[is="ui-rate"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    outline: 0;
+    background-color: transparent;
+    vertical-align: middle;
+    width: calc(var(--ui-number, 5) * 2em);
+    --ui-rate-source: url("data:image/svg+xml,%3Csvg width='12' height='11' viewBox='0 0 12 11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 0l1.693 3.67 4.013.476L8.74 6.89l.788 3.964L6 8.88l-3.527 1.974.788-3.964L.294 4.146l4.013-.476L6 0z'/%3E%3C/svg%3E");
+    --ui-mask: var(--ui-rate-source) repeat-x left / 2em var(--ui-rate-source-size, 90%);
+    --ui-rate-color: var(--ui-orange, #f59b00);
+}
+
+[is="ui-rate"]::-webkit-slider-runnable-track {
+    background: var(--ui-rate-color);
+    height: 2em;
+    -webkit-mask: var(--ui-mask);
+    mask: var(--ui-mask);
+}
+
+[is="ui-rate"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1px;
+    height: 100%;
+    box-shadow: 999em 0 0 999em var(--ui-light-border, #ededef);
+}
+
+[is="ui-rate"]:focus::-webkit-slider-thumb {
+    box-shadow: 999em 0 0 999em var(--ui-light-border, #ededef);
+    background: var(--ui-rate-color);
+}
+
+/* 数量 */
+[is="ui-rate"][number="10"] {
+    --ui-number: 10;
+}
+
+/* 尺寸设置 */
+[is="ui-rate"][size="medium"] {
+    font-size: 1rem;
+}
+[is="ui-rate"][size="small"] {
+    font-size: .875rem;
+}
+[is="ui-rate"][size="tiny"] {
+    font-size: .75rem;
+}
+[is="ui-rate"][size="large"] {
+    font-size: 1.25rem;
+}
+
+/* 只读和禁用 */
+[is="ui-rate"]:enabled {
+    cursor: pointer;
+}
+
+[is="ui-rate"]:disabled {
+    opacity: var(--ui-opacity, .4);
+}
+
+[is="ui-rate"][readonly] {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* 兼容火狐浏览器 */
+[is="ui-rate"],
+_::-moz-range-track {
+    appearance: none;
+    -webkit-mask: var(--ui-mask);
+    mask: var(--ui-mask);
+    height: 2em;
+}
+
+[is="ui-rate"]::-moz-range-track {
+    background: var(--ui-light-border, #ededef);
+    height: inherit;
+}
+
+[is="ui-rate"]::-moz-range-progress {
+    background: var(--ui-rate-color);
+    height: inherit;
+}
+
+[is="ui-rate"]::-moz-range-thumb {
+    width: 0;
+    opacity: 0;
+}

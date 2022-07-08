@@ -1,0 +1,45 @@
+/**
+ * @overlay.css
+ * @description 黑色半透明遮罩层样式
+ * @author zhangxinxu
+ * @create 22-02-14
+**/
+
+ui-overlay {
+    display: grid;
+    position: fixed;
+    background-color: var(--ui-overlay-color, rgba(0, 0, 0, var(--ui-overlay-opacity, var(--ui-opacity, .4))));
+    inset: 0;
+    place-items: center;
+    z-index: 19; 
+}
+
+ui-overlay[touch="none"] {
+    touch-action: none;
+}
+
+ui-overlay:not([open]) {
+    visibility: hidden;
+}
+
+ui-overlay[fade] {
+    animation: overlayFadeIn calc(var(--ui-animate-time, .2s) + .1s);
+}
+ui-overlay[fade]:not([open]) {
+    animation: overlayFadeOut var(--ui-animate-time, .2s);
+}
+
+@supports not (inset: 0) {
+    ui-overlay {
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+}
+
+@keyframes overlayFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes overlayFadeOut {
+    0% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; }
+}

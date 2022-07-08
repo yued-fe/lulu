@@ -1,0 +1,208 @@
+@charset "UTF-8";
+/**
+ *
+ * @Range.css
+ * @author xboxyan
+ * @create 20-04-30
+**/
+/* range */
+[is="ui-range"] {
+    width: var(--ui-range-width, 100%);
+    height: var(--ui-range-height, 2rem);
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    outline: 0;
+    background-color: transparent;
+    vertical-align: middle;
+    /* 尺寸变量 */
+    --ui-range-size: 1.25rem;
+    --ui-range-track-hegiht: calc(var(--ui-range-size) / 5);
+}
+[is="ui-range"]:disabled {
+    opacity: var(--ui-opacity, .4);
+}
+[is="ui-range"]::-webkit-slider-runnable-track {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    height: var(--ui-range-track-hegiht);
+    background: linear-gradient(to right, var(--ui-range-color, var(--ui-blue, #2a80eb)) calc(100% * var(--percent,100)), var(--ui-gray, #a2a9b6) 0% );
+}
+
+[is="ui-range"]:not([radius="none"])::-webkit-slider-runnable-track {
+    border-radius: var(--ui-range-track-hegiht);
+}
+
+[type="range" i]::-webkit-slider-container {
+    display: flex;
+    height: var(--ui-range-height, var(--ui-range-size));
+}
+[is="ui-range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--ui-range-size);
+    height: var(--ui-range-size);
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
+    transition: border-color var(-ui-animate-time, .2s), background-color var(-ui-animate-time, .2s);
+    margin-top: calc((var(--ui-range-size) - var(--ui-range-track-hegiht)) * -0.5);
+}
+[is="ui-range"]::-webkit-slider-thumb:active {
+    background-color: var(--ui-light,#f7f9fa);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .25);
+}
+
+/* 尺寸设置 */
+[is="ui-range"][size="small"] {
+    --ui-range-size: 1rem;
+}
+[is="ui-range"][size="large"] {
+    --ui-range-size: 1.5rem;
+}
+
+/* 黑色提示效果 */
+input[tips] {
+    position: relative;
+}
+[is="ui-range"][tips] {
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 0 calc(var(--ui-range-size) * 0.5);
+}
+[is="ui-range"][tips]::-webkit-slider-runnable-track {
+    margin: 0 calc(var(--ui-range-size) * -0.5);
+}
+[is="ui-range"][tips]::before,
+[is="ui-range"][tips]::after {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -20px);
+    opacity: 0;
+    transition: all .15s .15s,left 0s, top 0s;
+    color: #373c42;
+    visibility: hidden;
+    pointer-events: none;
+}
+[is="ui-range"][tips]::before {
+    content: attr(tips);
+    border-radius: 3px;
+    padding: .5em .833rem;
+    line-height: 1.5;
+    text-align: left;
+    background-color: #373c42;
+    color: #fff;
+    font-size: .75rem;
+    font-style: normal;
+    width: max-content;
+    max-width: 17em;
+    left: calc(var(--percent, .5) * 100%);
+    bottom: 100%;
+    transform: translate(-50%, -20px);
+}
+[is="ui-range"][tips]::after {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border: 6px solid transparent;
+    left: calc(var(--percent, .5) * 100%);
+    bottom: 100%;
+    transform: translate(-50%, -20px);
+    margin-bottom: -12px;
+    border-top-color: currentColor;
+}
+[is="ui-range"][tips][reverse]::before {
+    left: calc(var(--percent,.5) * 100%);
+    bottom: auto;
+    top: 100%;
+    transform: translate(-50%, 20px);
+}
+[is="ui-range"][tips][reverse]::after {
+    bottom: auto;
+    top: 100%;
+    transform: translate(-50%, 20px);
+    margin-top: -12px;
+    border-top-color: transparent;
+    border-bottom-color: currentColor;
+}
+[is="ui-range"][tips]:not([tips*="$"]):active::before,
+[is="ui-range"][tips]:not([tips*="$"]):active::after {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, calc( var(--ui-range-size) * -1));
+}
+[is="ui-range"][tips][reverse]:not([tips*="$"]):active::before,
+[is="ui-range"][tips][reverse]:not([tips*="$"]):active::after {
+    transform: translate(-50%, var(--ui-range-size));
+}
+
+/* 区域选择 */
+[is="ui-range"][multiple]{
+    pointer-events: none;
+    vertical-align: top;
+    position: relative;
+    transform: translate(calc(var(--ui-offset-x, 0) * 1px), calc(var(--ui-offset-y, 0) * 1px));
+}
+[is="ui-range"][multiple]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+}
+[is="ui-range"][rel="brother"] {
+    position: absolute;
+    display: block;
+}
+[is="ui-range"][multiple]:not([rel="brother"]) {
+    opacity: 1;
+}
+[is="ui-range"][multiple]:not([rel="brother"]):disabled::-webkit-slider-thumb {
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .1);
+}
+[is="ui-range"][multiple]:not([rel="brother"])::-webkit-slider-runnable-track {
+    background: none;
+}
+[is="ui-range"][multiple]::-webkit-slider-thumb {
+    pointer-events: all;
+    position: relative;
+}
+[is="ui-range"][multiple]::-webkit-slider-thumb:active {
+    z-index: 1;
+}
+
+/* Firefox 范围选择 */
+[is="ui-range"][multiple]::-moz-range-thumb {
+    pointer-events: initial;
+}
+[is="ui-range"][multiple]::-moz-range-track {
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+}
+[is="ui-range"][multiple][rel="to"]::-moz-range-progress {
+    background: none;
+}
+
+/* 兼容火狐浏览器 */
+[is="ui-range"]::-moz-range-track {
+    background: var(--ui-light-border, #ededef);
+    height: var(--ui-range-track-hegiht);
+}
+
+[is="ui-range"]::-moz-range-progress {
+    background: linear-gradient(to right, transparent 0, var(--ui-range-color, var(--ui-blue, #2a80eb)) 0);
+    height: var(--ui-range-track-hegiht);
+}
+[is="ui-range"]::-moz-range-thumb {
+    width: var(--ui-range-size);
+    height: var(--ui-range-size);
+    border: none;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
+}
+[is="ui-range"][multiple]::-moz-range-track {
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+}
+[is="ui-range"][multiple]::-moz-range-progress {
+    background: none;
+}

@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/**
+ *
+ * @Checkbox.css
+ * @author zhangxinxu
+ * @create 22-01-18
+**/
+/* checkbox基础变量 */
+html {
+  --ui-checkbox-place: var(--ui-place-size, 1.5rem);
+  --ui-checkbox-size: var(--ui-basic-width, 1.25rem);
+  --ui-checkbox-radial: calc(var(--ui-checkbox-size) / 2);
+}
+
+[is="ui-checkbox"] {
+  --ui-mask-default: var(--ui-image-default, url(https://qidian.gtimg.com/lulu/hope/ui/Checkbox/assets/default.svg));
+  --ui-mask-indeterminate: var(--ui-image-indeterminate, url(https://qidian.gtimg.com/lulu/hope/ui/Checkbox/assets/indeterminate.svg));
+  --ui-mask-checked: var(--ui-image-checked, url(https://qidian.gtimg.com/lulu/hope/ui/Checkbox/assets/checked.svg));
+}
+
+[is="ui-checkbox"] {
+  all: initial;
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  width: var(--ui-checkbox-place);
+  height: var(--ui-checkbox-place);
+  vertical-align: calc(-0.5ex - (calc(var(--ui-checkbox-place) / 2 - var(--ui-checkbox-size) / 2)));
+  color: var(--ui-border, #d0d0d5);
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / var(--ui-checkbox-size) var(--ui-radio-size);
+  mask: no-repeat center / var(--ui-checkbox-size) var(--ui-checkbox-size);
+  -webkit-mask-image: var(--ui-mask-default);
+  mask-image: var(--ui-mask-default);
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+
+[is="ui-checkbox"]:checked {
+  color: var(--ui-primary, #2a80eb);
+  -webkit-mask-image: var(--ui-mask-checked);
+  mask-image: var(--ui-mask-checked);
+}
+
+[is="ui-checkbox"]:indeterminate {
+  color: var(--ui-primary, #2a80eb);
+  -webkit-mask-image: var(--ui-mask-indeterminate);
+  mask-image: var(--ui-mask-indeterminate);
+}
+
+[is="ui-checkbox"]:disabled {
+  color: var(--ui-dark-border, #ababaf);
+  opacity: var(--ui-opacity, .4);
+  cursor: default;
+}
+[is="ui-checkbox"][is-error] {
+  color: var(--ui-red, #eb4646) !important;
+}
+
+@media (hover: hover) {
+  [is="ui-checkbox"]:enabled:hover {
+    filter: brightness(.9);
+  }
+}
+
+[is="ui-checkbox"][extends] {
+  display: none;
+}

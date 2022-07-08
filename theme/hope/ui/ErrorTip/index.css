@@ -1,0 +1,178 @@
+@charset "UTF-8";
+/**
+ *
+ * @ErrorTip.css
+ * @author zhangxinxu
+ * @create 22-06-01
+ *
+**/
+
+:root {
+    --ui-tips-triangle-size: 6px; /* 底为 6*2，高为 6 */
+    --ui-tips-bg: #373c42;
+    --ui-tips-error-bg: linear-gradient(90deg, #ff8da2, #ec5b60);
+}
+
+/* JS生成的，和CSS定位样式不合并，保持独立 */
+.ui-tips-x {
+    position: absolute;
+    width: fit-content;
+    z-index: 99;
+    margin-top: -6px;
+    max-width: 20em;
+    padding: calc(6px + var(--ui-tips-triangle-size)) calc(10px + var(--ui-tips-triangle-size));
+    line-height: 18px;
+    color: var(--ui-white, #fff);
+    font-size: calc(var(--ui-font, 14px) - 2px);
+    font-style: normal;
+    text-align: left;
+}
+.ui-tips-x::before,
+.ui-tips-x::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: var(--ui-tips-bg);
+}
+.ui-tips-x::before {
+    z-index:-1;
+    clip-path: inset(
+            var(--ui-tips-triangle-size)
+            var(--ui-tips-triangle-size)
+            var(--ui-tips-triangle-size)
+            var(--ui-tips-triangle-size)
+            round calc(var(--ui-radius, 4px) - 1px));
+}
+.ui-tips-x::after {
+    clip-path: polygon(
+            calc(50% - var(--ui-tips-triangle-size)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(50% + var(--ui-tips-triangle-size)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            50% 100%
+    );}
+
+
+
+@media (any-hover: none) {
+    html {
+        --hoverNone: 'true';
+    }
+}
+
+/* 悬浮在左右侧的，限定最大宽度 */
+.ui-tips-x[data-align="8-6"],
+.ui-tips-x[data-align="6-8"] {
+    max-width: 600px;
+}
+
+
+/* 悬浮在目标正下方，箭头在框体 50% 0 位置 */
+.ui-tips-x[data-align="7-5"] {
+    margin-top: 6px;
+}
+
+.ui-tips-x[data-align="7-5"]::after {
+    clip-path: polygon(
+            calc(50% - var(--ui-tips-triangle-size)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            calc(50% + var(--ui-tips-triangle-size)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            50% 0%
+    );
+}
+
+/* 悬浮在目标左上，箭头在框体 100% -16px, 100% 位置 */
+.ui-tips-x[data-align="2-3"] {
+    margin-left: 12px;
+    margin-top: -6px;
+}
+
+.ui-tips-x[data-align="2-3"]::after {
+    clip-path: polygon(
+            calc(100% - 16px) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (16px + var(--ui-tips-triangle-size)*2)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (16px + var(--ui-tips-triangle-size))) 100%
+    );
+}
+
+/* 悬浮在目标右上，箭头在框体 16px, 100% 位置 */
+.ui-tips-x[data-align="1-4"] {
+    margin-left: -12px;
+    margin-top: -6px;
+}
+.ui-tips-x[data-align="1-4"]::after {
+    clip-path: polygon(
+            16px calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(16px + var(--ui-tips-triangle-size)*2) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(16px + var(--ui-tips-triangle-size)) 100%
+    );
+}
+
+/* 悬浮在目标左侧，箭头在框体 100%, 50% 位置 */
+.ui-tips-x[data-align="8-6"] {
+    margin-left: -6px;
+    margin-top: 0;
+}
+
+.ui-tips-x[data-align="8-6"]::after {
+    clip-path: polygon(
+            calc(100% - (var(--ui-tips-triangle-size) + 1px)) calc(50% - var(--ui-tips-triangle-size)),
+            calc(100% - (var(--ui-tips-triangle-size) + 1px)) calc(50% + var(--ui-tips-triangle-size)),
+            100% 50%
+    );
+}
+/* 悬浮在目标右侧，箭头在框体 0%, 50% 位置 */
+.ui-tips-x[data-align="6-8"] {
+    margin-left: 6px;
+    margin-top: 0;
+}
+
+.ui-tips-x[data-align="6-8"]::after {
+    clip-path: polygon(
+            calc(0% + (var(--ui-tips-triangle-size) + 1px)) calc(50% - var(--ui-tips-triangle-size)),
+            calc(0% + (var(--ui-tips-triangle-size) + 1px)) calc(50% + var(--ui-tips-triangle-size)),
+            0% 50%
+    );
+}
+
+/* 悬浮在目标左下侧，箭头在框体 100% - 16px, 0% 位置 */
+.ui-tips-x[data-align="3-2"] {
+    margin-left: 12px;
+    margin-top: 6px;
+}
+
+.ui-tips-x[data-align="3-2"]::after {
+    clip-path: polygon(
+            calc(100% - 16px) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (16px + var(--ui-tips-triangle-size)*2)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (16px + var(--ui-tips-triangle-size))) 0%
+    );
+}
+
+/* 悬浮在目标右下侧，箭头在框体 16px, 0% 位置*/
+.ui-tips-x[data-align="4-1"] {
+    margin-left: -12px;
+    margin-top: 6px;
+}
+
+.ui-tips-x[data-align="4-1"]::after {
+    clip-path: polygon(
+            16px calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            calc(16px + var(--ui-tips-triangle-size)*2) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+            calc(16px + var(--ui-tips-triangle-size)) 0%
+    );
+}
+
+
+/* 错误提示的tips效果 */
+.ui-tips-error:not(.none) {
+    animation: fadeIn var(--ui-animate-time, .2s), fallDown var(--ui-animate-time, .2s);
+}
+
+.ui-tips-error.ui-tips-x::before,
+.ui-tips-error.ui-tips-x::after {
+    background: var(--ui-tips-error-bg);
+    /*background-color: var(--ui-red, #eb4646);*/
+}
+

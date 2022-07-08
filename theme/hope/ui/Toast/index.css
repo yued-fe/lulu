@@ -1,0 +1,72 @@
+/**
+ *
+ * @Toast.css
+ * @author zhangxinxu
+ * @create 22-06-08
+**/
+/*
+ * 结构如下：
+ * <ui-toast></ui-toast>
+ *
+*/
+
+ui-toast {
+    display: grid;
+    width: fit-content;
+    max-width: calc(100% - 2rem);
+    font-size: var(--ui-font, 1rem);
+    text-align: center;
+    place-items: center;
+    line-height: 1.25;
+    color: var(--ui-white, #ffffff);
+    background-color: rgba(0, 0, 0, .75);
+    border-radius: var(--ui-radius, .25rem);
+    padding: .75rem 1rem;
+    position: fixed;
+    top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 19;
+    animation: fadeIn calc(var(--ui-animate-time, .2s) * 1.25) both;
+}
+ui-toast:not([open]) {
+    display: none;
+}
+
+ui-toast[type] {
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+    border-radius: .5rem;
+}
+ui-toast[type="success"]::before,
+ui-toast[type="error"]::before,
+ui-toast[type="warning"]::before,
+ui-toast[type="loading"]::before {
+    content: '';
+    width: calc(4em + 1.25rem);
+    height: 3rem;
+    background: no-repeat center / contain;
+    margin-bottom: .25rem;
+}
+ui-toast[type="success"]::before {
+    background-image: var(--ui-image-success, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/success.svg));
+}
+ui-toast[type="error"]::before {
+    background-image: var(--ui-image-error, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/error.svg));
+}
+ui-toast[type="warning"]::before {
+    background-image: var(--ui-image-warning, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/warning.svg));
+}
+ui-toast[type="loading"]::before {
+    background-image: var(--ui-image-loading, url(https://qidian.gtimg.com/lulu/hope/ui/Loading/assets/loading.svg));
+    filter: brightness(100);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

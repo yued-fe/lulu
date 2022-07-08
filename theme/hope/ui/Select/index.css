@@ -1,0 +1,113 @@
+/**
+ *
+ * @Select.css
+ * @author zhangxinxu(.com)
+ * @create 15-06-18
+ * @edited 19-08-27
+ *
+**/
+
+:root {
+    --ui-select-line-height: var(--ui-basic-height, 1.25rem);
+    --ui-select-height: var(--ui-component-height, 3rem);
+    --ui-select-radius: var(--ui-radius, .25rem);
+    --ui-select-font: var(--ui-font, 100%);
+    --ui-transparent: url(data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==);
+}
+
+select {
+    --ui-select-arrow: var(--ui-image-arrow, url(https://qidian.gtimg.com/lulu/hope/ui/Select/assets/arrow.svg));
+    --ui-select-color: var(--ui-dark, #4c5161);
+}
+
+[is="ui-select"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: var(--ui-select-height);
+    width: var(--ui-select-width, 100%);
+    margin: 0;
+    border: 1px solid var(--ui-border, #d0d0d5);
+    border-radius: var(--ui-select-radius);
+    font-size: var(--ui-select-font);
+    font-family: inherit;
+    color: var(--ui-select-color);
+    box-sizing: border-box;
+    padding-left: 1rem;
+    padding-right: 2rem;
+    /* 改变背景图的透明度 */
+    --cross-fade: -webkit-cross-fade(var(--ui-transparent), var(--ui-select-arrow), 40%) no-repeat right .5rem top 50% / var(--ui-select-line-height);
+    background: var(--ui-select-active, none), var(--cross-fade), var(--ui-white, #fff);
+    outline: none;
+    touch-action: none;
+    transition: opacity var(--ui-animate-time, .2s);
+}
+[is="ui-select"][popup] {
+    pointer-events: none;
+}
+
+[is="ui-select"]:active,
+ui-select:active + [is="ui-select"] {
+    --ui-select-active: var(--ui-image-active);
+}
+ui-select[is="ui-select"] {
+    position: absolute;
+    opacity: 0;
+    transform: translate(calc(var(--ui-offset-x, 0) * 1px), calc(var(--ui-offset-y, 0) * 1px));
+}
+
+[is="ui-select"][required]:invalid {
+    color: var(--ui-gray, #a2a9b6);
+}
+
+select[border="none"] {
+    border: none;
+}
+
+[active] select[border="none"] {
+    background: var(--cross-fade);
+}
+[active] select[border="none"]:active {
+    border-image: var(--ui-image-active) 1 fill / auto / 100vw;
+}
+
+@supports not ((background: -webkit-cross-fade(url(), url(), 0%)) or (background: cross-fade(url(), url(), 0%))) {
+    [is="ui-select"] {
+        background: var(--ui-select-active, none), var(--ui-select-arrow) no-repeat right .5rem top 50% / var(--ui-select-line-height), var(--ui-white, #fff);
+    }
+    select[border="none"] {
+        background: var(--ui-select-arrow) no-repeat right .5rem top 50% / var(--ui-select-line-height);
+    }
+}
+
+.ui-select-empty {
+    display: grid;
+    height: 4rem;
+    place-items: center;
+    color: var(--ui-gray, #a2a9b6);
+}
+
+[is="ui-select"]:disabled {
+    opacity: var(--ui-opacity, .4);
+}
+
+/* 任意自定义元素 */
+[is="ui-select"][trigger] {
+    display: none;
+}
+
+
+/* error */
+[is-error][is="ui-select"] {
+    border-color: var(--ui-red, #eb4646);
+}
+select[border="none"][is-error] {
+    background-color: #fff2f2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-select-button,
+    .ui-select,
+    .ui-select-datalist-li {
+        transition: none;
+    }
+}

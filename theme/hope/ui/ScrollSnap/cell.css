@@ -1,0 +1,47 @@
+/* 滑动式单元格样式 */
+
+@import url(../Button/index.css);
+
+ui-scroll-snap-cell {
+    display: flex;
+    flex: 1;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    clip-path: polygon(0 -1px, 100% -1px, 100% 101%, 0 101%);
+    overflow-y: hidden;
+}
+
+ui-scroll-snap-cell::-webkit-scrollbar {
+    width: 0; height: 0;
+}
+
+ui-scroll-snap-cell > .ui-button, 
+ui-scroll-snap-cell > [is="ui-button"] {
+    position: absolute;
+    border-radius: 0;
+    right: calc(var(--ui-offset-width) * 1px);
+    transform-origin: right;
+    transform: translate(calc(100% * calc(1 - var(--ui-offset-percent, 0))), 0);
+    white-space: nowrap;
+}
+
+ui-scroll-snap-cell:not(:defined) > button {
+    display: none;
+}
+
+ui-scroll-snap-cell > ui-scroll-snap-item {
+    display: flex;
+    align-items: center;
+    flex: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: .75rem 1rem;
+    scroll-snap-align: start;
+    background-color: #fff;
+    z-index: 1;
+}
+
+ui-scroll-snap-cell > ui-cell {
+    flex: 0 0 var(--ui-cell-width, 0);
+    scroll-snap-align: end;
+}

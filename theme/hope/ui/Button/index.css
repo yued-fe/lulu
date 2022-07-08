@@ -1,0 +1,222 @@
+@charset "UTF-8";
+/**
+ *
+ * @Button.css
+ * @author zhangxinxu
+ * @create  15-06-12
+ * @edited  17-06-13
+            17-11-07 use png+spin for loading
+            19-07-09 IE9+, no external links
+            20-04-03 version edge
+            22-01-21 version hope1
+ */
+
+/* button基础变量 */
+:root {
+    --ui-button-height: var(--ui-component-height, 3rem);
+    --ui-button-line-height: var(--ui-basic-height, 1.25rem);
+    --ui-button-radius: var(--ui-radius, .25rem);
+    --ui-button-color: var(--ui-dark, #4c5161);
+    --ui-button-loading-img: var(--ui-image-loading, url(https://qidian.gtimg.com/lulu/hope/ui/Loading/assets/loading.svg));
+}
+
+.ui-button,
+[is="ui-button"] {
+    display: inline-flex;
+    width: var(--ui-button-width, auto);
+    height: var(--ui-button-height, auto);
+    line-height: var(--ui-button-line-height);
+    font-size: calc(0.75rem + (var(--ui-button-height, 3rem) - 1.5rem) / 6);
+    justify-content: center;
+    align-items: center;
+    color: var(--ui-white, #fff);
+    border-radius: var(--ui-button-radius);
+    border: 1px solid var(--ui-button-color);
+    padding: calc((var(--ui-button-height) - var(--ui-button-line-height) - 2px) / 2) calc(var(--ui-button-height) / 3);
+    background: var(--ui-button-color) no-repeat center;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: border-color var(--ui-animate-time, .2s), box-shadow var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s);
+    font-family: inherit;
+    fill: currentColor;
+    flex: none;
+    outline: 0 none;
+    cursor: pointer;
+    overflow: visible;
+}
+[is="ui-button"]:active {
+    background: var(--ui-button-color) no-repeat center;
+}
+
+[is="ui-button"][height] {
+    padding-top: 0; padding-bottom: 0;
+}
+[is="ui-button"][width] {
+    padding-left: 0; padding-right: 0;
+}
+
+.ui-button[width="100%"],
+[is="ui-button"][width="100%"] {
+    width: 100%;
+}
+
+.ui-button[size="small"],
+[is="ui-button"][size="small"] {
+    --ui-button-height: 2.5rem;
+}
+.ui-button[size="mini"],
+[is="ui-button"][size="mini"] {
+    --ui-button-height: 2rem;
+}
+.ui-button[size="tiny"],
+[is="ui-button"][size="tiny"] {
+    --ui-button-height: 1.5rem;
+}
+
+div.ui-button,
+div[is="ui-button"] {
+    display: flex;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+@media (hover: hover) {
+    .ui-button:hover, 
+    [is="ui-button"]:hover {
+        text-decoration: none;
+    }
+    .ui-button:not(.disabled):not(.loading):not(:disabled):hover,
+    [is="ui-button"]:not(.disabled):not(.loading):not(:disabled):hover  {
+        filter: brightness(1.05);
+    }
+}
+
+.ui-button:not(.disabled):not(.loading):active,
+[is="ui-button"]:not(.disabled):not(.loading):active {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 100px rgba(0, 0, 0, 0.1);
+}
+
+/* normal button */
+[type="normal"],
+[type="default"],
+[data-type="normal"],
+[data-type="default"] {
+    --ui-button-color: var(--ui-white, #fff);
+    color: var(--ui-dark, #4c5161);
+    border-color: var(--ui-border);
+}
+
+/* primary button */
+[data-type="primary"],
+[data-type="remind"],
+[type="primary"],
+[type="remind"] {
+    --ui-button-color: var(--ui-blue, #2a80eb);
+}
+
+/* success button */
+[data-type="success"],
+[type="success"],
+[data-type="safe"],
+[type="safe"] {
+    --ui-button-color: var(--ui-green, #1cad70);
+}
+
+/* warning button */
+[data-type^="warn"],
+[type^="warn"] {
+    --ui-button-color: var(--ui-orange, #f59b00);
+}
+/* danger button */
+[data-type="danger"],
+[data-type="error"],
+[type="danger"],
+[type="error"] {
+    --ui-button-color: var(--ui-red, #eb4646);
+}
+
+.ui-button[plain],
+[is="ui-button"][plain] {
+    color: var(--ui-button-color);
+    background-color: var(--ui-white, #fff);
+}
+
+.ui-button[blank],
+[is="ui-button"][blank] {
+    color: var(--ui-button-color);
+    background-color: transparent;
+    border: 0;
+    --ui-button-radius: 0;
+    flex: 1;
+}
+
+/* disabled status */
+.ui-button.disabled,
+.ui-button:disabled,
+[is="ui-button"].disabled,
+[is="ui-button"]:disabled {
+    opacity: var(--ui-opacity, .4);
+    cursor: default;
+}
+/* loading status */
+.ui-button.loading,
+[is="ui-button"].loading {
+    pointer-events: none;
+    color: transparent !important;
+    position: relative;
+    cursor: default;
+}
+
+/* button 按钮 */
+.ui-button.loading::before,
+[is="ui-button"].loading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: var(--ui-basic-width, 1.25rem);
+    height: var(--ui-basic-height, 1.25rem);
+    background-color: var(--ui-white,#fff);
+    -webkit-mask: var(--ui-button-loading-img);
+    mask: var(--ui-button-loading-img);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    margin: auto;
+    animation: spin 1s var(--ui-timing-function, linear) infinite;
+}
+
+@supports not (inset: 0) {
+    .ui-button.loading::before,
+    [is="ui-button"].loading::before {
+        left: 0; top: 0; right: 0; bottom: 0;
+    }
+}
+
+/* 白底按钮 */
+.ui-button[plain].loading::before,
+[is="ui-button"][plain].loading::before {
+    background-color: var(--ui-button-color);
+}
+[data-type="normal"].loading::before,
+[data-type="default"].loading::before,
+[type="normal"].loading::before,
+[type="default"].loading::before {
+    background-color: var(--ui-blue,#2a80eb);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* error */
+.ui-button[is-error],
+[is="ui-button"][is-error] {
+    border-color: var(--ui-red, #eb4646) !important;
+}

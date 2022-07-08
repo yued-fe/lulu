@@ -1,0 +1,38 @@
+/**
+ *
+ * @FollowText.css
+ * @author zhangxinxu
+ * @create 22-06-09
+**/
+/*
+ * 结构如下：
+ * <ui-float type="text success"></ui-float>
+ *
+*/
+
+ui-float[type~="text"] {
+    position: absolute;
+    padding: .75rem 1rem;
+    line-height: 1.25rem;
+    font-size: .875rem;
+    white-space: nowrap;
+    animation: textPopup 1s both;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+@keyframes textPopup {
+    0%, 100% { opacity: 0; } 
+    5% { opacity: 1; } 
+    100% { transform: translateY(-50px); }
+}
+
+ui-float[type~="success"] {
+    color: var(--ui-green, #1cad70); 
+}
+ui-float[type~="error"] {
+    color: var(--ui-red, #eb4646); 
+}
+ui-float[type~="warning"] {
+    color: var(--ui-orange, #f59b00);
+}

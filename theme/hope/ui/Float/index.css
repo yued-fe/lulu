@@ -1,0 +1,10 @@
+/* 浮层元素固定的样式 */
+ui-float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 29;
+}
+ui-float:not([open]) {
+    display: none;
+}

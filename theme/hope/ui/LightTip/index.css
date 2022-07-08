@@ -1,0 +1,80 @@
+/**
+ *
+ * @LightTip.css
+ * @author xinxuzhang
+ * @create 15-06-25
+ * @edit   17-06-19
+ * @edit   19-09-13 @ziven27 [去jQuery]
+ * @edit   20-05-19 @popeyesailorman [add custom element support]
+ * @edit   22-06-08 @zhangxinxu for Mobile
+**/
+/*
+ * 结构如下：
+ * <ui-lighttip></ui-lighttip>
+ *
+*/
+
+ui-lighttip {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    max-width: calc(100% - 2rem);
+    font-size: var(--ui-font, 1rem);
+    text-align: left;
+    line-height: 1.25;
+    color: var(--ui-white, #ffffff);
+    background-color: var(--ui-dark, #4c5161);
+    border-radius: calc(var(--ui-radius, .25rem) - .125rem);
+    padding: .75rem 1rem;
+    position: fixed;
+    top: calc(var(--ui-sort-index, 0) * 3.25rem + .625rem);
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    z-index: 19;
+    outline: none;
+    cursor: default;
+    transition: top var(--ui-animate-time, .2s);
+    animation: fadeIn calc(var(--ui-animate-time, .2s) * 1.25) both;
+}
+ui-lighttip:not([open]) {
+    display: none;
+}
+
+ui-lighttip[type="success"] {
+    background-color: var(--ui-green, #1cad70);
+}
+ui-lighttip[type="error"] {
+    background-color: var(--ui-red, #eb4646);
+}
+ui-lighttip[type="warning"] {
+    background-color: var(--ui-orange, #f59b00);
+}
+ui-lighttip[type="success"]::before,
+ui-lighttip[type="error"]::before,
+ui-lighttip[type="warning"]::before {
+    content: '';
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    background: no-repeat center / contain;
+    transform: translate(-.25rem, 0);
+}
+ui-lighttip[type="success"]::before {
+    background-image: var(--ui-image-success, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/success.svg));
+}
+ui-lighttip[type="error"]::before {
+    background-image: var(--ui-image-error, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/error.svg));
+}
+ui-lighttip[type="warning"]::before {
+    background-image: var(--ui-image-warning, url(https://qidian.gtimg.com/lulu/hope/ui/LightTip/assets/warning.svg));
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

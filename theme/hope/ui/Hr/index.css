@@ -1,0 +1,137 @@
+/**
+ * @hr.css
+ * @description 分隔线样式效果
+ * @author zhangxinxu
+ * @create 22-01-14
+**/
+hr {
+    border-width: 0;
+    margin: 1em 0;
+    --ui-hr-border: var(--ui-border, #d0d0d5);
+}
+
+hr[v] {
+    min-height: 100%;
+    align-self: stretch;
+    border-left: 1px solid var(--ui-hr-border);
+    transform: scaleX(.51);
+    margin: 0;
+}
+
+hr:not([color]) {
+    border-color: var(--ui-hr-border);
+}
+
+hr:not([class*="ui-hr"]):not([v]),
+.ui-hr-solid,
+.ui-hr-weak,
+.ui-hr-dashed {
+    border-top-width: 1px;
+    border-style: solid;
+}
+
+.ui-hr-dashed {
+    --mask-dashed: repeating-linear-gradient(to right, #000 0 var(--ui-hr-filled, 4px), transparent 0 calc(var(--ui-hr-filled, 4px) + var(--ui-hr-open, 6px)));
+}
+.ui-hr-dashed:not([data-content]) {
+    -webkit-mask-image: var(--mask-dashed);
+    mask-image: var(--mask-dashed);
+}
+
+.ui-hr-weak {
+    -webkit-mask-image: linear-gradient(to right, transparent, black, transparent);
+    mask-image: linear-gradient(to right, transparent, black, transparent);
+}
+.ui-hr-twill {
+    padding: 3px;
+    background: repeating-linear-gradient(135deg, var(--ui-hr-border) 0px, var(--ui-hr-border) 1px, transparent 1px, transparent 6px);
+}
+.ui-hr-twill-colorful {
+    padding: 3px;
+    background: linear-gradient(135deg, var(--ui-red, #eb4646), var(--ui-orange, #f59b00), var(--ui-green, #1cad70), var(--ui-blue, #2a80eb), var(--ui-purple, #c12cea));
+    --mask-image: repeating-linear-gradient(135deg, #000 0px, #000 1px, transparent 1px, transparent 6px);
+    -webkit-mask-image: var(--mask-image);
+    mask-image: var(--mask-image);
+}
+.ui-hr-wavy {
+    color: var(--ui-hr-border);
+    height: .5em;
+    white-space: nowrap;
+    letter-spacing: 100vw;
+    padding-top: .5em;
+    overflow: hidden;
+}
+.ui-hr-wavy::before {
+    content: "\2000\2000";
+    /* 不支持浏览器实线代替 */
+    text-decoration: overline;
+    /* 现代浏览器 */
+    text-decoration-style: wavy;
+}
+
+.ui-hr-shadow {
+    padding-top: 10px;
+    color: var(--ui-hr-border);
+    box-shadow: inset 0 10px 10px -10px, inset 0 1px rgb(0 0 0 / 5%);
+    margin-top: 0;
+}
+
+/* 带内容 */
+hr[data-content] {
+    color: var(--ui-gray, #a2a9b6);
+    border: 0;
+    background: none;
+    font-size: 12px;
+    padding: 1em 0;
+    position: relative;
+    overflow: hidden;
+}
+hr[data-content]::before {
+    content: attr(data-content);
+    position: absolute;
+    padding: 0 1ch;
+    line-height: 1px;
+    border: solid var(--ui-hr-border);
+    border-width: 0 99vw;
+    width: fit-content;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-text-fill-color: transparent;
+}
+/* 真实的内容，这么实现是方便实现 0.5px 尺寸 */
+hr[data-content]::after {
+    content: attr(data-content);
+    position: absolute;
+    padding: 0 1ch;
+    line-height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.ui-hr-dashed[data-content]::before {
+    border-image: repeating-linear-gradient(90deg, var(--ui-hr-border), var(--ui-hr-border) 1px, transparent 1px, transparent 2px) 0 15% / / 0 repeat;
+}
+hr[data-content][color]::before {
+    border-left-color: inherit;
+    border-right-color: inherit;
+}
+
+
+/* 尺寸处理 */
+hr:not([class*="ui-hr"]):not([v]),
+hr[size="0.5"]:not([data-content]),
+hr[size=".5"]:not([data-content]) {
+    transform: scaleY(0.51);
+}
+hr[size="2"]:not([data-content]),
+hr[size="2"]:not([data-content]) {
+    transform: scaleY(2);
+}
+hr[size="0.5"][data-content]::before,
+hr[size=".5"][data-content]::before {
+    transform: translateX(-50%) scaleY(0.51);
+}
+hr[size="2"][data-content]::before,
+hr[size="2"][data-content]::before {
+    transform: translateX(-50%) scaleY(2);
+}

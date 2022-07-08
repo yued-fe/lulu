@@ -1,0 +1,117 @@
+/**
+ *
+ * @DropList.css
+ * @author xinxuzhang
+ * @create 15-07-01
+ * @edit  19-10-20 sunmeiye
+ * @edit  22-06-16 zhangxinxu
+**/
+
+.ui-droplist-x {
+    position: absolute;
+    width: 111px;
+    padding: 7px 0;
+    background-color: var(--ui-white, #ffffff);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    --safe-area: 3px;
+    border: 1px solid var(--ui-border, #d0d0d5);
+    border-radius: var(--ui-radius, 4px);
+    font-size: var(--ui-font, 14px);
+    animation: fadeIn var(--ui-animate-time, .2s);
+    z-index: 9;
+}
+
+.ui-droplist-li {
+    display: block;
+    line-height: 20px;
+    padding: 7px 12px 8px;
+    color: var(--ui-dark, #4c5161);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ui-droplist-hr {
+    border: 0;
+    border-bottom: 1px solid var(--ui-border, #d0d0d5);
+    margin: 7px 12px;
+    opacity: .4;
+}
+.ui-droplist-hr:first-child {
+    display: none;
+}
+
+a.ui-droplist-li:hover {
+    color: var(--ui-dark, #4c5161);
+    background-color: var(--ui-list-hover, #f0f7ff);
+}
+a.ui-droplist-li:hover::after {
+    background-position: 0 -20px;
+}
+
+span.ui-droplist-li {
+    color: var(--ui-gray, #a2a9b6);
+    cursor: default;
+}
+.ui-droplist-li[role="heading"] {
+    font-weight: 700;
+    padding-bottom: 5px;
+    cursor: default;
+}
+[role="heading"] ~ .ui-droplist-li:not([role="heading"]) {
+    padding-left: 24px;
+}
+.ui-droplist-li.disabled {
+    opacity: var(--ui-opacity, .4);
+}
+
+.ui-droplist-li[data-sublist]::before {
+    transform: rotate(-90deg);
+    margin-top: 1px;
+    float: right;
+}
+
+.ui-droplist-x > .selected {
+    background-color: var(--ui-list-selected, #e0f0ff);
+}
+
+.selected + .ui-droplist-xx > .ui-droplist-x {
+    display: block;
+}
+
+.ui-droplist-xx {
+    position: relative;
+}
+.ui-droplist-xx > .ui-droplist-x {
+    display: none;
+    left: calc(100% - 5px);
+    top: -35px;
+}
+.ui-droplist-xx > .reverse {
+    left: auto;
+    right: calc(100% - 5px);
+}
+
+.ui-droplist-arrow:not(:empty) {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+.ui-droplist-arrow:empty,
+.ui-droplist-arrow:not(:empty)::after,
+.ui-droplist-li[data-sublist]::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 197 200 400'%3E%3Cpath d='M-59.7 271.6c-4.2-4.1-11-4.1-15.3 0l-30.5 29.6-30.5-29.6c-4.2-4.1-11-4.1-15.3 0-4.2 4.1-4.2 10.7 0 14.8l38.2 37c4.2 4.1 11 4.1 15.3 0l38.2-37c4.1-4.1 4.1-10.7-.1-14.8z' fill='%23a2a9b6'/%3E%3Cpath d='M-58.7 471.6c-4.2-4.1-11-4.1-15.3 0l-30.5 29.6-30.5-29.6c-4.2-4.1-11-4.1-15.3 0-4.2 4.1-4.2 10.7 0 14.8l38.2 37c4.2 4.1 11 4.1 15.3 0l38.2-37c4.1-4.1 4.1-10.7-.1-14.8z' fill='%232a80eb'/%3E%3C/svg%3E"), none;
+    background-size: 20px 40px;
+    vertical-align: -5px;
+}
+
+a:active .ui-droplist-arrow:empty,
+.ui-droplist-arrow:not(:empty):active::after {
+    background-position: 0 -20px;
+}

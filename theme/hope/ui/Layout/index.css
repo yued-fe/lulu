@@ -1,0 +1,298 @@
+/**
+ * @layout.css
+ * @description 一些内置布局相关 CSS
+ * @author zhangxinxu
+ * @create 21-01-05
+**/
+
+/* grid 布局 */
+ui-grid,
+.ui-grid {
+    display: grid;
+    gap: var(--ui-gap, 0);
+}
+ui-grid[repeat],
+.ui-grid[repeat] {
+    grid: auto / repeat(auto-fit, minmax(var(--ui-repeat-size, 6rem), 1fr));
+}
+
+ui-grid > :not([is]),
+.ui-grid > :not([is]) {
+    padding: var(--ui-space, 0);
+}
+
+/* 左侧项目宽度整体一致自适应的弹性表格布局 */
+ui-grid[form],
+.ui-grid[data-form],
+form.ui-grid {
+    grid: auto / auto 1fr;
+    align-items: center;
+}
+ui-grid[form] hr,
+.ui-grid[data-form] hr,
+form.ui-grid hr,
+ui-grid [span="2"],
+.ui-grid [span="2"] {
+    grid-column: 1 / span 2;
+}
+
+
+/* flex 布局 */
+ui-flex,
+.ui-flex {
+    display: flex;
+    gap: var(--ui-gap, 0);
+}
+ui-flex[wrap],
+.ui-flex[data-wrap] {
+    flex-wrap: wrap;
+}
+ui-flex[center],
+.ui-flex[data-center] {
+    align-items: center;
+}
+
+[flex="none"] {
+    flex: none;
+}
+[flex="1"] {
+    flex: 1;
+}
+[flex="auto"] {
+    flex: auto;
+}
+
+[order="first"],
+[order="1"] {
+    order: 1;
+}
+[order="last"],
+[order="999"] {
+    order: 999;
+}
+
+[space="between"] {
+    justify-content: space-between;
+}
+[space="around"] {
+    justify-content: space-around;
+}
+[space="evenly"] {
+    justify-content: space-evenly;
+}
+
+[self="stretch"] {
+    align-self: stretch;
+}
+[self="flex-start"],
+ui-flex [self="start"],
+.ui-flex [self="start"] {
+    align-self: flex-start;
+}
+[self="start"] {
+    align-self: start;
+}
+[self="center"] {
+    align-self: center;
+}
+[self="end"] {
+    align-self: end;
+}
+[self="flex-end"],
+ui-flex [self="end"],
+.ui-flex [self="end"] {
+    align-self: flex-end;
+}
+
+[justify="stretch"] {
+    justify-self: stretch;
+}
+[justify="start"] {
+    justify-self: start;
+}
+[justify="center"] {
+    justify-self: center;
+}
+[justify="end"] {
+    justify-self: end;
+}
+/* ui-flex[justify="start"],
+.ui-flex[justify="start"] {
+    justify-content: flex-start;
+}
+ui-flex[justify="center"],
+.ui-flex[justify="center"],
+ui-grid[justify="center"],
+.ui-grid[justify="center"] {
+    justify-content: center;
+}
+ui-flex[justify="end"],
+.ui-flex[justify="end"] {
+    justify-content: flex-end;
+}
+ui-grid[justify="start"],
+.ui-grid[justify="start"] {
+    justify-content: start;
+}
+ui-grid[justify="end"],
+.ui-grid[justify="end"] {
+    justify-content: end;
+} */
+
+
+/* 其他布局状态 */
+ui-contents,
+.ui-contents {
+    display: contents;
+}
+ui-flow-root,
+.ui-flow-root {
+    display: flow-root;
+}
+
+/* 列表布局 */
+ui-list,
+.ui-list {
+    background-color: var(--ui-white, #fff);
+    box-shadow: 0 .51px var(--ui-border, #d0d0d5), 0 -.51px var(--ui-border, #d0d0d5);;
+    position: relative;
+}
+ui-list:not([hidden]),
+.ui-list:not([hidden]) {
+    display: block;
+}
+
+ui-list + ui-list {
+    margin-top: -1px;
+}
+
+ui-list[label]::before {
+    content: attr(label);
+    display: block;
+    position: static;
+    border: none;
+    transform: none;
+    padding-top: 1rem; padding-bottom: .5rem;
+    margin-left: 1rem;
+    box-shadow: 0 .51px var(--ui-border, #d0d0d5);
+    font-weight: bolder;
+}
+ui-list[disabled]::before {
+    color: var(--ui-gray, #a2a9b6);
+}
+
+ui-list-item,
+.ui-list-item {
+    display: flex;
+    line-height: 1.5;
+    align-items: center;
+    padding: var(--ui-space, 0);
+    position: relative;
+    isolation: isolate;
+}
+
+.ui-list-item[space=""],
+ui-list-item[space=""] {
+    --ui-space: .75rem 1rem;
+}
+
+ui-list-item:not(:last-child)::after,
+.ui-list-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; left: 1rem; bottom: 0;
+    border-top: 1px solid var(--ui-border, #d0d0d5);
+    transform: scaleY(.51);
+    transform-origin: bottom;
+    z-index: 2;
+}
+
+ui-list-item > [type="radio"],
+ui-list-item > [type="checkbox"] {
+    all: initial;
+    width: var(--ui-place-size, 1.5rem);
+    height: var(--ui-place-size, 1.5rem);
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--ui-gray, #a2a9b6);
+}
+
+ui-list-item > [type="radio"]:checked,
+ui-list-item > [type="checkbox"]:checked {
+    color: var(--ui-blue, #2a80eb);
+}
+ui-list-item > [type="radio"]::before,
+ui-list-item > [type="checkbox"]::before {
+    content: '';
+    display: block;
+    width: inherit; height: inherit;
+    -webkit-mask: no-repeat center / var(--ui-basic-width, 1.25rem) var(--ui-basic-width, 1.25rem);
+    mask: no-repeat center / var(--ui-basic-width, 1.25rem) var(--ui-basic-width, 1.25rem);
+    -webkit-mask-image: var(--ui-image-default);
+    mask-image: var(--ui-image-default);
+    background-color: currentColor;
+}
+ui-list-item > [type="radio"]:checked::before,
+ui-list-item > [type="checkbox"]:checked::before {
+    -webkit-mask-image: var(--ui-image-checked);
+    mask-image: var(--ui-image-checked);
+}
+ui-list-item > [type="radio"]::after,
+ui-list-item > [type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+}
+ui-list-item > [type="radio"]:active::after,
+ui-list-item > [type="checkbox"]:active::after {
+    background-color: rgba(0,0,0,.05);
+}
+ui-list-item > [type="radio"]:disabled::after,
+ui-list-item > [type="checkbox"]:disabled::after {
+    background-color: var(--ui-white, #fff);
+    opacity: var(--ui-opacity, .4);
+}
+
+ui-list-item:not([reverse]) > [type="radio"],
+ui-list-item:not([reverse]) > [type="checkbox"] {
+    margin-left: auto;
+    margin-inline-start: auto;
+    order: 10000;
+}
+
+/* 走 web 组件模式时候的占位处理 */
+ui-list-item[type]:not(:defined)::before {
+    content: '';
+    width: 1.5rem; height: 1.5rem;
+}
+ui-list-item[type]:not([reverse]):not(:defined)::before {
+    margin-left: auto;
+    margin-inline-start: auto;
+    order: 10000;
+}
+
+/* labe > radio 组合列表 */
+label.ui-list-item:active {
+    background-image: var(--ui-image-active);
+}
+
+label.ui-list-item:not([reverse]) > [is="ui-radio"],
+label.ui-list-item:not([reverse]) > [is="ui-checkbox"] {
+    order: 999;
+    margin-left: auto;
+}
+label.ui-list-item[reverse] > [is="ui-radio"],
+label.ui-list-item[reverse] > [is="ui-checkbox"] {
+    margin-right: .25rem;
+}
+
+ui-list-item[active] {
+    overflow: clip;
+}
+
+@supports not (overflow: clip) {
+    ui-list-item[active] {
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,68 @@
+@import url(./index/css);
+/**
+ *
+ * @Switch.css
+ * @author zhangxinxu
+ * @create 15-06-18
+ * @edit   17-06-14    keyboard accessible
+ * @editor shanyerong
+ * @edit   2020-04-30
+**/
+:root {
+    --ui-switch-width: 4rem;
+    --ui-switch-height: 2rem;
+}
+[is="ui-switch"] {
+    -webkit-appearance: none;
+    display: inline-flex;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px, inset 1px 0, inset -1px 0, inset 0 -1px;
+    background-clip: content-box;
+    -webkit-appearance: none;
+    width: var(--ui-switch-width);
+    height: var(--ui-switch-height);
+    border: 2px solid;
+    border-radius: var(--ui-switch-height);
+    background-color: currentColor;
+    color: var(--ui-dark-gray, #b6bbc6);
+    font-size: 0;
+    transition: all var(--ui-animate-time, .2s);
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+[is="ui-switch"]:checked {
+    color: var(--ui-blue, #2a80eb);
+    background-color: var(--ui-blue, #2a80eb);
+}
+[is="ui-switch"]::before {
+    content: '';
+    flex: 0;
+    transition: flex var(--ui-animate-time, .2s);
+}
+
+[is="ui-switch"]::after {
+    content: "";
+    width: calc(var(--ui-switch-height) - 4px);
+    height: calc(var(--ui-switch-height) - 4px);
+    border-radius: 100%;
+    background-color: var(--ui-white, #ffffff);
+    opacity: 1;
+    visibility: visible;
+}
+
+[is="ui-switch"]:active {
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+[is="ui-switch"]:checked::before {
+    flex: 1;
+}
+
+[is="ui-switch"]:disabled {
+    opacity: var(--ui-opacity, .4);
+    cursor: default;
+}

@@ -1,0 +1,73 @@
+/**
+ *
+ * @Tab.css
+ * @author xinxuzhang
+ * @create 15-06-12
+ * @edit   22-06-30
+ */
+/* tabs */
+
+
+ui-tabs {
+    display: flex;
+    height: 2.75rem;
+    padding-bottom: 2px;
+    background: linear-gradient(var(--ui-border, #d0d0d5), var(--ui-border, #d0d0d5)) no-repeat 50% calc(100% - 1px) / 100% 1px;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+ui-tabs::-webkit-scrollbar {
+    width: 0; height: 0;
+}
+
+ui-tab {
+    flex: auto;
+    font-size: var(--ui-font, 1rem);
+    line-height: 1.5rem;
+    text-align: center;
+    color: var(--ui-dark, #4c5161);
+    white-space: nowrap;
+    padding: .6rem .5rem .65rem;
+    cursor: pointer;
+}
+
+ui-tab[disabled] {
+    opacity: var(--ui-opacity, .4);
+    cursor: default;
+}
+
+ui-tab:not([disabled]):active {
+    background-image: var(--ui-image-active);
+}
+
+ui-tab[open] {
+    color: var(--ui-blue, #2a80eb);
+    cursor: default;
+}
+
+ui-tabs::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: calc(1px * var(--ui-tab-left, 0));
+    width: calc(1px * var(--ui-tab-width, 0));
+    border-bottom: solid var(--ui-blue, #2a80eb);
+}
+ui-tabs[role]::after {
+    transition: var(--ui-animate-time, .2s);
+}
+
+ui-tab-content {
+    display: block;
+}
+ui-tab-content {
+    display: block;
+    padding: var(--ui-gap, 1rem);
+}
+ui-tab-content:not(.active) {
+    display: none;
+}
+

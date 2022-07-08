@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/**
+ *
+ * @reset.css
+ * @author zhangxinxu
+ * @create 21-12-30
+**/
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: none;
+}
+
+/* 禁止长按的效果 */
+a {
+  -webkit-touch-callout: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+a[href]:active,
+button:active,
+[role="button"]:active,
+[role="link"]:active {
+  background-image: var(--ui-image-active, linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .05)));
+}
+
+html {
+  font-size: medium;
+}
+
+@media (min-width: 375px) {
+  html {
+    /* 375px尺寸作为16px基准，414px正好18px大小 */
+    font-size: calc(100% + 2 * (100vw - 375px) / 39);
+  }
+}
+
+/*
+ * 414px ～ 1280px
+ * 18px ~ 20px
+ */
+@media (min-width: 414px) {
+  html {
+    font-size: min(calc(112.5% + 2 * (100vw - 414px) / 1066), 24px);
+  }
+}
+
+@media (any-pointer: fine) {
+  html {
+    font-size: medium;
+  }
+}

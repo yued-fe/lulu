@@ -1,0 +1,153 @@
+@charset "UTF-8";
+/**
+ *
+ * @Textarea.css
+ * @author xinxuzhang
+ * @create 15-06-17
+ * @edit   20-04-03 version edge
+ * @editor lennonover
+**/
+
+:root {
+    --ui-textarea-line-height: var(--ui-basic-height, 1.25rem);
+    --ui-textarea-radius: var(--ui-radius, .25rem);
+    --ui-textarea-border: var(--ui-border, #d0d0d5);
+    --ui-textarea-focus: var(--ui-primary, #2a80eb);
+    --ui-textarea-font: var(--ui-font, 1rem);
+}
+
+textarea {
+    --ui-fill: var(--ui-gray, #a2a9b6);
+    --ui-textarea-height: calc(var(--ui-textarea-line-height) * var(--ui-textarea-rows, 2) + 1.5rem + 2px);
+}
+textarea:focus {
+    --ui-fill: var(--ui-textarea-focus);
+}
+
+textarea::placeholder {
+    transition: opacity var(--ui-animate-time, .2s);
+    color: var(--ui-gray, #a2a9b6);
+    font-size: var(--ui-textarea-font);
+    opacity: 1;
+}
+
+textarea:focus::placeholder {
+    opacity: var(--ui-opacity, .4);
+}
+
+.ui-textarea,
+[is="ui-textarea"] {
+    width: var(--ui-textarea-width, 100%);
+    line-height: var(--ui-textarea-line-height);
+    height: var(--ui-textarea-height, auto);
+    max-height: 100vh;
+    padding: .75rem;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 1px var(--ui-textarea-border);
+    border-radius: var(--ui-textarea-radius);
+    background: var(--ui-white, #fff) no-repeat center / auto var(--ui-textarea-line-height);
+    background-image: var(--ui-textarea-image-label, none), var(--ui-textarea-image-count, none);
+    background-position: .75rem 0, calc(100% - .75rem) calc(100% + 1rem);
+    outline: none;
+    color: var(--ui-dark, #4c5161);
+    font-size: var(--ui-textarea-font);
+    transition: color, box-shadow, background-size, background-position, --ui-fill;
+    transition-duration: var(--ui-animate-time, .2s);
+    word-break: break-all;
+    vertical-align: top;
+    box-sizing: border-box;
+    font-family: system-ui;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    resize: none;
+    overflow: auto;
+}
+
+[is="ui-textarea"][_maxlength] {
+    border-bottom-width: 1.5rem;
+    --ui-textarea-height: calc(var(--ui-textarea-line-height) * var(--ui-textarea-rows, 2) + 3rem + 1px);
+}
+
+textarea[resize] {
+    resize: both;
+}
+textarea[resize="vertical"] {
+    resize: vertical;
+}
+textarea[resize="horizontal"] {
+    resize: horizontal;
+}
+
+/* focus border color */
+.ui-textarea:not([border]):read-write:focus,
+[is="ui-textarea"]:not([border]):read-write:focus {
+    box-shadow: 0 0 0 1px var(--ui-textarea-focus);
+}
+
+/* bottom border textarea */
+
+textarea[border] {
+    box-shadow: none;
+}
+
+.ui-textarea[border="bottom"],
+[is="ui-textarea"][border="bottom"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: var(--ui-light, #f7f9fa);
+}
+.ui-textarea[border="bottom"]:read-write:focus,
+[is="ui-textarea"][border="bottom"]:read-write:focus {
+    border-image: linear-gradient(transparent calc(100% - 2px), var(--ui-textarea-focus) 0) 2 / 2px;
+    background-color: var(--ui-light-background);
+}
+textarea[border="bottom"][label] {
+    border-top-width: 1.5rem;
+    --ui-textarea-height: calc(var(--ui-textarea-line-height) * var(--ui-textarea-rows, 2) + 3rem + 1px);
+}
+[border="bottom"][label][_maxlength] {
+    --ui-textarea-height: calc(var(--ui-textarea-line-height) * var(--ui-textarea-rows, 2) + 4.5rem);
+}
+textarea[border="bottom"][label]::placeholder {
+    color: transparent;
+}
+textarea[border="bottom"][label]:focus,
+textarea[border="bottom"][label]:not(:placeholder-shown) {
+    background-position-y: -1rem, calc(100% + 1rem);
+    background-size: auto calc(var(--ui-textarea-line-height) * 0.75), auto var(--ui-textarea-line-height); 
+}
+
+/* no border textarea */
+.ui-textarea[border="none"],
+[is="ui-textarea"][border="none"] {
+    border-color: transparent;
+}
+
+[active] .ui-textarea[border="none"]:active,
+[active] [is="ui-textarea"][border="none"]:active {
+    border-image: var(--ui-image-active) 1 fill / auto / 50vw;
+    border-width: 0.001px;
+}
+
+/* disabled */
+.ui-textarea:disabled,
+[is="ui-textarea"]:disabled {
+    background-color: var(--ui-light, #f7f9fa);
+    color: var(--ui-gray, #a2a9b6);
+}
+
+textarea:read-only,
+textarea:disabled {
+    resize: none;
+}
+
+/* error */
+.ui-textarea[is-error],
+[is="ui-textarea"][is-error] {
+    --ui-textarea-border: var(--ui-red, #eb4646);
+    --ui-textarea-focus: var(--ui-red, #eb4646);
+}
+.ui-textarea[is-error][border],
+[is="ui-textarea"][is-error][border] {
+    background-color: #fff2f2 !important;
+}

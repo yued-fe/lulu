@@ -1,0 +1,113 @@
+@charset "UTF-8";
+/**
+ *
+ * @Loading.css
+ * @author zhangxinxu
+ * @create 15-06-23
+ * @edit   19-09-24  add custom element support
+ * @edit by littleLionGuoQing:  20-04-30 支持使用color变色
+ * @edit by zhangxinxu use var for size and color
+ *
+**/
+/*
+ * 结构如下：
+ * <ui-loading></ui-loading>
+ *
+*/
+/* loading基础变量 */
+:root {
+    --ui-loading-img: var(--ui-image-loading, url(https://qidian.gtimg.com/lulu/hope/ui/Loading/assets/loading.svg));
+    --ui-loading-basic-height: var(--ui-basic-height, 1.25rem);
+}
+
+ui-loading,
+.ui-loading {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: default;
+    /* icon offset need */
+    box-sizing: border-box; 
+}
+ui-loading {
+    display: inline-flex;
+    font-size: var(--ui-font, 1rem);
+    line-height: var(--ui-loading-basic-height);
+    height: calc(var(--ui-loading-basic-height) * var(--ui-rows, 2));
+    vertical-align: middle;
+}
+
+ui-loading[rows],
+.ui-loading {
+    display: flex;
+}
+
+ui-loading::before,
+.ui-loading::before {
+    content: '';
+    display: inline-block;
+    width: calc(var(--ui-loading-basic-height) * var(--ui-size, 2) / 2);
+    height: calc(var(--ui-loading-basic-height) * var(--ui-size, 2) / 2);
+    margin: 0 .5em;
+    background-color: var(--ui-color, #2a80eb);
+    -webkit-mask: var(--ui-loading-img);
+    mask: var(--ui-loading-img);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    animation: spin 1s linear infinite;
+    vertical-align: -.25rem;
+}
+
+ui-toast.ui-loading {
+    display: grid;
+    width: 8rem;
+    --ui-color: var(--ui-white, #fff);
+    --ui-size: 3;
+    font-size: .875rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-radius: .5rem;
+}
+
+ui-toast.ui-loading:empty {
+    height: 8rem;
+    padding-top: 1.25rem;
+}
+
+ui-loading-text {
+    margin: 1rem 0 0;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 文本点点点 */
+ui-dot,
+[is-dot] {
+    display: inline-block;
+    height: 1em; line-height: 1;
+    text-align: left;
+    vertical-align: -.25em;
+    overflow: hidden;
+}
+ui-dot::before,
+[is-dot]::before {
+    display: block;
+    content: '...\A..\A.';
+    white-space: pre-wrap;
+    animation: dot 3s infinite step-start both;
+}
+@keyframes dot {
+    33% {
+        transform: translateY(-2em);
+    }
+    66% {
+        transform: translateY(-1em);
+    }
+}

@@ -1,0 +1,61 @@
+/**
+ *
+ * @Radio.css
+ * @author zhangxinxu
+ * @create 22-01-17
+**/
+
+/* radio基础变量 */
+html {
+  --ui-radio-place: var(--ui-place-size, 1.5rem);
+  --ui-radio-size: var(--ui-basic-width, 1.25rem);
+  --ui-radio-radial: calc(var(--ui-radio-size) / 2);
+}
+
+[is="ui-radio"] {
+  all: initial;
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  width: var(--ui-radio-place);
+  height: var(--ui-radio-place);
+  vertical-align: calc(-0.5ex - (calc(var(--ui-radio-place) / 2 - var(--ui-radio-size) / 2)));
+  /* ensure running fine even if no css var included */
+  --ui-mask-default: var(--ui-image-default, url(https://qidian.gtimg.com/lulu/hope/ui/Radio/assets/default.svg));
+  --ui-mask-checked: var(--ui-image-checked, url(https://qidian.gtimg.com/lulu/hope/ui/Radio/assets/checked.svg));
+  background-color: var(--ui-border, #d0d0d5);
+  -webkit-mask: no-repeat center / var(--ui-radio-size) var(--ui-radio-size);
+  mask: no-repeat center / var(--ui-radio-size) var(--ui-radio-size);
+  -webkit-mask-image: var(--ui-mask-default);
+  mask-image: var(--ui-mask-default);
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+[is="ui-radio"]:checked {
+  background-color: var(--ui-primary, #2a80eb);
+  -webkit-mask-image: var(--ui-mask-checked);
+  mask-image: var(--ui-mask-checked);
+}
+
+[is="ui-radio"]:disabled {
+  background-color: var(--ui-dark-border, #ababaf);
+  opacity: var(--ui-opacity, .4);
+  cursor: default;
+}
+[is="ui-radio"][is-error] {
+  background-color: var(--ui-red, #eb4646) !important;
+}
+
+@media (hover: hover) {
+  [is="ui-radio"]:enabled:hover {
+    filter: brightness(.9);
+  }
+}
+
+/* extends radio */
+[is="ui-radio"][extends] {
+  display: none;
+}
+

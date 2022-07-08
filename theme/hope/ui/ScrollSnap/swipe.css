@@ -1,0 +1,40 @@
+/* 自动轮播的 CSS，依赖主样式 */
+
+@import url(./index.css);
+
+ui-scroll-snap-swipe {
+    display: block;
+    position: relative;
+}
+
+ui-scroll-snap-swipe ui-scroll-snap {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+ui-scroll-snap-swipe ui-scroll-snap-item {
+    flex: none;
+    width: 100%;
+}
+ui-swipe-control {
+    position: absolute;
+    left: 0; right: 0; bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+ui-swipe-control-item {
+    width: 1.125rem; height: 1.125rem;
+    color: var(--ui-light, #f7f9fa);
+    background-color: currentColor;
+    background-clip: content-box;
+    transition: color var(--ui-animate-time, .2s);
+    padding: .375rem;
+    box-sizing: border-box;
+    border-radius: 50%;
+    filter: drop-shadow(1px 1px #0003);
+}
+ui-swipe-control-item[selected] {
+    color: var(--ui-blue, #2a80eb);
+}

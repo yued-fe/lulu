@@ -1,0 +1,16 @@
+/* 滑动式单元格样式 */
+
+@import url(../Rel/tab.css);
+@import url(./index.css);
+
+ui-scroll-snap-tab {
+    display: block;
+}
+
+ui-scroll-snap-tab ui-tabs {
+    scroll-snap-type: x mandatory;
+}
+
+ui-scroll-snap-tab ui-tab {
+    scroll-snap-align: center;
+}

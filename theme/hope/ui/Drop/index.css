@@ -1,0 +1,22 @@
+/**
+ * @Drop.css
+ * @author zhangxinxu
+ * @create 20-12-15
+ * @edit   22-06-16 zhangxinxu
+**/
+
+ui-drop {
+    display: inline-flex;
+}
+
+ui-drop[tabindex="0"] {
+    cursor: pointer;
+}
+ui-drop ~ .ui-drop-target {
+    position: absolute;
+    z-index: 9;
+}
+ui-drop:not([open]) ~ .ui-drop-target {
+    display: none;
+}
+

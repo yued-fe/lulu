@@ -1,0 +1,102 @@
+/**
+ *
+ * @Progress.css
+ * @author zhangxinxu
+ * @create 19-10-18
+ * @edit   20-04-10 version edge
+ *         22-02-09 version hope
+ *
+**/
+
+/* progress基础变量 */
+:root {
+    --ui-progress-width: 100%;
+    --ui-progress-height: .25em;
+    --ui-progress-background-color: var(--ui-border, #d0d0d5);
+}
+
+progress:not(:defined)[radius="0"] {
+    border-radius: 0;
+}
+
+.ui-progress,
+[is="ui-progress"] {
+    width: var(--ui-progress-width);
+    height: var(--ui-progress-height);
+    line-height: 1.375;
+    vertical-align: calc(.25em - 2px);
+    text-align: left;
+    border: 0;
+    color: var(--ui-blue, #2a80eb);
+    --ui-progress-color: currentColor;
+    background-color: var(--ui-progress-background-color);
+    border-radius: var(--ui-progress-radius, 2rem);
+    -webkit-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    /* 背景动画 */
+    --ui-progress-background: linear-gradient(currentColor, currentColor) no-repeat 0 / 25%, var(--ui-progress-background-color);
+}
+.ui-progress::-moz-progress-bar,
+[is="ui-progress"]::-moz-progress-bar {
+    background: var(--ui-progress-color);
+}
+.ui-progress::-webkit-progress-bar,
+[is="ui-progress"]::-webkit-progress-bar {
+    background-color: var(--ui-progress-background-color);
+}
+.ui-progress::-webkit-progress-value,
+[is="ui-progress"]::-webkit-progress-value {
+    background: var(--ui-progress-color);
+    transition: width var(--ui-animate-time, .2s);
+}
+[label]::-webkit-progress-value {
+    transition: none;
+}
+
+/* For firefox to match no [value] */
+.ui-progress:indeterminate::-moz-progress-bar,
+[is="ui-progress"]:indeterminate::-moz-progress-bar {
+    background: inherit;
+}
+.ui-progress:indeterminate,
+[is="ui-progress"]:indeterminate {
+    background: var(--ui-progress-background);
+    animation: comeGo 1s linear infinite alternate-reverse;
+}
+.ui-progress:indeterminate::-webkit-progress-bar,
+[is="ui-progress"]:indeterminate::-webkit-progress-bar {
+    background: transparent;
+}
+
+@keyframes comeGo {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100% 0;
+    }
+}
+
+/* 提示 */
+[is="ui-progress"]::before {
+    content: var(--ui-progress-label);
+    position: absolute;
+    padding: 0 .5em;
+    font-size: .75rem;
+    background: var(--ui-progress-background-label, var(--ui-progress-color)) no-repeat center / contain;
+    -webkit-text-fill-color: var(--ui-progress-color-label, #fff);
+    border-radius: 1rem;
+    transform: translate(var(--ui-progress-offset-label, calc(var(--ui-progress-percent) * -1)), -50%);
+    margin-left: calc(var(--ui-progress-offset, 0) * 1px);
+    margin-top: 1px;
+}
+label[is="ui-progress"] {
+    visibility: hidden;
+    transform: translate(calc(var(--ui-offset-x, 0) * 1px), calc(var(--ui-offset-y, 0) * 1px));
+    position: absolute;
+    overflow: visible;
+}
+label[is="ui-progress"]::before {
+    visibility: visible;
+}

@@ -1,0 +1,158 @@
+/**
+ *
+ * @Pagination.css
+ * @author xboxyan
+ * @create 20-06-03
+ * @editd 21-06-25 by zhangxinxu
+ * @editd 22-06-20 by zhangxinxu
+**/
+
+:root {
+    --ui-page-height: 2rem;
+}
+
+ui-pagination,
+[is-pagination] {
+    display: block;
+    text-align: center;
+    font-size: var(--ui-font, 1rem);
+}
+
+.ui-page-item {
+    display: inline-flex;
+    flex: auto;
+    min-width: 1.25rem;
+    height: var(--ui-page-height);
+    border-radius: var(--ui-page-radius, 0);
+    color: var(--ui-gray, #a2a9b6);
+    font-size: var(--ui-font, 1rem);
+    font-family: system-ui;
+    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
+    text-decoration: none;
+    user-select: none;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background: #fff;
+    cursor: pointer;
+}
+.ui-page-item:not(.ui-page-simple) {
+    max-width: 2.5rem;
+}
+
+.ui-page-item:not(:focus-visible){
+    outline: 0;
+}
+
+.ui-page-item[current] {
+    cursor: default;
+    color: var(--ui-white, #ffffff);
+    background-color: var(--ui-blue, #2a80eb);
+}
+
+.ui-page-item:disabled {
+    color: #ccd0d7;
+    cursor: default;
+}
+
+.ui-page-item > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ui-page-prev,
+.ui-page-next {
+    text-align: center;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+/* 当前不可点的按钮颜色 */
+span.ui-page-prev,
+span.ui-page-next {
+    color: var(--ui-diabled, #ccd0d7);
+}
+
+.ui-page-next svg {
+    transform: scaleX(-1);
+}
+
+.ui-page-prev {
+    margin-left: 0;
+}
+
+.ui-page-next {
+    margin-right: 0;
+}
+
+.ui-page-ellipsis {
+    display: inline-block;
+}
+
+.ui-page-text {
+    color: var(--ui-dark, #4c5161);
+}
+
+.ui-page-item.loading > svg {
+    visibility: hidden;
+}
+
+[loading] .ui-page-item[current],
+[data-loading="true"] .ui-page-item[current] {
+    color: transparent;
+}
+
+[loading] .ui-page-item[current]::before,
+[data-loading="true"] .ui-page-item[current]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--ui-image-loading, url(https://qidian.gtimg.com/lulu/hope/ui/Loading/assets/loading.svg))
+        no-repeat center / 1.25rem 1.25rem;
+    margin: auto;
+    filter: invert(1);
+    animation: spin 1s linear infinite;
+}
+
+@supports not (inset: 0) {
+    [loading] .ui-page-item[current]::before,
+    [data-loading="true"] .ui-page-item[current]::before  {
+        left: 0; top: 0; right: 0; bottom: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ui-page-simple {
+    width: auto;
+    padding: 0 .625em;
+    pointer-events: none;
+    color: #4c5161;
+}
+.ui-page {
+    display: contents;
+}
+.ui-page-wrap {
+    display: flex;
+    gap: 1px;
+    height: var(--ui-page-height);
+    align-items: center;
+    max-width: 24rem;
+    margin: auto;
+    padding: 0;
+    border: none;
+    justify-content: center;
+}
+[mode="short"] .ui-page-wrap {
+    display: inline-flex;
+}

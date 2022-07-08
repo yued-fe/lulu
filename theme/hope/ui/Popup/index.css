@@ -1,0 +1,171 @@
+/**
+ * @popup.css
+ * @description 弹出式浮层
+ * @author zhangxinxu
+ * @create 22-02-15
+**/
+
+@import '../Overlay/index.css';
+
+ui-popup {
+    position: fixed;
+    text-align: left;
+    z-index: 19;
+    overflow: clip;
+    inset: 0;
+
+    --ui-popup-radius: 0;
+}
+ui-popup[radius] {
+    --ui-popup-radius: 1rem;
+}
+
+ui-popup:not([open]) {
+    visibility: hidden;
+}
+
+@supports not (overflow: clip) {
+    ui-popup {
+        overflow: hidden;
+    }
+}
+@supports not (inset: 0) {
+    ui-popup {
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+}
+
+ui-popup-container {
+    position: absolute;
+    line-height: 1.5;
+    background: var(--ui-popup-background, var(--ui-white, #fff));
+    z-index: 20;
+    width: var(--ui-popup-width);
+    height: var(--ui-popup-height);
+    left: 0; right: 0; top: 0; bottom: 0;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+[touch="none"] ~ ui-popup-container {
+    overscroll-behavior: none;
+}
+
+[position="top"],
+[position="bottom"],
+ui-popup:not([position]) {
+    --ui-popup-height: auto;
+    --ui-popup-width: 100%;
+}
+
+[position="left"],
+[position="right"] {
+    --ui-popup-width: auto;
+    --ui-popup-height: 100%;
+}
+
+[position="top"] ui-popup-container {
+    bottom: auto;
+    transform: translate(0, -100%);
+    border-radius: 0 0 var(--ui-popup-radius) var(--ui-popup-radius);
+}
+
+[position="right"] ui-popup-container {
+    left: auto;
+    transform: translate(100%, 0);
+    border-radius: var(--ui-popup-radius) 0 0 var(--ui-popup-radius);
+}
+
+[position="left"] ui-popup-container {
+    right: auto;
+    transform: translate(-100%, 0);
+    border-radius: 0 var(--ui-popup-radius) var(--ui-popup-radius) 0;
+}
+
+[position="bottom"] ui-popup-container,
+:not([position]) > ui-popup-container {
+    top: auto;
+    transform: translate(0, 100%);
+    border-radius: var(--ui-popup-radius) var(--ui-popup-radius) 0 0;
+}
+
+[position="center"] ui-popup-container {
+    width: fit-content;
+    height: fit-content;
+    border-radius: var(--ui-popup-radius);
+    opacity: 0;
+}
+
+/* 关闭按钮 */
+ui-popup-container [part="close"] {
+    position: absolute;
+    right: 1rem; top: 1rem;
+    width: 2.5rem; height: 2.5rem;
+    border: 0;
+    background-color: transparent;
+    --ui-mask-image: var(--ui-popup-close-icon, var(--ui-image-close, url(https://qidian.gtimg.com/lulu/hope/ui/Popup/assets/close.svg)));
+    font-size: 0;
+    color: var(--ui-gray, #a2a9b6);
+}
+
+ui-popup-container [part="close"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: inherit;
+    background-color: currentColor;
+    -webkit-mask: var(--ui-mask-image) no-repeat center / 1.5rem;
+    mask: var(--ui-mask-image) no-repeat center / 1.5rem;
+}
+ui-popup-container [part="close"]:active::before {
+    filter: brightness(.9);
+}
+
+/* 按钮位置 */
+[close-icon~="center"] [part="close"] {
+    left: 1rem; right: 1rem; top: 1rem; bottom: 1rem;
+    margin: auto;
+}
+[close-icon~="left"] [part="close"] {
+    left: 1rem; right: auto;
+}
+[close-icon~="top"] [part="close"] {
+    top: 1rem; bottom: auto;
+}
+[close-icon~="right"] [part="close"] {
+    right: 1rem; left: auto;
+}
+[close-icon~="bottom"] [part="close"] {
+    top: auto; bottom: 1rem;
+}
+
+/* 如果是文字按钮 */
+[close-icon~="text"] [part="close"] {
+    font-size: 100%;
+    width: calc(2em + 1.5rem);
+}
+[close-icon~="text"] [part="close"]::before {
+    -webkit-mask: none;
+    mask: none;
+    display: none;
+}
+
+/* 动画 */
+ui-popup[transition] {
+    transition: visibility var(--ui-animate-time, .2s);
+}
+[transition] > ui-popup-container {
+    transition: transform var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s);
+}
+[open] > ui-popup-container {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+[open][transition] > ui-popup-container {
+    transition-duration: calc(var(--ui-animate-time, .2s) + .1s);
+}
+

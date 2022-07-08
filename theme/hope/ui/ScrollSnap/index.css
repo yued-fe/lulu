@@ -1,0 +1,99 @@
+/**
+ *
+ * @ScrollSnap.css
+ * @author zhangxinxu
+ * @create 2022-03-09
+**/
+ui-scroll-snap {
+    display: block;
+    overflow: auto;
+    scroll-snap-type: var(--ui-snap-type, both);
+    scroll-padding: var(--ui-snap-padding, 0);
+    scrollbar-width: none;
+}
+
+ui-scroll-snap::-webkit-scrollbar {
+    width: 0; height: 0;
+}
+
+ui-scroll-snap[type~='x'] {
+    display: flex;
+    overflow-y: hidden;
+}
+
+ui-scroll-snap[type~='y'] {
+    overflow-x: hidden;
+}
+
+ui-scroll-snap[type='mandatory'] {
+    scroll-snap-type: both mandatory;
+}
+ui-scroll-snap[type='proximity'] {
+    scroll-snap-type: both proximity;
+}
+[type~='mandatory'][type~='x'] {
+    scroll-snap-type: x mandatory;
+}
+[type~='proximity'][type~='x'] {
+    scroll-snap-type: x mandatory;
+}
+[type~='mandatory'][type~='y'] {
+    scroll-snap-type: y mandatory;
+}
+[type~='proximity'][type~='y'] {
+    scroll-snap-type: y mandatory;
+}
+
+ui-scroll-snap[smooth] {
+    scroll-behavior: smooth;
+}
+
+[stop] ui-scroll-snap-item {
+    scroll-snap-stop: always;
+}
+
+ui-scroll-snap-item {
+    display: block;
+    scroll-snap-align: var(--ui-snap-align, center);
+}
+
+ui-scroll-snap-item[href] {
+    cursor: pointer;
+}
+
+ui-scroll-snap-item[href]:active {
+    background-image: var(--ui-image-active);
+}
+
+
+[type~='x'] ui-scroll-snap-item {
+    flex: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+[align="start"] > ui-scroll-snap-item,
+ui-scroll-snap-item[align="start"] {
+    --ui-snap-align: start;
+}
+
+[align="end"] > ui-scroll-snap-item,
+ui-scroll-snap-item[align="end"] {
+    --ui-snap-align: end;
+}
+
+[align^="mid"] > ui-scroll-snap-item,
+ui-scroll-snap-item[align^="mid"],
+[align^="cen"] > ui-scroll-snap-item,
+ui-scroll-snap-item[align^="cen"] {
+    --ui-snap-align: center;
+}
+
+[align="none"] > ui-scroll-snap-item,
+ui-scroll-snap-item[align="none"] {
+    --ui-snap-align: none;
+}
+
+ui-scroll-snap[loop] {
+    overscroll-behavior: none;
+}
