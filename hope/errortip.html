@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于Star评分">
-<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Star评分">
-<title>LuLu UI hope主题中文文档 &raquo; Star评分</title>
+<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于ErrorTip 出错提示">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, ErrorTip 出错提示">
+<title>LuLu UI hope主题中文文档 &raquo; ErrorTip 出错提示</title>
 <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ui.css">
 <link rel="stylesheet" href="../hope/assets/css/mockup.css">
 <script type="module" src="../hope/assets/js/code-run.js"></script>
@@ -14,7 +14,7 @@
 <body>
 	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
 	<header class="header">
-		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Star评分</h1></a>
+		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; ErrorTip 出错提示</h1></a>
 		<div class="header-right">
 			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
 			<datalist id="dropDocData">
@@ -31,149 +31,159 @@
 		</div>
 	</header>
 
-
+<style id="style"></style>
 <div class="main">
     <!-- 主内容 -->
     <main class="section_main">
-    	<h2 class="section_title">Star评分</h2>
+    	<h2 class="section_title">ErrorTip 出错提示</h2>
         <!-- 详细内容 -->
         <article>
             <h3>安装与调用</h3>
-            <p>引入如下 CSS：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/Range/star.css"&gt;</pre>
+            <p>引用下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ErrorTip/index.css"&gt;</pre>
+            <p>JS为：</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/ErrorTip/index.js"&gt;&lt;/script&gt;</pre>
 
-            <h3>基本效果示意</h3>
-            <p>评星的本质是在一个范围内进行选择，因此使用 <code>type="range"</code> 范围输入框也可以实现，支持滑动，支持表单行为，通过添加 <code>is="ui-rate"</code> 实现。</p>
+            <h3>单个出错提示演示与代码</h3>
 
-            <pre>&lt;input type="range" is="ui-rate" max="5" step="0.5" value="3"&gt;</pre>
-
-            <code-run title="星星评分" open>
+            <code-run open title="单个出错提示">
                 <div slot="preview">
-                    <input type="range" is="ui-rate" max="5" step="0.5" value="3">
-                </div>
-            </code-run>
-
-            <div class="tips mt20">
-                <ol>
-                    <li>max step value 三者要成倍数的关系，否则可能会导致星星展示不全</li>
-                    <li>min 只能设置 0 或者不设置，若要设置初始值，请设置 value，它的值要和 max 成倍数关系</li>
-                </ol>
-            </div>
-
-            <h4>指定星星数量</h4>
-
-            <p>如果希望是 10 个星星，可以设置 <code>numer="10"</code>。</p>
-
-            <pre>&lt;input type="range" is="ui-rate" max="10" value="5" number="10"&gt;</pre>
-
-            <code-run title="10个星星" open>
-                <div slot="preview">
-                    <input type="range" is="ui-rate" max="10" value="5" number="10">
-                </div>
-            </code-run>
-
-            <p>如果希望自定义任意个数的评星数量，可以使用 CSS 变量 <code>-ui-number</code> 实现。</p>
-
-            <pre>input type="range" is="ui-rate" max="6" value="2" style="--ui-number: 6;"&gt;</pre>
-
-            <code-run title="星星数量自定义" open>
-                <div slot="preview">
-                    <input type="range" is="ui-rate" max="6" value="2" style="--ui-number: 6;">
-                </div>
-            </code-run>
-
-            <h3>样式设置</h3>
-
-            <h4>尺寸设置</h4>
-
-            <p>支持 <code>size</code> 属性进行尺寸设置，支持的值包括：large、medium、small、tiny。</p>
-
-            <p>对应效果和尺寸如下表所示：</p>
-            <table class="ui-table">
-                <thead>
-                  <tr>
-                    <th>size值</th>
-                    <th>对应高度</th>
-                    <th>效果</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>large</td>
-                    <td>2.5rem</td>
-                    <td><input type="range" is="ui-rate" max="5" value="3" size="large"></td>
-                  </tr>
-                  <tr>
-                    <td>medium</td>
-                    <td>2rem</td>
-                    <td><input type="range" is="ui-rate" max="5" value="3" size="medium"></td>
-                  </tr>
-                  <tr>
-                    <td>small</td>
-                    <td>1.75rem</td>
-                    <td><input type="range" is="ui-rate" max="5" value="3" size="small"></td>
-                  </tr>
-                  <tr>
-                    <td>tiny</td>
-                    <td>1.5rem</td>
-                    <td><input type="range" is="ui-rate" max="5" value="3" size="tiny"></td>
-                  </tr>
-                </tbody>
-            </table>
-
-            <p>如果希望是其他尺寸，可以通过修改 <code>font-size</code> 大小实现。</p>
-
-            <h4>样式设置</h4>
-
-            <p>可以使用 CSS 变量 <code>--ui-rate-color</code> 改变图形的颜色，可以使用 <code>--ui-rate-source</code> 改变使用的图形。</p>
-
-            <p>例如使用红色的爱心作为点评选项。</p>
-
-            <code-run title="爱心评分" open>
-                <style>
-                    .ui-heart {
-                        --ui-rate-color: var(--ui-red);
-                        --ui-rate-source: url(https://imgservices-1252317822.image.myqcloud.com/image/011420220134219/d22b1d90.svg);
-                        --ui-rate-source-size: 80%;
-                    }
-                </style>
-                <div slot="preview">
-                    <input type="range" is="ui-rate" class="ui-heart" max="5" step="0.5" value="3">
+                    <p class="ui-flex" style="--ui-gap: .5rem;">
+                        <input class="ui-input" size="10" required>
+                        <input class="ui-input" size="10" required>
+                        <button id="btnSearch" is="ui-button" type="primary" flex="none">只有一个提示信息</button>
+                    </p>
                 </div>
                 <div slot="code">
-                    <pre lang="html">&lt;input type="range" is="ui-rate" class="ui-heart" max="5" step="0.5" value="3"&gt;</pre>
-                    <pre lang="css">.ui-heart {
-    --ui-rate-color: var(--ui-red);
-    --ui-rate-source: url(heart.svg);
-    --ui-rate-source-size: 80%;
+                    <pre>button.addEventListener('click', function () {
+    if (input.value == '') {
+        new ErrorTip(input, '尚未输入搜索内容' + (index + 1));
+    }
+});</pre>
+                </div>
+            </code-run>
+
+
+            <h4>同时出错提示演示与代码</h4>
+
+            <code-run open title="同时出错提示">
+                <div slot="preview">
+                    <p class="ui-flex" style="--ui-gap: .5rem;">
+                        <input class="ui-input" size="10" required>
+                        <input class="ui-input" size="10" required>
+                        <button id="btnSearch2" is="ui-button" type="primary" flex="none">同时出错提示信息</button>
+                    </p>
+                </div>
+                <div slot="code">
+                    <pre>button.addEventListener('click', function () {
+    if (input.value == '') {
+        new ErrorTip(input, '尚未输入搜索内容' + (index + 1), {
+            unique: false
+        });
+    }
+});</pre>
+                </div>
+            </code-run>
+
+            <h4>任意元素出现错误提示</h4>
+
+            <code-run open title="同时出错提示">
+                <div slot="preview">
+                    <p class="ui-flex" style="--ui-gap: .5rem;">
+                        <span id="error-span" class="mr20" self="center">这里是一段文字</span>
+                        <button id="btnSearch3" is="ui-button" type="primary" flex="none">提示出错提示信息</button>
+                    </p>
+                </div>
+                <div slot="code">
+                    <pre>button.addEventListener('click', function () {
+    errorSpan.errorTip('这里出现了错误');
+});</pre>
+                </div>
+            </code-run>
+
+            <h3>红色提示语法和参数</h3>
+            <p>语法如下：</p>
+            <pre>var myErrorTip = new ErrorTip(element, content, options);</pre>
+            <p>或者</p>
+            <pre>element.errorTip(content, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>element</dt>
+                <dd>必须。Object DOM 元素。用来帮助提示定位的元素。</dd>
+                <dt>content</dt>
+                <dd>必须。String 字符串 | Function 函数。提示的文案信息，支持 HTML 字符串。</dd>
+                <dt>options</dt>
+                <dd>可选。Object 纯对象。表示可选参数，具体见下表：</dd>
+            </dl>
+            <table width="100%" class="ui-table">
+                <tr>
+                    <th scope="col" width="60">参数名称</th>
+                    <th scope="col" width="70">支持类型</th>
+                    <th scope="col" width="120">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+                <tr>
+                    <td>unique</td>
+                    <td>Boolean</td>
+                    <td>true</td>
+                    <td>是否页面是只会出现一个错误提示，默认是 <code>true</code>, 永远只会有一个。此参数实际开发很少用到。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>onShow</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>红色出错提示显示时候的回调方法。函数的上下文 <code>this</code> 是当前实例，支持两个参数，分别表示当前提示元素的定位元素和浮层提示元素。</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>onHide</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>红色出错提示隐藏时候的回调方法。函数的上下文 <code>this</code> 是当前实例，支持两个参数，分别表示当前提示元素的定位元素和浮层提示元素。</td>
+                </tr>
+            </table>
+
+            <h4>其他说明</h4>
+            <p>在实际开发中，ErrorTip 出错提示组件和表单验证强关联，可以试试使用 <a href="./validate.html">Validate 验证组件</a>。</p>
+            <p>另外，红色出错提示出现的时候，会自动给该定位元素添加类名 <code>.valided</code> 和属性 <code>is-error</code>，红色出错提示隐藏的时候会移除属性 <code>is-error</code>，<code>.valided</code> 类名会保留，方便识别是否已经验证提示过。</p>
+
+            <h4>实例对象</h4>
+            <p><code>myErrorTip</code> 就是返回的实例对象，暴露了以下属性和方法：</p>
+            <pre>{
+    // 提示内容显示与否，布尔值
+    display: false,
+    element: {
+      // 触发提示显示的元素
+      trigger: null,
+      // 提示元素
+      tips: null,
+      // 提示内容元素
+      content: null,
+      // 提示三角元素
+      arrow: null
+    },
+    callback: {
+      // 显示的回调方法
+      show: function () {},
+      // 隐藏的回调方法
+      hide: function () {}
+    },
+    params: {
+      // 布尔值，是否唯一提示显示
+      unique: true
+    },
+    // 提示显示
+    show: function () {},
+    // 提示隐藏
+    hide: function () {}
 }</pre>
-                </div>
-            </code-run>
-
-            <h3>只读和禁用</h3>
-
-            <p>禁用设置 <code>disabled</code> 属性，样式上会表现为半透明。</p>
-            <pre>&lt;input type="range" is="ui-rate" disabled max="5" step="0.5" value="0"&gt;</pre>
-
-            <code-run title="禁用效果" open>
-                <div slot="preview">
-                    <input type="range" is="ui-rate" max="5" disabled step="0.5" value="3">
-                </div>
-            </code-run>
-
-            <p>只读设置 <code>readonly</code> 属性，只能浏览不能设置。</p>
-            <pre>&lt;input type="range" is="ui-rate" readonly max="5" step="0.5" value="3" tabindex="-1"&gt;</pre>
-
-            <code-run title="只读效果" open>
-                <div slot="preview">
-                    <input type="range" is="ui-rate" max="5" readonly step="0.5" value="3" tabindex="-1">
-                </div>
-            </code-run>
 
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
         </article>
+
     </main>
     <!-- 侧边栏 -->
     <!-- 侧边栏 -->
@@ -213,12 +223,12 @@
             <dd><a href="./select.html" class="aside_nav ">Select 下拉框</a></dd>
             <dd><a href="./range.html" class="aside_nav ">Range 范围选择</a>
                 <dd-li>
-                    <a href="./range-star.html" class="aside_nav active">Star 评分</a>
+                    <a href="./range-star.html" class="aside_nav ">Star 评分</a>
                 </dd-li>
             </dd>
             <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
             <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
-                <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
+                <dd-li><a href="./errortip.html" class="aside_nav active">ErrorTip 提示</a></dd-li>
                 <dd-li><a href="./validate.html" class="aside_nav ">Validate 表单验证</a></dd-li>
             </dd>
         </dl>
@@ -323,3 +333,36 @@ document.querySelectorAll('pre').forEach((el) => {
 </script>
 </body>
 </html>
+<script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/ErrorTip/index.js"></script>
+<script type="module">
+// 红色errorTip
+var eleBtnSearch = document.querySelector('#btnSearch');
+var eleBtnSearch2 = document.querySelector('#btnSearch2');
+var eleBtnSearch3 = document.querySelector('#btnSearch3');
+
+eleBtnSearch.addEventListener('click', function () {
+    var eleAllInput = this.parentElement.querySelectorAll('input');
+
+    eleAllInput.forEach(function (input, index) {
+        if (input.value == '') {
+            new ErrorTip(input, '尚未输入搜索内容' + (index + 1));
+        }
+    });
+});
+
+eleBtnSearch2.addEventListener('click', function () {
+    var eleAllInput = this.parentElement.querySelectorAll('input');
+
+    eleAllInput.forEach(function (input, index) {
+        if (input.value == '') {
+            new ErrorTip(input, '尚未输入搜索内容' + (index + 1), {
+                unique: false
+            });
+        }
+    });
+});
+eleBtnSearch3.addEventListener('click', function () {
+    var errorSpan = document.getElementById('error-span')
+    errorSpan.errorTip('这里出现了错误');
+});
+</script>

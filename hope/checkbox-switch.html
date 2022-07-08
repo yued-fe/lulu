@@ -40,22 +40,26 @@
         <article>
             <h3>安装与调用</h3>
             <p>引入CSS即可：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Checkbox.css"&gt;
-&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Switch.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/Checkbox/switch.css"&gt;</pre>
 
             <h3>开关基本状态</h3>
-            <p>开关<input type="checkbox" id="switch" is="ui-switch"></p>
-            <pre>&lt;input type="checkbox" id="switch" <mark>is="ui-switch"</mark>&gt;
-<span class="green">&lt;!-- 美化的swtich元素需要添加is="ui-switch" --&gt;</span></pre>
-            <h3>开关禁用状态</h3>
-            <p>开关禁用：<input type="checkbox" id="switch2" disabled is="ui-switch"><input type="checkbox" id="switch3" checked disabled is="ui-switch">
-            </p>
-            <pre>&lt;input type="checkbox" id="switch2" <mark>disabled</mark> is="ui-switch"&gt;
-&lt;input type="checkbox" id="switch3" <mark>checked</mark> <mark>disabled</mark> is="ui-switch"&gt;</pre>
-            <p>可以看到，开关控件本质上就是复选框，展示及UI状态变化（禁用态、选中态等变化）是通过其添加<code>is="ui-switch"</code>来控制变化的。</p>
+
+            <p>给复选框元素设置 <code>is="ui-switch"</code> 即可实现，选中状态，以及禁用状态的设置和原生的复选框一致，分别使用 <code>checked</code> 属性和 <code>disabled</code> 属性实现。</p>
+
+            <code-run title="开关效果" open>
+                <div slot="preview">
+                    <p>开关：<input type="checkbox"  is="ui-switch"></p>
+                    <p class="mt10">开关禁用：<input type="checkbox" disabled is="ui-switch"><input type="checkbox" checked disabled is="ui-switch">
+                </div>
+                <div slot="code">
+                    <pre>&lt;input type="checkbox" id="switch"is="ui-switch"&gt;
+&lt;input type="checkbox" id="switch2" disabled is="ui-switch"&gt;
+&lt;input type="checkbox" id="switch3" checked disabled is="ui-switch"&gt;</pre>
+                </div>
+            </code-run>
 
             <div class="contributors">
-                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu,ShineaSYR</p>
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
             </div>
         </article>
     </main>
@@ -100,7 +104,6 @@
                     <a href="./range-star.html" class="aside_nav ">Star 评分</a>
                 </dd-li>
             </dd>
-            <dd><a href="./color.html" class="aside_nav ">Color 颜色选择</a></dd>
             <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
             <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
                 <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>

@@ -52,20 +52,25 @@
             <p>通过给 <code>&lt;form&gt;</code> 元素设置 <code>is="ui-form"</code> 让原生表单和 LuLu UI 高度集成，包括表单验证、表单提交功能，按钮的交互细节等。</p>
 
             <h3>演示和代码</h3>
-            <form action="https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/submit.php" method="post" is="ui-form">
-                <ui-grid gap="0.5" form>
-                    <label for="idTel">手机号码<span class="red abs">*</span></label>
-                    <input type="tel" id="idTel" is="ui-input" name="tel" border="none" required>
-                    <hr>
-                    <label for="idCode">验证码<span class="red abs">*</span></label>
-                    <input type="code" id="idCode" is="ui-input" name="code" autocomplete="off" border="none" required pattern="^\d{4}$" placeholder="4 个字符">
-                    <hr>
-                    <label for="idMark">备注</label>
-                    <textarea id="idMark" is="ui-textarea" border="none" maxlength="140" rows="1">附件</textarea>
-                    <hr>
-                    <button type="submit" is="ui-button" span="2" data-type="primary">注册</button>
-                </ui-grid>
-            </form>
+            <code-run open title="GET 模拟">
+                <div slot="preview">
+                    <form action="https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/submit.php" method="post" is="ui-form">
+                        <ui-grid gap="0.5" form>
+                            <label for="idTel">手机号码<span class="red abs">*</span></label>
+                            <input type="tel" id="idTel" is="ui-input" name="tel" border="none" required>
+                            <hr>
+                            <label for="idCode">验证码<span class="red abs">*</span></label>
+                            <input type="code" id="idCode" is="ui-input" name="code" autocomplete="off" border="none" required pattern="^\d{4}$" placeholder="4 个字符">
+                            <hr>
+                            <label for="idMark">备注</label>
+                            <textarea id="idMark" is="ui-textarea" border="none" maxlength="140" rows="1">附件</textarea>
+                            <hr>
+                            <button type="submit" is="ui-button" span="2" data-type="primary">注册</button>
+                        </ui-grid>
+                    </form>
+                </div>
+            </code-run>
+            
             
             <p>表单操作走 <code>&lt;form&gt;</code> 元素，按钮类型设置为 <code>submit</code>。</p>
             <p>HTML如下：</p>
@@ -78,28 +83,28 @@
     &lt;textarea id="mark" maxlength="140" rows="1" is="ui-textarea"&gt;附件&lt;/textarea&gt;
     &lt;button type="submit" is="ui-button" data-type="primary"&gt;注册&lt;/button&gt;
 &lt;/form&gt;</pre>
-            <pre><span class="green">// 备注输入框元素</span>
+            <pre>// 备注输入框元素
 var eleMark = document.querySelector('#idMark');
-<span class="green">// 获取输入框元素所在对表单</span>
+// 获取输入框元素所在对表单
 var myForm = eleMark.form;
-<span class="green">// 设置提交之前的特殊验证</span>
+// 设置提交之前的特殊验证
 myForm.params.avoidSend = function () {
     if (/附件/.test(eleMark.value)) {
         new Dialog().confirm('您备注中提到了附件，但是却没有上传，确定注册？', {
             buttons: [{
                 events: function (event) {
-                    <span class="green">// 请求</span>
+                    // 请求
                     myForm.ajax();
-                    <span class="green">// 弹框移除</span>
+                    // 弹框移除
                     event.dialog.remove();
                 }
             }, {}]
         });
-        <span class="green">// 返回true表示阻止请求发送</span>
+        // 返回true表示阻止请求发送
         return true;
     }
 };
-<span class="green">// 设置请求成功之后对处理逻辑</span>
+// 设置请求成功之后对处理逻辑
 myForm.callback.success = function (json) {
     new Dialog().alert(`&lt;h6&gt;注册成功！&lt;/h6&gt;
         &lt;p&gt;您注册手机号是：${json.data.tel}&lt;/p&gt;`, {
@@ -109,9 +114,9 @@ myForm.callback.success = function (json) {
     // 表单重置
     this.reset();
 };
-<span class="green">// xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据</span>
+// xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据
 myForm.callback.beforeSend = function (xhr, formData) {
-    <span class="green">// 增加请求头信息</span>
+    // 增加请求头信息
     xhr.setRequestHeader('From', 'LuLu UI');
 };</pre>
 
@@ -125,30 +130,30 @@ myForm.callback.beforeSend = function (xhr, formData) {
 
             <pre>{
     element: {
-      <span class="green">// 原生submit类型按钮</span>
+      // 原生submit类型按钮
       submit: function () {},
-      <span class="green">// 视觉可见提交按钮元素</span>
+      // 视觉可见提交按钮元素
       button: function () {},
     },
     params: {
-        <span class="green">// 表单额外验证数据</span>
+        // 表单额外验证数据
         validate: [],
-        <span class="green">// 表单数据发送之前对阻止处理</span>
+        // 表单数据发送之前对阻止处理
         avoidSend: () => {}
     },
-    <span class="green">// 验证实例对象</span>
+    // 验证实例对象
     validate: Object,
-    <span class="green">// 回调的可选参数们</span>
+    // 回调的可选参数们
     callback: {
       beforeSend: (xhr, formData) => {},
-      <span class="green">// 请求成功</span>
+      // 请求成功
       success: (json) => {},
-      <span class="green">// 请求失败</span>
+      // 请求失败
       error: () => {},
-      <span class="green">// 请求完成</span>
+      // 请求完成
       complete: () => {}
     },
-    <span class="green">// 表单请求提交，无验证</span>
+    // 表单请求提交，无验证
     ajax: function() {}
 }</pre>
 
@@ -170,12 +175,11 @@ myForm.callback.beforeSend = function (xhr, formData) {
                 <td>beforeSend<wbr>(xhr, formData)</td>
                 <td>表示请求发送前的回调处理，本方法无论返回什么值都不会阻止表单请求的执行。本方法多用在对请求对象或者请求数据进行处理，例如新增一些数据，设置请求的过期时间，增加请求头等。
                     <p>其中上下文<code>this</code>表示当前表单元素，支持两个参数<code>xhr</code>和<code>formData</code>，其中，<code>xhr</code>表示当前请求的<code>XMLHttpRequest</code>对象，<code>formData</code>是即将要发送的FormData数据对象。</p>
-                    <pre>
-beforeSend: function (xhr, formData) {
-    <span class="green">// 2秒过期</span>
+                    <pre>beforeSend: function (xhr, formData) {
+    // 2秒过期
     xhr.timeout = 2000;
-    <span class="green">// 新增数据</span>
-    formData<wbr>.append('_token', 'd94i843<wbr>fvjfj938<wbr>754mn8');
+    // 新增数据
+    formData.append('_token', 'd94i843fvjfj938754mn8');
 }</pre>
                 </td>
             </tr>
@@ -198,7 +202,7 @@ beforeSend: function (xhr, formData) {
             <p>myForm还支持如下两个自定义事件。</p>
             <table width="100%" class="ui-table">
                 <tr>
-                  <th width="80">事件名称</th>
+                  <th>事件名称</th>
                   <th>释义</th>
                 </tr>
                 <tr>
@@ -212,11 +216,17 @@ beforeSend: function (xhr, formData) {
             </table>
 
             <h3>GET请求测试</h3>
-            <form id="formGet" is="ui-form">
-                <p>打开控制台，观察URL请求参数：</p>
-                <input name="key" class="ui-input">
-                <button type="submit" class="ui-button" data-type="primary">提交</button>
-            </form>
+            <code-run open title="GET 模拟">
+                <div slot="preview">
+                    <form id="formGet" is="ui-form">
+                        <p class="mb10">打开控制台，观察URL请求参数：</p>
+                        <ui-flex>
+                            <input name="key" class="ui-input mr10">
+                            <button type="submit" is="ui-button" data-type="primary" flex="none">提交</button>
+                        </ui-flex>
+                    </form>
+                </div>
+            </code-run>
 
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
@@ -264,7 +274,6 @@ beforeSend: function (xhr, formData) {
                     <a href="./range-star.html" class="aside_nav ">Star 评分</a>
                 </dd-li>
             </dd>
-            <dd><a href="./color.html" class="aside_nav ">Color 颜色选择</a></dd>
             <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
             <dd><a href="./form.html" class="aside_nav active">Form 表单</a>
                 <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
