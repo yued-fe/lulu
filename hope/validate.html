@@ -34,6 +34,10 @@
 
 <style>
 form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
+ui-contents label {
+    line-height: 3rem;
+    align-self: start;
+}
 </style>
 
 <div class="main">
@@ -58,8 +62,7 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                 <li>内置type类型包括：<code>email</code>, <code>tel</code>, <code>url</code>, <code>zipcode</code>, <code>number</code>, <code>date</code>, <code>hour</code>, <code>minute</code>, <code>time</code>。</li>
                 <li>自定义正则表达式，使用原生 HTML 属性<code>pattern</code>，例如：<code>pattern="^\d{16}$"</code>。</li>
                 <li>范围超出，如数值输入，数值范围选择，以及日期和时间的起止限制，使用原生 <code>min</code>, <code>max</code>, <code>step</code> 属性。</li>
-                <li>内容长度限制，使用原生 <code>maxlength</code>, 以及 <code>minlength</code>。本组件会自动选择超出部分的文字。</li>
-                <li>内置计数和计数验证功能，中英文计数规则使用 <code>lang</code> 属性控制。没有<code>lang</code>属性，表示中英文<code>1:1</code>，<code>lang="en"</code>则1个汉字等于2个英文字符, <code>lang="zh"</code>则2个字母等于1个汉字。</li>
+                <li>内置计数和计数验证功能，使用原生 <code>maxlength</code>, 以及 <code>minlength</code>。内容长度超出提示的时候会自动选择超出部分的文字。</li>
                 <li>支持指定提示信息和自定义验证方法，具体<a href="#labelCount">参见这里</a>。</li>
             </ul>
 
@@ -67,68 +70,68 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
             <p>下面表单采用组件默认验证交互，即点击“提交”按钮后开启即时验证，所有有误内容标红，但是出错提示只会出现在第一个或当前激活的控件上。</p>
 
             <code-run open title="复杂表单验证">
-                <div slot="preview">
-                    <form id="validateForm">
-                        <div class="clearfix mt20">
-                            <label class="left">邮箱<span class="red abs">*</span></label>
-                            <div class="ovh">
+                <div slot="preview" style="--ui-gap: 1rem;">
+                    <form id="validateForm" class="ui-grid">
+                        <ui-contents>
+                            <label>邮箱<span class="red abs">*</span></label>
+                            <div>
                                 <input type="email" class="ui-input" name="email" required>
-                                <span class="gray ml20 mt10 f14">type='email', required, 复制：a.b.c@qq.com</span>
+                                <span class="gray f14">type='email', required, 复制：a.b.c@qq.com</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">手机号<span class="red abs">*</span></label>
-                            <div class="ovh pb2">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>手机号<span class="red abs">*</span></label>
+                            <div>
                                 <input type="tel" name="tel" is="ui-input" required placeholder="会自动过滤非必要字符">
-                                <span class="gray ml20 mt10 f14">type='tel', required, 复制：132-0803-3621</span>
+                                <span class="gray f14">type='tel', required, 复制：132-0803-3621</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left" for="inputBank">银行账户<span class="red abs">*</span></label>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <label for="inputBank">银行账户<span class="red abs">*</span></label>
+                            <div>
                                 <input id="inputBank" class="ui-input" required pattern="^\d{16}$">
-                                <span class="gray ml20 mt10 f14">pattern="^\d{16}$", required, 复制：0000111100001111</span>
+                                <span class="gray f14">pattern="^\d{16}$", required, 复制：0000111100001111</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">每日限额<span class="red abs">*</span></label>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>每日限额<span class="red abs">*</span></label>
+                            <div>
                                 <input type="number" class="ui-input w100" min="5" max="500" size="5" required placeholder="输入数值">
-                                <span class="gray ml20 mt10 f14">type='number', min='5', max='500', required</span>
+                                <span class="gray f14">type='number', min='5', max='500', required</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">密码<span class="red abs">*</span></label>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>密码<span class="red abs">*</span></label>
+                            <div>
                                 <input type="password" id="inputPwd" class="ui-input" required>
-                                <span class="gray ml20 mt10 f14">required</span>
+                                <span class="gray f14">required</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">确认密码<span class="red abs">*</span></label>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>确认密码<span class="red abs">*</span></label>
+                            <div>
                                 <input type="password" id="inputPwdAgain" class="ui-input" required>
-                                <span class="gray ml20 mt10 f14">required</span>
+                                <span class="gray f14">required</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <span class="left">您的性别<span class="red abs">*</span></span>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <span>您的性别<span class="red abs">*</span></span>
+                            <div>
                                 <input type="radio" id="radioMale" name="validateRadio" is="ui-radio" required><label class="mr20 ml5" for="radioMale">男士</label>
                                 <input type="radio" id="radioFemale" name="validateRadio" is="ui-radio" required><label for="radioFemale" class="ml5">女士</label>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">个人网站</label>
-                            <div class="ovh">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>个人网站</label>
+                            <div>
                                 <input type="url" class="ui-input">
-                                <span class="gray ml20 mt10 f14">type='url'</span>
+                                <span class="gray f14">type='url'</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">所在城市<span class="red abs">*</span></label>
-                            <div class="cell">
-                                <select class="w100" required is="ui-select">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>所在城市<span class="red abs">*</span></label>
+                            <div>
+                                <select required is="ui-select">
                                     <option value="">请选择</option>
                                     <option value="sz">深圳</option>
                                     <option value="sh">上海</option>
@@ -136,69 +139,61 @@ form { font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;  }
                                     <option value="cd">成都</option>
                                     <option value="wh">武汉</option>
                                 </select>
-                                <span class="gray ml20 mt10 f14">required</span>
+                                <span class="gray f14">required</span>
                                 <span id="cityError" class="red ml20 f14"></span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">请假时间</label>
-                            <div class="cell">
-                                <input type="date-range" value="2015-09-08" min="2015-07-10" max="2015-12-01" is="ui-datetime">
-                                <span class="gray ml20 mt10 f14">min="2015-07-10", max="2015-12-01"</span>
+                        </ui-contents>
+                        <ui-contents>
+                            <label>请假时间</label>
+                            <div>
+                                <input type="date-range" value="2023-09-08" min="2023-07-10" max="2023-12-01" is="ui-datetime">
+                                <span class="gray f14">min="2023-07-10", max="2023-12-01"</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">月份跨度</label>
-                            <div class="cell">
-                                <input type="month-range" value="2015-09" min="2015-07" max="2015-12" is="ui-datetime">
-                                <span class="gray ml20 mt10 f14">min="2015-07", max="2015-12"</span>
-                            </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">姓名</label>
-                            <div class="cell">
+                        </ui-contents>
+                        <ui-contents>
+                            <label for="adminName">姓名</label>
+                            <div>
                                 <div class="ui-input-x" style="max-width:300px;">
-                                    <input id="adminName" class="ui-input" name="adminName" maxlength="20" lang="zh">
+                                    <input id="adminName" is="ui-input" name="adminName" maxlength="20" lang="zh">
                                 </div>
                                 <span class="gray db mt5 f14">maxlength="20", lang="zh"(2个字母1个汉字)</span>
                             </div>
-                        </div>
-                        <div class="fix mt15">
-                            <label class="left">证件照<span class="red abs">*</span></label>
-                            <div class="cell">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>证件照<span class="red abs">*</span></label>
+                            <div>
                                 <label for="validateFile" class="ui-button">上传照片</label>
                                 <input type="hidden" id="inputImgUrl">
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <label class="left">备注</label>
-                            <div class="cell">
+                        </ui-contents>
+                        <ui-contents>
+                            <label>备注</label>
+                            <div>
                                 <div class="ui-textarea-x" style="max-width:500px;">
                                     <textarea id="txtCount" is="ui-textarea" minlength="5" maxlength="200" rows="5" placeholder="如果输入，至少5个字">测试</textarea>
                                 </div>
                                 <span class="gray db mt5 f14">minlength="5", maxlength="200"</span>
                             </div>
-                        </div>
-                        <div class="clearfix mt15">
-                            <span class="left">&nbsp;</span>
-                            <div class="cell">
+                        </ui-contents>
+                        <ui-contents>
+                            <span>&nbsp;</span>
+                            <div>
                                 <input type="checkbox" id="checkAgree" is="ui-checkbox" required><label class="ml5 f14" for="checkAgree">我已阅读本规范内容</label>
                             </div>
-                        </div>
-                        <div class="clearfix mt20">
-                            <span class="left">&nbsp;</span>
-                            <div class="cell">
-                                <button type="submit" is="ui-button" data-type="primary">提交</button>
+                        </ui-contents>
+                        <ui-contents>
+                            <span>&nbsp;</span>
+                            <div>
+                                <button type="submit" is="ui-button" data-type="primary">&emsp;提交&emsp;</button>
+                                <button type="reset" is="ui-button" plain>重置</button>
                             </div>
-                        </div>
+                        </ui-contents>
                     </form>
                     <!-- 上传文件的表单 -->
                     <form><input type="file" id="validateFile" class="dn" accept="image/*" hidden></form>
                 </div>
-            </code-run>
-
-            
-            <pre>// 表单验证
+                <div slot="code">
+                    <pre>// 表单验证
 var elePwd = document.querySelector('#inputPwd');
 var elePwdAgain = document.querySelector('#inputPwdAgain');
 
@@ -256,13 +251,18 @@ new Validate('#validateForm', function () {
         }
     }]
 });</pre>
+                </div>
+            </code-run>
+
+            
+            
             <p>证件照验证相关HTML代码：</p>
             <pre>&lt;label for="file" class="ui-button"&gt;上传照片&lt;/label&gt;
 &lt;input type="hidden" id="inputImgUrl"&gt;
 
 &lt;!-- 上传文件的表单 --&gt;
 &lt;form&gt;&lt;input type="file" id="file" accept="image/*"&gt;&lt;/form&gt;</pre>
-            <p>注意，上面<code>hidden</code>类型的<code>&lt;input&gt;</code>元素自定义的<code>method</code>方法实现功能是为空验证，该功能也可以通过添加<code>required</code>属性实现，如下：</p>
+            <p>注意，上面 <code>hidden</code> 类型的 <code>&lt;input&gt;</code> 元素自定义的 <code>method</code> 方法实现功能是为空验证，该功能也可以通过添加 <code>required</code> 属性实现，如下：</p>
             <pre>&lt;input type="hidden" id="inputImgUrl" required&gt;</pre>
             <p>然后使用<code>report</code>参数改变提示内容。例如：</p>
             <pre>// required设置时候的处理
@@ -283,9 +283,9 @@ new Validate('#validateForm', function () {
             <p>其中：</p>
             <dl>
                 <dt>element</dt>
-                <dd>必须。Element|String。可以是DOM元素，也可以是DOM元素的选择器。通常指<code>&lt;form&gt;</code>元素。</dd>
+                <dd>必须。Element|String。可以是 DOM 元素，也可以是 DOM 元素的选择器。通常指 <code>&lt;form&gt;</code> 元素。</dd>
                 <dt>callback</dt>
-                <dd>可选。Function。全部验证通过之后的回调方法。其中上下文<code>this</code>指当前实例对象，支持一个参数，表示<code>element</code>参数对应的元素。</dd>
+                <dd>可选。Function。全部验证通过之后的回调方法。其中上下文 <code>this</code> 指当前实例对象，支持一个参数，表示 <code>element</code> 参数对应的元素。</dd>
                 <dt>options</dt>
                 <dd>可选。Object。可选参数，具体见下表：</dd>
             </dl>
@@ -300,7 +300,7 @@ new Validate('#validateForm', function () {
                 <td>validate</td>
                 <td>Array<br>Object</td>
                 <td>[]</td>
-                <td>自定义提示和验证方法。为对象数组集。如<code>[{}, {}]</code>。如果仅有一个数组项，也可以直接使用该数组项作为参数。
+                <td>自定义提示和验证方法。为对象数组集。如 <code>[{}, {}]</code>。如果仅有一个数组项，也可以直接使用该数组项作为参数。
                     <p>本参数要点较多，本文档有专门深入介绍，<a href="#validityStateH4">详见这里</a>。</p>
                </td>
               </tr>
@@ -320,22 +320,22 @@ new Validate('#validateForm', function () {
                 <td>label</td>
                 <td>Boolean</td>
                 <td>true</td>
-                <td>是否使用关联<code>&lt;label&gt;</code>元素中裸露的文字作为提示关键字，会自动过滤冒号，此参数非常实用。</td>
+                <td>是否使用关联 <code>&lt;label&gt;</code> 元素中裸露的文字作为提示关键字，会自动过滤冒号，此参数非常实用。</td>
               </tr>
               <tr>
             </table>
 
             <h4>事件</h4>
 
-            <p>参与表单验证的所有控件元素均支持原生的<code>valid</code>和<code>invalid</code>事件，分别在验证通过和验证不通过的时候触发（本文档页面对底部案例有使用示意）。</p>
+            <p>参与表单验证的所有控件元素均支持原生的 <code>valid</code> 和 <code>invalid</code> 事件，分别在验证通过和验证不通过的时候触发（本文档页面对底部案例有使用示意）。</p>
 
-            <p>另外，当所有表单控件元素都验证通过的时候，会触发表单元素自定义的<code>valid</code>事件，例如：</p>
+            <p>另外，当所有表单控件元素都验证通过的时候，会触发表单元素自定义的 <code>valid</code>事件，例如：</p>
             <pre>form.addEventListener('valid', function () {
     // 表单验证通过                
 });</pre>
 
             <h4 id="validityStateH4">validate可选参数深入</h4>
-            <p>validate参数实际使用多这样：</p>
+            <p>validate 参数实际使用多这样：</p>
             <pre>new Validate('formId', {
     validate: [{
         id: 'inputId',
@@ -347,7 +347,7 @@ new Validate('#validateForm', function () {
         }
     }]
 });</pre>
-            <p>如果validate参数值的数组项只有一个，可以直接使用该数组项作为参数，示意：</p>
+            <p>如果 validate 参数值的数组项只有一个，可以直接使用该数组项作为参数，示意：</p>
             <pre>new Validate('formId', {
     validate: {
         id: 'inputId',
@@ -375,19 +375,19 @@ new Validate('#validateForm', function () {
     typeMismatch: '...'
     valueMissing: '...'
 }</pre>
-                    <p>例如<code>valueMissing</code>指值缺失。所有这些提示字段源自浏览器原生验证的ValidityState对象。每个字段对应的含义可以参见这篇文章：<a href="https://www.zhangxinxu.com/wordpress/?p=8895" target="_blank">https://www.zhangxinxu.com/wordpress/?p=8895</a></p>
-                    <p>所有提示字段值还支持Function类型，用在需要动态返回提示内容的场景。</p>
+                    <p>例如 <code>valueMissing</code> 的值缺失。所有这些提示字段源自浏览器原生验证的 ValidityState 对象。每个字段对应的含义可以参见这篇文章：<a href="https://www.zhangxinxu.com/wordpress/?p=8895" target="_blank">https://www.zhangxinxu.com/wordpress/?p=8895</a></p>
+                    <p>所有提示字段值还支持 Function 类型，用在需要动态返回提示内容的场景。</p>
                 </dd>
                 <dt>method</dt>
                 <dd>可选。Function。自定义验证方法。</dd>
-                <dd><p>其中上下文this指当前实例对象，支持一个参数，为当前验证元素。</p></dd>
-                <dd><p>返回错误提示内容字符串，或<code>{ customError: '...' }</code>对象。</p></dd>
-                <dd><p>其他返回值（包括<code>undefined</code>）都认为是验证通过。</p></dd>
+                <dd><p>其中上下文 this 指当前实例对象，支持一个参数，为当前验证元素。</p></dd>
+                <dd><p>返回错误提示内容字符串，或 <code>{ customError: '...' }</code> 对象。</p></dd>
+                <dd><p>其他返回值（包括 <code>undefined</code>）都认为是验证通过。</p></dd>
             </dl>
 
             <h5>自定义提示案例</h5>
             <p>下面有一个普普通通的输入框和一个普普通通的按钮：</p>
-            <p><input id="inputA" class="ui-input" required> <button id="buttonA" is="ui-button" type="primary">点我</button></p>
+            <ui-flex><input id="inputA" class="ui-input mr15" required> <button id="buttonA" is="ui-button" type="primary">点我</button></ui-flex>
             <pre>&lt;input class="ui-input" required&gt;
 &lt;button is="ui-button" type="primary"&gt;点我&lt;/button&gt;</pre>
             <p>点击按钮，会触发验证提示，这里直接使用原生语法示意，如下：</p>
@@ -412,9 +412,9 @@ button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
                     <p>效果如下：</p>
-                    <p><input id="inputB" class="ui-input" required> <button id="buttonB" is="ui-button" type="primary">点我</button></p>
+                    <ui-flex><input id="inputB" class="ui-input mr15" required> <button id="buttonB" is="ui-button" type="primary">点我</button></ui-flex>
                 </li>
-                <li>使用原生的API语法<code>Element.setCustomValidity()</code>，如下：
+                <li>使用原生的 API 语法 <code>Element.setCustomValidity()</code>，如下：
                     <pre>input.setCustomValidity({
     valueMissing: '主人，请输入内容，喵呜~'
 });
@@ -422,21 +422,22 @@ button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
                     <p>效果如下：</p>
-                    <p><input id="inputC" class="ui-input" required> <button id="buttonC" is="ui-button" type="primary">点我</button></p>
+                    <ui-flex><input id="inputC" class="ui-input mr15" required> <button id="buttonC" is="ui-button" type="primary">点我</button></ui-flex>
                 </li>
             </ol>
 
-            <p>然而，实际开发，其实使用更多的是借助<code>&lt;label&gt;</code>元素重置宽泛的提示。<a href="#labelCount">详见这里</a>。</p>
+            <p>然而，实际开发，其实使用更多的是借助 <code>&lt;label&gt;</code> 元素重置宽泛的提示。<a href="#labelCount">详见这里</a>。</p>
 
             <h5>自定义验证方法案例</h5>
-            <p>演示<code>method</code>参数以及隐藏元素的提示功能实现，此参数的基本用法其实在一开始的“测试与演示”案例那里有演示，这里再细化下。</p>
+            <p>演示 <code>method</code> 参数以及隐藏元素的提示功能实现，此参数的基本用法其实在一开始的“测试与演示”案例那里有演示，这里再细化下。</p>
             <ol>
                 <li><p>首先演示下基本功能：</p>
             <p>下面有一个普普通通的输入框和一个普普通通的按钮：</p>
-            <p><input id="inputD" class="ui-input"> <button id="buttonD" is="ui-button" type="primary">点我</button></p>
+            <ui-flex><input id="inputD" class="ui-input mr15"> <button id="buttonD" is="ui-button" type="primary">点我</button></ui-flex>
             <pre>&lt;input class="ui-input"&gt;
 &lt;button is="ui-button" type="primary"&gt;点我&lt;/button&gt;</pre>
-            <p>此时，我们观察<code>&lt;input&gt;</code>输入框对应的HTML代码，可以看到没有设置<code>required</code>属性，默认状态下，认为是合法的。如果我们希望此时内容为空也提示错误，而HTML又没法设置，怎么办呢？可以使用<code>method</code>参数，JS代码如下：</p>
+            <p>此时，我们观察 <code>&lt;input&gt;</code> 输入框对应的 HTML 代码，可以看到没有设置 <code>required</code> 属性，默认状态下，认为是合法的。</p>
+            <p>如果我们希望此时内容为空也提示错误，而 HTML 又没法设置，怎么办呢？可以使用 <code>method</code> 参数，JS 代码如下：</p>
             <pre>new Validate(input.parentElement, {
     validate: {
         id: 'input',
@@ -450,7 +451,7 @@ button.addEventListener('click', function () {
 button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
-            <p>在本例中，为了演示，所以外面没有<code>&lt;form&gt;</code>元素，在这种场景下，想要自定义验证方法，还有更简单的实现。所有的自定义提示和方法都是使用<code>Element.customValidity</code>实现的，因此，上面代码我们还可以简化成这样：</p><pre>input.customValidity = {
+            <p>在本例中，为了演示，所以外面没有 <code>&lt;form&gt;</code> 元素，在这种场景下，想要自定义验证方法，还有更简单的实现。所有的自定义提示和方法都是使用 <code>Element.customValidity</code> 实现的，因此，上面代码我们还可以简化成这样：</p><pre>input.customValidity = {
     method: function (element) {
         if (element.value.trim() == '') {
             return '这个是必填的哟~';
@@ -461,8 +462,8 @@ button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
                 </li>
-                <li>然后演示下隐藏元素的提示，有些表单控件是隐藏在页面中的，例如<code>'hidden'</code>类型输入框，或者一些很丑的拿不出台面的元素。Validate组件对LuLu UI内置的表单元素已经做了提示元素转移，但是并不能覆盖所有的场景，此时，需要开发人员针对具体的场景进行调整。
-                    <p>有两种做法，一是通过<code>data-target</code>属性关联，还有一种是在DOM对象上使用dataTarget属性关联。</p>
+                <li>然后演示下隐藏元素的提示，有些表单控件是隐藏在页面中的，例如 <code>'hidden'</code> 类型输入框，或者一些很丑的拿不出台面的元素。Validate 组件对 LuLu UI 内置的表单元素已经做了提示元素转移，但是并不能覆盖所有的场景，此时，需要开发人员针对具体的场景进行调整。
+                    <p>有两种做法，一是通过 <code>data-target</code> 属性关联，还有一种是在 DOM 对象上使用 dataTarget 属性关联。</p>
                     <p>例如一个更换头像功能，点击按钮图像上会出现提示：</p>
                     <div class="dib tc">
                         <img id="imgE" src="//facepic.qidian.com/qd_face/349573/123/100" alt="默认头像" width="100" height="100">
@@ -475,14 +476,14 @@ button.addEventListener('click', function () {
                     <pre>&lt;img id="img" src="default.png" alt="默认头像"&gt;
 &lt;input id="input" type="hidden" data-target="img" required&gt;
 &lt;button id="button" is="ui-button" type="primary"&gt;确认更换&lt;/button&gt;</pre>
-                    <p>使用了data-target将提示定位元素从隐藏的输入框转移为&lt;img&gt;图像。此时就可以安心执行<code>reportValidity()</code>方法了。</p>
+                    <p>使用了 data-target 将提示定位元素从隐藏的输入框转移为 &lt;img&gt; 图像。此时就可以安心执行<code>reportValidity()</code>方法了。</p>
                     <pre>input.setCustomValidity({
     valueMissing: '尚未上传更换的头像'
 });
 button.addEventListener('click', function () {
     input.reportValidity();
 });</pre>
-                    <p>如果HTML设置不方便，也可以使用DOM对象进行关联：</p>
+                    <p>如果 HTML 设置不方便，也可以使用 DOM 对象进行关联：</p>
                     <pre>&lt;img id="img" src="default.png" alt="默认头像"&gt;
 &lt;input id="input" type="hidden" required&gt;
 </pre>
@@ -496,13 +497,13 @@ button.addEventListener('click', function () {
             <p>为了更好地适应多种使用场景，本组件还支持下面两种调用方法：</p>
 
             <ol>
-                <li>form.validate()语法；</li>
-                <li>is-validate自定义属性；</li>
+                <li>form.validate() 语法；</li>
+                <li>is-validate 自定义属性；</li>
             </ol>
 
-            <h4>form.validate()语法</h4>
+            <h4>form.validate() 语法</h4>
 
-            <p><code>form.validate()</code>语法仅支持<code>&lt;form&gt;</code>元素，使用示意：</p>
+            <p><code>form.validate()</code> 语法仅支持 <code>&lt;form&gt;</code> 元素，使用示意：</p>
             <pre>&lt;form id="f0"&gt;
     &lt;input type="search" class="ui-input" required&gt;
     &lt;button type="submit" is="ui-button" type="primary"&gt;搜索&lt;/button&gt;
@@ -517,9 +518,9 @@ f0.addEventListener('valid', function () {
                 <button type="submit" is="ui-button" type="primary">搜索</button>
             </form>
 
-            <h4>is-validate自定义属性</h4>
+            <h4>is-validate 自定义属性</h4>
 
-            <p>给任意的元素设置<code>is-validate</code>属性，就会自动进行表单验证初始化的设置。</p>
+            <p>给任意的元素设置 <code>is-validate</code> 属性，就会自动进行表单验证初始化的设置。</p>
             <p>例如：</p>
             <pre>&lt;form id="f1" is-validate&gt;
     &lt;input type="search" class="ui-input" required&gt;
@@ -528,18 +529,18 @@ f0.addEventListener('valid', function () {
             <pre>f1.addEventListener('valid', function () {
     new Dialog().alert('同样验证通过');
 });</pre>
-            <form id="f1" is-validate>
-                <input type="search" class="ui-input" required>
+            <form id="f1" is-validate class="ui-flex">
+                <input type="search" class="ui-input mr10" required>
                 <button type="submit" is="ui-button" type="primary">搜索</button>
             </form>
 
-            <p>当使用<code>is-validate</code>属性语法的时候，支持<code>connected</code>和<code>DOMContentLoaded</code>生命周期事件。</p>
+            <p>当使用 <code>is-validate</code>属 性语法的时候，支持 <code>connected</code> 和 <code>DOMContentLoaded</code> 生命周期事件。</p>
 
             <h3>document.validate对象</h3>
 
-            <p><code>document.validate</code>对象和Validate组件的核心，或者说Validate组件是基于<code>document.validate</code>对象封装而来。包括对DOM元素重置的</p>
-            <p>表单验证浏览器内置的3个方法<code>checkValidity()</code>，<code>reportValidity()</code>，<code>setCustomValidity()</code>和1个属性<code>validity</code>的重置也是基于<code>document.validate</code>对象实现。</p>
-            <p>因此，了解<code>document.validate</code>对象有助于实现更定制化的需求。</p>
+            <p><code>document.validate</code> 对象是 Validate 组件的核心，或者说 Validate 组件是基于 <code>document.validate</code> 对象封装而来。</p>
+            <p>表单验证浏览器内置的三个方法 <code>checkValidity()</code>，<code>reportValidity()</code>，<code>setCustomValidity()</code> 和一个属性 <code>validity</code> 的重置也是基于 <code>document.validate</code> 对象实现。</p>
+            <p>因此，了解<code>document.validate</code> 对象有助于实现更定制化的需求。</p>
 
             <h4>属性</h4>
             <dl>
@@ -553,9 +554,7 @@ f0.addEventListener('valid', function () {
     date: '^\\d{4}\\-(0\\d|1[0-2])\\-([0-2]\\d|3[0-1])$',
     time: '^[0-2]\\d\\:[0-5]\\d$',
     hour: '^[0-2]\\d\\:00$',
-    minute: '^[0-2]\\d\\:[0-5]\\d$',
-    'date-range': '^\\d{4}(\\-\\d{2}){2}\\s至\\s\\d{4}(\\-\\d{2}){2}$',
-    'month-range': '^\\d{4}\\-\\d{2}\\s至\\s\\d{4}\\-\\d{2}$'
+    minute: '^[0-2]\\d\\:[0-5]\\d$'
 }</pre></dd>
                 <dd><code>name</code>值是内置表单元素类型对应的中文名称对象合集。默认值是（点击展开）：<pre style="height: 6em; overflow: hidden;" onclick="this.style.height='';">{
     email: '邮箱',
@@ -570,65 +569,61 @@ f0.addEventListener('valid', function () {
     month: '月份',
     hour: '小时',
     minute: '分钟',
-    time: '时间',
-    datetime: '日期时间',
-    'date-range': '日期范围',
-    'month-range': '月份范围'
+    time: '时间'
 }</pre></dd>
                 <dd>
                     <p>我们可以使用这两个属性扩展自定义的验证类型，例如，扩展一个身份证输入框。</p>
                     <pre>document.validate.reg.idcard = '^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|[Xx])$';
 document.validate.name.idcard = '身份证';</pre>
-                    <p>此时，我们就获得了<code>type="idcard"</code>类型的输入框。点击下面的“验证”按钮，看看提示信息是不是包含了“身份证”关键字：</p>
-                    <p><input id="inputF" type="idcard" class="ui-input" required> <button id="buttonF" is="ui-button" type="primary">验证</button></p>
+                    <p>此时，我们就获得了 <code>type="idcard"</code> 类型的输入框。点击下面的“验证”按钮，看看提示信息是不是包含了“身份证”关键字：</p>
+                    <ui-flex><input id="inputF" type="idcard" class="ui-input mr10" required> <button id="buttonF" is="ui-button" type="primary">验证</button></ui-flex>
                     <p>代码如下：</p>
                     <pre>&lt;input id="input" type="idcard" class="ui-input" required&gt;
 &lt;button id="button" is="ui-button" type="primary"&gt;验证&lt;/button&gt;</pre>
                 </dd>
                 <dt>focusable</dt>
-                <dd>出错提示出现的时候，输入框的值是否框选。<code>true</code>表示框选，<code>0</code>和<code>false</code>表示忽略。此属性有成熟的内置逻辑，不建议自己尝试使用。</dd>
+                <dd>出错提示出现的时候，输入框的值是否框选。<code>true</code> 表示框选，<code>0</code> 和 <code>false</code> 表示忽略。此属性有成熟的内置逻辑，不建议自己尝试使用。</dd>
             </dl>
 
             <h4>方法</h4>
             <dl>
                 <dt>selectRange(element, start, end)</dt>
-                <dd>设置element从start到end位置文字选中。</dd>
+                <dd>设置 element 从 start 到 end 位置文字选中。</dd>
                 <dt>getTel(tel)</dt>
-                <dd>返回准确的连续11位号码，过滤短横线或者+86这些不需要的字符。</dd>
+                <dd>返回准确的连续 11 位号码，过滤短横线或者 +86 这些不需要的字符。</dd>
                 <dt>getType(element)</dt>
                 <dd>返回元素准确的类型。</dd>
                 <dt>getLength</dt>
-                <dd>返回元素准确的字符长度。默认1个字符算1个长度，如果输入框设置<code>lang="zh"</code>属性，则1个汉字算1个长度，2个字母等于1个汉字；如果输入框设置<code>lang="en"</code>属性，则1个英文字符算1个长度，1个汉字等于2个英文字符。
-                    <p>正因为有这样的规则，所以才有此方法。</p></dd>
+                <dd>返回元素准确的字符长度。</dd>
                 <dt>getReportText(element)</dt>
                 <dd>返回元素对应的错误提示信息，如果元素验证通过，没有错误，则返回值是空字符串。</dd>
                 <dt>getTarget(element)</dt>
-                <dd>返回准确的ErrorTip提示的目标元素。</dd>
+                <dd>返回准确的 ErrorTip 提示的目标元素。</dd>
                 <dt>getMissingState(element)</dt>
                 <dd>返回元素值是否缺失的验证状态。返回值：<pre>{
     // 如果值缺失，下面的false应该是true
     valueMissing: false
 }</pre></dd>
                 <dt>getMismatchState(element, regex, params)</dt>
-                <dd>返回元素的值和<code>type</code>类型对应正则，或者和<code>pattern</code>正则的验证状态。没有错误的返回值是：<pre>{
+                <dd>返回元素的值和 <code>type</code> 类型对应正则，或者和 <code>pattern</code> 正则的验证状态。没有错误的返回值是：<pre>{
     patternMismatch: false,
     typeMismatch: false
 }</pre></dd>
-                <dd><code>regex</code>和<code>params</code>两个参数表示指定正则表达式，和<code>i</code>，<code>g</code>这类正则参数。本组件并未用到这两个参数。</dd>
+                <dd><code>regex</code> 和 <code>params</code> 两个参数表示指定正则表达式，和<code>i</code>，<code>g</code>这类正则参数。本组件并未用到这两个参数。</dd>
                 <dt>getRangeState(element)</dt>
-                <dd>返回元素的值是否超出<code>max</code>，<code>min</code>以及<code>step</code>属性限定的范围。验证无误的返回值是：<pre>{
+                <dd>返回元素的值是否超出 <code>max</code>，<code>min</code> 以及 <code>step</code> 属性限定的范围。验证无误的返回值是：<pre>{
     badInput: false,
     rangeOverflow: false,
     rangeUnderflow: false,
     stepMismatch: false
 }</pre></dd>
                 <dt>getLengthState(element)</dt>
-                <dd>返回元素的字符数量是否超出<code>maxlength</code>和<code>minlength</code>的范围限制。验证无误的返回值是：<pre>{
+                <dd>返回元素的字符数量是否超出 <code>maxlength</code> 和 <code>minlength</code> 的范围限制。验证无误的返回值是：<pre>{
     tooLong: false,
     tooShort: false
 }</pre></dd>
                 <dt>getValidity(element)</dt>
-                <dd>返回元素完整的验证状态结果。就是上面4个方法返回值的合集。另外，会多一个<code>valid</code>属性，如果为<code>true</code>，表示验证通过，如果为<code>false</code>，则表示验证不通过。规则和规范标准一致。</dd>
+                <dd>返回元素完整的验证状态结果。就是上面四个方法返回值的合集。另外，会多一个 <code>valid</code> 属性，如果为 <code>true</code>，表示验证通过，如果为 <code>false</code>，则表示验证不通过。规则和规范标准一致。</dd>
                 <dt>isMissing(element)</dt>
                 <dd>返回布尔值。是否值缺失。</dd>
                 <dt>isMismatch(element)</dt>
@@ -638,19 +633,19 @@ document.validate.name.idcard = '身份证';</pre>
                 <dt>isOverflow(element)</dt>
                 <dd>返回布尔值。是否值的字符长度范围超出。</dd>
                 <dt>checkValidity(element)</dt>
-                <dd>返回布尔值。是否值验证不通过。可以看成是上面4个验证方法的集合。</dd>
+                <dd>返回布尔值。是否值验证不通过。可以看成是上面四个验证方法的集合。</dd>
                 <dt>setCustomValidity(element, content)</dt>
-                <dd>设置自定义错误的提示文字。也就是customError错误类型的提示内容。其中，<code>content</code>必需。</dd>
+                <dd>设置自定义错误的提示文字。也就是 customError 错误类型的提示内容。其中，<code>content</code>必需。</dd>
                 <dt>reportValidity(element, content)</dt>
-                <dd>在准确的位置显示出错提示，并红色高亮元素。其中，<code>content</code>参数可选。本组件内部并未用到该参数。本方法返回布尔值，表示验证是否成功的结果。</dd>
+                <dd>在准确的位置显示出错提示，并红色高亮元素。其中，<code>content</code> 参数可选。本组件内部并未用到该参数。本方法返回布尔值，表示验证是否成功的结果。</dd>
                 <dt>styleError(element, valid)</dt>
-                <dd>根据元素的验证状态，显示或关闭出错样式。其中<code>valid</code>是可选参数，布尔值。如果指定<code>valid</code>的值，则不会再次执行元素的合法性判断，直接使用这个参数值进行样式控制。</dd>
+                <dd>根据元素的验证状态，显示或关闭出错样式。其中 <code>valid</code> 是可选参数，布尔值。如果指定 <code>valid</code> 的值，则不会再次执行元素的合法性判断，直接使用这个参数值进行样式控制。</dd>
                 <dt>errorTip(element, content)</dt>
                 <dd>在准确的位置显示出错提示。</dd>
             </dl>
 
             <h3>原生属性和方法</h3>
-            <p>本组件对原生的表单验证方法进行了重置，以便更好地和LuLu UI体系结合。分别如下：</p>
+            <p>本组件对原生的表单验证方法进行了重置，以便更好地和 LuLu UI 体系结合。分别如下：</p>
             <h4>属性</h4>
             <dl>
                 <dt>Element.validity</dt>
@@ -669,20 +664,20 @@ valid: true</pre></dd>
                 <dt>Element.validationMessage</dt>
                 <dd>返回当前表单控件元素的验证提示信息，如果是空字符串，则表示验证无误</dd>
                 <dt>Element.willValidate</dt>
-                <dd>当前表单控件元素是否可以参与验证，此属性本组件并未重定义，完全原生，因此，返回值和本组件行为可能会有不一致的地方。例如hidden类型的输入框返回值是false，但是本组件对于hidden类型的输入框也进行了验证。</dd>
+                <dd>当前表单控件元素是否可以参与验证，此属性本组件并未重定义，完全原生，因此，返回值和本组件行为可能会有不一致的地方。例如 hidden 类型的输入框返回值是 false，但是本组件对于hidden类型的输入框也进行了验证。</dd>
             </dl>
             <h4>方法</h4>
             <dl>
                 <dt>Element.checkValidity()</dt>
-                <dd>返回当前表单控件元素或者表单元素的验证结果。返回值是布尔值。<code>true</code>表示验证通过。</dd>
+                <dd>返回当前表单控件元素或者表单元素的验证结果。返回值是布尔值。<code>true</code> 表示验证通过。</dd>
                 <dt>Element.reportValidity(content)</dt>
-                <dd>显示当前表单控件元素的错误提示，如果没有错误，则不出现提示。会使用LuLu UI内置的UI。其中，<code>content</code>参数可选。</dd>
+                <dd>显示当前表单控件元素的错误提示，如果没有错误，则不出现提示。会使用 LuLu UI 内置的 UI。其中，<code>content</code> 参数可选。</dd>
                 <dt>Element.setCustomValidity(content)</dt>
-                <dd>设置当前表单控件元素自定义的提示内容。其中，<code>content</code>参数必需。可以是字符串，表示所有的错误类型都使用这个提示内容；也可以是纯对象，指定具体错误类型的提示内容。例如：<pre>input.setCustomValidity({
+                <dd>设置当前表单控件元素自定义的提示内容。其中，<code>content</code> 参数必需。可以是字符串，表示所有的错误类型都使用这个提示内容；也可以是纯对象，指定具体错误类型的提示内容。例如：<pre>input.setCustomValidity({
     valueMissing: '主人，请输入内容，喵呜~'
 });</pre></dd>
             </dl>
-            <p>原生属性和方法虽然使用方便，但是实际开发往往需要即时验证，实时更新输入框的验证状态。此时，还是需要用到Validate实例方法。也就是下面要介绍内容。</p>
+            <p>原生属性和方法虽然使用方便，但是实际开发往往需要即时验证，实时更新输入框的验证状态。此时，还是需要用到 Validate 实例方法。也就是下面要介绍内容。</p>
 
             <h3>实例对象属性和方法</h3>
             <p>实例对象下面两种语法都能获取，如下：</p>
@@ -718,17 +713,17 @@ var myValidate = eleForm.data.validate;</pre>
     // 显示出错提示，同Element.reportValidity(content)
     reportValidity: function (element, content) {}
 }</pre>
-            <p>另外，eleForm元素上有一个名为<code>isImmediated</code>的标志量，表示表单元素是否已经开启了即时校验验证。</p>
+            <p>另外，eleForm 元素上有一个名为 <code>isImmediated</code> 的标志量，表示表单元素是否已经开启了即时校验验证。</p>
 
 
             <h3>更多应用案例</h3>
 
             <h4 id="labelCount">活用label参数优化提示</h4>
-            <p>借助<code>&lt;label&gt;</code>元素可以让我们的提示信息更加友好。</p>
+            <p>借助 <code>&lt;label&gt;</code> 元素可以让我们的提示信息更加友好。</p>
             <p>例如，点击下面的提交按钮预览效果：</p>
             <form id="commentForm">
                 <fieldset class="pl20 pr20">
-                    <legend>&lt;label&gt;提示和计数位置自定义演示</legend>
+                    <legend>&lt;label&gt; 提示和计数位置自定义演示</legend>
                     <div class="f14 mt10 mb5"><label for="comment"><span>请填写</span>评语：</label>（不超过50字，已输入<label for="comment" class="ui-textarea-count">0</label>字）</div>
                     <textarea id="comment" maxlength="50" rows="3" required is="ui-textarea"></textarea>
                     <p><button type="submit" class="ui-button" disabled data-type="primary">提交</button></p>
@@ -754,30 +749,22 @@ new Validate('#commentForm', function () {
             <p>在这个例子中，值缺失的提示不是“请填写此字段”，而是“评论不能为空”，显然更友好，那这个友好的提示是从哪里来的呢，JS代码中并没有看到端倪。</p>
             <p>实际上是在HTML中设置的，先看关键代码部分：</p>
             <pre>&lt;label for="comment"&gt;&lt;span&gt;请填写&lt;/span&gt;评语：&lt;/label&gt;</pre>
-            <p>Validate组件会通过与表单控件元素关联的<code>&lt;label&gt;</code>元素寻找提示关键字。关键字提取规则有4个小点：</p>
+            <p>Validate 组件会通过与表单控件元素关联的 <code>&lt;label&gt;</code> 元素寻找提示关键字。关键字提取规则有4个小点：</p>
             <ol>
-                <li>只选取裸露的文字。例如虽然上面<code>&lt;label&gt;</code>元素完整文本是“请填写此字段”，但是由于“请填写”外面有<code>&lt;span&gt;</code>标签，于是被忽略（请填写外面的span是故意添加的）；</li>
+                <li>只选取裸露的文字。例如虽然上面 <code>&lt;label&gt;</code> 元素完整文本是“请填写此字段”，但是由于“请填写”外面有 <code>&lt;span&gt;</code> 标签，于是被忽略（请填写外面的 span 是故意添加的）；</li>
                 <li>会过滤冒号和数字，于是提示关键字不是“评语：”，而是“评语”；</li>
-                <li>多个关联<code>&lt;label&gt;</code>元素取长度最长的文本作为关键字，因此后面计数的<code>&lt;label&gt;</code>元素会被忽略；</li>
+                <li>多个关联<code>&lt;label&gt;</code>元素取长度最长的文本作为关键字，因此后面计数的 <code>&lt;label&gt;</code> 元素会被忽略；</li>
                 <li>提示关键字小于2个字符被忽略。</li>
             </ol>
             <p>根据近20多个大小项目实践，上面规则没有出现提示异常。</p>
 
             <h5>关于计数</h5>
-            <p>Validate组件默认计数交互是配合<code>.ui-input-x > input.ui-input</code>和<code>.ui-textarea-x > textarea.ui-textarea</code>的HTML结构实现的，计数内容自动创建，并定位在右下角。</p>
-            <p>但是，可能有产品不喜欢这样的交互，希望位置在其他地方，本组件也是支持的。两点：</p>
-            <ol>
-                <li><code>&lt;label&gt;</code>元素的<code>for</code>属性值和输入框元素的<code>id</code>值一致；</li>
-                <li>根据输入框类型不同，<code>&lt;label&gt;</code>元素的类名需要包含<code>ui-input-count</code>或者<code>ui-textarea-count</code>。</li>
-            </ol>
-            <p>此时就会有自动计数和超过范围时候的颜色高亮提示效果。</p>
-            <p>如果<code>&lt;label&gt;</code>元素中还有其他内容，则计数字符需要用一个<code>span</code>标签包起来。</p>
-            <pre>&lt;label for="comment" class="ui-textarea-count"&gt;&lt;span&gt;0&lt;/span&gt;/200&lt;/label&gt;</pre>
+            <p>输入框有 <code>maxlength</code> 或 <code>minlength</code> 就会触发计数功能。</p>
 
             <h4>非表单元素的验证</h4>
-            <p>建议所有的验证和提交走原生的<code>&lt;form&gt;</code>元素。</p>
-            <p>如果遇到特殊场景，无法使用<code>&lt;form&gt;</code>元素，不要担心，Validate.js也是支持的。</p>
-            <p>参考下面的例子，一个<code>&lt;input&gt;</code>框在普通的<code>&lt;div&gt;</code>中有个普通的<code>&lt;button&gt;</code>标签按钮。</p>
+            <p>建议所有的验证和提交走原生的 <code>&lt;form&gt;</code> 元素。</p>
+            <p>如果遇到特殊场景，无法使用 <code>&lt;form&gt;</code> 元素，不要担心，Validate.js 也是支持的。</p>
+            <p>参考下面的例子，一个 <code>&lt;input&gt;</code> 框在普通的 <code>&lt;div&gt;</code> 中有个普通的 <code>&lt;button&gt;</code> 标签按钮。</p>
 
             <div id="notForm" class="pt10 pb10 bgwh">
                 <input type="search" is="ui-input" required>
@@ -801,11 +788,11 @@ button.addEventListener('click', function () {
         new Dialog().alert('无表单验证通过');
     }
 });</pre>
-            <p>区别在于需要自己绑定点击事件以及回车事件（原生表单内置的，这里回车没支持），然后执行全局验证方法<code>myValidate.checkValidity()</code>，如果返回是<code>true</code>，则表示整个表单验证通过。</p>
+            <p>区别在于需要自己绑定点击事件以及回车事件（原生表单内置的，这里回车没支持），然后执行全局验证方法 <code>myValidate.checkValidity()</code>，如果返回是 <code>true</code>，则表示整个表单验证通过。</p>
 
             <h4>一开始就开启失焦验证</h4>
-            <p>这种交互和浏览器内置的交互行为是相悖的，我个人是极力反对的，但是架不住一些难搞的产品经理，希望一开始就算用户没提交，也要开始验证。可以执行一次<code>myValidate.immediate()</code>方法。</p>
-            <p>如果产品经理希望一开始就验证，但不希望这么重（上面即时验证开启后，focus聚焦也会提示），则需要自己添加失焦事件，可以参考下面案例。</p>
+            <p>这种交互和浏览器内置的交互行为是相悖的，我个人是极力反对的，但是架不住一些难搞的产品经理，希望一开始就算用户没提交，也要开始验证。可以执行一次 <code>myValidate.immediate()</code> 方法。</p>
+            <p>如果产品经理希望一开始就验证，但不希望这么重（上面即时验证开启后，focus 聚焦也会提示），则需要自己添加失焦事件，可以参考下面案例。</p>
 
             <form id="blurForm">
                 <input type="search" class="ui-input" required>
@@ -829,8 +816,8 @@ eleBlurForm.querySelectorAll('input, select, textarea').forEach(function (eleInp
     });
 });</pre>
 
-            <h4>验证成功后走原生提交</h4>
-            <p>这个使用实例对象的<code>stopValidate</code>属性实现：</p>
+            <h4>验证成功后走原生提交</h4> 
+            <p>这个使用实例对象的 <code>stopValidate</code>属性实现：</p>
             <form id="submitForm" class="ui-flex" style="gap:.5rem;">
                 <input type="search" name="s" is="ui-input" required>
                 <button type="submit" is="ui-button" data-type="primary">搜索</button>
@@ -872,8 +859,8 @@ button.addEventListener('click', function () {
 
             <p>实现原理：</p>
             <ol>
-                <li>隐藏ErrorTip效果；</li>
-                <li>通过输入框的valid/invalid事件控制提示文字的显隐；</li>
+                <li>隐藏 ErrorTip 效果；</li>
+                <li>通过输入框的 valid/invalid 事件控制提示文字的显隐；</li>
             </ol>
 
             <p>比方说下面这个例子：</p>
