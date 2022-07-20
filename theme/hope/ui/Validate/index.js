@@ -85,9 +85,7 @@ const Validate = (() => {
                 date: '^\\d{4}\\-(0\\d|1[0-2])\\-([0-2]\\d|3[0-1])$',
                 time: '^[0-2]\\d\\:[0-5]\\d$',
                 hour: '^[0-2]\\d\\:00$',
-                minute: '^[0-2]\\d\\:[0-5]\\d$',
-                'date-range': '^\\d{4}(\\-\\d{2}){2}\\s至\\s\\d{4}(\\-\\d{2}){2}$',
-                'month-range': '^\\d{4}\\-\\d{2}\\s至\\s\\d{4}\\-\\d{2}$'
+                minute: '^[0-2]\\d\\:[0-5]\\d$'
             },
 
             name: {
@@ -104,9 +102,7 @@ const Validate = (() => {
                 hour: '小时',
                 minute: '分钟',
                 time: '时间',
-                datetime: '日期时间',
-                'date-range': '日期范围',
-                'month-range': '月份范围'
+                datetime: '日期时间'
             },
 
             // 选中某范围文字内容的拓展方法
@@ -146,57 +142,8 @@ const Validate = (() => {
                 if (element.type == 'password') {
                     return max ? max : element.value.length;
                 }
-                // 语言属性和trim后的值
-                const strAttrLang = element.getAttribute('lang');
-                const strValue = element.value.trim();
-                if (!strAttrLang) {
-                    return max ? max : strValue.length;
-                }
-                if (strValue == '') {
-                    return 0;
-                }
 
-                // 中文和英文计算字符个数的比例
-                let numRatioCh = 1;
-                let numRatioEn = 1;
-
-                if (/zh/i.test(strAttrLang)) {
-                    // 1个英文半个字符
-                    numRatioEn = 0.5;
-                } else if (/en/i.test(strAttrLang)) {
-                    // 1个中文2个字符
-                    numRatioCh = 2;
-                }
-
-                // 下面是中文或全角等字符正则
-                if (!max) {
-                    const lenOriginCh = strValue.replace(/[\x00-\xff]/g, '').length;
-                    const lenOriginEn = strValue.length - lenOriginCh;
-
-                    // 根据比例返回最终长度
-                    return Math.ceil(lenOriginEn * numRatioEn) + Math.ceil(lenOriginCh * numRatioCh);
-                }
-                let numStart = 0;
-                let lenMatch = max;
-
-                strValue.split('').forEach((letter, index) => {
-                    if (numStart >= max) {
-                        return;
-                    }
-                    if (/[\x00-\xff]/.test(letter)) {
-                        // 如果字符是中文或全角
-                        numStart += numRatioEn;
-                    } else {
-                        // 如果字符是英文
-                        numStart += numRatioCh;
-                    }
-
-                    if (numStart >= max) {
-                        lenMatch = index + 1;
-                    }
-                });
-
-                return lenMatch;
+                return element.value.length;
             },
 
             // 获得并重置type
@@ -1387,7 +1334,7 @@ const Validate = (() => {
             // 设置自定义验证
             this.setCustomValidity(objParams.validate);
 
-            // 计数效果
+            // 表单重置的计数处理
             this.count();
 
             // 手机号过滤等增强体验功能
@@ -1472,117 +1419,6 @@ const Validate = (() => {
         count () {
             // 即时验证
             const eleForm = this.element.form;
-            // 原生value属性描述符
-            const propsInput = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
-            const propsTextarea = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value');
-            // 遍历计数元素
-            eleForm.querySelectorAll('input, textarea').forEach(function (element) {
-                // 对maxlength进行处理
-                let strAttrMaxLength = element.getAttribute('maxlength');
-                if (strAttrMaxLength) {
-                    // 给maxlength设置不合法的值，阻止默认的长度限制
-                    try {
-                        element.setAttribute('maxlength', '_' + strAttrMaxLength + '_');
-                    } catch (e) {
-                        // IE7不能设置不合法的maxlength值 %>_<%
-                        element.removeAttribute('maxlength');
-                        element.maxlength = strAttrMaxLength;
-                    }
-                }
-
-                // 获得限制大小
-                const strAttrMinLength = element.getAttribute('minlength');
-
-                if (!strAttrMaxLength) {
-                    return;
-                }
-                // 过滤非数值字符
-                if (strAttrMaxLength) {
-                    strAttrMaxLength = strAttrMaxLength.replace(/\D/g, '');
-                }
-
-                // 标签名
-                const strTag = element.tagName.toLowerCase();
-                // 类名
-                const CL = {
-                    add () {
-                        return ['ui', strTag].concat([].slice.call(arguments)).join('-');
-                    },
-                    toString () {
-                        return 'ui-' + strTag;
-                    }
-                };
-
-                // 有没有label元素
-                let eleLabel = element.parentElement.querySelector('.' + CL.add('count')) || eleForm.querySelector('.' + CL.add('count') + '[for="' + element.id + '"]');
-
-                // 如果没有对应label元素，同时不是适合创建label元素的HTML结构，则返回
-                if (!eleLabel && !element.parentElement.classList.contains(CL.add('x'))) {
-                    return;
-                }
-
-                // 元素id必须
-                let strId = element.id;
-                if (!strId) {
-                    // 没有id随机id
-                    strId = ('lulu_' + Math.random()).replace('0.', '');
-                    element.id = strId;
-                }
-
-                // 计数的<label>元素，有则查询，无则新建
-                if (!eleLabel) {
-                    // 生成并载入计数元素
-                    eleLabel = document.createElement('label');
-                } else if (!eleLabel.hasAttribute('for')) {
-                    eleLabel.setAttribute('for', strId);
-                }
-
-                const eleMin = eleLabel.querySelector('span, output') || eleLabel;
-
-                // 计数，标红方法
-                const funCount = function () {
-                    const length = document.validate.getLength(element);
-                    // 实时更新现在的字符个数
-                    eleMin.innerHTML = length;
-
-                    // 超出范围或范围不足
-                    if (length != 0 && (length > strAttrMaxLength || (strAttrMinLength && length < strAttrMinLength))) {
-                        eleMin.classList.add('error');
-                        eleMin.toggleAttribute('is-error', true);
-                    } else {
-                        eleMin.classList.remove('error');
-                        eleMin.toggleAttribute('is-error', false);
-                    }
-                };
-                // 事件
-                element.count = funCount;
-                element.addEventListener('input', funCount);
-
-                if (strTag == 'input') {
-                    Object.defineProperty(element, 'value', {
-                        ...propsInput,
-                        set (value) {
-                            // 赋值
-                            propsInput.set.call(this, value);
-                            // 计数
-                            funCount();
-                        }
-                    });
-                } else if (strTag == 'textarea') {
-                    Object.defineProperty(element, 'value', {
-                        ...propsTextarea,
-                        set (value) {
-                            // 赋值
-                            propsTextarea.set.call(this, value);
-                            // 计数
-                            funCount();
-                        }
-                    });
-                }
-
-                // 一开始就计数
-                funCount();
-            });
 
             // reset事件不会自动计数处理
             eleForm.addEventListener('reset', function () {
