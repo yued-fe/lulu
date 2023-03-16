@@ -237,7 +237,7 @@ const ayncDocs = function () {
     let version = '';
     let pathVersiontxt = path.join(dirDocs, 'version.txt');
     if (fs.existsSync(pathVersiontxt)) {
-        version = fs.readFileSync(pathVersiontxt);
+        version = fs.readFileSync(pathVersiontxt, 'utf-8');
     }
 
     // 拉取线上资源
