@@ -14,7 +14,33 @@ LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
 <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
-## 文档
+## 开发
+
+拉取完整项目，包括 gh-page 分支，然后执行下面的语句即可开发：
+
+```js
+// 所有主题
+node run
+```
+
+也可以只启动某一个主题，例如：
+
+```js
+// Edge主题
+node run edge
+```
+```js
+// Hope主题
+node run hope
+```
+
+对于主题演示兼文档页面访问入口：
+
+* Pure主题：http://localhost:10086/docs/pure/about.use.html
+* Edge主题：http://localhost:10086/docs/edge/about.use.html
+* Hope主题：http://localhost:10086/docs/hope/about.html
+
+## 使用文档
 
 * <a href="https://l-ui.com/">LuLu UI 中文文档兼演示</a>（GitHub 托管，访问有延迟，IE8 无法访问）
 * <a href="https://www.zhangxinxu.com/sp/lulu/mockup/">LuLu UI 中文文档兼演示</a>（国内服务器托管，速度可以，IE8 可以访问）
@@ -23,13 +49,14 @@ LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
 <a href="https://www.bilibili.com/video/BV19f4y1N7X1"><img src="https://imgservices-1252317822.image.myqcloud.com/image/112220210184445/0c589289.png" width="360" height="240"></a>
 
-## 教程
+
+## 使用教程
 
 * <a href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">LuLu UI 中文教程</a>
 
 ## 上手简单
 
-LuLu 整个项目就是提供一些 UI 组件的 JS 和 CSS，很纯粹的 JS 和 CSS，贴近原生，简单直白。
+LuLu 整个项目就是提供一些 UI 组件的 JS 和 CSS，很纯粹的 JS 和 CSS，贴近原生，简单直白，即插即用。
 
 LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如下面的代码引用了全部的 UI 组件库：
 
@@ -147,12 +174,16 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
   原生 JavaScript 编写，兼容 IE9+，PC，Mobile 网站通用。分 css 和 js 2个目录，没有图片资源目录，所有图像 CSS 内联。
 * Edge 主题<br>
   原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库。
+  * Hope 主题<br>
+  原生 JavaScript 编写，ES6 module，技术前沿，移动端适用。
 
 组件分 ui 和 comp 两个目录，前者是 UI 组件，后者是基于 UI 组件整合的前端解决方案。
 
 更具体信息可以参见：
+
 * <a href="https://l-ui.com/pure/about.use.html">文档-使用与发布（Pure主题）</a>
 * <a href="https://l-ui.com/edge/about.use.html">文档-使用与发布（Edge主题）</a>
+* <a href="https://l-ui.com/hope/about.html">文档-设计思考（Hope主题）</a>
 
 文档在 <a href="https://github.com/yued-fe/lulu/tree/gh-pages">gh-pages 分支</a>。
 
@@ -160,13 +191,13 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 
 ## 项目成员
 
-排名不分先后：nanaSun，ziven27，lennonover，wiia, popeyesailorman, 5ibinbin, littleLionGuoQing, peter006qi, HSDPA-wen, ShineaSYR, xiaoxiao78
+排名不分先后：nanaSun，ziven27，lennonover，wiia, popeyesailorman, 5ibinbin, littleLionGuoQing, peter006qi, HSDPA-wen, ShineaSYR, xiaoxiao78, zhangxinxu
 
 ## 其他说明
 
 因为 IE7 大势已去，目前 modern 主题已停止维护。
 
-组件均有测试，不过在内部项目中，没有对外。
+组件均有测试（Hope主题除外），不过在内部项目中，没有对外。
 
 LuLu UI 的设计理念、使用方式不同于常规 UI 组件库。
 
