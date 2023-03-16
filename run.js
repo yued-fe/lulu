@@ -259,17 +259,6 @@ const ayncDocs = function () {
                 // 使用 git 指令把 文档分支中的文件复制过来
                 console.log('开始复制文档资源...');
 
-                // 先复制版本
-                if (version === '') {
-                    fs.writeFile(pathVersiontxt, versionOnline, (err) => {
-                        if (err) {
-                            console.error(`exec error: ${err}`);
-                            return;
-                        }
-                        console.log('版本文件写入成功');
-                    });
-                }
-
                 // 复制文档
                 child_process.exec('git show gh-pages:index.html > ' + path.join(dirDocs, 'index.html'), function (err) {
                     if (err) {
@@ -289,6 +278,18 @@ const ayncDocs = function () {
                             // 清除这几个文件
                             sourceCopy.forEach(dir => clean(dir));
                         }, 200);
+
+                        // 写入版本
+                        if (version === '') {
+                            fs.writeFile(pathVersiontxt, versionOnline, (err) => {
+                                if (err) {
+                                    console.error(`exec error: ${err}`);
+                                    return;
+                                }
+                                console.log('版本文件写入成功');
+                            });
+                        }
+
                         return;
                     }
                     // 遍历复制
