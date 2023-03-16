@@ -34,11 +34,15 @@ node run edge
 node run hope
 ```
 
-对于主题演示兼文档页面访问入口：
+对应主题的演示兼文档页面的本地访问入口：
 
 * Pure主题：http://localhost:10086/docs/pure/about.use.html
 * Edge主题：http://localhost:10086/docs/edge/about.use.html
 * Hope主题：http://localhost:10086/docs/hope/about.html
+
+此时，修改项目的 JS 和 CSS 文件，刷新对于的组件页面，就可以看到变化的效果了。
+
+文档页面禁止在 master 分支提交，如果需要推送，请切换到 gh-pages 分支。
 
 ## 使用文档
 
