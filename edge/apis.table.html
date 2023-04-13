@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表格列表">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 表格列表">
+<title>LuLu UI edge主题中文文档 &raquo; 表格列表</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 表格列表</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+
+<div class="main">
+    <!-- 主内容 -->
+  	<main class="section_main">
+      	<h2 class="section_title">表格列表</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>如果想以插件形式单独使用列表的UI，而不是所有UI组件集合<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">commom/ui.css</a>，可以直接引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/Table.css"&gt;</pre>
+            <p>如果还有其他状态样式、分页结构布局样式等，还需要引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/comp/Table.css"&gt;</pre>
+            <p>详见：综合实例-<a href="./example.table.html">表格解决方案</a></p>
+            <h3>纯表格列表</h3>
+            <p>例如：</p>
+            <table class="ui-table">
+                <thead>
+                  <tr>
+                    <th>标题1</th>
+                    <th>标题2</th>
+                    <th>标题3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>第1行项目1</td>
+                    <td>第1行项目2</td>
+                    <td>第1行项目3</td>
+                  </tr>
+                  <tr>
+                    <td>第2行项目1</td>
+                    <td>第3行项目2</td>
+                    <td>第4行项目3</td>
+                  </tr>
+                </tbody>
+            </table>
+            <p>HTML代码如下：</p>
+            <pre>&lt;table <mark>class="ui-table"</mark>&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;标题1&lt;/th&gt;
+            &lt;th&gt;标题2&lt;/th&gt;
+            &lt;th&gt;标题3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;第1行项目1&lt;/td&gt;
+            &lt;td&gt;第1行项目2&lt;/td&gt;
+            &lt;td&gt;第1行项目3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;第2行项目1&lt;/td&gt;
+            &lt;td&gt;第3行项目2&lt;/td&gt;
+            &lt;td&gt;第4行项目3&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+            <p>通过给<code>&lt;table&gt;</code>元素设置类名<code>.ui-table</code>实现。</p>
+            <h3>复合表格列表</h3>
+            <p>实际项目开发时候，列表通常和分页一起出现，有时候甚至还有大大的表格头甚至搜索框，此时列表结构就相对复杂些。</p>
+            <p>同时还会存在数据为空以及加载出错等常见状态。LuLu ui基于实践经验，进行了这方面的支持。</p>
+            <p>首先，需要引入下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/comp/Table.css"&gt;</pre>
+            <p>然后……</p>
+
+            <h4>基本HTML结构</h4>
+            <p>表格列表的完整结构为：</p>
+            <pre><span class="red">&lt;!-- 若有表格第一列为复选框，添加类名table-checkbox --&gt;</span>
+&lt;div class="table-x">
+    <span class="green">&lt;!-- 列表 --&gt;</span>
+    &lt;table class="ui-table"&gt;&lt;/table&gt;
+    <span class="green">&lt;!-- 列表无数据的占位 --&gt;</span>
+    &lt;div class="table-null-x"&gt;&lt;/div&gt;
+    <span class="green">&lt;!-- 列表加载loading，依赖Loading.css --&gt;</span>
+    &lt;div class="ui-loading"&gt;&lt;/div&gt;
+    <span class="green">&lt;!-- 底部分页 --&gt;</span>
+    &lt;div class="table-page-x"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>                      <p><code>.ui-table</code>中的一般结构就是上面演示的“纯表格列表”结构。</p>
+            <p><code>.table-page-x</code>中的一般结构为：</p>
+            <pre><span class="green">&lt;!-- 控制每页列表数目，若无此需求，缺省即可 --&gt;</span>
+&lt;div class="table-page-data"&gt;
+    共&lt;output class="table-page-total"&gt;0&lt;/output>名成员, 每页显示&lt;a href="javascript:" class="table-page-per"&gt;15&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="table-page"&gt;<span class="green">&lt;!-- 分页由JS动态创建 --></span>&lt;/div&gt;</pre>
+            <p>实际项目开发，直接复制上面固定的HTML结构，按需调整列的数量，绑定交互。具体可参考“<a href="./example.table.html">表格解决方案</a>”中的JS代码。</p>
+
+            <h4>HTML结构与效果展示</h4>
+            <ol>
+                <li>
+                    <h5>loading加载效果</h5>
+                    <div class="table-x">
+                        <table class="ui-table">
+                          <tr>
+                            <th>标题1</th>
+                            <th>标题2</th>
+                          </tr>
+                          <tbody></tbody>
+                         </table>
+                         <ui-loading rows="15"></ui-loading>
+                    </div>
+                    <p>HTML代码如下：</p>
+                    <pre>&lt;div class="table-x"&gt;
+    &lt;table class="ui-table"&gt;
+      &lt;tr&gt;
+        &lt;th&gt;标题1&lt;/th&gt;
+        &lt;th&gt;标题2&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tbody&gt;&lt;/tbody&gt;
+     &lt;/table&gt;
+     &lt;ui-loading rows="15"&gt;&lt;/ui-loading&gt;
+&lt;/div&gt;</pre>
+                </li>
+                <li>
+                    <h5>数据为空（普通提示文字，仅分页）</h5>
+                    <div class="table-x">
+                        <table class="ui-table">
+                          <tr>
+                            <th>标题1</th>
+                            <th>标题2</th>
+                          </tr>
+                          <tbody></tbody>
+                         </table>
+                         <div class="table-null-x" style="display: flex;">
+                            <div class="table-null">暂无数据</div>
+                         </div>
+                         <!-- 底部分页 -->
+                         <div class="table-page-x">
+                            <div class="table-page">
+                                <ui-pagination total="1"></ui-pagination>
+                            </div>
+                         </div>
+                    </div>
+                    <p>HTML代码如下：</p>
+                    <pre>&lt;div class="table-x"&gt;
+    &lt;table class="ui-table" is="ui-table"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;标题1&lt;/th&gt;
+            &lt;th&gt;标题2&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tbody&gt;&lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class="table-null-x" style="display: flex;"&gt;暂无数据&lt;/div&gt;
+    <span class="green">&lt;!-- 底部分页 --&gt;</span>
+    &lt;div class="table-page-x"&gt;
+        &lt;div class="table-page"&gt;
+        &lt;ui-pagination total="1"&gt;&lt;/ui-pagination&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </li>
+                <li>
+                    <h5>数据为空（精致提示）</h5>
+                    <div class="table-x">
+                        <table class="ui-table" is="ui-table">
+                          <tr>
+                            <th>标题1</th>
+                            <th>标题2</th>
+                          </tr>
+                          <tbody></tbody>
+                         </table>
+                         <div class="table-null-x" style="display: flex;">
+                            <div class="table-null">
+                                <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/icon_exapmle_delete.png" width="69" height="80">
+                                <h2>回收站为空</h2>
+                                <p>系统将在用户删除成员一个工作日后，<br>自动彻底清理</p>
+                            </div>
+                         </div>
+                         <!-- 底部分页 -->
+                         <div class="table-page-x">
+                            <div class="table-page-data">
+                                共<output class="table-page-total" data-type="total">0</output>名成员, 每页显示<ui-drop class="table-page-per" data-type="per">15</ui-drop>
+                            </div>
+                            <div class="table-page"></div>
+                         </div>
+                    </div>
+
+                    <p>HTML代码如下：</p>
+                    <pre>&lt;div class="table-x" is="ui-table"&gt;
+    &lt;table class="ui-table"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;标题1&lt;/th&gt;
+            &lt;th&gt;标题2&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tbody&gt;&lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class="table-null-x"&gt;
+        &lt;div class="table-null"&gt;
+            &lt;img src="delete.png" width="69" height="80"&gt;
+            &lt;h2&gt;回收站为空&lt;/h2&gt;
+            &lt;p&gt;系统将在用户删除成员一个工作日后，&lt;br&gt;自动彻底清理&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    <span class="green">&lt;!-- 底部分页 --&gt;</span>
+    &lt;div class="table-page-x"&gt;
+        &lt;div class="table-page-data"&gt;
+            共&lt;output class="table-page-total" data-type="total"&gt;0&lt;/output&gt;名成员，每页显示&lt;ui-drop class="table-page-per" data-type="per"&gt;15&lt;/ui-drop&gt;
+        &lt;/div&gt;
+        &lt;div class="table-page"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </li>
+                <li>
+                    <h5>包含复选（需要Checkbox.css）和标题</h5>
+                    <div class="table-x table-checkbox">
+                        <!-- 列表的头部，内头 -->
+                        <div class="table-header">
+                            <h2 class="table-title">用户评论</h2>
+                        </div>
+                        <table class="ui-table" width="100%">
+                          <tr>
+                            <th><input type="checkbox" is="ui-checkbox"></th>
+                            <th>粉丝</th>
+                            <th width="30%">评论内容</th>
+                            <th>评论时间</th>
+                            <th>所有评论</th>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" is="ui-checkbox"></td>
+                            <td><div class="ell">烦人的小妖精娜娜酱</div></td>
+                            <td><div class="ell"><span class="gray">[已置顶]</span>不错，赞一个以后天天关注。</div></td>
+                            <td>2015-06-26 12:34</td>
+                            <td>通过</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" is="ui-checkbox"></td>
+                            <td><div class="ell">司徒中</div></td>
+                            <td><div class="ell">对于估值近期的大幅下跌，证监会新闻发言人张晓军26日表示：这是市场前期过快上涨的自然调整，是市场自身运行规律的结果，有流动性波动，投资去杠杆等因素叠加的原因。</div></td>
+                            <td>2015-06-26 18:11</td>
+                            <td>不通过</td>
+                          </tr>
+                         </table>
+                         <!-- 底部分页 -->
+                         <div class="table-page-x">
+                            <div class="table-page-data">
+                                共<output class="table-page-total" data-type="total">2</output>名成员, 每页显示<ui-drop class="table-page-per" data-type="per">15</ui-drop>
+                            </div>
+                            <div class="table-page defaultPage"></div>
+                         </div>
+                    </div>
+                    <pre>&lt;div class="table-x <mark>table-checkbox</mark>"&gt;
+    <span class="green">&lt;!-- 列表标题头 --&gt;</span>
+    &lt;div class="table-header"&gt;
+        &lt;h2 class="table-title"&gt;用户评论&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;table class="ui-table" width="100%"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&lt;input type="checkbox" is="ui-checkbox"&gt;&lt;/th&gt;
+            &lt;th&gt;粉丝&lt;/th&gt;
+            &lt;th width="30%"&gt;评论内容&lt;/th&gt;
+            &lt;th&gt;评论时间&lt;/th&gt;
+            &lt;th"&gt;所有评论&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;input type="checkbox" is="ui-checkbox"&gt;&lt;/td&gt;
+            ...
+        &lt;/tr&gt;
+        ...
+    &lt;/table&gt;
+    <span class="green">&lt;!-- 底部分页 --&gt;</span>
+    &lt;div class="table-page-x"&gt;
+        &lt;div class="table-page-data"&gt;
+            共&lt;output class="table-page-total" data-type="total"&gt;2&lt;/output&gt;名成员, 每页显示&lt;ui-drop class="table-page-per" data-type="per"&gt;15&lt;/ui-drop&gt;
+        &lt;/div&gt;
+        &lt;div class="table-page"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    <p>Chrome浏览器下设置width为外部尺寸无法让溢出的文字点点点显示，这是有问题的，此时需要在<code>&lt;table&gt;</code>元素上设置<code>width="100%"</code>进行外部尺寸重置。</p>
+                </li>
+            </ol>
+            <p class="tips">复杂Table表格常规列表以外的样式通常与业务关系比较密切，属于UI组件体系以外的东西，因此相关CSS资源不在<code>common/ui</code>目录下，而是在<code>common/comp</code>目录下，需要额外CSS请求。</p>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+  	</main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
+<!-- 底部 -->
+<script src="../edge/assets/js/mockup.js"></script>
+</body>
+</html>
+
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/comp/Table.js"></script>

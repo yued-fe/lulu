@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于静态控件之文本框" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 静态控件之文本框" />
+<title>LuLu UI pure主题中文文档 &raquo; 静态控件之文本框</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 静态控件之文本框</h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure" selected>Pure主题</option>
+			    <option value="edge">Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+		</div>
+	</header>
+
+
+<div class="main">
+    <!-- 主内容 -->
+	<main class="section_main">
+    	<h2 class="section_title">静态控件之文本框</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>如果只想以插件形式单独使用文本框的UI，而不是所有UI组件集合<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">commom/ui.css</a>，可以直接引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Input.css"&gt;</pre>
+            <p>然后就可以参照下面的文档使用了。</p>
+            <p>输入框如果有使用<code>placeholder</code>属性，可以引入<a href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css" target="_blank">Placeholder.css</a>对占位符样式进行设置。</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Placeholder.css"&gt;</pre>
+
+            <h3>普通文本框</h3>
+            <h4>基本态</h4>
+            <form>
+                最简单的input标签：<input class="ui-input" name="username">
+            </form>
+            <pre><span class="green">/* type='text'可缺省 */</span>
+&lt;input class="ui-input"&gt;</pre>
+            <p>
+                input内置-内联标签：<span class="ui-input"><input></span>
+            </p>
+            <pre>&lt;span class="ui-input"&gt;&lt;input&gt;&lt;/span&gt;</pre>
+            <div>
+                input内置-块状标签(宽度100%自适应父容器)：<div class="ui-input mt10"><input></div>
+            </div>
+            <pre>&lt;div class="ui-input"&gt;&lt;input&gt;&lt;/div&gt;</pre>
+
+            <h4>只读和禁用</h4>
+            <p>
+                <label>文本框只读：</label><input class="ui-input" value="只读" readonly>
+            </p>
+            <p>
+                <label>文本框禁用：</label><input class="ui-input" value="禁用" disabled>
+            </p>
+            <pre>&lt;input class="ui-input" value="只读" <mark>readonly</mark>>
+&lt;input class="ui-input" value="禁用" <mark>disabled</mark>&gt;</pre>
+
+            <h4>出错</h4>
+            <p>
+                文本框出错：<input class="ui-input error" required size="12"> <span class="ui-input"><input class="error" required size="12"></span>
+            </p>
+            <pre>&lt;input class="ui-input <mark>error</mark>" required>
+&lt;span class="ui-input">&lt;input class="<mark>error</mark>" required>&lt;/span></pre>
+            <p><small class="gray">Tips: 实际开发<code>.error</code>类名会由ErrorTip.js自动添加</small>，通常无需手动添加。</p>
+
+            <h3>带计数的文本框</h3>
+            <p>这里演示静态效果，输入文本内容，输入框右侧的数值并不会变化，如果想要变化，需要引入Validate.js并对表单元素进行实例方法初始化。</p>
+            <h4>带计数的文本框</h4>
+            <div class="ui-input-x">
+                <input id="someId" maxlength="20" name="search" placeholder="占位符">
+                <div class="ui-input"></div>
+                <label for="someId" class="ui-input-count">
+                    <output>0</output>/<span>20</span>
+                </label>
+            </div>
+            <pre>&lt;div class="ui-input-x"&gt;
+    &lt;input <span class="gray">id="someId"</span> maxlength="20" placeholder="占位符"&gt;
+    &lt;div class="ui-input"&gt;&lt;/div&gt;
+    <span class="gray">&lt;label for="someId" class="ui-input-count"&gt;
+        &lt;output&gt;0&lt;/output&gt;/&lt;span&gt;20&lt;/span&gt;
+    &lt;/label&gt;</span>
+&lt;/div&gt;</pre>
+            <p><code>someId</code>这个<code>id</code>注意不要重复，这里只是演示<code>&lt;input&gt;</code>元素的<code>id</code>和<code>&lt;label&gt;</code>需要保持一致，大家拷贝代码的时候注意修改去重。</p>
+            <p>如果希望<code>.ui-input-x</code>这个<code>&lt;div&gt;</code>元素不是100%自适应外部容器，可以指定<code>width</code>大小。</p>
+            <div class="tips">如果使用了Validate.js验证，<code>&lt;label&gt;</code>元素可缺省，直接下面代码结构：
+            <pre>&lt;div class="ui-input-x">
+    &lt;input maxlength="20">
+    &lt;div class="ui-input">&lt;/div>
+&lt;/div></pre></div>
+
+            <h4>其它状态</h4>
+            <p>禁用状态：</p>
+            <div class="ui-input-x">
+                <input id="someId2" maxlength="20" name="username" value="禁用中..." disabled>
+                <div class="ui-input"></div>
+                <label for="someId2" class="ui-input-count">
+                    <output>0</output>/<span>20</span>
+                </label>
+            </div>
+            <pre>&lt;div class="ui-input-x">
+    &lt;input maxlength="20" <mark>disabled</mark>>
+    &lt;div class="ui-input">&lt;/div>
+&lt;/div></pre>
+
+            <h3>普通搜索框</h3>
+
+            <p>搜索：<input type="search" class="ui-input" accesskey="/"></p>
+            <pre><span class="green">/* type='search'必须，类名'ui-input-search'可缺省 */</span>
+&lt;input type="search" class="ui-input"></pre>
+            <p>除了<code>type</code>属性值不一样，其他使用和普通文本框一样。</p>
+
+
+            <h3>带搜索图标的搜索框</h3>
+            <p>
+                内联：<span class="ui-input ui-input-search">
+                    <input type="search">
+                    <a href="javascript:" class="ui-icon-search">搜索</a>
+                </span>
+            </p>
+            <pre>&lt;span class="ui-input ui-input-search"&gt;
+    &lt;input type="search"&gt;
+    &lt;a href="javascript:" class="ui-icon-search"&gt;搜索&lt;/a&gt;
+&lt;/span&gt;</pre>
+
+            <p>
+                内联, 图标右侧：<span class="ui-input ui-input-search" align="right">
+                    <input type="search" placeholder="测试">
+                    <button class="ui-icon-search">搜索</button>
+                </span>
+            </p>
+            <pre>&lt;span class="ui-input ui-input-search" <mark>align="right"</mark>&gt;
+    &lt;input type="search" placeholder="测试"&gt;
+    &lt;button class="ui-icon-search"&gt;搜索&lt;/button&gt;
+&lt;/span&gt;</pre>
+
+            <div>
+                <p>块状定宽：</p>
+                <div class="ui-input ui-input-search" align="right" style="width:268px;">
+                    <input type="search" placeholder="测试">
+                    <a href="javascript:" class="ui-icon-search" role="button">搜索</a>
+                </div>
+            </div>
+            <p>如果是直接表单提交跳转式的搜索，使用label标签可访问性和易用性最好，直接for属性值关联submit类型按钮的id即可！</p>
+            <pre>&lt;div class="ui-input ui-input-search" <mark>align="right"</mark> style="width:268px;"&gt;
+    &lt;input type="search" placeholder="测试"&gt;
+    &lt;a href="javascript:" class="ui-icon-search" role="button"&gt;搜索&lt;/a&gt;
+&lt;/div&gt;</pre>
+
+            <label class="db mb10">块状+禁用：</label>
+            <div class="ui-input ui-input-search">
+                <input type="search" disabled>
+                <button class="ui-icon-search" disabled>搜索</button>
+            </div>
+            <pre>&lt;div class="ui-input ui-input-search"&gt;
+    &lt;input type="search" <mark>disabled</mark>&gt;
+    &lt;button class="ui-icon-search" <mark>disabled</mark>&gt;搜索&lt;/button&gt;
+&lt;/div&gt;</pre>
+
+            <label class="db mb10">块状+出错：</label>
+            <div class="ui-input ui-input-search">
+                <input type="search" class="error">
+                <button class="ui-icon-search">搜索</button>
+            </div>
+            <pre>&lt;div class="ui-input ui-input-search"&gt;
+    &lt;input type="search" class="error"&gt;
+    &lt;button class="ui-icon-search"&gt;搜索&lt;/button&gt;
+&lt;/div&gt;</pre>
+
+            <label class="db mb10">input标签按钮：</label>
+            <span class="ui-input ui-input-search" align="right">
+                <input type="search" placeholder="测试">
+                <input type="submit" class="ui-icon-search" value="搜索">
+            </span>
+            <pre>&lt;span class="ui-input ui-input-search" align="right"&gt;
+    &lt;input type="search" placeholder="测试"&gt;
+    &lt;input type="submit" class="ui-icon-search" value="搜索"&gt;
+&lt;/span&gt;</pre>
+
+            <label class="db mb10">input标签按钮出错：</label>
+            <span class="ui-input ui-input-search" align="right">
+                <input type="search" class="error">
+                <input type="submit" class="ui-icon-search" value="搜索">
+            </span>
+            <pre>&lt;span class="ui-input ui-input-search" align="right"&gt;
+    &lt;input type="search" class="error"&gt;
+    &lt;input type="submit" class="ui-icon-search" value="搜索"&gt;
+&lt;/span&gt;</pre>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt" hidden>动态控件</dt>
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<!-- 底部 -->
+<script src="../pure/assets/js/mockup.js"></script>
+</body>
+</html>
+

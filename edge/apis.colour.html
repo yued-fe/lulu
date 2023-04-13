@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于组件颜色">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 组件颜色">
+<title>LuLu UI edge主题中文文档 &raquo; 组件颜色</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 组件颜色</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+<style>
+.color_list_x{max-width:960px;font-size:0;}
+.color_list { width: 237px; display: inline-block; margin: 25px 0; position: relative; }
+.color_list:before{content:'';border:40px solid transparent;float: left;border-radius:50%;margin-right: 25px; box-shadow: 0 4px 16px; opacity: .5;}
+.color_list:after {content:'';position:absolute;border:40px solid;border-radius:50%;left:0; top: 0;}
+.light:before{box-shadow: 0 4px 16px rgba(0,0,0,.3);}
+.color_list h6{font-size: 20px; margin: 12px 0 0; color: #4c5161;}
+.color_list p{margin: 0; font-size: 16px; color: #4c5161;}
+</style>
+
+<div class="main">
+    <!-- 主内容 -->
+	<main class="section_main">
+        <!-- 详细内容 -->
+        <article>
+            <h2 class="section_title">组件颜色</h2>
+            <h3>颜色（文字、按钮）</h3>
+            <div class="color_list_x">
+                <div class="color_list dark">
+                    <h6>深色</h6>
+                    <p>#4c5161</p>
+                </div>
+                <div class="color_list light">
+                    <h6>浅色</h6>
+                    <p>#f7f9fa</p>
+                </div>
+                <div class="color_list gray">
+                    <h6>灰色</h6>
+                    <p>#a2a9b6</p>
+                </div>
+                <div class="color_list blue">
+                    <h6>蓝色</h6>
+                    <p>#2a80eb</p>
+                </div>
+                <div class="color_list" style="color:#0057c3;">
+                    <h6>深蓝色</h6>
+                    <p>#0057c3</p>
+                </div>
+                <div class="color_list red">
+                    <h6>红色</h6>
+                    <p>#eb4646</p>
+                </div>
+                <div class="color_list orange">
+                    <h6>橘色</h6>
+                    <p>#f59b00</p>
+                </div>
+                <div class="color_list green">
+                    <h6>绿色</h6>
+                    <p>#1cad70</p>
+                </div>
+            </div>
+
+            <h3>颜色变量</h3>
+            <p>默认的颜色变量名称如下所示：</p>
+            <pre><span class="green">/* 基础颜色变量 */</span>
+--ui-blue: #2a80eb;
+--ui-dark-blue: #0057c3;
+--ui-dark: #4c5161;
+--ui-gray: #a2a9b6;
+--ui-dark-gray: #b6bbc6;
+--ui-light: #f7f9fa;
+--ui-white: #ffffff;
+--ui-green: #1cad70;
+--ui-orange: #f59b00;
+--ui-red: #eb4646;
+<span class="green">/* hover 的颜色 */</span>
+--ui-list-hover: #f0f7ff;
+<span class="green">/* selected 的颜色 */</span>
+--ui-list-selected: #e0f0ff;
+<span class="green">/* disabled 禁用色 */</span>
+--ui-disabled: #ccd0d7;
+<span class="green">/* 边框颜色 */</span>
+--ui-border: #d0d0d5;
+<span class="green">/* 深一点的边框颜色 */</span>
+--ui-dark-border: #ababaf;
+<span class="green">/* 浅一点的边框颜色 */</span>
+--ui-light-border: #ededef;</pre>
+
+            <h3>控制文字的颜色</h3>
+            <p>如果有引入下面的CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/color.css"&gt;</pre>
+            <p>则可以直接使用下面高亮的类名显示颜色：</p>
+            <pre>&lt;span class="<mark>dark</mark>">主色(深色)&lt;/span>
+&lt;span class="<mark>light</mark>">浅色&lt;/span>
+&lt;span class="<mark>gray</mark>">灰色(主色灰)&lt;/span>
+&lt;span class="<mark>blue</mark>">蓝色&lt;/span>
+&lt;span class="<mark>red</mark>">红色&lt;/span>
+&lt;span class="<mark>orange</mark>">橘色&lt;/span>
+&lt;span class="<mark>green</mark>">绿色&lt;/span>
+&lt;span class="<mark>grey</mark>">灰色(边框灰)&lt;/span>
+&lt;span class="<mark>white</mark>">白色&lt;/span></pre>
+            <p>其中<code>blue</code>是默认的文字链接色，而深蓝色则是hover的颜色，其他情况，此深蓝色并不出现。</p>
+            <pre>&lt;a href&gt;文字链接&lt;/a&gt;</pre>
+            <p><a href>文字链接</a></p>
+            <p>有些链接文字默认是主色，则hover时候自动会变成blue蓝色。</p>
+            <pre>&lt;a href class="dark"&gt;文字链接默认主色&lt;/a&gt;</pre>
+            <p><a href class="dark">文字链接默认主色</a></p>
+            <p>其他颜色如<code>red</code>, <code>green</code>可以出现在表示状态的静态描述文字上。例如：</p>
+            <pre>&lt;span class="red"&gt;审核没有通过&lt;/span&gt;</pre>
+            <pre>&lt;span class="green"&gt;审核成功&lt;/span&gt;</pre>
+            <p><span class="red">审核没有通过</span><br><span class="green">审核成功</span></p>
+
+            
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
+<!-- 底部 -->
+<script src="../edge/assets/js/mockup.js"></script>
+</body>
+</html>

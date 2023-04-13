@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于组件颜色">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 组件颜色">
+<title>LuLu UI hope主题中文文档 &raquo; 组件颜色</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ui.css">
+<link rel="stylesheet" href="../hope/assets/css/mockup.css">
+<script type="module" src="../hope/assets/js/code-run.js"></script>
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 组件颜色</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge">Edge主题</option>
+				<option value="hope" selected>Hope主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+<style>
+.color_list_x{max-width:960px;font-size:0;}
+.color_list { width: 237px; display: inline-block; margin: 25px 0; position: relative; }
+.color_list:before{content:'';border:40px solid transparent;float: left;border-radius:50%;margin-right: 25px; box-shadow: 0 4px 16px; opacity: .5;}
+.color_list:after {content:'';position:absolute;border:40px solid;border-radius:50%;left:0; top: 0;}
+.light:before{box-shadow: 0 4px 16px rgba(0,0,0,.3);}
+.color_list h6{font-size: 20px; margin: 12px 0 0; color: #4c5161;}
+.color_list p{margin: 0; font-size: 16px; color: #4c5161;}
+</style>
+
+<div class="main">
+    <!-- 主内容 -->
+	<main class="section_main">
+        <!-- 详细内容 -->
+        <article>
+            <h2 class="section_title">颜色与主题</h2>
+            <h3>主要颜色</h3>
+            <div class="color_list_x">
+                <div class="color_list dark">
+                    <h6>深色</h6>
+                    <p>#4c5161</p>
+                </div>
+                <div class="color_list light">
+                    <h6>浅色</h6>
+                    <p>#f7f9fa</p>
+                </div>
+                <div class="color_list gray">
+                    <h6>灰色</h6>
+                    <p>#a2a9b6</p>
+                </div>
+                <div class="color_list blue">
+                    <h6>蓝色</h6>
+                    <p>#2a80eb</p>
+                </div>
+                <div class="color_list red">
+                    <h6>红色</h6>
+                    <p>#eb4646</p>
+                </div>
+                <div class="color_list orange">
+                    <h6>橘色</h6>
+                    <p>#f59b00</p>
+                </div>
+                <div class="color_list green">
+                    <h6>绿色</h6>
+                    <p>#1cad70</p>
+                </div>
+                <div class="color_list purple">
+                    <h6>紫色</h6>
+                    <p>#c12cea</p>
+                </div>
+            </div>
+
+            <h3>颜色变量</h3>
+            <p>默认的颜色变量名称如下所示：</p>
+            <pre lang="css"><span class="green">/* 基础颜色变量 */</span>
+--ui-primary: #2a80eb;
+--ui-dark-blue: #0057c3;
+--ui-dark: #4c5161;
+--ui-gray: #a2a9b6;
+--ui-dark-gray: #b6bbc6;
+--ui-light: #f7f9fa;
+--ui-white: #ffffff;
+--ui-blue: #2a80eb;
+--ui-green: #1cad70;
+--ui-orange: #f59b00;
+--ui-red: #c12cea;
+--ui-purple: #eb4646;
+<span class="green">/* hover 的颜色 */</span>
+--ui-list-active: #f0f7ff;
+<span class="green">/* selected 的颜色 */</span>
+--ui-list-selected: #e0f0ff;
+<span class="green">/* disabled 禁用色 */</span>
+--ui-disabled: #ccd0d7;
+<span class="green">/* 边框颜色 */</span>
+--ui-border: #d0d0d5;
+<span class="green">/* 深一点的边框颜色 */</span>
+--ui-dark-border: #ababaf;
+<span class="green">/* 浅一点的边框颜色 */</span>
+--ui-light-border: #ededef;
+--ui-light-background: var(--ui-light-border);</pre>
+
+            <h3>主题定制</h3>
+
+            <p>除了颜色，还有以下全局变量可供设置：</p>
+            <pre>/* 透明度 */
+--ui-opacity: .4;
+/* 圆角变量 */
+--ui-radius: .25rem;
+/* 基础字号 */
+--ui-font: 1rem;
+/* 动画时间 */
+--ui-animate-time: .2s;
+/* 基本尺寸单元 */
+--ui-line-height: 1.375rem;
+--ui-component-height: 2.25rem;</pre>
+            
+            <h4>如何定制？</h4>
+
+            <p>如果 CSS 是在业务代码中，修改 variables.css 或包含全局变量的 CSS 文件。</p>
+            <p>如果 CSS 不方便修改，直接在业务 CSS 代码中重置。</p>
+            
+            <h3>无障碍访问支持</h3>
+            <p>本主题天然对用户暗黑模式、减弱动画和高对比度模式进行了支持，以增强用户体验。</p>
+            <p>使用方式如下：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/scheme-dark.css" media="(prefers-color-scheme: dark)"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/contrast-more.css" media="(prefers-contrast: more)"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/reduced-motion.css" media="prefers-reduced-motion"&gt;</pre>
+            
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.html" class="aside_nav ">设计思考</a></dd>
+            <dd><a href="./use.html" class="aside_nav ">快速上手</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">样式</dt>
+            <dd><a href="./colour.html" class="aside_nav active">颜色与主题</a></dd>
+            <dd><a href="./layout.html" class="aside_nav ">既定布局</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">元素衍生</dt>
+            <dd><a href="./hr.html" class="aside_nav ">Hr 分隔线</a></dd>
+            <dd><a href="./button.html" class="aside_nav ">Button 按钮</a></dd>
+
+            <dd><a href="./input.html" class="aside_nav ">Input 文本框</a>
+                <!-- <dd-li>
+                    <a href="./input-password.html" class="aside_nav ">Password 密码框</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./textarea.html" class="aside_nav ">Textarea 文本域</a></dd>
+
+            <dd><a href="./checkbox.html" class="aside_nav ">Checkbox 多选</a>
+                <dd-li>
+                    <a href="./checkbox-switch.html" class="aside_nav ">Switch 开关</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./radio.html" class="aside_nav ">Radio 单选</a></dd>
+
+            <dd><a href="./progress.html" class="aside_nav ">Progress 进度</a></dd>
+
+            <dd><a href="./select.html" class="aside_nav ">Select 下拉框</a></dd>
+            <dd><a href="./range.html" class="aside_nav ">Range 范围选择</a>
+                <dd-li>
+                    <a href="./range-star.html" class="aside_nav ">Star 评分</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
+            <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
+                <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
+                <dd-li><a href="./validate.html" class="aside_nav ">Validate 表单验证</a></dd-li>
+            </dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">交互</dt>
+            <dd><a href="./loading.html" class="aside_nav ">Loading 效果</a>
+                <!-- <dd-li>
+                    <a href="" class="aside_nav ">Pulldown 下拉</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./overlay.html" class="aside_nav ">Overlay 覆盖</a>
+                <dd-li><a href="./popup.html" class="aside_nav ">Popup 弹出</a></dd-li>
+                <dd-li><a href="./dialog.html" class="aside_nav ">Dialog 弹框</a></dd-li>
+            </dd>
+            
+            <dd><a href="./float.html" class="aside_nav ">Float 浮层</a>
+                <dd-li>
+                    <a href="./toast.html" class="aside_nav ">Toast 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./lighttip.html" class="aside_nav ">LightTip 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./followtext.html" class="aside_nav ">FollowText 提示</a>
+                </dd-li>
+            </dd>
+
+            <dd><a href="./pagination.html" class="aside_nav ">Pagination 分页</a></dd>
+
+            <dd><a href="./drop.html" class="aside_nav ">Drop 下拉</a>
+                <dd-li>
+                    <a href="drop-list.html" class="aside_nav ">Drop 列表</a>
+                </dd-li>
+            </dd>
+            
+            <dd>
+                <a href="./rel.html" class="aside_nav ">Rel 切换</a>
+                <dd-li>
+                    <a href="./tab.html" class="aside_nav ">Tab 选项卡</a>
+                </dd-li>
+            </dd>
+            <dd>
+                <a href="./snap.html" class="aside_nav ">Snap 滚动</a>
+                <dd-li>
+                    <a href="snap-swipe.html" class="aside_nav ">SnapSwipe 轮播</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-cell.html" class="aside_nav ">SnapCell 滑动单元格</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-tab.html" class="aside_nav ">SnapTab 滑动式选项卡</a>
+                </dd-li>
+            </dd>
+            
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+<!-- 底部 -->
+<script src="../hope/assets/js/mockup.js"></script>
+<script src="../hope/assets/js/highlight.min.js"></script>
+<script>
+document.querySelectorAll('pre').forEach((el) => {
+    hljs.highlightElement(el);
+});
+</script>
+</body>
+</html>

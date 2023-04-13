@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于Pagination分页">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Pagination分页">
+<title>LuLu UI hope主题中文文档 &raquo; Pagination分页</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ui.css">
+<link rel="stylesheet" href="../hope/assets/css/mockup.css">
+<script type="module" src="../hope/assets/js/code-run.js"></script>
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Pagination分页</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge">Edge主题</option>
+				<option value="hope" selected>Hope主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+
+<style>
+.my-pagination {
+    justify-content: center;
+    --ui-blue: #673AB7
+}
+</style>
+
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">Pagination 分页</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>本分页组件可以单独作为插件使用。</p>
+            <p>引用下面的 CSS 和 JS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/Pagination/index.css"&gt;</pre>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Pagination/index.js"&gt;&lt;/script&gt;</pre>
+            <p>也可采用如下方式进行引用：</p>
+            <pre>&lt;script type="module"&gt;
+    import 'https://qidian.gtimg.com/lulu/hope/ui/Pagination/index.js';
+&lt;/script&gt;</pre>
+
+            <h3>概述</h3>
+            <p>Pagination 组件支持三种使用方式，分别是：</p>
+            <ol>
+                <li>使用自定义元素 <code>&lt;ui-pagination&gt;</code>（推荐）；</li>
+                <li>普通元素上设置 <code>is-pagination</code> 属性；</li>
+                <li>传统的 <code>new Pagination()</code> 构造语法。</li>
+            </ol>
+            <h3>ui-pagination 自定义元素</h3>
+            <h4>基本的效果和使用</h4>
+            <p>无需初始化，直接使用自定义的 <code>&lt;ui-pagination&gt;</code> 元素即可。</p>
+            <pre>&lt;ui-pagination total="100" per="8"&gt;&lt;/ui-pagination&gt;</pre>
+
+            <code-run open title="分页组件元素">
+                <div slot="preview">
+                    <ui-pagination total="100" per="8"></ui-pagination>
+                </div>
+            </code-run>
+
+            <p>支持<code>total</code>，<code>current</code>，<code>per</code>，<code>mode</code>，<code>href</code>这 5 个自定义属性。</p>
+            <p>如果需要监听页码监听事件，可以通过 addEventListener 进行绑定：</p>
+            <pre>var elePagination = document.querySelector('ui-pagination');
+elePagination.addEventListener('change', function (ev) {
+    console.log(this.current);
+    console.log(ev.target.current);
+    console.log(ev.detail.current);
+});</pre>
+            <h4>短分页</h4>
+
+            <p>设置 <code>mode="short"</code> 会表现为短分页。</p>
+            <pre>&lt;ui-pagination total="100" current="5" per="10" mode="short"&gt;&lt;/ui-pagination&gt;</pre>
+            <code-run open title="短分页效果示意">
+                <div slot="preview">
+                    <ui-pagination total="100" current="5" per="10" mode="short"></ui-pagination>
+                </div>
+            </code-run>
+
+            <h4>属性值修改与同步测试</h4>
+
+            <p>当需要改变分页的总数，或者每一页的条数的时候，直接设置对应的属性值即可，例如点击某按钮，修改某分页的总数为 200。</p>
+            <pre>&lt;ui-pagination total="100" per="10" current="5"&gt;&lt;/ui-pagination&gt;</pre>
+            <pre>button.addEventListener('click', function () {
+    pagination.total = 200;
+});</pre>
+
+            <code-run open title="修改属性分页自动同步">
+                <div slot="operate">
+                    <p class="tc">
+                        <button id="btl" is="ui-button" type="primary">修改分页的total为200</button>
+                    </p>
+                </div>
+                <div slot="preview">
+                    <ui-pagination id="pg3" total="100" per="10" current="5"></ui-pagination>
+                </div>
+            </code-run>
+
+            <h4>DOM 插入与渲染测试</h4>
+            <p>测试代码如下所示。</p>
+            <pre>button.addEventListener('click', function () {
+    this.parentElement.insertAdjacentHTML('afterend', '&lt;ui-pagination total="66" &gt;&lt;/ui-pagination&gt;');
+});</pre>
+
+            <code-run open title="DOM 插入与渲染">
+                <div slot="operate">
+                    <button id="bit" is="ui-button" type="primary">插入一个&lt;ui-pagination&gt;分页元素</button>
+                </div>
+                <div slot="preview">
+                    <div id="pix"></div>
+                </div>
+            </code-run>
+
+            <h3>is-pagination 快捷语法</h3>
+            <p>本 Pagination 组件支持在原生 HTML 元素上添加 <code>is-pagination</code> 属性实现分页效果。使用示意：</p>
+            <pre>&lt;div is-pagination data-total="200" data-per="10"&gt;&lt;/div&gt;</pre>
+
+            <code-run open title="div 元素分页">
+                <div slot="preview">
+                    <div is-pagination data-total="30" data-per="10"></div>
+                </div>
+            </code-run>
+
+            <p><code>is-pagination</code>快捷语法支持自定义其他参数，均使用<code>data-*</code>语法进行设置，例如支持<code>data-current</code>、<code>data-per</code>、<code>data-total</code>、<code>data-loading</code>、<code>data-href</code> 等属性。</p>
+            <pre>&lt;div is-pagination data-total="200" data-per="15" data-current="3" &gt;&lt;/div&gt;</pre>
+
+            <code-run open title="data-*属性设置">
+                <div slot="preview">
+                    <div id="pg0" is-pagination data-total="200" data-per="15" data-current="3"></div>
+                </div>
+            </code-run>
+
+
+            <p>下面测试下直接插入一段包含 <code>is-pagination</code> 属性的 HTML 代码，看看分页效果是不是正常出现。</p>
+
+            <code-run open title="data-*属性设置">
+                <div slot="operate">
+                    <button id="b1" class="ui-button" type="primary">插入一段包含 is-pagination 设置的HTML</button>
+                </div>
+                <div slot="preview">
+                    <div id="ispx"></div>
+                </div>
+                <div slot="code">
+                    <pre>button.addEventListener('click', function (event) {
+    ispx.innerHTML = '&lt;div is-pagination data-total="200" data-per="10"&gt;&lt;div&gt;'
+});</pre>
+                </div>
+            </code-run>
+
+            <p>如需获取分页属性，采用常规 dataset 方式即可，例如</p>
+            <pre>// 获取当前页
+pagination.dataset.current
+// 获取总页数
+pagination.dataset.total
+</pre>
+            <h3>new Pagination() 语法</h3>
+            <p>可以采用传统的构造语法来创建一个分页组件，例如：</p>
+            <pre>var pagination = new Pagination({
+    current: 3,
+    total: 200,
+    per: 10,
+    // 需要插入的容器，不传则不渲染到页面（即存在内存中）
+    container: document.querySelector('#pagination')
+})</pre>
+
+            <p>返回的 pagination 即为分页组件的dom节点 <code>&lt;ui-pagination&gt;&lt;/ui-pagination&gt;</code>，可通过 <code>.total</code> 等操作，修改分页的总数。</p>
+            <pre>button.addEventListener('click', function () {
+    // pagination 为 new Pagination 返回
+    pagination.total = 300;
+});</pre>
+
+            <code-run open title="使用构造语法创建与修改">
+                <div slot="operate">
+                    <p><button id="b2" is="ui-button" type="primary">创建一个分页组件</button></p>
+                    <p class="mt15"><button id="b3" is="ui-button" type="primary">设置总页数为 300</button></p>
+                </div>
+                <div slot="preview">
+                    <div id="pagination"></div>
+                </div>
+            </code-run>
+
+            <h4>参数说明</h4>
+
+            <p>支持的参数如下表所示，无论哪种语法，都可以参考下表。</p>
+
+            <table width="100%" class="ui-table">
+              <tr>
+                <th scope="col" width="70">属性名称</th>
+                <th scope="col" width="120">支持类型</th>
+                <th scope="col" width="110">默认值</th>
+                <th scope="col">释义</th>
+              </tr>
+              <tr>
+                <td>total</td>
+                <td>Number</td>
+                <td>0</td>
+                <td>总数据量。默认长度为0。注意，是数据条目总数，不是分页总数。</td>
+              </tr>
+              <tr>
+                <td>current</td>
+                <td>Number</td>
+                <td>1</td>
+                <td>当前页码数。默认是选中第1页。</td>
+              </tr>
+              <tr>
+                <td>per</td>
+                <td>Number</td>
+                <td>15</td>
+                <td>每页显示的条目数。</td>
+              </tr>
+              <tr>
+                <td>mode</td>
+                <td>String</td>
+                <td>long</td>
+                <td>分页的类别。目前支持的参数有：<code>long</code>和<code>short</code></td>
+              </tr>
+              <tr>
+                <td>href</td>
+                <td>String</td>
+                <td>java<wbr>script:</td>
+                <td>可点击分页项的<code>href</code>值，默认是<code>javascript:</code>。
+                    <p>支持<code>${current}</code>动态数据，值等同于当前点击分页的页码数。例如<code>href="?query<wbr>=page<wbr>${current}<wbr>"</code>，则生成的分页的<code>href</code>属性值会是：<wbr><code>?query<wbr>=page1</code>，<wbr><code>?query<wbr>=page2</code>，<wbr><code>?query<wbr>=pg3</code>，<wbr>...</p></td>
+              </tr>
+              <tr>
+                <td>loading</td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>是否正在加载，当设置为<code>true</code>时，当前页码会出现loading</td>
+              </tr>
+            </table>
+
+            <h3>ele.pagination() 方法</h3>
+
+            <p>语法如下：</p>
+            <pre>element.pagination(options);</pre>
+
+            <p>使用示意：</p>
+            <pre>&lt;div id="pg1" data-total="234"&gt;&lt;/div&gt;</pre>
+            <pre>pg1.pagination({
+    per: 20
+});</pre>
+
+            <p>无论是 new 构造语法、还是 <code>is-pagination</code> 快捷语法，亦或者是这里的 <code>pagination()</code> 方法，如果想要修改分页的总数，或者每页的数量，则直接设置<code>data-total</code>、<code>data-per</code>等属性是无效的，因为普通 HTML 元素上的这些属性并没有加入检测，此时应该找到底层的自定义元素进行设置，方法如下：</p>
+
+            <pre>dom['ui-pagination'].total = 123;</pre>
+
+
+            <code-run open title="DOM 扩展方法与参数设置">
+                <div slot="operate">
+                    <button type="primary" id="b4" is="ui-button">点击我</button>
+                </div>
+                <div slot="preview">
+                    <div id="pg1" data-total="234"></div>
+                </div>
+            </code-run>
+
+            <h3>分页组件实例</h3>
+            <h4>基本效果和使用</h4>
+            <p>修改下面的一些数值，预览分页效果：</p>
+
+            <code-run open title="修改与设置">
+                <div slot="operate">
+                    <p>
+                        总数据量：<input id="inputTotal" class="ui-input mr30" size="6" value="280">
+                    </p>
+                    <p class="mt15">
+                        每页数目：<select id="inputPer" is="ui-select">
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                        </select>
+                    </p>
+                </div>
+                <div slot="preview">
+                    <ui-pagination id="page1" total="280" per="15"></ui-pagination>
+                    <br>
+                    <ui-pagination id="page2" total="280" per="15" mode="short"></ui-pagination>
+                </div>
+                <div slot="code">
+<pre>// 下拉或者输入框值改变后
+eleInputPer.addEventListener('change', function () {
+    page2.per = this.value;
+    page1.per = this.value;
+});
+eleInputTotal.addEventListener('change', function () {
+    page2.total = this.value;
+    page1.total = this.value;
+});</pre>
+                </div>
+            </code-run>
+
+            <h4>普通链接地址的分页</h4>
+            <p>HTML代码如下：</p>
+            <pre>&lt;ui-pagination total="100" per="8" href="?pageid=${current}"&gt;&lt;/ui-pagination&gt;</pre>
+
+            <code-run title="点击刷新的分页" open>
+                <div slot="preview">
+                    <ui-pagination total="100" per="8" href="?pageid=${current}"></ui-pagination>
+                </div>
+            </code-run>
+
+            <h4>加载状态</h4>
+            <p>常用于 ajax 异步加载内容，语法是设置 loading 属性值为 true 或 false。</p>
+            <pre>// 监听change事件即可
+pagination.addEventListener('change', function () {
+    pagination.loading = true;
+    // 这里用定时器模拟ajax请求
+    setTimeout( function(){
+        // 其他业务逻辑
+        pagination.loading = false;
+    }, 1000)
+});</pre>
+
+            <code-run title="loading 示意" open>
+                <div slot="preview">
+                    <ui-pagination id="pg4" total="100" per="8"></ui-pagination>
+                </div>
+            </code-run>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan, zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.html" class="aside_nav ">设计思考</a></dd>
+            <dd><a href="./use.html" class="aside_nav ">快速上手</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">样式</dt>
+            <dd><a href="./colour.html" class="aside_nav ">颜色与主题</a></dd>
+            <dd><a href="./layout.html" class="aside_nav ">既定布局</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">元素衍生</dt>
+            <dd><a href="./hr.html" class="aside_nav ">Hr 分隔线</a></dd>
+            <dd><a href="./button.html" class="aside_nav ">Button 按钮</a></dd>
+
+            <dd><a href="./input.html" class="aside_nav ">Input 文本框</a>
+                <!-- <dd-li>
+                    <a href="./input-password.html" class="aside_nav ">Password 密码框</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./textarea.html" class="aside_nav ">Textarea 文本域</a></dd>
+
+            <dd><a href="./checkbox.html" class="aside_nav ">Checkbox 多选</a>
+                <dd-li>
+                    <a href="./checkbox-switch.html" class="aside_nav ">Switch 开关</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./radio.html" class="aside_nav ">Radio 单选</a></dd>
+
+            <dd><a href="./progress.html" class="aside_nav ">Progress 进度</a></dd>
+
+            <dd><a href="./select.html" class="aside_nav ">Select 下拉框</a></dd>
+            <dd><a href="./range.html" class="aside_nav ">Range 范围选择</a>
+                <dd-li>
+                    <a href="./range-star.html" class="aside_nav ">Star 评分</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
+            <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
+                <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
+                <dd-li><a href="./validate.html" class="aside_nav ">Validate 表单验证</a></dd-li>
+            </dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">交互</dt>
+            <dd><a href="./loading.html" class="aside_nav ">Loading 效果</a>
+                <!-- <dd-li>
+                    <a href="" class="aside_nav ">Pulldown 下拉</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./overlay.html" class="aside_nav ">Overlay 覆盖</a>
+                <dd-li><a href="./popup.html" class="aside_nav ">Popup 弹出</a></dd-li>
+                <dd-li><a href="./dialog.html" class="aside_nav ">Dialog 弹框</a></dd-li>
+            </dd>
+            
+            <dd><a href="./float.html" class="aside_nav ">Float 浮层</a>
+                <dd-li>
+                    <a href="./toast.html" class="aside_nav ">Toast 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./lighttip.html" class="aside_nav ">LightTip 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./followtext.html" class="aside_nav ">FollowText 提示</a>
+                </dd-li>
+            </dd>
+
+            <dd><a href="./pagination.html" class="aside_nav active">Pagination 分页</a></dd>
+
+            <dd><a href="./drop.html" class="aside_nav ">Drop 下拉</a>
+                <dd-li>
+                    <a href="drop-list.html" class="aside_nav ">Drop 列表</a>
+                </dd-li>
+            </dd>
+            
+            <dd>
+                <a href="./rel.html" class="aside_nav ">Rel 切换</a>
+                <dd-li>
+                    <a href="./tab.html" class="aside_nav ">Tab 选项卡</a>
+                </dd-li>
+            </dd>
+            <dd>
+                <a href="./snap.html" class="aside_nav ">Snap 滚动</a>
+                <dd-li>
+                    <a href="snap-swipe.html" class="aside_nav ">SnapSwipe 轮播</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-cell.html" class="aside_nav ">SnapCell 滑动单元格</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-tab.html" class="aside_nav ">SnapTab 滑动式选项卡</a>
+                </dd-li>
+            </dd>
+            
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+<!-- 底部 -->
+<script src="../hope/assets/js/mockup.js"></script>
+<script src="../hope/assets/js/highlight.min.js"></script>
+<script>
+document.querySelectorAll('pre').forEach((el) => {
+    hljs.highlightElement(el);
+});
+</script>
+</body>
+</html>
+<script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Pagination/index.js"></script>
+<script type="module">
+var elePagination = document.querySelector('ui-pagination');
+elePagination.addEventListener('change', function (ev) {
+    console.log(this.current, ev.target.current, ev.detail.current);
+});
+
+var eleInputTotal = document.querySelector('#inputTotal');
+var eleInputPer = document.querySelector('#inputPer');
+var page1 = document.querySelector('#page1');
+var page2 = document.querySelector('#page2');
+var pg3 = document.querySelector('#pg3');
+var pg4 = document.querySelector('#pg4');
+
+
+// 下拉或者输入框值改变后
+eleInputPer.addEventListener('change', function () {
+    page2.per = this.value;
+    page1.per = this.value;
+});
+eleInputTotal.addEventListener('change', function () {
+    page2.total = this.value;
+    page1.total = this.value;
+});
+
+// 修改total属性值触发分页变化
+var eleButtonTotal = document.querySelector('#btl');
+eleButtonTotal.addEventListener('click', function () {
+    pg3.total = 200;
+    this.disabled = true;
+});
+
+// 插入分页元素
+bit.addEventListener('click', function () {
+    pix.insertAdjacentHTML('afterend', '<ui-pagination total="66"></ui-pagination>');
+});
+
+// 模拟ajax加载
+pg4.addEventListener('change', function () {
+    this.loading = true;
+    // 这里用定时器模拟ajax请求
+    setTimeout( function(){
+        // 其他业务逻辑
+        pg4.loading = false;
+    }, 2000) 
+});
+
+// 插入 is-pagination
+b1.addEventListener('click', function (event) {
+    ispx.innerHTML = '<div is-pagination data-total="200" data-per="10"><div>';
+});
+
+// 插入 new Pagination
+var op = null;
+b2.addEventListener('click', function (event) {
+    op = new Pagination({
+        current: 3,
+        total: 100,
+        per: 10,
+        container: pagination
+    });
+
+    this.disabled = true;
+});
+// 插入 new Pagination
+b3.addEventListener('click', function (event) {
+    if (op) {
+        op.total = 300;
+
+        this.disabled = true;
+    }
+});
+
+pg0.addEventListener('change', function () {
+    console.log('变化了');
+});
+
+pg1.pagination({
+    per: 20
+});
+
+// 改变分页数量
+b4.addEventListener('click', function (event) {
+    pg1['ui-pagination'].total = 123;
+});
+</script>

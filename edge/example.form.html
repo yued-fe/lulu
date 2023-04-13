@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表单解决方案">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 表单解决方案">
+<title>LuLu UI edge主题中文文档 &raquo; 表单解决方案</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 表单解决方案</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">表单解决方案</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>引用下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/edge/css/common/Form.css"&gt;
+&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/edge/css/common/ui/LightTip.css"&gt;</pre>
+            <p>JS为：</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/comp/Form.js"&gt;&lt;/script&gt;</pre>
+            <p>或者：</p>
+            <pre>&lt;script type="module"&gt;
+    import "https://qidian.gtimg.com/lulu/edge/js/common/comp/Form.js";
+&lt;/script&gt;</pre>
+            <p>本组件为内置自定义元素组件，如果需要兼容Safari浏览器，还需要引入下面的JS。</p>
+            <pre>&lt;script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
+
+            <p>由于此Polyfill执行了querySelectorAll匹配，因此Safari浏览器下，组件connetedCallback生命周期函数的执行时机比Chrome/Firefox浏览器靠后，因此，如果要兼容Safari浏览器，在执行参数设置的时候，可以在当前表单元素的DOMContentLoaded或connected回调中设置。详见本文档源代码。</p>
+
+
+            <h3>概述</h3>
+            <p>通过给<code>&lt;form&gt;</code>元素设置<code>is="ui-form"</code>让原生表单和LuLu UI高度集成，包括表单验证、表单提交功能，按钮的交互细节等。</p>
+            <p>对于那些对HTML比较了解对开发者而言，本组件用起来会非常愉悦。</p>
+
+            <h3>演示和代码</h3>
+            <form action="https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/submit.php" method="post" is="ui-form">
+                <div class="fix mt15">
+                    <label class="left f14" for="idTel">手机号码<span class="red abs">*</span></label>
+                    <div class="ovh">
+                        <input type="tel" id="idTel" class="ui-input" size="20" name="tel" required>
+                    </div>
+                </div>
+                <div class="fix mt15">
+                    <label class="left f14" for="idCode">验证码<span class="red abs">*</span></label>
+                    <div class="ovh">
+                        <input type="code" id="idCode" class="ui-input" size="10" name="code" autocomplete="off" required pattern="^\d{4}$"> <span class="gray f12 ml10">4位数字</span>
+                    </div>
+                </div>
+                <div class="fix mt15">
+                    <label class="left f14" for="idMark">备注</label>
+                    <div class="ovh">
+                        <div class="ui-textarea-x" style="max-width:500px;">
+                            <textarea id="idMark" class="ui-textarea" maxlength="140" rows="5">附件</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="fix mt20">
+                    <span class="left">&nbsp;</span>
+                    <div class="cell">
+                        <button type="submit" class="ui-button" data-type="primary">注册</button>
+                    </div>
+                </div>
+            </form>
+            <p>表单操作走<code>&lt;form&gt;</code>元素，按钮类型设置为<code>submit</code>。</p>
+            <p>HTML如下：</p>
+            <pre>&lt;form action="/submit" method="post" is="ui-form"&gt;
+    &lt;label for="idTel"&gt;手机号&lt;/label&gt;
+    &lt;input type="tel" id="tel" class="ui-input" size="20" name="tel" required&gt;
+    &lt;label for="idCode"&gt;验证码&lt;/label&gt;
+    &lt;input type="code" id="code" class="ui-input" size="10" name="code" required pattern="\d{4}"&gt;
+    &lt;label for="idMark"&gt;备注&lt;/label&gt;
+   &lt;div class="ui-textarea-x" style="max-width:500px;"&gt;
+        &lt;textarea id="mark" maxlength="140" rows="5"&gt;附件&lt;/textarea&gt;
+        &lt;div class="ui-textarea"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button type="submit" class="ui-button" data-type="primary"&gt;注册&lt;/button&gt;
+&lt;/form&gt;</pre>
+            <pre><span class="green">// 备注输入框元素</span>
+var eleMark = document.querySelector('#idMark');
+<span class="green">// 获取输入框元素所在对表单</span>
+var myForm = eleMark.form;
+<span class="green">// 设置提交之前的特殊验证</span>
+myForm.params.avoidSend = function () {
+    if (/附件/.test(eleMark.value)) {
+        new Dialog().confirm('您备注中提到了附件，但是却没有上传，确定注册？', {
+            buttons: [{
+                events: function (event) {
+                    <span class="green">// 请求</span>
+                    myForm.ajax();
+                    <span class="green">// 弹框移除</span>
+                    event.dialog.remove();
+                }
+            }, {}]
+        });
+        <span class="green">// 返回true表示阻止请求发送</span>
+        return true;
+    }
+};
+<span class="green">// 设置请求成功之后对处理逻辑</span>
+myForm.callback.success = function (json) {
+    new Dialog().alert(`&lt;h6&gt;注册成功！&lt;/h6&gt;
+        &lt;p&gt;您注册手机号是：${json.data.tel}&lt;/p&gt;`, {
+        type: 'success'
+    });
+
+    // 表单重置
+    this.reset();
+};
+<span class="green">// xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据</span>
+myForm.callback.beforeSend = function (xhr, formData) {
+    <span class="green">// 增加请求头信息</span>
+    xhr.setRequestHeader('From', 'LuLu UI');
+};</pre>
+
+            <h3>语法和参数</h3>
+            <p>已知：</p>
+            <pre>let myForm = document.querySelector('form[is="ui-form"]');</pre>
+
+            <p>则所有的参数设置均围绕<code>myTable</code>展开。</p>
+
+            <p><code>myForm</code>暴露了以下属性和方法：</p>
+
+            <pre>{
+    element: {
+      <span class="green">// 原生submit类型按钮</span>
+      submit: function () {},
+      <span class="green">// 视觉可见提交按钮元素</span>
+      button: function () {},
+    },
+    params: {
+        <span class="green">// 表单额外验证数据</span>
+        validate: [],
+        <span class="green">// 表单数据发送之前对阻止处理</span>
+        avoidSend: () => {}
+    },
+    <span class="green">// 验证实例对象</span>
+    validate: Object,
+    <span class="green">// 回调的可选参数们</span>
+    callback: {
+      beforeSend: (xhr, formData) => {},
+      <span class="green">// 请求成功</span>
+      success: (json) => {},
+      <span class="green">// 请求失败</span>
+      error: () => {},
+      <span class="green">// 请求完成</span>
+      complete: () => {}
+    },
+    <span class="green">// 表单请求提交，无验证</span>
+    ajax: function() {}
+}</pre>
+
+            <h4>参数</h4>
+            <p>其中几个function类型参数含义如下：</p>
+            <table width="100%" class="ui-table">
+            <tr>
+                <th scope="col" width="140">语法</th>
+                <th scope="col">释义</th>
+            </tr>
+
+            <tr>
+                <td>avoidSend<wbr>(eleForm)</td>
+                <td>该方法表示验证成功之后，请求发送前的条件约束，举例来说，虽然用户数据全部验证成功了，但是备注提到附件，但是却没有上传文件，我们需要确认用户是否是自己的疏忽，就可以用到这里的<code>avoidSend</code>方法。当返回值为<code>true</code>的时候，会阻止Ajax请求的发送。具体可参见本页demo演示。
+                    <p>其中上下文<code>this</code>表示当前表单元素，支持一个参数<code>eleForm</code>，表示当前的表单元素。</p>
+                </td>
+            </tr>
+            <tr>
+                <td>beforeSend<wbr>(xhr, formData)</td>
+                <td>表示请求发送前的回调处理，本方法无论返回什么值都不会阻止表单请求的执行。本方法多用在对请求对象或者请求数据进行处理，例如新增一些数据，设置请求的过期时间，增加请求头等。
+                    <p>其中上下文<code>this</code>表示当前表单元素，支持两个参数<code>xhr</code>和<code>formData</code>，其中，<code>xhr</code>表示当前请求的<code>XMLHttpRequest</code>对象，<code>formData</code>是即将要发送的FormData数据对象。</p>
+                    <pre>
+beforeSend: function (xhr, formData) {
+    <span class="green">// 2秒过期</span>
+    xhr.timeout = 2000;
+    <span class="green">// 新增数据</span>
+    formData<wbr>.append('_token', 'd94i843<wbr>fvjfj938<wbr>754mn8');
+}</pre>
+                </td>
+            </tr>
+            <tr>
+                <td>success<wbr>(json)</td>
+                <td>请求成功后的回调。其中上下文<code>this</code>表示当前表单元素，支持一个参数<code>json</code>，表示后端返回的JSON数据。</td>
+            </tr>
+            <tr>
+                <td>error<wbr>()</td>
+                <td>请求失败后的回调。其中上下文<code>this</code>表示当前表单元素。</td>
+            </tr>
+            <tr>
+                <td>complete<wbr>()</td>
+                <td>请求完成后的回调。其中上下文<code>this</code>表示当前表单元素。</td>
+            </tr>
+            </table>
+
+            <p><code>myForm.params.validate</code>参数<a href="./api.validate.html">表单验证Validate</a>的<code>options</code>可选参数中对validate是一致对，不赘述。</p>
+
+            <p>myForm还支持如下两个自定义事件。</p>
+            <table width="100%" class="ui-table">
+                <tr>
+                  <th width="80">事件名称</th>
+                  <th>释义</th>
+                </tr>
+                <tr>
+                    <td>DOMContent<wbr>Loaded</td>
+                    <td>当自定义表单元素初始化完毕的时候执行。</pre></td>
+                </tr>
+                <tr>
+                    <td>connected</td>
+                    <td>当自定义表单元素和页面建立连接的时候执行。</pre></td>
+                </tr>
+            </table>
+
+            <h3>GET请求测试</h3>
+            <form id="formGet" is="ui-form">
+                <p>打开控制台，观察URL请求参数：</p>
+                <input name="key" class="ui-input">
+                <button type="submit" class="ui-button" data-type="primary">提交</button>
+            </form>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav active"><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
+<!-- 底部 -->
+<script src="../edge/assets/js/mockup.js"></script>
+</body>
+</html>
+
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Dialog.js"></script>
+<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/comp/Form.js"></script>
+
+<script>
+var eleMark = document.querySelector('#idMark');
+// 绑定验证和提交
+var myForm = eleMark.form;
+myForm.addEventListener('connected', function () {
+    // 设置提交之前的特殊验证
+    this.params.avoidSend = function () {
+        if (/附件/.test(eleMark.value)) {
+            new Dialog().confirm('您备注中提到了附件，但是却没有上传，确定注册？', {
+                buttons: [{
+                    events: function (event) {
+                        // 请求
+                        myForm.ajax();
+                        // 弹框移除
+                        event.dialog.remove();
+                    }
+                }, {}]
+            });
+
+            // 返回true表示阻止请求发送
+            return true;
+        }
+    };
+    this.callback.success = function (json) {
+        new Dialog().alert(`<h6>注册成功！</h6>
+            <p>您注册手机号是：${json.data.tel}</p>`, {
+            type: 'success'
+        });
+
+        // 表单重置
+        this.reset();
+    };
+
+    // xhr 是 XMLHttpRequest 对象，formData 是要提交的 FormData 数据
+    this.callback.beforeSend = function (xhr, formData) {
+        xhr.setRequestHeader('From', 'LuLu UI');
+    };
+});
+</script>
