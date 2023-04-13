@@ -4217,6 +4217,9 @@ class LightTip extends HTMLElement {
             if (typeof newValue === 'string') {
                 clearTimeout(this.timer);
                 this.timer = setTimeout(() => {
+                    // 标志量，是否是因为时间到关闭
+                    this.isTimeHide = true;
+                    // 关闭提示
                     this[this.closeMode]();
                     this.position();
                 }, this.time);
@@ -4233,6 +4236,8 @@ class LightTip extends HTMLElement {
                 this.classList.remove('ESC');
             }
             this.tabIndex();
+
+            this.isTimeHide = null;
         }
     }
 
@@ -4279,18 +4284,23 @@ class LightTip extends HTMLElement {
         var eleLastActive = LightTip.lastActiveElement;
         if (this.open == true) {
             var eleActiveElement = document.activeElement;
-            if (eleContainer !== eleActiveElement) {
-                LightTip.lastActiveElement = eleActiveElement;
-            }
+            
             // 键盘索引起始位置定位在提示元素上
-            eleContainer.focus();
+            if (eleActiveElement && !eleActiveElement.closest('[keepfocus]')) {
+                if (eleContainer !== eleActiveElement) {
+                    LightTip.lastActiveElement = eleActiveElement;
+                }
+                
+                eleContainer.focus();
+            }
         } else if (eleLastActive && !eleLastActive.matches('body')) {
             // 获取焦点但不会定位
             eleLastActive.focus({
                 preventScroll: true
             });
             // 如果不是键盘关闭提示，而是点击的话，之前的焦点元素失焦
-            if (!window.isKeyEvent) {
+            // 这里实现有问题，如果是时间到了自动关闭的话，这里不应该失焦
+            if (!window.isKeyEvent && !this.isTimeHide) {
                 eleLastActive.blur();
             }
             LightTip.lastActiveElement = null;

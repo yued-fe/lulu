@@ -1021,10 +1021,12 @@
      *  new Tab(document.querySelectorAll('#tabView > a'), {
      *     onSwitch: function() {}
      *  });
-     */    var STATE = 'active';
+     */
+
+    var STATE = 'active';
 
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-tab'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -3244,7 +3246,9 @@
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function () {    var Follow = (this || self).Follow;
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+
+    var Follow = (this || self).Follow;
 
     /**
      * 黑色tips效果
@@ -3254,7 +3258,7 @@
 
     // 类名变量
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui-tips'].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -4235,11 +4239,13 @@
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function () {    var LOADING = 'loading';
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+
+    var LOADING = 'loading';
 
     // 样式类名统一处理
     var CL = {
-        add: function () {
+    add: function () {
             return ['ui', LOADING].concat([].slice.call(arguments)).join('-');
         },
         toString: function () {
@@ -10161,13 +10167,15 @@
 }((typeof global !== 'undefined') ? global
     // eslint-disable-next-line
     : ((typeof window !== 'undefined') ? window
-        : ((typeof self !== 'undefined') ? self : this)), function () {    var ErrorTip = (this || self).ErrorTip;
+        : ((typeof self !== 'undefined') ? self : this)), function () {
+
+    var ErrorTip = (this || self).ErrorTip;
 
     /**
      * 基于HTML5规范的表单验证方法
      * 根据原生属性:type, required, min, max, minlength, maxlength, step, pattern等属性进行验证
      * 使用原生checkValidity方法名，以及{
-        badInput: false
+    badInput: false
         customError: false
         patternMismatch: false
         rangeOverflow: false
