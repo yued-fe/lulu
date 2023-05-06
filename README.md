@@ -182,7 +182,7 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
   原生 JavaScript 编写，兼容 IE9+，PC，Mobile 网站通用。分 css 和 js 2个目录，没有图片资源目录，所有图像 CSS 内联。
 * Edge 主题<br>
   原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库。
-  * Hope 主题<br>
+* Hope 主题<br>
   原生 JavaScript 编写，ES6 module，技术前沿，移动端适用。
 
 组件分 ui 和 comp 两个目录，前者是 UI 组件，后者是基于 UI 组件整合的前端解决方案。
