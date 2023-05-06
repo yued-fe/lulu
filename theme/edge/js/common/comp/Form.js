@@ -107,10 +107,6 @@ class Form extends HTMLFormElement {
         let xhr = new XMLHttpRequest();
         xhr.open(strMethod, strUrl);
 
-        if (strEnctype) {
-            xhr.setRequestHeader('Content-Type', strEnctype);
-        }
-
         if (optionCallback.beforeSend) {
             optionCallback.beforeSend.call(this, xhr, objFormData);
         }
