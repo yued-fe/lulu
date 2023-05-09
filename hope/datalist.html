@@ -139,26 +139,26 @@ i2.params.data = [{
             <p>Datalist组件默认前值匹配，如果想要模糊匹配，需要使用可选参数中的<code>filter</code>接口修改过滤规则，可以通过插入HTML设置加粗或高亮。</p>
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson3" is="ui-datalist" class="ui-input" list="datalistPerson3"></p>
             <datalist id="datalistPerson3">
-    <option value="蔡伦" label="caishihao">
-    <option value="郑成功" label="zhengshijun">
+    <option value="蔡伦" label="cailun">
+    <option value="郑成功" label="zhengchenggong">
     <option value="李莲英" label="lilianying">
-    <option value="高松正" label="gaofan.a">
+    <option value="高松正" label="gaosongzheng">
     <option value="郑工" label="zhenggong">
-    <option value="陈晓芳" label="chenfang.c">
-    <option value="李琳琳" label="liyilin">
-    <option value="彭大帅" label="pengyule">
+    <option value="陈晓芳" label="chenxiaofang">
+    <option value="李琳琳" label="lilinlin">
+    <option value="彭大帅" label="pengdashuai">
 </datalist>
             <p>可以把拼音数据写在<code>label</code>属性上，然后使用<code>filter</code>参数进行匹配过滤。</p>
             <pre>&lt;input id="i3" class="ui-input" list="d3" is="ui-datalist"&gt;
 &lt;datalist id="d3"&gt;
-    &lt;option value="蔡伦" label="caishihao"&gt;
-    &lt;option value="郑成功" label="zhengshijun"&gt;
+    &lt;option value="蔡伦" label="cailun"&gt;
+    &lt;option value="郑成功" label="zhengchenggong"&gt;
     &lt;option value="李莲英" label="lilianying"&gt;
-    &lt;option value="高松正" label="gaofan.a"&gt;
+    &lt;option value="高松正" label="gaosongzheng"&gt;
     &lt;option value="郑工" label="zhenggong"&gt;
-    &lt;option value="陈晓芳" label="chenfang.c"&gt;
-    &lt;option value="李琳琳" label="liyilin"&gt;
-    &lt;option value="彭大帅" label="pengyule"&gt;
+    &lt;option value="陈晓芳" label="chenxiaofang"&gt;
+    &lt;option value="李琳琳" label="lilinlin"&gt;
+    &lt;option value="彭大帅" label="pengdashuai"&gt;
 &lt;/datalist&gt;</pre>
             <pre>i3.params.filter = (data, value) => {
     if (!value) {
