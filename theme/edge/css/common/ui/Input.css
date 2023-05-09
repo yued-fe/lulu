@@ -185,6 +185,7 @@ input ~ .ui-input-count {
 .ui-icon-search::after {
     content: "";
     position: absolute;
+    box-sizing: content-box;
 }
 .ui-icon-search::before {
     width: 9px;
