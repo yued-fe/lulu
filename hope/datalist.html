@@ -75,23 +75,23 @@
             <h4>1. 姓名匹配-基于元素（推荐）</h4>
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson" class="ui-input" list="datalistYm" is="ui-datalist"></p>
 <datalist id="datalistYm">
-    <option value="蔡世豪">
-    <option value="郑世军">
+    <option value="蔡伦">
+    <option value="郑成功">
     <option value="李莲英">
-    <option value="高帆">
+    <option value="高松正">
     <option value="郑工">
-    <option value="陈芳">
-    <option value="李依琳">
-    <option value="彭玉乐">
+    <option value="陈晓芳">
+    <option value="李琳琳">
+    <option value="彭大帅">
 </datalist>
 
             <p><strong>HTML代码</strong></p>
             <pre>&lt;input id="i1" class="ui-input" <mark>list</mark>="d0" <mark>is="ui-datalist"</mark>&gt;
 <span class="green">&lt;!-- 员工数据 --&gt;</span>
 &lt;datalist id="d0"&gt;
-    &lt;option value="蔡世豪"&gt;
+    &lt;option value="蔡伦"&gt;
     <span class="gray">...</span>
-    &lt;option value="彭玉乐"&gt;
+    &lt;option value="彭大帅"&gt;
 &lt;/datalist&gt;</pre>
 
             <p><strong>说明</strong></p>
@@ -109,25 +109,25 @@
             <pre>&lt;input id="i2" class="ui-input" <mark>results</mark>="5" is="ui-datalist"&gt;</pre>
             <pre>
 i2.params.data = [{
-    value: '新数据蔡世豪',
+    value: '新数据蔡伦',
     userid: 1
 }, {
     value: '李莲英',
     userid: 2
 }, {
-    value: '高帆',
+    value: '高松正',
     userid: 3
 }, {
     value: '郑工',
     userid: 4
 }, {
-    value: '陈芳',
+    value: '陈晓芳',
     userid: 5
 }, {
-    value: '李依琳',
+    value: '李琳琳',
     userid: 6
 }, {
-    value: '彭玉乐',
+    value: '彭大帅',
     userid: 7
 }];</pre>
 
@@ -139,26 +139,26 @@ i2.params.data = [{
             <p>Datalist组件默认前值匹配，如果想要模糊匹配，需要使用可选参数中的<code>filter</code>接口修改过滤规则，可以通过插入HTML设置加粗或高亮。</p>
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson3" is="ui-datalist" class="ui-input" list="datalistPerson3"></p>
             <datalist id="datalistPerson3">
-    <option value="蔡世豪" label="caishihao">
-    <option value="郑世军" label="zhengshijun">
+    <option value="蔡伦" label="caishihao">
+    <option value="郑成功" label="zhengshijun">
     <option value="李莲英" label="lilianying">
-    <option value="高帆" label="gaofan.a">
+    <option value="高松正" label="gaofan.a">
     <option value="郑工" label="zhenggong">
-    <option value="陈芳" label="chenfang.c">
-    <option value="李依琳" label="liyilin">
-    <option value="彭玉乐" label="pengyule">
+    <option value="陈晓芳" label="chenfang.c">
+    <option value="李琳琳" label="liyilin">
+    <option value="彭大帅" label="pengyule">
 </datalist>
             <p>可以把拼音数据写在<code>label</code>属性上，然后使用<code>filter</code>参数进行匹配过滤。</p>
             <pre>&lt;input id="i3" class="ui-input" list="d3" is="ui-datalist"&gt;
 &lt;datalist id="d3"&gt;
-    &lt;option value="蔡世豪" label="caishihao"&gt;
-    &lt;option value="郑世军" label="zhengshijun"&gt;
+    &lt;option value="蔡伦" label="caishihao"&gt;
+    &lt;option value="郑成功" label="zhengshijun"&gt;
     &lt;option value="李莲英" label="lilianying"&gt;
-    &lt;option value="高帆" label="gaofan.a"&gt;
+    &lt;option value="高松正" label="gaofan.a"&gt;
     &lt;option value="郑工" label="zhenggong"&gt;
-    &lt;option value="陈芳" label="chenfang.c"&gt;
-    &lt;option value="李依琳" label="liyilin"&gt;
-    &lt;option value="彭玉乐" label="pengyule"&gt;
+    &lt;option value="陈晓芳" label="chenfang.c"&gt;
+    &lt;option value="李琳琳" label="liyilin"&gt;
+    &lt;option value="彭大帅" label="pengyule"&gt;
 &lt;/datalist&gt;</pre>
             <pre>i3.params.filter = (data, value) => {
     if (!value) {
@@ -816,25 +816,25 @@ var eleInputPerson2 = document.querySelector('#inputPerson2');
 // 这里参数赋值需要在DOMContentLoaded事件中执行
 eleInputPerson2.addEventListener('DOMContentLoaded', function () {
     this.params.data = [{
-        value: '新数据蔡世豪',
+        value: '新数据蔡伦',
         userid: 1
     }, {
         value: '李莲英',
         userid: 2
     }, {
-        value: '高帆',
+        value: '高松正',
         userid: 3
     }, {
         value: '郑工',
         userid: 4
     }, {
-        value: '陈芳',
+        value: '陈晓芳',
         userid: 5
     }, {
-        value: '李依琳',
+        value: '李琳琳',
         userid: 6
     }, {
-        value: '彭玉乐',
+        value: '彭大帅',
         userid: 7
     }]
 });

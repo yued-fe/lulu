@@ -63,15 +63,15 @@
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson" class="ui-input" list="datalistPerson"></p>
 <datalist id="datalistPerson">
     <!--[if IE 9]><select disabled style="display:none"><![endif]-->
-    <option value="蔡世豪">
-    <option value="郑世军">
-    <option value="郑世军">
+    <option value="蔡伦">
+    <option value="郑成功">
+    <option value="郑成功">
     <option value="李莲英">
-    <option value="高帆">
+    <option value="高松正">
     <option value="郑工">
-    <option value="陈芳">
-    <option value="李依琳">
-    <option value="彭玉乐">
+    <option value="陈晓芳">
+    <option value="李琳琳">
+    <option value="彭大帅">
     <!--[if IE 9]></select><![endif]-->
 </datalist>
 
@@ -80,9 +80,9 @@
 <span class="green">&lt;!-- 员工数据 --&gt;</span>
 &lt;datalist id="datalistPerson"&gt;
     <span class="gray">&lt;!--[if IE 9]&gt;&lt;select disabled style="display:none"&gt;&lt;![endif]--&gt;</span>
-    &lt;option value="蔡世豪"&gt;
+    &lt;option value="蔡伦"&gt;
     <span class="gray">...</span>
-    &lt;option value="彭玉乐"&gt;
+    &lt;option value="彭大帅"&gt;
     <span class="gray">&lt;!--[if IE 9]&gt;&lt;/select&gt;&lt;![endif]--&gt;</span>
 &lt;/datalist&gt;</pre>
             <p><strong>JS代码</strong>
@@ -103,25 +103,25 @@
             <pre>new Datalist('#inputPerson2', {
     <span class="green">// 如果数据是动态变化的，请使用function类型</span>
     data: [{
-        value: '蔡世豪',
+        value: '蔡伦',
         id: 1
     }, {
         value: '李莲英',
         id: 2
     }, {
-        value: '高帆',
+        value: '高松正',
         id: 3
     }, {
         value: '郑工',
         id: 4
     }, {
-        value: '陈芳',
+        value: '陈晓芳',
         id: 5
     }, {
-        value: '李依琳',
+        value: '李琳琳',
         id: 6
     }, {
-        value: '彭玉乐',
+        value: '彭大帅',
         id: 7
     }]
 });</pre>
@@ -138,27 +138,27 @@ document.querySelector('#inputPerson2').addEventListener('change', function (eve
             <p><span class="dib vt pt5">员工姓名：</span><input id="inputPerson3" class="ui-input" list="datalistPerson3"></p>
             <datalist id="datalistPerson3">
     <!--[if IE 9]><select disabled style="display:none"><![endif]-->
-    <option value="蔡世豪" label="caishihao">
-    <option value="郑世军" label="zhengshijun">
+    <option value="蔡伦" label="caishihao">
+    <option value="郑成功" label="zhengshijun">
     <option value="李莲英" label="lilianying">
-    <option value="高帆" label="gaofan.a">
+    <option value="高松正" label="gaofan.a">
     <option value="郑工" label="zhenggong">
-    <option value="陈芳" label="chenfang.c">
-    <option value="李依琳" label="liyilin">
-    <option value="彭玉乐" label="pengyule">
+    <option value="陈晓芳" label="chenfang.c">
+    <option value="李琳琳" label="liyilin">
+    <option value="彭大帅" label="pengyule">
     <!--[if IE 9]></select><![endif]-->
 </datalist>
             <p>可以把拼音数据写在<code>label</code>属性上，然后使用<code>filter</code>参数进行匹配过滤。</p>
             <pre>&lt;input id="inputPerson3" class="ui-input" list="datalistPerson3"&gt;
 &lt;datalist id="datalistPerson3"&gt;
-    &lt;option value="蔡世豪" label="caishihao"&gt;
-    &lt;option value="郑世军" label="zhengshijun"&gt;
+    &lt;option value="蔡伦" label="caishihao"&gt;
+    &lt;option value="郑成功" label="zhengshijun"&gt;
     &lt;option value="李莲英" label="lilianying"&gt;
-    &lt;option value="高帆" label="gaofan.a"&gt;
+    &lt;option value="高松正" label="gaofan.a"&gt;
     &lt;option value="郑工" label="zhenggong"&gt;
-    &lt;option value="陈芳" label="chenfang.c"&gt;
-    &lt;option value="李依琳" label="liyilin"&gt;
-    &lt;option value="彭玉乐" label="pengyule"&gt;
+    &lt;option value="陈晓芳" label="chenfang.c"&gt;
+    &lt;option value="李琳琳" label="liyilin"&gt;
+    &lt;option value="彭大帅" label="pengyule"&gt;
 &lt;/datalist&gt;</pre>
             <pre><span class="green">// 支持拼音</span>
 new Datalist('#inputPerson3', {
@@ -489,10 +489,10 @@ new Datalist('#inputEmail', {
     setParams: function (event) {
         new Datalist(event.target, {
             data: [{
-                value: '蔡世豪',
+                value: '蔡伦',
                 id: 1
             }, ..., {
-                value: '彭玉乐',
+                value: '彭大帅',
                 id: 7
             }]
         });
@@ -842,25 +842,25 @@ new Datalist('#inputPerson');
 // 使用数据进行匹配
 new Datalist('#inputPerson2', {
     data: [{
-        value: '蔡世豪',
+        value: '蔡伦',
         id: 1
     }, {
         value: '李莲英',
         id: 2
     }, {
-        value: '高帆',
+        value: '高松正',
         id: 3
     }, {
         value: '郑工',
         id: 4
     }, {
-        value: '陈芳',
+        value: '陈晓芳',
         id: 5
     }, {
-        value: '李依琳',
+        value: '李琳琳',
         id: 6
     }, {
-        value: '彭玉乐',
+        value: '彭大帅',
         id: 7
     }]
 });
@@ -1077,25 +1077,25 @@ new Vue({
     setParams: function (event) {
         new Datalist(event.target, {
             data: [{
-                value: '蔡世豪',
+                value: '蔡伦',
                 id: 1
             }, {
                 value: '李莲英',
                 id: 2
             }, {
-                value: '高帆',
+                value: '高松正',
                 id: 3
             }, {
                 value: '郑工',
                 id: 4
             }, {
-                value: '陈芳',
+                value: '陈晓芳',
                 id: 5
             }, {
-                value: '李依琳',
+                value: '李琳琳',
                 id: 6
             }, {
-                value: '彭玉乐',
+                value: '彭大帅',
                 id: 7
             }]
         });
