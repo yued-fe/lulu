@@ -666,7 +666,9 @@ const Dialog = (() => {
                             }
                         } else if (eleLastActiveElement && eleLastActiveElement.tagName.toLowerCase() != 'body') {
                             // 键盘焦点元素还原
-                            eleLastActiveElement.focus();
+                            eleLastActiveElement.focus({
+                                preventScroll: true
+                            });
                             eleLastActiveElement.blur();
                             this.lastActiveElement = null;
                         }
