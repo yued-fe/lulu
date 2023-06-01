@@ -10,6 +10,10 @@
 import LightTip from './LightTip.js';
 
 (() => {
+    // 避免重复定义
+    if ('loading' in HTMLElement.prototype) {
+        return;
+    }
 
     /**
      * 给HTML元素扩展一个loading属性
