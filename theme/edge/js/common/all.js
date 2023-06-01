@@ -6252,7 +6252,9 @@ const Dialog = (() => {
                         // 按钮元素创建
                         objParams.buttons.forEach(function (objButton, numIndex) {
                             // objButton可能是null等
-                            objButton = objButton || {};
+                            objButton = objButton || {
+                                type: 'normal'
+                            };
 
                             // 按钮类型和值的处理
                             let strType = objButton.type;
@@ -6260,6 +6262,8 @@ const Dialog = (() => {
 
                             if (strType === 'remind' || (!strType && numIndex === 0)) {
                                 strType = 'primary';
+                            } else if (!strType && numIndex === 1) {
+                                strType = 'normal';
                             }
 
                             if (!strValue) {
@@ -6680,7 +6684,9 @@ const Dialog = (() => {
                             }
                         } else if (eleLastActiveElement && eleLastActiveElement.tagName.toLowerCase() != 'body') {
                             // 键盘焦点元素还原
-                            eleLastActiveElement.focus();
+                            eleLastActiveElement.focus({
+                                preventScroll: true
+                            });
                             eleLastActiveElement.blur();
                             this.lastActiveElement = null;
                         }
