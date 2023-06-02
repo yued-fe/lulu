@@ -7,8 +7,8 @@
 <meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于使用与发布">
 <meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 使用与发布">
 <title>LuLu UI edge主题中文文档 &raquo; 使用与发布</title>
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/animate.css">
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css">
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.css">
 <link rel="stylesheet" href="../edge/assets/css/mockup.css">
 </head>
 <body>
@@ -16,17 +16,17 @@
 	<header class="header">
 		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 使用与发布</h1></a>
 		<div class="header-right">
-			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
-			<datalist id="dropDocData">
-				<option href="">文档</option>
-				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
-			</datalist>
 			<select id="selectTheme" class="select-theme" is="ui-select">
 				<option value="peak">Peak主题</option>
 			    <option value="pure">Pure主题</option>
 			    <option value="edge" selected>Edge主题</option>
 			</select>
-			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+			<a class="ui-button" data-type="success" href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</a>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="github-a">
+				<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+					<path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"></path>
+				</svg>
+			</a>
 		</div>
 	</header>
 
@@ -42,41 +42,51 @@
             <p>设计资源：LULU 提供 Figma UI 组件库设计资源文件，来帮助业务快速设计出高质量的产品原型。<a href="https://www.figma.com/file/40Nju3Iaxnz3D7c7iidUv1/LULU?node-id=0%3A1" title="点我预览" target="_blank">新窗口预览点我</a>，<a href="javascript:" onclick="figmaIframe.style.display='';figmaIframe.src=figmaIframe.getAttribute('data-src');">当前页预览点我</a>，下载<a href="https://github.com/yued-fe/lulu/raw/master/LULU-UI-Figma.fig" title="点我下载" target="_blank">点我</a>。使用过程有任何疑问或者需要帮助<a href="https://github.com/yued-fe/lulu/issues/63" title="点我反馈问题" target="_blank">点我反馈问题</a>。</p>
             <iframe id="figmaIframe" style="border: none; width: 100%; border:1px solid #ddd;box-sizing: border-box;display:none;" width="100%" height="450" data-src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F40Nju3Iaxnz3D7c7iidUv1%2FLULU%3Fnode-id%3D0%253A1" allowfullscreen></iframe>
             <h3>资源使用</h3>
-            <p>本文档所有样式源代码均使用的是在线资源，但大家实际开发的时候，无论项目大小，<strong style="text-decoration: underline wavy #2a80eb;">建议下载并整合到本地项目资源中</strong>。因为线上的LuLu一直迭代，所以如果直接使用线上资源，可能会影响本地使用。</p>
-            <p>如果是多人合作的正式项目，应当获取完整LuLu UI资源。</p>
+            <p>本文档所有样式源代码均使用的是在线资源，但大家实际开发的时候，无论项目大小，<strong style="text-decoration: underline wavy #2a80eb;">建议下载并整合到本地项目资源中</strong>。因为线上的 LuLu 一直迭代，所以如果直接使用线上资源，可能会影响本地使用。</p>
+            <p>如果是多人合作的正式项目，应当获取完整 LuLu UI 资源。</p>
             <p>如果是比较小型的项目，例如静态运营活动，可以按需下载需要的CSS和JS资源到本地，无需全部都下载到本地。</p>
-            <p>当然，如果目的是为了学习如何使用LuLu，也是可以直接使用线上资源的。</p>
+            <p>当然，如果目的是为了学习如何使用 LuLu，也是可以直接使用线上资源的。</p>
             <h4>资源引入</h4>
             <p>JS和CSS资源都支持独立引入和批量引入。</p>
             <h5>CSS独立引入</h5>
             <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。类似下面：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui/*.css"&gt;</pre>
-            <p>具体使用参见各个组件文档说明。</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui/Drop.css"&gt;</pre>
+            <p>如果是在主流前端框架开发环境中，可以先安装 LuLu UI：</p>
+            <pre>npm install lu2</pre>
+            <p>使用 import 语法：</p>
+            <pre>import 'lu2/theme/edge/css/common/ui/Drop.css';</pre>
             <h5>CSS完整引入<sup class="red">推荐</sup></h5>
-            <p>如果用到LuLu UI多个组件，我们可以直接引入一个完整的ui.css文件就可以了，可能会有些许冗余，但成本较低，可以忽略。</p>
-            <p>如果使用本地资源：</p>
-            <pre>&lt;link rel="stylesheet" href="/css/common/ui.css"&gt;</pre>
-            <p>如果直接使用线上资源：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/edge/css/common/ui.css"&gt;</pre>
+            <p>LuLu UI 内置两个合集CSS，一个是 form.css，包含所有表单控件样式，适合用在演示页面中。</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/form.css"&gt;</pre>
+            <p>或者：</p>
+            <pre>import 'lu2/theme/edge/css/common/form.css';</pre>
+            <p>还有一个是 ui.css，包含所有组件样式，推荐用在正式项目中。</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.css"&gt;</pre>
+            <p>或者：</p>
+            <pre>import 'lu2/theme/edge/css/common/ui.css';</pre>
             <h5>JS独立引入</h5>
             <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。使用示意：</p>
-            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"&gt;&lt;/script&gt;</pre>
-            <p>Edge主题中的UI组件均采用原生的import/export语法，因此，在引用的时候需要设置<code>type="module"</code>，当然，也可以在JavaScript代码中进行引用，例如：</p>
+            <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"&gt;&lt;/script&gt;</pre>
+            <p>Edge 主题中的UI组件均采用原生的 import/export 语法，因此，在引用的时候需要设置<code>type="module"</code>，当然，也可以在JavaScript代码中进行引用，例如：</p>
             <pre>&lt;script type="module"&gt;
-    import Drop from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js';
+    import Drop from 'https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js';
 &lt;/script&gt;</pre>
+            <p>如果是在主流前端框架开发环境中，可以使用 import 语法：</p>
+            <pre>import 'lu2/theme/edge/js/common/ui/Drop.js';</pre>
+            <p>支持动态引入：</p>
+            <pre>import('lu2/theme/edge/js/common/ui/Drop.js');</pre>
             <h5>JS完整引入</h5>
             <p>所有JS都整合在一个JS中。</p>
-            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/all.js"&gt;&lt;/script&gt;</pre>
-            <p>完整引用的all.js并没有任何export暴露，因此：</p>
+            <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/all.js"&gt;&lt;/script&gt;</pre>
+            <p>完整引用的 all.js 并没有任何 export 暴露，因此：</p>
             <ul>
                 <li><code>type="module"</code>不是必需的。</li>
-                <li>可以使用暴露在全局的对象进行构造，类似Dialog、LightTip等。</li>
+                <li>可以使用暴露在全局的对象进行构造，类似 Dialog、LightTip 等。</li>
             </ul>
 
-            <h5>兼容Safari浏览器</h5>
-            <p>由于Safari浏览器目前还不支持内置自定义元素，因此，对于部分UI组件，如果需要兼容Safari浏览器，还需要引入下面这段JS：</p>
-            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
+            <h5>兼容 Safari 浏览器</h5>
+            <p>由于 Safari 浏览器目前还不支持内置自定义元素，因此，对于部分 UI 组件，如果需要兼容 Safari 浏览器，还需要引入下面这段 JS：</p>
+            <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
 
             <h4>资源概览</h4>
             <p>基本目录结构如下：</p>
@@ -104,9 +114,9 @@
        |    |--Table.js
        |    |--Form.js
        |
-       |--all.js         <span class="green">// build by running 'node run'</span>
+       |--all.js         <span class="green">// build by running 'node run edge'</span>
 </pre>
-            <p>其中，ui文件夹下为具体每一个小的ui组件；comp文件夹为components缩写，指整合多个ui组件实现的常用解决方案。</p>
+            <p>其中，ui 文件夹下为具体每一个小的 UI 组件；comp 文件夹为 components 缩写，指整合多个 UI 组件实现的常用解决方案。</p>
             <p>各个JS具体作用参见下表：</p>
             <table width="100%" class="ui-table">
                 <tr>
@@ -116,12 +126,12 @@
                 </tr>
                 <tr>
                     <td>Color.js</td>
-                    <td>颜色选择器。基于原生的<code>color</code>类型输入框生成。</td>
+                    <td>颜色选择器。基于原生的 <code>color</code> 类型输入框生成。</td>
                     <td>Follow.js</td>
                 </tr>
                 <tr>
                     <td>Datalist.js</td>
-                    <td>数据下拉。支持本地Autocomplete，Ajax Autocomplete，支持邮箱@匹配等各种输入匹配。</td>
+                    <td>数据下拉。支持本地 Autocomplete，Ajax Autocomplete，支持邮箱@匹配等各种输入匹配。</td>
                     <td>Follow.js</td>
                 </tr>
                 <tr>
@@ -131,12 +141,12 @@
                 </tr>
                 <tr>
                     <td>Dialog.js</td>
-                    <td>弹框。带有黑色半透明遮罩的弹框。内置alert和confirm等常用提示弹框。</td>
+                    <td>弹框。带有黑色半透明遮罩的弹框。内置 alert 和 confirm 等常用提示弹框。</td>
                     <td>Loading.js</td>
                 </tr>
                 <tr>
                     <td>Drop.js</td>
-                    <td>下拉交互。支持点击以及鼠标经过等交互。下拉内容绝对定位。内置列表和面板两种Drop类型</td>
+                    <td>下拉交互。支持点击以及鼠标经过等交互。下拉内容绝对定位。内置列表和面板两种 Drop 类型</td>
                     <td>Follow.js</td>
                 </tr>
                 <tr>
@@ -151,17 +161,17 @@
                 </tr>
                 <tr>
                     <td>Keyboard.js</td>
-                    <td>键盘增强。作用是让LuLu UI的所有组件都能使用键盘无障碍访问。</td>
+                    <td>键盘增强。作用是让 LuLu UI 的所有组件都能使用键盘无障碍访问。</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>LightTip.js</td>
-                    <td>轻提示。3秒（可自定义）后自动消失。通常用在ajax交互提示中。</td>
+                    <td>轻提示。3秒（可自定义）后自动消失。通常用在 ajax 交互提示中。</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Loading.js</td>
-                    <td>按钮、容器等loading交互控制。</td>
+                    <td>按钮、容器等 loading 交互控制。</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -171,12 +181,12 @@
                 </tr>
                 <tr>
                     <td>Range.js</td>
-                    <td>区域范围选择。基于原生的<code>range</code>类型输入框生成。</td>
+                    <td>区域范围选择。基于原生的 <code>range</code> 类型输入框生成。</td>
                     <td>Tips.js</td>
                 </tr>
                 <tr>
                     <td>Select.js</td>
-                    <td>自定义下拉。基于原生<code>&lt;select&gt;</code>生成，通常用在表单交互中。</td>
+                    <td>自定义下拉。基于原生 <code>&lt;select&gt;</code> 生成，通常用在表单交互中。</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -315,12 +325,12 @@
 
 <a href="#" id="backtop" class="backtop"></a>
 
-<script src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Keyboard.js"></script>
-<script src="https://qidian.gtimg.com/lulu/edge/js/common/safari-polyfill.js"></script>
-<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Select.js"></script>
-<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/ui/Drop.js"></script>
+<script src="https://unpkg.com/lu2/theme/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"></script>
 <!-- 底部 -->
 <script src="../edge/assets/js/mockup.js"></script>
 </body>
 </html>
-<script type="module" src="https://qidian.gtimg.com/lulu/edge/js/common/all.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/all.js"></script>
