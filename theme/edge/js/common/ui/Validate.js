@@ -1628,6 +1628,10 @@ const Validate = (() => {
                             if (!objPassData) {
                                 return;
                             }
+                            // 如果设置了不增强处理，也忽略
+                            if (this.dataset.enhance == 'false') {
+                                return;
+                            }
                             // 获取选中的文本内容
                             let textSelected = this.value.slice(element.selectionStart, element.selectionEnd);
 
@@ -1635,7 +1639,6 @@ const Validate = (() => {
                             if (this.value.trim() == '' || textSelected === this.value) {
                                 // 阻止冒泡和默认粘贴行为
                                 event.preventDefault();
-                                event.stopPropagation();
                                 // 获取粘贴数据
                                 strPassText = objPassData.getData('text') || '';
                                 // 进行如下处理
