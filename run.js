@@ -254,7 +254,7 @@ const ayncDocs = function () {
         if (versionOnline !== version) {
             // 提醒下，就不强制更新了，除非本地文档是空的
             if (version) {
-                console.warn('本地文档和线上文档版本不一致');
+                console.warn('本地文档和线上文档版本不一致，如要更新，可以清空docs文件夹，再执行一遍node run');
             } else {
                 // 使用 git 指令把 文档分支中的文件复制过来
                 console.log('开始复制文档资源...');
@@ -670,7 +670,7 @@ const server = http.createServer(function (request, response) {
 
                         let regUrl = new RegExp('https:\\/\\/qidian.gtimg.com\\/lulu\\/' + theme, 'g');
                         if (ext == 'html') {
-                            data = data.replace(regUrl, '../../theme/' + theme);
+                            data = data.replace(regUrl, '../../theme/' + theme).replaceAll('https://unpkg.com/lu2/', '../../');
                         } else if (ext == 'css' && theme == 'hope') {
                             data = data.replace(regUrl, '..');
                         }
