@@ -254,7 +254,7 @@ const ayncDocs = function () {
         if (versionOnline !== version) {
             // 提醒下，就不强制更新了，除非本地文档是空的
             if (version) {
-                console.warn('本地文档和线上文档版本不一致，如要更新，可以清空docs文件夹，再执行一遍node run');
+                console.warn('本地文档和线上文档版本不一致，如要更新，可以删除docs文件夹，再执行一遍node run');
             } else {
                 // 使用 git 指令把 文档分支中的文件复制过来
                 console.log('开始复制文档资源...');
