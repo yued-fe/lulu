@@ -3,16 +3,16 @@
 </p>
 <p align="center">追本溯源，穿越沉浮</p>
 <p align="center">
-    <img src="https://img.shields.io/npm/v/lu2.svg" height="20"> <img src="https://img.shields.io/apm/l/vim-mode.svg" height="20">
+    <img src="https://img.shields.io/npm/v/lu2.svg" height="20"> <img src="https://img.shields.io/npm/l/lu2" height="20">
 </p>
 
 # LuLu UI
 
 LuLu UI 是阅文集团荣誉出品的前端 UI 组件库。
 
-形象气质如下图，更柔软，更亲近，同时简单灵活，对用户侧非常友好，非常适合<strong>面向外部用户的 PC 网站</strong>，或者需要轻量与敏捷的项目。
+形象气质如下图，柔软亲近，使用简单灵活，适用场景广泛，适合面向外部用户的 PC 网站，或者需要轻量与敏捷的项目。
 
-<img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
+<img src="https://unpkg.com/lu2/theme/theme/modern/css/common/images/temp/figure.png" width="122" height="137">
 
 ## 开发
 
@@ -75,15 +75,15 @@ LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuLu UI Pure 主题</title>
-    <link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.min.css">
+    <title>LuLu UI Edge 主题</title>
+    <link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.min.css">
 </head>
 <body>
     <!-- 
       组件使用这里 
     -->
 
-    <script src="https://qidian.gtimg.com/lulu/pure/js/common/all.min.js"></script>
+    <script src="https://unpkg.com/lu2/theme/edge/js/common/all.min.js"></script>
     <script>// 业务代码这里</script>
 </body>
 </html>
@@ -92,18 +92,30 @@ LuLu UI 支持直接引入 CSS 和 JS 文件地址，所有主题通用，例如
 您也可以直接单独引入某一个组件，例如：
 
 ```html
-<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Dialog.css">
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui/Dialog.css">
 ```
 ```html
-<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Dialog.js"></script>
+<script src="https://unpkg.com/lu2/theme/edge/js/common/ui/Dialog.js"></script>
 ```
 
 Edge 主题还支持浏览器原生的 import 引入，例如：
 
 ```html
 <script type="module">
-import Dialog from 'https://qidian.gtimg.com/lulu/edge/js/common/ui/Dialog.js';
+import Dialog from 'https://unpkg.com/lu2/theme/edge/js/common/ui/Dialog.js';
 </script>
+```
+
+也支持 npm install 后作为包文件使用，例如：
+
+```js
+import Dialog from 'lu2/theme/edge/js/common/ui/Dialog.js';
+```
+
+或者是在业务代码中动态引入：
+
+```js
+import('lu2/theme/edge/js/common/ui/Dialog.js');
 ```
 
 LuLu UI 基于原生 HTML 特性构建，因此使用的时候 HTML 还是原来的 HTML，CSS 还是原来的 CSS，无需掌握流行概念，参照文档，复制复制，粘贴粘贴，效果就出来了。
@@ -164,7 +176,7 @@ LuLu UI 诞生于 2015 年，非 KPI 项目，服务于真实业务场景，会�
 
 LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不少 UI 框架忽略的键盘无障碍访问。
 
-借助扎实的前端基础知识，LuLu UI 有着很多创新的细节打磨，举个例子：如果用户是通过鼠标点击按钮打开的弹框，则弹框界面平平无奇；如果用户是通过 ENTER 回车键点击按钮打开的弹框，则弹框中的按钮默认会<code>outline</code>高亮！
+借助扎实的前端基础知识，LuLu UI 有着很多创新的细节打磨，举个例子：如果用户是通过鼠标点击按钮打开的弹框，则弹框界面平平无奇；如果用户是通过 ENTER 回车键点击按钮打开的弹框，则弹框中的按钮默认会 <code>outline</code> 高亮！
 
 <img src="https://qidian.qpic.cn/qidian_common/349573/851af9151027efc7e412e456f379263e/0" width="748" height="558">
 
@@ -181,7 +193,7 @@ LuLu UI 支持高清屏幕，支持辅助阅读设备无障碍访问，以及不
 * Pure 主题<br>
   原生 JavaScript 编写，兼容 IE9+，PC，Mobile 网站通用。分 css 和 js 2个目录，没有图片资源目录，所有图像 CSS 内联。
 * Edge 主题<br>
-  原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库。
+  原生 JavaScript 编写，ES6 module，兼容现代浏览器，PC，Mobile 网站通用，Vue、Preact、React全兼容，是面向未来的现代 Web 组件库，目前主力维护主题，所有组件免初始化即可使用。
 * Hope 主题<br>
   原生 JavaScript 编写，ES6 module，技术前沿，移动端适用。
 
