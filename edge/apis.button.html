@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于静态控件之按钮">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 静态控件之按钮">
+<title>LuLu UI edge主题中文文档 &raquo; 静态控件之按钮</title>
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 静态控件之按钮</h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
+			</select>
+			<a class="ui-button" data-type="success" href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</a>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="github-a">
+				<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+					<path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"></path>
+				</svg>
+			</a>
+		</div>
+	</header>
+
+<style>p .ui-button{margin-top:5px;margin-bottom: 5px;}</style>
+<div class="main">
+    <!-- 主内容 -->
+	<main class="section_main">
+    	<h2 class="section_title">静态控件之按钮</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>如果只想以插件形式单独使用按钮的UI，可以直接引入：</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui/Button.css"&gt;</pre>
+            <p>import导入语法：</p>
+            <pre>import 'lu2/theme/edge/css/common/ui/Button.css';</pre>
+
+            <h3>原生&lt;button&gt;按钮</h3>
+            <p>推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
+            <h4>基本状态</h4>
+            <p><button class="ui-button">默认按钮</button></p>
+            <pre>&lt;button class="ui-button"&gt;默认按钮&lt;/button&gt;</pre>
+            <button class="ui-button" type="normal">正常按钮</button>
+            <pre>&lt;button <mark>type="normal"</mark> class="ui-button"&gt;正常按钮&lt;/button&gt;</pre>
+            <hr>
+            <p><button class="ui-button" width="100%">宽度100%按钮</button></p>
+            <pre>&lt;button class="ui-button" <mark>width="100%"</mark>&gt;宽度100%按钮&lt;/button&gt;</pre>
+            <hr>               
+            <p>
+                <button class="ui-button" type="primary">主按钮</button>
+                <button class="ui-button" type="primary">主按钮文字很多</button>
+            </p>
+            <pre>&lt;button <mark>type="primary"</mark> class="ui-button"&gt;主按钮&lt;/button&gt;</pre>
+            <hr>
+            <p>
+                <button class="ui-button" type="success">绿色系</button>
+                <button class="ui-button" type="success">绿色系按钮文字很多</button>
+            </p>
+            <pre>&lt;button <mark>type="success"</mark> class="ui-button"&gt;绿色系&lt;/button&gt;</pre>
+            <hr>
+            <p>
+                <button class="ui-button" type="warn">橙色</button>
+                <button class="ui-button" type="warning">橙色文字很多</button>
+            </p>
+            <pre>&lt;button <span class="red">type="warning"</span> class="ui-button"&gt;橙色&lt;/button></pre>
+            <hr>
+            <p>
+                <button class="ui-button" type="danger">红色</button>
+                <button class="ui-button" type="error">红色文字很多</button>
+            </p>
+            <pre>&lt;button <span class="red">type="danger"</span> class="ui-button"&gt;红色&lt;/button></pre>
+
+            <h4>is 属性语法</h4>
+            <p>支持 <code>is="ui-button"</code> 设置。</p>
+            <p><button is="ui-button">基本按钮</button> <button is="ui-button" type="primary">正常按钮</button></p>
+            <pre>&lt;button <mark>is="ui-button"</mark>&gt;基本按钮&lt;/button&gt;
+&lt;button type="primary" <mark>is="ui-button"</mark>&gt;主按钮&lt;/button&gt;</pre>
+
+            <p><code>&lt;button&gt;</code> 默认为 <code>submit</code> 类型，如果在表单中，会触发表单的提交行为，此时需要使用 <code>type</code> 进行设置，这个时候，按钮的类型可以使用 <code>data-type</code> 属性进行设置。</p>
+
+            <pre>&lt;button type="button" <mark>data-type="primary"</mark> is="ui-button"&gt;主按钮&lt;/button&gt;
+&lt;button type="button" <mark>data-type="danger"</mark> is="ui-button"&gt;危险按钮&lt;/button&gt;</pre>
+            <p>效果为：<button is="ui-button" type="primary">主按钮</button> <button is="ui-button" type="danger">危险按钮</button></p>
+
+            <h4>禁用状态</h4>
+            <p>对于原生按钮，禁用按钮只需要添加 <code>disabled</code> 属性即可，不仅样式处于禁用态，且元素的原生行为（如表单提交行为，键盘 focus 行为）也都会被禁止。</p>
+            <p>例如：</p>
+            <p><button type="normal" class="ui-button" disabled>button按钮禁用</button> <button type="primary" is="ui-button" disabled>button按钮禁用</button></p>
+            <pre>&lt;button type="normal" class="ui-button" <mark>disabled</mark>&gt;button按钮禁用&lt;/button&gt;
+&lt;button type="primary" is="ui-button" <mark>disabled</mark>&gt;button按钮禁用&lt;/button&gt;</pre>
+
+            <p>对于 <code>&lt;input&gt;</code> 标签按钮同样适用，但更推荐使用 <code>&lt;button&gt;</code> 标签按钮，因为 loading 效果更好。</p>
+            <p><input type="button" class="ui-button" value="input标签" data-type="danger" disabled></p>
+            <pre>&lt;input type="button" class="ui-button" value="input标签" data-type="danger" <mark>disabled</mark>&gt;</pre>
+
+            <h4>loading状态</h4>
+            <p>
+                <button class="ui-button loading">button 标签</button>
+                <button type="normal" class="ui-button loading">button 标签</button>
+                <button type="primary" class="ui-button loading">button 标签</button>
+            </p>
+            <p>
+                <button type="normal" is="ui-button" class="loading">button 标签</button>
+                <button type="primary" is="ui-button" class="loading" >button 标签</button>
+            </p>
+            <pre>&lt;button class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;
+&lt;button type="normal" class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;
+&lt;button type="primary" class="ui-button <mark>loading</mark>"&gt;button 标签&lt;/button&gt;</pre>
+            <pre>&lt;button type="normal" is="ui-button" class="loading"&gt;button 标签&lt;/button&gt;
+&lt;button type="primary" is="ui-button" class="loading" &gt;button标签&lt;/button&gt;</pre>
+            <p>由于 <code>&lt;input&gt;</code> 按钮不支持伪元素，因此，<code>&lt;input&gt;</code> 按钮的 loading 效果只能使用背景图模拟，效果如下：</p>
+            <p>
+                <input type="button" class="ui-button loading" value="input标签">
+                <input type="button" class="ui-button loading" value="input标签" data-type="normal">
+                <input type="button" class="ui-button loading" value="input标签" data-type="primary">
+            </p>
+            <pre>&lt;input class="ui-button <mark>loading</mark>" value="input标签"&gt;
+&lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="normal"&gt;
+&lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="primary"&gt;</pre>
+
+            <h3>&lt;a&gt; 标签按钮们</h3>
+            <p><code>&lt;a&gt;</code> 标签按钮的优点是可以作为链接使用，如果是纯按钮，推荐使用 <code>&lt;button&gt;</code> 标签。</p>
+            <h4>基本状态</h4>
+            <p>
+                <a href="javascript:" class="ui-button" role="button">基本按钮</a>
+                <a href="javascript:" type="normal" class="ui-button" role="button">基本按钮</a>
+                <a href="javascript:" type="primary" class="ui-button">主色-去登录</a>
+                <a href="javascript:" type="success" class="ui-button">绿色系</a>
+                <a href="javascript:" type="warning" class="ui-button">橙色-警示</a>
+                <a href="javascript:" type="danger" class="ui-button">红色-危险</a>
+            </p>
+            <pre>&lt;a href="javascript:" class="ui-button" role="button"&gt;基本按钮&lt;/a&gt;
+&lt;a href="/login" type="primary" class="ui-button">主色-去登录&lt;/a>
+&lt;a href type="success" class="ui-button"&gt;绿色系&lt;/a&gt;
+&lt;a href type="warning" class="ui-button">橙色&lt;/a>
+&lt;a href type="danger" class="ui-button">红色&lt;/a>
+</pre>
+            <h4>按钮禁用</h4>
+            <p>和<code>&lt;button&gt;</code>标签按钮相比有两点变化：一是需要移除<code>href</code>属性（使元素无法被键盘focus），二是使用<code>disabled</code>类名而非属性（视觉上表现为禁用态）。</p>
+            <p>
+                <a type="normal" class="ui-button disabled">白色按钮禁用</a>
+                <a class="ui-button disabled" data-type="primary">蓝色按钮禁用</a>
+                <a class="ui-button disabled" data-type="success">绿色按钮禁用</a>
+                <a class="ui-button disabled" data-type="warning">橙色按钮禁用</a>
+                <a class="ui-button disabled" data-type="danger">红色按钮禁用</a>
+            </p>
+            <p>HTML代码示意：</p>
+            <pre>&lt;a type="normal" class="ui-button <mark>disabled</mark>"&gt;白色按钮禁用&lt;/a&gt;
+&lt;a type="primary" class="ui-button <mark>disabled</mark>"&gt;蓝色按钮禁用&lt;/a&gt;
+&lt;a type="success" class="ui-button <mark>disabled</mark>"&gt;绿色按钮禁用&lt;/a&gt;
+&lt;a type="warning" class="ui-button <mark>disabled</mark>"&gt;橙色按钮禁用&lt;/a&gt;
+&lt;a type="danger" class="ui-button <mark>disabled</mark>"&gt;红色按钮禁用&lt;/a&gt;</pre>
+            <p>另外，<code>&lt;a&gt;</code>标签按钮的禁用态仅仅是视觉上表现为禁用，实际上依然可以响应点击事件，所以还是需要JS在逻辑中增加按钮是否可用的判断，因此推荐使用<code>&lt;button&gt;</code>标签按钮。</p>
+            <h4>按钮loading</h4>
+            <p id="testLoading">
+                <a href="javascript:" type="normal" class="ui-button">点击loading绽放</a>
+                <a href="javascript:" class="ui-button" data-type="primary">点击loading绽</a>
+                <a href="javascript:" class="ui-button" data-type="success">点击loading</a>
+                <a href="javascript:" class="ui-button" data-type="warning">点loading</a>
+                <button type="danger" is="ui-button">button标签loading</button>
+            </p>
+            <pre>&lt;a href="javascript:" class="ui-button <mark>loading</mark>" role="button">点击loading绽放&lt;/a></pre>
+
+            <p class="tips">如果引入了Loading.js，也可以使用<code>dom.loading=true</code>和<code>dom.loading=false</code>语句来增加和移除loading效果。</p>
+
+            <h3>普通标签按钮</h3>
+            <p>使用场景有限，不推荐使用，毕竟语义和可访问性都需要额外处理，除非你的项目对这些并不在意，如内部项目。</p>
+
+            <h4>&lt;label&gt;标签按钮</h4>
+            
+            <label type="error" class="ui-button" tabindex="0" role="button">label标签按钮</label>
+            <pre>&lt;label type="error" class="ui-button" tabindex="0" role="button"&gt;label标签按钮&lt;/label&gt;</pre>
+
+
+            <h4>span标签</h4>
+            <div>
+                <span id="spanBtn" class="ui-button" data-type="danger" role="button" tabindex="0">span标签同时红色文字很多</span>
+                <pre>&lt;span class="ui-button" data-type="danger" role="button" tabindex="0"&gt;span标签同时红色文字很多&lt;/span&gt;</pre>
+            </div>
+
+            <h4>div标签</h4>
+            <p>有时候，我们希望按钮是自适应外部容器宽度的，此时，可以使用<code>div</code>标签，为了保证按钮的可访问性，需要设置<code>role="button"</code>以及<code>tabindex="0"</code>。</p>
+            <div class="ui-button" role="button" data-type="danger" tabindex="0">div标签为块状按钮</div>
+            <pre>&lt;div class="ui-button" data-type="danger" role="button" tabindex="0"&gt;div标签为块状按钮&lt;/div&gt;</pre>
+
+            <p class="tips">普通标签设置<code>tabindex</code>属性会有<code>outline</code>轮廓，Button.css默认去除了，但是影响了键盘无障碍访问。此时可以引入 LuLu UI 的 <a href="https://unpkg.com/lu2/theme/edge/css/common/ui/Keyboard.css">Keyboard.css</a> 和 <a href="https://unpkg.com/lu2/theme/edge/js/common/ui/Keyboard.js">Keyboard.js</a> 来实现体验优化。</p>
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav active"><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://unpkg.com/lu2/theme/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"></script>
+<!-- 底部 -->
+<script src="../edge/assets/js/mockup.js"></script>
+</body>
+</html>
+
+<script>
+var eleLoadingAll = document.querySelectorAll('#testLoading a, #testLoading button');
+eleLoadingAll.forEach(function (ele) {
+    ele.addEventListener('click', function () {
+        ele.classList.add('loading');
+        setTimeout(function () {
+            ele.classList.remove('loading');
+        }, 5000 * Math.random());
+    });
+});
+</script>
+

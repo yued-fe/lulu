@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI edge主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Range范围选择">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Range范围选择">
+<title>LuLu UI edge主题中文文档 &raquo; Range范围选择</title>
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/animate.css">
+<link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.css">
+<link rel="stylesheet" href="../edge/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="edge"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; Range范围选择</h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge" selected>Edge主题</option>
+			</select>
+			<a class="ui-button" data-type="success" href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</a>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="github-a">
+				<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+					<path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"></path>
+				</svg>
+			</a>
+		</div>
+	</header>
+
+
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">Range范围选择</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>引入如下 CSS 和 JS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui/Range.css"&gt;</pre>
+            <pre>&lt;script <mark>type="module"</mark> src="https://unpkg.com/lu2/theme/edge/js/common/ui/Range.js"&gt;&lt;/script&gt;</pre>
+            <p>本组件为 Web Components，引用时需添加 <code>type="module"</code>，也可采用如下方式进行引用</p>
+            <pre>&lt;script <mark>type="module"</mark>&gt;
+    import "../../theme/edge/js/common/ui/Range.js";
+&lt;/script&gt;</pre>
+            <p>本组件为内置自定义元素组件，如果需要兼容 Safari 浏览器，还需要引入下面的 JS。</p>
+            <pre>&lt;script src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
+
+            <p>如果是npm安装调用，则：</p>
+            <pre>import 'lu2/theme/edge/css/common/ui/Range.css';
+import 'lu2/theme/edge/js/common/safari-polyfill.js';
+import 'lu2/theme/edge/js/common/ui/Range.js';</pre>
+
+            <p>如果 JS import语法报错，试试在业务代码中动态引入。</p>
+            <pre>import('lu2/theme/edge/js/common/safari-polyfill.js');
+import('lu2/theme/edge/js/common/ui/Range.js');</pre>
+
+            <h3>基本使用示意</h3>
+
+            <p>浏览器原生 Range 效果如下：</p>
+            <p>
+                <input type="range">
+            </p>
+            <p>想要使用 LuLu UI 的 Range 范围选择效果，仅需给 <code>type="range"</code> 区域选择框添加 <code>is="ui-range"</code> 即可。</p>
+
+            <h4>无需初始化演示</h4>
+            <p>宽度：<input type="range" value="50" min="0" max="100" step="10" data-tips="${value}px" is="ui-range"></p>
+            <p>HTML如下：</p>
+            <pre>&lt;input type="range" value="50" min="0" max="100" step="10" data-tips="${value}px" <mark>is="ui-range"</mark>&gt;</pre>
+            <p>range 选择的最大值和最小值由原生的 <code>min</code> 和 <code>max</code> 属性控制，每次选择的范围由 <code>step</code> 属性控制。</p>
+            <p>三个属性都可以缺省，<code>min</code> 默认为 <code>0</code>，<code>max</code> 默认为 <code>100</code>，<code>step</code>默认是<code>1</code>。</p>
+            <p><code>data-tips</code> 的值为移动滑杆按钮时候出现的黑色提示内容，<code>${value}</code> 是个动态数据，表示当前 <code>&lt;input&gt;</code> 元素实时 <code>value</code> 值。</p>
+
+            <h4>事件处理演示</h4>
+            <p>下面有张图片，拖动范围选择框，图片的透明度会发生变化。</p>
+            <p><img id="opacityImg" src="//bookcover.yuewen.com/qdbimg/349573/1012237441/180" alt="全球高武" height="160"></p>
+            <p><span class="vm">透明度：</span><input type="range" id="opacityRange" value="100" min="0" max="100" data-tips="${value}%" is="ui-range"></p>
+            <pre>透明度：&lt;input type="range" id="r0" value="100" min="0" max="100" data-tips="${value}%" <mark>is="ui-range"</mark>&gt;</pre>
+            <pre><span class="green">// 直接给 &lt;input&gt; 元素绑定 input 事件即可</span>
+r0.addEventListener('input', function () {
+    opacityImg.style.opacity = this.value / 100;
+});</pre>
+            <p>符合 LuLu UI 的设计理念，UI视觉与业务逻辑相分离。</p>
+
+            <h4>负数跨度测试</h4>
+            <p>看看能不能准确从 <code>-10</code> 滑到 <code>10</code> 。</p>
+            <p><input type="range" data-tips="${value}" value="5" min="-10" max="10" is="ui-range"></p>
+            <p>HTML如下：</p>
+            <pre>&lt;input type="range" data-tips="${value}" value="5" min="-10" max="10" <mark>is="ui-range"</mark>&gt;</pre>
+
+            <h4>朝下显示测试</h4>
+            <p>如果范围选择框位置很靠浏览器上边缘，希望黑色的提示朝下，加一个属性 <code>reverse</code> 就可以了，例如：</p>
+            <p><input type="range" is="ui-range" data-tips="${value}" reverse></p>
+            <p>HTML如下：</p>
+            <pre>&lt;input type="range" is="ui-range" data-tips="${value}" <mark>reverse</mark>&gt;</pre>
+
+            <h4>区域范围选择</h4>
+            <p>有时候可能需要的区域范围选择器，比如温度区间（从 20℃ 到 40℃），添加<code>multiple</code>属性即可实现。</p>
+            <p>
+                <input id="mrDemo" type="range" data-tips="${value}℃" is="ui-range" multiple>
+                <sup id="mrOut"></sup>
+            </p>
+            <p>HTML如下：</p>
+            <pre>&lt;input type="range" data-tips="${value}℃" is="ui-range" <mark>multiple</mark>&gt;</pre>
+            在区间范围选择下，可以通过 <code>from</code> 设置默认初始值（默认为 min），<code>to</code> 设置默认结束值（默认为 max），也可以通过 <code>range</code> 属性统一设置，格式形如 <code>0,100</code>
+            <p>
+                <input type="range" from="20" to="80" data-tips="${value}℃" is="ui-range" multiple>
+                <br>
+                <input type="range" range="10,60" data-tips="${value}℃" is="ui-range" multiple>
+            </p>
+            <p>HTML如下：</p>
+            <pre>&lt;input type="range" data-tips="${value}℃" is="ui-range" multiple <mark>from="20" to="80"</mark>&gt;
+&lt;input type="range" data-tips="${value}℃" is="ui-range" multiple <mark>range="10,60"</mark>&gt;</pre>
+            <p class="tips">range 优先级高于 from 和 to</p>
+            <p>可以通过 JavaScript 实时设置和获取：</p>
+            <p>
+                <button id="multipleBtn1" class="ui-button" data-type="primary">设置 from 为 20</button>
+                <button id="multipleBtn2" class="ui-button" data-type="primary">设置 to 为 80</button>
+                <button id="multipleBtn3" class="ui-button" data-type="primary">设置 range 为 20,80</button>
+            </p>
+            <p>
+                <input id="mr" type="range" data-tips="${value}℃" is="ui-range" multiple>
+            </p>
+            <pre>mr.from; <span class="green">// 获取</span>
+mr.from = 20; <span class="green">// 设置</span>
+mr.to;
+mr.to = 80;
+mr.range;
+mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</span></pre>
+
+            <h4>动态改变选中的范围值</h4>
+            <p><input type="range" id="randomRange" min="1" data-tips="${value}" is="ui-range"></p>
+            <p><button id="rangeButton" class="ui-button" data-type="primary">改变值（随机）</button></p>
+            <p><input type="range" id="randomMultipleRange" min="1" data-tips="${value}" is="ui-range" multiple></p>
+            <p><button id="rangeMultipleButton" class="ui-button" data-type="primary">改变区域值（随机）</button></p>
+            <p>HTML 代码和 JS 代码如下：</p>
+            <pre>&lt;p&gt;&lt;input type="range" id="rr" min="1" data-tips="${value}" <mark>is="ui-range"</mark>&gt;&lt;/p&gt;
+&lt;button id="rb"&gt;改变值（随机）&lt;/button&gt;</pre>
+
+            <pre>rb.addEventListener('click', function () {
+    rr<mark>.value</mark> = Math.ceil(100 * Math.random());<span class="green">// 和原生相同，使用 .value 就可以了</span>
+    rmr<mark>.range</mark> = '20,80';<span class="green">// 区间选择可使用 .range（from/to） 进行赋值</span>
+});
+</pre>
+            <h4>disabled 禁用测试</h4>
+            <p><input type="range" id="rangeDisabled" is="ui-range" disabled></p>
+            <p><input type="range" id="rangeMultipleDisabled" is="ui-range" multiple disabled></p>
+            <p>处于禁用状态的时候，范围选择框无法滑动，无法点击，无法聚焦，且视觉半透明。</p>
+            <p><button id="enableButton" class="ui-button" data-type="primary">切换disabled状态</button></p>
+            <pre>button.addEventListener('click', function () {
+    range.disabled = !range.disabled;
+});</pre>
+
+            <h4>宽度 100% 演示</h4>
+            <p>使用 width="100%"，或者使用 CSS 设置，例如：</p>
+            <p><input type="range" is="ui-range" width="100%"></p>
+            <p><input type="range" is="ui-range" multiple width="100%"></p>
+            <pre>&lt;input type="range" <mark>is="ui-range"</mark> <mark>width="100%"</mark>&gt;
+&lt;input type="range" <mark>is="ui-range"</mark> multiple <mark>width="100%"</mark>&gt;</pre>
+
+            <h3>增删监听测试</h3>
+            <p>
+                <button id="b4" class="ui-button" type="primary">新增范围选择框</button>
+                <button id="b5" class="ui-button" type="primary" disabled>克隆范围选择框</button>
+                <button id="b6" class="ui-button" type="primary">新增区间范围选择框</button>
+            </p>
+            <div id="x0"></div>
+            <pre>button.addEventListener('click', function () {
+    <span class="green">// 注意，这里需要添加{ is: 'ui-range' }</span>
+    var range = document.createElement('input', <mark>{ is: 'ui-range' }</mark>);
+    range.setAttribute('type', 'range');
+    range.dataset.tips = '${value}';
+    <span class="green">// 如果需要区间选择就要加上这句</span>
+    range.setAttribute('multiple', '');
+    <span class="green">// 插入到后面</span>
+    this.parentElement.after(range);
+});</pre>
+
+            <p>也可以直接通过 innerHTML 添加方式</p>
+            <p>
+                <button id="b7" class="ui-button" data-type="danger">删除下面的范围选择框</button>
+                <button id="b8" class="ui-button" data-type="danger">删除下面的区间范围选择框</button>
+            </p>
+            <p><input type="range" is="ui-range" id="r7" ></p>
+            <p><input type="range" is="ui-range" multiple id="r8" ></p>
+            <pre>button.addEventListener('click', function () {
+    range.remove();
+    this.disabled = true;
+});</pre>
+            <p>删除原生的 range 范围选择框即可。</p>
+            <h3>扩展：评星实现</h3>
+            <p>评星的本质是在一个范围内进行选择，因此使用range范围也可以实现，我们只需要添加一个 <code>is="ui-rate"</code> 即可实现</p>
+            <input type="range" is="ui-rate" max="5" step="0.5" value="3">
+            <pre>&lt;input type="range" is="ui-rate" max="5" step="0.5" value="0"&gt;</pre>
+            <p>
+             评星默认是五个，如果你需要定义评星的数量就传入一个自定义属性和值 <code>style="--number: 10"</code>。
+            </p>
+            <input type="range" is="ui-rate" max="10" step=".5" value="5" style="--number: 10;">
+            <pre>input type="range" is="ui-rate" max="10" step="0.5" value="1.5" style="--number: 10;"&gt;</pre>
+            <p>disabled 禁用测试</p>
+            <input type="range" is="ui-rate" max="5" disabled step="0.5" value="3">
+            <pre>&lt;input type="range" is="ui-rate" disabled max="5" step="0.5" value="0"&gt;</pre>
+            <p>readonly 只读测试</p>
+            <input type="range" is="ui-rate" max="5" readonly step="0.5" value="3" tabindex="-1">
+            <pre>&lt;input type="range" is="ui-rate" readonly max="5" step="0.5" value="3" tabindex="-1"&gt;</pre>
+            <p>温馨提示：</p>
+            <ol>
+                <li>max step value 三者要成倍数的关系（ 若有 --number，也要算在里面 ），否则可能会导致星星展示不全，比如max=100,--number:10, 那么 step 和 value 就要是 5 的倍数</li>
+                <li>min 只能设置 0 或者不设置，若要设置初始值，请设置 value，它的值要和 max 成倍数关系</li>
+                <li><p>尺寸大小通过 <code>font-size</code> 属性控制，如下所示。</p>
+
+                    <p>字号大小：<input type="range" id="rf" min="12" max="20" value="16" data-tips="${value}px" is="ui-range"></p>
+                    <input type="range" id="rs" is="ui-rate" max="5" value="3"></li>
+            </ol>
+
+            
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan, sunseekers</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色与变量</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop下拉们</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab切换们</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://unpkg.com/lu2/theme/edge/js/common/ui/Keyboard.js"></script>
+<script src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"></script>
+<!-- 底部 -->
+<script src="../edge/assets/js/mockup.js"></script>
+</body>
+</html>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Range.js"></script>
+<script type="module">
+(function () {
+    // 设置透明度
+    var opacityRange = document.querySelector('#opacityRange');
+    var opacityImg =  document.querySelector('#opacityImg');
+    opacityRange.addEventListener('input', function () {
+        opacityImg.style.opacity = this.value / 100;
+    });
+
+    // 随机改变值
+    var randomRange = document.querySelector('#randomRange');
+    var eleBtn = document.querySelector('#rangeButton');
+    eleBtn.addEventListener('click', function () {
+        randomRange.value = Math.ceil(100 * Math.random());
+    });
+
+    b4.addEventListener('click', function () {
+        var r = document.createElement('input', { is:'ui-range' });
+        r.setAttribute('type', 'range');
+        r.dataset.tips = '${value}';
+        // 插入到后面
+        x0.append(r);
+        const br = document.createElement('BR');
+        r.after(br);
+        b5.disabled = false;
+    });
+
+    b5.addEventListener('click', function () {
+        var eleRange = x0.querySelector('input:not([multiple])');
+        if (eleRange) {
+            eleRange.after(eleRange.cloneNode(true));
+        }
+    });
+
+    b6.addEventListener('click', function () {
+        var r = document.createElement('input', { is:'ui-range' });
+        r.setAttribute('type', 'range');
+        r.setAttribute('multiple', '');
+        // 插入到后面
+        x0.append(r);
+        const br = document.createElement('BR');
+        r.after(br);
+    });
+
+    b7.addEventListener('click', function () {
+        r7.remove();
+        this.disabled = true;
+    });
+
+    var r8 = document.getElementById('r8');
+    b8.addEventListener('click', function () {
+        r8.remove();
+        this.disabled = true;
+    });
+
+    var eleBtnEnable = document.getElementById('enableButton');
+    var eleRangeDisabled = document.getElementById('rangeDisabled');
+    var rangeMultipleDisabled = document.getElementById('rangeMultipleDisabled');
+
+    eleBtnEnable.addEventListener('click', function () {
+        eleRangeDisabled.disabled = !eleRangeDisabled.disabled;
+        rangeMultipleDisabled.disabled = !rangeMultipleDisabled.disabled;
+    });
+
+    var mr = document.getElementById('mr');
+
+    multipleBtn1.addEventListener('click', function () {
+        mr.from = 20;
+    });
+
+    multipleBtn2.addEventListener('click', function () {
+        mr.to = 80;
+    });
+
+    multipleBtn3.addEventListener('click', function () {
+        mr.range = '20,80';
+    });
+
+    var randomMultipleRange = document.getElementById('randomMultipleRange');
+
+    rangeMultipleButton.addEventListener('click', function () {
+        randomMultipleRange.range = Math.ceil(100 * Math.random())+','+Math.ceil(100 * Math.random());
+    });
+
+    var mrDemo = document.getElementById('mrDemo');
+    mrDemo.addEventListener('input', function (ev) {
+        mrOut.innerText = this.range;
+    });
+
+    rf.addEventListener('input', function () {
+        rs.style.fontSize = this.value + 'px';
+    });
+})();
+</script>

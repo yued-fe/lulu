@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI hope主题中文文档，面向移动端开发，阅文集团前端团队荣誉出品。本页面文档内容关于静态控件之文本框">
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 静态控件之文本框">
+<title>LuLu UI hope主题中文文档 &raquo; 静态控件之文本框</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/ui.css">
+<link rel="stylesheet" href="../hope/assets/css/mockup.css">
+<script type="module" src="../hope/assets/js/code-run.js"></script>
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="hope"><h1 class="logo">LuLu UI Edge版中文文档 &raquo; 静态控件之文本框</h1></a>
+		<div class="header-right">
+			<ui-drop id="dropDoc" target="dropDocData" class="ui-droplist-arrow mr20">文档</ui-drop>
+			<datalist id="dropDocData">
+				<option href="">文档</option>
+				<option href="https://www.zhangxinxu.com/sp/lulu/guide/edge/">教程</option>
+			</datalist>
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure">Pure主题</option>
+			    <option value="edge">Edge主题</option>
+				<option value="hope" selected>Hope主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" target="_blank" rel="noopener nofollow" class="blue ml15">Github➹</a>
+		</div>
+	</header>
+
+<style>
+    #pp4 ui-popup-container {
+        min-height: 8em;
+    }
+
+    #i4 {
+        max-width: 280px;
+    }
+</style>
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+        <h2 class="section_title">Popup 弹出层</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>安装与调用</h3>
+            <p>单独使用直接引入 CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/hope/ui/Popup/index.css"&gt;</pre>
+            <p>引入 JS：</p>
+            <pre>&lt;script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Popup/index.js"&gt;&lt;/script&gt;</pre>
+            <p>或者：</p>
+            <pre>&lt;script type="module"&gt;
+    import 'https://qidian.gtimg.com/lulu/hope/ui/Popup/index.js';
+&lt;/script&gt;</pre>
+
+            <h3>静态展示</h3>
+
+            <p>弹出层效果使用 <code>&lt;ui-popup&gt;</code> 元素模拟，例如：</p>
+            <pre>&lt;ui-popup overlay open&gt;内容&lt;/ui-popup&gt;</pre>
+
+            <p>通过 <code>popup.open</code> 属性，或者 <code>show()</code> 和 <code>hide()</code> 方法控制弹出层的显示与隐藏。</p>
+
+            <code-run title="显示弹出层" open>
+                <div slot="preview">
+                    <button id="b0" type="primary" is="ui-button">点击显示</button>
+                    <ui-popup id="pp0" overlay>内容</ui-popup>
+                </div>
+                <div slot="code">
+                    <pre lang="html">&lt;button id="b0" type="primary" is="ui-button"&gt;点击显示&lt;/button&gt;
+
+&lt;ui-popup id="pp0" overlay&gt;内容&lt;/ui-popup&gt;</pre>
+                    <pre lang="js">b0.addEventListener('click', function () {
+    pp0.show();
+});</pre>
+                </div>
+            </code-run>
+
+            <h3>基础样式设置</h3>
+
+            <h4>尺寸设置</h4>
+            <p>使用 <code>width</code> 和 <code>height</code> 属性设置尺寸。</p>
+
+            <pre>&lt;ui-popup overlay height="10rem"&gt;内容&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层尺寸设置" open>
+                <div slot="preview">
+                    <button id="b1" type="primary" is="ui-button">点击后观察高度</button>
+                    <ui-popup id="pp1" height="10rem" overlay>高度为 10rem</ui-popup>
+                </div>
+            </code-run>
+
+            <h4>动画设置</h4>
+
+            <p>设置 <code>transition</code> 属性会让弹出层在显示和隐藏的时候有过渡动画效果。</p>
+
+            <pre>&lt;ui-popup transition overlay height="10%"&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层动画效果" open>
+                <div slot="preview">
+                    <button id="b2" type="primary" is="ui-button">点击观察显隐动画</button>
+                    <ui-popup id="pp2" transition overlay height="10%"></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>方位设置</h4>
+
+            <p>使用 <code>position</code>
+                属性设置方位，支持这几个值：<code>left</code>、<code>top</code>、<code>right</code>、<code>bottom</code>、<code>center</code>。
+            </p>
+
+            <p>如果不作设置，则认为是 <code>bottom</code> 方位。</p>
+
+            <pre>&lt;ui-popup transition overlay width="20%" position="right"&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层内容方位" open>
+                <div id="rg" slot="operate" style="width: 414px; max-width: 100%;">
+                    <ui-list-item space><input type="radio" name="r0" value="top">顶部弹出</ui-list-item>
+                    <ui-list-item space><input type="radio" name="r0" value="right">右侧弹出</ui-list-item>
+                    <ui-list-item space><input type="radio" name="r0" value="bottom" checked>底部弹出</ui-list-item>
+                    <ui-list-item space><input type="radio" name="r0" value="left">左侧弹出</ui-list-item>
+                    <ui-list-item space><input type="radio" name="r0" value="center">居中显示</ui-list-item>
+                </div>
+                <div slot="preview">
+                    <button id="b3" type="primary" is="ui-button">点击查看方位变化</button>
+                    <ui-popup id="pp3" transition overlay>底部弹出</ui-popup>
+                </div>
+            </code-run>
+
+            <h4>圆角设置</h4>
+
+            <p>圆角效果通过 <code>radius</code> 属性进行设置。</p>
+
+            <pre>&lt;ui-popup radius&gt;&lt;/ui-popup&gt;</pre>
+
+            <p>此时的圆角大小是 <code>1rem</code>，支持指定圆角大小，如果单位不写，则认为是 <code>px</code> 大小。</p>
+
+            <pre>&lt;ui-popup radius="8px"&gt;&lt;/ui-popup&gt;
+&lt;ui-popup radius=".5rem"&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层的圆角大小" open>
+                <div slot="preview">
+                    <ui-flex>
+                        <label for="i4" class="mt10">圆角大小：</label>
+                        <div flex="1">
+                            <input id="i4" is="ui-input" placeholder="输入圆角大小值" value="3rem">
+                            <button id="b4" class="db mt15" type="primary" is="ui-button">查看圆角（方位随机）</button>
+                        </div>
+                    </ui-flex>
+
+                    <ui-popup id="pp4" overlay radius="8"></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>背景设置</h4>
+
+            <p>默认背景是白色，可以通过 <code>background</code> 属性设置任意合法的背景，支持图像与渐变。</p>
+            <pre>&lt;ui-popup background="black" overlay&gt;&lt;/ui-popup&gt;
+&lt;ui-popup background="conic-gradient(#eee 25%, white 0deg 50%, #eee 0deg 75%, white 0deg) 0 / 20px 20px" overlay&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层背景设置" open>
+                <div slot="preview">
+                    <button id="b5" type="primary" is="ui-button">黑色背景</button>
+                    <button id="b6" type="primary" is="ui-button">渐变背景样式</button>
+                    <ui-popup id="pp5" background="black" overlay height="20%"></ui-popup>
+                    <ui-popup id="pp6"
+                        background="conic-gradient(#eee 25%, white 0deg 50%, #eee 0deg 75%, white 0deg) 0 / 20px 20px"
+                        overlay height="20%"></ui-popup>
+                </div>
+            </code-run>
+
+            <h3>覆盖层设置</h3>
+
+            <h4>覆盖层不显示</h4>
+
+            <p>设置 <code>overlay</code> 属性会显示黑色半透明覆盖层，如果没有，则不会显示半透明覆盖层。</p>
+
+            <pre>&lt;ui-popup&gt;没有半透明覆盖层&lt;/ui-popup&gt;</pre>
+
+            <p>此参数可以用来实现底部弹出的广告或者功能提醒效果。</p>
+
+            <code-run title="弹出式广告" open>
+                <style>
+                    .popup-unread {
+                        background-color: var(--ui-dark);
+                        border-radius: var(--ui-radius);
+                        margin: 0 1rem;
+                        padding-left: 1rem;
+                    }
+
+                    .popup-unread hr {
+                        margin: 0 0 0 1rem;
+                    }
+
+                    .popup-unread .ui-button {
+                        margin-left: auto;
+                    }
+
+                    .popup-unread .close {
+                        border: 0;
+                        background-color: transparent;
+                        height: 3rem;
+                        width: 3rem;
+                    }
+
+                    .popup-unread .close svg {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+                </style>
+                <div slot="preview">
+                    <button id="b7" type="primary" is="ui-button">底部提示浮层</button>
+                    <ui-popup id="pp7" background="none" transition height="4rem">
+                        <ui-flex center class="popup-unread">
+                            <span class="white">夜的命名术</span>
+                            <span class="gray ml20">99+ 章未读</span>
+                            <a href="##" type="success" class="ui-button" size="mini">继续阅读</a>
+                            <hr v>
+                            <button class="close" flex="none" onclick="this.closest('ui-popup').hide();">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12 10.94l6.47-6.47 1.06 1.06L13.06 12l6.47 6.47-1.06 1.06L12 13.06l-6.47 6.47-1.06-1.06L10.94 12 4.47 5.53l1.06-1.06L12 10.94z"
+                                        fill="#fff"></path>
+                                </svg>
+                            </button>
+                        </ui-flex>
+                    </ui-popup>
+                </div>
+                <div slot="code" open>
+                    <pre
+                        lang="html">&lt;ui-popup background="none" transition height="4rem"&gt;...&lt;/ui-popup&gt;</pre>
+                </div>
+            </code-run>
+
+            <h4>覆盖层样式设置</h4>
+
+            <p>覆盖层的样式通过 <code>overlay</code> 属性值进行设置，采用键值对字符串，且无需添加引号，例如：</p>
+            <pre>&lt;ui-popup id="pp17" height="160" overlay="{ opacity: 75% }"&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="覆盖层透明度加深" open>
+                <div slot="preview">
+                    <button id="b17" type="primary" is="ui-button">覆盖层透明度加深</button>
+                    <ui-popup id="pp17" height="160" overlay="{ opacity: 75% }"></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>点击覆盖层不关闭</h4>
+            <p>也是设置 <code>overlay</code> 属性。</p>
+            <pre>&lt;ui-popup height="160" close-icon overlay="{ mode: custom }"&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="点击覆盖层不会关闭" open>
+                <div slot="preview">
+                    <button id="b18" type="primary" is="ui-button">覆盖层点击不关闭</button>
+                    <ui-popup id="pp18" height="160" close-icon overlay="{ mode: custom }"></ui-popup>
+                </div>
+            </code-run>
+
+            <h3 id="setclose">关闭按钮设置</h3>
+
+            <h4>显示关闭按钮</h4>
+
+            <p>如果设置了属性 <code>close-icon</code> 则会显示关闭按钮。</p>
+
+            <pre>&lt;ui-popup close-icon height="200" overlay&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="弹出层关闭按钮" open>
+                <div slot="preview">
+                    <button id="b8" type="primary" is="ui-button">点击显示关闭按钮</button>
+                    <ui-popup id="pp8" close-icon height="200" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>关闭按钮位置</h4>
+
+            <p>可以使用 <code>left</code>、<code>top</code>、<code>center</code> 等方位值设置关闭按钮的位置，如果是多个方位，使用空格分隔。</p>
+
+            <p>默认是右上方位，因此，<code>top</code>、<code>right</code>可以省略，例如 <code>close-icon="left"</code> 等同于
+                <code>close-icon="left top"</code>。</p>
+
+            <pre>&lt;ui-popup close-icon="left" height="200" overlay&gt;左侧&lt;/ui-popup&gt;
+&lt;ui-popup close-icon="bottom center" height="200" overlay&gt;底部居中&lt;/ui-popup&gt;</pre>
+
+            <code-run title="关闭按钮位置" open>
+                <div slot="preview">
+                    <button id="b9" type="primary" is="ui-button">关闭按钮在左侧</button>
+                    <button id="b10" type="primary" is="ui-button">关闭按钮底部居中</button>
+                    <ui-popup id="pp9" close-icon="left" height="200" overlay></ui-popup>
+                    <ui-popup id="pp10" close-icon="bottom center" height="200" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>自定义关闭图标</h4>
+
+            <p><code>close-icon</code> 支持任意的 <code>&lt;image&gt;</code> 数据类型值，不过，由于图标效果使用的遮罩实现的，因此，实际只支持镂空的 SVG 或者 PNG
+                图像，格式不限，外链、内联皆可。</p>
+
+            <p>例如使用搜索输入框中的清除图标作为关闭按钮的图标（全局通用 CSS 变量）：</p>
+            <pre>&lt;ui-popup close-icon="var(--ui-image-clear)" height="200" overlay&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="更换关闭按钮图标" open>
+                <div slot="preview">
+                    <button id="b11" type="primary" is="ui-button">清除图标按钮</button>
+                    <ui-popup id="pp11" close-icon="var(--ui-image-clear)" height="200" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <p>又或者使用外链的 URL 地址：</p>
+            <pre>&lt;ui-popup close-icon="url(//qidian.gtimg.com/lulu/hope/ui/Input/assets/clear.svg)" height="200" overlay&gt;&lt;/ui-popup&gt;</pre>
+            <code-run title="使用外链图标" open>
+                <div slot="preview">
+                    <button id="b12" type="primary" is="ui-button">关闭按钮图标外链</button>
+                    <ui-popup id="pp12" close-icon="url(//qidian.gtimg.com/lulu/hope/ui/Input/assets/clear.svg)"
+                        height="200" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>位置和图标同时自定义</h4>
+
+            <p>如果图标和位置需要同时自定义，则图标的自定义需要使用底层 CSS 变量 <code>--ui-popup-close-icon</code> 实现，示意：</p>
+
+            <pre>&lt;ui-popup close-icon="left" style="--ui-popup-close-icon: var(--ui-image-clear)" height="200" overlay&gt;&lt;/ui-popup&gt;</pre>
+            <code-run title="自定义图标在左侧" open>
+                <div slot="preview">
+                    <button id="b13" type="primary" is="ui-button">自定义图标在左侧</button>
+                    <ui-popup id="pp13" close-icon="left" style="--ui-popup-close-icon: var(--ui-image-clear)"
+                        height="200" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>使用文字图标</h4>
+
+            <p>如果不希望使用图标，直接使用文字，设置 <code>close-icon="text"</code> 即可。</p>
+
+            <pre>&lt;ui-popup close-icon="text" height="160" overlay&gt;&lt;/ui-popup&gt;</pre>
+
+            <code-run title="文字关闭按钮" open>
+                <div slot="preview">
+                    <button id="b14" type="primary" is="ui-button">显示文字不显示图标</button>
+                    <ui-popup id="pp14" close-icon="text" height="160" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <p>支持和定位同时设置，例如：</p>
+            <pre>&lt;ui-popup close-icon="left bottom text" height="160" overlay&gt;&lt;/ui-popup&gt;</pre>
+            <code-run title="左下角文字关闭按钮" open>
+                <div slot="preview">
+                    <button id="b15" type="primary" is="ui-button">左下角文字关闭按钮</button>
+                    <ui-popup id="pp15" close-icon="left bottom text" height="160" overlay></ui-popup>
+                </div>
+            </code-run>
+
+            <h4>使用子元素作为关闭按钮</h4>
+
+            <p>如果 <code>close-icon</code> 的属性值是 ID 或类名选择器，则会使用匹配该选择器的 <code>&lt;ui-popup&gt;</code> 子元素作为关闭按钮元素。</p>
+
+            <pre>&lt;ui-popup close-icon="#bc" height="10rem" overlay&gt;
+    &lt;button id="bc" is="ui-button"&gt;取消&lt;/button&gt;
+&lt;/ui-popup&gt;</pre>
+
+            <code-run title="元素作为关闭按钮" open>
+                <div slot="preview">
+                    <button id="b16" type="primary" is="ui-button">子元素作为关闭按钮</button>
+                    <ui-popup id="pp16" background="var(--ui-light-background)" close-icon="#bc" height="10rem" overlay>
+                        <style>
+                            #bc {
+                                width: calc(100% - 2rem);
+                                margin: 5rem 1rem 0;
+                            }
+                        </style>
+                        <button id="bc" type="default" is="ui-button">取消</button>
+                    </ui-popup>
+                </div>
+                <div slot="code">
+                    <pre lang="html">&lt;ui-popup id="pp16" background="var(--ui-light-background)" close-icon="#bc" height="10rem" overlay&gt;
+    &lt;style&gt;#bc { width: calc(100% - 2rem); margin: 5rem 1rem 0; }&lt;/style&gt;
+    &lt;button id="bc" type="default" is="ui-button"&gt;取消&lt;/button&gt;
+&lt;/ui-popup&gt;</pre>
+                </div>
+            </code-run>
+
+            <h3>Popup 语法</h3>
+            <p>本组件支持 <code>new Popup()</code> 语法创建并显示弹出层元素。</p>
+
+            <pre>var popup = new Popup(content, options);</pre>
+
+            <h4>注意事项</h4>
+            <ul>
+                <li><code>Popup</code> 对象有别于组件 JS export 出来的对象，例如：
+<pre>import PrivPopup from '../Popup/index.js'</pre>
+                    <p>此时的 <code>PrivPopup</code> 对象是个更干净的底层方法，和全局的 Popup 方法区别在于：</p>
+                    <h5 class="n">1. 语法不同</h5>
+                    <pre>var popup = new PrivPopup(options);</pre>
+                    <p>也就是 <code>content</code> 参数只能作为 <code>options</code> 的属性，不是个独立的参数。</p>
+
+                    <h5 class="n">2. 默认值不同</h5>
+                    <p>全局的 Popup 方法更像是一种快捷语法，默认开启了显示、动画、滚动锁定等行为，但是 <code>PrivPopup</code> 类只是单纯的创建一个干干净净的 <code>&lt;ui-popup&gt;</code> 元素，需要用户自己设置对动画的支持，设置弹出层的显示。</p>
+                </li>
+                <li><code>new Popup()</code> 每次执行都会创建一个全新的 <code>&lt;ui-popup&gt;</code> 元素，因此，非
+                    <code>'remove'</code> 模式第二次显示请使用 <code>popup.show()</code> 方法，而不是再 <code>new</code> 一下。</li>
+            </ul>
+
+            <h4>参数</h4>
+
+            <dl>
+                <dt>content</dt>
+                <dd>表示弹出框里面的内容，可以是 HTML 字符串，HTML 元素，NodeList 对象，HTMLCollection 对象，简易的选择器。
+                    <p class="mt10">可选，非必须，也可以在 <code>options</code> 可选参数中进行设置。</p>
+                </dd>
+                <dt>options</dt>
+                <dd>表示可选参数，用来设置尺寸、圆角、背景、是否包含关闭按钮等，详见下表。</dd>
+            </dl>
+
+            <table class="ui-table">
+                <thead>
+                    <tr>
+                        <th>参数名</th>
+                        <th>默认值</th>
+                        <th>释义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>open</td>
+                        <td>true</td>
+                        <td>布尔值，表示弹出层是否显示</td>
+                    </tr>
+                    <tr>
+                        <td>transition</td>
+                        <td>true</td>
+                        <td>布尔值，表示显示和隐藏的时候是否需要过渡效果</td>
+                    </tr>
+                    <tr>
+                        <td>width</td>
+                        <td>auto|100%</td>
+                        <td>任意长度值或数值，表示弹出层的宽度。水平弹出层默认宽度大小是 100%，垂直方向的弹出层的默认宽度由内容决定。</td>
+                    </tr>
+                    <tr>
+                        <td>height</td>
+                        <td>auto|100%</td>
+                        <td>任意长度值或数值，表示弹出层的高度。垂直弹出层默认高度大小是 100%，水平方向的弹出层的默认高度由内容决定。</td>
+                    </tr>
+                    <tr>
+                        <td>position</td>
+                        <td>bottom</td>
+                        <td>方位字符串值，表示弹出层的位置，支持的值包括：<code>left</code>、<code>top</code>、<code>right</code>、<code>bottom</code>、<code>center</code>。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>radius</td>
+                        <td>-</td>
+                        <td>布尔值或数值，表示弹出层的圆角大小。如果为 <code>true</code>，使用默认的 <code>0.5rem</code>
+                            圆角大小，如果为具体的数值，则使用该值作为圆角大小，纯数值会认为是 <code>px</code> 单位。</td>
+                    </tr>
+                    <tr>
+                        <td>background</td>
+                        <td>#fff</td>
+                        <td>背景字符串值，支持纯色、渐变、图像以及 CSS 变量。</td>
+                    </tr>
+                    <tr>
+                        <td>closeable</td>
+                        <td>false</td>
+                        <td>布尔值，是否显示关闭按钮。</td>
+                    </tr>
+                    <tr>
+                        <td>closeIcon</td>
+                        <td>-</td>
+                        <td>字符串值，表示按钮的方位、图标、替换元素等，详见“<a href="#setclose">关闭按钮设置</a>”，优先级大于 <code>closeable</code> 参数。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>content</td>
+                        <td>-</td>
+                        <td>支持多种数据类型，表示替换内容，只有当 <code>content</code> 参数缺省的时候此可选参数才有效。</td>
+                    </tr>
+                    <tr>
+                        <td>mode</td>
+                        <td>auto</td>
+                        <td>弹出层的隐藏模式，支持 'hide'、'remove'、'custom' 等值。
+                            <p class="mt10">如果值是 'hide'，表示关闭后隐藏当前浮层元素；</p>
+                            <p>如果值是 'remove'，表示关闭后移除当前浮层元素；</p>
+                            <p>如果值是 'custom'，则需要开发者自己控制弹出层的隐藏方式；</p>
+
+                            <p class="mt10">默认情况下，组件会根据 <code>content</code> 参数的类型决定隐藏的方式，如果是 HTML 字符串，则会使用
+                                <code>'remove'</code> 模式，如果是 DOM 元素（或者 DOM 选择器），则使用 <code>'hide'</code> 模式。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>style</td>
+                        <td>-</td>
+                        <td>Object对象，表示给弹出层容器元素添加的样式，例如：
+                            <pre>{
+    display: "flex",
+    "flex-direction": 'column'
+}</pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>HTML 字符串</h4>
+
+            <p>演示 <code>conetnt</code> 参数值是 HTML 字符串的效果。</p>
+            <pre>new Popup('&lt;img src="a.jpg" style="display:block;margin:2rem auto;"&gt;');</pre>
+
+            <code-run title="HTML 字符串内容" open>
+                <div slot="preview">
+                    <button id="nb0" type="primary" is="ui-button">HTML 字符串（看下是不是remove模式）</button>
+                </div>
+            </code-run>
+
+            <h4>基础 HTML 元素</h4>
+
+            <pre>const img = new Image();
+img.src = 'qdmm.jpg';
+img.style.display = 'block';
+img.style.margin = '2rem auto';
+// DOM 元素作为弹出层内容
+b.addEventListener('click', function () {
+    if (img.owner) {
+        img.owner.show();
+    } else {
+        new Popup(img, {
+            closeable: true
+        });
+    }
+});</pre>
+
+            <code-run title="HTML 元素内容" open>
+                <div slot="preview">
+                    <button id="nb1" type="primary" is="ui-button">HTML 元素（看下是不是hide模式）</button>
+                    <p class="mt10"><small class="gray">顺便测试下 closeable 参数</small></p>
+                </div>
+            </code-run>
+
+            <p>也可以使用页面中已有的隐藏的 HTML 元素，例如，页面中藏匿的列表。</p>
+
+            <ui-list id="list" hidden>
+                <ui-list-item>项目1</ui-list-item>
+                <ui-list-item>项目2</ui-list-item>
+                <ui-list-item>项目3</ui-list-item>
+            </ui-list>
+
+            <code-run title="弹出页面中的列表" open>
+                <div slot="preview">
+                    <button id="nb2" type="primary" is="ui-button">显示页面中的列表</button>
+                </div>
+                <div slot="code">
+                    <pre lang="html">&lt;ui-list id="list" hidden&gt;
+    &lt;ui-list-item&gt;项目1&lt;/ui-list-item&gt;
+    &lt;ui-list-item&gt;项目2&lt;/ui-list-item&gt;
+    &lt;ui-list-item&gt;项目3&lt;/ui-list-item&gt;
+&lt;/ui-list&gt;</pre>
+                    <pre lang="js">new Popup(document.getElementById('list'));</pre>
+                </div>
+            </code-run>
+
+            <h4>选择器匹配</h4>
+
+            <p><code>content</code> 参数支持简易的选择器字符串，此时会把选择器匹配的元素作为提示内容。</p>
+
+            <p>具体案例见下面的“特殊 HTML 元素”。</p>
+
+            <h4>特殊 HTML 元素</h4>
+
+            <p>如果 <code>content</code> 参数是选择器字符串，同时匹配的元素是特殊的 HTML 元素，例如
+                <code>&lt;template&gt;</code>、<code>&lt;textarea&gt;</code>或者
+                <code>&lt;script&gt;</code>元素，则会使用这些元素的值或子内容作为弹出层的显示内容。</p>
+
+            <code-run title="template 元素作为弹出层内容" open>
+                <div slot="preview">
+                    <button id="nb3" type="primary" is="ui-button">居中显示图像和文字描述</button>
+                </div>
+                <div slot="code" open>
+                    <pre lang="html">&lt;template id="tpl"&gt;
+    &lt;img src="qdmm" width="250" height="172"&gt;
+    &lt;p&gt;&lt;small class="gray"&gt;顺便测试下 position 和 style 参数&lt;/small&gt;&lt;/p&gt;
+&lt;/template&gt;</pre>
+                    <pre lang="js">new Popup({
+    content: '#tpl',
+    position: 'center',
+    style: {
+        padding: '1rem'
+    }
+});</pre>
+                </div>
+            </code-run>
+
+            <template id="tpl">
+                <img src="https://imgservices-1252317822.image.myqcloud.com/image/020920220202239/e8d40fba.jpg"
+                    width="250" height="172">
+                <p><small class="gray">顺便测试下 position 和 style 参数</small></p>
+            </template>
+
+            <code-run title="textarea 元素值作为弹出层内容" open class="mt20">
+                <div slot="preview">
+                    <button id="nb4" type="primary" is="ui-button">黑底白字白覆盖</button>
+                </div>
+                <div slot="code">
+                    <pre lang="html">&lt;textarea id="area" hidden&gt;
+    &lt;p&gt;&lt;small&gt;顺便测试下 overlay 和 background 参数&lt;/small&gt;&lt;/p&gt;
+    &lt;img src="qdmm.jpg" width="250" height="172"&gt;
+&lt;/textarea&gt;</pre>
+                    <pre lang="js">new Popup('#area', {
+    position: 'top',
+    overlay: {
+        color: 'hsla(0,0%,100%,.6)'
+    },
+    background: 'var(--ui-dark)',
+    style: {
+        padding: '1rem',
+        color: '#fff',
+        textAlign: 'center'
+    }
+});</pre>
+                </div>
+            </code-run>
+
+            <textarea id="area" hidden>
+                <p class="mb10"><small>顺便测试下 overlay 和 background 参数</small></p>
+                <img src="https://imgservices-1252317822.image.myqcloud.com/image/020920220202239/e8d40fba.jpg" width="250" height="172">
+            </textarea>
+
+            <code-run title="script 字符内容作为弹出层" open class="mt20">
+                <div slot="preview">
+                    <button id="nb5" type="primary" is="ui-button">左侧显示有圆角</button>
+                </div>
+                <div slot="code">
+                    <pre lang="html">&lt;script type="text/template" id="script"&gt;
+    &lt;img src="qdmm.jpg" width="250" height="172"&gt;
+    &lt;p&gt;&lt;small class="gray"&gt;顺便测试下 radius 参数&lt;/small&gt;&lt;/p&gt;
+&lt;/script&gt;</pre>
+                    <pre lang="js">new Popup('#script', {
+    position: 'left',
+    radius: true
+});</pre>
+                </div>
+            </code-run>
+
+            <script type="text/template" id="script">
+                <img src="https://imgservices-1252317822.image.myqcloud.com/image/020920220202239/e8d40fba.jpg" width="250" height="172">
+                <p><small class="gray">顺便测试下 radius 参数</small></p>
+            </script>
+
+            <h4>节点列表或元素合集</h4>
+
+            <p><code>content</code> 参数也可以是 NodeList 对象或者是 HTMLCollection 对象或者是 DOM 对象数组。</p>
+
+            <pre>new Popup(document.querySelectorAll('some-selector'));
+new Popup(document.forms);
+new Popup([ele1, ele2, ele3, ...]);</pre>
+
+            <code-run title="NodeList 对象作为弹出层内容" open class="mt20">
+                <div slot="preview">
+                    <button id="nb6" type="primary" is="ui-button">显示本页所有 h4 列表内容</button>
+                </div>
+                <div slot="code">
+                    <pre lang="js">new Popup([...document.querySelectorAll('h4')].map(h4 =&gt; {
+    const list = document.createElement('ui-list-item');
+    list.textContent = h4.textContent;
+    return list;
+}), {
+    width: 'calc(100% - 2rem)',
+    style: {
+        maxHeight: 'calc(100% - 2rem)'
+    }
+});</pre>
+                </div>
+            </code-run>
+
+
+            <h3>属性和方法</h3>
+
+            <p><code>new Popup()</code> 的返回值就是 <code>&lt;ui-popup&gt;</code> 元素。</p>
+
+            <p><code>&lt;ui-popup&gt;</code> 元素支持如下所示的属性和方法。</p>
+
+            <h4>支持的属性</h4>
+            <table class="ui-table">
+                <thead>
+                    <tr>
+                        <th>参数名</th>
+                        <th>默认值</th>
+                        <th>释义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>open</td>
+                        <td>false</td>
+                        <td>弹出层是否显示</td>
+                    </tr>
+                    <tr>
+                        <td>width</td>
+                        <td>-</td>
+                        <td>弹出层宽度</td>
+                    </tr>
+                    <tr>
+                        <td>height</td>
+                        <td>-</td>
+                        <td>弹出层高度</td>
+                    </tr>
+                    <tr>
+                        <td>background</td>
+                        <td>#fff</td>
+                        <td>背景色</td>
+                    </tr>
+                    <tr>
+                        <td>radius</td>
+                        <td>0</td>
+                        <td>圆角大小。</td>
+                    </tr>
+                    <tr>
+                        <td>transition</td>
+                        <td>false</td>
+                        <td>显示隐藏的时候是否使用动画效果</td>
+                    </tr>
+                    <tr>
+                        <td>mode</td>
+                        <td>'hide'</td>
+                        <td>隐藏模式，支持自定义处理。</td>
+                    </tr>
+                    <tr>
+                        <td>content</td>
+                        <td>-</td>
+                        <td>弹出层里面的内容。</td>
+                    </tr>
+                    <tr>
+                        <td>position</td>
+                        <td>bottom</td>
+                        <td>弹出层的位置</td>
+                    </tr>
+                    <tr>
+                        <td>overlay</td>
+                        <td>false</td>
+                        <td>是否使用覆盖层</td>
+                    </tr>
+                    <tr>
+                        <td>closeable</td>
+                        <td>false</td>
+                        <td>是否显示关闭按钮</td>
+                    </tr>
+                    <tr>
+                        <td>close-icon</td>
+                        <td>-</td>
+                        <td>关闭按钮的位置和类型</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>部分只读属性：</p>
+
+            <pre>{
+    // 是否和页面建立了联系，布尔值
+    isConnectedCallback: false,
+    // 弹出层相关元素
+    element: {
+        overlay: null,
+        container: null,
+        close: null
+    }                
+}</pre>
+            <h4>支持的方法</h4>
+            <table class="ui-table">
+                <thead>
+                    <tr>
+                        <th>方法名</th>
+                        <th>释义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>setParams(params)</td>
+                        <td>批量对弹出层进行参数设置，是 <code>new Popup()</code> 语法的底层方法</td>
+                    </tr>
+                    <tr>
+                        <td>show()</td>
+                        <td>显示弹出层，即使弹出层从文档移除，只要在内存中，依然可以显示</td>
+                    </tr>
+                    <tr>
+                        <td>hide()</td>
+                        <td>隐藏弹出层元素，弹出层元素依然在文档流之中</td>
+                    </tr>
+                    <tr>
+                        <td>remove()</td>
+                        <td>移除弹出层元素，弹出层元素从文档中移除</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>支持的自定义事件</h4>
+            <table class="ui-table">
+                <thead>
+                    <tr>
+                        <th>方法名</th>
+                        <th>释义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>connected</td>
+                        <td>自定义元素进入文档时候触发</td>
+                    </tr>
+                    <tr>
+                        <td>show</td>
+                        <td>弹出层显示的时候触发</td>
+                    </tr>
+                    <tr>
+                        <td>hide</td>
+                        <td>弹出层隐藏的时候触发</td>
+                    </tr>
+                    <tr>
+                        <td>remove</td>
+                        <td>弹出层移除的时候触发</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>使用示意：</p>
+            <pre>popup.addEventlistener('show', () => {
+    // 弹出层显示的时候...                
+});</pre>
+
+            <div class="contributors">
+                <svg>
+                    <use xlink:href="#icon-persons"></use>
+                </svg>
+                <h6 class="contributors-h">本页贡献者：</h6>
+                <p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.html" class="aside_nav ">设计思考</a></dd>
+            <dd><a href="./use.html" class="aside_nav ">快速上手</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">样式</dt>
+            <dd><a href="./colour.html" class="aside_nav ">颜色与主题</a></dd>
+            <dd><a href="./layout.html" class="aside_nav ">既定布局</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">元素衍生</dt>
+            <dd><a href="./hr.html" class="aside_nav ">Hr 分隔线</a></dd>
+            <dd><a href="./button.html" class="aside_nav ">Button 按钮</a></dd>
+
+            <dd><a href="./input.html" class="aside_nav ">Input 文本框</a>
+                <!-- <dd-li>
+                    <a href="./input-password.html" class="aside_nav ">Password 密码框</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./textarea.html" class="aside_nav ">Textarea 文本域</a></dd>
+
+            <dd><a href="./checkbox.html" class="aside_nav ">Checkbox 多选</a>
+                <dd-li>
+                    <a href="./checkbox-switch.html" class="aside_nav ">Switch 开关</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./radio.html" class="aside_nav ">Radio 单选</a></dd>
+
+            <dd><a href="./progress.html" class="aside_nav ">Progress 进度</a></dd>
+
+            <dd><a href="./select.html" class="aside_nav ">Select 下拉框</a></dd>
+            <dd><a href="./range.html" class="aside_nav ">Range 范围选择</a>
+                <dd-li>
+                    <a href="./range-star.html" class="aside_nav ">Star 评分</a>
+                </dd-li>
+            </dd>
+            <dd><a href="./datetime.html" class="aside_nav ">DateTime 日期选择</a></dd>
+            <dd><a href="./form.html" class="aside_nav ">Form 表单</a>
+                <dd-li><a href="./errortip.html" class="aside_nav ">ErrorTip 提示</a></dd-li>
+                <dd-li><a href="./validate.html" class="aside_nav ">Validate 表单验证</a></dd-li>
+            </dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">交互</dt>
+            <dd><a href="./loading.html" class="aside_nav ">Loading 效果</a>
+                <!-- <dd-li>
+                    <a href="" class="aside_nav ">Pulldown 下拉</a>
+                </dd-li> -->
+            </dd>
+            <dd><a href="./overlay.html" class="aside_nav ">Overlay 覆盖</a>
+                <dd-li><a href="./popup.html" class="aside_nav active">Popup 弹出</a></dd-li>
+                <dd-li><a href="./dialog.html" class="aside_nav ">Dialog 弹框</a></dd-li>
+            </dd>
+            
+            <dd><a href="./float.html" class="aside_nav ">Float 浮层</a>
+                <dd-li>
+                    <a href="./toast.html" class="aside_nav ">Toast 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./lighttip.html" class="aside_nav ">LightTip 提示</a>
+                </dd-li>
+                <dd-li>
+                    <a href="./followtext.html" class="aside_nav ">FollowText 提示</a>
+                </dd-li>
+            </dd>
+
+            <dd><a href="./pagination.html" class="aside_nav ">Pagination 分页</a></dd>
+
+            <dd><a href="./drop.html" class="aside_nav ">Drop 下拉</a>
+                <dd-li>
+                    <a href="drop-list.html" class="aside_nav ">Drop 列表</a>
+                </dd-li>
+            </dd>
+            
+            <dd>
+                <a href="./rel.html" class="aside_nav ">Rel 切换</a>
+                <dd-li>
+                    <a href="./tab.html" class="aside_nav ">Tab 选项卡</a>
+                </dd-li>
+            </dd>
+            <dd>
+                <a href="./snap.html" class="aside_nav ">Snap 滚动</a>
+                <dd-li>
+                    <a href="snap-swipe.html" class="aside_nav ">SnapSwipe 轮播</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-cell.html" class="aside_nav ">SnapCell 滑动单元格</a>
+                </dd-li>
+                <dd-li>
+                    <a href="snap-tab.html" class="aside_nav ">SnapTab 滑动式选项卡</a>
+                </dd-li>
+            </dd>
+            
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '100px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '120px';
+    p.innerHTML = 'haha';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<script type="module" src="https://qidian.gtimg.com/lulu/hope/ui/Popup/index.js"></script>
+
+<a href="#" id="backtop" class="backtop"></a>
+<!-- 底部 -->
+<script src="../hope/assets/js/mockup.js"></script>
+<script src="../hope/assets/js/highlight.min.js"></script>
+<script>
+document.querySelectorAll('pre').forEach((el) => {
+    hljs.highlightElement(el);
+});
+</script>
+</body>
+</html>
+
+<script>
+b0.addEventListener('click', function () {
+    pp0.show();
+});
+b1.addEventListener('click', function () {
+    pp1.show();
+});
+b2.addEventListener('click', function () {
+    pp2.show();
+});
+
+rg.addEventListener('click', function (event) {
+    if (event.target.type == 'radio') {
+        pp3.position = event.target.value;
+        pp3.content = event.target.parentElement.textContent;
+    }
+});
+b3.addEventListener('click', function () {
+    pp3.show();
+});
+
+b4.addEventListener('click', function () {
+    pp4.radius = i4.value;
+    pp4.content = '圆角大小是' + pp4.radius;
+    pp4.position = ['left', 'top', 'right', 'bottom'][Math.round(3 * Math.random())];
+    pp4.show();
+});
+
+b5.addEventListener('click', function () {
+    pp5.show();
+});
+
+b6.addEventListener('click', function () {
+    pp6.open = true;
+});
+
+b7.addEventListener('click', function () {
+    pp7.open = true;
+});
+
+[8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21].forEach(i => {
+    if (window['b' + i]) {
+        window['b' + i].addEventListener('click', function () {
+            window['pp' + i].show();
+        });
+    }
+});
+
+nb0.addEventListener('click', function () {
+    new Popup('<img src="https://imgservices-1252317822.image.myqcloud.com/image/020920220202239/e8d40fba.jpg" width="250" height="172" style="margin: 2rem auto;display:block;">');
+});
+
+// DOM 元素作为弹出层内容
+const img = new Image();
+img.width = 250;
+img.height = 172;
+img.src = 'https://imgservices-1252317822.image.myqcloud.com/image/020920220202239/e8d40fba.jpg';
+img.style.display = 'block';
+img.style.margin = '2rem auto';
+
+nb1.addEventListener('click', function () {
+    if (img.owner) {
+        img.owner.show();
+    } else {
+        new Popup(img, {
+            closeable: true
+        });
+    }
+});
+
+nb2.addEventListener('click', function () {
+    if (this.popup) {
+        this.popup.show();
+        return;
+    }
+    this.popup = new Popup(document.getElementById('list'));
+});
+
+// template 元素测试
+nb3.addEventListener('click', function () {
+    if (this.popup) {
+        this.popup.show();
+        return;
+    }
+    this.popup = new Popup({
+        content: '#tpl',
+        position: 'center',
+        style: {
+            padding: '1rem'
+        }
+    });
+});
+
+// textarea 元素
+nb4.addEventListener('click', function () {
+    if (this.popup) {
+        this.popup.show();
+        return;
+    }
+    this.popup = new Popup('#area', {
+        position: 'top',
+        overlay: {
+            color: 'hsla(0,0%,100%,.6)'
+        },
+        background: 'var(--ui-dark)',
+        style: {
+            padding: '1rem',
+            color: '#fff',
+            textAlign: 'center'
+        }
+    });
+});
+
+// script 元素
+nb5.addEventListener('click', function () {
+    if (this.popup) {
+        this.popup.show();
+        return;
+    }
+    this.popup = new Popup('#script', {
+        position: 'left',
+        radius: true
+    });
+});
+
+// 列表显示
+nb6.addEventListener('click', function () {
+    if (this.popup) {
+        this.popup.show();
+        return;
+    }
+    this.popup = new Popup([...document.querySelectorAll('h4')].map(h4 => {
+        const list = document.createElement('ui-list-item');
+        list.textContent = h4.textContent;
+        return list;
+    }), {
+        width: 'calc(100% - 2rem)',
+        style: {
+            maxHeight: 'calc(100% - 2rem)'
+        }
+    });
+});
+</script>

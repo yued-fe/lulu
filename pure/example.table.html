@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于表格解决方案" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, 表格解决方案" />
+<title>LuLu UI pure主题中文文档 &raquo; 表格解决方案</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; 表格解决方案</h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure" selected>Pure主题</option>
+			    <option value="edge">Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+		</div>
+	</header>
+
+<style>
+.et-operate {
+    margin-right: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.et-search {
+    width: 220px;
+    float: right;
+}
+a.dark:not([href]) {
+    opacity: .4;
+}
+
+.table-x {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+</style>
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+    	<h2 class="section_title">表格解决方案</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>典型案例演示</h3>
+
+            <p>本案例演示重点在分页与列表交互，复选框选中与列表交互，列表中动态内容的事件处理，以及外部的搜索、删除如何影响列表的显示。</p>
+
+            <div class="ovh pt10 pb10">
+                <!-- 表格右上区域，一般是搜索 -->
+                <div class="et-search">
+                    <form id="mixSearchForm">
+                        <div class="table-search ui-input ui-input-search" align="right">
+                            <input type="search" name="key" required placeholder="搜error出错，其他随机" required>
+                            <button type="submit" class="ui-icon-search">搜索</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="et-operate">
+                    <a id="delAllComment" class="dark jsTips" title="演示返回数据为空的效果"><i class="icon_del"></i>删除文章</a>
+                </div>
+            </div>
+            <div class="table-x table-checkbox">
+                <table id="tableMix" class="ui-table">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" id="chkAll"><label class="ui-checkbox" for="chkAll"></label></th>
+                        <th>文章标题</th>
+                        <th width="22%">发布时间</th>
+                        <th width="15%" class="tr">评论数</th>
+                        <th width="15%" class="tc">&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                 </table>
+                 <!-- 列表无数据的占位 -->
+                <div class="table-null-x dn">
+                    <div class="table-null">
+                        <img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/icon_exapmle_delete.png" width="69" height="80">
+                        <h2>文章列表为空</h2>
+                        <p>系统将在用户删除文章一个工作日后，<br>自动彻底清理</p>
+                    </div>
+                </div>
+                <!-- 列表加载loading -->
+                <ui-loading rows="15"></ui-loading>
+                <!-- 底部分页 -->
+                <div class="table-page-x">
+                    <div class="table-page-data dn">
+                        共<span class="table-page-total">0</span>名成员, 每页显示<a href="javascript:" class="table-page-per">15</a>
+                    </div>
+                    <div class="table-page"></div>
+                </div>
+            </div>
+            <h4>代码</h4>
+            <h5>1. 需要comp/Table.css</h5>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/peak/css/common/comp/Table.css"&gt;</pre>
+            <h5>2. 列表HTML占位</h5>
+            <pre>&lt;div class="table-x table-checkbox"&gt;
+    &lt;table id="tableMix" class="ui-table"&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;&lt;input type="checkbox" id="chkAll"&gt;&lt;label class="ui-checkbox" for="chkAll"&gt;&lt;/label&gt;&lt;/th&gt;
+            &lt;th&gt;文章标题&lt;/th&gt;
+            &lt;th width="22%"&gt;发布时间&lt;/th&gt;
+            &lt;th width="15%" align="right"&gt;评论数&lt;/th&gt;
+            &lt;th width="15%" align="center"&gt;&amp;nbsp;&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;&lt;/tbody&gt;
+    &lt;/table&gt;
+    <span class="green">&lt;!-- 列表无数据的占位 --&gt;</span>
+    &lt;div class="table-null-x" style="dislay:none;"&gt;
+        &lt;div class="table-null"&gt;
+            &lt;img src="delete.png" width="69" height="80"&gt;
+            &lt;h2&gt;文章列表为空&lt;/h2&gt;
+            &lt;p&gt;系统将在用户删除文章一个工作日后，&lt;br&gt;自动彻底清理&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    <span class="green">&lt;!-- 列表加载loading --&gt;</span>
+    &lt;ui-loading rows="15"&gt;&lt;/ui-loading&gt;
+    <span class="green">&lt;!-- 底部分页 --&gt;</span>
+    &lt;div class="table-page-x"&gt;
+        &lt;div class="table-page-data" style="dislay:none;"&gt;
+            共&lt;span class="table-page-total"&gt;0&lt;/span&gt;名成员, 每页显示&lt;a href="javascript:" class="table-page-per"&gt;15&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="table-page"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+            <p>如果对文案和样式没有特别高的要求，“列表无数据的占位”元素<code>.table-null-x</code>可以删除，到时候会显示“暂无数据”。</p>
+            <p>如果你对样式要求不高，但对文案有要求，可以下面这样：</p>
+            <pre>&lt;div class="table-null-x" style="dislay:none;"&gt;这里是你的文案&lt;/div&gt;</pre>
+
+            <h5>3. Table方法相关JS代码</h5>
+            <pre class="ovh"><span class="green">// 搜索表单和删除按钮元素</span>
+var eleMixForm = document.querySelector('#mixSearchForm');
+var eleBtnDelete = document.querySelector('#delAllComment');
+<span class="green">// 列表实例方法</span>
+var mixTable = <mark>new Table</mark>('#tableMix', {
+    <span class="green">// ajax请求的参数</span>
+    ajaxOptions: {
+        url: '/get',
+        data: function () {
+            return {
+                key: encodeURIComponent(eleMixForm.querySelector('input').value)
+            };
+        }
+    },
+    <span class="green">// 解析后端返回JSON数据为列表HTML字符串</span>
+    parse: function (json) {
+        <span class="green">// 返回对应的HTML
+        // 推荐基于模板渲染，这里使用字符拼接演示</span>
+        var html = '';
+        json.data.data.forEach(function (obj, index) {
+            html = html + '...';
+        });
+        return html;
+    },
+    <span class="green">// 点击单选框后的回调</span>
+    onCheck: function (isAllChecked, isAllUnchecked) {
+        if (isAllUnchecked) {
+            eleBtnDelete.removeAttribute('href');
+        } else {
+            eleBtnDelete.setAttribute('href', 'javascript:');
+        }
+    }
+});
+<span class="green">// 列表删除事件演示
+// 需要走委托才行</span>
+mixTable.element.table.addEventListener('click', function (event) {
+    if (event.target.matches('a.icon_del')) {
+        new Dialog().confirm('确认删除该评论？');
+    }
+});
+<span class="green">// 搜索</span>
+new Validate(eleMixForm, function () {
+    <span class="green">// 触发列表重新加载，传递了部分参数</span>
+    mixTable.ajax({
+        data: {
+            action: 'search',
+            current: 1
+        }
+    });
+});
+<span class="green">// 删除全部评论</span>
+eleBtnDelete.addEventListener('click', function () {
+    if (!this.hasAttribute('href')) {
+        return;
+    }
+    new Dialog().confirm('确认删除选中的这些评论？', {
+        buttons: [{
+            value: '删除',
+            events: function (event) {
+                mixTable.ajax({
+                    data: {
+                        action: 'empty'
+                    },
+                    <span class="green">// 请求成功之后回调</span>
+                    success: function () {
+                        eleBtnDelete.removeAttribute('href');
+                    }
+                });
+                event.dialog.remove();
+            }
+        }, {}]
+    });
+});</pre>
+            <p class="tips">Ajax请求返回的数据需要包含数据总量字段，默认是<code>total</code>，可以使用可选参数替换成其他。例如可以是：</p>
+            <pre>{
+    "error": 0,   <span class="green">// 或者"code": 0</span>
+    "total": 50,
+}</pre>
+            <p>或者：</p>
+            <pre>{
+    "error": 0,    <span class="green">// 或者"code": 0</span>
+    "data": {
+        "total": 50,
+        "data": []
+    }
+}</pre>
+
+            <h3>语法和参数</h3>
+            <h4>语法</h4>
+            <pre>var myTable = new Table(element, options);</pre>
+            <h4>参数</h4>
+            <dl>
+                <dt>element</dt>
+                <dd>必需。Element|String。<code>&lt;table&gt;</code>元素或者<code>&lt;table&gt;</code>元素的选择器。</dd>
+                <dt>options</dt>
+                <dd>可选。Object。可选参数，具体见下表（置灰表示不常用）：</dd>
+            </dl>
+            <table width="100%" class="ui-table">
+              <tr>
+                <th width="90">参数名称</th>
+                <th width="60">支持类型</th>
+                <th width="110">默认值</th>
+                <th>释义</th>
+              </tr>
+
+              <tr>
+                <td>ajax<wbr>Options</td>
+                <td>Object</td>
+                <td>{}</td>
+                <td>Ajax请求参数。支持下面这些参数。
+                    <dl>
+                        <dt>url</dt>
+                        <dd>必需。String。Ajax请求地址。</dd>
+                        <dt>data</dt>
+                        <dd>可选。Object|<wbr>Function。<wbr>Ajax请求附带参数，支持Function类型，适合需要发送实时数据的场景。</dd>
+                        <dt>success</dt>
+                        <dd>可选。Function。<wbr>Ajax成功的回调，支持一个参数，为后端返回的JSON对象。</dd>
+                        <dt>error</dt>
+                        <dd>可选。Function。<wbr>Ajax失败的回调，请求成功但返回错误码也会触发。</dd>
+                        <dt>complete</dt>
+                        <dd>可选。Function。<wbr>Ajax完成的回调，无论成功失败都会触发。</dd>
+                    </dl></td>
+              </tr>
+              <tr>
+                <td>page<wbr>Options</td>
+                <td>Object</td>
+                <td>{<small class="gray">/*见释义*/</small>}</td>
+                <td>分页相关的一些参数。
+<p>默认值如下：</p>
+<pre>{
+  <span class="green">// 总数据量</span>
+  total: 0,
+  <span class="green">// 每页数目</span>
+  per: 15,
+  <span class="green">// 当前页数</span>
+  current: 1
+  <span class="green">// 接口映射关系</span>
+  keyMap: {
+    key: '',
+    total: 'total',
+    per: 'per',
+    current: 'current'
+  }
+}</pre>
+                    本参数可以用来指定默认每页个数以及指定LuLu UI分页字段和后端分页字段的映射关系，其中后面的作用，也就是<code>keyMap</code>属性更常用，例如后端返回分页信息如下：<pre>{
+  "code": 0,
+  "data": {
+    "page<wbr>Info": {
+      "page<wbr>Index": 1,
+      "page<wbr>Size": 20,
+      "page<wbr>Max": 6,
+      "total<wbr>Count": 99
+    }
+  }
+}</pre>
+<p>则此时，keyMap参数设定为：</p>
+<pre>keyMap: {
+  key: 'page<wbr>Info',
+  total: 'total<wbr>Count',
+  per: 'page<wbr>Size',
+  current: 'page<wbr>Index'
+}</pre>
+<p>其中<code>key</code>指放置分页相关数据的接口关键字名称。如果直接在<code>data</code>下，则为空即可。</p></td>
+              </tr>
+              <tr>
+                <td>page<wbr>List</td>
+                <td>Array</td>
+                <td>[15,<wbr>30,<wbr>50]</td>
+                <td>分页下拉的列表数据。</td>
+              </tr>
+              <tr>
+                <td>parse</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
+                <td>对Ajax返回的数据进行解析，并返回对应列表的HTML字符串，如果没有数据，返回空字符串。此参数虽然名义上可选，参数实际开发必定会用到。<p>其中上下文<code>this</code>是当前实例对象，支持一个参数，为后端返回的最原始的JSON数据对象。</p></td>
+              </tr>
+              <tr>
+                <td>onShow</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
+                <td>列表显示时候的回调方法。其中，上下文<code>this</code>为当前实例对象，没有支持的参数。</td>
+              </tr>
+              <tr>
+              <tr>
+                <td class="gray">onPage</td>
+                <td>Func<wbr>tion</td>
+                <td>null</td>
+                <td>点击分页的回调方法。就是Pagination组件的onClick回调。本组件内置分页点击行为（请求与列表刷新），如果您使用了自定义事件，会覆盖内置的事件。注意，是覆盖。因此，本参数，适用于一些高级应用场景。
+                    <p>上下文<code>this</code>为当前实例对象，支持两个参数，分别表示点击的分页元素，以及点击的页码数值。</p></td>
+              </tr>
+              <tr>
+                <td>onCheck</td>
+                <td>Func<wbr>tion</td>
+                <td>func<wbr>tion () {}</td>
+                <td>点击复选框时候的回调。<p>其中，上下文<code>this</code>为当前实例对象。支持4个参数<wbr><code>is<wbr>All<wbr>Checked</code>, <code>is<wbr>All<wbr>Unchecked</code>, <code>ele<wbr>Checkbox</code>, <code>ele<wbr>All<wbr>Td<wbr>Checkbox</code>，第1个参数为布尔值，表示是否全部选中，第2个参数也是布尔值，表示是否所有都没选中，第3个参数为元素对象，表示当前点击的复选框元素，第4个参数是数组，表示所有可用的复选框元素集合。</p></td>
+              </tr>
+            </table>
+
+            <h4>关于实例对象</h4>
+            <p>实例对象<code>myTable</code>含有以下属性和方法：</p>
+            <pre>{
+    element: {
+        <span class="green">// 表格的父元素</span>
+        container: null,
+        <span class="green">// 表格元素</span>
+        table: null,
+        <span class="green">// 分别是：没有数据提示元素，loading元素，出错提示元素
+        // 三个元素都可以缺省，Table.js会自己创建</span>
+        empty: null,
+        loading: null,
+        error: null,
+
+        <span class="green">// 左侧显示总数元素</span>
+        total: null,
+        <span class="green">// 左侧显示分页信息的元素</span>
+        per: null,
+        <span class="green">// 左侧显示总数和分页信息的父元素</span>
+        data: null,
+        <span class="green">// 显示分页的容器元素</span>
+        page: null
+    },
+    params: {
+        <span class="green">// 分页数据</span>
+        page: {},
+        <span class="green">// 请求数据</span>
+        ajax: {},
+        <span class="green">// 分页数列表数据</span>
+        list: []
+    },
+    callback: {
+        <span class="green">// 一些回调方法</span>
+        parse: function () {},
+        page: function () {},
+        check: function () {},
+        show: function () {}
+    },
+    <span class="green">// 分页下拉列表实例</span>
+    dropList: myDrop,
+    <span class="green">// 分页实例</span>
+    pagination: myPage,
+    <span class="green">// 非常常用的Ajax方法，用来刷新列表</span>
+    <strong>ajax</strong>: function(options) {},
+    <span class="green">// 列表显示，这个不常用</span>
+    show: function() {}
+}</pre>
+            <p><strong>尤其需要注意的是上面加粗的<code>ajax</code>实例方法</strong>，当我们进行一些外部操作，然后希望刷新列表的时候，只要调用下这个示例方法（注意注意，无需再new一个实例），传入需要的Ajax参数就可以了。</p>
+
+            <h3>is-table语法</h3>
+
+            <p>设置了 <code>is-table</code> 属性的 <code>&lt;table&gt;</code> 元素在和页面建立联系的时候，会触发自定义的 <code>connected</code> 事件。</p>
+
+            <table class="ui-table" id="tb0" is-table>
+                <tbody><tr><td>空表格</td></tr></tbody>
+            </table>
+
+            <pre>&lt;table class="ui-table" id="tb0" is-table&gt;
+    &lt;tbody&gt;空表格&lt;/tbody&gt;
+&lt;/table&gt;</pre>
+            <pre>tb0.addEventListener('connected', function () {
+    new Table(this);
+});</pre>
+
+            <script>tb0.addEventListener('connected', function () {
+    new Table(this);
+});</script>
+
+
+            <div class="contributors">
+                <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt" hidden>动态控件</dt>
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav active"><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<!-- 底部 -->
+<script src="../pure/assets/js/mockup.js"></script>
+</body>
+</html>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Dialog.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Pagination.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Loading.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Drop.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/ErrorTip.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Validate.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Tips.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/comp/Table.js"></script>
+
+
+<script>
+// 列表综合实例
+var eleMixForm = document.querySelector('#mixSearchForm');
+
+new Validate(eleMixForm, function () {
+    mixTable.ajax({
+        data: {
+            action: 'search',
+            current: 1
+        }
+    });
+});
+var eleBtnDelete = document.querySelector('#delAllComment');
+
+var mixTable = new Table('#tableMix', {
+    ajaxOptions: {
+        url: 'https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/table.php',
+        data: function () {
+            return {
+                key: encodeURIComponent(eleMixForm.querySelector('input').value)
+            };
+        }
+    },
+    pageOptions: {
+        // mode: 'short'
+    },
+    parse: function (json) {
+        // 返回对应的HTML
+        // 这里应该使用模板技术
+        // 然不同团队使用模板方式不一样
+        // 我这里就按照比较传统的遍历方式拼接演示
+        var html = '';
+        json.data.data.forEach(function (obj, index) {
+            var htmlLast = '<a href="javascript:;" class="icon icon_del ui-tips" title="删除评论"></a>';
+            if (index == 0) {
+                htmlLast = '<input type="checkbox" id="switch"><label class="ui-switch" for="switch"></label>';
+            }
+            html = html + '\
+            <tr>\
+                <td><input type="checkbox" id="mixChk' + obj.id + '"><label class="ui-checkbox" for="mixChk' + obj.id + '"></label></td>\
+                <td><div class="ell">' + obj.title + '</div></td>\
+                <td>' + obj.time + '</td>\
+                <td align="right">' + obj.comment + '</td>\
+                <td class="tc">' + htmlLast + '</td>\
+            </tr>\
+        ';
+        });
+        return html;
+    },
+
+    onCheck: function (isAllChecked, isAllUnchecked) {
+        if (isAllUnchecked) {
+            eleBtnDelete.removeAttribute('href');
+        } else {
+            eleBtnDelete.setAttribute('href', 'javascript:');
+        }
+    }
+});
+
+
+// 列表删除事件演示
+// 需要走委托才行
+mixTable.element.table.addEventListener('click', function (event) {
+    if (event.target.matches('a.icon_del')) {
+        new Dialog().confirm('确认删除该评论？');
+    }
+});
+
+// 删除全部评论
+eleBtnDelete.addEventListener('click', function () {
+    if (!this.hasAttribute('href')) {
+        return;
+    }
+
+    new Dialog().confirm('确认删除选中的这些评论？', {
+        buttons: [{
+            value: '删除',
+            events: function (event) {
+                mixTable.ajax({
+                    data: {
+                        action: 'empty'
+                    },
+                    success: function () {
+                        eleBtnDelete.removeAttribute('href');
+                    }
+                });
+                event.dialog.remove();
+            }
+        }, {}]
+    });
+});
+</script>

@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LuLu UI pure主题中文文档，面向PC，也兼容移动端，非常适合对外用户web网站的UI框架，阅文集团前端团队荣誉出品。本页面文档内容关于Drop下拉" />
+<meta name="keywords" content="LuLu UI, 中文文档, UI框架, UI组件库, LuLu, Web, 前端, Drop下拉" />
+<title>LuLu UI pure主题中文文档 &raquo; Drop下拉</title>
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/animate.css">
+<link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui.css">
+<link rel="stylesheet" href="../pure/assets/css/mockup.css">
+</head>
+<body>
+	<input id="asideCheck" type="checkbox" class="aside-checkbox"><label for="asideCheck" class="aside-label"><svg width="24" height="24"><use xlink:href="#icon-bars"></use></svg></label>
+	<header class="header">
+		<a href="../" accesskey="1" class="logo-a" data-theme="pure"><h1 class="logo">LuLu UI pure版中文文档 &raquo; Drop下拉</h1></a>
+		<div class="header-right">
+			<select id="selectTheme" class="select-theme" is="ui-select">
+				<option value="peak">Peak主题</option>
+			    <option value="pure" selected>Pure主题</option>
+			    <option value="edge">Edge主题</option>
+			</select>
+			<a href="https://github.com/yued-fe/lulu" class="fork-me ui-button">Fork Me</a>
+		</div>
+	</header>
+
+<style>
+    td img {
+        max-width: 100%;
+        object-fit: contain;
+    }
+    #t1, #t2 { border: 1px solid; padding:20px; background-color: #fff; position: absolute; z-index: 1; display: none; }
+</style>
+
+<div class="main">
+    <!-- 主内容 -->
+    <main class="section_main">
+        <h2 class="section_title">Drop下拉</h2>
+        <!-- 详细内容 -->
+        <article>
+            <h3>作为插件单独使用</h3>
+            <p>引用下面CSS：</p>
+            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/pure/css/common/ui/Drop.css"&gt;</pre>
+            <p>JS为：</p>
+            <pre>&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"&gt;&lt;/script&gt;
+&lt;script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Drop.js"&gt;&lt;/script&gt;</pre>
+
+            <h3>Drop方法效果演示</h3>
+
+            <h4>1. 鼠标hover事件</h4>
+            <p>经过我：<a href="javascript:" id="dropHover">hover我</a></p>
+            <div id="t1">
+                <button>按钮1</button>
+                <p class="mt10">
+                    <a href="javascript:">测试1</a>
+                </p>
+            </div>
+            <pre>var eleTrigger = document.getElementById('dropHover');
+var eleTarget = document.getElementById('dropTarget');
+<span class="green">// 绑定Drop方法</span>
+new Drop(eleTrigger, eleTarget, {
+    eventType: 'hover',
+    onShow: function (trigger, target) {
+        <span class="green">// 显示的时候顺便设置个黑色边框</span>
+        target.style.border = '2px solid #333';
+    }
+});</pre>
+            <p>其中，<code>eleTrigger</code> 是点击的按钮元素，<code>eleTarget</code> 是显示的浮层元素。</p>
+            <h4>2. 点击事件</h4>
+            <p>点击我：<a href="javascript:" id="b0">click 我</a></p>
+            <div id="t2">
+                <button>按钮2</button>
+                <p class="mt10">
+                    <a href="javascript:">测试2</a>
+                </p>
+            </div>
+            <pre>new Drop(eleTrigger, eleTarget, {
+    eventType: 'click'
+});</pre>
+            <h4>3. 动态 trigger 与呈现示例之 click</h4>
+            <p id="freshBtn"><a href="javascript:">内容</a></p>
+            <img id="i1" class="dn zx1 abs" src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2015-06-24_162429.png">
+            <p><a href="javascript:" class="ui-button" data-type="primary" onclick="freshBtn.innerHTML = '<a href=javascript:>'+ Math.random() +'</a>';">上面链接 HTML 刷新</a></p>
+            <pre>&lt;p id="freshBtn">&lt;a>内容&lt;/a>&lt;/p></pre>
+            <pre>document.querySelector("#freshBtn").html('&lt;a>'+ Math.random() +'&lt;/a>');</pre>
+            <pre><span class="green">// 委托Drop.js</span>
+new Drop(document.querySelector("#freshBtn"), eleImg, {
+    eventType: 'click',
+    selector: 'a'
+});</pre>
+            <p>如果我们下拉触发元素是动态生成的，则可以借助 <code>selector</code> 参数进行委托实现。</p>
+
+            <h4>4. 动态trigger与呈现示例之hover</h4>
+            <ol id="freshBtn2">
+                <li><a href="javascript:">内容a</a></li>
+                <li>内容纯文本</li>
+                <li><a href="javascript:">内容a</a></li>
+                <li>内容纯文本</li>
+                <li><a href="javascript:">内容a</a></li>
+                <li>内容纯文本</li>
+                <li><a href="javascript:">内容a</a></li>
+                <li>内容纯文本</li>
+            </ol>
+            <p><a href="javascript:" class="ui-button" data-type="primary" onclick="document.querySelector('#freshBtn2').innerHTML = ('<li><a href=javascript:>'+ Math.random() +'</a></li><li>内容纯文本</li>').repeat(4);">上面链接HTML刷新</a></p>
+            <pre><span class="green">// hover委托</span>
+new Drop(button, img, {
+    eventType: 'hover',
+    selector: 'a',
+    edgeAdjust: false
+});</pre>
+            <h3>is-drop快捷语法</h3>
+
+            <p>如果不想使用 <code>new Drop()</code> 构造语法，则可以给按钮元素设置 <code>is-drop</code> 属性达到同样的效果。</p>
+            <p>点击我：<a href="javascript:" is-drop="t2">click me</a></p>
+            <pre>&lt;a href="javascript:" <mark>is-drop="t2"</mark>&gt;click me&lt;/a&gt;</pre>
+            <p>其中 <code>is-drop</code> 的属性值 <code>t2</code> 就是浮层元素的 <code>id</code>。</p>
+
+            <p>支持通过 <code>data-*</code> 自定义属性传参，示意：</p>
+            <p>点击我：<button data-position="5-7" is-drop="t2">click me</button></p>
+            <pre>&lt;button <mark>data-position</mark>="5-7" is-drop="t2"&gt;click me&lt;/button&gt;</pre>
+
+            <h3>Drop语法和参数</h3>
+            <p>语法为：</p>
+            <pre>var myDrop = new Drop(trigger, target, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>trigger</dt>
+                <dd>必需。Object元素或String选择器。触发Drop浮层显示的DOM元素。</dd>
+                <dt>target</dt>
+                <dd>必需。Object元素或String选择器。Drop浮层元素。</dd>
+                <dt>options</dt>
+                <dd>可选。Object对象。可选参数见下表：</dd>
+            </dl>
+            <table width="100%" class="ui-table">
+                <tr>
+                    <th scope="col" width="80">参数名称</th>
+                    <th scope="col" width="80">支持类型</th>
+                    <th scope="col" width="100">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+                <tr>
+                    <td>event<wbr>Type</td>
+                    <td>String</td>
+                    <td>'null'</td>
+                    <td>表示触发元素显示的事件，默认是<code>'null'</code>, <wbr>表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code>表示hover时候显示下拉；<wbr><code>'click'</code>表示点击的时候显示下拉；如果是其他字符串，Drop组件只是单纯初始化，需要手动调用<code>show()</code>才显示，隐藏也需要自己控制。</td>
+                </tr>
+                <tr>
+                    <td>selector</td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>click或hover的委托处理需要的选择器。如果参数值不为空，则<code>trigger</code>认为是容器。</td>
+                </tr>
+                <tr>
+                    <td>offsets</td>
+                    <td>Object</td>
+                    <td><span class="db">{<br>
+                    &nbsp;&nbsp;x: 0,<br>
+                    &nbsp;&nbsp;y: 0<br>
+                }</span></td>
+                    <td>表示浮动元素的偏移大小，相对于右上角偏移，数值越大右上角偏移越大。</td>
+                </tr>
+                <tr>
+                    <td>position</td>
+                    <td>String</td>
+                    <td>'7-5'</td>
+                    <td>表示触发元素和浮层元素的定位关系。<wbr>基于<code>'trigger<wbr>-target'</code>规则，数字表示对应元素的位置，具体如下图。例如<code>'7-5'</code>就表示触发元素的位置<code>7</code>个浮层元素的<code>5</code>对齐。
+                        <p><img src="https://qidian.gtimg.com/lulu/theme/modern/css/common/images/temp/2010-12-15_213638.png" height="240" onload="if(screen.width<640){this.removeAttribute('height')}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>edge<wbr>Adjust</td>
+                    <td>Boolean</td>
+                    <td>true</td>
+                    <td>表示浮层屏幕之外的时候，是否自动调整方向。默认是自动调整。
+                    </td>
+                </tr>
+                <tr>
+                    <td>onShow</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                    <td>onHide</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+            </table>
+
+
+            <h3>Drop拓展的List方法</h3>
+
+            <h4>演示和代码</h4>
+            <p>
+                <a href="javascript:" class="dropPageEvery ui-droplist-arrow dark f14">跳转到</a>
+                <a href="javascript:" id="dropComment" class="ui-droplist-arrow dark f14 ml30">所有评论</a>
+                <a href="javascript:" id="dropDeal" class="ui-droplist-arrow dark f14 ml30"><i class="icon_undeal"></i>未处理</a>
+            </p>
+<pre><span class="green">// 下拉导航链接列表</span>
+new Drop('.dropPageEvery').list([{
+    href: 'http://www.qidian.com/',
+    value: '起点中文网',
+    target: '_lulu'
+}, {
+    href: 'http://www.hongxiu.com/',
+    value: '红袖添香',
+    target: '_lulu'
+}, {
+    href: 'http://www.xs8.cn/',
+    value: '言情小说吧',
+    target: '_lulu',
+    disabled: true
+}, {
+    value: '其他',
+    data: [{
+        href: 'http://www.qidian.com/',
+        value: '1起点中文网',
+        target: '_lulu'
+    }, {
+        href: 'http://www.hongxiu.com/',
+        value: '1红袖添香',
+        target: '_lulu'
+    }, {
+        value: '1其他',
+        data: [{
+            href: 'http://www.qidian.com/',
+            value: '2起点中文网',
+            target: '_lulu'
+        }, {
+            href: 'http://www.hongxiu.com/',
+            value: '2红袖添香',
+            target: '_lulu'
+        }]
+    }]
+}], {
+    width: 100
+});</pre>
+<pre>
+<span class="green">// 评论筛选列表</span>
+new Drop(document.querySelector('#dropComment')).list([{
+    id: 1,
+    value: '所有评论'
+}, {
+    id: 2,
+    value: '未通过评论'
+}, {
+    id: 3,
+    value: '未审核评论'
+}, {
+    id: 4,
+    value: '已通过评论'
+}], {
+    onSelect: function (obj) {
+        console.log('选中的评论id是：' + obj.id);
+    }
+});</pre>
+<pre>
+<span class="green">// 评论状态修改列表</span>
+new Drop('#dropDeal').list([{
+    value: '&lt;i class="icon_undeal"&gt;&lt;/i&gt;未处理'
+}, {
+    value: '&lt;i class="icon_pass"&gt;&lt;/i&gt;已通过'
+}, {
+    value: '&lt;i class="icon_unpass"&gt;&lt;/i&gt;未通过'
+}], {
+    position: '7-5'
+});</pre>
+            <h4>单纯显示列表</h4>
+            <p>
+                <button id="dropListMove" class="ui-button" data-type="primary">移动到</button>
+            </p>
+            <p>
+                <select id="dropListSel" style="opacity: 1; border-right-width: 1px; padding-right: 20px;">
+                    <option value="1">分组1</option>
+                    <option value="2">分组2</option>
+                    <option value="3">分组3</option>
+                    <option value="4">分组4</option>
+                </select>
+            </p>
+            <pre><span class="green">// 基于数据的列表</span>
+var eleDropListMove = document.querySelector('#dropListMove');
+var eleSelDropList = document.querySelector('#dropListSel');
+new Drop(eleDropListMove).list(function () {
+    var data = [];
+    eleSelDropList.querySelectorAll('option').forEach(function (eleOption) {
+        var obj = {
+            id: eleOption.value,
+            value: eleOption.innerHTML
+        };
+        if (eleOption.selected) {
+            obj.disabled = true;
+        }
+        data.push(obj);
+    });
+
+    return data;
+}, {
+    selector: 'button',
+    onSelect: function (obj) {
+        eleSelDropList.querySelector('option[value="' + obj.id + '"]').selected = true;
+    }
+});</pre>
+            <h4>右键上下文菜单+多级数据结构</h4>
+            <p>右键下面的图片：</p>
+            <p><img id="menuImg" src="https://qidian.qpic.cn/qidian_common/349573/bb72d53796b729a429885a5f0ed7768a/0"
+                    width="338" height="167" alt="示意图片"></p>
+            <p>完整JS代码：</p>
+            <pre><span class="green">// 右键处理</span>
+new Drop('#menuImg').list([{
+    id: '0',
+    value: '居左显示'
+}, {
+    id: '1',
+    value: '居中显示'
+}, {
+    id: '2',
+    value: '居右显示'
+}, '-', {
+    id: '3',
+    value: '应用滤镜',
+    data: [{
+        id: '3-1',
+        value: '灰度'
+    }, {
+        id: '3-2',
+        value: '模糊',
+        data: [{
+            id: '3-2-1',
+            value: '0px'
+        }, ..., {
+            id: '3-2-3',
+            value: '15px'
+        }]
+    }, {
+        id: '3-3',
+        value: '褐色'
+    }]
+}], {
+    eventType: 'contextmenu',
+    offsets: {
+        x: 8,
+        y: 8
+    },
+    onSelect: function (obj) {
+        var eleImg = this.element.trigger;
+
+        switch (obj.id) {
+            case '0': {
+                eleImg.style.display = 'block';
+                eleImg.style.marginLeft = '';
+                eleImg.style.marginRight = 'auto';
+                break;
+            }
+            ...
+            case '3-3': {
+                eleImg.style.filter = 'sepia(100%)';
+                break;
+            }
+        }
+    }
+});</pre>
+
+            <h4>is-drop快捷使用</h4>
+
+            <p>此案例适合 Vue 等框架场景中使用。</p>
+            <div id="app1">
+                <template v-if="1">
+                    <button class="ui-button" data-type="primary" is-drop @connected="setListData">点击我</button>
+                </template>
+            </div>
+            <p>代码示意：</p>
+            <pre>&lt;div id="app1"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;button class="ui-button" data-type="primary" is-drop @connected="setListData"&gt;点击我&lt;/button&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+<pre>new Vue({
+    el: '#app1',
+    methods: {
+      setListData: function (event) {
+          event.detail.drop.list([{
+              id: 1,
+              value: '选项1'
+          }, {
+              id: 2,
+              value: '选项2'
+          }, {
+              id: 3,
+              value: '选项3'
+          }]);
+      }
+    }
+  });</pre>
+            <p>关键点是使用自定义的 connected 事件进行列表数据的绑定执行。</p>
+
+            <h3>List方法语法和参数</h3>
+            <pre>var myDrop = new Drop(trigger).list(data, options);</pre>
+            <p>或者</p>
+            <pre>var myDrop = new Drop().list(trigger, data, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>trigger</dt>
+                <dd>必需。Object DOM对象或String选择器字符串。表示按钮或者委托容器元素（如果可选selector参数不为空）。</dd>
+                <dt>data</dt>
+                <dd>必需。Array数组或者Function函数。如果是Function类型，则执行后需要返回数组。数组项都是纯对象，列表呈现需要的是<code>value</code>,
+                <code>selected</code>, <code>disabled</code>等属性，如果有<code>href</code>属性则表示链接，其他属性为自定义使用, 例如：</dd>
+                <dd><pre>[{
+    <span class="blue">id</span>: 1,
+    <span class="red">value</span>: '所有评论',
+    <span class="red">selected</span>: true
+}, {
+    <span class="blue">id</span>: 2,
+    <span class="red">value</span>: '未审核评论',
+    <span class="red">disabled</span>: true
+}, {
+    <span class="blue">id</span>: 3,
+    <span class="red">value</span>: '链接',
+    <span class="red">href</span>: '//l-ui.com',
+    <span class="red">target</span>: '_blank'
+}]</pre></dd>
+                <dd>红色的关键字是组件可识别的关键属性，其余属性(蓝色)可以在<code>onSelect</code>回调中为己所用。</dd>
+                <dd>可使用<code>data</code>属性嵌套多层级列表，例如：<pre>[{
+    value: '多级列表',
+    <mark>data:</mark> [{
+        value: '二级列表1'
+    }, {
+        value: '二级列表2'
+    }]
+}]</pre></dd>
+                <dd>可以使用字符串<code>'-'</code>，或者<code>null</code>或者<code>{}</code>表示分隔线。例如：<pre>[{
+    id: '0',
+    value: '居左显示'
+}, {
+    id: '1',
+    value: '居中显示'
+}, {
+    id: '2',
+    value: '居右显示'
+}, <mark>{}</mark>, {
+    id: '3',
+    value: '应用滤镜'
+}]</pre></dd>
+
+                <dt>options</dt>
+                <dd>可选。Object纯对象。可选参数，具体见下表：</dd>
+            </dl>
+
+            <table class="ui-table">
+                <tr>
+                    <th scope="col" width="80">参数名称</th>
+                    <th scope="col" width="80">支持类型</th>
+                    <th scope="col" width="120">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+                <tr>
+                    <td>event<wbr>Type</td>
+                    <td>String</td>
+                    <td>'click'</td>
+                    <td>表示触发元素显示的事件，默认是<code>'click'</code>, click时候显示下拉列表。还可以是<code>'null'</code>表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code>表示hover时候显示下拉；如果是其他字符串，需要手动调用<code>show()</code>方法才显示，隐藏也需要自己控制。</td>
+                </tr>
+                <tr>
+                    <td>offsets</td>
+                    <td>Object</td>
+                    <td><span class="db">{<br>
+                    &nbsp;&nbsp;x: 0,<br>
+                    &nbsp;&nbsp;y: 0<br>
+                }</span></td>
+                    <td>表示浮动元素的偏移大小，相对于右上角偏移，数值越大右上角偏移越大。</td>
+                </tr>
+                <tr>
+                    <td>position</td>
+                    <td>String</td>
+                    <td>'4-1'</td>
+                    <td>表示触发元素和浮层元素的定位关系。居然参见Drop方法中的<code>position</code>参数。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>selector</td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>同Drop的selector参数，委托用。</td>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td>String<br>Number</td>
+                    <td>''</td>
+                    <td>下拉列表的宽度，默认CSS中是111像素宽度。</td>
+                </tr>
+                <tr>
+                    <td>onShow</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>onHide</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                    <td>onSelect</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>选择某一个下拉元素的时候的回调。上下文<code>this</code>为当前实例对象。支持两个参数，第一个参数为对应的纯对象数据，如<code>{ id: 1, <wbr> value: '所有评论' }</code>；第二个参数当前选中的列表元素（<code>data-index</code>标记了索引值）。</td>
+                </tr>
+            </table>
+
+            <h3>Drop拓展的Panel方法</h3>
+
+            <h4>演示和代码</h4>
+            <p class="clearfix">
+                <a href="javascript:" id="dp" class="dark f14 p5"><i class="icon_del"></i>删除评论</a>
+                <a href="javascript:" id="dp2" class="dark f14 p5"><i class="icon_del"></i>更多内容，更大宽度</a>
+            </p>
+<pre><span class="green">// 轻弹框面板</span>
+new Drop(dp).panel({
+    title: '删除评论',
+    content: '删除后，您的粉丝在文章中将无法看到该评论。',
+    buttons: [{
+        value: '删除',
+        type: 'primary',
+        events: function(event){
+            <span class="green">// todo
+            // event.drop就是返回的实例对象</span>
+            event.drop.hide()
+        }
+    }, {}]
+});</pre>
+                <pre>
+new Drop(dp2).panel({
+    eventType: "hover",
+    title: '删除多图文消息',
+    content: '...',
+    buttons: [{}],
+    width: 400
+});</pre>
+
+            <h4>is-drop快捷使用</h4>
+
+            <p>此案例适合 Vue 等框架场景中使用。</p>
+            <div id="app2">
+                <template v-if="1">
+                    <button class="ui-button" data-type="primary" is-drop @connected="setPanelData">点击我</button>
+                </template>
+            </div>
+            <p>代码示意：</p>
+            <pre>&lt;div id="app2"&gt;
+    &lt;template v-if="1"&gt;
+        &lt;button class="ui-button" data-type="primary" is-drop @connected="setPanelData"&gt;点击我&lt;/button&gt;
+    &lt;/template&gt;
+&lt;/div&gt;</pre>
+<pre>new Vue({
+    el: '#app2',
+    methods: {
+        setPanelData: function (event) {
+          event.detail.drop.panel({
+            title: '删除',
+            content: '确认删除？'
+        });
+      }
+    }
+  });</pre>
+
+            <h3>Panel方法语法和参数</h3>
+            <p>语法如下：</p>
+            <pre>var myDrop = new Drop(trigger).panel(options);</pre>
+            <pre>var myDrop = new Drop().panel(trigger, options);</pre>
+            <p>其中：</p>
+            <dl>
+                <dt>trigger</dt>
+                <dd>必需。Object DOM元素或者String选择器字符串。表示触发轻弹框显示的元素。</dd>
+                <dt>options</dt>
+                <dd>可选。Object纯对象。可选参数具体见下表：</dd>
+            </dl>
+            <table width="100%" class="ui-table">
+                <tr>
+                    <th scope="col" width="70">参数名称</th>
+                    <th scope="col" width="70">支持类型</th>
+                    <th scope="col" width="110">默认值</th>
+                    <th scope="col">释义</th>
+                </tr>
+
+                <tr>
+                    <td>title</td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>轻弹框的标题。</td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>轻弹框的内容。</td>
+                </tr>
+                <tr>
+                    <td>buttons</td>
+                    <td>Array</td>
+                    <td><code>[{}, {}]</code></td>
+                    <td>轻弹框的按钮。按钮规则和Dialog弹框组件按钮规则基本一致。默认第一个按钮是danger类型确认按钮，第二个按钮为白色取消按钮。不一样的地方在于事件中若想获得实例对象，<wbr>是通过<code>event.<wbr>data.<wbr>drop</code>，例如：<p><code
+                                class="db">events: function (event) {<br>
+                &nbsp;&nbsp;<span class="green">// event.<wbr>drop<wbr>就是当前<wbr>drop实例</span><br>
+                }</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>eventType</td>
+                    <td>String</td>
+                    <td>'click'</td>
+                    <td>表示触发元素显示的事件，<wbr>默认是<code>'click'</code>, click时候显示下拉列表。<wbr>还可以是<code>'null'</code>表示无事件，下拉浮层直接显示；<wbr><code>'hover'</code>表示hover时候显示下拉；如果是其他字符串，<wbr>需要手动调用<code>show()</code>方法才显示，隐藏也需要自己控制。</td>
+                </tr>
+                <tr>
+                    <td>offsets</td>
+                    <td>Object</td>
+                    <td><span class="db">{<br>
+                    &nbsp;&nbsp;x: 0,<br>
+                    &nbsp;&nbsp;y: 0<br>
+                }</span></td>
+                    <td>表示浮动元素的偏移大小，相对于右上角偏移，数值越大右上角偏移越大。</td>
+                </tr>
+                <tr>
+                    <td>position</td>
+                    <td>String</td>
+                    <td>'4-1'</td>
+                    <td>表示触发元素和浮层元素的定位关系。居然参见Drop方法中的<code>position</code>参数。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td>Number | String</td>
+                    <td>'auto'</td>
+                    <td>轻弹框的宽度。任意合法的<code>width</code>属性值。</td>
+                </tr>
+                <tr>
+                    <td>onShow</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层显示时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>onHide</td>
+                    <td>Function</td>
+                    <td>function () {}</td>
+                    <td>浮层隐藏时候的回调方法。函数的上下文<code>this</code>为当前实例对象，支持两个参数，第一个参数为触发元素，第二个参数为浮层元素。</td>
+                </tr>
+            </table>
+
+            <h3>Drop实例对象</h3>
+            <p><code>myDrop</code>就是返回的实例对象，暴露了以下属性和方法：</p>
+<pre>{
+    <span class="green">// 暴露的元素们</span>
+    element = {
+        <span class="green">// 触发元素</span>
+        trigger: null,
+        <span class="green">// 激活面板元素</span>
+        target: null,
+
+        <span class="green">// 下面的元素是Panel扩展专有的</span>
+        panel: null,
+        <span class="green">// 面板标题元素</span>
+        title: null,
+        <span class="green">// 面板关闭按钮元素</span>
+        close: null,
+        <span class="green">// 面板内容元素</span>
+        content: element,
+        <span class="green">// 面板底部元素</span>
+        footer: element,
+        <span class="green">// 面板第1个按钮（如果有）</span>
+        button0: element,
+        <span class="green">// 面板第2个按钮（如果有）</span>
+        button1: element
+    },
+    params: {
+        <span class="green">// 事件类型</span>
+        eventType: "click"
+        <span class="green">// 浮动元素的偏移大小</span>
+        offsets: {x: 0, y: 0}
+        <span class="green">// 触发元素和浮层元素的定位关系</span>
+        position: "",
+        <span class="green">// 委托功能选择器</span>
+        selector: "",
+
+        <span class="green">// 下面的元素是Panel扩展专有的</span>
+        <span class="green">// 标题内容</span>
+        title: "",
+        <span class="green">// 轻弹框的按钮</span>
+        buttons: [{…}, {…}]
+        <span class="green">// 轻弹框的内容</span>
+        content: ""
+        <span class="green">// 轻弹框的宽度</span>
+        width: "auto"
+    },
+    <span class="green">// 回调方法</span>
+    callback: {
+        show: function () {},
+        hide: function () {}
+    },
+    <span class="green">// 列表数据，List方法专有</span>
+    data: [],
+    <span class="green">// 方法：重定位</span>
+    follow: function () {},
+    <span class="green">// 方法：显示</span>
+    show: function () {},
+    <span class="green">// 方法：隐藏</span>
+    hide: function () {}
+}</pre>
+
+            <div class="contributors">
+                <svg>
+                    <use xlink:href="#icon-persons"></use>
+                </svg>
+                <h6 class="contributors-h">本页贡献者：</h6>
+                <p id="contributorsP" class="contributors-p">zhangxinxu，nanaSun，ziven27, lennonover, wiia</p>
+            </div>
+        </article>
+    </main>
+    <!-- 侧边栏 -->
+    <!-- 侧边栏 -->
+<aside id="aside" class="aside">
+    <div class="aside_main">
+    	<dl class="aside_dl">
+        	<dt class="aside_dt">关于</dt>
+            <dd><a href="./about.design.html" class="aside_nav "><i class="icon icon_nav_msg"><svg><use xlink:href="#icon-maxcdn"></use></svg></i>命名与设计</a></dd>
+            <dd><a href="./about.use.html" class="aside_nav "><i class="icon icon_nav_set"><svg><use xlink:href="#icon-wrench"></use></svg></i>使用与发布</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">全局</dt>
+            <dd><a href="./apis.colour.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-delicious"></use></svg></i>颜色</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">布局</dt>
+            <dd><a href="./apis.table.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-table"></use></svg></i>Table表格</a></dd>
+        </dl>
+        <dl class="aside_dl">
+            <dt class="aside_dt">控件</dt>
+            <dd><a href="./apis.button.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-caret-square-o-right"></use></svg></i>Button按钮</a></dd>
+            <dd><a href="./apis.input.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-tasks"></use></svg></i>Input文本框</a></dd>
+            <dd><a href="./apis.textarea.html" class="aside_nav "><i class="icon icon_nav_ux"><svg><use xlink:href="#icon-square-o"></use></svg></i>Textarea文本域</a></dd>
+            <dd><a href="./apis.placeholder.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-product-hunt"></use></svg></i>Placeholder占位符</a></dd>
+            <dd><a href="./apis.checked.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-check-square"></use></svg></i>Radio/Checkbox框</a></dd>
+            <dd><a href="./apis.switch.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-toggle-on"></use></svg></i>Switch开关</a></dd>
+            <dd><a href="./apis.progress.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-ellipsis-h"></use></svg></i>Progress进度</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt" hidden>动态控件</dt>
+            <dd><a href="./apis.select.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bars"></use></svg></i>Select下拉框</a></dd>
+            <dd><a href="./apis.range.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-sliders"></use></svg></i>Range范围选择</a></dd>
+            <dd><a href="./apis.color.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-eyedropper"></use></svg></i>Color颜色选择</a></dd>
+            <dd><a href="./apis.datetime.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-calendar"></use></svg></i>DateTime日期选择</a></dd>
+        </dl>
+        <div class="aside_divide"></div>
+        <dl class="aside_dl">
+            <dt class="aside_dt">组件</dt>
+            <dd><a href="./apis.loading.html" class="aside_nav "><i class="icon icon_nav_reply"><svg><use xlink:href="#icon-spinner"></use></svg></i>Loading效果</a></dd>
+            <dd><a href="./apis.datalist.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-list"></use></svg></i>Datalist数据列表</a></dd>
+            <dd><a href="./apis.dialog.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-external-link"></use></svg></i>Dialog弹框</a></dd>
+            <dd><a href="./apis.tips.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bell"></use></svg></i>Tips/ErrorTip提示</a></dd>
+            <dd><a href="./apis.lighttip.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-bolt"></use></svg></i>LightTip轻提示</a></dd>
+            <dd><a href="./apis.pagination.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-stack"></use></svg></i>Pagination分页</a></dd>
+            <dd><a href="./apis.drop.html" class="aside_nav active"><i class="icon icon_nav_user"><svg><use xlink:href="#icon-dropbox"></use></svg></i>Drop等下拉</a></dd>
+            <dd><a href="./apis.validate.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-check-square-o"></use></svg></i>Validate表单验证</a></dd>
+            <dd><a href="./apis.tab.html" class="aside_nav "><i class="icon icon_nav_user"><svg><use xlink:href="#icon-tags"></use></svg></i>Tab选项卡切换</a></dd>
+        </dl>
+
+        <dl class="aside_dl">
+            <dt class="aside_dt">综合实例</dt>
+            <dd><a href="./example.table.html" class="aside_nav "><i class="icon icon_nav_menu"><svg><use xlink:href="#icon-list-alt"></use></svg></i>表格解决方案</a></dd>
+            <dd><a href="./example.form.html" class="aside_nav "><i class="icon icon_nav_source"><svg><use xlink:href="#icon-wpforms"></use></svg></i>表单解决方案</a></dd>
+        </dl>
+    </div>
+</aside>
+<script>(function () {
+    // 记住滚动位置
+    var eleAside = document.getElementById('aside');
+
+    eleAside.addEventListener('click', function () {
+        sessionStorage.asideScrollTop = this.scrollTop;
+    });
+
+    eleAside.scrollTop = sessionStorage.asideScrollTop;
+    // IE这里设置可能没有用
+    if (eleAside.scrollTop != sessionStorage.asideScrollTop) {
+        setTimeout(function () {
+            eleAside.scrollTop = sessionStorage.asideScrollTop;
+        }, 1);
+    }
+
+    // 滚动条设置判断
+    var div = document.createElement('div');
+    div.style.width = '100px';
+    div.style.height = '1px';
+    div.style.overflow = 'auto';
+    div.style.position = 'absolute';
+    div.style.left = '-199px';
+    var p = document.createElement('p');
+    p.style.height = '20px';
+    div.appendChild(p);
+    document.body.appendChild(div);
+    if (p.clientWidth != 100) {
+        eleAside.className += ' scrollbar';
+    }
+    document.body.removeChild(div);
+})();
+</script>
+</div>
+
+<a href="#" id="backtop" class="backtop"></a>
+
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/polyfill.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Keyboard.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Select.js"></script>
+<!-- 底部 -->
+<script src="../pure/assets/js/mockup.js"></script>
+</body>
+</html>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Follow.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Drop.js"></script>
+<script src="https://qidian.gtimg.com/lulu/pure/js/common/ui/Loading.js"></script>
+<script>
+var Drop = window.Drop;
+
+var eleTabIndex1 = document.querySelector('#t1');
+var eleTabIndex2 = document.querySelector('#t2');
+var eleDropHover = document.querySelector('#dropHover');
+var eleDropClick = document.querySelector('#b0');
+
+new Drop(eleDropHover, eleTabIndex1, {
+    eventType: 'hover',
+    onShow: function (trigger, target) {
+        target.style.border = '2px solid #333';
+    }
+});
+new Drop(eleDropClick, eleTabIndex2, {
+    eventType: 'click'
+});
+
+// 委托Drop.js
+var eleTargetImg1 = document.querySelector('#i1');
+var eleTargetImg2 = eleTargetImg1.cloneNode();
+
+new Drop(document.querySelector('#freshBtn'), eleTargetImg1, {
+    eventType: 'click',
+    selector: 'a'
+});
+
+// hover委托
+new Drop(document.querySelector('#freshBtn2'), eleTargetImg2, {
+    eventType: 'hover',
+    selector: 'a',
+    edgeAdjust: false
+});
+
+// 下拉列表
+new Drop('.dropPageEvery').list([{
+    href: 'http://www.qidian.com/',
+    value: '起点中文网',
+    target: '_lulu'
+}, {
+    href: 'http://www.hongxiu.com/',
+    value: '红袖添香',
+    target: '_lulu'
+}, {
+    href: 'http://www.xs8.cn/',
+    value: '言情小说吧',
+    target: '_lulu',
+    disabled: true
+}, {
+    value: '其他',
+    data: [{
+        href: 'http://www.qidian.com/',
+        value: '1起点中文网',
+        target: '_lulu'
+    }, {
+        href: 'http://www.hongxiu.com/',
+        value: '1红袖添香',
+        target: '_lulu'
+    }, {
+        value: '1其他',
+        data: [{
+            href: 'http://www.qidian.com/',
+            value: '2起点中文网',
+            target: '_lulu'
+        }, {
+            href: 'http://www.hongxiu.com/',
+            value: '2红袖添香',
+            target: '_lulu'
+        }]
+    }]
+}], {
+    width: 100
+});
+
+// 评论筛选列表
+var dropListApi = new Drop('#dropComment').list([{
+    id: 1,
+    value: '所有评论'
+}, {
+    id: 2,
+    value: '未通过评论'
+}, {
+    id: 3,
+    value: '未审核评论'
+}, {
+    id: 4,
+    value: '已通过评论'
+}], {
+    onSelect: function (obj) {
+        console.log('选中的评论id是：' + obj.id);
+    }
+});
+
+
+// 评论状态修改列表
+new Drop('#dropDeal').list([{
+    value: '<i class="icon_undeal"></i>未处理'
+}, {
+    value: '<i class="icon_pass"></i>已通过'
+}, {
+    value: '<i class="icon_unpass"></i>未通过'
+}], {
+    position: '7-5'
+});
+
+// 基于数据的列表
+var eleDropListMove = document.querySelector('#dropListMove');
+var eleSelDropList = document.querySelector('#dropListSel');
+new Drop(eleDropListMove).list(function () {
+    var data = [];
+    eleSelDropList.querySelectorAll('option').forEach(function (eleOption) {
+        var obj = {
+            id: eleOption.value,
+            value: eleOption.innerHTML
+        };
+        if (eleOption.selected) {
+            obj.disabled = true;
+        }
+        data.push(obj);
+    });
+
+    return data;
+}, {
+    selector: 'button',
+    onSelect: function (obj) {
+        eleSelDropList.querySelector('option[value="' + obj.id + '"]').selected = true;
+    }
+});
+
+// 右键处理
+new Drop('#menuImg').list([{
+    id: '0',
+    value: '居左显示'
+}, {
+    id: '1',
+    value: '居中显示'
+}, {
+    id: '2',
+    value: '居右显示'
+}, {}, {
+    id: '3',
+    value: '应用滤镜',
+    data: [{
+        id: '3-1',
+        value: '灰度'
+    }, {
+        id: '3-2',
+        value: '模糊',
+        data: [{
+            id: '3-2-1',
+            value: '0px'
+        }, {
+            id: '3-2-2',
+            value: '5px'
+        }, {
+            id: '3-2-3',
+            value: '10px',
+            disabled: true
+        }, {
+            id: '3-2-3',
+            value: '15px'
+        }]
+    }, {
+        id: '3-3',
+        value: '褐色'
+    }]
+}], {
+    eventType: 'contextmenu',
+    offsets: {
+        x: 8,
+        y: 8
+    },
+    onSelect: function (obj) {
+        var eleImg = this.element.trigger;
+
+        switch (obj.id) {
+            case '0': {
+                eleImg.style.display = 'block';
+                eleImg.style.marginLeft = '';
+                eleImg.style.marginRight = 'auto';
+                break;
+            }
+            case '1': {
+                eleImg.style.display = 'block';
+                eleImg.style.marginLeft = 'auto';
+                eleImg.style.marginRight = 'auto';
+                break;
+            }
+            case '2': {
+                eleImg.style.display = 'block';
+                eleImg.style.marginLeft = 'auto';
+                eleImg.style.marginRight = '';
+                break;
+            }
+            case '3-1': {
+                eleImg.style.filter = 'grayscale(100%)';
+                break;
+            }
+            case '3-2-1': {
+                eleImg.style.filter = 'blur(0)';
+                break;
+            }
+            case '3-2-2': {
+                eleImg.style.filter = 'blur(5px)';
+                break;
+            }
+            case '3-2-4': {
+                eleImg.style.filter = 'blur(15px)';
+                break;
+            }
+            case '3-3': {
+                eleImg.style.filter = 'sepia(100%)';
+                break;
+            }
+        }
+    }
+});
+
+
+// DropPanel demo
+var eleDropPanel = document.querySelector('#dp');
+var eleDropPanel2 = document.querySelector('#dp2');
+// DropPanel示意
+new Drop(eleDropPanel).panel({
+    title: '删除评论',
+    content: '删除后，您的粉丝在文章中将无法看到该评论。',
+    buttons: [{
+        value: '删除',
+        type: 'primary',
+        events: function (event) {
+            // todo
+            // ..
+            event.drop.hide();
+        }},
+    {}]
+});
+// // DropPanel2 示意
+new Drop(eleDropPanel2).panel({
+    eventType: 'hover',
+    title: '删除多图文消息',
+    content: '<p class="gray">删除后，您的粉丝在“查看历史消息”中无法查看该消息</p>\
+    <ul class="mt10" style="padding:0;list-style:none;">\
+        <li class="mt5"><input type="checkbox" id="ptMsg1" checked><label for="ptMsg1" class="ui-checkbox"></label><label for="ptMsg1" class="ml5">[图文消息1] 北京暴雨过后 市民用网“捕鱼”</label></li>\
+        <li class="mt5"><input type="checkbox" id="ptMsg2"><label for="ptMsg2" class="ui-checkbox"></label><label for="ptMsg2" class="ml5">[图文消息2] 上海“6·22枪击案”凶手6小时连杀6人 一审获死刑</label></li>\
+        <li class="mt5"><input type="checkbox" id="ptMsg3"><label for="ptMsg3" class="ui-checkbox"></label><label for="ptMsg3" class="ml5">[图文消息3] “释正义”称举报释永信遇到不小阻挠 今晚提供新材料</label></li>\
+        <li class="mt5"><input type="checkbox" id="ptMsg4"><label for="ptMsg4" class="ui-checkbox"></label><label for="ptMsg4" class="ml5">[图文消息4] 网友翻旧账“被拐女成乡村教师” 警方部署调查</label></li>\
+        <li class="mt5"><input type="checkbox" id="ptMsg5" checked><label for="ptMsg5" class="ui-checkbox"></label><label for="ptMsg5" class="ml5">[图文消息5] 震惊！原来上海滩竟然还有身份地位如此显赫的一个庞大家族！</label></li>\
+        <li class="mt5"><input type="checkbox" id="ptMsg6"><label for="ptMsg6" class="ui-checkbox"></label><label for="ptMsg6" class="ml5">[图文消息6] 美国总统阻止土耳其不要买中国导弹：土总统不惧亲自来华谈红旗9</label></li>\
+    </ul>',
+    buttons: [{}],
+    width: 400
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+new Vue({
+  el: '#app1',
+  methods: {
+    setListData: function (event) {
+        event.detail.drop.list([{
+            id: 1,
+            value: '选项1'
+        }, {
+            id: 2,
+            value: '选项2'
+        }, {
+            id: 3,
+            value: '选项3'
+        }]);
+    }
+  }
+});
+
+new Vue({
+    el: '#app2',
+    methods: {
+        setPanelData: function (event) {
+          event.detail.drop.panel({
+            title: '删除',
+            content: '确认删除？'
+        });
+      }
+    }
+});
+</script>
