@@ -207,9 +207,8 @@ const Datalist = (() => {
                     // 清除延时，避免每次输入都请求
                     clearTimeout(timerAjaxDatalist);
 
-                    if (!this.name) {
-                        this.name = 'k';
-                    }
+                    // 搜索关键字的查询字段
+                    let strName = objParams.name || this.name || 'k';
 
                     // 没有值的时候清空数据
                     // 不请求
@@ -223,7 +222,7 @@ const Datalist = (() => {
 
                     let objAjaxParams = new URLSearchParams(objParams.data);
                     // 加入输入数据
-                    objAjaxParams.append(this.name, strValue);
+                    objAjaxParams.append(strName, strValue);
 
                     // URL处理
                     let strUrlAjax = objParams.url.split('#')[0];
@@ -269,6 +268,10 @@ const Datalist = (() => {
                 };
                 // autocomplete交互占位符不参与
                 this.params.placeholder = false;
+                // 边缘超出不重定位
+                if (!this.dataset.edgeAdjust) {
+                    this.dataset.edgeAdjust = 'false';
+                }
             }
         }
 
