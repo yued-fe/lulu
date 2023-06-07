@@ -128,15 +128,14 @@
     padding: 3px 25px 25px;
     margin-top: auto;
     text-align: right;
-    max-height: 40px;
     opacity: 1;
-    transition: max-height var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s) var(--ui-animate-time, .2s);
+    transition: padding var(--ui-animate-time, .2s), opacity var(--ui-animate-time, .2s);
     overflow: hidden;
 }
 
 .ui-dialog-footer:empty {
-    max-height: 0;
     opacity: 0;
+    padding-block: 0;
 }
 
 .ui-dialog-footer .ui-button {

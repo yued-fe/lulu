@@ -2064,6 +2064,7 @@ select[hidden] + .ui-select {
     background-color: var(--ui-white, #fff);
     text-decoration: none;
     transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
+    box-sizing: content-box;
     cursor: pointer;
 }
 
