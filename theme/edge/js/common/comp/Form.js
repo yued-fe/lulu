@@ -60,9 +60,27 @@ class Form extends HTMLFormElement {
                 success: optionCallback
             };
         }
-        // 元素
+
+        // 表单提交按钮元素的获取
+        let eleSubmit = [...this.elements].filter(function (control) {
+            return control.type && /^(?:submit|image)$/i.test(control.type);
+        })[0] || this.querySelector('button:nth-last-of-type(1)');
+
+        if (!eleSubmit) {
+            eleSubmit = (() => {
+                let ele = document.createElement('button');
+                ele.type = 'submit';
+                ele.setAttribute('hidden', '');
+                this.appendChild(ele);
+
+                return ele;
+            })();
+        }
+
+        this.element.submit = eleSubmit;
+
+        // 按钮元素
         let eleButton = null;
-        let eleSubmit = this.element.submit;
 
         // 我们肉眼所见的按钮，进行一些状态控制
         eleButton = eleSubmit.id && document.querySelector('label[for=' + eleSubmit.id + ']');
@@ -217,24 +235,6 @@ class Form extends HTMLFormElement {
     }
 
     connectedCallback () {
-        // 表单提交按钮元素的获取
-        let eleSubmit = [...this.elements].filter(function (control) {
-            return control.type && /^(?:submit|image)$/i.test(control.type);
-        })[0] || this.querySelector('button:nth-last-of-type(1)');
-
-        if (!eleSubmit) {
-            eleSubmit = (() => {
-                let ele = document.createElement('button');
-                ele.type = 'submit';
-                ele.setAttribute('hidden', '');
-                this.appendChild(ele);
-
-                return ele;
-            })();
-        }
-
-        this.element.submit = eleSubmit;
-
         // 绑定表单验证
         this.validate = new Validate(this, () => {
             let funAvoidSend = this.params.avoidSend || this.callback.avoidSend;
