@@ -253,7 +253,7 @@ const Datalist = (() => {
                                     return obj;
                                 });
                             }
-                            this.refresh(this.params.filter.call(this, jsonData));
+                            this.refresh(this.params.filter.call(this, jsonData, strValue));
                             // 成功回调
                             if (objParams.success) {
                                 objParams.success(json);

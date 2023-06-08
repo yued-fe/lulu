@@ -7200,7 +7200,7 @@ const Datalist = (() => {
                                     return obj;
                                 });
                             }
-                            this.refresh(this.params.filter.call(this, jsonData));
+                            this.refresh(this.params.filter.call(this, jsonData, strValue));
                             // 成功回调
                             if (objParams.success) {
                                 objParams.success(json);
@@ -13667,7 +13667,7 @@ class Form extends HTMLFormElement {
         let strUrl = this.action.split('#')[0] || location.href.split('#')[0];
         // 请求类型
         let strMethod = this.method || 'POST';
-        let strEnctype = this.enctype;
+        let strEnctype = this.getAttribute('enctype') || this.enctype;
 
         // 提交数据
         // 1. 菊花转起来
@@ -13796,6 +13796,13 @@ class Form extends HTMLFormElement {
 
         if (strEnctype && strEnctype.toLowerCase() === 'application/x-www-form-urlencoded') {
             xhr.send(strSearchParams);
+        } else if (strEnctype == 'application/json') {
+            xhr.setRequestHeader('Content-Type', strEnctype);
+            const objSend = {};
+            objFormData.forEach(function(value, key){
+                objSend[key] = value;
+            });
+            xhr.send(JSON.stringify(objSend));
         } else {
             xhr.send(objFormData);
         }
