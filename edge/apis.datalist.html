@@ -338,10 +338,10 @@ b2.addEventListener('click', function () {
 
             <h4>2. Ajax autocomplate功能</h4>
             <form action="https://www.qidian.com/search" target="_qidian">
-                <input class="ui-input mr10" type="search" id="s2" name="kw" is="ui-datalist" size="30" placeholder="输入字母"><button type="submit" class="ui-button" data-type="primary">搜索</button>
+                <input class="ui-input mr10" type="search" id="s2" is="ui-datalist" size="30" placeholder="输入字母"><button type="submit" class="ui-button" data-type="primary">搜索</button>
             </form>
             <pre>&lt;form&gt;
-    &lt;input class="ui-input" type="search" id="s2" name="kw" placeholder="输入字母"&gt;
+    &lt;input class="ui-input" type="search" id="s2" is="ui-datalist" placeholder="输入字母"&gt;
     &lt;button type="submit" class="ui-button" data-type="primary"&gt;搜索&lt;/button&gt;
 &lt;/form&gt;</pre>
             <pre><span class="green">// 列表内容不转义，支持HTML显示</span>
@@ -350,8 +350,9 @@ s2.params.encode = false;
 s2.params.data = {
     url: '/search',
     data: {
-        userid: 1
+        userid: 1,
     },
+    name: 'kw',
     success() {
         console.log('success callback successed!');
     }
@@ -368,7 +369,9 @@ s2.params.data = {
                 <dt>url</dt>
                 <dd>字符串。必需。请求后端数据的地址。注意，IE9浏览器不支持跨域的URL地址。</dd>
                 <dt>data</dt>
-                <dd>纯对象。可选。请求后端数据时发送的数据。其中输入框数据发送是组件内置的，默认使用<code>&lt;input&gt;</code>元素的<code>name</code>属性值作为字段发送数据，如果缺省，使用字符<code>k</code>代替。</dd>
+                <dd>纯对象。可选。请求后端数据时发送的数据。其中输入框数据发送是组件内置的，无需额外设置。</dd>
+                <dt>name</dt>
+                <dd>字符串。可选。搜索内容对应的字段名称，如果不设置，使用<code>&lt;input&gt;</code>元素的<code>name</code>属性值，如果<code>name</code>属性值也没设置，使用字符<code>k</code>代替。</dd>
                 <dt>success</dt>
                 <dd>函数。可选。成功回调，支持一个参数，为后端返回的JSON数据。</dd>
                 <dt>error</dt>
@@ -883,6 +886,7 @@ s2.addEventListener('DOMContentLoaded', function () {
         data: {
             userid: 1
         },
+        name: 'kw',
         success() {
             console.log('success callback successed!');
         }
