@@ -221,6 +221,8 @@ class Drop extends HTMLElement {
         if (typeof funCallShow == 'function') {
             this.addEventListener('show', function (event) {
                 funCallShow.call(this, event);
+                // 自定义的显示方法需要重定位
+                this.position();
             });
 
             delete options.onShow;
