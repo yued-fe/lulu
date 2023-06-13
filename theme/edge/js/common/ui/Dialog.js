@@ -161,11 +161,15 @@ const Dialog = (() => {
 
         /**
          * 弹框元素zIndex实时最大化
-         * 原生dialog无需此能力
+         * 原生dialog无需此能力（更正，浏览器变化，现在也需要了）
          * @return {[type]} [description]
          */
         zIndex () {
             var dialog = this.dialog;
+            // 原生元素需要
+            if (this.matches && this.matches('dialog')) {
+                dialog = this;
+            }
             // 返回eleTarget才是的样式计算对象
             const objStyleTarget = window.getComputedStyle(dialog);
             // 此时元素的层级
@@ -174,11 +178,7 @@ const Dialog = (() => {
             let numZIndexNew = 19;
 
             // 只对<body>子元素进行层级最大化计算处理
-            document.body.childNodes.forEach(function (eleChild) {
-                if (eleChild.nodeType !== 1) {
-                    return;
-                }
-
+            [...document.body.children].forEach(function (eleChild) {
                 const objStyleChild = window.getComputedStyle(eleChild);
 
                 const numZIndexChild = objStyleChild.zIndex * 1;
@@ -693,6 +693,12 @@ const Dialog = (() => {
 
                         // 弹框显示
                         this.open = true;
+
+                        console.log(this.zIndex);
+
+                        if (!this.zIndex) {
+                            this.zIndex = DialogPolyfill.prototype.zIndex.bind(this);
+                        }
 
                         // 面板显示
                         if (this.zIndex) {
