@@ -4788,7 +4788,9 @@ class Loading extends HTMLElement {
     }
 }
 
-customElements.define('ui-loading', Loading);
+if (!customElements.get('ui-loading')) {
+    customElements.define('ui-loading', Loading);
+}
 
 /**
  * @Range.js
@@ -6713,8 +6715,6 @@ const Dialog = (() => {
 
                         // 弹框显示
                         this.open = true;
-
-                        console.log(this.zIndex);
 
                         if (!this.zIndex) {
                             this.zIndex = DialogPolyfill.prototype.zIndex.bind(this);

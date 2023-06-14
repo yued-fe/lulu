@@ -694,8 +694,6 @@ const Dialog = (() => {
                         // 弹框显示
                         this.open = true;
 
-                        console.log(this.zIndex);
-
                         if (!this.zIndex) {
                             this.zIndex = DialogPolyfill.prototype.zIndex.bind(this);
                         }

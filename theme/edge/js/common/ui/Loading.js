@@ -106,4 +106,6 @@ class Loading extends HTMLElement {
     }
 }
 
-customElements.define('ui-loading', Loading);
+if (!customElements.get('ui-loading')) {
+    customElements.define('ui-loading', Loading);
+}
