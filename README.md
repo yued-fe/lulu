@@ -40,11 +40,10 @@ node run hope
 * Edge主题：http://localhost:10086/docs/edge/about.use.html
 * Hope主题：http://localhost:10086/docs/hope/about.html
 
-此时，修改项目的 JS 和 CSS 文件，刷新对于的组件页面，就可以看到变化的效果了。
+此时，修改项目的 JS 和 CSS 文件，刷新对应的组件页面，就可以看到变化的效果了。
 
 ### 注意：
 如果执行失败，提示 gh-pages 是无效名称，可以执行下 ```git checkout gh-pages``` ，然后在回到 master 分支执行 ```node run```。
-
 
 文档页面禁止在 master 分支提交，如果需要推送，请切换到 gh-pages 分支。
 
@@ -56,7 +55,6 @@ node run hope
 关于适合使用 LuLu UI 的场景，可以访问下面的视频介绍：
 
 <a href="https://www.bilibili.com/video/BV19f4y1N7X1"><img src="https://imgservices-1252317822.image.myqcloud.com/image/112220210184445/0c589289.png" width="360" height="240"></a>
-
 
 ## 使用教程
 
