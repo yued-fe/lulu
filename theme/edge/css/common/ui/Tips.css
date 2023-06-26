@@ -116,6 +116,8 @@
     font-size: calc(var(--ui-font, 14px) - 2px);
     font-style: normal;
     text-align: left;
+    /* 12px是整体偏移，6px是预留剪裁的间距 */
+    --ui-tips-triangle-offset-x: calc(calc(var(--ui-width, 20) * .5px) + 12px - 6px);
 }
 .ui-tips-x::before,
 .ui-tips-x::after {
@@ -171,17 +173,18 @@
     );
 }
 
-/* 悬浮在目标左上，箭头在框体 100% -16px, 100% 位置 */
+/* 悬浮在目标左上，箭头在框体 100% - 16px, 100% 位置 */
 .ui-tips-x[data-align="2-3"] {
     margin-left: 12px;
     margin-top: calc(var(--ui-tips-offset) * -1);
 }
 
+/* 三角的位置 */
 .ui-tips-x[data-align="2-3"]::after {
     clip-path: polygon(
-            calc(100% - 16px) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
-            calc(100% - (16px + var(--ui-tips-triangle-size)*2)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
-            calc(100% - (16px + var(--ui-tips-triangle-size))) 100%
+            calc(100% - var(--ui-tips-triangle-offset-x)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size)*2)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+            calc(100% - (var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size))) 100%
     );
 }
 
@@ -192,9 +195,9 @@
 }
 .ui-tips-x[data-align="1-4"]::after {
     clip-path: polygon(
-        16px calc(100% - (var(--ui-tips-triangle-size) + 1px)),
-        calc(16px + var(--ui-tips-triangle-size)*2) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
-        calc(16px + var(--ui-tips-triangle-size)) 100%
+        var(--ui-tips-triangle-offset-x) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+        calc(var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size)*2) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
+        calc(var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size)) 100%
     );
 }
 
@@ -233,9 +236,9 @@
 
 .ui-tips-x[data-align="3-2"]::after {
     clip-path: polygon(
-        calc(100% - 16px) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
-        calc(100% - (16px + var(--ui-tips-triangle-size)*2)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
-        calc(100% - (16px + var(--ui-tips-triangle-size))) 0%
+        calc(100% - var(--ui-tips-triangle-offset-x)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+        calc(100% - (var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size)*2)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
+        calc(100% - (var(--ui-tips-triangle-offset-x) + var(--ui-tips-triangle-size))) 0%
     );
 }
 

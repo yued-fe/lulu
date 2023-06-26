@@ -164,6 +164,10 @@ class Tips extends HTMLElement {
             edgeAdjust: false
         });
 
+        // 同时以CSS变量的形式设置 trigger 的宽度和高度
+        this.target.style.setProperty('--ui-width', eleTrigger.offsetWidth);
+        this.target.style.setProperty('--ui-height', eleTrigger.offsetHeight);
+
         // 显示的回调
         eleTrigger.dispatchEvent(new CustomEvent('show', {
             detail: {
@@ -238,6 +242,10 @@ class Tips extends HTMLElement {
         let eleTrigger = this.trigger;
         // format title
         eleTrigger.originTitle = this.title;
+
+        if (this.isConnectedCallback) {
+            return;
+        }
 
         // 更语义
         // 非focusable元素使其focusable
