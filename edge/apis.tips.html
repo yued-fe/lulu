@@ -30,7 +30,12 @@
 		</div>
 	</header>
 
-<style id="style"></style>
+<style id="style">
+.icon-outline {
+    background-color: bisque;
+    width: 32px; height: 24px;
+}
+</style>
 <div class="main">
     <!-- 主内容 -->
     <main class="section_main">
@@ -109,13 +114,17 @@ button.addEventListener('click', function () {
 
             <h5>align / data-align 属性设置对齐</h5>
 
-            <p>内容较多，小三角偏移在右侧的黑色tips: <i class="icon_del dib" is-tips data-align="right" title="点击此按钮会注销你的账户，您的目前的操作都不能执行，直到你重新登录"></i> <ui-tips class="icon_del dib" align="right" title="ui-tips自定义元素支持还使用align属性进行设置"></ui-tips></p>
+            <p>内容较多，小三角偏移在右侧的黑色tips: <i class="icon_del icon-outline" is-tips data-align="right" title="点击此按钮会注销你的账户，您的目前的操作都不能执行，直到你重新登录"></i> <ui-tips class="icon_del dib" align="right" title="ui-tips自定义元素支持还使用align属性进行设置"></ui-tips></p>
             <p>使用<code>data-align</code>控制，可以使用<code>'right'</code>关键字，这里也可以使用<code>2-3</code>：</p>
             <pre>&lt;i is-tips <mark>data-align="right"</mark> title="点击此...新登录"&gt;&lt;/i&gt;
 &lt;ui-tips <mark>align="right"</mark> title="ui-tips自定义元...即可"&gt;&lt;/ui-tips&gt;</pre>
 
-            <p>内容较多，小三角偏移在左侧的黑色tips: <i is-tips class="icon_del dib" data-align="left" title="点击此按钮会注销你的账户，您的目前的操作都不能执行，直到你重新登录"></i>，设置<code>data-align</code>属性值控制，可以使用<code>'left'</code>关键字，也可以使用<code>1-4</code>：</p>
-            <pre>&lt;i is-tips <mark>data-align="left"</mark> title="点击此...新登录"&gt;&lt;/i&gt;</pre>
+            <p>
+                内容较多，小三角偏移在左侧的黑色tips: <i is-tips class="icon_del icon-outline" data-align="left" title="箭头位置？"></i>
+                <i is-tips class="icon_del dib" data-align="1-4" title="箭头位置？"></i>，设置<code>data-align</code>属性值控制，可以使用<code>'left'</code>关键字，也可以使用<code>1-4</code>：
+            </p>
+            <pre>&lt;i is-tips <mark>data-align="left"</mark> title="箭头位置？"&gt;&lt;/i&gt;
+&lt;i is-tips <mark>data-align="1-4"</mark> title="箭头位置？"&gt;&lt;/i&gt;</pre>
 
             <p>方向朝右的黑色tips: <a href="javascript:" is-tips class="icon_del" data-align="6-8" title="提示在右"></a></p>
             <pre> &lt;a href is-tips <mark>data-align="6-8"</mark> title="提示在右"&gt;&lt;/a&gt;</pre>

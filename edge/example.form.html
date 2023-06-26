@@ -39,8 +39,8 @@
         <article>
             <h3>安装与调用</h3>
             <p>引用下面CSS：</p>
-            <pre>&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/edge/css/common/form.css"&gt;
-&lt;link rel="stylesheet" href="https://qidian.gtimg.com/lulu/theme/edge/css/common/ui/LightTip.css"&gt;</pre>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/form.css"&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui/LightTip.css"&gt;</pre>
             <p>JS为：</p>
             <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/comp/Form.js"&gt;&lt;/script&gt;</pre>
             <p>或者：</p>
@@ -96,7 +96,7 @@ import('lu2/theme/edge/js/common/ui/Form.js');</pre>
                 </div>
             </form>
             <p>表单操作走<code>&lt;form&gt;</code>元素，按钮类型设置为<code>submit</code>。</p>
-            <p>HTML如下：</p>
+            <p>HTML如下（keepfocus属性可以让轻提示出现的时候，焦点不发生转移）：</p>
             <pre>&lt;form action="/submit" method="post" is="ui-form" keepfocus&gt;
     &lt;label for="idTel"&gt;手机号&lt;/label&gt;
     &lt;input type="tel" id="tel" class="ui-input" size="20" name="tel" required&gt;
@@ -248,6 +248,23 @@ beforeSend: function (xhr, formData) {
                 <input name="key" class="ui-input">
                 <button type="submit" class="ui-button" data-type="primary">提交</button>
             </form>
+
+            <h3>设置请求内容类型</h3>
+
+            <p>如果是GET请求，表单数据会以查询字符串的形式跟在请求地址后面。</p>
+            <p>如果是POST请求，则支持下面三种请求内容类型（通过设置<code>enctype</code>属性值）：</p>
+            <ul>
+                <li>
+                    multipart/form-data（默认类型）
+                    <pre>&lt;form action="/submit" method="post" is="ui-form"&gt;&lt;/form&gt;</pre>
+                </li>
+                <li>application/x-www-form-urlencoded
+                    <pre>&lt;form action="/submit" method="post" enctype="application/x-www-form-urlencoded" is="ui-form"&gt;&lt;/form&gt;</pre>
+                </li>
+                <li>application/json
+                    <pre>&lt;form action="/submit" method="post" enctype="application/json" is="ui-form"&gt;&lt;/form&gt;</pre>
+                </li>
+            </ul>
 
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">zhangxinxu</p>

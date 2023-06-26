@@ -1014,10 +1014,15 @@ var eleBtnOpenDialog = document.getElementById('openDialog');
 eleBtnOpenDialog.addEventListener('click', function () {
     new Dialog({
         title: '普通文本框',
-        content: '我是一段HTML，啦啦啦啦啦',
+        content: '我是一段HTML，啦啦啦啦啦<button class="ui-button" type="danger">二次显示弹框</button>',
         buttons: [{
             value: '知道啦！'
-        }]
+        }],
+        onShow: function () {
+            this.querySelector('.ui-button').addEventListener('click', () => {
+                new Dialog().alert('看看我在上面还是下面！');
+            });
+        }
     });
 });
 
