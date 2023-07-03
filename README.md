@@ -136,15 +136,17 @@ LuLu UI 既保留了传统插件即插即用的特性，也支持适合多人合
 npm install lu2
 ```
 
+Vue/React项目建议使用Edge主题。
+
 在 Vue-CLI 环境中：
 ```html
 <script>
-import Dialog from 'lu2/theme/pure/js/common/ui/Dialog'
+import Dialog from 'lu2/theme/edge/js/common/ui/Dialog'
 </script>
 ```
 ```html
-<style src="lu2/theme/pure/css/common/ui/Button.css"></style>
-<style src="lu2/theme/pure/css/common/ui/Dialog.css"></style>
+<style src="lu2/theme/edge/css/common/ui/Button.css"></style>
+<style src="lu2/theme/edge/css/common/ui/Dialog.css"></style>
 ```
 
 React 框架中：
@@ -158,10 +160,10 @@ import Dialog from "lu2/theme/edge/js/common/ui/Dialog.js";
 Svelte 框架中：
 
 ```js
-import Dialog from 'lu2/theme/pure/js/common/ui/Dialog.js';
+import Dialog from 'lu2/theme/edge/js/common/ui/Dialog.js';
 // 或者全局引入
-// import 'lu2/theme/pure/js/common/all.js';
-import 'lu2/theme/pure/css/common/ui.css';
+// import 'lu2/theme/edge/js/common/all.js';
+import 'lu2/theme/edge/css/common/ui.css';
 ```
 
 ## 成熟
