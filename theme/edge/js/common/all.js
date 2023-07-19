@@ -4042,8 +4042,12 @@ HTMLElement.prototype.tips = function (content, options = {}) {
         options = content || {};
     }
 
+    const isReverse = this.hasAttribute('reverse') || this.classList.contains('reverse');
+
     // 只调用一次
     if (this['ui-tips']) {
+        this['ui-tips'].toggleAttribute('reverse', isReverse);
+        // 显示与否的判断
         if (typeof options.eventType != 'undefined' && options.eventType != 'hover' && options.eventType != 'click') {
             this['ui-tips'].show();
         }
@@ -4057,6 +4061,9 @@ HTMLElement.prototype.tips = function (content, options = {}) {
     } else {
         eleTips.title = this.getAttribute('title') || options.content || '';
     }
+
+    // 是否反向的处理
+    eleTips.toggleAttribute('reverse', isReverse);
 
     // 移除原始的标题
     this.removeAttribute('title');

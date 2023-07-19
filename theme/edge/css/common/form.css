@@ -800,7 +800,7 @@ _::-moz-color-swatch {
 }
 
 [is="ui-datetime"] {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: system-ui;
     height: var(--ui-input-height);
     line-height: var(--ui-input-line-height);
     padding: calc((var(--ui-input-height) - var(--ui-input-line-height) - 2px) / 2) 8px;
