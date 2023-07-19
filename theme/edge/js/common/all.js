@@ -1013,6 +1013,41 @@ class Tab extends HTMLElement {
         options = options || {};
 
         if (eleTrigger) {
+            // is-tab处理
+            let strIsTab = eleTrigger.getAttribute('is-tab');
+            // 必须有data-name值
+            const strName = eleTrigger.dataset.name;
+            // 上一项下一项
+            if (strName && (strIsTab == 'prev' || strIsTab == 'next')) {
+                eleTrigger.addEventListener('click', () => {
+                    const eleTabGroup = document.querySelectorAll('ui-tab[name="' + strName + '"]');
+                    const indexOpen = [...eleTabGroup].findIndex(eleTab => {
+                        return eleTab.open;
+                    });
+                    if (strIsTab == 'prev') {
+                        (eleTabGroup[indexOpen - 1] || eleTabGroup[eleTabGroup.length - 1]).switch();
+                    } else {
+                        (eleTabGroup[indexOpen + 1] || eleTabGroup[0]).switch();
+                    }
+                });
+                // 如果是定时播放，暂停
+                eleTrigger.addEventListener('mouseenter', () => {
+                    document.querySelectorAll('ui-tab[name="' + strName + '"][autoplay]').forEach(eleTab => {
+                        clearTimeout(eleTab.timer);
+                    })
+                });
+                eleTrigger.addEventListener('mouseout', () => {
+                    [...document.querySelectorAll('ui-tab[name="' + strName + '"][autoplay]')].some(eleTab => {
+                        if (eleTab.open) {
+                            eleTab.autoSwitch();
+                            return true;
+                        }
+                    })
+                });
+                
+                return;
+            }
+
             let strTriggerId = eleTrigger.id;
             if (!strTriggerId) {
                 strTriggerId = ('lulu_' + Math.random()).replace('0.', '');
@@ -1038,7 +1073,6 @@ class Tab extends HTMLElement {
             }
 
             // target值也可以使用is-tab属性设置
-            let strIsTab = eleTrigger.getAttribute('is-tab');
             if (strIsTab && !eleTrigger.dataset.target) {
                 eleTrigger.dataset.target = strIsTab;
             }
