@@ -396,6 +396,8 @@ document.querySelector('ui-tab[target="tabTarget2"]').addEventListener('show', f
             <p>设置了<code>is-tab</code>属性的DOM元素的切换效果底层还是借助<code>&lt;ui-tab&gt;</code>元素实现的，该<code>&lt;ui-tab&gt;</code>元素可以使用下面的语法获得：</p>
             <pre>dom['ui-tab'];   <span class="green">// 返回对应的&lt;ui-tab&gt;元素</span></pre>
 
+            <p>另外，<code>is-tab="prev"</code>和<code>is-tab="next"</code>元素在点击的时候，可以触发选项卡的上一项和下一项的切换效果，前提是使用<code>data-name</code>属性指向选项卡元素的<code>name</code>属性值，本文档最后的扩展效果有使用示意。</p>
+
             <h3>NodeList.tab()方法</h3>
 
             <p>本组件还支持手动绑定切换行为，同样针对普通元素元素。假设有如下所示的HTML代码：</p>
@@ -595,6 +597,27 @@ document.querySelector('ui-tab[target="tabTarget2"]').addEventListener('show', f
     .slide-dot[open] {
         background-color: #cd0000;
     }
+    .slide-prev,
+    .slide-next {
+        position: absolute;
+        width: 24px; height: 24px;
+        border: 2px solid #fff;
+        color: #fff;
+        border-radius: 100%;
+        top: -40px;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        font-family: system-ui;
+        cursor: pointer;
+        background-color: #fff1;
+    }
+    .slide-prev {
+        left: 20px;
+    }
+    .slide-next {
+        right: 20px;
+    }
 </style>
 <div class="slide-container">
     <a href="" id="slideLi1" class="slide-a active">
@@ -611,11 +634,13 @@ document.querySelector('ui-tab[target="tabTarget2"]').addEventListener('show', f
     <ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay open target="slideLi1"></ui-tab>
     <ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay="4000" target="slideLi2"></ui-tab>
     <ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay="5000" target="slideLi3"></ui-tab>
+    <span class="slide-prev" is-tab="prev" data-name="sliderDot">◀ </span>
+    <span class="slide-next" is-tab="next" data-name="sliderDot">▶</span>
 </div>
 
             <p>样式需要重写，LuLu UI不提供，源码示意：</p>
             <p>CSS部分：</p>
-            <pre>.slide-container {
+            <pre scrollable>.slide-container {
     position: relative;
     width: 350px; height: 105px;
     border: 1px solid #ddd;
@@ -649,6 +674,27 @@ document.querySelector('ui-tab[target="tabTarget2"]').addEventListener('show', f
 }
 .slide-dot[open] {
     background-color: #cd0000;
+}
+.slide-prev,
+.slide-next {
+    position: absolute;
+    width: 24px; height: 24px;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 100%;
+    top: -40px;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-family: system-ui;
+    cursor: pointer;
+    background-color: #fff1;
+}
+.slide-prev {
+    left: 20px;
+}
+.slide-next {
+    right: 20px;
 }</pre>
             <p>HTML部分：</p>
             <pre>&lt;div id="slideContainer" class="slide-container"&gt;
@@ -666,6 +712,9 @@ document.querySelector('ui-tab[target="tabTarget2"]').addEventListener('show', f
     &lt;ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay open target="slideLi1"&gt;&lt;/ui-tab&gt;
     &lt;ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay="4000" target="slideLi2"&gt;&lt;/ui-tab&gt;
     &lt;ui-tab eventtype="mouseover" name="sliderDot" class="slide-dot" autoplay="5000" target="slideLi3"&gt;&lt;/ui-tab&gt;
+    &lt;!-- 前后切换 --&gt;
+    &lt;span class="slide-prev" is-tab="prev" data-name="sliderDot"&gt;◀&lt;/span&gt;
+    &lt;span class="slide-next" is-tab="next" data-name="sliderDot"&gt;▶&lt;/span&gt;
 &lt;/div&gt;</pre>
 
             <p>3个广告图自动播放时间分别是3s，4s和5s。</p>
