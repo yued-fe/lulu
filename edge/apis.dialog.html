@@ -119,6 +119,24 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
             <pre>button.addEventListener('click', function () {
     dialog.open = true;
 });</pre>
+            <p>支持使用<code>data-params</code>传递各类通用参数，例如：</p>
+            <pre>&lt;dialog is="ui-dialog" data-params="{
+    title: '我是标题',
+    closable: false,
+    onHide: function () {
+        console.log('隐藏了~');
+    },
+    buttons: [{}, {}]
+}"&gt;我是内容&lt;/dialog&gt;</pre>
+            <p>测试：<button class="ui-button" data-type="primary" onclick="ddp.open=true;">显示复杂弹框</button></p>
+            <dialog id="ddp" is="ui-dialog" data-params="{
+    title: '我是标题',
+    closable: false,
+    onHide: function () {
+        console.log('隐藏了~');
+    },
+    buttons: [{}, {}]
+}">我是内容</dialog>
 
             <h3>弹框的显示、隐藏</h3>
             <p>弹框显示有3种方法，分别是：</p>
@@ -197,7 +215,7 @@ dialogAlert.addEventListener('DOMContentLoaded', function () {
             <h4>1. 直接显示</h4>
             <p>需要显示的内容内容直接放在<code>&lt;dialog&gt;</code>元素中，例如：</p>
             <pre>&lt;dialog id="dialog2" is="ui-dialog" title="我是标题"&gt;
-    &lt;select is="ui-select" style="width: 150px"&gt;
+    下拉：&lt;select is="ui-select" style="width: 150px"&gt;
         &lt;option value="1"&gt;选项1&lt;/option&gt;
         &lt;option value="2"&gt;选项2&lt;/option&gt;
         &lt;option value="3"&gt;选项3&lt;/option&gt;
@@ -206,7 +224,7 @@ dialogAlert.addEventListener('DOMContentLoaded', function () {
             <p>此时弹框直接显示已有内容，例如：</p>
             <pre>dialog2.show();</pre>
             <dialog id="dialog2" is="ui-dialog" title="我是标题">
-                <select is="ui-select" style="width: 150px">
+                下拉：<select is="ui-select" style="width: 150px">
                     <option value="1">选项1</option>
                     <option value="2">选项2</option>
                     <option value="3">选项3</option>
@@ -415,6 +433,12 @@ button.addEventListener('click', function () {
                 <td>表示弹框显示的主体内容。可以是HTML字符串，或者是DOM对象，也可以是返回HTML字符串或DOM对象的函数。参数类型不同，弹框关闭的方法也不一样，DOM对象关闭执行<code>hide()</code>方法，HTML内容执行<code>remove()</code>方法。</td>
               </tr>
               <tr>
+                <td>closable<span class="red abs">*</span></td>
+                <td>Boolean</td>
+                <td>true</td>
+                <td>是否显示右上角的关闭按钮。</td>
+              </tr>
+              <tr>
                 <td>buttons</td>
                 <td>Array</td>
                 <td>[]</td>
@@ -459,11 +483,12 @@ button.addEventListener('click', function () {
             </p>
             <hr>
             <h4 id="buttonParams"><code>buttons</code>参数</h4>
-            <code>buttons</code>参数数组项支持参数如下：
+            <code>buttons</code>参数的数组项支持的参数如下：
             <pre>{
     type: '',
     value: '',
     form: '',
+    for: '',
     className: '',
     events: {}
 }</pre>
@@ -494,13 +519,19 @@ button.addEventListener('click', function () {
                 <td>表示按钮所属的表单元素的<code>id</code>，如果<code>form</code>属性值有设置，则按钮会自动变成<code>'submit'</code>类型，点击该按钮会触发对应表单元素的<code>'submit'</code>行为。</td>
                 </tr>
                 <tr>
+                <td>for</td>
+                <td>String</td>
+                <td>''</td>
+                <td>如果设置此参数，弹框中的按钮会使用<code>lable</code>标签。此时，点击弹框按钮，会触发<code>id</code>值和此按钮<code>for</code>属性一致的控件元素的点击行为。此属性在一些特殊场景下，非常有用。例如，点击弹框按钮触发文件选择，又例如，点击弹框按钮触发页面中某个React按钮的执行。</td>
+                </tr>
+                <tr>
                 <td>disabled</td>
                 <td>Boolean</td>
                 <td>false</td>
                 <td>表示按钮是否处于禁用态。</td>
                 </tr>
                 <tr>
-                <td>class<wbr>Name</td>
+                <td>className</td>
                 <td>String</td>
                 <td>''</td>
                 <td>表示按钮上额外添加的类名。</td>
