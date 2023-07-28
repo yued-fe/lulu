@@ -536,7 +536,7 @@ class Select extends HTMLSelectElement {
     }
 
     /**
-     * 重置原生的属性s
+     * 重置原生的属性
      */
     setProperty () {
         Object.defineProperty(this, 'value', {
@@ -607,6 +607,11 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素载入到页面后
      */
     connectedCallback () {
+        // 尚未完成初始化的弹框内的下拉不渲染
+        const eleDialog = this.closest('dialog[is="ui-dialog"]')
+        if (eleDialog && !eleDialog.button) {
+            return;
+        }
         // 观察
         this.observer = new MutationObserver((mutationsList) => {
             let isRefresh = true;
@@ -652,6 +657,9 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素从页面移除后
      */
     disconnectedCallback () {
+        if (!this.observer || !this.resizeObserver) {
+            return;
+        }
         this.remove();
         this.observer.disconnect();
         this.resizeObserver.disconnect();

@@ -2068,7 +2068,7 @@ class Select extends HTMLSelectElement {
     }
 
     /**
-     * 重置原生的属性s
+     * 重置原生的属性
      */
     setProperty () {
         Object.defineProperty(this, 'value', {
@@ -2139,6 +2139,11 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素载入到页面后
      */
     connectedCallback () {
+        // 尚未完成初始化的弹框内的下拉不渲染
+        const eleDialog = this.closest('dialog[is="ui-dialog"]')
+        if (eleDialog && !eleDialog.button) {
+            return;
+        }
         // 观察
         this.observer = new MutationObserver((mutationsList) => {
             let isRefresh = true;
@@ -2184,6 +2189,9 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素从页面移除后
      */
     disconnectedCallback () {
+        if (!this.observer || !this.resizeObserver) {
+            return;
+        }
         this.remove();
         this.observer.disconnect();
         this.resizeObserver.disconnect();
@@ -6107,6 +6115,8 @@ const Dialog = (() => {
                 height: 'auto',
                 // 不同类别的默认按钮
                 buttons: [],
+                // 关闭按钮
+                closable: true,
                 // 弹框显示、隐藏、移除的回调
                 onShow: function () {
                 },
@@ -6130,29 +6140,8 @@ const Dialog = (() => {
                 if (JSON.stringify(options) != '"{}"') {
                     // 改变参数，会自动触发DOM元素内容的变化
                     dialog.setParams({
-                        title: objParams.title,
-                        width: objParams.width,
-                        height: objParams.height,
-                        content: objParams.content,
-                        buttons: objParams.buttons
+                        ...objParams
                     });
-
-                    // 回调处理
-                    if (typeof options.onShow == 'function') {
-                        dialog.addEventListener('show', function (event) {
-                            options.onShow.call(dialog, event);
-                        });
-                    }
-                    if (typeof options.onHide == 'function') {
-                        dialog.addEventListener('hide', function (event) {
-                            options.onHide.call(dialog, event);
-                        });
-                    }
-                    if (typeof options.onRemove == 'function') {
-                        dialog.addEventListener('remove', function (event) {
-                            options.onRemove.call(dialog, event);
-                        });
-                    }
                 }
 
                 // 显示
@@ -6283,6 +6272,23 @@ const Dialog = (() => {
                 setParams: {
                     value: function (options) {
                         Object.assign(this.params, options || {});
+
+                        // 回调处理
+                        if (typeof options.onShow == 'function') {
+                            this.addEventListener('show', function (event) {
+                                options.onShow.call(this, event);
+                            });
+                        }
+                        if (typeof options.onHide == 'function') {
+                            this.addEventListener('hide', function (event) {
+                                options.onHide.call(this, event);
+                            });
+                        }
+                        if (typeof options.onRemove == 'function') {
+                            this.addEventListener('remove', function (event) {
+                                options.onRemove.call(this, event);
+                            });
+                        }
 
                         return this.params;
                     }
@@ -6843,6 +6849,8 @@ const Dialog = (() => {
                         dialog.content = value;
                     } else if (prop == 'buttons') {
                         dialog.button();
+                    } else if (prop == 'closable' && dialog.element.close) {
+                        dialog.element.close.style.display = value ? '' : 'none';
                     } else if (dialog.element.dialog && (prop == 'width' || prop == 'height')) {
                         let eleDialog = dialog.element.dialog;
                         eleDialog.classList.remove(CL.add('stretch'));
@@ -6911,15 +6919,27 @@ const Dialog = (() => {
 
             // 原始节点放在eleBody主体内容元素中
             if (nodesOriginDialog.length) {
-                nodesOriginDialog.forEach(node => {
-                    eleBody.append(node);
-                });
+                // 一次性 append
+                eleBody.append.apply(eleBody, nodesOriginDialog);
             }
 
             // 元素插入
             // 组装
             eleDialog.append(eleClose, eleTitle, eleBody, eleFooter);
             dialog.append(eleDialog);
+
+            // 参数处理，如果有
+            const strParams = dialog.dataset.params || dialog.getAttribute('params');
+
+            if (strParams && /{/.test(strParams)) {
+                try {
+                    const objParams = (new Function('return ' + strParams))();
+                    // 参数设置
+                    dialog.setParams(objParams);
+                } catch (e) {
+                    console.error(e);
+                }
+            } 
 
             // 观察open属性变化
             var moDialogOpen = new MutationObserver(function (mutationsList) {
