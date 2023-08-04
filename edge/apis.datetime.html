@@ -172,8 +172,19 @@ input.addEventListener('hide', function(e) {
             <p>选择小时, 早8点至晚8点：<input type="hour" value="09:20" min="8" max="20" is="ui-datetime"></p>
             <pre>&lt;input type="hour" value="09:20" min="8" max="20" is="ui-datetime"&gt;</pre>
 
+            <h4>5. 选择日期和时间</h4>
+            <p>设置<code>type="datetime-local"</code>，例如：</p>
+            <p><input type="datetime-local" is="ui-datetime"></p>
+            <pre>&lt;input type="datetime-local" is="ui-datetime"&gt;</pre>
 
-            <h4>5. 月份范围</h4>
+            <p><code>min</code>和<code>max</code>属性测试，只能选择最近30天月，例如：</p>
+            <pre>&lt;input type="datetime-local" min="2023/8/4 12:00" max="2023/9/3 12:00" is="ui-datetime"&gt;</pre>
+            <p><input id="minMax" type="datetime-local" is="ui-datetime"></p>
+            <script>minMax.setAttribute('min', new Date().toLocaleString());
+minMax.setAttribute('max', new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleString())</script>
+
+
+            <h4>6. 月份范围</h4>
             <p>无初始值-有范围限制：<input type="month-range" min="2021-03" max="2025-04" is="ui-datetime"></p>
             <pre>&lt;input type="month-range" min="2021-03" max="2025-04" is="ui-datetime"&gt;</pre>
             从今天到2022年：<input type="month-range" value="2022-01" is="ui-datetime">
@@ -182,7 +193,7 @@ input.addEventListener('hide', function(e) {
             <pre>&lt;input type="month-range" value="2021-01 至 2023-11" is="ui-datetime"&gt;</pre>
             <p>使用年月日表示也是支持的，例如<code> value="2021年1月12日 至 2023年11月1日" </code>：<input type="month-range" value="2021年1月12日 至 2023年11月1日" is="ui-datetime"></p>
 
-            <h4>6. 日期范围</h4>
+            <h4>7. 日期范围</h4>
             <p>无初始值-有时间范围：<input type="date-range" min="2020-11-10" max="2025-04-01" is="ui-datetime"></p>
             <pre>&lt;input type="date-range" min="2020-11-10" max="2025-04-01" is="ui-datetime"&gt;</pre>
             从今天到2025年：<input type="date-range" value="2025-01-01" is="ui-datetime">
@@ -190,11 +201,15 @@ input.addEventListener('hide', function(e) {
             <p>有初始值：<input type="date-range" value="2021-04-25 至 2021-05-24" is="ui-datetime"></p>
             <pre>&lt;input type="date-range" value="2021-04-25 至 2021-05-24" is="ui-datetime"&gt;</pre>            
 
-            <h4>7. 原生日期选择</h4>
+            <h4>8. 原生日期选择</h4>
             <p>不设置<code>is="ui-datetime"</code>就是原生的时间选择输入框，例如：</p>
-            <p><input type="date"></p>
-            <pre>&lt;input type="date"&gt;</pre>
-            <p>在移动端，建议使用原生的日期选择控件。</p>
+            <p><input type="date" class="ui-input"></p>
+            <pre>&lt;input type="date" class="ui-input"&gt;</pre>
+
+            <h4>9. 原生日期时间选择</h4>
+            <p>设置<code>type</code>属性值为<code>datetime-local</code>。</p>
+            <pre>&lt;input type="datetime-local" class="ui-input"&gt;</pre>
+            <p><input type="datetime-local" class="ui-input"></p>
 
             <h3>内置属性和方法</h3>
             <p>设置了<code>is="ui-datetime"</code>的<code>&lt;input&gt;</code>元素自身包含了下面这些属性和方法：</p>
@@ -207,6 +222,8 @@ input.addEventListener('hide', function(e) {
         <span class="green">// 类型，只读</span>
         type: 'date'
     },
+    <span class="green">// date()至datetime()方法均支持指定容器
+    // eg. input.date(container);</span>
     <span class="green">// 更新日期内容</span>
     date: function () {},
     <span class="green">// 更新日期范围内容</span>
@@ -223,6 +240,8 @@ input.addEventListener('hide', function(e) {
     hour: function () {},
     <span class="green">// 更新分钟内容</span>
     minute: function () {},
+    <span class="green">// 更新日期时间内容</span>
+    datetime: function () {},
     <span class="green">// 定位</span>
     position: function () {},
     <span class="green">// 面板显示与定位</span>
@@ -298,7 +317,7 @@ span.ui-date-item[data-date$="10-01"]:before {
                 <input id="dateMark" is="ui-datetime" hidden>
             </div>
             <p>使用的代码如下所示：</p>
-            <pre>div class="update-date-mark"&gt;
+            <pre>&lt;div class="update-date-mark"&gt;
     &lt;input id="dateMark" is="ui-datetime" hidden&gt;
 &lt;/div&gt;</pre>
 <pre>var eleDateMark = document.querySelector('#dateMark');
@@ -476,7 +495,7 @@ eleDateMark.show();
     var arrMatchDate = [];
     var strCssStyle = '';
     for (var start = 0; start < 200; start++) {
-        var year = 2018 + Math.floor(5 * Math.random());
+        var year = 2022 + Math.floor(5 * Math.random());
         var month = Math.floor(12 * Math.random());
         var day = Math.ceil(28 * Math.random());
 
