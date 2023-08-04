@@ -221,7 +221,7 @@ const Validate = (() => {
                     }
                     let strTextLabel = '';
                     // 从label动态获取提示数据
-                    document.querySelectorAll('label[for=' + strId + ']').forEach(function (eleLabel) {
+                    document.querySelectorAll('label[for="' + strId + '"]').forEach(function (eleLabel) {
                         const eleLabelClone = eleLabel.cloneNode(true);
                         // 只使用裸露的文字作为提示关键字
                         [].slice.call(eleLabelClone.children).forEach(function (eleChild) {
