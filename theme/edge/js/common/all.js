@@ -8184,14 +8184,14 @@ const DateTime = (() => {
 
             // 日期和时间
             let arrDate = [];
-            let arrHourMin = ['00', '00'];
+            let arrHourMin = [];
 
             // value可以是Date对象
             if (value.toArray) {
                 arrDate = value.toArray();
                 // 此时的对应的时间值
                 arrHourMin = (value.getHours() + ':' + value.getMinutes()).toTime();
-            } else if (typeof value == 'string') {
+            } else if (value && typeof value == 'string') {
                 const arrDateTime = value.split(/\s+|T/);
                 arrDate = arrDateTime[0].toDate().toArray();
 
@@ -8212,6 +8212,12 @@ const DateTime = (() => {
             } else if (/^datetime/.test(strType)) {
                 value = arrDate.join('-') + ' ' + arrHourMin.join(':');
             } else  {
+                if (value.toArray) {
+                    // 其他日期类型转换成 时:分 模式
+                    value = value.getHours() + ':' + value.getMinutes();
+                }
+                // 补0的处理
+                let arrHourMin = value.toTime();
                 // 时间类型
                 if (!arrHourMin[0]) {
                     return '';
@@ -10115,7 +10121,7 @@ const DateTime = (() => {
                     disabled = true;
                 } else if (numHourSelected == numMaxHour && index > numMaxMinute) {
                     disabled = true;
-                } else if (numHourSelected < numMinHour || numMinHour > numMaxHour) {
+                } else if (numHourSelected < numMinHour || numHourSelected > numMaxHour) {
                     disabled = true;
                 }
                 // step的处理
