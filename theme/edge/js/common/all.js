@@ -10003,7 +10003,7 @@ const DateTime = (() => {
             let strMax = this.max;
 
             // 如果是日期时间选择，则时间范围与日期值强烈相关
-            if (strType.includes('datetime') && arrDate) {
+            if (strType.includes('datetime') && arrDate && (strMin || strMax)) {
                 let strMinDate = '';
                 let strMinTime = '';
                 if (strMin) {
@@ -10018,7 +10018,7 @@ const DateTime = (() => {
                 }
 
                 // 如果日期范围不对
-                if (arrDate.join('-').toDate() < strMinDate.toDate() || arrDate.join('-').toDate() > strMaxDate.toDate()) {
+                if ((strMinDate && arrDate.join('-').toDate() < strMinDate.toDate()) || (strMaxDate && arrDate.join('-').toDate() > strMaxDate.toDate())) {
                     strMin = '24:60:60';
                     strMax = '00:00:00';
                 } else if (arrDate.join('-') == strMinDate) {
