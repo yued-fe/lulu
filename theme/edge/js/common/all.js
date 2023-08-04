@@ -8098,7 +8098,7 @@ const DateTime = (() => {
     const CL = {
         toString: () => 'ui-datetime'
     };
-    ['date', 'range', 'day', 'year', 'month', 'hour', 'minute', 'time'].forEach((key) => {
+    ['date', 'range', 'day', 'year', 'month', 'hour', 'minute', 'time', 'datetime'].forEach((key) => {
         CL[key] = (...args) => ['ui', key, ...args].join('-');
     });
 
@@ -8182,13 +8182,22 @@ const DateTime = (() => {
                 }
             }
 
+            // 日期和时间
             let arrDate = [];
+            let arrHourMin = ['00', '00'];
 
             // value可以是Date对象
             if (value.toArray) {
                 arrDate = value.toArray();
+                // 此时的对应的时间值
+                arrHourMin = (value.getHours() + ':' + value.getMinutes()).toTime();
             } else if (typeof value == 'string') {
-                arrDate = value.toDate().toArray();
+                const arrDateTime = value.split(/\s+|T/);
+                arrDate = arrDateTime[0].toDate().toArray();
+
+                if (arrDateTime[1] && arrDateTime[1].includes(':')) {
+                    arrHourMin = arrDateTime[1].toTime();
+                }
             }
 
             let strType = this.getAttribute('type') || 'date';
@@ -8200,14 +8209,10 @@ const DateTime = (() => {
                 value = arrDate[0];
             } else if (strType == 'month' || strType == 'month-range') {
                 value = arrDate.slice(0, 2).join('-');
+            } else if (/^datetime/.test(strType)) {
+                value = arrDate.join('-') + ' ' + arrHourMin.join(':');
             } else  {
-                if (value.toArray) {
-                    // 其他日期类型转换成 时:分 模式
-                    value = value.getHours() + ':' + value.getMinutes();
-                }
-                // 补0的处理
-                let arrHourMin = value.toTime();
-
+                // 时间类型
                 if (!arrHourMin[0]) {
                     return '';
                 }
@@ -8318,8 +8323,11 @@ const DateTime = (() => {
                 // 按钮类型
                 let strTypeButton = '';
 
+                // 选择的日期类型
+                const strType = eleContainer.dataset.type;
+
                 // 各种事件
-                switch (eleContainer.dataset.type) {
+                switch (strType) {
                     case 'date': {
                         // 日期选择主体
                         // 1. 前后月份选择
@@ -8681,6 +8689,201 @@ const DateTime = (() => {
                         }
                         break;
                     }
+                    case 'datetime': {
+                        // 日期时间选择
+                        const arrSelected = this[SELECTED];
+                        const eleContainerDate = eleClicked.closest('[data-type="date"]');
+                        const eleContainerMonth = eleClicked.closest('[data-type="month"]');
+                        const eleContainerYear = eleClicked.closest('[data-type="year"]');
+                        const eleContainerTime = eleContainer.querySelector('[data-type="time"]');
+                        // 日期选择主体
+                        if (eleContainerDate) {
+                            // 日期数组项
+                            const arrDate = arrSelected[0];
+                            // 1. 前后月份选择
+                            if (/prev|next/.test(eleClicked.className)) {
+                                numMonth = eleClicked.dataset.month;
+
+                                // 设置选择月份
+                                // 这样可以获得目标月份对应的日期数据
+                                // 就是下面this.getMonthDay做的事情
+                                arrDate[1] = numMonth * 1;
+
+                                // 日期和月份要匹配，例如，不能出现4月31日
+                                // arrMonthDay是一个数组，当前年份12个月每月最大的天数
+                                const arrMonthDay = this.getMonthDay(this[SELECTED]);
+
+                                // 切分月份
+                                // 日期正常是不会变化的
+                                // 但是类似31号这样的日子不是每个月都有的
+                                // 因此，需要边界判断
+                                // 下面这段逻辑就是做这个事情的
+
+                                // 1. 当前月份最大多少天
+                                const numDayMax = (() => {
+                                    if (numMonth - 1 < 0) {
+                                        return arrMonthDay[11];
+                                    } else if (numMonth > arrMonthDay.length) {
+                                        return arrMonthDay[0];
+                                    }
+
+                                    return arrMonthDay[numMonth - 1];
+                                })();
+
+                                // 2. 之前选择的天数
+                                numDay = arrDate[2];
+                                // 之前记住的日期
+                                const numDayOverflow = eleContainer.dataDayOverflow;
+                                // 例如，我们超出日期是31日，如果月份可以满足31日，使用31日
+                                if (numDayOverflow) {
+                                    arrDate[2] = Math.min(numDayOverflow, numDayMax);
+                                } else if (arrDate[2] > numDayMax) {
+                                    arrDate[2] = numDayMax;
+
+                                    // 这里是对体验的升级，
+                                    // 虽然下月份变成了30号，但是再回来时候，原来的31号变成了30号
+                                    // 不完美，我们需要处理下
+                                    // 通过一个变量记住，点击item项的时候，移除
+                                    // 且只在第一次的时候记住
+                                    // 因为28,29,30,31都可能出现，每次记忆会混乱
+                                    eleContainer.dataDayOverflow = numDay;
+                                }
+
+                                // 更新选择的月日数据
+                                this[SELECTED][0] = arrDate.join('-').toDate().toArray();
+
+                                // 刷新
+                                this.date(eleContainerDate);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+
+                                // 如果在时间范围内
+                                if (eleContainer.querySelector(`[data-type="date"] .${SELECTED}[href]`)) {
+                                    this.setValue();
+                                }
+                            } else if (/item/.test(eleClicked.className)) {
+                                // 选择某日期啦
+                                numDay = eleClicked.innerHTML;
+
+                                // 含有非数字，认为是今天
+                                if (/\D/.test(numDay)) {
+                                    // 今天
+                                    this[SELECTED][0] = new Date().toArray();
+                                } else {
+                                    if (numDay < 10) {
+                                        numDay = `0${numDay}`;
+                                    }
+                                    // 修改全局
+                                    this[SELECTED][0][2] = numDay;
+                                }
+
+                                // 赋值和选中态更新
+                                this.setValue();
+                                this.date(eleContainerDate);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+
+                                delete eleContainer.dataDayOverflow;
+                            } else if (eleClicked.dataset.type == 'month') {
+                                // 切换到年份选择
+                                this.month(eleContainerDate);
+                            }
+                        } else if (eleContainerMonth) {
+                            // 月份切换
+                            // 选择月份，可能从年份，也可能从日期过来
+                            // 1. 前后年份
+                            if (/prev|next/.test(eleClicked.className)) {
+                                numYear = eleClicked.dataset.year;
+                                // 修改当前选中的年份数
+                                this[SELECTED][0][0] = numYear * 1;
+                                // 刷新
+                                this.month(eleContainerMonth);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+                                // 文本框赋值
+                                // 如果在区域内状态
+                                if (eleContainerMonth.querySelector(`.${SELECTED}[href]`)) {
+                                    this.setValue();
+                                }
+                            } else if (/item/.test(eleClicked.className)) {
+                                // value实际上是月份两位数值
+                                const value = eleClicked.dataset.value;
+                                if (value) {
+                                    this[SELECTED][0][1] = value;
+                                } else {
+                                    // 今月，只改变年月为今年和今月
+                                    const arrToday = new Date().toArray();
+                                    this[SELECTED][0][0] = arrToday[0];
+                                    this[SELECTED][0][1] = arrToday[1];
+                                }
+
+                                // 赋值
+                                this.setValue();
+
+                                this.date(eleContainerMonth);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+                            } else if (eleClicked.dataset.type == 'year') {
+                                // 切换到年份选择
+                                this.year(eleContainerMonth);
+                            }
+                        } else if (eleContainerYear) {
+                            // 选择年份，从月份过来
+                            if (/prev|next/.test(eleClicked.className)) {
+                                numYear = eleClicked.dataset.year;
+                                // 修改当前选中的年份数
+                                this[SELECTED][0][0] = numYear * 1;
+                                // 刷新
+                                this.year(eleContainerYear);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+                                // 文本框赋值
+                                // 如果在区域内状态
+                                if (eleContainerYear.querySelector(`.${SELECTED}[href]`)) {
+                                    this.setValue();
+                                }
+                            } else if (/item/.test(eleClicked.className)) {
+                                if (eleClicked.innerHTML == '今年') {
+                                    this[SELECTED][0][0] = new Date().getFullYear();
+                                } else {
+                                    this[SELECTED][0][0] = eleClicked.innerHTML * 1;
+                                }
+
+                                // 赋值
+                                this.setValue();
+                                // 回到月份面板
+                                this.month(eleContainerYear);
+                                // 时间也刷新，因为可能禁用态变化
+                                this.time(eleContainerTime);
+                            }
+                        } else if (eleClicked.tagName == 'BUTTON' && eleClicked.classList.contains(SELECTED) == false) {
+                            const arrTime = this[SELECTED][1];
+
+                            let strTypeButton = eleClicked.parentElement.dataset.type;
+                            let numIndexButton = eleClicked.dataset.index;
+                            if (strTypeButton == 'ampm') {
+                                if (numIndexButton == '0') {
+                                    arrTime[0] -= 12;
+                                } else {
+                                    arrTime[0] = Number(arrTime[0]) + 12;
+                                }
+                                arrTime[0] = String(arrTime[0]).padStart(2, '0');
+                            } else if (strTypeButton == 'hour') {
+                                arrTime[0] = numIndexButton.padStart(2, '0');
+                            } else if (strTypeButton == 'minute') {
+                                arrTime[1] = numIndexButton.padStart(2, '0');
+                            } else if (strTypeButton == 'second') {
+                                arrTime[2] = numIndexButton.padStart(2, '0');
+                            }
+
+                            // 改变时间值
+                            this[SELECTED][1] = arrTime;
+
+                            // 赋值并刷新样式
+                            this.setValue();
+                            this.time(eleContainerTime);
+                        }
+                    }
                 }
             });
 
@@ -8718,11 +8921,18 @@ const DateTime = (() => {
 
             // time类型的上下左右快捷键处理
             document.addEventListener('keydown', event => {
-                if (eleContainer.dataset.type == 'time' && this.display == true && eleContainer.contains(document.activeElement)) {
+                const strType = eleContainer.dataset.type;
+                if (!strType) {
+                    return;
+                }
+                if (strType.includes('time') && this.display == true && eleContainer.contains(document.activeElement)) {
                     if (/^arrow/i.test(event.key)) {
                         event.preventDefault();
                         // 所有列选中元素
                         let eleButtonSelected = [...eleContainer.querySelectorAll('.' + SELECTED)];
+                        if (strType.includes('datetime')) {
+                            eleButtonSelected = [...eleContainer.querySelectorAll('[data-type="time"] .' + SELECTED)];
+                        }
                         let numIndexButton = eleButtonSelected.findIndex(item => item == event.target);
                         // 当前列所有可点击元素
                         let eleButtonClickable = [...event.target.parentElement.querySelectorAll('button:enabled:not([data-visibility="false"])')];
@@ -8802,11 +9012,25 @@ const DateTime = (() => {
                     break;
                 }
                 case 'time': case 'hour': case 'minute': {
+                    // 时间
                     const arrTime = strInitValue.toTime();
                     // 补0
                     if (arrTime.length > 1) {
                         this[SELECTED] = [...arrTime];
                     }
+
+                    break;
+                }
+                case 'datetime': case 'datetime-local': {
+                    // 日期和时间
+                    const arrDateTime = strInitValue.split(/\s+|T/);
+                    const arrPart1 = arrDateTime[0].toDate().toArray();
+                    let arrPart2 = ['00', '00'];
+                    if (arrDateTime[1] && arrDateTime[1].includes(':')) {
+                        arrPart2 = arrDateTime[1].toTime();
+                    }
+
+                    this[SELECTED] = [arrPart1, arrPart2];
 
                     break;
                 }
@@ -8866,6 +9090,10 @@ const DateTime = (() => {
                     this.value = `${arrSelected[0]}:00`;
                     break;
                 }
+                case 'datetime': case 'datetime-local': {
+                    this.value = arrSelected[0].join('-') + ' ' + arrSelected[1].join(':');
+                    break;
+                }
             }
 
             if (this.value != strValue) {
@@ -8888,12 +9116,25 @@ const DateTime = (() => {
             // 根据当前日期数据返回
             // eg. [2015,'02', 23]
 
+            // 最大最小限制
+            let strMin = this.min;
+            let strMax = this.max;
             // 类型
             const strType = this.params.type;
 
+            // 如果是日期时间选择，则最大最小月份是前面部分内容
+            if (strType.includes('datetime')) {
+                if (strMin) {
+                    strMin = strMin.split(/\s+/)[0];
+                }
+                if (strMax) {
+                    strMax = this.max.split(/\s+/)[0];
+                }
+            }
+
             // 最大日期和最小日期
-            let numMin = (this.min || '0001-01-01').toDate();
-            let numMax = (this.max || '9999-00-01').toDate();
+            let numMin = (strMin || '0001-01-01').toDate();
+            let numMax = (strMax || '9999-00-01').toDate();
 
             const arrChinese = ['日', '一', '二', '三', '四', '五', '六'];
             const arrMonthDay = this.getMonthDay(arrDate);
@@ -8956,7 +9197,7 @@ const DateTime = (() => {
                         // 由于range选择和date选择UI上有比较大大差异
                         // 为了可读性以及后期维护
                         // 这里就不耦合在一起，而是分开处理
-                        if (strType == 'date') {
+                        if (strType == 'date' || strType.includes('datetime')) {
                             // 第一行上个月一些日期补全
                             if (tr == 0 && td < numDayFirst) {
                                 // 当前日子
@@ -9075,18 +9316,32 @@ const DateTime = (() => {
          * @return {Object}        返回的是后续方法需要的数据的纯对象，包括组装的HTML字符数据，月份最大和最小值。
          */
         getMonthData (arrDate) {
+            // 类型
+            const strType = this.params.type;
+            // 最大最小限制
+            let strMin = this.min;
+            let strMax = this.max;
+
+            // 如果是日期时间选择，则最大最小月份是前面部分内容
+            if (strType.includes('datetime')) {
+                if (strMin) {
+                    strMin = strMin.split(/\s+/)[0];
+                }
+                if (strMax) {
+                    strMax = this.max.split(/\s+/)[0];
+                }
+            }
+
             // 最大月份和最小月份
-            let numMin = (this.min || '000000').replace(regDate, '').slice(0, 6);
-            let numMax = (this.max || '999912').replace(regDate, '').slice(0, 6);
+            let numMin = (strMin || '000000').replace(regDate, '').slice(0, 6);
+            let numMax = (strMax || '999912').replace(regDate, '').slice(0, 6);
 
             const arrChinese = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
 
             // 年份
             const numYear = arrDate[0] * 1;
 
-            // 类型
-            const strType = this.params.type;
-
+            // 获取字符内容方法
             const getStrHtmlDate = () => {
                 let strHtmlDate = '';
                 let strClass = '';
@@ -9103,7 +9358,7 @@ const DateTime = (() => {
                     // 基本类名
                     strClass = CL.date('item');
 
-                    if (strType == 'month') {
+                    if (strType == 'month' || strType.includes('datetime')) {
                         if (i == arrDate[1]) {
                             // 选中态的类名
                             strClass = `${strClass} ${SELECTED}`;
@@ -9235,10 +9490,15 @@ const DateTime = (() => {
          * 选择日期
          * @return {Object} 返回当前DOM对象
          */
-        date () {
-            const eleContainer = this.element.target;
+        date (container) {
+            const eleContainer = container || this.element.target;
 
-            const arrDate = this[SELECTED];
+            let arrDate = this[SELECTED];
+
+            // 如果是日期时间类型
+            if (this.params.type.includes('datetime')) {
+                arrDate = arrDate[0];
+            }
 
             // 上一个月
             const numPrevMonth = arrDate[1] - 1;
@@ -9310,8 +9570,8 @@ const DateTime = (() => {
          * 选择日期范围
          * @return {Object} 返回当前DOM对象
          */
-        ['date-range'] () {
-            const eleContainer = this.element.target;
+        ['date-range'] (container) {
+            const eleContainer = container || this.element.target;
 
             // 选择的日期范围数组
             const arrDates = this[SELECTED];
@@ -9391,11 +9651,16 @@ const DateTime = (() => {
          * 选择月份
          * @return {Object} 返回当前DOM对象
          */
-        month () {
-            const eleContainer = this.element.target;
+        month (container) {
+            const eleContainer = container || this.element.target;
 
             // 当前选择日期
-            const arrDate = this[SELECTED];
+            let arrDate = this[SELECTED];
+
+            if (this.params.type.includes('datetime')) {
+                arrDate = arrDate[0];
+            }
+
             // 对应的月份数据
             const objMonth = this.getMonthData(arrDate);
 
@@ -9424,7 +9689,7 @@ const DateTime = (() => {
                 strHtml = `${strHtml}<span class="${CL.date('next')}"></span>`;
             }
             // 头部结束
-            strHtml = `${strHtml}<a href="javascript:" class="${CL.date('switch')}" data-type="year" role="button" aria-label="快速切换年份">${numYear}</a>\
+            strHtml = `${strHtml}<a href="javascript:" class="${CL.date('switch')}" data-type="year" role="button" title="快速切换年份" aria-label="快速切换年份">${numYear}</a>\
             </div>`;
             // 3. 月份切换主体列表
             strHtml += objMonth.html;
@@ -9452,8 +9717,8 @@ const DateTime = (() => {
          * 选择月份范围
          * @return {Object} 返回当前DOM对象
          */
-        ['month-range'] () {
-            const eleContainer = this.element.target;
+        ['month-range'] (container) {
+            const eleContainer = container || this.element.target;
 
             // 当前选择日期
             const arrDates = this[SELECTED];
@@ -9534,16 +9799,34 @@ const DateTime = (() => {
          * 选择年份
          * @return {Object} 返回当前DOM对象
          */
-        year () {
+        year (container) {
             // 元素
-            const eleContainer = this.element.target;
+            const eleContainer = container || this.element.target;
 
-            // 当前选择日期
-            const arrDate = this[SELECTED];
+            // 最大最小限制
+            let strMin = this.min;
+            let strMax = this.max;
 
             // 最小年份和最大年份
-            let numMin = this.min || 0;
-            let numMax = this.max || 9999;
+            let numMin = 0;
+            let numMax = 9999;
+            // 类型
+            const strType = this.params.type;
+
+            // 当前选择日期
+            let arrDate = this[SELECTED];
+
+            if (strType.includes('datetime')) {
+                arrDate = arrDate[0];
+
+                // 最大年份和最小年份
+                if (strMin) {
+                    numMin = strMin.split(/\s+/)[0].toDate().getFullYear();
+                }
+                if (strMax) {
+                    numMax = strMax.split(/\s+/)[0].toDate().getFullYear();
+                }
+            }
 
             // 选择年份的完整HTML代码
             // 1. 同样的，year专属类名容器
@@ -9622,9 +9905,9 @@ const DateTime = (() => {
          * 选择小时
          * @return {Object} 返回当前DOM对象
          */
-        hour () {
+        hour (container) {
             // 元素
-            const eleContainer = this.element.target;
+            const eleContainer = container || this.element.target;
 
             // 当前选择时间
             const arrTime = this[SELECTED];
@@ -9685,12 +9968,21 @@ const DateTime = (() => {
          * 选择时间，多垂直列表选择模式，支持到时分秒
          * step如果设置，则可以选择秒
          */
-        time () {
+        time (container) {
             // 元素
-            const eleContainer = this.element.target;
+            const eleContainer = container || this.element.target;
 
             // 当前选择时间
-            const arrTime = this[SELECTED];
+            let arrTime = this[SELECTED];
+            let arrDate = null;
+
+            // 如果是日期时间类型
+            const strType = this.params.type;
+            if (strType.includes('datetime')) {
+                arrDate = this[SELECTED][0];
+                arrTime = this[SELECTED][1];
+            }
+
             let numHourSelected = Number(arrTime[0]);
             let numMinuteSelected = Number(arrTime[1]);
             let numSecondSelected = Number(arrTime[2]);
@@ -9701,8 +9993,42 @@ const DateTime = (() => {
                 numStep = Math.floor(numStep / 60);
             }
 
-            let strMin = this.min || '00:00:00';
-            let strMax = this.max || '23:59:59';
+            let strMin = this.min;
+            let strMax = this.max;
+
+            // 如果是日期时间选择，则时间范围与日期值强烈相关
+            if (strType.includes('datetime') && arrDate) {
+                let strMinDate = '';
+                let strMinTime = '';
+                if (strMin) {
+                    strMinDate = strMin.split(/\s+/)[0];
+                    strMinTime = strMin.split(/\s+/)[1];
+                }
+                let strMaxDate = '';
+                let strMaxTime = '';
+                if (strMax) {
+                    strMaxDate = strMax.split(/\s+/)[0];
+                    strMaxTime = strMax.split(/\s+/)[1];
+                }
+
+                // 如果日期范围不对
+                if (arrDate.join('-').toDate() < strMinDate.toDate() || arrDate.join('-').toDate() > strMaxDate.toDate()) {
+                    strMin = '24:60:60';
+                    strMax = '00:00:00';
+                } else if (arrDate.join('-') == strMinDate) {
+                    // 正好是最小日期，则超过的时间禁用
+                    strMin = strMinTime;
+                    strMax = '23:59:59';
+                } else if (arrDate.join('-') == strMaxDate) {
+                    // 正好是最大日期选拸禁用
+                    strMax = strMaxTime;
+                    strMin = '00:00:00';
+                }
+            }
+
+            // 默认时间范围的处理
+            strMin = strMin || '00:00:00';
+            strMax = strMax || '23:59:59';
 
             let numMinHour = Number(strMin.split(':')[0]) || 0;
             let numMinMinute = Number(strMin.split(':')[1]) || 0;
@@ -9788,6 +10114,8 @@ const DateTime = (() => {
                 if (numHourSelected == numMinHour && index < numMinMinute) {
                     disabled = true;
                 } else if (numHourSelected == numMaxHour && index > numMaxMinute) {
+                    disabled = true;
+                } else if (numHourSelected < numMinHour || numMinHour > numMaxHour) {
                     disabled = true;
                 }
                 // step的处理
@@ -9910,9 +10238,9 @@ const DateTime = (() => {
          * 选择分钟
          * @return {Object} 返回当前DOM对象
          */
-        minute () {
+        minute (container) {
             // 元素
-            const eleContainer = this.element.target;
+            const eleContainer = container ||  this.element.target;
 
             // 当前选择时间
             const arrTime = this[SELECTED];
@@ -9992,6 +10320,35 @@ const DateTime = (() => {
             return this;
         }
 
+        // 日期时间选择
+        datetime (container) {
+            // 元素
+            const eleContainer = container || this.element.target;
+
+            // 创建容器元素
+            eleContainer.dataset.type = 'datetime';
+            eleContainer.innerHTML = `<div class="${CL.datetime('x')}"></div>`;
+
+            // 创建两个容器元素
+            const eleDateX = document.createElement('div');
+            const eleTimeX = document.createElement('div');
+            // 类名
+            eleDateX.className = CL.datetime('date');
+            eleTimeX.className = CL.datetime('time');
+            // append到容器中
+            eleContainer.querySelector('div').append(eleDateX, eleTimeX);
+
+            // 设置日期和时间内容
+            this.date(eleDateX);
+            this.time(eleTimeX);
+
+            return this;
+        }
+
+        ['datetime-local'] () {
+            return this.datetime();
+        }
+
         /**
          * 面板的定位
          * @return 当前DOM元素对象
@@ -10054,8 +10411,15 @@ const DateTime = (() => {
             this.display = true;
 
             // 选中的元素进入视区
+            let eleTimeSelectedAll = null;
             if (this.params.type == 'time') {
-                [...eleContainer.querySelectorAll('.' + SELECTED)].forEach((item, index) => {
+                eleTimeSelectedAll = eleContainer.querySelectorAll('.' + SELECTED);
+            } else if (this.params.type.includes('datetime')) {
+                eleTimeSelectedAll = eleContainer.querySelectorAll('[data-type="time"] .' + SELECTED);
+            }
+
+            if (eleTimeSelectedAll) {
+                eleTimeSelectedAll.forEach((item, index) => {
                     if (item.scrollIntoViewIfNeeded) {
                         item.scrollIntoViewIfNeeded();
                     } else if (item.offsetTop - 5 > item.parentElement.scrollTop + item.parentElement.clientHeight || item.offsetTop - 5 < item.parentElement.scrollTop) {
@@ -10114,9 +10478,12 @@ const DateTime = (() => {
 
         // 自定义组件进入页面时候
         connectedCallback () {
+            if (this.isConnectedCallback) {
+                return;
+            }
             // 普通文本类型变成日期类型
             let strType = this.getAttribute('type');
-            if (['date', 'year', 'month', 'time', 'hour', 'minute', 'date-range', 'month-range'].includes(strType) == false) {
+            if (['date', 'year', 'month', 'time', 'hour', 'minute', 'datetime', 'datetime-local', 'date-range', 'month-range'].includes(strType) == false) {
                 strType = 'date';
 
                 // 移除type属性可以和CSS中设置的尺寸的选择器匹配
@@ -10188,9 +10555,6 @@ const DateTime = (() => {
                         this.value = [strHour, strMinute].join(':');
                     }
 
-                    // 下面语句无效
-                    // this.datetimeformat = 'H:mm';
-
                     this[SELECTED] = [strHour, strMinute, strSecond];
 
                     break;
@@ -10212,6 +10576,22 @@ const DateTime = (() => {
                     this.value = [strHour, strMinute].join(':');
 
                     this[SELECTED] = [strHour, strMinute];
+
+                    break;
+                }
+                case 'datetime': case 'datetime-local': {
+                    // 日期和时间
+                    const arrDateTime = strInitValue.split(/\s+|T/);
+                    const arrPart1 = arrDateTime[0].toDate().toArray();
+                    // 默认的时间
+                    let dateCurrent = new Date();
+                    let arrPart2 = [String(dateCurrent.getHours()).padStart(2, '0'), String(dateCurrent.getMinutes()).padStart(2, '0')];
+                    if (arrDateTime[1] && arrDateTime[1].includes(':')) {
+                        arrPart2 = arrDateTime[1].toTime();
+                    }
+                    this.value = arrPart1.join('-') + ' ' + arrPart2.join(':');
+
+                    this[SELECTED] = [arrPart1, arrPart2];
 
                     break;
                 }
@@ -10250,37 +10630,40 @@ const DateTime = (() => {
                     this[SELECTED] = [arrBegin, arrEnd];
 
                     break;
-                }
+                }                
             }
 
             // time时间类型的是H:mm还是ah:mm的判断
             if (/time/.test(strType)) {
                 // 默认是24小时类型，不支持time类型输入框的浏览器会使用此类型，例如Safari
                 this.datetimeformat = 'H:mm';
-                // 根据尺寸判断
-                let eleInputTmp = document.createElement('input');
-                eleInputTmp.setAttribute('type', 'time');
-                eleInputTmp.value = '00:00';
-                document.body.append(eleInputTmp);
-                // 默认不可见
-                eleInputTmp.style.position = 'absolute';
-                eleInputTmp.style.left = '-999px';
-                eleInputTmp.style.fontFamily = 'revert';
-                // 如果浏览器不支持time类型输入框，例如Safari，则使用H:mm格式
-                if (eleInputTmp.type == 'time') {
-                    eleInputTmp.style.fontSize = '20px';
-                    // 获取此时输入框的尺寸
-                    let numWidthOrigin = eleInputTmp.clientWidth;
-                    // 修改尺寸
-                    eleInputTmp.style.fontSize = '30px';
-                    // 比较前后尺寸变化的差异
-                    let numDiffWidth = eleInputTmp.clientWidth - numWidthOrigin;
-                    // 可以判断输入框字符个数
-                    let numLetters = Math.ceil(numDiffWidth / 10);
-                    if (numLetters >= 5) {
-                        this.datetimeformat = 'ah:mm';
+
+                if (!strType.includes('datetime')) {
+                    // 根据尺寸判断
+                    let eleInputTmp = document.createElement('input');
+                    eleInputTmp.setAttribute('type', 'time');
+                    eleInputTmp.value = '00:00';
+                    document.body.append(eleInputTmp);
+                    // 默认不可见
+                    eleInputTmp.style.position = 'absolute';
+                    eleInputTmp.style.left = '-999px';
+                    eleInputTmp.style.fontFamily = 'revert';
+                    // 如果浏览器不支持time类型输入框，例如Safari，则使用H:mm格式
+                    if (eleInputTmp.type == 'time') {
+                        eleInputTmp.style.fontSize = '20px';
+                        // 获取此时输入框的尺寸
+                        let numWidthOrigin = eleInputTmp.clientWidth;
+                        // 修改尺寸
+                        eleInputTmp.style.fontSize = '30px';
+                        // 比较前后尺寸变化的差异
+                        let numDiffWidth = eleInputTmp.clientWidth - numWidthOrigin;
+                        // 可以判断输入框字符个数
+                        let numLetters = Math.ceil(numDiffWidth / 10);
+                        if (numLetters >= 5) {
+                            this.datetimeformat = 'ah:mm';
+                        }
+                        eleInputTmp.remove();
                     }
-                    eleInputTmp.remove();
                 }
             }
 
@@ -10324,6 +10707,8 @@ if (!customElements.get('ui-datetime')) {
         extends: 'input'
     });
 }
+
+// export default DateTime;
 
 /**
  * @Validate.js
@@ -11024,6 +11409,18 @@ const Validate = (() => {
                     if (strValue == '0' || Number(strValue) == strValue) {
                         strValue = strValue * 1;
                     }
+
+                    // 如果是日期选择
+                    if (strType.includes('datetime')) {
+                        strValue = strValue.replace('T', ' ');
+                        if (strAttrMin) {
+                            strAttrMin.replaceAll('/', '-').replace('T', ' ');
+                        }
+                        if (strAttrMax) {
+                            strAttrMax.replaceAll('/', '-').replace('T', ' ');
+                        }
+                    }
+
                     if (strAttrMin && strValue < strAttrMin) {
                         objValidateState.rangeUnderflow = true;
                     }

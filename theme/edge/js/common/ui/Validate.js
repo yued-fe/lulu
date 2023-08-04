@@ -696,6 +696,18 @@ const Validate = (() => {
                     if (strValue == '0' || Number(strValue) == strValue) {
                         strValue = strValue * 1;
                     }
+
+                    // 如果是日期选择
+                    if (strType.includes('datetime')) {
+                        strValue = strValue.replace('T', ' ');
+                        if (strAttrMin) {
+                            strAttrMin.replaceAll('/', '-').replace('T', ' ');
+                        }
+                        if (strAttrMax) {
+                            strAttrMax.replaceAll('/', '-').replace('T', ' ');
+                        }
+                    }
+
                     if (strAttrMin && strValue < strAttrMin) {
                         objValidateState.rangeUnderflow = true;
                     }

@@ -6,6 +6,12 @@
  * @create 15-07-03
  *
 **/
+
+:root {
+    --ui-datetime-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb'/%3E%3C/svg%3E");
+    --ui-datetime-arrow-disabled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb' fill-opacity='0.4' /%3E%3C/svg%3E");
+}
+
 [is="ui-datetime"]::-webkit-clear-button,
 [is="ui-datetime"]::-webkit-inner-spin-button,
 [is="ui-datetime"]::-webkit-calendar-picker-indicator {
@@ -65,8 +71,7 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-appearance: none;
 
-    background: var(--ui-white, #fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb'/%3E%3C/svg%3E")
-        no-repeat right 3px center;
+    background: var(--ui-white, #fff) var(--ui-datetime-arrow) no-repeat right 3px center;
     background-size: 20px 20px;
     user-select: none;
     cursor: pointer;
@@ -79,7 +84,7 @@
 
 :disabled[is="ui-datetime"] {
     color: var(--ui-gray, #a2a9b6);
-    background: var(--ui-light, #f7f9fa) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-205 297 200 200'%3E%3Cpath d='M-59.3 365.9c-5.1-5.2-13.4-5.2-18.5 0l-27.7 28.3-27.7-28.3c-5.1-5.2-13.4-5.2-18.5 0s-5.1 13.6 0 18.9l46.2 47.1 46.2-47.1c5.1-5.2 5.1-13.6 0-18.9z' fill='%232a80eb' fill-opacity='0.4' /%3E%3C/svg%3E") no-repeat right 3px center;
+    background: var(--ui-light, #f7f9fa) var(--ui-datetime-arrow-disabled) no-repeat right 3px center;
     background-size: 20px 20px;
     cursor: default;
 }
@@ -119,7 +124,7 @@
 }
 
 [is="ui-datetime"][type="date-range"] {
-    width: 210px;
+    width: 216px;
 }
 
 [is="ui-datetime"][type="month-range"] {
@@ -255,6 +260,10 @@ a.ui-date-item:not(.selected):hover {
 }
 .ui-minute-x[data-step="2"] {
     width: 276px;
+}
+
+.ui-datetime-x {
+    display: flex;
 }
 
 .ui-minute-body {
