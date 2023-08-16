@@ -117,15 +117,33 @@ button.addEventListener('click', function () {
         </select>
       </div>
 
-      <p>局部滚动定位测试：</p>
-
-      <div style="width: 300px; height: 100px; border: 1px dotted; overflow: auto; transform: scale(1); text-align: center;">
+      <p>局部滚动定位测试（水平滚动试试）：</p>
+      <style>.scroll-sel { width: 300px; height: 100px; border: 1px dotted; overflow: auto; transform: scale(1); text-align: center; }</style>
+      <div class="scroll-sel">
         <div style="width: 600px;">&nbsp;</div>
         <select is="ui-select">
           <option value="1">选项1</option>
           <option value="2">选项2</option>
           <option value="3">选项3</option>
         </select>
+      </div>
+
+      <p>如果希望下拉内容在局部滚动容器内部，可以设置<code>data-css-position="true"</code>或者设置<code>is-css-position</code>属性，例如：</p>
+      <pre>&lt;select data-css-position="true" is="ui-select"&gt;</pre>
+      <pre>&lt;select is-css-position is="ui-select"&gt;</pre>
+      <div class="scroll-sel">
+        <div style="height: 20px;"></div>
+        <select data-css-position="true" is="ui-select">
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+        </select>
+        <select is-css-position is="ui-select">
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+        </select>
+        <div style="height: 150px;"></div>
       </div>
 
       <h4>分组</h4>
@@ -241,7 +259,7 @@ button.addEventListener('click', function () {
 
       <p><select is="ui-select" width="200"><option>选项1</option></select> <select is="ui-select" width="8rem"><option>选项1</option></select></p>
 
-      <p>使用 <code>width</code> 属性进行尺寸设置虽然方便，但是渲染需要在组件JS加载完成之后执行，因此，在网速较慢的场景下，视觉上可以感知到尺寸的变化过程，体验不好。</p>
+      <p>使用 <code>width</code> 属性进行尺寸设置虽然方便，但是如果JS是后加载的，同时网速较慢，则视觉上可以感知到尺寸的变化过程，体验不好。</p>
       <p>此时可以提前预设好相关的CSS样式，例如希望 <code>&lt;select&gt;</code> 宽度 50%，可以自行在 CSS 中设置如下所示代码（100% 宽度 Select.css 已经内置）。</p>
       <pre>select[width="50%"] {
     width: 50%;
