@@ -1867,15 +1867,17 @@ class Select extends HTMLSelectElement {
         }
 
         // 按钮的尺寸和位置
-        let objBoundButton = eleButton.getBoundingClientRect();
-        // 下拉列表的尺寸和位置设置
-        eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
-        eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
-        eleDatalist.style.width = eleCombobox.getBoundingClientRect().width + 'px';
-        // 列表显示
-        eleDatalist.classList.add('active');
-        // 层级
-        this.zIndex();
+        if (!eleCombobox.contains(eleDatalist)) {
+            let objBoundButton = eleButton.getBoundingClientRect();
+            // 下拉列表的尺寸和位置设置
+            eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
+            eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
+            eleDatalist.style.width = eleCombobox.getBoundingClientRect().width + 'px';
+            // 列表显示
+            eleDatalist.classList.add('active');
+            // 层级
+            this.zIndex();
+        }
 
         // 边界判断
         let objBoundDatalist = eleDatalist.getBoundingClientRect();
@@ -1906,7 +1908,13 @@ class Select extends HTMLSelectElement {
             eleCombobox.classList.toggle('active');
             // 显示
             if (eleCombobox.classList.contains('active')) {
-                document.body.appendChild(eleDatalist);
+                // 避免overflow剪裁，所以设置在body元素下
+                if (this.dataset.cssPosition || this.hasAttribute('is-css-position')) {
+                    eleCombobox.appendChild(eleDatalist);
+                } else {
+                    document.body.appendChild(eleDatalist);
+                }
+
                 // 定位
                 this.position();
                 
@@ -1975,6 +1983,33 @@ class Select extends HTMLSelectElement {
                 }));
             }
         });
+
+        // 非页面主题滚动的重定位实现
+        // 遍历所有的overflow:auto元素
+        const eleScrollable = [];
+        const funWalk = (ele) => {
+            // 不包括body元素
+            if (ele == document.body) {
+                return;
+            }
+            if (window.getComputedStyle(ele).overflow == 'auto') {
+                eleScrollable.push(ele);
+            }
+            // 递归
+            funWalk(ele.parentElement);
+        }
+
+        // 向上找到所有的可滚动元素
+        if (!this.dataset.cssPosition && !this.hasAttribute('is-css-position')) {
+            funWalk(eleButton.parentElement);
+
+            // 滚动发生的时候，重定位
+            eleScrollable.forEach((ele) => {
+                ele.addEventListener('scroll', () => {
+                    this.position();
+                });
+            });
+        }
 
         // 点击页面空白要隐藏
         // 测试表明，这里优化下可以提高40~50%性能
