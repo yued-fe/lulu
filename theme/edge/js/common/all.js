@@ -1867,8 +1867,9 @@ class Select extends HTMLSelectElement {
         }
 
         // 按钮的尺寸和位置
+        let objBoundButton = eleButton.getBoundingClientRect();
+        // body元素下的绝对定位场景才处理
         if (!eleCombobox.contains(eleDatalist)) {
-            let objBoundButton = eleButton.getBoundingClientRect();
             // 下拉列表的尺寸和位置设置
             eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
             eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';

@@ -2915,7 +2915,7 @@ _::-moz-range-track {
     margin: 0;
     border: 1px solid var(--ui-border, #d0d0d5);
     font-size: var(--ui-font, 14px);
-    font-family: inherit;
+    font-family: system-ui;
     vertical-align: middle;
 }
 
@@ -2959,7 +2959,7 @@ _::-moz-range-track {
 [is="ui-select"][multiple] > option {
     min-height: 38px;
     height: 38px;
-    padding: 0;
+    padding: 0 1px;
     font-size: inherit;
 }
 
@@ -2975,6 +2975,7 @@ select[multiple] > option:disabled {
     font-size: var(--ui-font, 14px);
     transition: opacity var(--ui-animate-time, .2s);
     text-align: start;
+    font-family: system-ui;
     position: relative;
 }
 
@@ -3115,6 +3116,10 @@ select[hidden] + .ui-select {
 .reverse > .ui-select-datalist {
     top: auto;
     bottom: 39px;
+}
+
+body > .ui-select-datalist {
+    font-family: system-ui;
 }
 
 .ui-select-intent {
