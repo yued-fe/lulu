@@ -4974,6 +4974,15 @@ class XRange extends HTMLInputElement {
         this.addEventListener('change', this.change);
         this.addEventListener('touchstart', this.stopPropagation);
 
+        // 如果所在表单触发的重置，则UI也跟着重置
+        if (this.form) {
+            this.form.addEventListener('reset', () => {
+                setTimeout(() => {
+                    this.render();
+                }, 1);
+            });
+        }
+
         this.element = this.element || {};
         // 区间选择
         if (this.multiple && !this.element.otherRange) {
@@ -5038,24 +5047,26 @@ class XRange extends HTMLInputElement {
     }
 
     change () {
-        if (!(this.element && this.element.otherRange)) {
+        // 另外一个range元素
+        const eleOtherRange = this.element && this.element.otherRange;
+        if (!eleOtherRange) {
             return;
         }
         // 保持html结构和视觉上一致，也就是初始值在前面，结束值在后面，如果不一致就调换位置，目的是为tab键切换正常
-        const isLeft = !this.isFrom && this.nextElementSibling === this.element.otherRange;
-        const isRight = this.isFrom && this.nextElementSibling !== this.element.otherRange;
-        const isTop = !this.isFrom && this.nextElementSibling !== this.element.otherRange;
-        const isBottom = this.isFrom && this.nextElementSibling === this.element.otherRange;
+        const isLeft = !this.isFrom && this.nextElementSibling === eleOtherRange;
+        const isRight = this.isFrom && this.nextElementSibling !== eleOtherRange;
+        const isTop = !this.isFrom && this.nextElementSibling !== eleOtherRange;
+        const isBottom = this.isFrom && this.nextElementSibling === eleOtherRange;
         if (isTop || isRight || isBottom || isLeft) {
             this.exchange = true;
             if (isTop || isRight) {
-                this.element.otherRange.before(this);
+                eleOtherRange.before(this);
                 this.setAttribute('data-range', 'from');
-                this.element.otherRange.setAttribute('data-range', 'to');
+                eleOtherRange.setAttribute('data-range', 'to');
             } else {
-                this.element.otherRange.after(this);
+                eleOtherRange.after(this);
                 this.setAttribute('data-range', 'to');
-                this.element.otherRange.setAttribute('data-range', 'from');
+                eleOtherRange.setAttribute('data-range', 'from');
             }
             this.exchange = false;
             this.focus();
@@ -5065,6 +5076,7 @@ class XRange extends HTMLInputElement {
     render () {
         const max = this.max || 100;
         const min = this.min || 0;
+
         this.style.setProperty('--percent', (this.value - min) / (max - min));
 
         if (typeof this.tips == 'string') {
@@ -5078,16 +5090,23 @@ class XRange extends HTMLInputElement {
         }
         this.style.setProperty('--from', this.from);
         this.style.setProperty('--to', this.to);
-        if (this.element && this.element.otherRange) {
-            this.element.otherRange.style.setProperty('--from', this.from);
-            this.element.otherRange.style.setProperty('--to', this.to);
+
+        // 另外一个range元素
+        const eleOtherRange = this.element && this.element.otherRange;
+
+        if (eleOtherRange) {
+            eleOtherRange.style.setProperty('--from', this.from);
+            eleOtherRange.style.setProperty('--to', this.to);
         }
     }
 
     addEventListener (...par) {
         document.addEventListener.apply(this, par);
-        if (this.element && this.element.otherRange) {
-            document.addEventListener.apply(this.element.otherRange, par);
+
+        // 另外一个range元素
+        const eleOtherRange = this.element && this.element.otherRange;
+        if (eleOtherRange) {
+            document.addEventListener.apply(eleOtherRange, par);
         }
     }
 }
