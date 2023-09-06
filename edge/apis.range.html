@@ -66,9 +66,9 @@ import('lu2/theme/edge/js/common/ui/Range.js');</pre>
             <p>想要使用 LuLu UI 的 Range 范围选择效果，仅需给 <code>type="range"</code> 区域选择框添加 <code>is="ui-range"</code> 即可。</p>
 
             <h4>无需初始化演示</h4>
-            <p>宽度：<input type="range" value="50" min="0" max="100" step="10" data-tips="${value}px" is="ui-range"></p>
+            <p>宽度：<input type="range" value="50" min="10" max="100" step="10" data-tips="${value}px" is="ui-range"></p>
             <p>HTML如下：</p>
-            <pre>&lt;input type="range" value="50" min="0" max="100" step="10" data-tips="${value}px" <mark>is="ui-range"</mark>&gt;</pre>
+            <pre>&lt;input type="range" value="50" min="10" max="100" step="10" data-tips="${value}px" <mark>is="ui-range"</mark>&gt;</pre>
             <p>range 选择的最大值和最小值由原生的 <code>min</code> 和 <code>max</code> 属性控制，每次选择的范围由 <code>step</code> 属性控制。</p>
             <p>三个属性都可以缺省，<code>min</code> 默认为 <code>0</code>，<code>max</code> 默认为 <code>100</code>，<code>step</code>默认是<code>1</code>。</p>
             <p><code>data-tips</code> 的值为移动滑杆按钮时候出现的黑色提示内容，<code>${value}</code> 是个动态数据，表示当前 <code>&lt;input&gt;</code> 元素实时 <code>value</code> 值。</p>
@@ -83,6 +83,15 @@ r0.addEventListener('input', function () {
     opacityImg.style.opacity = this.value / 100;
 });</pre>
             <p>符合 LuLu UI 的设计理念，UI视觉与业务逻辑相分离。</p>
+
+            <p><strong>表单reset事件测试</strong></p>
+            <form>
+                <input type="range" data-tips="${value}" value="95" is="ui-range" style="min-width: 300px;">
+                <p>拖移选择框，然后点击下面的重置按钮。</p>
+                <p>
+                    <button type="reset" data-type="primary" class="ui-button">重置</button>
+                </p>
+            </form>
 
             <h4>负数跨度测试</h4>
             <p>看看能不能准确从 <code>-10</code> 滑到 <code>10</code> 。</p>
@@ -214,8 +223,6 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
                     <p>字号大小：<input type="range" id="rf" min="12" max="20" value="16" data-tips="${value}px" is="ui-range"></p>
                     <input type="range" id="rs" is="ui-rate" max="5" value="3"></li>
             </ol>
-
-            
 
             <div class="contributors">
                 <svg><use xlink:href="#icon-persons"></use></svg> <h6 class="contributors-h">本页贡献者：</h6><p id="contributorsP" class="contributors-p">xboxyan, sunseekers</p>
