@@ -8629,6 +8629,14 @@ const DateTime = (() => {
                                 this[SELECTED][1] = arrToday[1];
                             }
 
+                            // 日是否匹配月的合法性判断
+                            var day = this[SELECTED][2];
+                            var arrMonthDay = this.getMonthDay(this[SELECTED]);
+                            // 如果日超出当月限制，使用本月最后一天作为日期
+                            if (day > arrMonthDay[this[SELECTED][1] - 1]) {
+                                this[SELECTED][2] = arrMonthDay[this[SELECTED][1] - 1];
+                            }
+
                             // 赋值
                             this.setValue();
 
