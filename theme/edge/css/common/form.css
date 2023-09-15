@@ -1608,7 +1608,7 @@ input.ui-input:disabled,
 }
 .ui-progress::-moz-progress-bar,
 [is="ui-progress"]::-moz-progress-bar {
-    background-color: var(--ui-blue);
+    background-color: var(--ui-blue, #2a80eb);
 }
 .ui-progress::-webkit-progress-bar,
 [is="ui-progress"]::-webkit-progress-bar {
@@ -1616,7 +1616,7 @@ input.ui-input:disabled,
 }
 .ui-progress::-webkit-progress-value,
 [is="ui-progress"]::-webkit-progress-value {
-    background-color: var(--ui-blue);
+    background-color: var(--ui-blue, #2a80eb);
 }
 
 progress[width="100%"] {
