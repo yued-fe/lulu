@@ -2671,7 +2671,7 @@ progress[width="100%"] {
     border-radius: 50%;
     background-color: #fff;
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
-    transition: border-color var(-ui-animate-time, .2s), background-color var(-ui-animate-time, .2s);
+    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
     margin-top: calc((var(--ui-range-thumb-size) - var(--ui-range-track-hegiht)) * -0.5);
 }
 [is="ui-range"]::-webkit-slider-thumb:active {
@@ -2726,7 +2726,7 @@ input[data-tips]::after {
     z-index: 1;
     transform: translate(-50%, -20px);
     opacity: 0;
-    transition: all .15s .15s,left 0s, top 0s;
+    transition: all .15s .15s, left 0s, top 0s;
     color: #373c42;
     visibility: hidden;
     pointer-events: none;

@@ -2112,23 +2112,17 @@ class Select extends HTMLSelectElement {
             enumerable: true,
             writeable: true,
             get: () => {
-                let valArr = [];
-                [].slice.call(this.options).forEach((option) => {
-                    if (option.selected) {
-                        valArr.push(option.value);
-                    }
-                });
-                return valArr.join();
+                return [...this.selectedOptions].map(option => option.value).join();
             },
             set: (value) => {
-                let isMatch = false;
-                value = this.multiple ? value.split(',') : [value.toString()];
-                [].slice.call(this.options).forEach((option) => {
+                [...this.options].some((option) => {
                     // 单选框模式下，如果多个值匹配，让第一个选中
                     // 如果没有下面这句，会最后一个匹配的选中
-                    if (!this.multiple && isMatch) return;
-                    if (value.indexOf(option.value) !== -1) {
-                        option.selected = isMatch = true;
+                    if (value.split(',').includes(option.value)) {
+                        option.selected = true;
+                        if (!this.multiple) {
+                            return true;
+                        }
                     } else if (this.multiple) {
                         option.selected = false;
                     }
