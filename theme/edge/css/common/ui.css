@@ -2998,6 +2998,9 @@ select[hidden] + .ui-select {
 
 .ui-select-button {
     display: block;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: stretch;
     height: 20px;
     padding: 9px 27px 9px 12px;
     color: var(--ui-dark, #4c5161);
@@ -3019,12 +3022,12 @@ select[hidden] + .ui-select {
     background-color: var(--ui-light, #f7f9fa);
 }
 
-.active > a.ui-select-button {
+.active > button.ui-select-button {
     border-color: var(--ui-blue, #2a80eb);
     border-radius: var(--ui-radius, 4px) var(--ui-radius, 4px) 0 0;
 }
 
-.reverse > a.ui-select-button {
+.reverse > button.ui-select-button {
     border-radius: 0 0 var(--ui-radius, 4px) var(--ui-radius, 4px);
 }
 
@@ -3034,6 +3037,7 @@ select[hidden] + .ui-select {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-align: start;
 }
 
 .ui-select-icon,
@@ -3070,6 +3074,7 @@ select[hidden] + .ui-select {
     -ms-scroll-chaining: none;
     scrollbar-width: thin;
     text-align: left;
+    margin: 0;
 }
 
 [multiple] ~ .ui-select > .ui-select-datalist {

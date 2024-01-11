@@ -1538,6 +1538,9 @@ window.Tab = Tab;
  * @edit: 2020-06-09
 **/
 
+// 是否支持popover
+const isSupportPopover = HTMLElement.prototype.hasOwnProperty("popover");
+
 class Select extends HTMLSelectElement {
 
     static get observedAttributes () {
@@ -1695,19 +1698,20 @@ class Select extends HTMLSelectElement {
 
         // 滚动宽度
         var isCustomScroll = /windows/i.test(navigator.userAgent);
+        // 是否使用 popover
+        var isPopover = !this.dataset.cssPosition && !this.hasAttribute('is-css-position') && isSupportPopover;
 
         // 直接插入对应的片段内容
         this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()}">
-           ${!this.multiple ? `<a
+           ${!this.multiple ? `<button
                 class="${BUTTON_CLASS}"
-                data-target="${strId}"
+                ${isPopover ? 'popovertarget' : 'data-target'}="${strId}"
                 aria-owns="${strId}"
                 aria-expanded="false"
                 style="display: ${this.multiple ? 'none' : 'block'}"
-                ${!this.disabled ? 'href="javascript:" ' : ''}
-                role="button"
-            /></a>` : '' }
-           <ui-select-list id="${strId}" role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></ui-select-list>
+                ${this.disabled ? 'disabled ' : ''}
+            /></button>` : '' }
+           <ui-select-list id="${strId}" ${isPopover ? 'popover' : ''} role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></ui-select-list>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;
@@ -1869,7 +1873,7 @@ class Select extends HTMLSelectElement {
         // 按钮的尺寸和位置
         let objBoundButton = eleButton.getBoundingClientRect();
         // body元素下的绝对定位场景才处理
-        if (!eleCombobox.contains(eleDatalist)) {
+        if (!eleCombobox.contains(eleDatalist) || eleButton.popoverTargetElement) {
             // 下拉列表的尺寸和位置设置
             eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
             eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
@@ -1910,7 +1914,7 @@ class Select extends HTMLSelectElement {
             // 显示
             if (eleCombobox.classList.contains('active')) {
                 // 避免overflow剪裁，所以设置在body元素下
-                if (this.dataset.cssPosition || this.hasAttribute('is-css-position')) {
+                if (this.dataset.cssPosition || this.hasAttribute('is-css-position') || isSupportPopover) {
                     eleCombobox.appendChild(eleDatalist);
                 } else {
                     document.body.appendChild(eleDatalist);
@@ -2001,7 +2005,7 @@ class Select extends HTMLSelectElement {
         }
 
         // 向上找到所有的可滚动元素
-        if (!this.dataset.cssPosition && !this.hasAttribute('is-css-position')) {
+        if (!this.dataset.cssPosition && !this.hasAttribute('is-css-position') && !isSupportPopover) {
             funWalk(eleButton.parentElement);
 
             // 滚动发生的时候，重定位
@@ -2150,11 +2154,7 @@ class Select extends HTMLSelectElement {
 
         if (name === 'disabled') {
             if (!eleButton) return;
-            if (this.disabled) {
-                eleButton.removeAttribute('href');
-            } else {
-                eleButton.setAttribute('href', 'javascript:');
-            }
+            eleButton.disabled = this.disabled;
         } else if (name === 'multiple') {
             if (this.element.combobox) {
                 this.element.combobox.remove();
