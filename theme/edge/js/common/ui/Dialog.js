@@ -66,7 +66,7 @@ const Dialog = (() => {
                 }
 
                 // 显示
-                dialog.show();
+                dialog.showModal();
             });
 
             // 插入的细节
@@ -437,7 +437,7 @@ const Dialog = (() => {
 
                         this.type = 'alert';
 
-                        this.show();
+                        this.showModal();
 
                         return this;
                     }
@@ -510,7 +510,7 @@ const Dialog = (() => {
 
                         this.type = 'confirm';
 
-                        this.show();
+                        this.showModal();
 
                         return this;
                     }
@@ -529,7 +529,7 @@ const Dialog = (() => {
                         // 显示loading样式
                         objElement.dialog.classList.add(CL.add('loading'));
 
-                        this.show();
+                        this.showModal();
 
                         return this;
                     }
@@ -637,42 +637,6 @@ const Dialog = (() => {
                             // 所有PC浏览器都滚动锁定
                             document.documentElement.style.overflow = 'hidden';
                             document.body.style.borderRight = widthScrollbar + 'px solid transparent';
-                        }
-
-                        return this;
-                    }
-                },
-
-                /**
-                 * 键盘访问与聚焦的细节设置
-                 * @returns    当前<dialog>元素
-                 */
-                tabindex: {
-                    value: function () {
-                        var eleDialog = this.element.dialog;
-                        var eleLastActiveElement = this.lastActiveElement;
-
-                        if (this.open == true) {
-                            var eleActiveElement = document.activeElement;
-                            if (this.type == 'alert' || this.type == 'confirm') {
-                                if (this.element.button0 != eleActiveElement) {
-                                    this.lastActiveElement = eleActiveElement;
-                                }
-                                this.element.button0.focus();
-                            } else if (eleDialog) {
-                                if (eleDialog != eleActiveElement) {
-                                    this.lastActiveElement = eleActiveElement;
-                                }
-                                // 键盘索引起始位置变为在弹框元素上
-                                eleDialog.focus();
-                            }
-                        } else if (eleLastActiveElement && eleLastActiveElement.tagName.toLowerCase() != 'body') {
-                            // 键盘焦点元素还原
-                            eleLastActiveElement.focus({
-                                preventScroll: true
-                            });
-                            eleLastActiveElement.blur();
-                            this.lastActiveElement = null;
                         }
 
                         return this;
@@ -794,10 +758,8 @@ const Dialog = (() => {
 
             // 弹框主要元素的创建
             // 1. 主体
-            const eleDialog = document.createElement('div');
+            const eleDialog = dialog;
             eleDialog.classList.add(CL);
-            // 使该元素也可以被focus
-            eleDialog.setAttribute('tabindex', '-1');
 
             // 2. 标题
             const eleTitle = document.createElement('h4');
@@ -834,20 +796,21 @@ const Dialog = (() => {
             });
 
             // 下面是主体元素的创建
-            // 如果默认弹框里面就有内容
-            // 则内容认为是主体内容，记录下来
-            let nodesOriginDialog = [...dialog.childNodes];
+            // 如果默认弹框里面就有文本节点或元素节点
+            let nodesOriginDialog = [...dialog.childNodes].filter(node => node.nodeType == 1 || node.nodeType == 3);
 
-            // 原始节点放在eleBody主体内容元素中
-            if (nodesOriginDialog.length) {
-                // 一次性 append
-                eleBody.append.apply(eleBody, nodesOriginDialog);
+            // 则不参与任何组装
+            if (!nodesOriginDialog.length) {
+                // 元素插入
+                // 组装
+                eleDialog.append(eleClose, eleTitle, eleBody, eleFooter);
+            } else {
+                eleDialog.prepend(eleClose);
+                if (eleTitle.innerHTML) {
+                    eleDialog.prepend(eleTitle);
+                }
             }
 
-            // 元素插入
-            // 组装
-            eleDialog.append(eleClose, eleTitle, eleBody, eleFooter);
-            dialog.append(eleDialog);
 
             // 参数处理，如果有
             const strParams = dialog.dataset.params || dialog.getAttribute('params');
@@ -855,6 +818,14 @@ const Dialog = (() => {
             if (strParams && /{/.test(strParams)) {
                 try {
                     const objParams = (new Function('return ' + strParams))();
+                    if (nodesOriginDialog.length) {
+                        if (objParams.buttons) {
+                            eleDialog.append(eleFooter);
+                        }
+                        if (objParams.title && !eleDialog.contains(eleTitle)) {
+                            eleDialog.prepend(eleTitle);
+                        }
+                    }
                     // 参数设置
                     dialog.setParams(objParams);
                 } catch (e) {
@@ -869,8 +840,6 @@ const Dialog = (() => {
                     if (mutation.type == 'attributes') {
                         // 滚动条状态变化
                         eleDialog.scrollbar();
-                        // 焦点变化
-                        eleDialog.tabindex();
                     }
                 });
             });
