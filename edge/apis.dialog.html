@@ -137,14 +137,18 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
     },
     buttons: [{}, {}]
 }">我是内容</dialog>
+            <p class="tips">之前<code>&lt;dialog&gt;</code>内置内容会自动放在<code>div.ui-dialog-body</code>元素中，不过这会影响Vue/React等框架的渲染，因此，再2024之后的版本，不会对<code>&lt;dialog&gt;</code>中的元素进行任何DOM层级这块的调整，大家需要需要合理的间距，可以自行在外面包裹<code>div.ui-dialog-body</code>元素。</p>
 
             <h3>弹框的显示、隐藏</h3>
             <p>弹框显示有3种方法，分别是：</p>
             <ol>
                 <li>dialog.open = true;</li>
                 <li>dialog.setAttribute('open', '');</li>
-                <li>dialog.show();  &nbsp;  <span class="green">// 推荐，自定义若干细节</span></li>
+                <li>dialog.show();</li>
+                <li>dialog.showModal(); <span class="green">// 推荐</span></li>
             </ol>
+            <p>其中showModal()方法是模态显示，层级顶级，覆盖元素无法被点击。如果希望其他的显示方法也采用模态显示，可以添加modal属性。</p>
+            <pre>&lt;dialog modal is="ui-dialog"&gt;&lt;/dialog&gt;</pre>
             <p>弹框隐藏有4种方法，分别是：</p>
             <ol>
                 <li>dialog.open = false;</li>
@@ -155,15 +159,18 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
 
             <h4>显示和隐藏测试</h4>
             <dialog id="dialogDisplay" is="ui-dialog">
-                <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').open = false">open=false隐藏</button></p>
-                <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').removeAttribute('open')">removeAttribute隐藏</button></p>
-                <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').close()">close()方法隐藏</button></p>
-                <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').hide()">hide()方法隐藏</button></p>
+                <div class="ui-dialog-body">
+                    <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').open = false">open=false隐藏</button></p>
+                    <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').removeAttribute('open')">removeAttribute隐藏</button></p>
+                    <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').close()">close()方法隐藏</button></p>
+                    <p><button class="ui-button" data-type="primary" onclick="this.closest('dialog').hide()">hide()方法隐藏</button></p>
+                </div>
             </dialog>
             <p>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.open = true;">open=true显示</button>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.setAttribute('open', '');">setAttribute显示</button>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.show();">show()方法显示</button>
+                <button class="ui-button" data-type="primary" onclick="dialogDisplay.showModal();">showModal()方法显示</button>
             </p>
             
             <h3>弹框的创建</h3>
