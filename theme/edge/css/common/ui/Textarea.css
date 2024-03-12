@@ -109,24 +109,10 @@ textarea ~ .ui-textarea-count {
     margin: 0 1px;
 }
 
-/* disabled */
-.ui-textarea:disabled,
-[is="ui-textarea"]:disabled,
-.ui-textarea > textarea:disabled,
-:disabled ~ .ui-textarea-count {
-    background-color: var(--ui-light, #f7f9fa);
-}
 .ui-textarea:read-only,
 [is="ui-textarea"]:read-only,
 .ui-textarea > textarea:read-only,
 :read-only ~ .ui-textarea-count {
-    background-color: var(--ui-white, #ffffff);
-}
-/* firefox */
-.ui-textarea:-moz-read-only,
-[is="ui-textarea"]:-moz-read-only,
-.ui-textarea > textarea:-moz-read-only,
-:-moz-read-only ~ .ui-textarea-count {
     background-color: var(--ui-white, #ffffff);
 }
 
@@ -147,14 +133,13 @@ textarea ~ .ui-textarea-count {
 :read-only ~ .ui-textarea-count:focus  {
     border-color: var(--ui-border, #d0d0d5);
 }
-/* firefox */
-.ui-textarea:-moz-read-only:hover,
-.ui-textarea:-moz-read-only:focus,
-[is="ui-textarea"]:-moz-read-only:hover,
-[is="ui-textarea"]:-moz-read-only:focus,
-.ui-textarea > textarea:-moz-read-only:hover,
-.ui-textarea > textarea:-moz-read-only:focus   {
-    border-color: var(--ui-border, #d0d0d5);
+
+/* disabled */
+.ui-textarea:disabled,
+[is="ui-textarea"]:disabled,
+.ui-textarea > textarea:disabled,
+:disabled ~ .ui-textarea-count {
+    background-color: var(--ui-light, #f7f9fa);
 }
 
 textarea:read-only,
@@ -162,10 +147,6 @@ textarea:disabled {
     resize: none;
 }
 
-/* firefox */
-textarea:-moz-read-only {
-    resize: none;
-}
 /* error */
 .ui-textarea[is-error],
 [is="ui-textarea"][is-error],

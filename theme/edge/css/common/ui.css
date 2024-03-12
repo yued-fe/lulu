@@ -66,10 +66,12 @@
 
 .ui-button,
 [is="ui-button"] {
-    display: inline-block;
+    display: inline-flex;
     line-height: var(--ui-button-line-height);
     font-size: var(--ui-font, 14px);
     text-align: center;
+    justify-content: center;
+    align-items: center;
     color: var(--ui-white, #fff);
     border-radius: var(--ui-radius, 4px);
     border: 1px solid var(--ui-button-color);
@@ -125,13 +127,11 @@ div[is="ui-button"] {
     color: var(--ui-white, #fff);
     text-decoration: none;
 }
-.ui-button:not(.disabled):not(.loading):not(:disabled):hover,
-[is="ui-button"]:not(.disabled):not(.loading):not(:disabled):hover  {
-    filter: brightness(1.05);
+:is(.ui-button, [is="ui-button"]):where(:not(.disabled, .loading, :disabled)):hover {
+    filter: brightness(var(--ui-brightness, 1.1));
 }
 
-.ui-button:not(.disabled):not(.loading):active,
-[is="ui-button"]:not(.disabled):not(.loading):active {
+:is(.ui-button, [is="ui-button"]):where(:not(.disabled, .loading, :disabled)):active {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
         inset 0 0 0 100px rgba(0, 0, 0, 0.1);
 }
@@ -1919,10 +1919,6 @@ input:read-only {
     cursor: default;
 }
 
-/* firefox */
-input:-moz-read-only {
-    cursor: default;
-}
 input.ui-input,
 .ui-input > input,
 [is="ui-input"] {
@@ -3585,24 +3581,10 @@ textarea ~ .ui-textarea-count {
     margin: 0 1px;
 }
 
-/* disabled */
-.ui-textarea:disabled,
-[is="ui-textarea"]:disabled,
-.ui-textarea > textarea:disabled,
-:disabled ~ .ui-textarea-count {
-    background-color: var(--ui-light, #f7f9fa);
-}
 .ui-textarea:read-only,
 [is="ui-textarea"]:read-only,
 .ui-textarea > textarea:read-only,
 :read-only ~ .ui-textarea-count {
-    background-color: var(--ui-white, #ffffff);
-}
-/* firefox */
-.ui-textarea:-moz-read-only,
-[is="ui-textarea"]:-moz-read-only,
-.ui-textarea > textarea:-moz-read-only,
-:-moz-read-only ~ .ui-textarea-count {
     background-color: var(--ui-white, #ffffff);
 }
 
@@ -3623,14 +3605,13 @@ textarea ~ .ui-textarea-count {
 :read-only ~ .ui-textarea-count:focus  {
     border-color: var(--ui-border, #d0d0d5);
 }
-/* firefox */
-.ui-textarea:-moz-read-only:hover,
-.ui-textarea:-moz-read-only:focus,
-[is="ui-textarea"]:-moz-read-only:hover,
-[is="ui-textarea"]:-moz-read-only:focus,
-.ui-textarea > textarea:-moz-read-only:hover,
-.ui-textarea > textarea:-moz-read-only:focus   {
-    border-color: var(--ui-border, #d0d0d5);
+
+/* disabled */
+.ui-textarea:disabled,
+[is="ui-textarea"]:disabled,
+.ui-textarea > textarea:disabled,
+:disabled ~ .ui-textarea-count {
+    background-color: var(--ui-light, #f7f9fa);
 }
 
 textarea:read-only,
@@ -3638,10 +3619,6 @@ textarea:disabled {
     resize: none;
 }
 
-/* firefox */
-textarea:-moz-read-only {
-    resize: none;
-}
 /* error */
 .ui-textarea[is-error],
 [is="ui-textarea"][is-error],

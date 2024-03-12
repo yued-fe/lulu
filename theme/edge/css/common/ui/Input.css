@@ -52,10 +52,6 @@ input:read-only {
     cursor: default;
 }
 
-/* firefox */
-input:-moz-read-only {
-    cursor: default;
-}
 input.ui-input,
 .ui-input > input,
 [is="ui-input"] {
