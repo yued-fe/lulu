@@ -172,6 +172,7 @@ class Select extends HTMLSelectElement {
         // 直接插入对应的片段内容
         this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()}">
            ${!this.multiple ? `<button
+                type="button"
                 class="${BUTTON_CLASS}"
                 ${isPopover ? 'popovertarget' : 'data-target'}="${strId}"
                 aria-owns="${strId}"
@@ -357,7 +358,7 @@ class Select extends HTMLSelectElement {
         var isOverflow = objBoundDatalist.bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
         eleCombobox.classList[isOverflow ? 'add' : 'remove']('reverse');
 
-        if (isOverflow) {
+        if (isOverflow && !this.dataset.cssPosition && !this.hasAttribute('is-css-position')) {
             eleDatalist.style.top = (objBoundButton.top + document.scrollingElement.scrollTop - objBoundDatalist.height + 1) + 'px';
         }
     }
