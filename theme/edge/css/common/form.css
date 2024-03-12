@@ -2518,6 +2518,7 @@ textarea ~ .ui-textarea-count {
 .ui-textarea > textarea:disabled,
 :disabled ~ .ui-textarea-count {
     background-color: var(--ui-light, #f7f9fa);
+    color: var(--ui-gray, #a2a9b6);
 }
 
 textarea:read-only,
