@@ -693,7 +693,7 @@ if (/mac/i.test(navigator.platform || navigator.userAgent)) {
 });</pre>
             <h4>4. &lt;datalist&gt;元素实现下拉列表</h4>
             <p>可以指向一个<code>&lt;datalist&gt;</code>元素实现。代码示意：</p>
-            <pre>&lt;ui-drop class="ui-button" data-type="primary" target="t6"&gt;点击我-空option&lt;/ui-drop&gt;
+            <pre>&lt;ui-drop class="ui-button" data-type="primary" position="5-7" target="t6"&gt;点击我-空option&lt;/ui-drop&gt;
 &lt;datalist id="t6"&gt;
     &lt;option value="1"&gt;列表1&lt;/option&gt;
     &lt;option value="2"&gt;列表2&lt;/option&gt;
@@ -703,7 +703,7 @@ if (/mac/i.test(navigator.platform || navigator.userAgent)) {
     &lt;option value="4"&gt;其他2&lt;/option&gt;
     &lt;option value="5"&gt;&lt;mark&gt;标记&lt;/mark&gt;&lt;/option&gt;
 &lt;/datalist&gt;</pre>
-            <p>实时效果：<ui-drop class="ui-button" data-type="primary" target="t6">点击我-空option</ui-drop></p>
+            <p>实时效果：<ui-drop class="ui-button" data-type="primary" position="5-7" target="t6">点击我-空option</ui-drop></p>
             <datalist id="t6">
                 <option value="1">列表1</option>
                 <option value="2">列表2</option>
@@ -985,7 +985,21 @@ new Drop(eleDropPanel).panel({
             <pre>dg.addEventListener('ensure', function (event) {
     console.log('点击了删除按钮');
     event.detail.drop.hide();
-});</pre>
+});</pre>   
+            <p>Vue使用示意（假设item是某循环的对象数据）：</p>
+            <pre>&lt;button
+  type="button"
+  data-type="danger" 
+  class="ui-button"
+  :is-drop="'dg' + item.id"
+&gt;
+  &lt;i class="icon-delete"&gt;&lt;/i&gt;删除
+&lt;/button&gt;
+&lt;dialog 
+  :id="'dg' + item.id"
+  data-buttons="删除"
+  @ensure="doDelete(item, $event)"
+&gt;确定删除此目标？&lt;/dialog&gt;</pre>
             <h3>Panel方法语法和参数</h3>
             <p>语法如下：</p>
             <pre>let eleDrop = new Drop(trigger).panel(options);</pre>

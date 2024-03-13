@@ -302,7 +302,23 @@ const eleTips = new Tips(trigger, content, options);</pre>
     var errorSpan = document.getElementById('error-span')
     errorSpan.errorTip('这里出现了错误');
 });</pre>
-            <p></p>
+            
+            <h4>出错提示内滚动定位跟随</h4>
+            <div id="errorScroller" style="height: 240px; overflow: auto; border: 1px solid var(--ui-border)">
+                <div style="height: 500px; padding: 20px;">
+                    <input id="i4" class="ui-input" size="10" required data-scroller="#errorScroller">
+                    <button id="b4" class="ui-button" onclick="i4.errorTip('出错提示')"
+                        data-type="primary">出错提示内滚动定位跟随</button>
+                </div>
+            </div>
+
+            <pre>&lt;div id="errorScroller" style="height: 240px; overflow: auto; border: 1px solid var(--ui-border)"&gt;
+    &lt;div style="height: 500px; padding: 20px;"&gt;
+        &lt;input id="i4" data-scroller="#errorScroller"&gt;
+        &lt;button id="b4" onclick="i4.errorTip('出错提示')"&gt;出错提示内滚动定位跟随&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
             <h3>红色提示语法和参数</h3>
             <p>语法如下：</p>
             <pre>var myErrorTip = new ErrorTip(element, content, options);</pre>
@@ -328,7 +344,15 @@ const eleTips = new Tips(trigger, content, options);</pre>
                     <td>unique</td>
                     <td>Boolean</td>
                     <td>true</td>
-                    <td>是否页面是只会出现一个错误提示，默认是<code>true</code>, 永远只会有一个。此参数实际开发很少用到。</p>
+                    <td>是否页面是只会出现一个错误提示，默认是<code>true</code>, 永远只会有一个。此参数实际开发很少用到。
+                    </td>
+                </tr>
+                <tr>
+                    <td>scroller</td>
+                    <td>Element</td>
+                    <td>null</td>
+                    <td>定位元素所在的滚动容器元素，如果是页面滚动，此参数忽略，如果设置了这个参数，那么提示元素会在这个元素内滚动定位跟随。
+                        <p>此参数也可以通过<code>trigger</code>的<code>data-scroller</code>属性进行设置，值为滚动容器的选择器即可。</p>
                     </td>
                 </tr>
                 <tr>
