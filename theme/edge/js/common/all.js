@@ -3642,9 +3642,7 @@ class Drop extends HTMLElement {
             // 按钮类名
             eleBtn.className = String(CL).replace('dropanel', 'button') + ' ' + CL.add('button') + ' ' + (objBtn.className || '');
             // 按钮的类型
-            if (strType) {
-                eleBtn.setAttribute('data-type', strType);
-            }
+            eleBtn.setAttribute('data-type', strType || 'normal');
             this.element['button' + numIndex] = eleBtn;
 
             for (let strEventType in objEvents) {
@@ -4521,6 +4519,7 @@ class ErrorTip {
     constructor (element, content, options) {
         const defaults = {
             unique: true,
+            scroller: null,
             onShow: () => {},
             onHide: () => {}
         };
@@ -4541,6 +4540,16 @@ class ErrorTip {
         if (typeof strContent != 'string') {
             return this;
         }
+
+        this.callback = {
+            show: objParams.onShow,
+            hide: objParams.onHide
+        };
+
+        this.params = {
+            unique: objParams.unique,
+            scroller: objParams.scroller
+        };
 
         // 一些元素
         const eleTrigger = element;
@@ -4575,7 +4584,7 @@ class ErrorTip {
         } else if (objParams.unique == false && eleTrigger.data && eleTrigger.data.errorTip) {
             eleTips = eleTrigger.data.errorTip.element.tips;
         } else {
-            eleTips = this.create();
+            eleTips = this.create(eleTrigger);
         }
 
         // 如果是唯一模式，全局存储
@@ -4586,17 +4595,27 @@ class ErrorTip {
         // 更新提示元素对应的触发元素
         eleTips.trigger = eleTrigger;
 
+        // 滚动重定位，需要是非页面滚动容器
+        let scroller = this.params.scroller;
+        if (!scroller && eleTrigger) {
+            const selector = eleTrigger.dataset.scroller;
+            if (selector) {
+                scroller = eleTrigger.closest(selector) || eleTrigger.closest('#' + selector);
+            }
+        }
+
+        if (scroller && scroller != document.scrollingElement && !eleTrigger.errorTipScroller) {
+            scroller.addEventListener('scroll', () => {
+                if (this.display) {
+                    this.position();
+                }
+            });
+            eleTrigger.errorTipScroller = scroller;
+        }
+
         this.element = {
             trigger: eleTrigger,
             tips: eleTips
-        };
-        this.callback = {
-            show: objParams.onShow,
-            hide: objParams.onHide
-        };
-
-        this.params = {
-            unique: objParams.unique
         };
 
         // 暴露在外
@@ -4617,7 +4636,7 @@ class ErrorTip {
      */
     create () {
         // 首次
-        let eleTips = document.createElement('div');
+        const eleTips = document.createElement('div');
         eleTips.className = 'ui-tips-x ui-tips-error';
         document.body.appendChild(eleTips);
 
@@ -4667,6 +4686,25 @@ class ErrorTip {
     }
 
     /**
+     * 定位方法
+     */
+
+    position () {
+        const objElement = this.element;
+        // 触发元素和提示元素
+        const eleTips = objElement.tips;
+        const eleTrigger = objElement.trigger;
+
+        // 定位
+        eleTrigger.follow(eleTips, {
+            // trigger-target
+            position: '5-7',
+            // 边界溢出不自动修正
+            edgeAdjust: false
+        });
+    }
+
+    /**
      * 错误tips提示显示方法
      */
     show () {
@@ -4681,13 +4719,7 @@ class ErrorTip {
         // 提示元素显示
         eleTips.style.display = '';
 
-        // 定位
-        eleTrigger.follow(eleTips, {
-            // trigger-target
-            position: '5-7',
-            // 边界溢出不自动修正
-            edgeAdjust: false
-        });
+        this.position();
 
         // aria无障碍访问增强
         eleTrigger.setAttribute('aria-label', '错误提示：' + this.content);
@@ -4753,7 +4785,7 @@ window.ErrorTip = ErrorTip;
 /**
  * 给任意 dom 注入 errorTip 方法
  * @param content String
- * @param options { unique, onShow, onHide }
+ * @param options {Object}
  */
 HTMLElement.prototype.errorTip = function (content, options = {}) {
     new ErrorTip(this, content, options);

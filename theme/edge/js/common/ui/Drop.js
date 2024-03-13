@@ -1395,9 +1395,7 @@ class Drop extends HTMLElement {
             // 按钮类名
             eleBtn.className = String(CL).replace('dropanel', 'button') + ' ' + CL.add('button') + ' ' + (objBtn.className || '');
             // 按钮的类型
-            if (strType) {
-                eleBtn.setAttribute('data-type', strType);
-            }
+            eleBtn.setAttribute('data-type', strType || 'normal');
             this.element['button' + numIndex] = eleBtn;
 
             for (let strEventType in objEvents) {
