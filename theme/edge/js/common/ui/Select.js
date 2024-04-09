@@ -237,6 +237,7 @@ class Select extends HTMLSelectElement {
             const strHtmlSelected = eleSelect[eleSelect.selectedIndex].innerHTML;
             // 按钮赋值
             eleButton.innerHTML = `<span class="${Select.addClass('text')}">${strHtmlSelected}</span><i class="${Select.addClass('icon')}" aria-hidden="true"></i>`;
+            eleButton.dataset.value = eleSelect[eleSelect.selectedIndex].value;
         }
         // 列表内容的刷新
         let index = -1;
