@@ -6,6 +6,7 @@
  * @edited  19-11-01
  * @edited  20-06-26 @ziven27
  * @edited  20-12-01 by zhangxinxu method extends from <dialog>
+ * @edited  24-04-15 by zhangxinxu support modal dialog
  */
 
 const Dialog = (() => {
@@ -66,7 +67,11 @@ const Dialog = (() => {
                 }
 
                 // 显示
-                dialog.showModal();
+                if (dialog.hasAttribute('modal')) {
+                    dialog.showModal();
+                } else {
+                    dialog.show();
+                }
             });
 
             // 插入的细节
@@ -91,7 +96,7 @@ const Dialog = (() => {
 
     // 对不支持<dialog>元素的浏览器进行polyfill
     // 仅polyfill部分主要功能
-    let DialogPolyfill = function (dialog) {
+    const DialogPolyfill = function (dialog) {
         this.element = {
             dialog: dialog
         };
@@ -176,7 +181,7 @@ const Dialog = (() => {
     };
 
     // 对弹框元素进行方法注册
-    let funDialogRegist = function (dialog) {
+    const funDialogRegist = function (dialog) {
         if (dialog.hide && dialog.button) {
             // 已经注册过
             return;
@@ -190,6 +195,15 @@ const Dialog = (() => {
         // 新增hide, alert, confirm等方法
         if (dialog.getAttribute('is') == 'ui-dialog') {
             Object.defineProperties(dialog, {
+                // 劫持原生的open属性
+                open: {
+                    get () {
+                        return this.hasAttribute('open');
+                    },
+                    set (value) {
+                        this.toggleAttribute('open', value);
+                    }
+                },
                 setParams: {
                     value: function (options) {
                         Object.assign(this.params, options || {});
@@ -630,7 +644,7 @@ const Dialog = (() => {
                         document.documentElement.style.overflow = '';
                         document.body.style.borderRight = '';
 
-                        let widthScrollbar = window.innerWidth - document.documentElement.clientWidth;
+                        const widthScrollbar = window.innerWidth - document.documentElement.clientWidth;
 
                         // 因为去掉了滚动条，所以宽度需要偏移，保证页面内容没有晃动
                         if (isDisplayed) {
@@ -649,13 +663,15 @@ const Dialog = (() => {
                  */
                 show: {
                     value: function () {
-                        if (this.open !== true) {
+                        if (!this.open) {
                             this.classList.add(CL.add('animation'));
+
+                            if (typeof HTMLDialogElement == 'function') {
+                                HTMLDialogElement.prototype.show.call(this);
+                            }
                         }
 
-                        // 弹框显示
-                        this.open = true;
-
+                        
                         if (!this.zIndex) {
                             this.zIndex = DialogPolyfill.prototype.zIndex.bind(this);
                         }
@@ -713,6 +729,41 @@ const Dialog = (() => {
                     }
                 }
             });
+
+            // 重置 removeAttribute、setAttribute 和 toggleAttribute 方法
+            // 如果是 open 属性，不允许直接设置
+            dialog.removeAttribute = function (name) {
+                if (name == 'open') {
+                    dialog.hide();
+                    return;
+                }
+                HTMLElement.prototype.removeAttribute.call(this, name);
+            };
+            dialog.setAttribute = function (name, value) {
+                if (name == 'open') {
+                    dialog.toggleAttribute('open', true);
+                    return;
+                }
+                HTMLElement.prototype.setAttribute.call(this, name, value);
+            }
+            dialog.toggleAttribute = function (name, force) {
+                if (name == 'open') {
+                    const value = force !== undefined ? force : !dialog.open;
+                    // 有open属性，显示
+                    if (value) {
+                        if (this.hasAttribute('modal')) {
+                            this.showModal();
+                        } else {
+                            this.show();
+                        }
+                    } else {
+                        this.hide();
+                    }
+
+                    return;
+                }
+                HTMLElement.prototype.toggleAttribute.call(this, name, force);
+            }
 
             // 暴露的参数
             // 并观察参数变化
@@ -834,7 +885,7 @@ const Dialog = (() => {
             } 
 
             // 观察open属性变化
-            var moDialogOpen = new MutationObserver(function (mutationsList) {
+            const moDialogOpen = new MutationObserver(function (mutationsList) {
                 mutationsList.forEach(mutation => {
                     let eleDialog = mutation.target;
                     if (mutation.type == 'attributes') {
@@ -868,7 +919,7 @@ const Dialog = (() => {
     };
 
     // 弹框观察并注册
-    let funDialogInitAndWatching = function () {
+    const funDialogInitAndWatching = function () {
         const elesDialog = document.querySelectorAll('dialog');
         elesDialog.forEach(item => {
             funDialogRegist(item);
