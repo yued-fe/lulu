@@ -128,7 +128,7 @@ ele.open = true;</pre>
 
             <p>但是上面2种动态创建的方法还是有些啰嗦，因此，本组件还提供了显示轻提示的快捷语法。</p>
 
-            <h3>LightTip快捷语法</h3>
+            <h3>LightTip构造语法</h3>
 
             <p>本组件会在全局暴露一个名为LightTip的类，可以用来生成轻提示效果，语法非常灵活，例如：</p>
             <pre>new LightTip('成功提示', 'success');
@@ -146,7 +146,6 @@ new LightTip('loading提示', 'loading');</pre>
 
             <p class="tips">推荐使用 document.loading = true / false 语法控制全局loading效果，详见“<a href="apis.loading.html">Loading效果</a>”。</p>
 
-            <h3>语法和参数</h3>
             <h4>语法</h4>
             <pre>new LightTip(content, options);
 new LightTip(content, time?, type?);</pre>
@@ -181,11 +180,11 @@ new LightTip(content, time?, type?);</pre>
 
             <h3>LightTip静态方法</h3>
             <p>LightTip类上还有几个静态方法，方便开发者快捷使用，使用示意如下：</p>
-            <pre>import lightTip from './LightTip.js';
-lightTip.success('成功');
-lightTip.error('失败');
-lightTip.loading('正在加载中...');
-lightTip.custom('自定义', {
+            <pre>import message from './LightTip.js';
+message.success('成功');
+message.error('失败');
+message.loading('正在加载中...');
+message.custom('自定义', {
     type: 'warning'
 });</pre>
             
@@ -197,16 +196,35 @@ lightTip.custom('自定义', {
             </p>
 
             <h4>静态方法语法</h4>
-            <pre>lightTip.success(content, time);
-lightTip.error(content, time);
-lightTip.loading(content);</pre>
-            <pre>lightTip.custom(content, {
+            <pre>message.success(content, time);
+message.error(content, time);
+message.loading(content);</pre>
+            <pre>message.custom(content, {
     type: 'warning',
     time: 4000
 });
 <span class="green">// 或</span>
-lightTip.custom(content, type, time);
+message.custom(content, type, time);
 </pre>
+
+            <h3>顶层显示</h3>
+            <p>模态对话框显示的时候显示轻提示会被覆盖，因为模态对话框的层级顶层，此时，可以将请提示元素append到对话框元素中，使用示意：</p>
+            <pre>&lt;dialog id="modal" is="ui-dialog"&gt;
+    &lt;button id="b7" class="ui-button" type="primary"&gt;显示轻提示&lt;/button&gt;
+&lt;/dialog&gt;</pre>
+<pre>b7.addEventListener('click', function () {
+    modal.append(message.success('操作成功'));
+});</pre>
+
+            <dialog id="modal" is="ui-dialog">
+                <p align="center">
+                    <button id="b7" class="ui-button" data-type="primary">显示轻提示</button>
+                </p>
+            </dialog>
+            <p>
+                <button class="ui-button" onclick="modal.showModal();">显示模态对话框</button>
+            </p>
+
             <div class="contributors">
                 <svg>
                     <use xlink:href="#icon-persons"></use>
@@ -318,6 +336,7 @@ lightTip.custom(content, type, time);
 </body>
 </html>
 <script type="module">
+    import 'https://unpkg.com/lu2/theme/edge/js/common/ui/Dialog.js';
     import lightTip from 'https://unpkg.com/lu2/theme/edge/js/common/ui/LightTip.js';
 
     b1.addEventListener('click', function () {
@@ -367,5 +386,9 @@ lightTip.custom(content, type, time);
     });
     b6.addEventListener('click', function () {
         lightTip.loading('正在加载中...');
+    });
+
+    b7.addEventListener('click', function () {
+        modal.append(lightTip.success('操作成功'));
     });
 </script>

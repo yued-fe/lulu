@@ -149,6 +149,13 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
             </ol>
             <p>其中showModal()方法是模态显示，层级顶级，覆盖元素无法被点击。如果希望其他的显示方法也采用模态显示，可以添加modal属性。</p>
             <pre>&lt;dialog modal is="ui-dialog"&gt;&lt;/dialog&gt;</pre>
+            <dialog id="modal" modal is="ui-dialog">
+                <p>&emsp;&emsp;模态对话框吗？</p>
+            </dialog>
+            <p>例如，点击下面按钮，设置某<code>&lt;dialog&gt;</code>元素的open为true，看看是不是模态对话框？</p>
+            <p>
+                <button class="ui-button" onclick="modal.open = true;">modal属性测试</button>
+            </p>
             <p>弹框隐藏有4种方法，分别是：</p>
             <ol>
                 <li>dialog.open = false;</li>

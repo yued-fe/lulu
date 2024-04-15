@@ -56,14 +56,14 @@
             <p>使用 import 语法：</p>
             <pre>import 'lu2/theme/edge/css/common/ui/Drop.css';</pre>
             <h5>CSS完整引入<sup class="red">推荐</sup></h5>
-            <p>LuLu UI 内置两个合集CSS，一个是 form.css，包含所有表单控件样式，适合用在演示页面中。</p>
-            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/form.css"&gt;</pre>
-            <p>或者：</p>
-            <pre>import 'lu2/theme/edge/css/common/form.css';</pre>
-            <p>还有一个是 ui.css，包含所有组件样式，推荐用在正式项目中。</p>
+            <p>对于CSS资源，推荐在公共入口处一次性完整引入。</p>
             <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/ui.css"&gt;</pre>
             <p>或者：</p>
             <pre>import 'lu2/theme/edge/css/common/ui.css';</pre>
+            <p>LuLu UI 还提供了一个名为 form.css 的样式合集，包含所有表单控件样式，适合用在演示页面中。</p>
+            <pre>&lt;link rel="stylesheet" href="https://unpkg.com/lu2/theme/edge/css/common/form.css"&gt;</pre>
+            <p>或者：</p>
+            <pre>import 'lu2/theme/edge/css/common/form.css';</pre>
             <h5>JS独立引入</h5>
             <p>独立引入适用于轻量级的小页面，或者只想使用某一组件场景。使用示意：</p>
             <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"&gt;&lt;/script&gt;</pre>
@@ -85,7 +85,7 @@
             </ul>
 
             <h5>兼容 Safari 浏览器</h5>
-            <p>由于 Safari 浏览器目前还不支持内置自定义元素，因此，对于部分 UI 组件，如果需要兼容 Safari 浏览器，还需要引入下面这段 JS：</p>
+            <p>由于 Safari 浏览器目前还不支持内置自定义元素，因此，对于部分 UI 组件，如果需要兼容 Safari 浏览器，还需要引入下面这段 JS，建议在全局入口处引用：</p>
             <pre>&lt;script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/safari-polyfill.js"&gt;&lt;/script&gt;</pre>
 
             <h4>资源概览</h4>
