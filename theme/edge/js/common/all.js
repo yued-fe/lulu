@@ -7608,6 +7608,8 @@ const Datalist = (() => {
                 if (this.display == false) {
                     this.show();
                 }
+                // 重定位
+                this.position();
             } else if (this.display == true) {
                 this.hide();
             }
@@ -13145,7 +13147,7 @@ class Pagination extends HTMLElement {
     }
 
     connectedCallback () {
-        if (!this.isConnectedCallback) {
+        if (this.isConnectedCallback) {
             return this;
         }
         this.page = this.shadowRoot.getElementById('page');

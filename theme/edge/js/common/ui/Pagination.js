@@ -417,7 +417,7 @@ class Pagination extends HTMLElement {
     }
 
     connectedCallback () {
-        if (!this.isConnectedCallback) {
+        if (this.isConnectedCallback) {
             return this;
         }
         this.page = this.shadowRoot.getElementById('page');

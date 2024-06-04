@@ -486,6 +486,8 @@ const Datalist = (() => {
                 if (this.display == false) {
                     this.show();
                 }
+                // 重定位
+                this.position();
             } else if (this.display == true) {
                 this.hide();
             }
