@@ -42,6 +42,9 @@
     box-shadow: none;
     padding: 0;
 }
+#s4 {
+    width: 240px;
+}
 </style>
 
 <div class="main">
@@ -407,13 +410,50 @@ s2.params.data = {
 }</pre>
             <p>此时，同样在<code>filter</code>方法中进行处理，返回Datalist需要的数组格式就可以了：</p>
             <pre>input.params.filter = function (data) {
-        return data.data.map(function (obj) {
-            return {
-                value: obj.content
-            }
+    return data.data.map(function (obj) {
+        return {
+            value: obj.content
+        }
+    });
+}</pre>
+
+            <h4>3. 基于&lt;datalist&gt;的autocomplate</h4>
+            <p>此实现适用于Vue等数据驱动的开发场景，纯HTML驱动，<code>&lt;datalist&gt;</code>内容是什么，列表显示就是什么，且实时变化更新。</p>
+            <p>使用方法，输入框元素设置<code>filter="none"</code>，<code>&lt;datalist&gt;</code>列表基于数据实时更新即可。</p>
+            <p>演示案例：</p>
+            <input id="s4" class="ui-input" type="search" list="l3" filter="none" placeholder="任意输入" is="ui-datalist">
+            <input type="hidden" id="userid" name="userid" required>
+            <datalist id="l3"></datalist>
+            <p>相关代码：</p>
+            <pre>&lt;input id="s4" class="ui-input" type="search" list="l3" filter="none" placeholder="任意输入" is="ui-datalist"&gt;
+&lt;input type="hidden" id="userid" name="userid" required&gt;
+&lt;datalist id="l3"&gt;&lt;/datalist&gt;</pre>
+            <pre>// 基于datalist的autocomplete
+s4.addEventListener('input', function (event) {
+    if (!event.isTrusted) {
+        return;
+    }
+    const value = this.value;
+    fetch('/search?key=' + encodeURIComponent(value)).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        l3.innerHTML = '';
+
+        json.data.forEach(function (item) {
+            var eleOption = document.createElement('option');
+            eleOption.setAttribute('value', item.value);
+            eleOption.dataset.id = item.id;
+            l3.appendChild(eleOption);
         });
+    });
+});
+
+s4.addEventListener('change', function (event) {
+    if (event.detail?.id) {
+        userid.value = event.detail.id;
     }
 });</pre>
+
 
             <h3>自动补全功能</h3>
             <p>例如下面的邮箱自动补全功能：</p>
@@ -890,6 +930,35 @@ s2.addEventListener('DOMContentLoaded', function () {
         success() {
             console.log('success callback successed!');
         }
+    }
+});
+
+// 基于datalist的autocomplete
+s4.addEventListener('input', function (event) {
+    if (!event.isTrusted) {
+        return;
+    }
+    const value = this.value;
+    fetch('https://www.zhangxinxu.com/sp/lulu/mockup/common/cgi/search.php?key=' + encodeURIComponent(value)).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        const eleList = document.querySelector('#l3');
+        eleList.innerHTML = '';
+
+        if (json.data?.length) {
+            json.data.forEach(function (item) {
+                var eleOption = document.createElement('option');
+                eleOption.setAttribute('value', item.value);
+                eleOption.dataset.id = item.id;
+                eleList.appendChild(eleOption);
+            });
+        }
+    });
+});
+
+s4.addEventListener('change', function (event) {
+    if (event.detail?.id) {
+        userid.value = event.detail.id;
     }
 });
 
