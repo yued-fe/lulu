@@ -7276,9 +7276,21 @@ const Datalist = (() => {
                             }
                             objAttr.label = objAttr.label || '';
 
+                            // 将dataset值也合并到对象中
+                            let objDataset = eleOption.dataset;
+                            for (let strKey in objDataset) {
+                                if (strKey != 'value' && strKey != 'label') {
+                                    objAttr[strKey] = objDataset[strKey];
+                                } else {
+                                    objAttr[strKey + '2'] = objDataset[strKey];
+                                }
+                                
+                            }
+
                             return objAttr;
                         });
                     };
+                    this.element.datalist = eleDatalist;
                 } else if (this.name && (this.autocomplete === '' || this.autocomplete == 'on')) {
                     this.params.twice = true;
                     // autocomplete交互占位符不参与
@@ -8104,6 +8116,10 @@ const Datalist = (() => {
 
         // 元素进入页面时候的生命周期函数执行
         connectedCallback () {
+            // 避免重复初始化
+            if (this.isConnectedCallback) {
+                return;
+            }
             this.params = Object.assign(this.params, {
                 filter (data, value) {
                     // this是当前输入框元素
@@ -8111,6 +8127,12 @@ const Datalist = (() => {
 
                     if (!data || !data.forEach) {
                         return arr;
+                    }
+
+                    // 如果设置了filter="none"
+                    // 直接返回原始data
+                    if (this.getAttribute('filter') == 'none') {
+                        return data;
                     }
 
                     // 默认是从头到尾完全字符匹配
@@ -8160,6 +8182,20 @@ const Datalist = (() => {
             }));
 
             this.isConnectedCallback = true;
+
+            // 观察<datalist>元素的变化，实时更新
+            setTimeout(() => {
+                if (this.element.datalist) {
+                    new MutationObserver(() => {
+                        if (this.display == true) {
+                            this.refresh();
+                        }
+                    }).observe(this.element.datalist, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+            }, 20);
         }
     }
 

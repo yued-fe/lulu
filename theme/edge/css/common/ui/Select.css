@@ -7,6 +7,10 @@
  *
 **/
 
+:root {
+    --ui-select-icon-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%232a80eb' d='M145.659 68.949a12.874 12.874 0 0 0-18.473 0L99.479 97.233 71.772 68.949a12.874 12.874 0 0 0-18.473 0c-5.099 5.208-5.099 13.648 0 18.857l46.18 47.14 46.181-47.14c5.099-5.208 5.099-13.649-.001-18.857z'/%3E%3C/svg%3E");
+}
+
 [is="ui-select"] {
     display: inline-block;
     height: 40px;
@@ -144,8 +148,7 @@ select[hidden] + .ui-select {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%232a80eb' d='M145.659 68.949a12.874 12.874 0 0 0-18.473 0L99.479 97.233 71.772 68.949a12.874 12.874 0 0 0-18.473 0c-5.099 5.208-5.099 13.648 0 18.857l46.18 47.14 46.181-47.14c5.099-5.208 5.099-13.649-.001-18.857z'/%3E%3C/svg%3E")
-        no-repeat center;
+    background: var(--ui-select-icon-arrow) no-repeat center;
     background-size: 20px 20px;
     right: 7px;
     top: 10px;
