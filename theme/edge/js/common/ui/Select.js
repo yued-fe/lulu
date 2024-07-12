@@ -8,6 +8,7 @@
 
 // 是否支持popover
 const isSupportPopover = HTMLElement.prototype.hasOwnProperty("popover");
+const isSupportAnchor = CSS.supports('justify-self', 'anchor-center');
 
 class Select extends HTMLSelectElement {
 
@@ -177,10 +178,18 @@ class Select extends HTMLSelectElement {
                 ${isPopover ? 'popovertarget' : 'data-target'}="${strId}"
                 aria-owns="${strId}"
                 aria-expanded="false"
-                style="display: ${this.multiple ? 'none' : 'block'}"
+                style="display: ${this.multiple ? 'none' : 'block'};anchor-name: --${strId}"
                 ${this.disabled ? 'disabled ' : ''}
             /></button>` : '' }
-           <ui-select-list id="${strId}" ${isPopover ? 'popover' : ''} role="listbox" aria-expanded="false" class="${DATALIST_CLASS}" ${!this.multiple ? 'aria-hidden="true"' : ''} data-custom-scroll="${isCustomScroll}"></ui-select-list>
+                <ui-select-list 
+                id="${strId}" ${isPopover ? 'popover' : ''} 
+                role="listbox" 
+                aria-expanded="false" 
+                class="${DATALIST_CLASS}" 
+                ${!this.multiple ? 'aria-hidden="true"' : ''} 
+                data-custom-scroll="${isCustomScroll}"
+                style="position-anchor:--${strId};"
+            ></ui-select-list>
         </div>`);
 
         let eleCombobox = this.nextElementSibling;

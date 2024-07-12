@@ -228,6 +228,18 @@ body > .ui-select-datalist {
     font-family: system-ui;
 }
 
+@supports (justify-self: anchor-center) {
+    .ui-select-datalist {
+        left: anchor(left) !important;
+        top: calc(anchor(bottom) - 1px) !important;
+        position-visibility: anchors-visible;
+    }
+    .reverse > .ui-select-datalist {
+        top: auto !important;
+        bottom: calc(anchor(top) - 1px) !important;
+    }
+}
+
 .ui-select-intent {
     text-indent: 1em;
 }
