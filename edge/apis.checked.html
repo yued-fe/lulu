@@ -84,9 +84,17 @@ import 'lu2/theme/edge/css/common/ui/Checkbox.css';</pre>
                 <input type="checkbox" id="ci" is="ui-checkbox"><label for="ci" class="ml5 f14">全选</label>
                 <input type="checkbox" id="ci2" is="ui-checkbox" disabled><label class="ml5">全选禁用</label>
             </p>
-            <p>半选效果需要 JS 设置才有效果：</p>
+            <p>原生的半选效果需要 JS 设置才有效果：</p>
             <pre>&lt;input type="checkbox" id="ci" is="ui-checkbox"&gt;</pre>
             <pre>ci.indeterminate = true;</pre>
+
+            <p>如果你只希望使用半选的样式，可以通过设置indeterminate + inert属性实现。</p>
+            <p>
+                <label for class="f14">
+                    <input type="checkbox" is="ui-checkbox" indeterminate inert>仅样式，不可点选
+                </label>
+            </p>
+            <pre>&lt;input type="checkbox" is="ui-checkbox" indeterminate inert&gt;</pre>
 
             <h4>禁用态</h4>
             <p>禁用效果直接在原生的复选框元素上 <code>disabled</code> 属性就可以了：</p>
