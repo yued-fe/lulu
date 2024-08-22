@@ -245,6 +245,15 @@ drop4.addEventListener('hide', () => {
             <pre>&lt;a href <mark>data-eventtype="hover" data-position="4-1"</mark> is-drop="t2"&gt;hover我&lt;/a&gt;</pre>
             <p>效果测试：<a href="javascript:" data-eventtype="hover" data-position="4-1" is-drop="t2">hover我</a></p>
             <hr>
+            <p>自定义显示与隐藏测试：</p>
+            <p>
+                <button id="bt1" data-eventtype="null" is-drop="t2">点击我没反应</button> 
+                <button onclick="bt1['ui-drop'].open = !bt1['ui-drop'].open">点击我下拉对齐左按钮显隐</button>
+            </p>
+            <pre>&lt;button id="bt1" data-eventtype="null" is-drop="t2"&gt;点击我没反应&lt;/button&gt; 
+&lt;button onclick="bt1['ui-drop'].open = !bt1['ui-drop'].open"&gt;点击我下拉对齐左按钮显隐&lt;/button&gt;</pre>
+            <p class="tips">底层的<code>&lt;ui-drop&gt;</code>元素可以使用<code>trigger['ui-drop']</code>获取，其包含的<code>show()</code>、<code>hide()</code>等方法可以方便我们控制下拉内容的显隐。</p>
+            <hr>
             <p>下面测试下直接append一段包含<code>is-drop</code>设置的HTML代码，看看下拉效果是不是正常出现。</p>
             <p>
                 <button id="b1" class="ui-button" data-type="primary">插入一段包含is-drop设置的HTML</button>
