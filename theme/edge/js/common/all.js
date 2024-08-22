@@ -3499,7 +3499,7 @@ class Drop extends HTMLElement {
 
         // 支持从 trigger 元素上获取部分参数
         ['width', 'eventType', 'selector', 'offsets', 'position'].forEach(function (strKey) {
-            let strAttrKey = eleTrigger.getAttribute(strKey) || eleTrigger.dataset[strKey];
+            const strAttrKey = eleTrigger.getAttribute(strKey) || eleTrigger.dataset[strKey.toLowerCase()];
             if (strAttrKey && typeof options[strKey] == 'undefined') {
                 options[strKey] = strAttrKey;
             }
@@ -3768,7 +3768,7 @@ const initAllIsDropAttrAction = (ele) => {
         // 基于data-target获取元素
         eleTargetId = eleTrigger.dataset.target;
         let eleTarget = eleTargetId && document.getElementById(eleTargetId);
-        if (eleTarget) {
+        if (eleTarget && !eleTrigger['ui-drop']) {
             eleTrigger['ui-drop'] = new Drop(eleTrigger, eleTarget);
         }
     });
