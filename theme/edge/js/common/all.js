@@ -593,8 +593,17 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     }
 
     // 页面的水平和垂直滚动距离
-    let numScrollTop = window.pageYOffset;
-    let numScrollLeft = window.pageXOffset;
+    const selectorScroller = this.dataset.scroller;
+    let scroller;
+    if (selectorScroller) {
+        scroller = this.closest(selectorScroller) || this.closest('#' + selectorScroller);
+    }
+    if (!scroller) {
+        scroller = document.scrollingElement || document.documentElement;
+    }
+
+    let numScrollTop = scroller.scrollTop;
+    let numScrollLeft = scroller.scrollLeft;
 
     // 浏览器窗口的尺寸
     let numWinWidth = window.innerWidth;
