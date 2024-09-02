@@ -107,7 +107,7 @@ button.addEventListener('click', function () {
 
       <h4>剪裁、滚动与定位</h4>
 
-      <p>测试祖先容器存在 <code>overflow:hidden</code> 声明，会不会剪裁下拉列表：</p>
+      <p>测试祖先容器存在 <code>overflow:hidden</code> 声明，会不会剪裁下拉列表（支持popover属性的浏览器不会剪裁）：</p>
 
       <div id="x1" style="overflow: hidden; padding-bottom: 12px; position: relative;">
         看看剪裁没？<select is="ui-select">
@@ -117,7 +117,9 @@ button.addEventListener('click', function () {
         </select>
       </div>
 
-      <p>局部滚动定位测试（水平滚动试试）：</p>
+      <h5>局部滚动定位问题演示</h5>
+
+      <p>请展开下拉，然后水平或垂直滚动试试：</p>
       <style>.scroll-sel { width: 300px; height: 100px; border: 1px dotted; overflow: auto; transform: scale(1); text-align: center; }</style>
       <div class="scroll-sel">
         <div style="width: 600px;">&nbsp;</div>
@@ -126,13 +128,37 @@ button.addEventListener('click', function () {
           <option value="2">选项2</option>
           <option value="3">选项3</option>
         </select>
+        <div style="height: 190px;"></div>
       </div>
 
-      <p>如果希望下拉内容在局部滚动容器内部，可以设置<code>data-css-position="true"</code>或者设置<code>is-css-position</code>属性，例如：</p>
-      <pre>&lt;select data-css-position="true" is="ui-select"&gt;</pre>
-      <pre>&lt;select is-css-position is="ui-select"&gt;</pre>
+      <p>可以看到下拉列表和点击按钮分离了。</p>
+
+      <h5>局部滚动跟随实现</h5>
+
+      <p>两种方法。</p>
+      <p>其一，使用CSS锚点定位，可以设置<code>data-anchor="true"</code>或者设置<code>is-anchor</code>属性。代码和效果示意如下：</p>
+      <pre>&lt;select data-anchor="true" is="ui-select"&gt;
+&lt;select is-anchor is="ui-select"&gt;</pre>
+    <div class="scroll-sel">
+      <div style="width: 600px;">&nbsp;</div>
+      <select data-anchor="true" is="ui-select">
+        <option value="1">选项1</option>
+        <option value="2">选项2</option>
+        <option value="3">选项3</option>
+      </select>
+      <select is-anchor is="ui-select">
+        <option value="1">选项1</option>
+        <option value="2">选项2</option>
+        <option value="3">选项3</option>
+      </select>
+      <div style="height: 150px;"></div>
+    </div>
+
+      <p>其二，采用CSS定位，让下拉内容在局部滚动容器内部，可以设置<code>data-css-position="true"</code>或者设置<code>is-css-position</code>属性，例如：</p>
+      <pre>&lt;select data-css-position="true" is="ui-select"&gt;
+&lt;select is-css-position is="ui-select"&gt;</pre>
       <div class="scroll-sel">
-        <div style="height: 20px;"></div>
+        <div style="width: 600px;">&nbsp;</div>
         <select data-css-position="true" is="ui-select">
           <option value="1">选项1</option>
           <option value="2">选项2</option>
@@ -145,6 +171,8 @@ button.addEventListener('click', function () {
         </select>
         <div style="height: 150px;"></div>
       </div>
+
+      <p>注意，如果CSS定位和锚点定位同时设置，以CSS定位为准。</p>
 
       <h4>分组</h4>
 
