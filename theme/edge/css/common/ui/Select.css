@@ -229,12 +229,12 @@ body > .ui-select-datalist {
 }
 
 @supports (justify-self: anchor-center) {
-    .ui-select-datalist {
+    .ui-select-datalist[data-anchor="true"] {
         left: anchor(left) !important;
         top: calc(anchor(bottom) - 1px) !important;
         position-visibility: anchors-visible;
     }
-    .reverse > .ui-select-datalist {
+    .reverse > .ui-select-datalist[data-anchor="true"] {
         top: auto !important;
         bottom: calc(anchor(top) - 1px) !important;
     }

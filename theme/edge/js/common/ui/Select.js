@@ -162,13 +162,18 @@ class Select extends HTMLSelectElement {
         const DATALIST_CLASS = Select.addClass('datalist');
 
         // 原始下拉的定位属性
-        let strOriginPosition = window.getComputedStyle(this).position;
+        const strOriginPosition = window.getComputedStyle(this).position;
         this.originPosition = strOriginPosition;
 
+        // 是否使用CSS定位
+        const isCSSPosition = this.dataset.cssPosition || this.hasAttribute('is-css-position');
+
         // 滚动宽度
-        var isCustomScroll = /windows/i.test(navigator.userAgent);
+        const isCustomScroll = /windows/i.test(navigator.userAgent);
         // 是否使用 popover
-        var isPopover = !this.dataset.cssPosition && !this.hasAttribute('is-css-position') && isSupportPopover;
+        const isPopover = !isCSSPosition && isSupportPopover;
+        // 是否使用anchor锚点定位
+        const isAnchor = isSupportAnchor && !isCSSPosition && (this.hasAttribute('is-anchor') || this.dataset.anchor);
 
         // 直接插入对应的片段内容
         this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()}">
@@ -188,6 +193,7 @@ class Select extends HTMLSelectElement {
                 class="${DATALIST_CLASS}" 
                 ${!this.multiple ? 'aria-hidden="true"' : ''} 
                 data-custom-scroll="${isCustomScroll}"
+                ${isAnchor ? 'data-anchor="true"' : ''}
                 style="position-anchor:--${strId};"
             ></ui-select-list>
         </div>`);
@@ -404,6 +410,8 @@ class Select extends HTMLSelectElement {
                 
                 // aria状态
                 eleButton.setAttribute('aria-expanded', 'true');
+                // datalist aria hidden去除
+                eleDatalist.removeAttribute('aria-hidden');
                 // 滚动与定位
                 var arrDataScrollTop = eleCombobox.dataScrollTop;
                 var eleDatalistSelected = eleDatalist.querySelector('.selected');
@@ -648,6 +656,7 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素载入到页面后
      */
     connectedCallback () {
+        console.log('connectedCallback');
         // 观察
         this.observer = new MutationObserver((mutationsList) => {
             let isRefresh = true;
