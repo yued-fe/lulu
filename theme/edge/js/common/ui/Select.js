@@ -656,7 +656,6 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素载入到页面后
      */
     connectedCallback () {
-        console.log('connectedCallback');
         // 观察
         this.observer = new MutationObserver((mutationsList) => {
             let isRefresh = true;
