@@ -2197,7 +2197,6 @@ class Select extends HTMLSelectElement {
      * is="ui-select" 元素载入到页面后
      */
     connectedCallback () {
-        console.log('connectedCallback');
         // 观察
         this.observer = new MutationObserver((mutationsList) => {
             let isRefresh = true;
@@ -6635,6 +6634,7 @@ const Dialog = (() => {
 
                         this.type = 'alert';
 
+                        this.open = false;
                         this.showModal();
 
                         return this;
@@ -6708,6 +6708,7 @@ const Dialog = (() => {
 
                         this.type = 'confirm';
 
+                        this.open = false;
                         this.showModal();
 
                         return this;
@@ -6809,35 +6810,6 @@ const Dialog = (() => {
                                 }
                             }
                         }
-                    }
-                },
-
-                /**
-                 * 背景滚动锁定带来的
-                 * @returns    当前<dialog>元素
-                 */
-                scrollbar: {
-                    value: function () {
-                        const eleAllDialog = document.querySelectorAll('dialog[is="ui-dialog"]');
-
-                        // 是否有显示的弹框
-                        const isDisplayed = [].slice.call(eleAllDialog).some(function (eleDialog) {
-                            return window.getComputedStyle(eleDialog).display !== 'none' && eleDialog.clientWidth > 0;
-                        });
-
-                        document.documentElement.style.overflow = '';
-                        document.body.style.borderRight = '';
-
-                        const widthScrollbar = window.innerWidth - document.documentElement.clientWidth;
-
-                        // 因为去掉了滚动条，所以宽度需要偏移，保证页面内容没有晃动
-                        if (isDisplayed && widthScrollbar) {
-                            // 所有PC浏览器都滚动锁定
-                            document.documentElement.style.overflow = 'hidden';
-                            document.body.style.borderRight = widthScrollbar + 'px solid transparent';
-                        }
-
-                        return this;
                     }
                 },
 
@@ -7067,21 +7039,6 @@ const Dialog = (() => {
                     console.error(e);
                 }
             } 
-
-            // 观察open属性变化
-            const moDialogOpen = new MutationObserver(function (mutationsList) {
-                mutationsList.forEach(mutation => {
-                    let eleDialog = mutation.target;
-                    if (mutation.type == 'attributes') {
-                        // 滚动条状态变化
-                        eleDialog.scrollbar();
-                    }
-                });
-            });
-            moDialogOpen.observe(dialog, {
-                attributes: true,
-                attributeFilter: ['open']
-            });
 
             // 默认模式是关闭
             dialog.closeMode = 'hide';

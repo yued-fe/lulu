@@ -1409,6 +1409,11 @@ span.ui-date-item {
     --ui-dialog-success-url:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='%231cad70' d='M400.5 200.5c0 110.457-89.542 199.999-199.999 199.999C90.043 400.499.5 310.957.5 200.5m0 0C.5 90.042 90.043.5 200.501.5 310.958.5 400.5 90.042 400.5 200.5'/%3E%3Cpath fill='%23FFF' d='M286.398 147.132c-1.654-1.134-3.306-2.395-6.801-4.293-4.271-2.336-9.259 2.624-12.391 6.816l-77.641 102.279-47.916-63.522c-3.144-4.188-4.902-8.468-13.073-1.859-3.097 2.123.234-.361-3.969 2.881-3.884 3.064-4.105 8.598-.971 12.774 0 0 38.641 55.817 45.883 65.074 10.625 13.22 29.944 12.57 40.087 0 7.483-9.473 77.757-107.584 77.757-107.584 3.14-4.194 2.898-9.697-.965-12.566z'/%3E%3C/svg%3E");
 }
 
+html:has([is="ui-dialog"]:modal[open]) {
+    scrollbar-gutter: stable;
+    overflow: hidden;
+}
+
 [is="ui-dialog"] {
     position: fixed;
     height: fit-content;
@@ -1420,6 +1425,7 @@ span.ui-date-item {
     color: var(--ui-dark, #4c5161);
     font-size: var(--ui-font, 14px);
     overflow: auto;
+    overscroll-behavior: contain;
     z-index: 19;
 }
 [is="ui-dialog"]::backdrop {
@@ -1449,6 +1455,14 @@ span.ui-date-item {
 }
 .ui-dialog:not(:modal) {
     outline: 100vmax solid rgba(25, 28, 34, 0.88);
+}
+.ui-dialog:not(:modal)::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-color: #0000;
+    z-index: -1;
+    touch-action: none;
 }
 
 .ui-dialog[style^="width:"],
