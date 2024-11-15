@@ -390,17 +390,20 @@ const Validate = (() => {
                         const numStep = element.getAttribute('step') * 1 || 1;
 
                         if (strType == 'number' || strType == 'range') {
+                            const numStart = numMin || element.getAttribute('value') * 1 || 0;
+                            const numEnd = numMax || 999999;
                             strFinalText = '请输入有效的值。两个最接近的有效值是' + (function () {
-                                const numValue = element.value.trim() * 1;
-                                let numClosest = numMin;
-                                for (let start = numMin; start < numMax; start += numStep) {
-                                    if (start < numValue && (start + numStep) > numValue) {
-                                        numClosest = start;
+                                // 百倍计算，避免浮点数计算不准确
+                                const numValue = element.value.trim() * 100;
+                                let numClosest = numStart * 100;
+                                for (let start = numStart * 100; start < numEnd * 100; start += numStep * 100) {
+                                    if (start < numValue && (start + numStep * 100) > numValue) {
+                                        numClosest = start / 100;
                                         break;
                                     }
                                 }
 
-                                return [numClosest, numClosest + numStep].join('和');
+                                return [numClosest, (numClosest * 100 + numStep * 100) / 100].join('和');
                             })();
                         } else {
                             strFinalText = '请' + (element.hasAttribute('readonly') ? '选择' : '输入') + '有效的值。' + (strName || '') + '间隔是' + numStep;
@@ -678,6 +681,7 @@ const Validate = (() => {
                 // 类型和值
                 const strType = this.getType(element);
                 let strValue = element.value.trim();
+                const attrValue = element.getAttribute('value');
 
                 if (/radio|checkbox|select|textarea/i.test(strType) || strValue == '') {
                     return objValidateState;
@@ -716,10 +720,11 @@ const Validate = (() => {
                     }
 
                     // number, range类型的范围
-                    if ((strType == 'number' || strType == 'range') && strAttrStep && strAttrMin &&
-                        !/^\d+$/.test(Math.abs(strValue - strAttrMin) / strAttrStep)
-                    ) {
-                        objValidateState.stepMismatch = true;
+                    if ((strType == 'number' || strType == 'range') && strAttrStep) {
+                        const startValue = (strAttrMin ? strAttrMin : attrValue) || 0;
+                        if (!/^\d+$/.test(Math.abs(strValue - startValue) / strAttrStep) && element.matches(':invalid')) {
+                            objValidateState.stepMismatch = true;
+                        }
                     }
                     // hour, minute, time类型的范围
                     if ((strType == 'hour' || strType == 'minute' || strType == 'time') && strAttrMin && strAttrStep) {
