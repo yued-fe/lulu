@@ -10645,7 +10645,8 @@ const DateTime = (() => {
             }
 
             // 初始值
-            let strInitValue = this.getAttribute('value') || this.value;
+            const strAttrValue = this.getAttribute('value');
+            let strInitValue = strAttrValue || this.value;
 
             // 初始值转换成时间值
             switch (strType) {
@@ -10815,10 +10816,15 @@ const DateTime = (() => {
                 eleContainer.setAttribute('data-id', strId);
             }
 
-            // 暴露的一些数据
-            // 关联的元素
+            // 暴露关联的元素
             this.element = this.element || {};
             this.element.target = eleContainer;
+
+            // 新增规则，如果有value属性，但是值为空字符串
+            // 不再使用当前日期占位
+            if (this.hasAttribute('value') && strAttrValue == '') {
+                this.value = '';
+            }
 
             this.events();
 
