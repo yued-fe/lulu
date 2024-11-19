@@ -87,6 +87,12 @@ import('lu2/theme/edge/js/common/ui/DateTime.js');</pre>
                 有初始值：<input type="date" value="2020-11-27" is="ui-datetime">
             </div>
             <pre>&lt;input type="date" <mark>value="2020-11-27"</mark> is="ui-datetime"&gt;</pre>
+
+            <p>如果设置了value属性，但是值是空字符串，则采用和原生时间选择组件一样的规则，表现为“年-月-日（短横线也可能是斜杠）”，例如：</p>
+            <div>
+                空值占位：<input type="date" value="" is="ui-datetime">
+            </div>
+            <pre>&lt;input type="date" <mark>value=""</mark> is="ui-datetime"&gt;</pre>
             
             <h5>3. 类型设置</h5>
             <p>使用原生的<code>type</code>属性指定是哪种日期或时间类型选择，默认是<code>'date'</code>类型。</p>
