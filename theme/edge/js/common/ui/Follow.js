@@ -139,6 +139,10 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     let scroller;
     if (selectorScroller) {
         scroller = this.closest(selectorScroller) || this.closest('#' + selectorScroller);
+        // 必须是包含关系
+        if (scroller && !scroller.contains(eleTarget)) {
+            scroller = null;
+        }
     }
     if (!scroller) {
         scroller = document.scrollingElement || document.documentElement;
