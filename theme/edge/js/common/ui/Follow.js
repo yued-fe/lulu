@@ -161,8 +161,8 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     }
 
     // target的包含块祖先元素，也就是定位元素
-    let eleOffsetParent = eleTarget.offsetParent;
-    let objBoundOffsetParent = eleOffsetParent.getBoundingClientRect();
+    const eleOffsetParent = eleTarget.offsetParent || scroller;
+    const objBoundOffsetParent = eleOffsetParent.getBoundingClientRect();
 
     // 暴露给实例
     const element = {
