@@ -90,62 +90,39 @@ div[is="ui-button"] {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
         inset 0 0 0 100px rgba(0, 0, 0, 0.1);
 }
-.ui-button[type="normal"],
-.ui-button[data-type="normal"],
-[is="ui-button"][type="normal"],
-[is="ui-button"][data-type="normal"] {
+:is(.ui-button, [is="ui-button"]):is([type="normal"], [data-type="normal"]) {
     --ui-button-color: var(--ui-white, #fff);
     color: var(--ui-dark, #4c5161);
     border-color: var(--ui-border);
+    --ui-brightness: 0.96;
 }
 
 /* primary button */
-.ui-button[data-type="primary"],
-.ui-button[data-type="remind"],
-.ui-button[type="primary"],
-.ui-button[type="remind"],
-[is="ui-button"][data-type="primary"],
-[is="ui-button"][data-type="remind"],
-[is="ui-button"][type="primary"],
-[is="ui-button"][type="remind"] {
+:is(.ui-button, [is="ui-button"]):is([data-type="primary"], [type="primary"], [data-type="remind"], [type="remind"]) {
     --ui-button-color: var(--ui-blue, #2a80eb);
 }
 
 /* success button */
-.ui-button[data-type="success"],
-.ui-button[type="success"],
-[is="ui-button"][data-type="success"],
-[is="ui-button"][type="success"] {
+:is(.ui-button, [is="ui-button"]):is([data-type="success"], [type="success"]) {
     --ui-button-color: var(--ui-green, #1cad70);
 }
 
 /* warning button */
-.ui-button[data-type^="warn"],
-.ui-button[type^="warn"],
-[is="ui-button"][data-type^="warn"],
-[is="ui-button"][type^="warn"] {
+:is(.ui-button, [is="ui-button"]):is([data-type^="warn"], [type^="warn"]) {
     --ui-button-color: var(--ui-orange, #f59b00);
 }
 /* danger button */
-.ui-button[data-type="danger"],
-.ui-button[data-type="error"],
-.ui-button[type="danger"],
-.ui-button[type="error"],
-[is="ui-button"][data-type="danger"],
-[is="ui-button"][data-type="error"],
-[is="ui-button"][type="danger"],
-[is="ui-button"][type="error"] {
+
+:is(.ui-button, [is="ui-button"]):is([data-type="danger"], [type="danger"], [data-type="error"], [type="error"]) {
     --ui-button-color: var(--ui-red, #eb4646);
 }
 
 /* disabled status */
-.ui-button.disabled,
-.ui-button:disabled,
-[is="ui-button"].disabled,
-[is="ui-button"]:disabled {
+:is(.ui-button, [is="ui-button"]):is(.disabled, :disabled) {
     opacity: var(--ui-opacity, .4);
     cursor: default;
 }
+
 /* loading status */
 .ui-button.loading,
 [is="ui-button"].loading {
@@ -170,17 +147,16 @@ input[data-type="normal"].loading {
 }
 
 /* button 按钮 */
-.ui-button.loading::before,
-[is="ui-button"].loading::before {
+:is(.ui-button, [is="ui-button"]).loading::before {
     content: "";
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 20px;
-    height: 20px;
-    background-color: var(--ui-white,#fff);
+    width: calc(var(--ui-button-height) / 2);
+    height: calc(var(--ui-button-height) / 2);
+    background-color: var(--ui-white, #fff);
     -webkit-mask: var(--ui-button-loading-img);
     mask: var(--ui-button-loading-img);
     -webkit-mask-size: 100% 100%;
@@ -189,9 +165,8 @@ input[data-type="normal"].loading {
     animation: spin 1s linear infinite;
 }
 /* 有底色按钮 */
-[data-type="normal"].loading::before,
-[type="normal"].loading::before {
-    background-color: var(--ui-blue,#2a80eb);
+:is([data-type="normal"], [type="normal"]).loading::before {
+    background-color: var(--ui-blue, #2a80eb);
 }
 
 @keyframes bubbling {
