@@ -126,6 +126,26 @@
 &lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="normal"&gt;
 &lt;input class="ui-button <mark>loading</mark>" value="input标签" data-type="primary"&gt;</pre>
 
+            <h4>小尺寸按钮</h4>
+            <p>
+                通过改变<code>--ui-button-height</code>变量值来改变按钮的高度，从而实现小尺寸按钮。此变量设置在按钮，或者按钮元素的祖先元素上都是可以的。代码示意：
+            </p>
+
+            <pre>&lt;p style="--ui-button-height: 32px;"&gt;
+    &lt;button type="normal" is="ui-button"&gt;常规按钮&lt;/button&gt;
+    &lt;button type="primary" is="ui-button"&gt;主按钮&lt;/button&gt;
+    &lt;button type="primary" class="ui-button loading"&gt;loading&lt;/button&gt;
+&lt;/p&gt;</pre>
+
+            <p>渲染效果：</p>
+            <p style="--ui-button-height: 32px;">
+                <button type="normal" is="ui-button">常规按钮</button>
+                <button type="primary" is="ui-button">主按钮</button>
+                <button type="primary" class="ui-button loading">loading</button>
+            </p>
+
+            <p>改变字号使用CSS变量<code>ui-font</code>。</p>
+
             <h3>&lt;a&gt; 标签按钮们</h3>
             <p><code>&lt;a&gt;</code> 标签按钮的优点是可以作为链接使用，如果是纯按钮，推荐使用 <code>&lt;button&gt;</code> 标签。</p>
             <h4>基本状态</h4>
