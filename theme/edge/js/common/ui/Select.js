@@ -100,7 +100,15 @@ class Select extends HTMLSelectElement {
             return arrData;
         }
 
-        return [].slice.call(this.options).map(option => {
+        // hr元素支持
+        const eleOptions = this.querySelectorAll('option, hr');
+
+        return [].slice.call(eleOptions).map(option => {
+            if (option.matches('hr')) {
+                return {
+                    divide: true
+                };
+            }
             return {
                 html: option.innerHTML,
                 value: option.value,
@@ -186,12 +194,12 @@ class Select extends HTMLSelectElement {
                 style="display: ${this.multiple ? 'none' : 'block'};anchor-name: --${strId}"
                 ${this.disabled ? 'disabled ' : ''}
             /></button>` : '' }
-                <ui-select-list 
-                id="${strId}" ${isPopover ? 'popover' : ''} 
-                role="listbox" 
-                aria-expanded="false" 
-                class="${DATALIST_CLASS}" 
-                ${!this.multiple ? 'aria-hidden="true"' : ''} 
+                <ui-select-list
+                id="${strId}" ${isPopover ? 'popover' : ''}
+                role="listbox"
+                aria-expanded="false"
+                class="${DATALIST_CLASS}"
+                ${!this.multiple ? 'aria-hidden="true"' : ''}
                 data-custom-scroll="${isCustomScroll}"
                 ${isAnchor ? 'data-anchor="true"' : ''}
                 style="position-anchor:--${strId};"
@@ -347,21 +355,23 @@ class Select extends HTMLSelectElement {
      */
     position () {
         const objElement = this.element;
-        let eleCombobox = objElement.combobox;
-        let eleButton = objElement.button;
-        let eleDatalist = objElement.datalist;
+        const eleCombobox = objElement.combobox;
+        const eleButton = objElement.button;
+        const eleDatalist = objElement.datalist;
 
         if (!eleCombobox.classList.contains('active')) {
             return;
         }
 
         // 按钮的尺寸和位置
-        let objBoundButton = eleButton.getBoundingClientRect();
+        const objBoundButton = eleButton.getBoundingClientRect();
+        // 滚动高度
+        const numScrollTop = document.scrollingElement.scrollTop;
         // body元素下的绝对定位场景才处理
         if (!eleCombobox.contains(eleDatalist) || eleButton.popoverTargetElement) {
             // 下拉列表的尺寸和位置设置
             eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
-            eleDatalist.style.top = (objBoundButton.bottom + document.scrollingElement.scrollTop - 1) + 'px';
+            eleDatalist.style.top = (objBoundButton.bottom + numScrollTop - 1) + 'px';
             eleDatalist.style.width = eleCombobox.getBoundingClientRect().width + 'px';
             // 列表显示
             eleDatalist.classList.add('active');
@@ -370,12 +380,13 @@ class Select extends HTMLSelectElement {
         }
 
         // 边界判断
-        let objBoundDatalist = eleDatalist.getBoundingClientRect();
-        var isOverflow = objBoundDatalist.bottom + window.pageYOffset > Math.max(document.body.clientHeight, window.innerHeight);
+        const objBoundDatalist = eleDatalist.getBoundingClientRect();
+        const numBounceBottom = objBoundDatalist.bottom + (eleDatalist.popover ? 0 : numScrollTop);
+        var isOverflow = numBounceBottom > Math.max(document.body.clientHeight, window.innerHeight);
         eleCombobox.classList[isOverflow ? 'add' : 'remove']('reverse');
 
         if (isOverflow && !this.dataset.cssPosition && !this.hasAttribute('is-css-position')) {
-            eleDatalist.style.top = (objBoundButton.top + document.scrollingElement.scrollTop - objBoundDatalist.height + 1) + 'px';
+            eleDatalist.style.top = (objBoundButton.top + numScrollTop - objBoundDatalist.height + 1) + 'px';
         }
     }
 
@@ -407,7 +418,7 @@ class Select extends HTMLSelectElement {
 
                 // 定位
                 this.position();
-                
+
                 // aria状态
                 eleButton.setAttribute('aria-expanded', 'true');
                 // datalist aria hidden去除
@@ -460,7 +471,7 @@ class Select extends HTMLSelectElement {
             eleCombobox.classList.remove('active');
             eleButton.setAttribute('aria-expanded', 'false');
             eleDatalist.remove();
-            
+
             // focus
             eleButton.focus();
             eleButton.blur();
