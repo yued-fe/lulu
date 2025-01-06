@@ -136,14 +136,21 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
 
     // 页面的水平和垂直滚动距离
     const selectorScroller = this.dataset.scroller;
+    // 自定义滚动容器
+    let customScroller = null;
+    // 最终的滚动容器
     let scroller;
     if (selectorScroller) {
-        scroller = this.closest(selectorScroller) || this.closest('#' + selectorScroller);
+        customScroller = this.closest(selectorScroller) || this.closest('#' + selectorScroller);
+        // 滚动容器设置为自定义的滚动容器
+        scroller = customScroller;
         // 必须是包含关系
+        // 否则认为是不合法
         if (scroller && !scroller.contains(eleTarget)) {
             scroller = null;
         }
     }
+    // 如果没有自定义滚动容器，那么就是默认的滚动容器
     if (!scroller) {
         scroller = document.scrollingElement || document.documentElement;
     }
@@ -152,8 +159,8 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     let numScrollLeft = scroller.scrollLeft;
 
     // 浏览器窗口的尺寸
-    let numWinWidth = window.innerWidth;
-    let numWinHeight = window.innerHeight;
+    const numWinWidth = window.innerWidth;
+    const numWinHeight = window.innerHeight;
 
     // 如果trigger元素全部都在屏幕外，则不进行边缘调整
     if ((objBoundTrigger.left < 0 && objBoundTrigger.right < 0) || (objBoundTrigger.top < 0 && objBoundTrigger.bottom < 0) || (objBoundTrigger.left > numWinWidth && objBoundTrigger.right > numWinWidth) || (objBoundTrigger.top > numWinHeight && objBoundTrigger.bottom > numWinHeight)) {
@@ -183,6 +190,10 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     if (eleOffsetParent === document.body && window.getComputedStyle(eleOffsetParent).position === 'static') {
         numOffsetTop = 0;
         numOffsetLeft = 0;
+    } else if (eleOffsetParent == customScroller && customScroller) {
+        // 如果触发按钮和浮层使用同一个自定义的滚动容器，则忽略滚动容器的滚动距离
+        numOffsetTop = objBoundOffsetParent.top;
+        numOffsetLeft = objBoundOffsetParent.left;
     }
 
     // 直接嫁接在offsets对象上，可以大大简化后续处理的逻辑
