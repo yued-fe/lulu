@@ -38,6 +38,9 @@
     [data-target="fd"] {
         zoom: 1.5;
     }
+    /* #t1 {
+        position: fixed !important;
+    } */
 </style>
 
 <div class="main">
@@ -232,6 +235,21 @@ drop4.addEventListener('hide', () => {
             <p>效果如下<span class="gray">（任意点击操作会触发隐藏，因此如果浮层不可见可以刷新一下页面）</span>：</p>
             <ui-drop target="t5" class="ui-button" data-type="primary" position="2-1" open>默认显示</ui-drop>
             <div id="t5" class="ui-dropanel-x" hidden>默认显示中...</div>
+
+            <h4>5. 滚动嵌套时候的定位</h4>
+            <p>滚动下面的内滚动条，显示按钮后点击，看看位置对不对。</p>
+            <div id="scroller" style="position: relative; height: 200px; overflow: auto; border: 1px solid #ccc;">
+                <div style="height: 150px;"></div>
+                <p style="padding: 1em;">
+                    <ui-drop target="tsr" class="ui-button" data-type="primary" data-position="4-1" data-scroller="scroller">点击我</ui-drop>
+                </p>
+                <div id="tsr"class="ui-dropanel-x" hidden>
+                    <button>测试按钮</button>
+                    <p><a href="javascript:">测试文字</a></p>
+                </div>
+                <div style="height: 40px;"></div>
+            </div>
+            <p>方法是触发按钮设置<code>data-scroller</code>未滚动容器的选择器，注意，需要下拉层和触发按钮在同一个滚动容器中，且滚动容器就是祖先定位元素。</p>
 
             <h3>is-drop快捷语法</h3>
             <p>本Drop组件支持在原生HTML元素上添加<code>is-drop</code>属性实现下拉效果。</p>
