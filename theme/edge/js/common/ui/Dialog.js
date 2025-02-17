@@ -545,6 +545,7 @@ const Dialog = (() => {
                         // 显示loading样式
                         objElement.dialog.classList.add(CL.add('loading'));
 
+                        this.open = false;
                         this.showModal();
 
                         return this;
