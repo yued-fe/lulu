@@ -995,18 +995,40 @@ new Drop(eleDropPanel).panel({
 
             <h4>3. 轻弹框内容直接DOM显示</h4>
             <p>如果<code>&lt;ui-drop&gt;</code>元素关联的元素是<code>&lt;dialog&gt;</code>元素（切勿设置<code>is="ui-dialog"</code>），会认为是轻弹框提示。</p>
-            <p>测试：<ui-drop class="ui-button" data-type="primary" target="dg" position="7-5">ui-drop元素</ui-drop>
-            <button class="ui-button" data-type="primary" data-target="dg2" is-drop>is-drop属性，无按钮</button></p>
+            <p>
+                测试：<ui-drop class="ui-button" data-type="primary" target="dg" position="7-5">ui-drop元素</ui-drop>
+                <button class="ui-button" data-type="primary" data-target="dg2" is-drop>is-drop属性，无按钮</button>
+                <button class="ui-button" type="primary" is-drop="dg3">is-drop赋值</button>
+            </p>
+
             <dialog id="dg" data-buttons="删除">耶，成功显示！</dialog>
-            <dialog id="dg2" data-buttons=""><input placeholder="输入内容" is="ui-input"></dialog>
+            <dialog id="dg2" data-buttons="false"><input placeholder="输入内容" is="ui-input" width="100%"></dialog>
+            <dialog 
+                id="dg3" 
+                title="我是标题" 
+                data-buttons="{ type: 'hidden' }, { value: '知道了', type: 'primary'}" 
+                data-closable="false"
+            >有标题，无关闭按钮，确认按钮样式自定义</dialog>
 
             <p>相关代码如下：</p>
             <pre>&lt;ui-drop class="ui-button" data-type="primary" target="dg" position="7-5"&gt;ui-drop元素&lt;/ui-drop&gt;
-&lt;button class="ui-button" data-type="primary" data-target="dg" is-drop&gt;is-drop属性&lt;/button&gt;&lt;/p&gt;
+&lt;button class="ui-button" type="primary" data-target="dg2" is-drop&gt;is-drop属性&lt;/button&gt;
+&lt;button class="ui-button" type="primary" is-drop="dg3"&gt;is-drop赋值&lt;/button&gt;
 
 &lt;dialog id="dg" data-buttons="删除"&gt;耶，成功显示！&lt;/dialog&gt;
-&lt;dialog id="dg2" data-buttons=""&gt;&lt;input is="ui-input"&gt;&lt;/dialog&gt;</pre>
-            <p>按钮文字通过<code>data-buttons</code>属性设置，使用逗号分隔，如果只设置第一个“确定”按钮的文字内容，无需逗号。</p>
+&lt;dialog id="dg2" data-buttons="false"&gt;
+    &lt;input is="ui-input" width="100%"&gt;
+&lt;/dialog&gt;
+
+&lt;dialog 
+    id="dg3" 
+    title="我是标题" 
+    data-buttons="{ type: 'hidden' }, { value: '知道了', type: 'primary'}" 
+    data-closable="false"
+&gt;有标题，无关闭按钮，确认按钮样式自定义&lt;/dialog&gt;</pre>
+            <p>按钮文字通过<code>data-buttons</code>属性设置，使用逗号分隔，支持“纯文本”和“{}字符串”两种表示方式。</p>
+            <p>Panel轻弹框DOM模式强制两个按钮，如果只希望显示一个按钮，给另外一个按钮设置<code>type</code>类型为<code>'hidden'</code>即可。</p>
+            <pre>data-buttons="{ value: '提交', type: 'primary'}, { type: 'hidden' }"</pre>
             <p>点击确定按钮和取消按钮会分别触发<code>&lt;dialog&gt;</code>元素的<code>'ensure'</code>和<code>'cancel'</code>事件。</p>
             <p>例如，本例中，点击“删除”的事件是这么处理的。</p>
             <pre>dg.addEventListener('ensure', function (event) {
@@ -1027,6 +1049,7 @@ new Drop(eleDropPanel).panel({
   data-buttons="删除"
   @ensure="doDelete(item, $event)"
 &gt;确定删除此目标？&lt;/dialog&gt;</pre>
+            <p class="tips remind">需要注意的是，请勿给<code>&lt;dialog&gt;</code>元素的子元素绑定事件，因为这里的Drop效果实现是直接innerHTML转移，而非DOM复制，事件是会丢失的。如果实在需要绑定事件，使用HTML属性事件，也就是<code>onclick</code>、<code>onsubmit</code>这种。</p>
             <h3>Panel方法语法和参数</h3>
             <p>语法如下：</p>
             <pre>let eleDrop = new Drop(trigger).panel(options);</pre>
