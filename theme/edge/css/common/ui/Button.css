@@ -111,10 +111,15 @@ div[is="ui-button"] {
 :is(.ui-button, [is="ui-button"]):is([data-type^="warn"], [type^="warn"]) {
     --ui-button-color: var(--ui-orange, #f59b00);
 }
-/* danger button */
 
+/* danger button */
 :is(.ui-button, [is="ui-button"]):is([data-type="danger"], [type="danger"], [data-type="error"], [type="error"]) {
     --ui-button-color: var(--ui-red, #eb4646);
+}
+
+/* hidden button */
+:is(.ui-button, [is="ui-button"]):is([type="hidden"], [data-type="hidden"]) {
+    display: none;
 }
 
 /* disabled status */

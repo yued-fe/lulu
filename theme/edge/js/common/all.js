@@ -3496,9 +3496,32 @@ class Drop extends HTMLElement {
                 var arrButtons = [];
                 // 如果data-buttons为空字符串，或者是 null、false, 则不显示按钮
                 if (strButtons !== '' && strButtons !== 'null' && strButtons !== 'false') {
+                    // 如果strButtons不包含{ 和 }，数组直接split处理
                     strButtons = strButtons || '';
+                    let arrParse = [];
+                    if (!strButtons.includes('{') && !strButtons.includes('}')) {
+                        arrParse = strButtons.split(',').map(item => {
+                            return {
+                                value: item.trim()
+                            };
+                        });
+                    } else {
+                        // 转为数组
+                        try {
+                            arrParse = (new Function('return [' + strButtons + ']'))();
+                        } catch (e) {
+                            console.error('按钮解析失败', e);
+                            arrParse = [];
+                        }
+                    }
+                    
+                    // 前后按钮对象
+                    const objStart = arrParse[0] || {};
+                    const objEnd = arrParse[1] || {};
+
+                    // 处理按钮的事件
                     arrButtons = [{
-                        value: strButtons.split(',')[0].trim(),
+                        ...objStart,
                         events: () => {
                             eleTarget.dispatchEvent(new CustomEvent('ensure', {
                                 detail: {
@@ -3507,7 +3530,7 @@ class Drop extends HTMLElement {
                             }));
                         }
                     }, {
-                        value: (strButtons.split(',')[1] || '').trim(),
+                        ...objEnd,
                         events: () => {
                             eleTarget.dispatchEvent(new CustomEvent('cancel', {
                                 detail: {
@@ -3524,6 +3547,11 @@ class Drop extends HTMLElement {
                     title: eleTarget.title,
                     buttons: arrButtons
                 };
+
+                // 如果设置了关闭按钮
+                if (eleTarget.dataset.closable == 'false') {
+                    options.closable = false;
+                }
             }
 
             eleTrigger = null;
@@ -3541,7 +3569,7 @@ class Drop extends HTMLElement {
         options = options || {};
 
         // 支持从 trigger 元素上获取部分参数
-        ['width', 'eventType', 'selector', 'offsets', 'position'].forEach(function (strKey) {
+        ['width', 'eventType', 'selector', 'offsets', 'position', 'closable'].forEach(function (strKey) {
             const strAttrKey = eleTrigger.getAttribute(strKey) || eleTrigger.dataset[strKey.toLowerCase()];
             if (strAttrKey && typeof options[strKey] == 'undefined') {
                 options[strKey] = strAttrKey;
@@ -3612,7 +3640,9 @@ class Drop extends HTMLElement {
 
         // 组装
         elePanel.appendChild(eleTitle);
-        elePanel.appendChild(eleClose);
+        if (objParams.closable !== false && objParams.closable != 'false') {
+            elePanel.appendChild(eleClose);
+        }
         elePanel.appendChild(eleContent);
         elePanel.appendChild(eleFooter);
 
