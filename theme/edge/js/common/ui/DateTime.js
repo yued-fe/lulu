@@ -21,13 +21,56 @@ const DateTime = (() => {
     const CL = {
         toString: () => 'ui-datetime'
     };
-    ['date', 'range', 'day', 'year', 'month', 'hour', 'minute', 'time', 'datetime'].forEach((key) => {
+    ['date', 'range', 'day', 'year', 'month', 'week', 'hour', 'minute', 'time', 'datetime'].forEach((key) => {
         CL[key] = (...args) => ['ui', key, ...args].join('-');
     });
 
     const SELECTED = 'selected';
     const ACTIVE = 'active';
     const regDate = /-|\//g;
+
+    // 日期转第xxxx-xx周的方法
+    function dateToWeek(date) {
+        // 将输入的日期字符串转换为 Date 对象
+        const inputDate = typeof date == 'string' ? new Date(date) : date;
+        // 获取年份
+        const year = inputDate.getFullYear();
+        // 计算 ISO 周数
+        const d = new Date(date);
+        d.setHours(0, 0, 0, 0);
+        d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+        const yearStart = new Date(d.getFullYear(), 0, 1);
+        const weekNo = Math.ceil(((d - yearStart) / 8.64e7 + 1) / 7);
+        // 补全周数为两位数
+        const paddedWeek = String(weekNo).padStart(2, '0');
+        return `${year}-${paddedWeek}W`;
+    }
+
+    function getRangeByWeek(year, weekNumber) {
+        // 获取当年第一个星期四，以此确定第一周
+        const firstThursday = new Date(year, 0, 4);
+        firstThursday.setDate(firstThursday.getDate() - (firstThursday.getDay() || 7) + 4);
+
+        // 计算目标周的星期四
+        const targetThursday = new Date(firstThursday);
+        targetThursday.setDate(targetThursday.getDate() + (weekNumber - 1) * 7);
+
+        // 计算目标周的起始日期和结束日期
+        const startDate = new Date(targetThursday);
+        startDate.setDate(targetThursday.getDate() - 3);
+        const endDate = new Date(targetThursday);
+        endDate.setDate(targetThursday.getDate() + 3);
+
+        // 格式化日期
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}年${month}月${day}日`;
+        };
+
+        return [formatDate(startDate), formatDate(endDate)];
+    }
 
     // 拓展方法之字符串变时间对象
     String.prototype.toDate = function () {
@@ -72,6 +115,24 @@ const DateTime = (() => {
         return arrTime;
     };
 
+    // 将中文的2025年第xx周转换成英文的[2025, xx]格式
+    String.prototype.toWeek = function () {
+        // 如果2025-xxW格式
+        if (this.includes('-') && this.includes('W')) {
+            // 直接返回
+            return this.split('-').map(item => item.replace(/\D/g, '').trim()).slice(0, 2);
+        }
+
+        if (this.includes('第') && this.includes('周')) {
+            // 先去掉中文的“第”和“周”
+            const strWeek = this.replace(/第|周/g, '').trim();
+            return strWeek.split('年').map(item => item.trim()).slice(0, 2);
+        }
+
+        // 按照普通日期处理
+        return dateToWeek(this.toDate()).toWeek();
+    }
+
     // 日期对象变成年月日数组
     Date.prototype.toArray = function () {
         let year = this.getFullYear();
@@ -86,7 +147,6 @@ const DateTime = (() => {
 
         return [year, month, date];
     };
-
 
     class Component extends HTMLInputElement {
         constructor () {
@@ -123,7 +183,7 @@ const DateTime = (() => {
                 }
             }
 
-            let strType = this.getAttribute('type') || 'date';
+            const strType = this.getAttribute('type') || 'date';
 
             // 赋值
             if (strType == 'date' || strType == 'date-range') {
@@ -132,6 +192,13 @@ const DateTime = (() => {
                 value = arrDate[0];
             } else if (strType == 'month' || strType == 'month-range') {
                 value = arrDate.slice(0, 2).join('-');
+            } else if (strType == 'week' || strType == 'week-range') {
+                // 周类型，返回
+                if (value.includes('W')) {
+                    // 如果已经是周格式
+                    return value;
+                }
+                value = dateToWeek(arrDate.join('-'));
             } else if (/^datetime/.test(strType)) {
                 value = arrDate.join('-') + ' ' + arrHourMin.join(':');
             } else  {
@@ -242,7 +309,7 @@ const DateTime = (() => {
                 // 各个分支中可能会用到的变量
                 let numYear = 0;
                 let numMonth = 0;
-                // var numDate = 0;
+                let numWeek = 0;
                 let numHour = 0;
                 let numDay = 0;
                 // 日期范围
@@ -413,7 +480,7 @@ const DateTime = (() => {
                         }
                         break;
                     }
-                    case 'month-range': {
+                    case 'month-range': case 'week-range': {
                         // 区域选择
                         // 1. 前后年份选择
                         if (/prev|next/.test(eleClicked.className)) {
@@ -422,33 +489,60 @@ const DateTime = (() => {
                             arrRange = eleContainer.dataDate || this[SELECTED][0];
 
                             // 跟其他面板不同，这里只刷新，点击确定再赋值
-                            eleContainer.dataDate = new Date(numYear, arrRange[1], 1).toArray();
+                            if (strType == 'month-range') {
+                                eleContainer.dataDate = new Date(numYear, arrRange[1], 1).toArray();
+                            } else {
+                                // 周范围选择
+                                // 这里的numYear是周数
+                                eleContainer.dataDate = [numYear, arrRange[1]];
+                            }
                             // 刷新
-                            this['month-range']();
+                            this[strType]();
                         } else if (/item/.test(eleClicked.className)) {
                             // 选择某日期
                             // 获得选中的年月日
                             numYear = eleClicked.dataset.year;
-                            numMonth = eleClicked.dataset.value;
+                            numMonth = (eleClicked.dataset.value || '1').padStart(2, '0');
                             numDay = '01';
                             // 根据选中状态决定新的状态
                             dataRange = this[SELECTED];
-                            if (dataRange[0].join() == dataRange[1].join()) {
+
+                            if (strType == 'month-range') {
+                                // 月份选择
                                 // 如果之前前后日期一样，说明只选中了一个日期
-                                // 根据前后顺序改变其中一个日期
-                                if (numYear + numMonth + numDay > dataRange[0].join('')) {
-                                    // 新时间靠后
-                                    dataRange[1] = [numYear, numMonth, numDay];
+                                if (dataRange[0].join() == dataRange[1].join()) {
+                                    // 根据前后顺序改变其中一个日期
+                                    if (numYear + numMonth + numDay > dataRange[0].join('')) {
+                                        // 新时间靠后
+                                        dataRange[1] = [numYear, numMonth, numDay];
+                                    } else {
+                                        dataRange[0] = [numYear, numMonth, numDay];
+                                    }
                                 } else {
-                                    dataRange[0] = [numYear, numMonth, numDay];
+                                    // 如果前后时间不一样，说明现在有范围
+                                    // 则取消范围，变成单选
+                                    dataRange = [[numYear, numMonth, numDay], [numYear, numMonth, numDay]];
                                 }
-                            } else {
-                                // 如果前后时间不一样，说明现在有范围
-                                // 则取消范围，变成单选
-                                dataRange = [[numYear, numMonth, numDay], [numYear, numMonth, numDay]];
-                            }
+                            } else  {
+                                numWeek = numMonth;
+                                // 如果之前前后日期一样，说明只选中了一个日期
+                                if (dataRange[0].join() == dataRange[1].join()) {
+                                    // 根据前后顺序改变其中一个日期
+                                    if (numYear + numWeek > dataRange[0].join('')) {
+                                        // 新时间靠后
+                                        dataRange[1] = [numYear, numWeek];
+                                    } else {
+                                        dataRange[0] = [numYear, numWeek];
+                                    }
+                                } else {
+                                    // 如果前后时间不一样，说明现在有范围
+                                    // 则取消范围，变成单选
+                                    dataRange = [[numYear, numWeek], [numYear, numWeek]];
+                                }
+                            }                         
+                            
                             this[SELECTED] = dataRange;
-                            this['month-range']();
+                            this[strType]();
                         } else if (/button/.test(eleClicked.className)) {
                             strTypeButton = eleClicked.dataset.type;
                             if (strTypeButton == 'primary') {
@@ -469,6 +563,45 @@ const DateTime = (() => {
                             }
                         }
 
+                        break;
+                    }
+                    // 选择周
+                    case 'week': {
+                        numYear = eleClicked.dataset.year;
+                        // 1. 前后年份
+                        if (/prev|next/.test(eleClicked.className)) {
+                            // 修改当前选中的年份数
+                            this[SELECTED][0] = Number(numYear);
+                            // 刷新
+                            this.week();
+                            // 文本框赋值
+                            // 如果在区域内状态
+                            if (eleContainer.querySelector(`.${SELECTED}[href]`)) {
+                                this.setValue();
+                            }
+                        } else if (/item/.test(eleClicked.className)) {
+                            // value实际上是月份两位数值
+                            const value = eleClicked.dataset.value;
+                            if (numYear) {
+                                // 如果有年份，直接使用
+                                this[SELECTED][0] = Number(numYear);
+                            }
+                            if (value) {
+                                this[SELECTED][1] =  Number(value);
+                            }
+
+                            // 赋值
+                            this.setValue();
+
+                            // 根据是否是月份输入框，决定是面板切换，还是关闭
+                            if (this.params.type == 'week') {
+                                // 隐藏
+                                this.hide();
+                            }
+                        } else if (eleClicked.dataset.type == 'year') {
+                            // 切换到年份选择
+                            this.year();
+                        }
                         break;
                     }
                     case 'month': {
@@ -548,6 +681,9 @@ const DateTime = (() => {
                             if (this.params.type == 'year') {
                                 // 隐藏
                                 this.hide();
+                            } else if (this.params.type == 'week') {
+                                // 隐藏
+                                this.week();
                             } else {
                                 // 回到月份面板
                                 this.month();
@@ -824,6 +960,44 @@ const DateTime = (() => {
                 }
             });
 
+            // week week-range类型hover时候，时间跟着变化
+            if (window.matchMedia('(hover: hover)').matches && this.params.type.includes('week')) {
+                eleContainer.addEventListener('mouseover', (event) => {
+                    const eleItem = event.target;
+                    if (!eleItem || !eleItem.closest) {
+                        return;
+                    }
+                    const eleTime = eleContainer.querySelector('.' + CL.week('time') + ' time');
+                    // 只处理item
+                    if (eleTime && eleItem.className.includes('item')) {
+                        // 选中态
+                        const year = eleItem.dataset.year;
+                        const value = eleItem.dataset.value;
+
+                        if (year && value) {
+                            // 改变eleTime的内容
+                            if (this.params.type == 'week') {
+                                eleTime.textContent = getRangeByWeek(Number(year), Number(value)).join(' 至 ');
+                            }
+                        }
+                    } else if (this.params.type == 'week') {
+                        // 还原成现在选中的内容
+                        eleTime.textContent = getRangeByWeek.apply(null, this[SELECTED]).join(' 至 ');
+                    }
+                });
+
+                eleContainer.addEventListener('mouseout', () => {
+                    // 只处理item
+                    if (this.params.type == 'week' && this[SELECTED].length == 2) {
+                        const eleTime = eleContainer.querySelector(`.${CL.week('time')} time`);
+                        if (eleTime) {
+                            // 还原成现在选中的内容
+                            eleTime.textContent = getRangeByWeek.apply(null, this[SELECTED]).join(' 至 ');
+                        }
+                    }
+                });
+            }
+
             // 显隐控制
             this.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -958,6 +1132,12 @@ const DateTime = (() => {
 
                     break;
                 }
+                case 'week': {
+                    // 星期
+                    this[SELECTED] = strInitValue.toWeek();
+
+                    break;
+                }
                 case 'datetime': case 'datetime-local': {
                     // 日期和时间
                     const arrDateTime = strInitValue.split(/\s+|T/);
@@ -985,6 +1165,16 @@ const DateTime = (() => {
                     }
                     break;
                 }
+                case 'week-range': {
+                    // 星期范围
+                    const arrRange = strInitValue.split(/\s+/);
+                    if (arrRange.length == 3) {
+                        const arrBegin = arrRange[0].toWeek();
+                        const arrEnd = arrRange[arrRange.length - 1].toWeek();
+                        this[SELECTED] = [arrBegin, arrEnd];
+                    }
+                    break;
+                }
             }
 
             return this;
@@ -995,12 +1185,19 @@ const DateTime = (() => {
          * @return {Object} 返回当前输入框的值
          */
         setValue () {
-            const arrSelected = this[SELECTED];
+            const arrSelected = this[SELECTED].slice();
             const strValue = this.value;
 
             switch (this.params.type) {
                 case 'date': {
                     this.value = arrSelected.join('-');
+                    break;
+                }
+                case 'week': {
+                    if (arrSelected[1] < 10) {
+                        arrSelected[1] = `0${arrSelected[1]}`;
+                    }
+                    this.value = arrSelected.join('-W');
                     break;
                 }
                 case 'month': {
@@ -1013,6 +1210,10 @@ const DateTime = (() => {
                 }
                 case 'date-range': {
                     this.value = `${arrSelected[0].join('-')} 至 ${arrSelected[1].join('-')}`;
+                    break;
+                }
+                case 'week-range': {
+                    this.value = `${arrSelected[0].join('-W')} 至 ${arrSelected[1].join('-W')}`;
                     break;
                 }
                 case 'month-range': {
@@ -1241,6 +1442,79 @@ const DateTime = (() => {
 
             return {
                 monthDay: arrMonthDay,
+                html: strHtml,
+                min: numMin,
+                max: numMax
+            };
+        }
+
+        /**
+         * 周组装
+         */
+        getWeekData (arrDate) {
+            // 类型
+            const strType = this.params.type;
+            // 最大最小限制
+            let strMin = this.min;
+            let strMax = this.max;
+            // 最大年份和最小年份
+            const numMin = (strMin || '0001-01-01').toWeek().join('');
+            const numMax = (strMax || '9999-12-31').toWeek().join('');
+
+            // 年份
+            const numYear = arrDate[0] * 1;
+
+            // 1-52周，每行7项，共8行
+            // 第一项是不可点击的“第"，最后一项是不可点击的“周”
+            const strHtmlWeek = ['第'].concat(Array.from({ length: 52 }, (v, i) => i + 1), ['周']).map((item, index) => {
+                let strWeek = item;
+                let strClass = '';
+                let strHtmlDate = '';
+                // 合法格式字符串
+                if (typeof item == 'number' && item < 10) {
+                    strWeek = `0${strWeek}`;
+                } else {
+                    strWeek = `${strWeek}`;
+                }
+
+                // 基本类名
+                strClass = CL.date('item');
+
+                if (/\d+/.test(strWeek)) {
+                    if (strType == 'week') {
+                        // 周匹配
+                        if (strWeek == arrDate[1]) {
+                            // 选中态的类名
+                            strClass = `${strClass} ${SELECTED}`;
+                        }
+                    } else if (strType == 'week-range') {
+                        // range选择的匹配规则如下：
+                        // 1. 获得已经选中到时间范围
+                        // 2. 起始时间和结束时间是选中表示
+                        // 3. 之间的时间也是选中表示
+                        const strBegin = this[SELECTED][0].slice(0, 2).join('');
+                        const strEnd = this[SELECTED][1].slice(0, 2).join('');
+                        const strNow = numYear + strWeek;
+                        if (strNow >= strBegin && strNow <= strEnd) {
+                            strClass = `${strClass} ${SELECTED}`;
+                        }
+                    }
+                }
+
+
+                // 是否在范围以内
+                if (/\d+/.test(strWeek) && numYear + strWeek >= numMin && numYear + strWeek <= numMax) {
+                    strHtmlDate = `${strHtmlDate}<a href="javascript:" class="${strClass}" data-year="${numYear}" data-value="${item}">${item}</a>`;
+                } else {
+                    strHtmlDate = `${strHtmlDate}<span class="${strClass}" data-value="${item}">${item}</span>`;
+                }
+
+                return strHtmlDate;
+            }).join('');
+
+            const strHtml = `<div class="${CL.week('body')}">${strHtmlWeek}</div>`;
+
+            return {
                 html: strHtml,
                 min: numMin,
                 max: numMax
@@ -1585,6 +1859,65 @@ const DateTime = (() => {
         }
 
         /**
+         * 选择周
+         * @return {Object} 返回当前DOM对象
+         */
+        week (container) {
+            const eleContainer = container || this.element.target;
+            // 当前选择日期
+            const arrWeek = this[SELECTED];
+            // 对应的月份数据
+            const objWeek = this.getWeekData(arrWeek);
+            // 当前日期对应的周数量
+            const arrCurrentWeek = dateToWeek(new Date()).toWeek();
+
+            // 返回的最大值最小值
+            const numMin = objWeek.min;
+            const numMax = objWeek.max;
+            // 选择周的完整HTML代码
+            // 1. week专属类名容器
+            let strHtml = `<div class="${CL.week('x')}">`;
+            // 2. 周切换的头部
+            const numYear = arrWeek[0] * 1;
+            strHtml = `${strHtml}<div class="${CL.date('head')}">`;
+            //    2.1 是否还有上一年
+            if (numYear - 1 >= Math.floor(numMin / 100) && numYear - 1 <= Math.floor(numMax / 100)) {
+                strHtml = `${strHtml}<a href="javascript:" class="${CL.date('prev')}" data-year="${numYear - 1}" role="button" aria-label="上一年"></a>`;
+            } else {
+                strHtml = `${strHtml}<span class="${CL.date('prev')}" aria-label="上一年"></span>`;
+            }
+            // 2.2 是否还有下一年
+            if (numYear + 1 >= Math.floor(numMin / 100) && numYear + 1 <= Math.floor(numMax / 100)) {
+                strHtml = `${strHtml}<a href="javascript:" class="${CL.date('next')}" data-year="${numYear + 1}" role="button" aria-label="下一年"></a>`;
+            } else {
+                strHtml = `${strHtml}<span class="${CL.date('next')}"></span>`;
+            }
+            // 头部结束
+            strHtml = `${strHtml}<a href="javascript:" class="${CL.date('switch')}" data-type="year" role="button" title="快速切换年份" aria-label="快速切换年份">${numYear}</a>\
+            </div>`;
+            // 3. 显示周对应的具体日期
+            strHtml += `<div class="${CL.week('time')}"><time>${getRangeByWeek.apply(null, arrWeek).join(' 至 ')}</time></div>`;
+            // 4. 周切换主体列表
+            strHtml += objWeek.html;
+
+            // 今周
+            // 首先，今周要在时间范围内
+            const strThisYearWeek = dateToWeek(new Date()).replace(/\D/g, '');
+            if (strThisYearWeek >= numMin && strThisYearWeek <= numMax) {
+                strHtml = `${strHtml}<a href="javascript:" class="${CL.date('item')} ${CL.date('now')}" data-year="${arrCurrentWeek[0]}" data-value="${arrCurrentWeek[1]}">本周</a>`;
+            } else {
+                strHtml = `${strHtml}<span class="${CL.date('item')} ${CL.date('now')}">本周</span>`;
+            }
+
+            // 容器闭合标签
+            strHtml += '</div>';
+
+            // 设置当前时间选择类型
+            eleContainer.dataset.type = 'week';
+            eleContainer.innerHTML = strHtml;
+        }
+
+        /**
          * 选择月份
          * @return {Object} 返回当前DOM对象
          */
@@ -1645,6 +1978,92 @@ const DateTime = (() => {
 
             // 设置当前时间选择类型
             eleContainer.dataset.type = 'month';
+            eleContainer.innerHTML = strHtml;
+
+            return this;
+        }
+
+        /**
+         * 选择周范围
+         * @return {Object} 返回当前DOM对象
+         */
+        ['week-range'] (container) {
+            const eleContainer = container || this.element.target;
+
+            // 当前选择日期
+            const arrDates = this[SELECTED];
+            // 当前起始日期
+            // 默认（第一次）打开使用选中日期
+            // 如果有，使用面板存储月份
+            // 因为range选择不是即时更新文本框
+            const arrDate = eleContainer.dataDate || arrDates[0];
+            eleContainer.dataDate = arrDate;
+            // 前一年
+            const numPrevYear = arrDate[0] * 1 - 1;
+            // 后一个年
+            const numNextYear = arrDate[0] * 1 + 1;
+
+            // 含时间范围和对应月份日历HTML的对象
+            const objWeek = this.getWeekData(arrDate);
+            // 最大年份
+            const numMaxYear = objWeek.max.slice(0, 4);
+            const numMinYear = objWeek.min.slice(0, 4);
+
+            // 选择时间范围完整HTML代码
+            // 1. 同样的，range容器
+            let strHtml = `<div class="${CL.range('x')}">`;
+            // 2. 头部
+            strHtml = `${strHtml}<div class="${CL.date('head')}">\
+            <div class="${CL.date('half')}">`;
+            //  2.1 上一年箭头
+            if (numPrevYear >= numMinYear && numPrevYear <= numMaxYear) {
+                strHtml = `${strHtml}<a href="javascript:" class="${CL.date('prev')}" data-year="${numPrevYear}" role="button" aria-label="上一年"></a>`;
+            } else {
+                strHtml = `${strHtml}<span class="${CL.date('prev')}" aria-label="上一年"></span>`;
+            }
+            // 今年年份显示
+            strHtml = `${strHtml}<span class="${CL.date('switch')}">${arrDate[0]}</span>\
+            </div>\
+            <div class="${CL.date('half')}">`;
+
+            // 2.2 下一年
+            if (numNextYear >= numMinYear && numNextYear < numMaxYear) {
+                strHtml = `${strHtml}<a href="javascript:" class="${CL.date('next')}" data-year="${numNextYear}" role="button" aria-label="下一年"></a>`;
+            } else {
+                strHtml = `${strHtml}<span class="${CL.date('next')}" aria-label="下一年"></span>`;
+            }
+
+            // 下月月份显示
+            strHtml = `${strHtml}<span class="${CL.date('switch')}">${numNextYear}</span>\
+            </div>`;
+
+            // 头部闭合
+            strHtml += '</div>';
+
+            // 3. 显示周对应的具体日期范围
+            const arrWeekBegin = getRangeByWeek.apply(null, arrDates[0]);
+            const arrWeekEnd = getRangeByWeek.apply(null, arrDates[1]);
+            strHtml += `<div class="${CL.week('time')}"><time>${[arrWeekBegin[0], arrWeekEnd[1]].join(' 至 ')}</time></div>`;
+
+            // 4. 两个主体列表
+            // 这里要嵌套一层range特有的body
+            // 主体标签闭合
+            strHtml = `${strHtml}<div class="${CL.range('body')} ${CL.range('week', 'body')}">\
+            <div class="${CL.date('half')}">${objWeek.html}</div>\
+            <div class="${CL.date('half')}">${this.getWeekData([numNextYear, arrDate[1]]).html}</div>\
+            </div>`;
+
+            // 4. 确定与取消按钮
+            strHtml = `${strHtml}<div class="${CL.range('footer')}">\
+            <button class="ui-button" data-type="primary">确定</button>\
+            <button class="ui-button" data-type="normal">取消</button>\
+            </div>`;
+
+            // 容器闭合标签
+            strHtml += '</div>';
+
+            // 设置当前时间选择类型
+            eleContainer.dataset.type = 'week-range';
             eleContainer.innerHTML = strHtml;
 
             return this;
@@ -1770,7 +2189,7 @@ const DateTime = (() => {
             let strHtml = `<div class="${CL.year('x')}">`;
             // 2. 头部的年份切换，一切就是12年
             //    有必要先知道当前的年份
-            const numYear = arrDate[0];
+            const numYear = Number(arrDate[0]);
             //    为什么呢？因为年份的范围是当前年份前面6个，后面5个
             //    例如，假设今年是2015年，则头部年份范围是2009-2020
             //    左右切换是没有限制的
@@ -2313,18 +2732,12 @@ const DateTime = (() => {
             this.format();
 
             // 不同的类名显示不同的内容
-            if (this.params.type == 'date-range') {
+            if (this.params.type.endsWith('-range')) {
                 // 存储当前日期范围数据，以便取消的时候可以正确还原
                 if (!this.dataRangeSelected) {
                     this.dataRangeSelected = this[SELECTED];
                 }
-                this['date-range']();
-            } else if (this.params.type == 'month-range') {
-                // 存储当前日期范围数据，以便取消的时候可以正确还原
-                if (!this.dataRangeSelected) {
-                    this.dataRangeSelected = this[SELECTED];
-                }
-                this['month-range']();
+                this[this.params.type]();
             } else if (this[this.params.type]) {
                 this[this.params.type]();
             } else {
@@ -2420,7 +2833,7 @@ const DateTime = (() => {
             }
             // 普通文本类型变成日期类型
             let strType = this.getAttribute('type');
-            if (['date', 'year', 'month', 'time', 'hour', 'minute', 'datetime', 'datetime-local', 'date-range', 'month-range'].includes(strType) == false) {
+            if (['date', 'year', 'month', 'time', 'hour', 'minute', 'week', 'week-range', 'datetime', 'datetime-local', 'date-range', 'month-range'].includes(strType) == false) {
                 strType = 'date';
 
                 // 移除type属性可以和CSS中设置的尺寸的选择器匹配
@@ -2469,6 +2882,13 @@ const DateTime = (() => {
 
                     // eg. [2015,07,20]
                     this[SELECTED] = arrDate;
+
+                    break;
+                }
+                case 'week': {
+                    // 周
+                    const arrWeek = strInitValue.toWeek();
+                    this[SELECTED] = arrWeek;
 
                     break;
                 }
@@ -2568,7 +2988,40 @@ const DateTime = (() => {
                     this[SELECTED] = [arrBegin, arrEnd];
 
                     break;
-                }                
+                }
+
+                case 'week-range': {
+                    // 日期范围
+                    let strBeginWeek = dateToWeek(new Date());
+                    let strEndWeek = dateToWeek(new Date());
+                    // 前后时间字符串
+                    const arrRange = strInitValue.split(' ');
+                    // 有如下一些情况：
+                    // 1. 空，则选择范围就是今日
+                    // 2. 只有一个时间，则选择范围只这个时间到今天这个范围
+                    // 3. 其他就是正常的
+                    if (strInitValue != '' && arrRange.length == 1) {
+                        const strSomeWeek = arrRange[0];
+                        if (strSomeWeek > strBeginWeek) {
+                            strEndWeek = strSomeWeek;
+                        } else {
+                            strBeginWeek = strSomeWeek;
+                        }
+                    } else if (arrRange.length > 1) {
+                        strBeginWeek = arrRange[0];
+                        strEndWeek = arrRange[arrRange.length - 1];
+                    }
+                    // 赋值
+                    const arrBegin = strBeginWeek.toWeek();
+                    const arrEnd = strEndWeek.toWeek();
+
+                    this.value = `${arrBegin.join('-W')} 至 ${arrEnd.join('-W')}`;
+
+                    // 存储
+                    this[SELECTED] = [arrBegin, arrEnd];
+
+                    break;
+                }
             }
 
             // time时间类型的是H:mm还是ah:mm的判断

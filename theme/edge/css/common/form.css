@@ -861,6 +861,10 @@ _::-moz-color-swatch {
     width: 170px;
 }
 
+[is="ui-datetime"][type="week-range"] {
+    width: 200px;
+}
+
 [is="ui-datetime"][type="time"] {
     width: auto;
 }
@@ -985,6 +989,10 @@ a.ui-date-item:not(.selected):hover {
     width: 225px;
 }
 
+.ui-week-x {
+    width: 245px;
+}
+
 .ui-minute-x[data-step="1"] {
     width: 328px;
 }
@@ -1007,10 +1015,24 @@ a.ui-date-item:not(.selected):hover {
 
 .ui-year-body,
 .ui-month-body,
-.ui-date-body {
+.ui-date-body,
+.ui-week-body {
     padding-left: 5px;
     padding-right: 2px;
     padding-bottom: 5px;
+}
+.ui-week-body {
+    /* grid 7列 */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    line-height: 2;
+}
+.ui-week-time {
+    text-align: center;
+    padding-block: 5px;
+    color: var(--ui-gray, #a2a9b6);
+    font-size: 13px;
+    background-color: var(--ui-light, #f7f9fa);
 }
 
 .ui-date-item {
@@ -1085,6 +1107,10 @@ span.ui-date-item {
 .ui-range-body .ui-date-half + .ui-date-half {
     border-left: 1px solid #f0f0f2;
     margin-left: -1px;
+}
+
+.ui-range-week-body :where(.ui-date-half:first-child span[data-value="周"], .ui-date-half:last-child span[data-value="第"]) {
+    display: none;
 }
 
 .ui-range-footer {
