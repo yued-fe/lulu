@@ -13934,6 +13934,7 @@ HTMLElement.prototype.pagination = function (options) {
  * @edited   17-07-18 非模块化使用支持
  *           19-12-03 ES5原生语法支持
  *           21-01-08 Web Components
+ *           25-06-23 ajax header支持
 **/
 // import '../ui/Drop.js';
 // import '../ui/Pagination.js';
@@ -14220,7 +14221,7 @@ const Table = (function () {
             }
 
             // 关联表单的行为处理
-            let eleForm = this.form;
+            const eleForm = this.form;
             if (eleForm) {
                 new Validate(eleForm, () => {
                     objParams.page.current = 1;
@@ -14365,7 +14366,7 @@ const Table = (function () {
                 }
             };
             // 请求完成的事件处理
-            let funComplete = () => {
+            const funComplete = () => {
                 // 请求结束标志量
                 this.removeAttribute('aria-busy');
                 // 去除中间的大loading
@@ -14386,10 +14387,16 @@ const Table = (function () {
             };
 
             // 执行Ajax请求的方法
-            let funAjax = () => {
-                let xhr = new XMLHttpRequest();
-
+            const funAjax = () => {
+                const xhr = new XMLHttpRequest();
+                // 建立连接
                 xhr.open('GET', strUrlAjax);
+                // 发送header信息
+                if (objAjax.headers) {
+                    for (let key in objAjax.headers) {
+                        xhr.setRequestHeader(key, objAjax.headers[key]);
+                    }
+                }
 
                 xhr.onload = () => {
                     let json = {};
@@ -14546,10 +14553,10 @@ const Table = (function () {
          * @return {[type]}       [description]
          */
         page (total) {
-            let objPage = this.params.page;
+            const objPage = this.params.page;
 
             // 分页元素
-            let elePagination = this.element.pagination;
+            const elePagination = this.element.pagination;
 
             // 显示分页
             if (!elePagination) {
@@ -14557,7 +14564,7 @@ const Table = (function () {
             }
 
             // 分页数据的设置
-            let objParamPage = {
+            const objParamPage = {
                 total: total || objPage.total,
                 current: objPage.current,
                 per: objPage.per,
@@ -14581,7 +14588,7 @@ const Table = (function () {
             }
 
             //没有全选
-            let eleThCheckbox = this.querySelector('th:first-child ' + CL.checkbox);
+            const eleThCheckbox = this.querySelector('th:first-child ' + CL.checkbox);
             if (eleThCheckbox) {
                 eleThCheckbox[CHECKED] = false;
             }
