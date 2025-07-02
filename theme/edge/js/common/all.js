@@ -1603,6 +1603,14 @@ class Select extends HTMLSelectElement {
     }
 
     render () {
+        // 渲染
+        if (CSS.supports('appearance', 'base-select')) {
+            // option元素增加类名 ui-select-datalist-li
+            this.querySelectorAll('option').forEach(option => {
+                option.classList.add(Select.addClass('datalist', 'li'));
+            });
+            return;
+        }
         this.create();
         this.refresh();
         this.events();
@@ -1914,6 +1922,10 @@ class Select extends HTMLSelectElement {
         const eleCombobox = objElement.combobox;
         const eleButton = objElement.button;
         const eleDatalist = objElement.datalist;
+
+        if (!eleCombobox || !eleButton || !eleDatalist) {
+            return;
+        }
 
         if (!eleCombobox.classList.contains('active')) {
             return;
