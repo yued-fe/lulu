@@ -7,7 +7,7 @@
   "author": "YUX-FE",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yued-fe/lulu.git"
+    "url": "git+ssh://git@github.com/yued-fe/lulu.git"
   },
   "keywords": [
     "lulu",
