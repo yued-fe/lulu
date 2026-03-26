@@ -568,7 +568,7 @@ const Validate = (() => {
                 const strType = this.getType(element);
 
                 // 特殊控件不参与验证
-                if (/^radio|checkbox|select$/i.test(strType)) {
+                if (/^radio|checkbox|select|file$/i.test(strType)) {
                     return objValidateState;
                 }
 

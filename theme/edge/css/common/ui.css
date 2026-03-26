@@ -3067,6 +3067,7 @@ select[hidden] + .ui-select {
     transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
     box-sizing: content-box;
     cursor: pointer;
+    font-size: 100%;
 }
 
 .ui-select-button:hover {
