@@ -376,8 +376,8 @@ class Tab extends HTMLElement {
         if (!this.closest('a, button') && !this.querySelector('a, button')) {
             this.setAttribute('tabindex', '0');
         }
-        let eleTarget = this.element.target;
-        let eleTrigger = this.element.trigger;
+        const eleTarget = this.element.target;
+        const eleTrigger = this.element.trigger;
 
         if (eleTrigger) {
             eleTrigger.setAttribute('role', 'tab');
@@ -389,9 +389,9 @@ class Tab extends HTMLElement {
         this.events();
 
         // URL查询看看能不能获取到记录的选项卡状态信息
-        let objURLParams = new URLSearchParams(window.location.search);
+        const objURLParams = new URLSearchParams(window.location.search);
         objURLParams.forEach((value, key) => {
-            if (eleTrigger && eleTarget && this.name == key && eleTarget.id == value && !eleTrigger.hasAttribute('open')) {
+            if (eleTrigger && this.name == key && this.target == value && !eleTrigger.hasAttribute('open')) {
                 eleTrigger.click();
             }
         });
@@ -454,7 +454,7 @@ class Tab extends HTMLElement {
             }
 
             // is-tab等普通元素的open属性变化
-            let eleTrigger = this.element.trigger;
+            const eleTrigger = this.element.trigger;
             if (eleTrigger && eleTrigger != this) {
                 eleTrigger.toggleAttribute('open', this.open);
             }
