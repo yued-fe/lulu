@@ -1285,10 +1285,7 @@ class Tab extends HTMLElement {
 
         // 历史记录的处理
         if (this.history == true && strName && /tab\d{10,16}/.test(strName) == false) {
-            if (!this.element.target) {
-                return;
-            }
-            let strId = this.element.target.id;
+            const strId = this.target;
 
             // url地址查询键值对替换
             const objURLParams = new URLSearchParams(location.search);
@@ -1297,7 +1294,7 @@ class Tab extends HTMLElement {
 
             // hash优化，去除重复的hash
             let strHash = location.hash;
-            if (strId == strHash) {
+            if ('#' + strId == strHash) {
                 location.hash = strHash = '';
             }
 
