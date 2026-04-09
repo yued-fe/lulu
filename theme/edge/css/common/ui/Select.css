@@ -12,7 +12,6 @@
 }
 
 [is="ui-select"] {
-    display: inline-block;
     height: 40px;
     margin: 0;
     border: 1px solid var(--ui-border, #d0d0d5);
@@ -74,8 +73,6 @@
     }
 }
 
-
-
 select[multiple] > option:disabled {
     cursor: default;
 }
@@ -103,9 +100,12 @@ select[multiple] > option:disabled {
         background-color: var(--ui-white, #fff);
         transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
         cursor: pointer;
-    }
-    [is="ui-select"]:hover {
-        border-color: var(--ui-dark-border, #ababaf);
+        &:disabled {
+            opacity: var(--ui-opacity, .4);
+        }
+        &:enabled:hover {
+            border-color: var(--ui-dark-border, #ababaf);
+        }
     }
 }
 
@@ -372,10 +372,11 @@ h6.ui-select-datalist-li,
     [is="ui-select"] option:checked {
         background-color: var(--ui-list-selected, #e0f0ff);
     }
-    [is="ui-select"] option:hover {
+    [is="ui-select"]:enabled option:enabled:hover {
         background-color: var(--ui-list-hover, #f0f7ff);
     }
-    [is="ui-select"] option:disabled {
+    [is="ui-select"] option:disabled,
+    [is="ui-select"]:disabled option {
         color: var(--ui-gray, #a2a9b6);
         background-color: var(--ui-white, #fff);
         cursor: default;
