@@ -147,7 +147,8 @@ html:has([is="ui-dialog"]:modal[open]) {
 }
 
 .ui-dialog-footer .ui-button {
-    margin-left: 15px;
+    margin-left: var(--ui-button-gap, 15px);
+    vertical-align: var(--ui-vertical-align, middle);
 }
 
 .ui-dialog-footer .ui-button:first-child {

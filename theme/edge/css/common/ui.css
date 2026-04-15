@@ -1548,7 +1548,8 @@ html:has([is="ui-dialog"]:modal[open]) {
 }
 
 .ui-dialog-footer .ui-button {
-    margin-left: 15px;
+    margin-left: var(--ui-button-gap, 15px);
+    vertical-align: var(--ui-vertical-align, middle);
 }
 
 .ui-dialog-footer .ui-button:first-child {
@@ -2656,6 +2657,7 @@ progress[width="100%"] {
  * @Range.css
  * @author xboxyan
  * @create 20-04-30
+ * @edit   26-04-15 by zhangxinxu multiple range support any range
 **/
 /* range基础变量 */
 :root {
@@ -2730,7 +2732,7 @@ progress[width="100%"] {
 
 
 /* 黑色提示效果 */
-input[data-tips]{
+[is="ui-range"][data-tips]{
     position: relative;
 }
 [is="ui-range"][data-tips] {
@@ -2742,8 +2744,8 @@ input[data-tips]{
 [is="ui-range"][data-tips]::-webkit-slider-runnable-track {
     margin: 0 calc(var(--ui-range-thumb-size) * -0.5);
 }
-input[data-tips]::before,
-input[data-tips]::after {
+[is="ui-range"][data-tips]::before,
+[is="ui-range"][data-tips]::after {
     content: '';
     display: block;
     position: absolute;
@@ -2755,7 +2757,7 @@ input[data-tips]::after {
     visibility: hidden;
     pointer-events: none;
 }
-input[data-tips]::before {
+[is="ui-range"][data-tips]::before {
     content: attr(data-tips);
     border-radius: 3px;
     padding: 6px 10px;
@@ -2767,11 +2769,11 @@ input[data-tips]::before {
     font-style: normal;
     width: max-content;
     max-width: 200px;
-    left: calc( var(--percent,.5) * 100% );
+    left: calc( var(--percent, .5) * 100%);
     bottom: 100%;
     transform: translate(-50%, -20px);
 }
-input[data-tips]::after {
+[is="ui-range"][data-tips]::after {
     width: 0;
     height: 0;
     overflow: hidden;
@@ -2782,13 +2784,13 @@ input[data-tips]::after {
     margin-bottom: -12px;
     border-top-color: currentColor;
 }
-input[data-tips][reverse]::before {
+[is="ui-range"][data-tips][reverse]::before {
     left: calc( var(--percent,.5) * 100% );
     bottom: auto;
     top: 100%;
     transform: translate(-50%, 20px);
 }
-input[data-tips][reverse]::after {
+[is="ui-range"][data-tips][reverse]::after {
     bottom: auto;
     top: 100%;
     transform: translate(-50%, 20px);
@@ -2796,18 +2798,14 @@ input[data-tips][reverse]::after {
     border-top-color: transparent;
     border-bottom-color: currentColor;
 }
-input[data-tips]:not([data-tips*="$"]):hover::before,
-input[data-tips]:not([data-tips*="$"]):hover::after,
-input[data-tips]:not([data-tips*="$"]):active::before,
-input[data-tips]:not([data-tips*="$"]):active::after {
+[is="ui-range"][data-tips]:not([data-tips*="$"]):is(:hover, :active)::before,
+[is="ui-range"][data-tips]:not([data-tips*="$"]):is(:hover, :active)::after {
     visibility: visible;
     opacity: 1;
     transform: translate(-50%, calc( var(--ui-range-thumb-size) * -1));
 }
-input[data-tips][reverse]:not([data-tips*="$"]):hover::before,
-input[data-tips][reverse]:not([data-tips*="$"]):hover::after,
-input[data-tips][reverse]:not([data-tips*="$"]):active::before,
-input[data-tips][reverse]:not([data-tips*="$"]):active::after {
+[is="ui-range"][data-tips][reverse]:not([data-tips*="$"]):is(:hover, :active)::before,
+[is="ui-range"][data-tips][reverse]:not([data-tips*="$"]):is(:hover, :active)::after {
     transform: translate(-50%, var(--ui-range-thumb-size));
 }
 
@@ -2817,7 +2815,7 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
     vertical-align: top;
 }
 [is="ui-range"][multiple]::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--scale, 1) * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--scale, 1) * var(--from, 0)) calc(1% * var(--scale, 1) * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
 }
 
 [is="ui-range"][multiple][data-range="from"] {
@@ -2846,7 +2844,7 @@ input[data-tips][reverse]:not([data-tips*="$"]):active::after {
     pointer-events: initial;
 }
 [is="ui-range"][multiple]::-moz-range-track {
-    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--from, 0)) calc(1% * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
+    background: linear-gradient(to right, var(--ui-gray, #a2a9b6) calc(1% * var(--scale, 1) * var(--from, 0)), var(--ui-blue, #2a80eb) calc(1% * var(--scale, 1) * var(--from, 0)) calc(1% * var(--scale, 1) * var(--to, 100)), var(--ui-gray, #a2a9b6) 0%);
 }
 [is="ui-range"][multiple][data-range="to"]::-moz-range-progress {
     background: none;

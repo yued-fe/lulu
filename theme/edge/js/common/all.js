@@ -5104,6 +5104,12 @@ class XRange extends HTMLInputElement {
                 // 给父级添加一个定位，不然相对宽度会有问题
                 this.parentNode.style.position = 'relative';
             }
+            if (this.getAttribute('from') && !this.min) {
+                this.min = this.getAttribute('from');
+            }
+            if (this.getAttribute('to') && !this.max) {
+                this.max = this.getAttribute('to');
+            }
             Object.assign(this.element, {
                 otherRange: this.cloneNode(false),
             });
@@ -5192,6 +5198,7 @@ class XRange extends HTMLInputElement {
         const min = this.min || 0;
 
         this.style.setProperty('--percent', (this.value - min) / (max - min));
+        this.style.setProperty('--scale', 100 / (max - min));
 
         if (typeof this.tips == 'string') {
             if (/^\d+$/.test(this.tips)) {
@@ -5199,7 +5206,7 @@ class XRange extends HTMLInputElement {
             } else if (/^\${value}/.test(this.tips)) {
                 this.dataset.tips = this.tips.replace(/\${value}/g, this.value);
             } else {
-                this.dataset.tips = this.tips.replace(/\d+/, this.value);
+                this.dataset.tips = this.tips.replace(/\d+(\.\d+)?/, this.value);
             }
         }
         this.style.setProperty('--from', this.from);
