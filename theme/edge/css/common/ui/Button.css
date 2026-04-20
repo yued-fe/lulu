@@ -93,7 +93,7 @@ div[is="ui-button"] {
 :is(.ui-button, [is="ui-button"]):is([type="normal"], [data-type="normal"]) {
     --ui-button-color: var(--ui-white, #fff);
     color: var(--ui-dark, #4c5161);
-    border-color: var(--ui-border);
+    border-color: var(--ui-border, #d0d0d5);
     --ui-brightness: 0.96;
 }
 

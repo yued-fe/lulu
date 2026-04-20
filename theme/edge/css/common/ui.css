@@ -138,7 +138,7 @@ div[is="ui-button"] {
 :is(.ui-button, [is="ui-button"]):is([type="normal"], [data-type="normal"]) {
     --ui-button-color: var(--ui-white, #fff);
     color: var(--ui-dark, #4c5161);
-    border-color: var(--ui-border);
+    border-color: var(--ui-border, #d0d0d5);
     --ui-brightness: 0.96;
 }
 
@@ -2933,15 +2933,19 @@ _::-moz-range-track {
 
 :root {
     --ui-select-icon-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%232a80eb' d='M145.659 68.949a12.874 12.874 0 0 0-18.473 0L99.479 97.233 71.772 68.949a12.874 12.874 0 0 0-18.473 0c-5.099 5.208-5.099 13.648 0 18.857l46.18 47.14 46.181-47.14c5.099-5.208 5.099-13.649-.001-18.857z'/%3E%3C/svg%3E");
+    --ui-select-height: 40px;
+    --ui-select-line-height: var(--ui-line-height, 20px);
 }
 
 [is="ui-select"] {
-    height: 40px;
+    height: var(--ui-select-height);
     margin: 0;
     border: 1px solid var(--ui-border, #d0d0d5);
     font-size: var(--ui-font, 14px);
     font-family: system-ui;
+    font-feature-settings: "tnum";
     vertical-align: middle;
+    --ui-select-padding-block: calc((var(--ui-select-height) - var(--ui-select-line-height)) / 2);
 }
 
 [is="ui-select"][width="100%"] {
@@ -2950,7 +2954,7 @@ _::-moz-range-track {
 [is="ui-select"][width] {
     width: attr(width type(*));
 }
-[is="ui-select"][width$="0"],[is="ui-select"][width$="1"],[is="ui-select"][width$="2"],[is="ui-select"][width$="3"],[is="ui-select"][width$="4"],[is="ui-select"][width$="5"],[is="ui-select"][width$="6"],[is="ui-select"][width$="7"],[is="ui-select"][width$="8"],[is="ui-select"][width$="9"] {
+[is="ui-select"]:is([width$="0"], [width$="1"], [width$="2"], [width$="3"], [width$="4"], [width$="5"], [width$="6"], [width$="7"], [width$="8"], [width$="9"]) {
     width: attr(width px);
 }
 @supports not (appearance: base-select) {
@@ -2963,6 +2967,10 @@ _::-moz-range-track {
         visibility: hidden;
         z-index: 1;
     }
+}
+
+[is="ui-select"][placeholder]:has(option[value=""]:checked) {
+    color: var(--ui-gray, #a2a9b6);
 }
 
 [is="ui-select"][multiple] {
@@ -2984,8 +2992,9 @@ _::-moz-range-track {
 
 @supports not (appearance: base-select) {
     [is="ui-select"][multiple] {
-        font-size: calc(34px - 1px);
-        font-size: var(--ui-font, 14px);
+        appearance: none;
+        font-size: 31px;
+        letter-spacing: calc(-1 * (31px - var(--ui-font, 14px)));
         border-right-width: 13px;
         border-left: 13px solid;
     }
@@ -3003,21 +3012,22 @@ select[multiple] > option:disabled {
 
 .ui-select {
     display: inline-block;
-    height: 40px;
-    line-height: 20px;
+    height: var(--ui-select-height);
+    line-height: var(--ui-line-height, 20px);
     vertical-align: middle;
     font-size: var(--ui-font, 14px);
     transition: opacity var(--ui-animate-time, .2s);
     text-align: start;
     font-family: system-ui;
     position: relative;
+    --ui-select-padding-block: calc((var(--ui-select-height) - var(--ui-select-line-height)) / 2);
 }
 
 @supports (appearance: base-select) {
     [is="ui-select"] {
         appearance: base-select;
-        line-height: 20px;
-        padding: 9px 6px 9px 12px;
+        line-height: var(--ui-select-line-height);
+        padding: calc(var(--ui-select-padding-block) - 1px) 6px calc(var(--ui-select-padding-block) - 1px) 12px;
         font-size: var(--ui-font, 14px);
         color: var(--ui-dark, #4c5161);
         border-radius: var(--ui-radius, 4px);
@@ -3055,8 +3065,8 @@ select[hidden] + .ui-select {
     width: -webkit-fill-available;
     width: -moz-available;
     width: stretch;
-    height: 20px;
-    padding: 9px 27px 9px 12px;
+    height: calc(var(--ui-select-line-height));
+    padding: calc(var(--ui-select-padding-block) - 1px) 27px calc(var(--ui-select-padding-block) - 1px) 12px;
     color: var(--ui-dark, #4c5161);
     border: 1px solid var(--ui-border, #d0d0d5);
     border-radius: var(--ui-radius, 4px);
@@ -3099,12 +3109,12 @@ select[hidden] + .ui-select {
 .ui-select-text:only-child::after,
 .ui-select-button:empty::after {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: var(--ui-select-line-height);
+    height: var(--ui-select-line-height);
     background: var(--ui-select-icon-arrow) no-repeat center;
-    background-size: 20px 20px;
+    background-size: 100% 100%;
     right: 7px;
-    top: 10px;
+    top: var(--ui-select-padding-block);
 }
 .ui-select-text:only-child::after,
 .ui-select-button:empty::after {
@@ -3115,10 +3125,10 @@ select[hidden] + .ui-select {
         -webkit-text-fill-color: transparent;
         content: "";
         display: block;
-        width: 20px;
-        height: 20px;
+        width: var(--ui-select-line-height);
+        height: var(--ui-select-line-height);
         background: var(--ui-select-icon-arrow) no-repeat center;
-        background-size: 20px 20px;
+        background-size: 100% 100%;
     }
     [is="ui-select"]:open {
         border-color: var(--ui-blue, #2a80eb);
@@ -3133,14 +3143,14 @@ select[hidden] + .ui-select {
     position: absolute;
     left: 0;
     right: 0;
-    top: 39px;
+    top: calc(var(--ui-select-height) - 1px);
     display: none;
     box-sizing: border-box;
     max-height: 306px;
     padding: 0;
     border: 1px solid var(--ui-blue, #2a80eb);
     background-color: var(--ui-white, #fff);
-    font-size: 14px;
+    font-size: var(--ui-font, 14px);
     overflow: auto;
     overscroll-behavior: none;
     -ms-scroll-chaining: none;
@@ -3152,6 +3162,9 @@ select[hidden] + .ui-select {
 [multiple] ~ .ui-select > .ui-select-datalist {
     position: static;
     display: block;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: stretch;
     max-height: none;
     height: inherit;
     border-color: #d0d0d5;
@@ -3192,7 +3205,7 @@ select[hidden] + .ui-select {
 
 .reverse > .ui-select-datalist {
     top: auto;
-    bottom: 39px;
+    bottom: calc(var(--ui-select-height) - 1px);
 }
 
 body > .ui-select-datalist {
@@ -3215,10 +3228,11 @@ body > .ui-select-datalist {
     text-indent: 1em;
 }
 
-.ui-select-datalist-li {
+.ui-select-datalist-li,
+[is="ui-select"] option {
     display: block;
-    line-height: 20px;
-    padding: 9px 12px;
+    line-height: var(--ui-select-line-height);
+    padding: calc(var(--ui-select-padding-block) - 1px) 12px;
     color: var(--ui-dark, #4c5161);
     background-color: var(--ui-white, #fff);
     text-decoration: none;
@@ -3309,7 +3323,7 @@ h6.ui-select-datalist-li,
         padding-top: 6px;
         font-weight: 700;
         color: var(--ui-dark, #4c5161);
-        line-height: 20px;
+        line-height: var(--ui-select-line-height);
     }
     [is="ui-select"] optgroup:not([label]):not(:first-child)::before {
         content: '';

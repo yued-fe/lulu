@@ -1600,12 +1600,7 @@ class Select extends HTMLSelectElement {
     }
 
     render () {
-        // 渲染
         if (CSS.supports('appearance', 'base-select')) {
-            // option元素增加类名 ui-select-datalist-li
-            this.querySelectorAll('option').forEach(option => {
-                option.classList.add(Select.addClass('datalist', 'li'));
-            });
             return;
         }
         this.create();
@@ -1745,7 +1740,7 @@ class Select extends HTMLSelectElement {
         const isAnchor = isSupportAnchor && !isCSSPosition && (this.hasAttribute('is-anchor') || this.dataset.anchor);
 
         // 直接插入对应的片段内容
-        this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()}">
+        this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()};${this.style.cssText}">
            ${!this.multiple ? `<button
                 type="button"
                 class="${BUTTON_CLASS}"
@@ -1767,7 +1762,7 @@ class Select extends HTMLSelectElement {
             ></ui-select-list>
         </div>`);
 
-        let eleCombobox = this.nextElementSibling;
+        const eleCombobox = this.nextElementSibling;
 
         // 元素暴露出去
         Object.assign(this.element, {
@@ -1794,6 +1789,7 @@ class Select extends HTMLSelectElement {
         const isMultiple = this.multiple;
         // 主要的几个元素
         const eleSelect = this;
+
         // 几个创建元素
         const eleCombobox = this.element.combobox;
         const eleButton = this.element.button;
@@ -2218,11 +2214,6 @@ class Select extends HTMLSelectElement {
         if (name === 'disabled') {
             if (!eleButton) return;
             eleButton.disabled = this.disabled;
-        } else if (name === 'multiple') {
-            if (this.element.combobox) {
-                this.element.combobox.remove();
-                this.render();
-            }
         } else if (name == 'width') {
             this.setWidth();
         }
