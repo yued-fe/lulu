@@ -2015,8 +2015,15 @@ _::-moz-range-track {
     }
 }
 
-[is="ui-select"][placeholder]:has(option[value=""]:checked) {
-    color: var(--ui-gray, #a2a9b6);
+[is="ui-select"][placeholder] {
+    &:has(option[value=""]:checked),
+    & + .ui-select .ui-select-button {
+        color: var(--ui-gray, #a2a9b6);
+    }
+    option[value=""],
+    & + .ui-select .ui-select-datalist-li[data-value=""] {
+        display: none;
+    }
 }
 
 [is="ui-select"][multiple] {
@@ -2038,7 +2045,6 @@ _::-moz-range-track {
 
 @supports not (appearance: base-select) {
     [is="ui-select"][multiple] {
-        appearance: none;
         font-size: 31px;
         letter-spacing: calc(-1 * (31px - var(--ui-font, 14px)));
         border-right-width: 13px;
@@ -2083,7 +2089,7 @@ select[multiple] > option:disabled {
         &:disabled {
             opacity: var(--ui-opacity, .4);
         }
-        &:enabled:hover {
+        &:where(:enabled:not(:open)):hover {
             border-color: var(--ui-dark-border, #ababaf);
         }
     }
@@ -2135,11 +2141,6 @@ select[hidden] + .ui-select {
 
 .active > button.ui-select-button {
     border-color: var(--ui-blue, #2a80eb);
-    border-radius: var(--ui-radius, 4px) var(--ui-radius, 4px) 0 0;
-}
-
-.reverse > button.ui-select-button {
-    border-radius: 0 0 var(--ui-radius, 4px) var(--ui-radius, 4px);
 }
 
 .ui-select-text {
@@ -2178,23 +2179,16 @@ select[hidden] + .ui-select {
     }
     [is="ui-select"]:open {
         border-color: var(--ui-blue, #2a80eb);
-        border-radius: var(--ui-radius, 4px) var(--ui-radius, 4px) 0 0;
-    }
-    [is="ui-select"].reverse:open {
-        border-radius: 0 0 var(--ui-radius, 4px) var(--ui-radius, 4px);
     }
 }
 
 .ui-select-datalist {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(var(--ui-select-height) - 1px);
     display: none;
     box-sizing: border-box;
     max-height: 306px;
     padding: 0;
     border: 1px solid var(--ui-blue, #2a80eb);
+    border-radius: var(--ui-radius, 4px);
     background-color: var(--ui-white, #fff);
     font-size: var(--ui-font, 14px);
     overflow: auto;
@@ -2203,6 +2197,14 @@ select[hidden] + .ui-select {
     scrollbar-width: thin;
     text-align: left;
     margin: 0;
+}
+@supports not (position-try-fallbacks: flip-block) {
+    .ui-select-datalist {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(var(--ui-select-height) - 1px);
+    }
 }
 
 [multiple] ~ .ui-select > .ui-select-datalist {
@@ -2258,15 +2260,12 @@ body > .ui-select-datalist {
     font-family: system-ui;
 }
 
-@supports (justify-self: anchor-center) {
-    .ui-select-datalist[data-anchor="true"] {
-        left: anchor(left) !important;
-        top: calc(anchor(bottom) - 1px) !important;
+@supports (position-try-fallbacks: flip-block) {
+    .ui-select-datalist {
+        position-area: bottom;
         position-visibility: anchors-visible;
-    }
-    .reverse > .ui-select-datalist[data-anchor="true"] {
-        top: auto !important;
-        bottom: calc(anchor(top) - 1px) !important;
+        position-try-fallbacks: flip-block;
+        width: anchor-size(width);
     }
 }
 
@@ -2342,12 +2341,14 @@ h6.ui-select-datalist-li,
     [is="ui-select"]::picker(select) {
         appearance: base-select;
         border: 1px solid var(--ui-blue, #2a80eb);
+        border-radius: var(--ui-radius, 4px);
         max-height: 306px;
         overflow: auto;
         overscroll-behavior: none;
         scrollbar-width: thin;
         text-align: left;
         top: calc(anchor(bottom) - 1px);
+        position-try-fallbacks: flip-block;
     }
     [is="ui-select"].reverse::picker(select) {
         top: auto;

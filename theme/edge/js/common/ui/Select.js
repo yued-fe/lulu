@@ -8,7 +8,6 @@
 
 // 是否支持popover
 const isSupportPopover = HTMLElement.prototype.hasOwnProperty("popover");
-const isSupportAnchor = CSS.supports('justify-self', 'anchor-center');
 
 class Select extends HTMLSelectElement {
 
@@ -183,8 +182,6 @@ class Select extends HTMLSelectElement {
         const isCustomScroll = /windows/i.test(navigator.userAgent);
         // 是否使用 popover
         const isPopover = !isCSSPosition && isSupportPopover;
-        // 是否使用anchor锚点定位
-        const isAnchor = isSupportAnchor && !isCSSPosition && (this.hasAttribute('is-anchor') || this.dataset.anchor);
 
         // 直接插入对应的片段内容
         this.insertAdjacentHTML('afterend', `<div style="width: ${this.getWidth()};${this.style.cssText}">
@@ -204,7 +201,6 @@ class Select extends HTMLSelectElement {
                 class="${DATALIST_CLASS}"
                 ${!this.multiple ? 'aria-hidden="true"' : ''}
                 data-custom-scroll="${isCustomScroll}"
-                ${isAnchor ? 'data-anchor="true"' : ''}
                 style="position-anchor:--${strId};"
             ></ui-select-list>
         </div>`);
@@ -307,6 +303,7 @@ class Select extends HTMLSelectElement {
                 class="${arrCl.join(' ')}"
                 data-index=${index}
                 data-target="${strId}"
+                data-value="${obj.value}"
                 role="option"
                 aria-selected="${obj.selected}"
             >${obj.html}</a>`;
@@ -371,6 +368,10 @@ class Select extends HTMLSelectElement {
             return;
         }
 
+        if (CSS.supports('position-try-fallbacks', 'flip-block')) {
+            return;
+        }
+
         // 按钮的尺寸和位置
         const objBoundButton = eleButton.getBoundingClientRect();
         // 滚动高度
@@ -381,8 +382,6 @@ class Select extends HTMLSelectElement {
             eleDatalist.style.left = (objBoundButton.left + document.scrollingElement.scrollLeft) + 'px';
             eleDatalist.style.top = (objBoundButton.bottom + numScrollTop - 1) + 'px';
             eleDatalist.style.width = eleCombobox.getBoundingClientRect().width + 'px';
-            // 列表显示
-            eleDatalist.classList.add('active');
             // 层级
             this.zIndex();
         }
@@ -392,9 +391,19 @@ class Select extends HTMLSelectElement {
         const numBounceBottom = objBoundDatalist.bottom + (eleDatalist.popover ? 0 : numScrollTop);
         var isOverflow = numBounceBottom > Math.max(document.body.clientHeight, window.innerHeight);
         eleCombobox.classList[isOverflow ? 'add' : 'remove']('reverse');
-
+        // 这里之所以加定时器和显隐二次重绘，都是因为Safari的bug
         if (isOverflow && !this.dataset.cssPosition && !this.hasAttribute('is-css-position')) {
-            eleDatalist.style.top = (objBoundButton.top + numScrollTop - objBoundDatalist.height + 1) + 'px';
+            eleDatalist.style.display = 'none';
+            setTimeout(() => {
+                eleDatalist.style.top = (objBoundButton.top + numScrollTop - objBoundDatalist.height + 1) + 'px';
+                eleDatalist.style.display = 'block';
+            }, 10);
+        } else if (!eleCombobox.contains(eleDatalist) || eleButton.popoverTargetElement) { 
+            eleDatalist.style.display = 'none';
+            setTimeout(() => {
+                eleDatalist.style.top = (objBoundButton.bottom + numScrollTop - 1) + 'px';
+                eleDatalist.style.display = 'block';
+            }, 10);
         }
     }
 
