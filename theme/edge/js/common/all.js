@@ -12873,7 +12873,7 @@ const Validate = (() => {
             eleForm.querySelectorAll('input, textarea').forEach(function (element) {
                 // 对maxlength进行处理
                 let strAttrMaxLength = element.getAttribute('maxlength');
-                if (strAttrMaxLength) {
+                if (strAttrMaxLength && element.hasAttribute('lang')) {
                     // 给maxlength设置不合法的值，阻止默认的长度限制
                     try {
                         element.setAttribute('maxlength', '_' + strAttrMaxLength + '_');

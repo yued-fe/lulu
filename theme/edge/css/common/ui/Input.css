@@ -66,6 +66,12 @@ input.ui-input,
     outline: none;
     color: var(--ui-dark, #4c5161);
     transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
+    &:has(+ .ui-select-icon) {
+        padding-right: 27px;
+    }
+    &[size] {
+        width: attr(size ch);
+    }
 }
 
 .ui-input:hover,

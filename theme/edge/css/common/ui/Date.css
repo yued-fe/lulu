@@ -70,7 +70,7 @@
     transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
     -webkit-tap-highlight-color: transparent;
     -webkit-appearance: none;
-
+    font-feature-settings: 'tnum';
     background: var(--ui-white, #fff) var(--ui-datetime-arrow) no-repeat right 3px center;
     background-size: 20px 20px;
     user-select: none;
