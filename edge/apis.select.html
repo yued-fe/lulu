@@ -68,7 +68,7 @@ import('lu2/theme/edge/js/common/ui/Select.js');</pre>
       <select is="ui-select"></select>
       <pre>&lt;select is="ui-select"&gt;&lt;/select&gt;</pre>
 
-      <h4>赋值</h4>
+      <h4>赋值与动态创建</h4>
       <p>测试禁用态样式，以及动态赋值与样式同步变化。</p>
       <p>
         <select is="ui-select">
@@ -80,6 +80,7 @@ import('lu2/theme/edge/js/common/ui/Select.js');</pre>
           <option value="6">选项6</option>
         </select>
         <button id="btnMatch" class="ui-button" data-type="primary">第二个选项选中</button>
+        <button id="btnAppend" class="ui-button" data-type="primary">新增option选项</button>
       </p>
       <pre>&lt;select is="ui-select"&gt;
     &lt;option value="1" disabled&gt;选项1&lt;/option&gt;
@@ -104,6 +105,22 @@ button.addEventListener('click', function () {
     select[1].setAttribute('selected', true);
 });</pre>
       <p class="tips">和浏览器原生行为一样，value赋值不会触发change事件。</p>
+
+      <h4>占位符效果</h4>
+      <p>可以通过设置 <code>placeholder="true"</code> 属性来实现占位符效果，可以让value值为空字符串的<code>&lt;option&gt;</code>选项文字以灰色显示。</p>
+      <p><select is="ui-select" placeholder="true">
+  <option value="">请选择</option>
+  <option value="1">选项1</option>
+  <option value="2">选项2</option>
+  <option value="3">选项3</option>
+</select></p>
+
+      <pre>&lt;select is="ui-select" placeholder="true"&gt;
+  &lt;option value=""&gt;请选择&lt;/option&gt;
+  &lt;option value="1"&gt;选项1&lt;/option&gt;
+  &lt;option value="2"&gt;选项2&lt;/option&gt;
+  &lt;option value="3"&gt;选项3&lt;/option&gt;
+&lt;/select&gt;</pre>
 
       <h4>剪裁、滚动与定位</h4>
 
@@ -136,23 +153,8 @@ button.addEventListener('click', function () {
       <h5>局部滚动跟随实现</h5>
 
       <p>两种方法。</p>
-      <p>其一，使用CSS锚点定位，可以设置<code>data-anchor="true"</code>或者设置<code>is-anchor</code>属性。代码和效果示意如下：</p>
-      <pre>&lt;select data-anchor="true" is="ui-select"&gt;
-&lt;select is-anchor is="ui-select"&gt;</pre>
-    <div class="scroll-sel">
-      <div style="width: 600px;">&nbsp;</div>
-      <select data-anchor="true" is="ui-select">
-        <option value="1">选项1</option>
-        <option value="2">选项2</option>
-        <option value="3">选项3</option>
-      </select>
-      <select is-anchor is="ui-select">
-        <option value="1">选项1</option>
-        <option value="2">选项2</option>
-        <option value="3">选项3</option>
-      </select>
-      <div style="height: 150px;"></div>
-    </div>
+      <p>其一，使用CSS锚点定位，<del class="gray">可以设置<code>data-anchor="true"</code>或者设置<code>is-anchor</code>属性</del>。</p>
+      <p><ins>CSS锚点定位所有浏览器都已支持，默认开启，无需额外设置。</ins></p>
 
       <p>其二，采用CSS定位，让下拉内容在局部滚动容器内部，可以设置<code>data-css-position="true"</code>或者设置<code>is-css-position</code>属性，例如：</p>
       <pre>&lt;select data-css-position="true" is="ui-select"&gt;
@@ -320,6 +322,17 @@ button.addEventListener('click', function () {
         <option>选项2</option>
       </select>
 
+      <h4>高度设置</h4>
+      <p>默认下拉框基准高度是40px，此高度可以通过 --ui-select-height 进行设置。</p>
+      <select is="ui-select" style="--ui-select-height: 32px;">
+        <option>选项1</option>
+        <option>选项2</option>
+      </select>
+      <pre>&lt;select is="ui-select" style="--ui-select-height: 32px;"&gt;
+  &lt;option&gt;选项1&lt;/option&gt;
+  &lt;option&gt;选项2&lt;/option&gt;
+&lt;/select&gt;</pre>
+
       <h3>下拉框-复选</h3>
       <p id="mulSel">
         请选择：<select multiple is="ui-select">
@@ -353,6 +366,102 @@ button.addEventListener('click', function () {
     // 需要我们手动触发</span>
     multipleSelect.dispatchEvent(new CustomEvent('change'));
 });</pre>
+
+      <h4>自定义多项选择</h4>
+      <p>在实际开发中，很少会使用原生的 multiple 多选框的交互形式，因为太占据空间，如果是非列表模式，往往也是采用checkbox输入框。</p>
+      <p>LuLu UI 的设计理念是原生组件的UI增强，因为，不会对原生的 multiple 多选框进行交互改造。</p>
+      <p>不过可以通过组合的方式实现类似的效果，这里有实现示意，需要用到Drop组件：</p>
+      <div>
+        <ui-drop class="ui-select" target="panel">
+          <input
+            is="ui-input"
+            required
+            placeholder="请选择"
+            readonly
+          />
+          <i class="ui-select-icon"></i>
+        </ui-drop>
+        <div id="panel" class="ui-dropanel-x" hidden>
+          <style>
+            @scope {
+              .flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+              }
+              .gap4 {
+                gap: 16px;
+              }
+            }
+          </style>
+          <div class="flex-wrap gap4">
+            <label>
+              <input
+                is="ui-checkbox"
+                type="checkbox"
+                name="any"
+                value="1"
+              />选项1
+            </label>
+            <label>
+              <input
+                is="ui-checkbox"
+                type="checkbox"
+                name="any"
+                value="2"
+              />选项2
+            </label>
+            <label>
+              <input
+                is="ui-checkbox"
+                type="checkbox"
+                name="any"
+                value="3"
+              />选项3
+            </label>
+            <label>
+              <input
+                is="ui-checkbox"
+                type="checkbox"
+                name="any"
+                value="4"
+              />选项4
+            </label>
+          </div>
+        </div>
+      </div>
+      <p>HTML代码示意，可以直接复制使用：</p>
+      <pre>&lt;ui-drop class="ui-select" target="panel"&gt;
+  &lt;input
+    is="ui-input"
+    required
+    placeholder="请选择"
+    readonly
+  /&gt;
+  &lt;i class="ui-select-icon"&gt;&lt;/i&gt;
+&lt;/ui-drop&gt;
+&lt;div id="panel" class="ui-dropanel-x" hidden&gt;
+  &lt;div class="flex-wrap gap4"&gt;
+    &lt;label&gt;
+      &lt;input
+        is="ui-checkbox"
+        type="checkbox"
+        name="any"
+        value="1"
+      /&gt;选项1
+    &lt;/label&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+      <p>当浮层面板的中的复选框发生状态变化的时候，让输入框里面的值同步即可，代码示意：</p>
+      <pre>checkbox.addEventListener('change', function () {
+  const arrChecked = [];
+  allChecked.forEach(function (checked) {
+    arrChecked.push(checked.parentElement.innerText.trim());
+  });
+  input.value = arrChecked.join(', ');
+});</pre>
+
       <h3>语法和参数</h3>
       <p>绝大多数场景下，大家无需关心语法和参数，也不需要初始化，直接引入 Select.js 即可。如果遇到特殊场景，下拉框没有初始化，可以使用下面的语法。</p>
 
@@ -458,7 +567,7 @@ button.addEventListener('click', function () {
       <p>下拉采用的相对元素的绝对定位，列表元素在 DOM 内部，因此，如果父级存在 <code>overflow:hidden</code>，可能会让下拉部分列表无法显示，这个需要注意下。</p>
 
       <p>最后测试下底部边缘朝上显示：</p>
-      <select is="ui-select" class="reverse">
+      <select is="ui-select">
         <option>请选择</option>
         <option>选项1</option>
         <option>选项2</option>
@@ -579,74 +688,93 @@ button.addEventListener('click', function () {
 </body>
 </html>
 <script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Select.js"></script>
+<script type="module" src="https://unpkg.com/lu2/theme/edge/js/common/ui/Drop.js"></script>
 <script>
-    // 多选change回调
-    document.querySelector('#mulSel select').addEventListener('change', function () {
-        document.querySelector('#mulResult').innerHTML = this.value;
-    });
-    document.querySelector('#btnMatch').addEventListener('click', function () {
-        var eleSelect = this.parentElement.querySelector('select');
-        if (eleSelect) {
-            eleSelect[1].selected = true;
-        }
-    });
+  // 多选change回调
+  document.querySelector('#mulSel select').addEventListener('change', function () {
+    document.querySelector('#mulResult').innerHTML = this.value;
+  });
+  document.querySelector('#btnMatch').addEventListener('click', function () {
+    var eleSelect = this.parentElement.querySelector('select');
+    if (eleSelect) {
+        eleSelect[1].selected = true;
+    }
+  });
+  document.querySelector('#btnAppend').addEventListener('click', function () {
+    var eleSelect = this.parentElement.querySelector('select');
+    var option = document.createElement('option');
+    option.text = '新增选项' + setTimeout(0);
+    if (eleSelect) {
+      eleSelect.append(option);
+    }
+  });
 
-    // 多选框选中
-    document.querySelector('#btnMultipleMatch').addEventListener('click', function () {
-        var eleSelect = this.parentElement.querySelector('select');
-        if (eleSelect) {
-            eleSelect.value = '选项1,选项4';
-            // 手动触发change事件执行
-            eleSelect.dispatchEvent(new CustomEvent('change'));
-        }
-    });
+  // 多选框选中
+  document.querySelector('#btnMultipleMatch').addEventListener('click', function () {
+    var eleSelect = this.parentElement.querySelector('select');
+    if (eleSelect) {
+      eleSelect.value = '选项1,选项4';
+      // 手动触发change事件执行
+      eleSelect.dispatchEvent(new CustomEvent('change'));
+    }
+  });
 
-
-    document.querySelector('#btnHidden').addEventListener('click', function () {
-        var eleSelect = this.parentElement.querySelector('select');
-        if (eleSelect) {
-            eleSelect.setAttribute('hidden', '');
-        }
+  // 自定义多选
+  document.querySelectorAll('#panel input[type="checkbox"]').forEach(function (eleCheckbox) {
+    eleCheckbox.addEventListener('change', function () {
+      var arrChecked = [];
+      document.querySelectorAll('#panel input[type="checkbox"]:checked').forEach(function (eleChecked) {
+        arrChecked.push(eleChecked.parentElement.innerText.trim());
+      });
+      document.querySelector('ui-drop input').value = arrChecked.join(', ');
     });
+  });
 
-    document.querySelector('#btnInsert').addEventListener('click', function () {
-        // 会自动检测到DOM变化并样式初始化
-        this.parentElement.insertAdjacentHTML('afterend', '<select is="ui-select" class="jsSelAdd"><option>我是动态插入的</option></select> ');
-    });
+  document.querySelector('#btnHidden').addEventListener('click', function () {
+    var eleSelect = this.parentElement.querySelector('select');
+    if (eleSelect) {
+      eleSelect.setAttribute('hidden', '');
+    }
+  });
 
-    document.querySelector('#btnAdd').addEventListener('click', function () {
-        // 会自动检测到DOM变化并样式初始化
-        document.querySelectorAll('select.jsSelAdd').forEach(function (eleSelect) {
-            var eleOption = document.createElement('option');
-            eleOption.text = '我是新添加的';
-            eleOption.selected = true;
-            // 添加该option元素到最前面
-            eleSelect.add(eleOption, 0);
-        });
-    });
+  document.querySelector('#btnInsert').addEventListener('click', function () {
+    // 会自动检测到DOM变化并样式初始化
+    this.parentElement.insertAdjacentHTML('afterend', '<select is="ui-select" class="jsSelAdd"><option>我是动态插入的</option></select> ');
+  });
 
-    document.querySelector('#btnRemove').addEventListener('click', function () {
-        // 会自动删除生成的下拉组件元素
-        var eleSelRemove = document.querySelector('#selRemove');
-        if (eleSelRemove) {
-            eleSelRemove.parentNode.removeChild(eleSelRemove);
-        }
+  document.querySelector('#btnAdd').addEventListener('click', function () {
+    // 会自动检测到DOM变化并样式初始化
+    document.querySelectorAll('select.jsSelAdd').forEach(function (eleSelect) {
+      var eleOption = document.createElement('option');
+      eleOption.text = '我是新添加的';
+      eleOption.selected = true;
+      // 添加该option元素到最前面
+      eleSelect.add(eleOption, 0);
+    });
+  });
 
-        this.disabled = true;
-    });
-    document.querySelector('#btnRemoveOption').addEventListener('click', function () {
-        // 会自动删除生成的下拉组件元素
-        var eleSelRemove = document.querySelector('#selRemove');
-        if (eleSelRemove && eleSelRemove[0]) {
-            eleSelRemove[0].remove();
-        }
-    });
+  document.querySelector('#btnRemove').addEventListener('click', function () {
+    // 会自动删除生成的下拉组件元素
+    var eleSelRemove = document.querySelector('#selRemove');
+    if (eleSelRemove) {
+      eleSelRemove.parentNode.removeChild(eleSelRemove);
+    }
 
-    document.querySelector('p select').addEventListener('change', function () {
-        console.log('来自下拉框：我变化了');
-    });
+    this.disabled = true;
+  });
+  document.querySelector('#btnRemoveOption').addEventListener('click', function () {
+    // 会自动删除生成的下拉组件元素
+    var eleSelRemove = document.querySelector('#selRemove');
+    if (eleSelRemove && eleSelRemove[0]) {
+        eleSelRemove[0].remove();
+    }
+  });
 
-    x1.addEventListener('click', function (e) {
-      e.stopPropagation();
-    });
+  document.querySelector('p select').addEventListener('change', function () {
+    console.log('来自下拉框：我变化了');
+  });
+
+  x1.addEventListener('click', function (e) {
+    e.stopPropagation();
+  });
 </script>
