@@ -69,8 +69,11 @@ input.ui-input,
     &:has(+ .ui-select-icon) {
         padding-right: 27px;
     }
-    &[size] {
+    &[size$="ch"] {
         width: attr(size ch);
+    }
+    &[size$="em"] {
+        width: attr(size em);
     }
 }
 

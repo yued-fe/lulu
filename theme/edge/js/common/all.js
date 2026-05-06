@@ -13070,10 +13070,6 @@ const Validate = (() => {
             // 即时验证
             const eleForm = this.element.form;
 
-            if (eleForm.isImmediated) {
-                return this;
-            }
-
             // 下面三个是不同事件的验证提示
             const funReportValidity = (event) => {
                 if (this.params.immediate == false) {
@@ -13102,10 +13098,15 @@ const Validate = (() => {
                 event.target.lastValue = event.target.value;
             };
 
+            // 原先的实现逻辑是eleForm.isImmediated即阻止
+            // 现在改成每次验证都执行一遍绑定，避免有些元素因为某些原因（例如动态创建）没有绑定到即时验证上
             eleForm.querySelectorAll('input, select, textarea').forEach(function (element) {
+                if (element.isImmediated) {
+                    return;
+                }
                 // type类型筛选
-                let strType = element.type;
-                let strAttrType = element.getAttribute('type');
+                const strType = element.type;
+                const strAttrType = element.getAttribute('type');
                 // 给每个控件绑定即时验证
                 if (strType == 'button' || strType == 'submit' || strType == 'reset' || strType == 'file' || strType == 'image') {
                     return;
@@ -13121,7 +13122,12 @@ const Validate = (() => {
                     element.addEventListener('focus', funReportFocus);
                     element.addEventListener('input', funReportInput);
                 }
+                element.isImmediated = true;
             });
+
+            if (eleForm.isImmediated) {
+                return this;
+            }
 
             eleForm.isImmediated = true;
 
@@ -13129,13 +13135,13 @@ const Validate = (() => {
             const funRemoveValidate = function () {
                 [...eleForm.elements].forEach(element => {
                     // type类型筛选
-                    let strType = element.type;
+                    const strType = element.type;
                     // 给每个控件绑定即时验证
                     if (['button', 'submit', 'reset', 'file', 'image'].includes(strType)) {
                         return;
                     }
 
-                    let strAttrType = element.getAttribute('type');
+                    const strAttrType = element.getAttribute('type');
                     // 不同类别不同事件
                     if (strType == 'radio' || strType == 'checkbox') {
                         element.removeEventListener('click', funReportValidity);
@@ -13146,6 +13152,7 @@ const Validate = (() => {
                         element.removeEventListener('focus', funReportFocus);
                         element.removeEventListener('input', funReportInput);
                     }
+                    element.isImmediated = false;
                 });
 
                 [...eleForm.querySelectorAll('.valided')].forEach(element => {
@@ -13153,7 +13160,7 @@ const Validate = (() => {
                 });
                 [...eleForm.querySelectorAll('[is-error]')].forEach(element => {
                     // 因此可能的提错误示
-                    let objErrorTip = element.data && element.data.errorTip;
+                    const objErrorTip = element.data && element.data.errorTip;
                     if (objErrorTip) {
                         objErrorTip.hide();
                     }
@@ -13199,7 +13206,7 @@ const Validate = (() => {
             });
 
             // 当有过一次提交之后，开启即时验证
-            if (!eleForm.isImmediated && this.params.immediate) {
+            if (this.params.immediate) {
                 this.immediate();
             }
 
