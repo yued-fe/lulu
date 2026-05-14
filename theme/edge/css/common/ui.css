@@ -3934,7 +3934,7 @@ textarea:disabled {
     width: fit-content;
     z-index: 99;
     margin-top: calc(var(--ui-tips-offset) * -1);
-    max-width: 20em;
+    max-width: var(--ui-tips-max-width, 20em);
     padding: calc(6px + var(--ui-tips-triangle-size)) calc(10px + var(--ui-tips-triangle-size));
     line-height: 18px;
     color: var(--ui-white, #fff);

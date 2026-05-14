@@ -96,11 +96,14 @@ class Tips extends HTMLElement {
     }
 
     create () {
-        let eleTrigger = this.trigger;
-        let strContent = this.title;
+        const eleTrigger = this.trigger;
+        const strContent = this.title;
         // eleTips元素不存在，则重新创建
-        let eleTips = document.createElement('div');
+        const eleTips = document.createElement('div');
         eleTips.classList.add('ui-tips-x');
+        if (eleTrigger.id) {
+            eleTips.classList.add('ui-tips-' + eleTrigger.id.replace(/[A-Z]/g, (matches) => `-${matches.toLowerCase()}`).replace(/^-+|-+$/g, ''));
+        }
         eleTips.innerHTML = strContent;
 
         // 屏幕阅读无障碍访问描述
@@ -167,6 +170,12 @@ class Tips extends HTMLElement {
         // 同时以CSS变量的形式设置 trigger 的宽度和高度
         this.target.style.setProperty('--ui-width', eleTrigger.offsetWidth);
         this.target.style.setProperty('--ui-height', eleTrigger.offsetHeight);
+
+        if (eleTrigger.getAttribute('is-tips') == 'nowrap') {
+            this.target.style.whiteSpace = 'nowrap';
+        } else {
+            this.target.style.whiteSpace = '';
+        }
 
         // 显示的回调
         eleTrigger.dispatchEvent(new CustomEvent('show', {
