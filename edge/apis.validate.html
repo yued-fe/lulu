@@ -171,7 +171,7 @@ import Validate from 'lu2/theme/edge/js/common/ui/Validate.js';</pre>
                     <div class="fix mt15">
                         <label class="left">证件照<span class="red abs">*</span></label>
                         <div class="cell">
-                            <label for="validateFile" class="ui-button">上传照片</label>
+                            <label for="validateFile" class="ui-button" data-type="normal">上传照片</label>
                             <input type="hidden" id="inputImgUrl">
                         </div>
                     </div>
@@ -193,7 +193,8 @@ import Validate from 'lu2/theme/edge/js/common/ui/Validate.js';</pre>
                     <div class="clearfix mt20">
                         <span class="left">&nbsp;</span>
                         <div class="cell">
-                            <button  type="submit" class="ui-button" data-type="primary">提交</button>
+                            <button type="submit" class="ui-button" data-type="primary">提交</button>
+                            &nbsp;<a href="javascript:" id="createInput" class="blue"><small>动态创建测试输入框</small></a>
                         </div>
                     </div>
                 </fieldset>
@@ -1072,6 +1073,15 @@ new Validate('#validateForm', function () {
             }
         }
     }]
+});
+
+createInput.addEventListener('click', function (event) {
+    var newInput = document.createElement('input');
+    newInput.required = true;
+    newInput.className = 'ui-input';
+    newInput.style.margin = '10px 0 0 100px';
+    newInput.placeholder = '新必填输入框';
+    event.target.closest('.clearfix').before(newInput);
 });
 
 inputPwd.addEventListener('valid', function () {

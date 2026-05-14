@@ -177,7 +177,7 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.open = true;">open=true显示</button>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.setAttribute('open', '');">setAttribute显示</button>
                 <button class="ui-button" data-type="primary" onclick="dialogDisplay.show();">show()方法显示</button>
-                <button class="ui-button" data-type="primary" onclick="dialogDisplay.showModal();">showModal()方法显示</button>
+                <button class="ui-button" data-type="primary" onclick="document.startViewTransition(() => {dialogDisplay.showModal();})">showModal()方法显示</button>
             </p>
             
             <h3>弹框的创建</h3>

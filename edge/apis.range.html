@@ -366,9 +366,12 @@ mr.range = '20,80'; <span class="green">// 注意以逗号<code>,</code>连接</
     });
 
     b6.addEventListener('click', function () {
-        var r = document.createElement('input', { is:'ui-range' });
+        var r = document.createElement('input', { is: 'ui-range' });
         r.setAttribute('type', 'range');
         r.setAttribute('multiple', '');
+        r.dataset.tips = '${value}s';
+        r.setAttribute('from', '0.2');
+        r.setAttribute('to', '27.3');
         // 插入到后面
         x0.append(r);
         const br = document.createElement('BR');

@@ -569,6 +569,8 @@ eleTable.form.addEventListener('input', function () {
                         <dd>必需。String。Ajax请求地址。</dd>
                         <dt>data</dt>
                         <dd>可选。Object|<wbr>Function。<wbr>Ajax请求附带参数，支持Function类型，适合需要发送实时数据的场景。</dd>
+                        <dt>headers</dt>
+                        <dd>可选。Object。<wbr>Ajax请求头部信息。</dd>
                         <dt>success</dt>
                         <dd>可选。Function。<wbr>Ajax成功的回调，支持一个参数，为后端返回的JSON对象。</dd>
                         <dt>error</dt>
@@ -849,6 +851,10 @@ eleBtnDelete.addEventListener('click', function () {
                 eleTable.ajax({
                     data: {
                         action: 'empty'
+                    },
+                    headers: {
+                        // 示例，实际使用时请替换成真实的token
+                        // 'Authorization': 'Bearer 1234567890abcdefg' 
                     },
                     success: function () {
                         eleBtnDelete.removeAttribute('href');

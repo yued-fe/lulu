@@ -83,17 +83,19 @@ button.addEventListener('click', function () {
 
             <h4>JS基本定位效果与演示</h4>
 
-            <p>推荐使用 <code>&lt;ui-tips&gt;</code> 自定义元素: <ui-tips title="删除"><i class="icon_del"></i></ui-tips></p>
+            <p>推荐使用 <code>&lt;ui-tips&gt;</code> 自定义元素: <ui-tips id="any" title="删除"><i class="icon_del"></i></ui-tips></p>
 
-            <pre><mark>&lt;ui-tips</mark> title="删除"&gt;&lt;i class="icon_del"&gt;&lt;/i&gt;<mark>&lt;/ui-tips&gt;</mark></pre>
+            <pre><mark>&lt;ui-tips</mark> id="any" title="删除"&gt;&lt;i class="icon_del"&gt;&lt;/i&gt;<mark>&lt;/ui-tips&gt;</mark></pre>
+
+            <p class="tips">trigger元素的id会变成 <code>ui-tips-${id}</code> 的类名后缀，可以用来区分具体的提示元素。如果ID值是驼峰命名，会转换成短横线连接的小写格式。</p>
 
             <p>如果自定义元素不方便使用，也可以在普通HTML元素上添加<code>is-tips</code>实现提示效果，例如：</p>
             <pre>&lt;i <mark>is-tips</mark> title="注销">&lt;/i></pre>
             <p>效果为：<i class="icon_del dib" is-tips title="删除自身" onclick="this.remove()"></i></p>
             <p><code>is-tips</code>触发的黑色提示浮层定位是基于JS计算，不受布局限制。同样也支持动态插入元素的提示效果。</p>
 
-            <p>支持<code>&lt;br&gt;</code>换行：<i class="icon_del dib" is-tips title="第一行<br>第二行"></i></p>
-            <pre>&lt;i <mark>is-tips</mark> title="第一行&lt;br&gt;第二行"&gt;&lt;/i&gt;</pre>
+            <p>支持<code>&lt;br&gt;</code>换行：<i class="icon_del dib" is-tips="nowrap" title="第一行<br>第二行"></i></p>
+            <pre>&lt;i <mark>is-tips="nowrap"</mark> title="第一行&lt;br&gt;第二行"&gt;&lt;/i&gt;</pre>
 
             <h4>特殊方向的定位效果</h4>
             <p>方向朝下的tips，一般用在触发提示的元素在浏览器上边缘的时候。</p>

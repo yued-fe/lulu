@@ -66,11 +66,9 @@ import('lu2/theme/edge/js/common/ui/DateTime.js');</pre>
             
             <h5>1. 构建</h5>
             <p>基于浏览器原生<code>&lt;input&gt;</code>输入框构建，添加<code>is="ui-datetime"</code>就可以了。例如下面的代码就可以实现表示日期选择功能：</p>
-            <p><input is="ui-datetime"></p>
-            <pre>&lt;input <mark>is="ui-datetime"</mark>&gt;</pre>
-
-            <p>如果希望有更好的语义，可以指定<code>type</code>类型，例如：</p>
-            <pre>&lt;input <mark>type="date"</mark> is="ui-datetime"&gt;</pre>
+            <p><input type="date" is="ui-datetime"> <input type="date" is="ui-datetime" value=""></p>
+            <pre>&lt;input type="date" <mark>is="ui-datetime"</mark>&gt;
+&lt;input is="ui-datetime" type="date" <mark>value=""</mark>&gt;</pre>
 
             <p>指定<code>type="date"</code>类型后，非yyyy-MM-dd这种格式初始值会认为是不合法的，浏览器默认会以当前日期作为初始值。但是本组件进行了特别的处理，以下时间格式默认是可识别的：</p>
             <ul>
