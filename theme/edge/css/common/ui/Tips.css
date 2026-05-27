@@ -119,6 +119,9 @@
     /* 12px是整体偏移，6px是预留剪裁的间距 */
     --ui-tips-triangle-offset-x: calc(calc(var(--ui-width, 20) * .5px) + 12px - 6px);
 }
+.ui-tips-x:empty {
+    visibility: hidden;
+}
 .ui-tips-x::before,
 .ui-tips-x::after {
     content: "";

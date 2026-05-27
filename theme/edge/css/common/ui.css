@@ -2949,13 +2949,19 @@ _::-moz-range-track {
 
 [is="ui-select"] {
     height: var(--ui-select-height);
+    line-height: var(--ui-select-line-height);
     margin: 0;
     border: 1px solid var(--ui-border, #d0d0d5);
     font-size: var(--ui-font, 14px);
+    color: var(--ui-dark, #4c5161);
+    border-radius: var(--ui-radius, 4px);
+    background-color: var(--ui-white, #fff);
+    transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
     font-family: system-ui;
     font-feature-settings: "tnum";
     vertical-align: middle;
     --ui-select-padding-block: calc((var(--ui-select-height) - var(--ui-select-line-height)) / 2);
+    cursor: pointer;
 }
 
 [is="ui-select"][width="100%"] {
@@ -2969,19 +2975,22 @@ _::-moz-range-track {
 }
 @supports not (appearance: base-select) {
     [is="ui-select"] {
-        transform-origin: left;
-        /* OS X padding-right无效 */
-        border-right: 27px solid var(--ui-border, #d0d0d5);
-        opacity: 0.0001;
+        appearance: none;
+        padding: calc(var(--ui-select-padding-block) - 1px) 27px calc(var(--ui-select-padding-block) - 1px) 12px;
+        background-image: var(--ui-select-icon-arrow);
+        background-repeat: no-repeat;
+        background-position: right 7px center;
+        background-size: var(--ui-select-line-height) auto;
+    }
+    [is="ui-select"]:has( + div.ui-select) {
+        opacity: 0;
         pointer-events: none;
-        visibility: hidden;
-        z-index: 1;
     }
 }
 
 [is="ui-select"][placeholder] {
     &:has(option[value=""]:checked),
-    & + .ui-select .ui-select-button {
+    & + .ui-select .ui-select-button[data-value=""] {
         color: var(--ui-gray, #a2a9b6);
     }
     option[value=""],
@@ -3044,14 +3053,7 @@ select[multiple] > option:disabled {
 @supports (appearance: base-select) {
     [is="ui-select"] {
         appearance: base-select;
-        line-height: var(--ui-select-line-height);
         padding: calc(var(--ui-select-padding-block) - 1px) 6px calc(var(--ui-select-padding-block) - 1px) 12px;
-        font-size: var(--ui-font, 14px);
-        color: var(--ui-dark, #4c5161);
-        border-radius: var(--ui-radius, 4px);
-        background-color: var(--ui-white, #fff);
-        transition: border-color var(--ui-animate-time, .2s), background-color var(--ui-animate-time, .2s);
-        cursor: pointer;
         &:disabled {
             opacity: var(--ui-opacity, .4);
         }
@@ -3943,6 +3945,9 @@ textarea:disabled {
     text-align: left;
     /* 12px是整体偏移，6px是预留剪裁的间距 */
     --ui-tips-triangle-offset-x: calc(calc(var(--ui-width, 20) * .5px) + 12px - 6px);
+}
+.ui-tips-x:empty {
+    visibility: hidden;
 }
 .ui-tips-x::before,
 .ui-tips-x::after {
