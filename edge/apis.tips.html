@@ -35,6 +35,9 @@
     background-color: bisque;
     width: 32px; height: 24px;
 }
+ui-tips > i[class*="icon"] {
+    margin: 0;
+}
 </style>
 <div class="main">
     <!-- 主内容 -->
@@ -64,6 +67,8 @@ import 'lu2/theme/edge/js/common/ui/ErrorTip.js';</pre>
 
             <h3>Tips黑色提示效果</h3>
 
+            <p class="tips">定位偏移大小可以通过设置 --ui-tips-offset 进行改变，默认是 4px。</p>
+
             <h4>CSS基本定位效果与演示</h4>
 
             <p>基本效果，自带延时:  <i class="icon_del ui-tips" title="删除"></i></p>
@@ -83,7 +88,9 @@ button.addEventListener('click', function () {
 
             <h4>JS基本定位效果与演示</h4>
 
-            <p>推荐使用 <code>&lt;ui-tips&gt;</code> 自定义元素: <ui-tips id="any" title="删除"><i class="icon_del"></i></ui-tips></p>
+            <p>推荐使用 <code>&lt;ui-tips&gt;</code> 自定义元素: <ui-tips id="any" title="删除"><svg style="width: 16px; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+    <path d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path>
+  </svg></ui-tips></p>
 
             <pre><mark>&lt;ui-tips</mark> id="any" title="删除"&gt;&lt;i class="icon_del"&gt;&lt;/i&gt;<mark>&lt;/ui-tips&gt;</mark></pre>
 
@@ -96,6 +103,8 @@ button.addEventListener('click', function () {
 
             <p>支持<code>&lt;br&gt;</code>换行：<i class="icon_del dib" is-tips="nowrap" title="第一行<br>第二行"></i></p>
             <pre>&lt;i <mark>is-tips="nowrap"</mark> title="第一行&lt;br&gt;第二行"&gt;&lt;/i&gt;</pre>
+
+            <p>如果title属性不存在，或者是空字符串，则不会显示提示。例如：<ui-tips><i class="icon_del"></i></ui-tips></p>
 
             <h4>特殊方向的定位效果</h4>
             <p>方向朝下的tips，一般用在触发提示的元素在浏览器上边缘的时候。</p>
