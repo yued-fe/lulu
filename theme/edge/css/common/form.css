@@ -417,6 +417,8 @@ _::-moz-color-swatch {
     touch-action: none;
     --safe-area: 3px;
     z-index: 21;
+    border: none;
+    overflow: visible;
 }
 
 .ui-color-switch {
@@ -893,6 +895,7 @@ _::-moz-color-swatch {
     --safe-area: 3px;
     -webkit-user-select: none;
     user-select: none;
+    padding: 0;
 }
 body > .ui-date-container {
     display: none;

@@ -163,6 +163,7 @@
     --safe-area: 3px;
     -webkit-user-select: none;
     user-select: none;
+    padding: 0;
 }
 body > .ui-date-container {
     display: none;

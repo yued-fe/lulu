@@ -501,7 +501,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
         }
     }
 
-    let objParams = Object.assign({}, defaults, options);
+    const objParams = Object.assign({}, defaults, options);
 
     // eleTarget 非必须，可 eleTrigger 元素 html 属性指定
     if (!eleTarget) {
@@ -516,7 +516,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     }
 
     // 合法的位置关系数据
-    let arrLegalPosition = ['4-1', '1-4', '5-7', '2-3', '2-1', '6-8', '3-4', '4-3', '8-6', '1-2', '7-5', '3-2'];
+    const arrLegalPosition = ['4-1', '1-4', '5-7', '2-3', '2-1', '6-8', '3-4', '4-3', '8-6', '1-2', '7-5', '3-2'];
 
     // eleTrigger 元素属性指定 options，传入的 options 参数优先级更高
     // offsets
@@ -568,11 +568,75 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     }
 
     // edge-adjust
-    let dataEdgeAdjust = this.dataset.edgeAdjust || objParams.edgeAdjust;
+    const dataEdgeAdjust = this.dataset.edgeAdjust;
     // data-edge-adjust 字符串为 0、none、false 认为是 false，其他都是 true
-    let isEdgeAdjust = !((dataEdgeAdjust === '0') || (dataEdgeAdjust === 'none') || (dataEdgeAdjust === 'false') || (dataEdgeAdjust === false));
-    if (typeof dataEdgeAdjust == 'string' && typeof objParams.edgeAdjust != 'boolean') {
+    const isEdgeAdjust = !((dataEdgeAdjust === '0') || (dataEdgeAdjust === 'none') || (dataEdgeAdjust === 'false'));
+    if (typeof dataEdgeAdjust == 'string') {
         objParams.edgeAdjust = isEdgeAdjust;
+    }
+
+    // 使用CSS锚点定位
+    if (CSS.supports('position-try-fallbacks', 'flip-block') && objParams.position?.includes('-')) {
+        this.element = this.element ? Object.assign(this.element, {
+            follow: eleTarget
+        }) : {
+            follow: eleTarget
+        };
+        this.params = this.params ? Object.assign(this.params, objParams) : objParams;
+
+        // 创建anchor-name
+        let strAnchorName = window.getComputedStyle(this).anchorName;
+        if (strAnchorName === 'none') {
+            strAnchorName = '--ui-anchor-' + (this.id || Math.random().toString(32).slice(2)).toLocaleLowerCase();  
+        }
+        // 如果有id，优先使用id作为锚点名称
+        this.style.setProperty('anchor-name', strAnchorName);
+        eleTarget.style.positionAnchor = strAnchorName;
+
+        if (objParams.edgeAdjust) {
+            eleTarget.style.positionTryFallbacks = 'flip-block, flip-inline';
+        } else {
+            eleTarget.style.positionTryFallbacks = '';
+        }
+
+        // 根据arrLegalPosition设置inset-area的值
+        const mapInsetArea = {
+            '4-1': 'bottom span-right',
+            '1-4': 'top span-right',
+            '5-7': 'top',
+            '2-3': 'top span-left',
+            '2-1': 'right span-bottom',
+            '6-8': 'right',
+            '3-4': 'right span-top',
+            '4-3': 'left span-top',
+            '8-6': 'left',
+            '1-2': 'left span-bottom',
+            '7-5': 'bottom',
+            '3-2': 'right span-top'
+        };
+
+        eleTarget.style.positionArea = mapInsetArea[objParams.position] || mapInsetArea[arrLegalPosition[0]];
+        // 使用fixed定位
+        eleTarget.style.position = 'fixed';
+
+        // 设置为popover
+        eleTarget.setAttribute('popover', '');
+        eleTarget.style.inset = 'auto';
+
+        eleTarget.dataset.align = objParams.position;
+
+        if (objParams.offsets.x) {
+            eleTarget.style.marginInline = objParams.offsets.x + 'px';
+        } else {
+            eleTarget.style.marginInline = '';
+        }
+        if (objParams.offsets.y) {
+            eleTarget.style.marginBlock = objParams.offsets.y + 'px';
+        } else {
+            eleTarget.style.marginBlock = '';
+        }
+
+        return;
     }
 
     // 先绝对定位，以便获取更准确的尺寸
@@ -667,7 +731,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     let numTargetLeft, numTargetTop;
 
     // eleTarget元素zIndex实时最大化
-    let zIndex = function () {
+    const zIndex = function () {
         // 返回eleTarget才是的样式计算对象
         let objStyleTarget = window.getComputedStyle(eleTarget);
         // 此时元素的层级
@@ -4818,7 +4882,7 @@ class ErrorTip {
         eleTips.innerHTML = this.content;
 
         // 提示元素显示
-        eleTips.style.display = '';
+        eleTips.style.display = 'inline';
 
         this.position();
 

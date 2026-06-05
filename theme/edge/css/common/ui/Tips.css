@@ -11,20 +11,16 @@
     --ui-tips-triangle-size: 6px; /* 底为 6*2，高为 6 */
     --ui-tips-bg: #373c42;
     --ui-tips-error-bg: linear-gradient(90deg, #ff8da2, #ec5b60);
-    --ui-tips-offset: 6px;
+    --ui-tips-offset: 4px;
 }
-
-.ui-tips[data-title],
-[is-tips="css"][data-title] {
+:is(.ui-tips, [is-tips="css"])[data-title] {
     text-indent: 0;
     position: relative;
     overflow: visible;
 }
 
-.ui-tips[data-title]::before,
-.ui-tips[data-title]::after,
-[is-tips="css"][data-title]::before,
-[is-tips="css"][data-title]::after {
+:is(.ui-tips, [is-tips="css"])[data-title]::before,
+:is(.ui-tips, [is-tips="css"])[data-title]::after {
     position: absolute;
     left: 50%;
     -ms-pointer-events: none;
@@ -47,8 +43,7 @@
     white-space: nowrap;
 }
 
-.ui-tips[data-title]::before,
-[is-tips="css"][data-title]::before {
+:is(.ui-tips, [is-tips="css"])[data-title]::before {
     /* 切割出框体，带 border-radius */
     clip-path: inset(
         var(--ui-tips-triangle-size)
@@ -58,8 +53,7 @@
         round calc(var(--ui-radius, 4px) - 1px));
 }
 
-.ui-tips[data-title]::after,
-[is-tips="css"][data-title]::after {
+:is(.ui-tips, [is-tips="css"])[data-title]::after {
     /* 默认是在框体下方居中位置，多 1 像素避免缝隙 */
     clip-path: polygon(
         calc(50% - var(--ui-tips-triangle-size)) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
@@ -68,34 +62,26 @@
     );
 }
 
-.ui-tips[data-title]:hover::before,
-.ui-tips[data-title]:hover::after,
-.ui-tips[data-title]:focus::before,
-.ui-tips[data-title]:focus::after,
-[is-tips="css"][data-title]:hover::before,
-[is-tips="css"][data-title]:hover::after,
-[is-tips="css"][data-title]:focus::before,
-[is-tips="css"][data-title]:focus::after {
+:is(.ui-tips, [is-tips="css"])[data-title]:hover::before,
+:is(.ui-tips, [is-tips="css"])[data-title]:hover::after,
+:is(.ui-tips, [is-tips="css"])[data-title]:focus::before,
+:is(.ui-tips, [is-tips="css"])[data-title]:focus::after {
     transition: visibility var(--ui-animate-time, .2s) var(--ui-animate-time, .2s);
     visibility: visible;
 }
 
-.ui-tips[data-title]:hover,
-[is-tips="css"][data-title]:hover {
+:is(.ui-tips, [is-tips="css"])[data-title]:hover {
     outline: none;
 }
 
 /* 朝下的情况 */
-.reverse.ui-tips[data-title]::before,
-.reverse.ui-tips[data-title]::after,
-.reverse[is-tips="css"][data-title]::before,
-.reverse[is-tips="css"][data-title]::after {
+.reverse:is(.ui-tips, [is-tips="css"])[data-title]::before,
+.reverse:is(.ui-tips, [is-tips="css"])[data-title]::after {
     bottom: auto;
     top: calc(100% + var(--ui-tips-offset));
 }
 
-.reverse.ui-tips[data-title]::after,
-.reverse[is-tips="css"][data-title]::after {
+.reverse:is(.ui-tips, [is-tips="css"])[data-title]::after {
     clip-path: polygon(
         calc(50% - var(--ui-tips-triangle-size)) calc(0% + var(--ui-tips-triangle-size) + 1px),
         calc(50% + var(--ui-tips-triangle-size)) calc(0% + var(--ui-tips-triangle-size) + 1px),
@@ -118,6 +104,9 @@
     text-align: left;
     /* 12px是整体偏移，6px是预留剪裁的间距 */
     --ui-tips-triangle-offset-x: calc(calc(var(--ui-width, 20) * .5px) + 12px - 6px);
+    border: none;
+    background: var(--ui-tips-background, none);
+    inset: auto;
 }
 .ui-tips-x:empty {
     visibility: hidden;
@@ -168,6 +157,13 @@
     margin-top: var(--ui-tips-offset);
 }
 
+@supports (position-try-fallbacks: flip-block) {
+    /* 兼容支持position-try-fallbacks的浏览器，因为position-area定位原因，left方向margin无效*/
+    .ui-tips-x[data-align="5-7"] {
+        margin-bottom: var(--ui-tips-offset);
+    }
+}
+
 .ui-tips-x[data-align="7-5"]::after {
     clip-path: polygon(
             calc(50% - var(--ui-tips-triangle-size)) calc(0% + (var(--ui-tips-triangle-size) + 1px)),
@@ -180,6 +176,15 @@
 .ui-tips-x[data-align="2-3"] {
     margin-left: 12px;
     margin-top: calc(var(--ui-tips-offset) * -1);
+}
+
+@supports (position-try-fallbacks: flip-block) {
+    /* 兼容支持position-try-fallbacks的浏览器，因为position-area定位原因，left方向margin无效*/
+    .ui-tips-x[data-align="2-3"] {
+        margin-left: auto;
+        margin-right: -12px;
+        margin-bottom: var(--ui-tips-offset);
+    }
 }
 
 /* 三角的位置 */
@@ -196,6 +201,12 @@
     margin-left: -12px;
     margin-top: calc(var(--ui-tips-offset) * -1);
 }
+@supports (position-try-fallbacks: flip-block) {
+    /* 兼容支持position-try-fallbacks的浏览器，因为position-area定位原因，left方向margin无效*/
+    .ui-tips-x[data-align="1-4"] {
+        margin-bottom: var(--ui-tips-offset);
+    }
+}
 .ui-tips-x[data-align="1-4"]::after {
     clip-path: polygon(
         var(--ui-tips-triangle-offset-x) calc(100% - (var(--ui-tips-triangle-size) + 1px)),
@@ -208,6 +219,13 @@
 .ui-tips-x[data-align="8-6"] {
     margin-left: calc(var(--ui-tips-offset) * -1);
     margin-top: 0;
+}
+@supports (position-try-fallbacks: flip-block) {
+   /* 兼容支持position-try-fallbacks的浏览器，因为position-area定位原因，left方向margin无效*/
+    .ui-tips-x[data-align="8-6"] {
+        margin-left: auto;
+        margin-right: var(--ui-tips-offset);
+    }
 }
 
 .ui-tips-x[data-align="8-6"]::after {

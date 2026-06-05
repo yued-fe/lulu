@@ -29,6 +29,9 @@ datalist {
     position: absolute;
     animation: fadeIn var(--ui-animate-time, .2s);
     z-index: 19;
+    border: none;
+    padding: 0;
+    overflow: visible;
 }
 
 .ui-datalist-datalist {

@@ -56,6 +56,8 @@ _::-moz-color-swatch {
     touch-action: none;
     --safe-area: 3px;
     z-index: 21;
+    border: none;
+    overflow: visible;
 }
 
 .ui-color-switch {

@@ -14,7 +14,7 @@
 }
 
 @keyframes fallDown {
-    form {
+    from {
         transform: translateY(-5px);
     }
     to {

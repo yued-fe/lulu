@@ -218,7 +218,7 @@ class ErrorTip {
         eleTips.innerHTML = this.content;
 
         // 提示元素显示
-        eleTips.style.display = '';
+        eleTips.style.display = 'inline';
 
         this.position();
 
