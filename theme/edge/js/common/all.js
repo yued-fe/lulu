@@ -570,7 +570,7 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
     // edge-adjust
     const dataEdgeAdjust = this.dataset.edgeAdjust;
     // data-edge-adjust 字符串为 0、none、false 认为是 false，其他都是 true
-    const isEdgeAdjust = !((dataEdgeAdjust === '0') || (dataEdgeAdjust === 'none') || (dataEdgeAdjust === 'false'));
+    let isEdgeAdjust = !((dataEdgeAdjust === '0') || (dataEdgeAdjust === 'none') || (dataEdgeAdjust === 'false'));
     if (typeof dataEdgeAdjust == 'string') {
         objParams.edgeAdjust = isEdgeAdjust;
     }
