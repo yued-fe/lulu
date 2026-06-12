@@ -178,6 +178,10 @@ HTMLElement.prototype.follow = function (eleTarget, options) {
             eleTarget.style.marginBlock = '';
         }
 
+        if (eleTarget.showPopover) {
+            eleTarget.showPopover();
+        }
+
         return;
     }
 
