@@ -879,15 +879,7 @@ datalist {
 
 [type="date"][is="ui-datetime"]::-webkit-datetime-edit-text {
     color: transparent;
-    background: linear-gradient(
-            to bottom,
-            transparent 9px,
-            var(--ui-dark, #4c5161) 9px,
-            var(--ui-dark, #4c5161) 10px,
-            transparent 10px
-        )
-        no-repeat center;
-    background-size: 80% 100%;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%234c5161' font-family='system-ui, sans-serif' text-anchor='middle' dominant-baseline='middle'%3E-%3C/text%3E%3C/svg%3E") no-repeat center;
 }
 
 [is="ui-datetime"]::-webkit-datetime-edit-text,
@@ -1177,6 +1169,17 @@ span.ui-date-item {
     opacity: var(--ui-opacity, .4);
 }
 
+/* 非当前月份但可点击的日期 */
+a.ui-date-item.ui-date-outside {
+    opacity: var(--ui-opacity, .4);
+    cursor: pointer;
+}
+
+a.ui-date-item.ui-date-outside:not(.selected):hover {
+    background-color: #f0f0f2;
+    color: var(--ui-dark, #4c5161);
+}
+
 .ui-date-item.col0,
 .ui-date-item.col6,
 .ui-day-item.col0,
@@ -1403,6 +1406,15 @@ span.ui-date-item {
     [is="ui-datetime"],
     .ui-date-container a {
         transition: none;
+    }
+}
+
+@media (width < 480px) {
+    :where(.ui-date-container[data-type*="range"]) {
+        max-width: calc(100vw - var(--safe-area) * 2);
+        box-sizing: border-box;
+        overflow: auto;
+        translate: calc(-1 * var(--safe-area)) 0;
     }
 }
 

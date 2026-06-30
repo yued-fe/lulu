@@ -393,6 +393,17 @@ const DateTime = (() => {
                             if (/\D/.test(numDay)) {
                                 // 今天
                                 this[SELECTED] = new Date().toArray();
+                            } else if (eleClicked.classList.contains(CL.date('outside'))) {
+                                // 非当前月日期，需要使用 data-date 中的完整年月日
+                                const strDataDate = eleClicked.dataset.date;
+                                if (strDataDate) {
+                                    this[SELECTED] = strDataDate.split('-');
+                                } else {
+                                    if (numDay < 10) {
+                                        numDay = `0${numDay}`;
+                                    }
+                                    this[SELECTED][2] = numDay;
+                                }
                             } else {
                                 if (numDay < 10) {
                                     numDay = `0${numDay}`;
@@ -842,6 +853,17 @@ const DateTime = (() => {
                                 if (/\D/.test(numDay)) {
                                     // 今天
                                     this[SELECTED][0] = new Date().toArray();
+                                } else if (eleClicked.classList.contains(CL.date('outside'))) {
+                                    // 非当前月日期，需要使用 data-date 中的完整年月日
+                                    const strDataDate = eleClicked.dataset.date;
+                                    if (strDataDate) {
+                                        this[SELECTED][0] = strDataDate.split('-');
+                                    } else {
+                                        if (numDay < 10) {
+                                            numDay = `0${numDay}`;
+                                        }
+                                        this[SELECTED][0][2] = numDay;
+                                    }
                                 } else {
                                     if (numDay < 10) {
                                         numDay = `0${numDay}`;
@@ -1340,12 +1362,20 @@ const DateTime = (() => {
                             if (tr == 0 && td < numDayFirst) {
                                 // 当前日子
                                 numDayNow = arrMonthDay[numLastMonth] - numDayFirst + td + 1;
+                                // 上个月对应的年月（处理跨年情况）
+                                const numLastMonthYear = (numMonthNow - 1 < 1) ? numYearNow - 1 : numYearNow;
                                 // 当前日期
-                                objDateNow = new Date(numYearNow, numLastMonth, numDayNow);
+                                objDateNow = new Date(numLastMonthYear, numLastMonth, numDayNow);
                                 // 完整data-date属性及其值
                                 strHtmlFullData = strHtmlYearMonthData + objDateNow.toArray().join('-');
-                                // HTML拼接
-                                strHtmlDate = `${strHtmlDate}<span class="${strClass}" ${strHtmlFullData}>${numDayNow}</span>`;
+                                // 上个月的 data-month 值（1-based）
+                                const strHtmlDataPrev = `data-year="${numLastMonthYear}" data-month="${numLastMonth + 1}"`;
+                                // 如果在日期范围内，仍然可点击（但视觉上是非当前月样式）
+                                if (objDateNow >= numMin && objDateNow <= numMax) {
+                                    strHtmlDate = `${strHtmlDate}<a href="javascript:;" ${strHtmlDataPrev} class="${strClass} ${CL.date('outside')}" ${strHtmlFullData}>${numDayNow}</a>`;
+                                } else {
+                                    strHtmlDate = `${strHtmlDate}<span class="${strClass}" ${strHtmlFullData}>${numDayNow}</span>`;
+                                }
                             } else {
                                 // 当前日子
                                 numDayNow = tr * 7 + td - numDayFirst + 1;
@@ -1368,10 +1398,22 @@ const DateTime = (() => {
                                     }
                                 } else {
                                     numDayNow = numDayNow - arrMonthDay[objNewDate.getMonth()];
+                                    // 下个月对应的年月（处理跨年情况）
+                                    const numNextMonthIndex = objNewDate.getMonth() + 1;
+                                    const numNextMonthYear = (numNextMonthIndex > 11) ? numYearNow * 1 + 1 : numYearNow;
+                                    const numNextMonthIndexFixed = numNextMonthIndex > 11 ? 0 : numNextMonthIndex;
+                                    // 当前日期
+                                    objDateNow = new Date(numNextMonthYear, numNextMonthIndexFixed, numDayNow);
                                     // 更新strHtmlFullData
-                                    strHtmlFullData = strHtmlYearMonthData + new Date(numYearNow, numMonthNow, numDayNow).toArray().join('-');
-                                    // 日期字符拼接
-                                    strHtmlDate = `${strHtmlDate}<span class="${strClass}" ${strHtmlFullData}>${numDayNow}</span>`;
+                                    strHtmlFullData = strHtmlYearMonthData + objDateNow.toArray().join('-');
+                                    // 下个月的 data-month 值（1-based）
+                                    const strHtmlDataNext = `data-year="${numNextMonthYear}" data-month="${numNextMonthIndexFixed + 1}"`;
+                                    // 如果在日期范围内，仍然可点击（但视觉上是非当前月样式）
+                                    if (objDateNow >= numMin && objDateNow <= numMax) {
+                                        strHtmlDate = `${strHtmlDate}<a href="javascript:;" ${strHtmlDataNext} class="${strClass} ${CL.date('outside')}" ${strHtmlFullData}>${numDayNow}</a>`;
+                                    } else {
+                                        strHtmlDate = `${strHtmlDate}<span class="${strClass}" ${strHtmlFullData}>${numDayNow}</span>`;
+                                    }
                                 }
                             }
                         } else if (strType == 'date-range') {
