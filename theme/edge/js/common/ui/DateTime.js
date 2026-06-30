@@ -2216,14 +2216,14 @@ const DateTime = (() => {
 
             if (strType.includes('datetime')) {
                 arrDate = arrDate[0];
+            }
 
-                // 最大年份和最小年份
-                if (strMin) {
-                    numMin = strMin.split(/\s+/)[0].toDate().getFullYear();
-                }
-                if (strMax) {
-                    numMax = strMax.split(/\s+/)[0].toDate().getFullYear();
-                }
+            // 解析最小年份和最大年份（所有类型均生效）
+            if (strMin) {
+                numMin = strMin.split(/\s+/)[0].toDate().getFullYear();
+            }
+            if (strMax) {
+                numMax = strMax.split(/\s+/)[0].toDate().getFullYear();
             }
 
             // 选择年份的完整HTML代码
@@ -2237,14 +2237,15 @@ const DateTime = (() => {
             //    左右切换是没有限制的
             strHtml = `${strHtml}<div class="${CL.date('head')}">`;
             //    年份不是你想翻就能翻到
-            //    2.1 上一个12年
-            if (numYear - 12 >= numMin && numYear - 12 <= numMax) {
+            //    判断依据：目标12年面板与 [numMin, numMax] 是否有交集
+            //    2.1 上一个12年（覆盖 [numYear-18, numYear-7]）
+            if (numYear - 18 <= numMax && numYear - 7 >= numMin) {
                 strHtml = `${strHtml}<a href="javascript:" class="${CL.date('prev')}" data-year="${numYear - 12}" role="button" aria-label="上一个12年"></a>`;
             } else {
                 strHtml = `${strHtml}<span class="${CL.date('prev')}"></span>`;
             }
-            //    2.2 下一个12年
-            if (numYear + 12 >= numMin && numYear + 12 <= numMax) {
+            //    2.2 下一个12年（覆盖 [numYear+6, numYear+17]）
+            if (numYear + 6 <= numMax && numYear + 17 >= numMin) {
                 strHtml = `${strHtml}<a href="javascript:" class="${CL.date('next')}" data-year="${numYear + 12}" role="button" aria-label="下一个12年"></a>`;
             } else {
                 strHtml = `${strHtml}<span class="${CL.date('next')}"></span>`;
