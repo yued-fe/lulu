@@ -126,11 +126,14 @@ html:has([is="ui-dialog"]:modal[open]) {
     padding: 0 var(--ui-dialog-inline-space);
 }
 
-.ui-dialog-title:empty ~ .ui-dialog-body {
+.ui-dialog-title:empty ~ .ui-dialog-body,
+dialog:not(:has(.ui-dialog-title)) .ui-dialog-body {
     min-height: 0;
     padding-top: 20px;
 }
-.ui-dialog-body:has(~ .ui-dialog-footer:empty) {
+
+.ui-dialog-body:has(~ .ui-dialog-footer:empty),
+dialog:not(:has(.ui-dialog-footer)) .ui-dialog-body {
     padding-bottom: 20px;
 }
 
