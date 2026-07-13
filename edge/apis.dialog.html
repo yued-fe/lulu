@@ -107,8 +107,6 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
             <h3>概要</h3>
             <p>Edge主题中的Dialog组件性质上已经变成DOM组件，有别于peak、pure主题中原型组件。大家可以理解为对HTML5原生的<code>&lt;dialog&gt;</code>元素进行的扩展。</p>
 
-            <p>目前Firefox浏览器和Safari浏览器并不支持<code>&lt;dialog&gt;</code>元素，本组件进行了简易的Ployfill，可以满足常规的弹框需求。</p>
-
             <p>本Dialog组件的所有功能都是围绕<code>&lt;dialog&gt;</code>元素的属性和方法展开的，使用的时候需要给<code>&lt;dialog&gt;</code>元素添加<code>is="ui-dialog"</code>，否则还是原始UI的<code>&lt;dialog&gt;</code>元素。</p>
 
             <p>例如：</p>
@@ -145,7 +143,7 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
                 <li>dialog.open = true;</li>
                 <li>dialog.setAttribute('open', '');</li>
                 <li>dialog.show();</li>
-                <li>dialog.showModal(); <span class="green">// 推荐</span></li>
+                <li>dialog.showModal();</li>
             </ol>
             <p>其中showModal()方法是模态显示，层级顶级，覆盖元素无法被点击。如果希望其他的显示方法也采用模态显示，可以添加modal属性。</p>
             <pre>&lt;dialog modal is="ui-dialog"&gt;&lt;/dialog&gt;</pre>
@@ -156,6 +154,9 @@ import 'lu2/theme/edge/js/common/ui/Dialog.js';</pre>
             <p>
                 <button class="ui-button" onclick="modal.open = true;">modal属性测试</button>
             </p>
+            <p>如果希望模态对话框点击后面的蒙层也关闭，可以试试给<code>&lt;dialog&gt;</code>设置<code>closedby="any"</code>。</p>
+
+            <hr>
             <p>弹框隐藏有4种方法，分别是：</p>
             <ol>
                 <li>dialog.open = false;</li>
@@ -353,19 +354,17 @@ eleDialog.alert('我是提示内容');</pre>
     }]
 }); </pre>
 
-            <h4>5. 高度拉伸弹框</h4>
+            <h4>5. 主体内容内滚动弹框</h4>
             <p>
                 <button id="stretchDialog" class="ui-button" data-type="primary">内部滚动自适应弹框</button>
             </p>
             <pre>new Dialog({
     title: '中间高度自适应的容器',
     height: 'stretch',
-    content: `&lt;div class="bg-white p20"&gt;${Array(60).fill().map((_, index) =&gt; {
-        return `&lt;img src="${index}.gif" class="db mt10"&gt;`;
-    }).join('')}&lt;/div&gt;`,
+    content: `...`,
     buttons: [{}]
 });</pre>
-            <p>通过设置参数<code>height</code>的值为<code>'stretch'</code>实现。最大支持高度为<code>1000px</code>，此值通过CSS进行修改。如果浏览器高度小于<code>1000px</code>，弹框高度会自动上下拉伸适配。</p>
+            <p>通过设置参数<code>height</code>的值为<code>'stretch'</code>实现。弹框最大高度为浏览器窗口高度减去32px的大小（上下预留16px的距离）。</p>
 
             <h4>6. loading弹框</h4>
             <p><button id="loadingDialog" class="ui-button" data-type="primary">loading弹框，ESC键关闭</button></p>
@@ -1076,8 +1075,8 @@ eleBtnStretchDialog.addEventListener('click', function () {
     new Dialog({
         title: '中间高度自适应的容器',
         height: 'stretch',
-        content: `<div class="bg-white p20">${Array(60).fill().map((_, index) => {
-            return `<img src="https://mat1.gtimg.com/www/mb/images/face/${index}.gif" class="db mt10">`;
+        content: `<div style="background:lightcyan;line-height:2">${Array(60).fill().map((_, index) => {
+            return `<p>第${index}行</p>`;
         }).join('')}</div>`,
         buttons: [{}]
     });
