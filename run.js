@@ -622,6 +622,11 @@ const mimetype = {
 const server = http.createServer(function (request, response) {
     var pathname = url.parse(request.url).pathname;
     var realPath = path.join('./', pathname);
+    if (pathname.includes('..')) {
+        response.writeHead(403);
+        response.end();
+        return;
+    }
     var ext = path.extname(realPath);
     if (!ext) {
         realPath = path.join(realPath, 'index.html');
